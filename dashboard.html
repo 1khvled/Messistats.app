@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Interactive Messi stats dashboard with team filter." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<title>Messi stats dashboard</title>
+<link rel="stylesheet" href="src/styles.css" />
+</head>
+<body data-page="dashboard">
+<nav class="topnav" aria-label="Primary"><span class="brand">MessiStats</span><a href="index.html">Home</a><a href="goalsbyyear.html">Goals by Year</a><a href="goalsbyseason.html">Goals by Season</a><a href="dashboard.html" class="on" aria-current="page">Dashboard</a><a href="timeline.html">Through the Years</a><a href="achievements.html">Achievements</a></nav>
+<main class="wrap">
+<div class="banner" id="banner">loading data...</div>
+<h1>Interactive dashboard</h1>
+<p class="mut">Team filter over cross-checked season rows. Competition / opponent / finish splits unlock after match-level verification.</p>
+<div class="card"><div id="filters">loading...</div><div id="dash-stats"></div><div id="dash-bars"></div></div>
+<footer><p id="foot-note"></p></footer>
+</main>
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

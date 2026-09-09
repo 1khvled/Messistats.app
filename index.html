@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Lionel Messi career statistics: 927 goals, club and country splits, trophies and timeline." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<title>MessiStats - Lionel Messi career statistics</title>
+<link rel="stylesheet" href="src/styles.css" />
+</head>
+<body data-page="home">
+<nav class="topnav" aria-label="Primary"><span class="brand">MessiStats</span><a href="index.html" class="on" aria-current="page">Home</a><a href="goalsbyyear.html">Goals by Year</a><a href="goalsbyseason.html">Goals by Season</a><a href="dashboard.html">Dashboard</a><a href="timeline.html">Through the Years</a><a href="achievements.html">Achievements</a></nav>
+<main class="wrap">
+<div class="banner" id="banner">loading data...</div>
+<h1>Lionel Messi career statistics</h1>
+<p class="mut">Barcelona | PSG | Inter Miami | Argentina - cross-checked Sep 2026 from free sources only.</p>
+<!-- Hero totals mirror public/data/messi-data.json totals; update both together. -->
+<div class="hero">
+<div class="stat"><b>927</b><span>Career goals (cross-checked)</span></div>
+<div class="stat"><b>1,172</b><span>Appearances</span></div>
+<div class="stat"><b>-</b><span>Assists (pending hand tally)</span></div>
+<div class="stat"><b>8</b><span>Ballon dOr</span></div>
+</div>
+<div class="card"><h2>Career at a glance: goals by club*</h2><div id="club-table">loading...</div></div>
+<div class="card"><h2>Goals per season (cross-checked rows)</h2><div id="season-bars">loading...</div></div>
+<div class="card"><h2>How this was verified</h2><div id="claims">loading...</div></div>
+<div class="card"><h2>Quick answers</h2>
+<p><b>How many goals has Messi scored?</b> 927 senior goals in 1,172 appearances: 802 in 965 club games plus 125 in 207 Argentina caps, cross-checked Sep 2026.</p>
+<p><b>Which club has he scored most for?</b> Barcelona, by distance: 672 goals in 778 games (2004-2021).</p>
+<p><b>What was his best season?</b> 2011/12 at Barcelona: 73 goals in 60 games. Best calendar year: 2012 with 91 goals.</p>
+<p><b>Where do these numbers come from?</b> Season splits from Wikipedia/BDFutbol tables, Argentina years confirmed against ESPN milestones, World Cup goals recounted from openfootball JSON. Full method in the data file.</p>
+</div>
+<footer><p id="foot-note"></p><p>Free sources only: ESPN hidden API (usa.1), openfootball CC0 JSON, football-data.org free tier (EU backup). No paid APIs. Run <code>npm run verify</code> for a free live check.</p></footer>
+</main>
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

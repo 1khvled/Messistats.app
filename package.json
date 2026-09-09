@@ -1,0 +1,16 @@
+{
+  "name": "messi-stats",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Messi career stats clone (ronaldostats.app structure) - static, free data only",
+  "scripts": {
+    "dev": "vite --port 5173 --host",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
