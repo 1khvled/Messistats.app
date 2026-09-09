@@ -1,0 +1,8 @@
+{
+  "updated": null,
+  "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
+  "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
+  "provisional": [],
+  "needs_review": [],
+  "confirmed": []
+}

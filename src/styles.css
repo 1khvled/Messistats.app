@@ -32,3 +32,10 @@ a { color: var(--acc); }
 .card button[aria-pressed="true"] { background: #1c3a5e; border-color: var(--acc); }
 :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 @media (max-width: 640px) { .yrow { grid-template-columns: minmax(0,1.15fr) minmax(0,1fr) auto; } .yrow span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } }
+
+
+.ad-slot{display:none;height:0;overflow:hidden;margin:0;padding:0;}
+body.ads-on .ad-slot{display:block;}
+body.ads-on .ad-slot.ready{min-height:250px;background:#101728;border:1px dashed var(--line);border-radius:12px;margin:14px 0;display:flex;align-items:center;justify-content:center;}
+body.ads-on .ad-slot.ready .ad-ph{color:var(--mut);font-size:12px;letter-spacing:.08em;text-transform:uppercase;}
+@media (max-width:640px){body.ads-on .ad-slot.ready{min-height:100px;}}

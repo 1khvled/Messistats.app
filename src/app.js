@@ -85,3 +85,13 @@ function render(data) {
   if (f) f.textContent = "Methodology: " + data.meta.methodology;
 }
 load().then(render).catch(e => { const b = el("banner"); if (b) b.textContent = "DATA ERROR: " + e.message; console.error(e); });
+// Staged-update notice (same-origin static file, zero third-party).
+// Shows how many provisional/needs-review rows smart-check staged.
+// Fails silently when pending.json is missing or empty.
+fetch("data/pending.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(p => {
+  if (!p) return;
+  const n = (p.provisional || []).length + (p.needs_review || []).length;
+  if (!n) return;
+  const b = document.getElementById("banner");
+  if (b) b.innerHTML += ` <span class="mut">- ${n} staged update(s) pending review (see pending.json, totals unchanged).</span>`;
+}).catch(() => {});

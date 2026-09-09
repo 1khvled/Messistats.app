@@ -8,7 +8,7 @@
     "dev": "vite --port 5173 --host",
     "build": "vite build",
     "preview": "vite preview --port 4173",
-    "verify": "node scripts/verify.mjs"
+    "verify": "node scripts/verify.mjs && node scripts/smart-check.mjs --dry-run", "verify:smart": "node scripts/smart-check.mjs --dry-run", "verify:smart:write": "node scripts/smart-check.mjs --write", "pending": "node scripts/confirm-provisional.mjs --list"
   },
   "devDependencies": {
     "vite": "^6.0.0"
