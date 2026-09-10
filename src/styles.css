@@ -109,7 +109,10 @@ a:hover { color: var(--brand-ink); text-decoration: underline; }
   text-decoration: none;
 }
 .rail-badge:hover { color: #fff; text-decoration: none; }
-.rail-badge b { background: rgba(255,255,255,0.22); border-radius: 8px; padding: 0 6px; font-weight: 800; }
+.rail-mark { width: 36px; height: 36px; flex: 0 0 36px; filter: drop-shadow(0 2px 5px rgba(9, 20, 40, 0.45)); }
+.rail-word { opacity: 0; max-width: 0; margin-left: 0; overflow: hidden; font-size: 1.02rem; letter-spacing: 0.01em; transition: opacity 0.15s ease, max-width 0.22s ease, margin-left 0.22s ease; }
+.rail-word b { font-weight: 400; color: #f3d27a; }
+.rail:hover .rail-word, .rail:focus-within .rail-word { opacity: 1; max-width: 180px; margin-left: 10px; }
 .rail nav { display: flex; flex-direction: column; gap: 2px; }
 .rail nav a {
   display: flex;
@@ -597,7 +600,9 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
     padding: 8px 10px;
   }
   .rail:hover, .rail:focus-within { width: auto; }
-  .rail-badge { margin: 0 4px 0 0; padding: 8px 12px; font-size: 0.95rem; }
+  .rail-badge { margin: 0 4px 0 0; padding: 6px 10px; font-size: 0.95rem; }
+  .rail-mark { width: 28px; height: 28px; flex-basis: 28px; }
+  .rail-word { display: none; }
   .rail nav { flex-direction: row; flex: 1; justify-content: space-around; }
   .rail nav a { padding: 8px 10px; }
   .rail nav a span { display: none; }

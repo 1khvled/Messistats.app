@@ -1,6 +1,8 @@
 /* MessiStats renderer — own code, own data, own copy.
    Layout structure mirrors the ronaldostats.app reference (rail, KPI cards,
    tables, charts, explore links); no reference code, images or text reused. */
+import { inject } from "@vercel/analytics";
+inject(); /* page-view tracking; only sends data on the Vercel deployment */
 async function load() {
   const r = await fetch("data/messi-data.json", { cache: "no-store" });
   if (!r.ok) throw new Error("data " + r.status);
@@ -128,6 +130,20 @@ function setHead(d, ledeHTML) {
       `Lionel Messi: ${n(d.totals.apps)} senior appearances, ${n(d.totals.goals)} goals ` +
       `(${n(d.totals.clubs.apps)} apps / ${n(d.totals.clubs.goals)} goals club, ` +
       `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} Argentina). Last checked ${d.lastUpdated}.`;
+  bumpCounter(); /* public vanity counter; silent when there is no backend */
+}
+/* ---------- public visitor counter (Vercel Blob via /api/count) ---------- */
+async function bumpCounter() {
+  try {
+    const page = document.body.dataset.page || "home";
+    const r = await fetch(`/api/count?page=${encodeURIComponent(page)}`, { cache: "no-store" });
+    if (!r.ok) return;
+    const { views } = await r.json();
+    const f = el("foot-date");
+    if (f && Number.isFinite(views)) f.textContent += ` This page has been visited ${n(views)} times.`;
+  } catch {
+    /* local dev / static preview / ad-blocked: footer simply shows no count */
+  }
 }
 function reveal() {
   document.querySelectorAll("main.wrap > *").forEach((s, i) => {
