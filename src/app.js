@@ -941,6 +941,53 @@ function renderAch(d) {
   renderMethod(d, "");
 }
 
+/* ---------- /analytics: public visit counts (read-only rollup) ---------- */
+const ANALYTICS_PAGES = [
+  { page: "home", href: "index.html", t: "Home", s: "Home" },
+  { page: "byyear", href: "goalsbyyear.html", t: "Goals by Year", s: "By Year" },
+  { page: "byseason", href: "goalsbyseason.html", t: "Goals by Season", s: "By Season" },
+  { page: "dashboard", href: "dashboard.html", t: "Dashboard", s: "Dashboard" },
+  { page: "timeline", href: "timeline.html", t: "Through the Years", s: "Timeline" },
+  { page: "achievements", href: "achievements.html", t: "Achievements", s: "Trophies" },
+  { page: "analytics", href: "analytics.html", t: "Analytics", s: "Analytics" },
+];
+function kpiA(l, v, s) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s}</span></div>`; }
+async function renderAnalytics(d) {
+  setHead(d, `Every visit to every page on this site — <b>counted in the open, no names, no cookies</b>. The same counter lives in each page footer; this is all of them in one place.`);
+  renderExplore(d, "analytics");
+  renderMethod(d, "");
+  const kpis = el("kpis"), box = el("page-card"), tbl = el("page-table");
+  let rows = [];
+  try {
+    const r = await fetch("/api/count?stats=1", { cache: "no-store" });
+    if (!r.ok) throw 0;
+    const { pages } = await r.json();
+    rows = ANALYTICS_PAGES.map((p) => ({ ...p, views: (pages && Number(pages[p.page])) || 0 }))
+      .sort((a, b) => b.views - a.views);
+  } catch {
+    /* no backend here (local preview, static file, ad-blocked): explain, don't show zeros */
+    if (box) box.innerHTML = `<p class="caveat">Live visit counts need the deployed site — this preview has no counter backend, so there is nothing to show yet.</p>`;
+    if (tbl) tbl.style.display = "none"; /* empty card shell would render as a blank box */
+    if (el("page-table-head")) el("page-table-head").style.display = "none"; /* heading with no table under it */
+    if (kpis) kpis.innerHTML = "";
+    return;
+  }
+  const total = rows.reduce((a, x) => a + x.views, 0);
+  const top = rows[0];
+  if (kpis) kpis.innerHTML =
+    kpiA("Total page visits", n(total), "Every page on this site, added together.") +
+    kpiA("Most-read page", esc(top.t), `${n(top.views)} visits and counting.`) +
+    kpiA("Pages counted", String(rows.length), "The stats pages, home, and this one.");
+  if (box) box.innerHTML =
+    `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(rows.map((x) => ({ value: x.views, label: x.s, tip: `${x.t}: ${n(x.views)} visits`, peak: x.page === top.page })), { label: "Site visits by page, most-read first" })}</div>` +
+    `<figcaption class="figcap">Most-read on the left, in gold. Loading this page counts as one visit to it — the rollup itself never adds any.</figcaption></figure>`;
+  if (tbl) tbl.innerHTML =
+    `<table class="data-table"><caption>Page visits, most-read first. Reloads count, and so do my own visits — I won't pretend otherwise.</caption>` +
+    `<thead><tr><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th></tr></thead><tbody>` +
+    rows.map((x) => `<tr><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? Math.round((x.views / total) * 100) + "%" : "—"}</td></tr>`).join("") +
+    `</tbody></table>`;
+}
+
 /* ================= BOOT ================= */
 load().then((d) => {
   normalize(d);
@@ -955,6 +1002,7 @@ load().then((d) => {
     }
     else if (page === "timeline") renderTimeline(d);
     else if (page === "achievements") renderAch(d);
+    else if (page === "analytics") renderAnalytics(d);
   } catch (e) {
     console.error(e);
   }

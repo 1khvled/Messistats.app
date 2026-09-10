@@ -16,7 +16,8 @@ export default defineConfig({
         goalsbyseason: resolve(root, 'goalsbyseason.html'),
         dashboard: resolve(root, 'dashboard.html'),
         timeline: resolve(root, 'timeline.html'),
-        achievements: resolve(root, 'achievements.html')
+        achievements: resolve(root, 'achievements.html'),
+        analytics: resolve(root, 'analytics.html')
       }
     }
   }

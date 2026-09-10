@@ -1,7 +1,7 @@
 {
-  "updated": "2026-09-10T13:58:44.123Z",
+  "updated": "2026-09-10T14:19:25.233Z",
   "generator": "scripts/source-watch.mjs; never messi-data.json",
-  "lastFull": "2026-09-10T13:58:44.123Z",
+  "lastFull": "2026-09-10T14:19:25.233Z",
   "matchdayToday": true,
   "hashes": {
     "fox-wc21": "28da4dad5f8d29a889a9a6fc624dc4a73226375c",
@@ -9,162 +9,162 @@
     "planet-elclasico": "429c4d06cf557f84327a93f785f7bcccfe6e637a",
     "mvrapp-detailed": "73a91c31e9f7727fb9e2c0fcbeb95ac6313d4a99",
     "mvrapp-elclasico": "9e19d9dc757e315a23d524f836ed832d2b5d3593",
-    "espn-tracker": "7e56c94deabda5ff55bd7b506eae8b19b25cf924",
-    "gulfnews-400": "e51ceac4d9e5080364fb3d0c2f7911b8261fb781"
+    "espn-tracker": "d07f83d79ce2f7714883de8d18a2594e4df0e010",
+    "gulfnews-400": "fddbdcef29ad66044e54111cfd8b200671f67f8b"
   },
   "checks": [
     {
       "slug": "internal-927",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:33.268Z",
+      "at": "2026-09-10T14:19:17.629Z",
       "detail": "all three sums reconcile to 927"
     },
     {
       "slug": "espn-mls-count",
       "kind": "structured",
       "ok": false,
-      "at": "2026-09-10T13:58:34.816Z",
+      "at": "2026-09-10T14:19:18.568Z",
       "detail": "espn=24 json=20"
     },
     {
       "slug": "espn-arg-count",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:34.816Z",
+      "at": "2026-09-10T14:19:18.568Z",
       "detail": "espn completed=8 vs json apps=11"
     },
     {
       "slug": "of-wc2022",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:35.245Z",
+      "at": "2026-09-10T14:19:18.772Z",
       "detail": "Messi 2022 WC goals=7"
     },
     {
       "slug": "of-wc2026",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:35.245Z",
+      "at": "2026-09-10T14:19:18.772Z",
       "detail": "8 Argentina games, Messi 8 goals (matches JSON 2026 note)"
     },
     {
       "slug": "of-wc-alltime",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:35.246Z",
+      "at": "2026-09-10T14:19:18.773Z",
       "detail": "WC all-time 21 (6 pre-2022 + 7 + 8)"
     },
     {
       "slug": "wiki-ach:Supporters' Shield",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.229Z",
+      "at": "2026-09-10T14:19:19.700Z",
       "detail": "present"
     },
     {
       "slug": "wiki-ach:Leagues Cup",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.229Z",
+      "at": "2026-09-10T14:19:19.700Z",
       "detail": "present"
     },
     {
       "slug": "wiki-ach:MLS Cup",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.229Z",
+      "at": "2026-09-10T14:19:19.700Z",
       "detail": "present"
     },
     {
       "slug": "wiki-ach:Olympic",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.229Z",
+      "at": "2026-09-10T14:19:19.700Z",
       "detail": "present"
     },
     {
       "slug": "wiki-info:laliga",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.852Z",
+      "at": "2026-09-10T14:19:20.390Z",
       "detail": "league goals=474"
     },
     {
       "slug": "wiki-info:ligue1",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.852Z",
+      "at": "2026-09-10T14:19:20.390Z",
       "detail": "league goals=22"
     },
     {
       "slug": "wiki-info:mls",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-10T13:58:36.852Z",
+      "at": "2026-09-10T14:19:20.390Z",
       "detail": "league goals=68"
     },
     {
       "slug": "article:fox-wc21",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-10T13:58:37.455Z",
+      "at": "2026-09-10T14:19:20.868Z",
       "detail": "unchanged"
     },
     {
       "slug": "article:sportstar-400",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-10T13:58:37.861Z",
+      "at": "2026-09-10T14:19:21.114Z",
       "detail": "unchanged"
     },
     {
       "slug": "article:planet-elclasico",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-10T13:58:38.265Z",
+      "at": "2026-09-10T14:19:21.366Z",
       "detail": "unchanged"
     },
     {
       "slug": "article:mvrapp-detailed",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-10T13:58:39.878Z",
+      "at": "2026-09-10T14:19:21.726Z",
       "detail": "unchanged"
     },
     {
       "slug": "article:mvrapp-elclasico",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-10T13:58:40.459Z",
+      "at": "2026-09-10T14:19:21.885Z",
       "detail": "unchanged"
     },
     {
       "slug": "article:messicom-46",
       "kind": "article",
       "ok": false,
-      "at": "2026-09-10T13:58:42.818Z",
+      "at": "2026-09-10T14:19:24.119Z",
       "detail": "fetch failed (403) — manual-only"
     },
     {
       "slug": "article:espn-tracker",
       "kind": "article",
-      "ok": false,
-      "at": "2026-09-10T13:58:43.724Z",
-      "detail": "CHANGED ad152b49876c -> 7e56c94deabd"
+      "ok": true,
+      "at": "2026-09-10T14:19:24.833Z",
+      "detail": "unchanged"
     },
     {
       "slug": "article:gulfnews-400",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-10T13:58:44.121Z",
+      "at": "2026-09-10T14:19:25.233Z",
       "detail": "unchanged"
     },
     {
       "slug": "football-data.org",
       "kind": "skip",
       "ok": true,
-      "at": "2026-09-10T13:58:44.122Z",
+      "at": "2026-09-10T14:19:25.233Z",
       "detail": "requires X-Auth-Token key; no key provisioned"
     }
   ],
@@ -174,11 +174,11 @@
       "reason": "requires X-Auth-Token key; no key provisioned"
     }
   ],
-  "hashAt:fox-wc21": "2026-09-10T13:58:37.455Z",
-  "hashAt:sportstar-400": "2026-09-10T13:58:37.861Z",
-  "hashAt:planet-elclasico": "2026-09-10T13:58:38.265Z",
-  "hashAt:mvrapp-detailed": "2026-09-10T13:58:39.878Z",
-  "hashAt:mvrapp-elclasico": "2026-09-10T13:58:40.459Z",
-  "hashAt:espn-tracker": "2026-09-10T13:58:43.724Z",
-  "hashAt:gulfnews-400": "2026-09-10T13:58:44.121Z"
+  "hashAt:fox-wc21": "2026-09-10T14:19:20.868Z",
+  "hashAt:sportstar-400": "2026-09-10T14:19:21.114Z",
+  "hashAt:planet-elclasico": "2026-09-10T14:19:21.366Z",
+  "hashAt:mvrapp-detailed": "2026-09-10T14:19:21.726Z",
+  "hashAt:mvrapp-elclasico": "2026-09-10T14:19:21.885Z",
+  "hashAt:espn-tracker": "2026-09-10T14:19:24.833Z",
+  "hashAt:gulfnews-400": "2026-09-10T14:19:25.233Z"
 }
