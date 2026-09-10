@@ -554,35 +554,36 @@ function eraOf(y) {
   if (y <= 2023) return { era: "Paris and the World Cup", range: "2021–2023" };
   return { era: "Miami and the road to 1,000", range: "2023–present" };
 }
-/* Real era photos: self-hosted 500px Commons thumbnails, all CC-licensed,
-   each captioned with a Commons file link + licence. Keyed by eraOf() name;
+/* Real era photos: self-hosted high-res Commons action shots, all CC-licensed,
+   each captioned with a Commons file link + licence. `pos` sets the CSS
+   focal point so faces survive the banner crop. Keyed by eraOf() name;
    eras without an entry render no figure. */
 const ERA_PHOTOS = {
   "The boy from Rosario": [
-    { src: "img/era-2005.jpg", w: 500, h: 712, alt: "A teenage Messi playing for Barcelona in 2005", cap: "Barcelona, 2005", file: "https://commons.wikimedia.org/wiki/File:Leo_messi_barce_2005.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2005.jpg", w: 960, h: 1368, pos: "50% 12%", alt: "A teenage Messi playing for Barcelona in 2005", cap: "Barcelona, 2005", file: "https://commons.wikimedia.org/wiki/File:Leo_messi_barce_2005.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   ],
   "The greatest peak football has seen": [
-    { src: "img/era-2011.jpg", w: 500, h: 752, alt: "Messi playing for Barcelona against Arsenal in the 2011 Champions League", cap: "Against Arsenal, Champions League 2011", file: "https://commons.wikimedia.org/wiki/File:Messi_FC_BARCELONA_-_ARSENAL_8_MAR_2011.jpg", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
+    { src: "img/era-2011.jpg", w: 1280, h: 851, pos: "50% 45%", alt: "Messi striking the ball on the five-goal night against Bayer Leverkusen in 2012", cap: "Five-goal night vs Leverkusen, Champions League 2012", file: "https://commons.wikimedia.org/wiki/File:FC_Barcelona_-_Bayer_04_Leverkusen,_7_mar_2012_%2862%29.jpg", lic: "CC BY-SA 3.0", licUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   ],
   "MSN and the second treble": [
-    { src: "img/era-2014.jpg", w: 500, h: 666, alt: "Messi on the ball for Barcelona against Almeria in 2014", cap: "Against Almeria, La Liga 2014", file: "https://commons.wikimedia.org/wiki/File:Leo_Messi_v_Almeria_020314_%28extra_crop%29.jpg", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
+    { src: "img/era-2014.jpg", w: 1280, h: 853, pos: "20% 20%", alt: "Messi sprinting in Barcelona's Senyera kit during the 2014–15 treble season", cap: "In the Senyera kit, La Liga 2014–15", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_in_a_La_Liga_match_at_Camp_Nou,_Barcelona_%28_Ank_Kumar,_Infosys_Limited%29_10.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   ],
   "Carrying Barcelona": [
-    { src: "img/era-2016.jpg", w: 640, h: 1063, alt: "Messi in Barcelona colours in 2016", cap: "Barcelona, 2016", file: "https://commons.wikimedia.org/wiki/File:Leo_Messi_2016.PNG", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
+    { src: "img/era-2016.jpg", w: 1280, h: 1707, pos: "50% 5%", alt: "Messi shielding the ball from a Valladolid defender in La Liga", cap: "Against Valladolid, La Liga 2018", file: "https://commons.wikimedia.org/wiki/File:Real_Valladolid_-_FC_Barcelona,_2018-08-25_(106)_cropped.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   ],
   "Paris and the World Cup": [
-    { src: "img/era-2021.jpg", w: 500, h: 640, alt: "Messi playing for Paris Saint-Germain against Marseille in 2021", cap: "PSG against Marseille, 2021", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_-_PSG_v_OM_-_24_October_2021.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
-    { src: "img/era-2022.jpg", w: 500, h: 749, alt: "Messi playing for Argentina at the 2022 World Cup", cap: "Argentina at the 2022 World Cup", file: "https://commons.wikimedia.org/wiki/File:Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg", lic: "CC BY 4.0", licUrl: "https://creativecommons.org/licenses/by/4.0/" },
+    { src: "img/era-2021.jpg", w: 876, h: 1122, pos: "50% 10%", alt: "Messi playing for Paris Saint-Germain against Marseille in 2021", cap: "PSG against Marseille, 2021", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_-_PSG_v_OM_-_24_October_2021.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2022.jpg", w: 500, h: 749, pos: "50% 20%", alt: "Messi playing for Argentina at the 2022 World Cup", cap: "Argentina at the 2022 World Cup", file: "https://commons.wikimedia.org/wiki/File:Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg", lic: "CC BY 4.0", licUrl: "https://creativecommons.org/licenses/by/4.0/" },
   ],
   "Miami and the road to 1,000": [
-    { src: "img/era-2025.jpg", w: 500, h: 691, alt: "Messi playing for Inter Miami in 2025", cap: "Inter Miami, 2025", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_NE_Revolution_Inter_Miami_7.9.25-178_%28cropped_2%29.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2025.jpg", w: 960, h: 1326, pos: "50% 15%", alt: "Messi playing for Inter Miami in 2025", cap: "Inter Miami, 2025", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_NE_Revolution_Inter_Miami_7.9.25-178_%28cropped_2%29.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   ],
 };
 const eraPhotos = (era) => {
   const pics = ERA_PHOTOS[era];
   if (!pics || !pics.length) return "";
-  return `<div class="ch-photos">` + pics.map((p) =>
-    `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" />` +
+  return `<div class="ch-photos${pics.length === 1 ? " solo" : ""}">` + pics.map((p) =>
+    `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos}" />` +
     `<figcaption class="photo-credit">${esc(p.cap)} — photo via <a href="${p.file}" rel="noopener">Wikimedia Commons</a>, <a href="${p.licUrl}" rel="noopener">${p.lic}</a></figcaption></figure>`
   ).join("") + `</div>`;
 };

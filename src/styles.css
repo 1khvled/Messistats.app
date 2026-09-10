@@ -452,7 +452,8 @@ svg.donut { width: 190px; height: 190px; flex: 0 0 190px; }
 .chapter li { padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 0.94rem; color: var(--ink-soft); }
 .chapter li:last-child { border-bottom: 0; }
 .chapter li b { color: var(--ink); }
-/* Era photos: real CC-licensed match photos, cropped top-weighted so faces survive. */
+/* Era photos: real CC-licensed match photos. Inline object-position per photo
+   keeps faces in frame; solo shots get a taller banner, pairs stay side by side. */
 body[data-page="timeline"] .ch-photos { display: flex; gap: 14px; margin: 12px 0 4px; }
 body[data-page="timeline"] .ch-photo { flex: 1 1 0; min-width: 0; margin: 0; }
 body[data-page="timeline"] .ch-photo img {
@@ -460,9 +461,11 @@ body[data-page="timeline"] .ch-photo img {
   object-fit: cover; object-position: 50% 18%;
   border-radius: 14px; box-shadow: var(--shadow-sm); background: var(--surface-solid);
 }
+body[data-page="timeline"] .ch-photos.solo .ch-photo img { height: 340px; }
 @media (max-width: 640px) {
   body[data-page="timeline"] .ch-photos { gap: 10px; }
   body[data-page="timeline"] .ch-photo img { height: 180px; }
+  body[data-page="timeline"] .ch-photos.solo .ch-photo img { height: 240px; }
 }
 
 /* ---------- Pills (dashboard filter) ---------- */
