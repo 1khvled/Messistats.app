@@ -2,22 +2,47 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Messi goals by season with league, cup, continental and other splits." />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="description" content="Lionel Messi goals by season: club tables with league, cup and continental splits, plus Argentina years." />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<title>Messi goals by season</title>
+<link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<title>Messi Goals by Season: Club and Country, 2004 to 2026</title>
 <link rel="stylesheet" href="src/styles.css" />
 </head>
 <body data-page="byseason">
-<nav class="topnav" aria-label="Primary"><span class="brand">MessiStats</span><a href="index.html">Home</a><a href="goalsbyyear.html">Goals by Year</a><a href="goalsbyseason.html" class="on" aria-current="page">Goals by Season</a><a href="dashboard.html">Dashboard</a><a href="timeline.html">Through the Years</a><a href="achievements.html">Achievements</a></nav>
+<aside class="rail" aria-label="Primary">
+<a class="rail-badge" href="index.html" aria-label="MessiStats home">LM<b>10</b></a>
+<nav>
+<a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 3l9 8.5"/><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"/></svg><span>Home</span></a>
+<a href="goalsbyyear.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"/></svg><span>Goals by Year</span></a>
+<a href="goalsbyseason.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.5"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.5"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.5"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.5"/></svg><span>Goals by Season</span></a>
+<a href="dashboard.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17"/><path d="M6.5 20v-7M12 20V5M17.5 20v-10"/></svg><span>Dashboard</span></a>
+<a href="timeline.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Through the Years</span></a>
+<a href="achievements.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"/><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"/></svg><span>Achievements</span></a>
+</nav>
+</aside>
+<div class="page">
 <main class="wrap">
-<div class="banner" id="banner">loading data...</div>
-<h1>Goals by season</h1>
-<p class="mut">Club seasons, cross-checked Sep 2026 (Wikipedia/BDFutbol tables). Columns show league / national cup / continental / other as apps / goals.</p>
-<div class="card"><div id="season-full">loading...</div></div>
-<div class="card"><h2>Argentina by year</h2><div id="country-full">loading...</div></div>
-<footer><p id="foot-note"></p></footer>
+<div id="banner" hidden></div>
+<p class="eyebrow">Goals by season <i></i> <span id="upd">Updated 9 September 2026</span></p>
+<h1>Lionel Messi goals by season</h1>
+<p class="lede" id="lede">Loading…</p>
+<p><a class="btn" href="index.html">← Back to stats</a></p>
+<div class="shead"><h2>How many goals did Messi score each season?</h2></div>
+<p class="section-sub" id="club-sub"></p>
+<section class="card" id="club-table">Loading…</section>
+<div class="shead"><h2>How many goals has Messi scored for Argentina each year?</h2></div>
+<p class="section-sub" id="country-sub"></p>
+<section class="card" id="country-table">Loading…</section>
+<div class="shead"><h2>What was Messi's best season?</h2></div>
+<section class="prose" id="bestseason"></section>
+<h2>Explore the full statistics</h2>
+<nav class="explore" id="explore" aria-label="More Lionel Messi statistics"></nav>
+<section class="card method" id="method"></section>
+<footer><p id="foot-date"></p></footer>
 </main>
-<script type="module" src="src/app.js"></script>
+</div>
+<script type="module" src="src/app.js"></script><script type="module" src="src/ads.js"></script><script type="module" src="src/matchday.js"></script>
 </body>
 </html>

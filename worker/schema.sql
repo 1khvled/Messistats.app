@@ -38,3 +38,5 @@ CREATE TABLE IF NOT EXISTS pending_checks (
 );
 
 CREATE INDEX IF NOT EXISTS idx_pending_status ON pending_checks (status);
+-- Supports the worker's GET /smart-check-status query (ORDER BY match_date DESC).
+CREATE INDEX IF NOT EXISTS idx_pending_match_date ON pending_checks (match_date DESC);

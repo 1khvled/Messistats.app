@@ -1,0 +1,5 @@
+# Vercel build only needs the static-site sources; exclude Cloudflare-only
+# files (worker/, wrangler.toml) and local dev tooling (scripts/).
+worker
+wrangler.toml
+scripts

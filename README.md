@@ -19,22 +19,78 @@ Build check: `npm run build` then `npm run preview` (http://localhost:4173/).
 - Status: `CROSS_CHECKED` (2026-09-09) - club splits from Wikipedia/BDFutbol tables,
   Argentina years confirmed against ESPN milestones, World Cup goals recounted
   from openfootball JSON. See `meta.verification` in the JSON for the full trail.
-- Assists / free kicks / penalties stay null until a true match-by-match hand
-  tally is compiled. Do not publish those fields before that.
-- `npm run verify` only fetches FREE endpoints (ESPN hidden API scoreboard
-  for MLS usa.1, openfootball raw JSON) and writes
+- Penalties (109), free kicks (66), hat-tricks (57), foot split and assists are
+  widely published compiled tallies, shown as PROVISIONAL until a true
+  match-by-match hand count is finished. The JSON's `meta.verification`
+  says so explicitly; the pages repeat the caveat next to those tables.
+- `npm run verify` only READS free public scoreboards (ESPN's public
+  score feed for US soccer, openfootball's free public data) and writes
   `public/data/last-check.json`. It never overwrites totals.
 
-## Free sources used
+## Where the numbers come from (plain English)
 
-- ESPN hidden API: https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard (no key)
-- openfootball football.json / worldcup.json via raw.githubusercontent.com (public domain CC0, no key)
-- football-data.org free tier: backup for EU comps only (delayed, no MLS, no player data)
-- Cross-checks: intermiamicf.com, ESPN Messi tracker, Wikipedia
+No paid data feeds, no API keys, no logins. Three free sources:
 
-## Deploy later (Cloudflare)
+- **ESPN's public score feed** — the same data behind scoreboard pages, e.g.
+  `https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard`
+  ("usa.1" is just ESPN's code for MLS). Free, no key needed.
+- **openfootball data** — free public-domain match data
+  (via raw.githubusercontent.com). Used to recount World Cup goals.
+- **football-data.org free tier** — backup for European competitions only.
+  Delayed scores, no MLS, no player stats — that is why it is only a backup.
 
-`npm run build` -> `dist/` -> `wrangler deploy` (Workers Static Assets; `_headers` and `404.html` included).
+Plus human cross-checks: intermiamicf.com, ESPN's Messi tracker, Wikipedia
+season tables (which cite BDFutbol match logs).
+
+**What `npm run verify` actually does:** it downloads the latest scores from
+the free feeds above and saves a timestamped note
+(`public/data/last-check.json`) saying "checked at this time, X new matches
+seen". If a new Inter Miami or Argentina game finished, it flags it for a
+human to review. It NEVER changes the goal totals — totals change by hand,
+with a named source, after review. That is the whole "free live check".
+
+## Deploy (Cloudflare, not deployed yet)
+
+The site builds to `dist/` and deploys as Workers Static Assets
+(`_headers` and `404.html` included); the smart-check cron runs from the
+same worker (`worker/smart-check.js`, every 2h). No secrets involved:
+every source is keyless. `wrangler.toml` ships with `REPLACE-WITH-D1-ID`
+until the database is created. First `npm run build`, then these 3 commands:
+
+```powershell
+wrangler d1 create messi-stats-pending
+wrangler d1 execute messi-stats-pending --file=worker/schema.sql
+# paste the database_id from the create step into wrangler.toml, then:
+wrangler deploy
+```
+
+## Deploy on Vercel (static, not deployed yet)
+
+Same `dist/` build, no code changes. `vercel.json` pins the settings below,
+so importing the repo works with defaults; nothing from `worker/` or
+`wrangler.toml` is used (both are Cloudflare-only and excluded via
+`.vercelignore`).
+
+1. Vercel dashboard -> Add New -> Project -> Import this repo.
+2. Framework preset: Vite (or Other — the explicit `buildCommand` /
+   `outputDirectory` in `vercel.json` win either way).
+3. Build command `npm run build`, output directory `dist`. No env vars needed.
+4. Deploy, then check (replace `YOUR-APP` with the real host):
+   `YOUR-APP.vercel.app/` (home), `/goalsbyyear`, `/goalsbyseason`,
+   `/dashboard`, `/timeline`, `/achievements`, plus
+   `/data/messi-data.json` (must stay 927 combined goals).
+
+Notes: no functions/rewrites — every route is a real static `.html` file, so
+`cleanUrls: true` + `trailingSlash: false` is the whole routing story (no SPA
+fallback; unknown paths fall through to `404.html`, which Vercel serves
+automatically). Cache headers live in `vercel.json` (`public/_headers` is
+Cloudflare-only and ignored by Vercel): immutable for `/fonts/*`, `/img/*`,
+`/assets/*` (hashed build output), no-cache for `/data/*.json`. `base: './'`
+is kept on purpose — the production build rewrites bundles to `./assets/*`
+and fonts to `../fonts/*`, so pages also work from any subpath or plain file
+host. `src/ads.js` and `src/matchday.js` ship disabled-by-default (early
+return unless their `window.*` switch is set), so the deployed site still
+makes zero third-party requests.
 ## Smart scheduling (how it works)
 
 One cron trigger, every 2h at minute 0 (`0 */2 * * *`, 12 runs/day). The
@@ -127,15 +183,9 @@ still reports the healthy sources.
 
 ## Worker deploy (later)
 
-```powershell
-wrangler d1 create messi-stats-pending
-wrangler d1 execute messi-stats-pending --file=worker/schema.sql
-# paste the database_id into wrangler.toml, then:
-wrangler deploy
-```
-
-No secrets involved: every source is keyless. `wrangler.toml` ships with
-`REPLACE-WITH-D1-ID` until the DB is created.
+Same 3 commands as the Deploy section above (create D1, load
+`worker/schema.sql`, paste the id into `wrangler.toml`, deploy). Nothing
+extra lives here on purpose, so the steps can't drift out of sync.
 
 ## Ads (foundation only, no network yet)
 
