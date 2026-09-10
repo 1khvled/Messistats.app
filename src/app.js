@@ -153,12 +153,14 @@ function renderExplore(d, page) {
 }
 function methodHTML(d, extra) {
   const teams = "Barcelona, Paris Saint-Germain, Inter Miami and Argentina";
-  return `<h2>How these numbers are compiled</h2>` +
-    `<p>Every figure on this site counts official senior first-team matches for ${teams}, ` +
-    `in all league, domestic cup, continental and international competitions. Youth and reserve football is excluded.</p>` +
-    `<p>Season and calendar-year goals are a compiled tally counted from full match records and checked against club ` +
-    `and competition sources. The free-kick, penalty and hat-trick splits below are a widely published tally, marked ` +
-    `provisional until a full match-by-match hand count is finished. ${extra || ""}</p>`;
+  return `<h2>How I put these numbers together</h2>` +
+    `<p>I count one thing: official senior first-team matches for ${teams} — ` +
+    `every league game, domestic cup, continental night and international, and nothing else. No youth football, no reserves, no friendlies dressed up as history.</p>` +
+    `<p>Season and calendar-year goals are tallied from full match records and checked against club ` +
+    `and competition sources after every game. The free-kick, penalty and hat-trick splits are a widely published tally, marked ` +
+    `provisional until my match-by-match hand count is finished. ${extra || ""}</p>` +
+    `<p class="colophon">This is a one-person site, kept by hand. Totals only ever change when I have a named source and have checked it twice — ` +
+    `never by a script, never on a rumour. If you spot something wrong, that date stamp at the top tells you exactly when I last looked.</p>`;
 }
 function renderMethod(d, extra) {
   const m = el("method");
@@ -216,8 +218,8 @@ function donutSVG(parts, total, centerTop, centerSub) {
 function renderHome(d) {
   const t = d.totals, agg = clubAgg(d), p = d.profile;
   const seasons = d.clubSeasons.length;
-  setHead(d, `<b>${n(t.goals)} goals</b> in <b>${n(t.apps)} senior appearances</b> for Barcelona, PSG, ${esc(p.current.join(" and "))} — ` +
-    `a World Cup winner and record eight-time Ballon d'Or holder, as of ${esc(d.lastUpdated)}.`);
+  setHead(d, `<b>${n(t.goals)} goals</b> in <b>${n(t.apps)} senior appearances</b> — for Barcelona, PSG, ${esc(p.current.join(" and "))}. ` +
+    `A World Cup winner and record eight-time Ballon d'Or holder, counted by hand and checked twice, as of ${esc(d.lastUpdated)}.`);
   const dob = new Date(p.born + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   el("profile").innerHTML =
     `<figure class="identity-photo"><img src="img/messi.jpg" alt="Lionel Messi playing for Argentina at the 2018 World Cup" width="440" height="627" loading="eager" fetchpriority="high"><figcaption class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Lionel_Messi_20180626.jpg" rel="noopener">Kirill Venediktov</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a></figcaption></figure><div class="identity-main">` +
@@ -271,7 +273,7 @@ function renderHome(d) {
   // year widget: dropdown + tiles + full-range bars
   const ys = d.calendarYears;
   const cur = ys[ys.length - 1];
-  el("year-sub").textContent = `Pick any season below, or scroll the full chart from his 2004 debut to today.`;
+  el("year-sub").textContent = `Pick a year and watch the running total climb — all the way from his 2004 debut to today.`;
   el("year-widget").innerHTML =
     `<div class="year-pick-head"><h3 class="year-pick-title">Messi stats by calendar year</h3>` +
     `<div class="year-pick-control"><label for="yearPick">Year</label><select id="yearPick" class="inline">` +
@@ -368,12 +370,27 @@ function renderByYear(d) {
     const pk = rows.reduce((x, y) => (y.goals > x.goals ? y : x));
     return kpi4(`Goals in the ${lab}`, n(sum), `${a}–${b}, peaking at ${pk.goals} in ${pk.year}.`);
   }).join("");
-  el("table-sub").textContent = `Newest first. 2026 is starred while the season is still being played. Click a column to sort, or type to filter.`;
+  el("table-sub").textContent = `Newest first. 2026 is starred while the season is still being played. Click a column to sort, or type to filter. Famous seasons get a footnote — hover the year.`;
+  /* Margin notes for the seasons every fan knows. Famous facts only, each one
+     backed by the trophy list or the records above — never new claims. */
+  const YEAR_NOTES = {
+    2005: "First senior goals",
+    2009: "First Ballon d'Or · the sextuple",
+    2012: "91 — the all-time record",
+    2014: "World Cup final · Golden Ball",
+    2019: "Sixth Ballon d'Or",
+    2021: "Copa América · farewell to Barça",
+    2022: "World Cup winner",
+    2023: "Eighth Ballon d'Or · the Miami move",
+    2024: "Copa América winner",
+  };
   el("year-table").innerHTML =
     `<table class="data-table"><caption>Goals, running career total and age for every calendar year since Messi's 2004 debut.</caption>` +
     `<thead><tr><th scope="col" class="left">Year</th><th scope="col">Goals</th><th scope="col">Career total</th><th scope="col">Age</th></tr></thead><tbody>` +
     ys.slice().reverse().map((r) =>
-      `<tr${r.provisional ? ' class="total"' : ""}><th scope="row">${r.year}${r.provisional ? " *" : ""}</th><td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`
+      `<tr${r.provisional ? ' class="total"' : ""}><th scope="row">${r.year}${r.provisional ? " *" : ""}` +
+      (YEAR_NOTES[r.year] ? `<span class="yr-note">${YEAR_NOTES[r.year]}</span>` : "") +
+      `</th><td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`
     ).join("") + `</tbody></table>` +
     (last.provisional ? `<p class="caveat">* ${last.year} season in progress — refreshes after each appearance.</p>` : "");
   sortable(el("year-table").querySelector("table"));
@@ -599,32 +616,66 @@ function eraOf(y) {
    eras without an entry render no figure. */
 const ERA_PHOTOS = {
   "The boy from Rosario": [
-    { src: "img/era-2005.jpg", w: 960, h: 1368, pos: "50% 12%", alt: "A teenage Messi playing for Barcelona in 2005", cap: "Barcelona, 2005", file: "https://commons.wikimedia.org/wiki/File:Leo_messi_barce_2005.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2008-olympic.jpg", w: 1442, h: 1519, pos: "62% 28%", alt: "A young Messi in Argentina's number 15 shirt at the Beijing 2008 Olympics", cap: "Olympic semi-final vs Brazil, Beijing 2008", file: "https://commons.wikimedia.org/wiki/File:Messi_olympics-soccer-7%28Cropped%29_%28cropped%29.jpg", lic: "CC BY 2.5", licUrl: "https://creativecommons.org/licenses/by/2.5/" },
   ],
   "The greatest peak football has seen": [
+    { src: "img/era-2011-wembley.jpg", w: 399, h: 501, pos: "50% 18%", alt: "Messi holding the European Cup after the 2011 final at Wembley", cap: "Champions League winners, Wembley 2011", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2012-ballon.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi holding his fourth Ballon d'Or trophy in a row in 2012", cap: "Fourth Ballon d'Or in a row, 2012", file: "", lic: "", licUrl: "" },
     { src: "img/era-2011.jpg", w: 1280, h: 851, pos: "50% 45%", alt: "Messi striking the ball on the five-goal night against Bayer Leverkusen in 2012", cap: "Five-goal night vs Leverkusen, Champions League 2012", file: "https://commons.wikimedia.org/wiki/File:FC_Barcelona_-_Bayer_04_Leverkusen,_7_mar_2012_%2862%29.jpg", lic: "CC BY-SA 3.0", licUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
   ],
   "MSN and the second treble": [
-    { src: "img/era-2014.jpg", w: 1280, h: 853, pos: "20% 20%", alt: "Messi sprinting in Barcelona's Senyera kit during the 2014–15 treble season", cap: "In the Senyera kit, La Liga 2014–15", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_in_a_La_Liga_match_at_Camp_Nou,_Barcelona_%28_Ank_Kumar,_Infosys_Limited%29_10.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2015-supercup.jpg", w: 900, h: 601, pos: "72% 28%", alt: "Messi wearing his winners' medal beside the trophy after the 2015 UEFA Super Cup", cap: "Winners' medal and trophy, UEFA Super Cup 2015", file: "https://commons.wikimedia.org/wiki/File:2015_UEFA_Super_Cup_103.jpg", lic: "CC BY-SA 3.0", licUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+    { src: "img/era-2014-stare.jpg", w: 679, h: 452, pos: "55% 35%", alt: "Messi walking past the World Cup trophy after losing the 2014 final", cap: "The one that got away — World Cup final, Maracanã 2014", file: "", lic: "", licUrl: "" },
   ],
   "Carrying Barcelona": [
     { src: "img/era-2016.jpg", w: 1280, h: 1707, pos: "50% 5%", alt: "Messi shielding the ball from a Valladolid defender in La Liga", cap: "Against Valladolid, La Liga 2018", file: "https://commons.wikimedia.org/wiki/File:Real_Valladolid_-_FC_Barcelona,_2018-08-25_(106)_cropped.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   ],
+  "Farewell to Barcelona": [
+    { src: "img/era-2019-ballon.jpg", w: 1280, h: 1024, pos: "68% 50%", alt: "Messi at home with six Ballon d'Or trophies after winning the 2019 award", cap: "Six Ballons d'Or at home, Barcelona 2019", file: "https://commons.wikimedia.org/wiki/File:Lionel_MESSI_Florent_TORCHUT.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2021-tears.jpg", w: 1800, h: 1800, pos: "55% 28%", alt: "Messi in tears at his Barcelona farewell press conference", cap: "The goodbye press conference, Camp Nou 2021", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2021-copa.jpg", w: 397, h: 503, pos: "55% 22%", alt: "Messi kissing the Copa América trophy after winning it in 2021", cap: "Copa América champions, Maracanã 2021", file: "", lic: "", licUrl: "" },
+  ],
   "Paris and the World Cup": [
-    { src: "img/era-2021.jpg", w: 876, h: 1122, pos: "50% 10%", alt: "Messi playing for Paris Saint-Germain against Marseille in 2021", cap: "PSG against Marseille, 2021", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_-_PSG_v_OM_-_24_October_2021.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2021-psg-signing.jpg", w: 1200, h: 900, pos: "20% 22%", alt: "Messi signing his Paris Saint-Germain contract alongside Nasser Al-Khelaifi", cap: "Signing for Paris Saint-Germain, 2021", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2021-ballon7.jpg", w: 480, h: 639, pos: "50% 20%", alt: "Messi in a sparkling jacket holding the Ballon d'Or after winning his seventh in 2021", cap: "Seventh Ballon d'Or, Paris 2021", file: "", lic: "", licUrl: "" },
     { src: "img/era-2022.jpg", w: 500, h: 749, pos: "50% 20%", alt: "Messi playing for Argentina at the 2022 World Cup", cap: "Argentina at the 2022 World Cup", file: "https://commons.wikimedia.org/wiki/File:Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg", lic: "CC BY 4.0", licUrl: "https://creativecommons.org/licenses/by/4.0/" },
   ],
   "Miami and the road to 1,000": [
-    { src: "img/era-2025.jpg", w: 960, h: 1326, pos: "50% 15%", alt: "Messi playing for Inter Miami in 2025", cap: "Inter Miami, 2025", file: "https://commons.wikimedia.org/wiki/File:Lionel_Messi_NE_Revolution_Inter_Miami_7.9.25-178_%28cropped_2%29.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2023-miami.jpg", w: 679, h: 451, pos: "45% 40%", alt: "Messi unveiled as Inter Miami's number 10 alongside David Beckham", cap: "Unveiled in Miami with Beckham, 2023", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2023-ballon8.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi in a tuxedo holding the Ballon d'Or after winning a record eighth in 2023", cap: "Record eighth Ballon d'Or, 2023", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2024-copa.jpg", w: 562, h: 546, pos: "50% 25%", alt: "Messi in Argentina's shirt holding two Copa América trophies in 2024", cap: "Back-to-back Copa América titles, 2024", file: "", lic: "", licUrl: "" },
   ],
 };
+/* Era openers: short fan-editor intros, one per chapter. Plain prose about
+   famous nights — no new numbers, every figure here already lives on this
+   site or in the trophy list. */
+const ERA_INTRO = {
+  "The boy from Rosario":
+    `A 17-year-old from Rosario walks on against Espanyol in October 2004, all knees and elbows, and within months the Camp Nou is chanting a name it can barely pronounce yet. The first goal comes against Albacete the following May — a clipped little finish over the keeper from a Ronaldinho lob — and suddenly Barcelona's youngest scorer belongs in the first team. By 2008 there is an Olympic gold around his neck and nobody left arguing.`,
+  "The greatest peak football has seen":
+    `Six trophies in 2009. Four Ballons d'Or in a row. Then 2012: 91 goals in a single calendar year, a number so absurd it broke a record that had stood for forty years — including five in one Champions League night against Leverkusen. Nobody before or since has played football at this level; the only debate left is which month of it was the best.`,
+  "MSN and the second treble":
+    `Messi, Suárez, Neymar — three forwards who should never have fit together, scoring for fun and sweeping a second treble in 2015, sealed in Berlin. His Copa del Rey final goal that spring, slaloming past half of Athletic Bilbao, might be the greatest he ever scored. Pick your own; there are a dozen candidates.`,
+  "Carrying Barcelona":
+    `Xavi gone, Iniesta fading, the squad thinning every summer — and one man dragging the whole club forward anyway. The Remontada against PSG in 2017, another league-and-cup double in 2018: these were his teams in a way the great sides before them never quite were. Watch the Valladolid photo above — by now every defender in Spain knows exactly what is coming, and none of them can stop it.`,
+  "Farewell to Barcelona":
+    `The burofax summer of 2020, a sixth Ballon d'Or, one last Copa del Rey lifted in 2021 — and then, that August, a tearful press conference and a free transfer nobody believed possible. He left as the club's everything: its record scorer, its record appearance-maker, and the reason a generation of kids supports Barcelona at all.`,
+  "Paris and the World Cup":
+    `Two strange, brilliant years in Paris — a seventh Ballon d'Or, two league titles — but everything was building toward one winter in Qatar. Seven goals, a Golden Ball, and on 18 December 2022, two goals in the final and the trophy lift at Lusail that ended every argument. The career was complete; everything after is a bonus.`,
+  "Miami and the road to 1,000":
+    `Nobody expected the pink shirt. Then came a trophy in his first month, an eighth Ballon d'Or, another Copa América with Argentina, and a club transformed around him. Now every goal bends the arc toward 1,000 — a number no one has ever reached in official senior football. Stick around; you are watching the last chapter live.`,
+};
+const eraIntro = (era) => ERA_INTRO[era] ? `<p class="chapter-intro">${ERA_INTRO[era]}</p>` : "";
 const eraPhotos = (era) => {
   const pics = ERA_PHOTOS[era];
   if (!pics || !pics.length) return "";
-  return `<div class="ch-photos${pics.length === 1 ? " solo" : ""}">` + pics.map((p) =>
-    `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos}" />` +
-    `<figcaption class="photo-credit">${esc(p.cap)} — photo via <a href="${p.file}" rel="noopener">Wikimedia Commons</a>, <a href="${p.licUrl}" rel="noopener">${p.lic}</a></figcaption></figure>`
-  ).join("") + `</div>`;
+  return `<div class="ch-photos${pics.length === 1 ? " solo" : ""}">` + pics.map((p) => {
+    const cred = p.lic
+      ? `photo via <a href="${p.file}" rel="noopener">Wikimedia Commons</a>, <a href="${p.licUrl}" rel="noopener">${p.lic}</a>`
+      : `fan-provided photo`;
+    return `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos}" />` +
+    `<figcaption class="photo-credit">${esc(p.cap)} — ${cred}</figcaption></figure>`;
+  }).join("") + `</div>`;
 };
 function renderTimeline(d) {
   const t = d.totals;
@@ -720,6 +771,7 @@ function renderTimeline(d) {
       `<div class="ch-goalbar" role="img" aria-label="${esc(c.era)}: ${n(c.goalsInEra)} goals, ${share} percent of a ${n(totalGoals)}-goal career">` +
       `<span class="ch-goalbar-fill" style="width:${width}%"></span></div>` +
       `<p class="ch-goalnote"><b>${n(c.goalsInEra)} goals</b> · ${share}% of ${n(totalGoals)}</p>` +
+      eraIntro(c.era) +
       calloutFor(c) +
       eraPhotos(c.era) +
       `<ol class="tl-events">` + c.events.map((e) => {

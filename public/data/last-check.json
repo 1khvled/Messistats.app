@@ -1,15 +1,15 @@
 {
-  "checkedAt": "2026-09-10T01:50:11.706Z",
+  "checkedAt": "2026-09-10T13:01:51.079Z",
   "espnMls": {
     "ok": true,
     "status": 200,
     "error": null,
     "miamiEvents": [
       {
-        "id": "761792",
-        "date": "2026-09-10T00:30Z",
-        "name": "Inter Miami CF at Chicago Fire FC",
-        "status": "Second Half"
+        "id": "761800",
+        "date": "2026-09-12T23:30Z",
+        "name": "Nashville SC at Inter Miami CF",
+        "status": "Scheduled"
       }
     ]
   },

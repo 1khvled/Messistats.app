@@ -488,8 +488,44 @@ body[data-page="timeline"] .ch-photo img {
   border-radius: 14px; box-shadow: var(--shadow-sm); background: var(--surface-solid);
 }
 body[data-page="timeline"] .ch-photos.solo .ch-photo img { height: 340px; }
+/* Human touches: polaroid chapter photos, standfirst intros with drop caps. */
+body[data-page="timeline"] .ch-photo {
+  background: #fff;
+  padding: 10px 10px 4px;
+  border-radius: 6px;
+  box-shadow: 0 10px 24px rgba(22, 36, 58, 0.16);
+  transform: rotate(-0.7deg);
+}
+body[data-page="timeline"] .ch-photos .ch-photo:nth-child(even) { transform: rotate(0.7deg); }
+body[data-page="timeline"] .ch-photo img { border-radius: 3px; box-shadow: none; }
+body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
+.chapter-intro {
+  font-size: 1.02rem; line-height: 1.65; color: var(--ink-soft);
+  max-width: 68ch; margin: 10px 0 4px;
+}
+.chapter-intro::first-letter {
+  font-family: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+  font-weight: 800; font-size: 2.7em; float: left;
+  line-height: 0.85; padding: 3px 9px 0 0; color: var(--brand);
+}
+/* Rubber-stamp last-checked badge + colophon sign-off. */
+.updated-badge {
+  text-transform: uppercase; letter-spacing: 0.09em;
+  border-style: dashed; border-width: 1.5px;
+  transform: rotate(-1.1deg);
+}
+.colophon {
+  border-left: 3px solid var(--accent);
+  padding-left: 12px; font-style: italic;
+}
+/* Famous-season footnotes in the year table. */
+.yr-note {
+  display: block; font-weight: 600; font-size: 0.7rem;
+  color: var(--brand); margin-top: 2px; white-space: normal;
+}
 @media (max-width: 640px) {
-  body[data-page="timeline"] .ch-photos { gap: 10px; }
+  body[data-page="timeline"] .ch-photos { gap: 10px; flex-wrap: wrap; }
+  body[data-page="timeline"] .ch-photos:not(.solo) .ch-photo { flex: 1 1 46%; }
   body[data-page="timeline"] .ch-photo img { height: 180px; }
   body[data-page="timeline"] .ch-photos.solo .ch-photo img { height: 240px; }
 }

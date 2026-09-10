@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-10T01:50:22.842Z",
+  "updated": "2026-09-10T13:02:02.164Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -68,6 +68,292 @@
         }
       ],
       "fetched_at": "2026-09-10T01:50:21.869Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.espn.com/soccer/story/_/id/47978642"
+    },
+    {
+      "match_id": "watch:espn-mls-stale:espn24",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "ESPN usa.1 scoreboard",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000",
+          "at": "2026-09-10T11:35:31.656Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T11:35:31.656Z",
+      "note": "ESPN lists 24 completed 2026 Miami games vs JSON league apps 20 — data may be stale, hand-check. https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000"
+    },
+    {
+      "match_id": "watch:article:planet-elclasico:1d1d4db5",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "PlanetFootball El Clasico",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists",
+          "at": "2026-09-10T11:35:35.459Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T11:35:35.459Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
+    },
+    {
+      "match_id": "watch:article:mvrapp-detailed:73a91c31",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "messivsronaldo.app detailed stats",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.messivsronaldo.app/detailed-stats/",
+          "at": "2026-09-10T11:35:35.944Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T11:35:35.944Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.messivsronaldo.app/detailed-stats/"
+    },
+    {
+      "match_id": "watch:article:mvrapp-elclasico:9e19d9dc",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "messivsronaldo.app El Clasico",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.messivsronaldo.app/club-stats/el-clasico/",
+          "at": "2026-09-10T11:35:36.332Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T11:35:36.332Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.messivsronaldo.app/club-stats/el-clasico/"
+    },
+    {
+      "match_id": "watch:article:espn-tracker:3bd354b2",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "ESPN 2026 tracker story",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/47978642",
+          "at": "2026-09-10T11:35:39.686Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T11:35:39.686Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.espn.com/soccer/story/_/id/47978642"
+    },
+    {
+      "match_id": "watch:article:gulfnews-400:904eb4ff",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "Gulf News 400 assists",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
+          "at": "2026-09-10T11:35:40.084Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T11:35:40.084Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+    },
+    {
+      "match_id": "watch:article:planet-elclasico:429c4d06",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "PlanetFootball El Clasico",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists",
+          "at": "2026-09-10T12:15:04.559Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T12:15:04.559Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
+    },
+    {
+      "match_id": "watch:article:espn-tracker:a2c81493",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "ESPN 2026 tracker story",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/47978642",
+          "at": "2026-09-10T12:15:09.637Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T12:15:09.637Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.espn.com/soccer/story/_/id/47978642"
+    },
+    {
+      "match_id": "watch:article:gulfnews-400:e51ceac4",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "Gulf News 400 assists",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
+          "at": "2026-09-10T12:15:10.387Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T12:15:10.387Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+    },
+    {
+      "match_id": "watch:article:fox-wc21:28da4dad",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "FOX Sports all-21 WC goals",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked",
+          "at": "2026-09-10T12:40:15.882Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T12:40:15.882Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked"
+    },
+    {
+      "match_id": "watch:article:espn-tracker:60d3c1ef",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "ESPN 2026 tracker story",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/47978642",
+          "at": "2026-09-10T12:40:22.086Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T12:40:22.086Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.espn.com/soccer/story/_/id/47978642"
+    },
+    {
+      "match_id": "watch:article:espn-tracker:6dd89387",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "ESPN 2026 tracker story",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/47978642",
+          "at": "2026-09-10T12:51:59.584Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T12:51:59.584Z",
+      "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.espn.com/soccer/story/_/id/47978642"
+    },
+    {
+      "match_id": "watch:article:espn-tracker:3c6c4616",
+      "competition": "source-watch",
+      "match_date": null,
+      "home": "ESPN 2026 tracker story",
+      "away": "messi-data.json",
+      "score_espn": null,
+      "score_openfootball": null,
+      "sources_agree": false,
+      "messi_goals": null,
+      "messi_assists": null,
+      "messi_named": false,
+      "status": "needs_review",
+      "sources": [
+        {
+          "url": "https://www.espn.com/soccer/story/_/id/47978642",
+          "at": "2026-09-10T13:02:01.763Z"
+        }
+      ],
+      "fetched_at": "2026-09-10T13:02:01.763Z",
       "note": "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.espn.com/soccer/story/_/id/47978642"
     }
   ],
