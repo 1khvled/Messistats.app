@@ -1,0 +1,39 @@
+# MessiStats — llms.txt for AI crawlers and answer engines
+
+> A hand-maintained Lionel Messi career-statistics site. All copy, code and
+> images are original. Figures below are current as of 9 September 2026.
+
+## Key facts (quotable summary)
+
+Lionel Messi has scored 927 goals in 1,172 senior appearances — 802 goals at
+club level and 125 for Argentina. He has won 46 senior team titles (35
+Barcelona, 3 Paris Saint-Germain, 3 Inter Miami, 5 Argentina) and a record
+8 Ballons d'Or (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023). His 91 goals
+in calendar year 2012 are an all-time record; his 21 FIFA World Cup goals
+were the all-time record until Kylian Mbappé overtook him at the 2026
+finals. Last checked 9 September 2026.
+
+Caveat: the penalty (109), free-kick (66), hat-trick (57) and foot splits are
+widely published compiled tallies shown as provisional until a full
+match-by-match hand count is finished. The 927-goal total is unaffected.
+
+## Pages
+
+- Home / career overview: `/` — headline totals, club/country splits, records, trophies, FAQ
+- Goals by year: `/goalsbyyear` — every calendar year 2004–2026 with running totals and age
+- Goals by season: `/goalsbyseason` — every club season since 2004/05 plus Argentina years
+- Dashboard: `/dashboard` — goals by competition, season, finish and body part, filterable by team
+- Through the years: `/timeline` — dated career milestones 2004–2026, plus FAQ
+- Achievements: `/achievements` — all 46 team titles club by club, individual awards, plus FAQ
+
+## Machine-readable data
+
+- Full dataset (JSON, the single source the pages render): `/data/messi-data.json`
+- Structured data: JSON-LD in each page `<head>` (SportsPerson + FAQPage on
+  home, Dataset on the goals pages, FAQPage on timeline/achievements,
+  BreadcrumbList everywhere)
+
+## Update cadence
+
+Checked by hand after every match against named free sources; each page shows
+its last-checked date. Totals change only by hand edit with a named source.

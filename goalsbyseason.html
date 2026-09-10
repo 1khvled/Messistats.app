@@ -3,12 +3,41 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="description" content="Lionel Messi goals by season: club tables with league, cup and continental splits, plus Argentina years." />
+<meta name="description" content="Lionel Messi's goals season by season since 2004/05 — league, cup and continental splits for every club campaign, plus Argentina year by year. Updated 9 September 2026." />
+<!-- TODO(SEO): site not deployed yet — replace https://messi-stats.vercel.app with the production domain in canonical/OG/sitemap/robots, then rebuild. -->
+<link rel="canonical" href="https://messi-stats.vercel.app/goalsbyseason" />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#16243a" />
+<meta name="author" content="MessiStats" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="MessiStats" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content="Messi Goals by Season: Every Club Campaign + Argentina" />
+<meta property="og:description" content="Messi's goals for every club season since 2004/05 with league, cup and continental splits — plus his Argentina scoring year by year." />
+<meta property="og:url" content="https://messi-stats.vercel.app/goalsbyseason" />
+<meta property="og:image" content="https://messi-stats.vercel.app/img/og-messi.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="Lionel Messi career statistics: 927 goals in 1,172 senior appearances" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Messi Goals by Season: Every Club Campaign + Argentina" />
+<meta name="twitter:description" content="Messi's goals for every club season since 2004/05 with league, cup and continental splits — plus his Argentina scoring year by year." />
+<meta name="twitter:image" content="https://messi-stats.vercel.app/img/og-messi.jpg" />
+<meta name="twitter:image:alt" content="Lionel Messi career statistics: 927 goals in 1,172 senior appearances" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
-<title>Messi Goals by Season: Club and Country, 2004 to 2026</title>
+<title>Messi Goals by Season: Every Club Campaign + Argentina</title>
 <link rel="stylesheet" href="src/styles.css" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Dataset","@id":"https://messi-stats.vercel.app/goalsbyseason#dataset","name":"Lionel Messi goals by club season and Argentina year","description":"Appearances and goals for every Lionel Messi club season since 2004/05 with league, cup and continental splits, plus Argentina scoring year by year.","temporalCoverage":"2004/2026","dateModified":"2026-09-09","creator":{"@id":"https://messi-stats.vercel.app/#org"},"publisher":{"@id":"https://messi-stats.vercel.app/#org"},"distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://messi-stats.vercel.app/data/messi-data.json"},"variableMeasured":"Goals"},
+{"@type":"Organization","@id":"https://messi-stats.vercel.app/#org","name":"MessiStats","url":"https://messi-stats.vercel.app/","logo":{"@type":"ImageObject","url":"https://messi-stats.vercel.app/favicon.svg"}},
+{"@type":"WebPage","@id":"https://messi-stats.vercel.app/goalsbyseason#webpage","url":"https://messi-stats.vercel.app/goalsbyseason","name":"Messi Goals by Season: Every Club Campaign + Argentina","inLanguage":"en","publisher":{"@id":"https://messi-stats.vercel.app/#org"},"speakable":{"@type":"SpeakableSpecification","cssSelector":["#lede","#bestseason"]},"mainEntity":{"@id":"https://messi-stats.vercel.app/goalsbyseason#dataset"}},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://messi-stats.vercel.app/"},{"@type":"ListItem","position":2,"name":"Goals by Season","item":"https://messi-stats.vercel.app/goalsbyseason"}]}
+]}
+</script>
 </head>
 <body data-page="byseason">
 <aside class="rail" aria-label="Primary">
@@ -40,7 +69,7 @@
 <h2>Explore the full statistics</h2>
 <nav class="explore" id="explore" aria-label="More Lionel Messi statistics"></nav>
 <section class="card method" id="method"></section>
-<footer><p id="foot-date"></p></footer>
+<footer><p id="foot-date"></p><p class="crest-note">Club crests are trademarks of their respective clubs, shown for team identification.</p></footer>
 </main>
 </div>
 <script type="module" src="src/app.js"></script><script type="module" src="src/ads.js"></script><script type="module" src="src/matchday.js"></script>

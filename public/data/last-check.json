@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-10T00:43:44.573Z",
+  "checkedAt": "2026-09-10T01:50:11.706Z",
   "espnMls": {
     "ok": true,
     "status": 200,
@@ -9,7 +9,7 @@
         "id": "761792",
         "date": "2026-09-10T00:30Z",
         "name": "Inter Miami CF at Chicago Fire FC",
-        "status": "First Half"
+        "status": "Second Half"
       }
     ]
   },

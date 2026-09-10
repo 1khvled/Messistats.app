@@ -13,31 +13,35 @@
   font-display: swap;
 }
 
+/* Messi identity tokens: Argentina albiceleste (sky/white) primary, Blaugrana
+   (deep blue/garnet) secondary, gold reserved for records and honours.
+   Body text on white stays >= 4.5:1; fonts self-hosted, light theme kept. */
 :root {
-  --bg-1: #e9eff9;
-  --bg-2: #f6f8fc;
-  --bg-3: #edf1fa;
+  --bg-1: #e6f1f8;
+  --bg-2: #f5f9fc;
+  --bg-3: #e9f2f8;
   --surface: rgba(255, 255, 255, 0.72);
   --card: #ffffff;
-  --surface-solid: #f4f6fc;
-  --line: #e2e8f6;
-  --line-soft: #edf1fa;
+  --surface-solid: #f1f6fa;
+  --line: #d9e6f1;
+  --line-soft: #e8f1f7;
   --ink: #16243a;
   --ink-soft: #3c4a63;
   --muted: #66748f;
-  --faint: #8b96ad;
-  --brand: #2f56cf;
-  --brand-ink: #203ea6;
-  --brand-soft: #e7edfd;
-  --navy: #101f38;
-  --hero-grad: linear-gradient(112deg, #101f38 8%, #1a3260 46%, #2f56cf 88%);
+  --faint: #6b7691;
+  --brand: #0b6fa4;
+  --brand-ink: #084e75;
+  --brand-soft: #e0f1fa;
+  --navy: #132c52;
+  --hero-grad: linear-gradient(112deg, #6d0f2e 8%, #1d3fae 52%, #0e7cc0 96%);
   --accent: #22b07d;
   --accent-soft: #e2f6ec;
-  --gold: #b8860b;
+  --gold: #8a6300;
+  --gold-soft: #faf0cd;
   --pink: #e1438b;
-  --sky: #2f9fd8;
-  --bar-1: #7aa5f8;
-  --bar-2: #2f56cf;
+  --sky: #1593d1;
+  --bar-1: #7cc4ea;
+  --bar-2: #0e7cc0;
   --radius: 18px;
   --radius-lg: 26px;
   --shadow: 0 18px 45px -22px rgba(22, 36, 58, 0.28);
@@ -304,6 +308,14 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; m
 }
 .club-name { font-weight: 700; color: var(--ink); }
 .club-name small { display: block; font-weight: 500; color: var(--faint); font-size: 0.78rem; }
+/* Real crests sit on top of the colour badge; a missing file removes the
+   <img> (onerror) and the badge underneath becomes the visible fallback. */
+.crest { position: relative; flex: 0 0 30px; width: 30px; height: 30px; display: inline-block; }
+.crest .club-badge { width: 100%; height: 100%; }
+.crest-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.team-card-head .crest { flex: none; }
+.pill-crest { width: 20px; height: 20px; object-fit: contain; }
+.pill:has(.pill-crest) { display: inline-flex; align-items: center; gap: 7px; }
 
 /* ---------- Year picker + tiles ---------- */
 .year-pick {
@@ -423,6 +435,20 @@ svg.donut { width: 190px; height: 190px; flex: 0 0 190px; }
 .tp-name { font-family: var(--font-head); font-weight: 700; }
 .tp-count { flex: none; font-weight: 800; font-size: 0.78rem; color: var(--brand); background: var(--brand-soft); border-radius: 999px; padding: 2px 10px; }
 .tp-years { color: var(--muted); font-size: 0.85rem; }
+
+/* ---------- Trophy cabinet (achievements only) ----------
+   Real CC-licensed celebration photos. Grid on desktop, stacked on mobile. */
+body[data-page="achievements"] .cabinet { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 12px 0 4px; }
+body[data-page="achievements"] .cab-card { background: var(--card); border: 1px solid rgba(255,255,255,0.9); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 14px 14px 12px; margin: 0; min-width: 0; }
+body[data-page="achievements"] .cab-card h3 { font-size: 1.02rem; margin: 0 0 2px; }
+body[data-page="achievements"] .cab-sub { color: var(--muted); font-size: 0.86rem; margin: 0 0 10px; }
+body[data-page="achievements"] .cab-photo { margin: 0; min-width: 0; }
+body[data-page="achievements"] .cab-photo img { display: block; width: 100%; height: 200px; object-fit: cover; border-radius: 10px; background: var(--surface-solid); }
+body[data-page="achievements"] .cab-note { color: var(--muted); font-size: 0.86rem; margin: 10px 2px 0; grid-column: 1 / -1; }
+@media (max-width: 900px) {
+  body[data-page="achievements"] .cabinet { grid-template-columns: 1fr; gap: 12px; }
+  body[data-page="achievements"] .cab-photo img { height: 230px; }
+}
 
 /* ---------- Split cards (FK / pens / hat-tricks) ---------- */
 .split-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 6px 0; }
@@ -644,3 +670,75 @@ body[data-page="timeline"] .chapter[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) {
   body[data-page="timeline"] .tl-reveal { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- Dashboard depth (dashboard page only; additive) ---------- */
+body[data-page="dashboard"] .kpi-value { color: var(--brand-ink); }
+/* Competition group label under the competition name (career view). */
+body[data-page="dashboard"] .comp-team {
+  display: block; font-weight: 500; color: var(--faint); font-size: 0.78rem; margin-top: 1px;
+}
+/* Per-team cards: every senior team with apps, goals, rate and share of 927. */
+body[data-page="dashboard"] .team-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 1.1rem;
+}
+body[data-page="dashboard"] .team-card {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px;
+}
+body[data-page="dashboard"] .team-card-head { display: flex; align-items: center; gap: 12px; }
+body[data-page="dashboard"] .team-card-head strong {
+  display: block; font-family: var(--font-head); font-size: 1.02rem; color: var(--ink);
+}
+body[data-page="dashboard"] .team-card-head .sub { display: block; font-size: 0.78rem; color: var(--faint); font-weight: 500; }
+body[data-page="dashboard"] .team-share {
+  margin-left: auto; flex: none;
+  font-weight: 800; font-size: 0.8rem; color: var(--brand-ink);
+  background: var(--brand-soft); border-radius: 999px; padding: 3px 12px;
+}
+body[data-page="dashboard"] .team-nums { display: flex; gap: 26px; margin: 13px 0 11px; }
+body[data-page="dashboard"] .team-nums b {
+  display: block; font-family: var(--font-head); font-weight: 800; font-size: 1.55rem; color: var(--ink);
+}
+body[data-page="dashboard"] .team-nums span { font-size: 0.78rem; color: var(--muted); font-weight: 600; }
+body[data-page="dashboard"] .team-bar {
+  height: 9px; border-radius: 999px; overflow: hidden;
+  background: var(--surface-solid); border: 1px solid var(--line-soft);
+}
+body[data-page="dashboard"] .team-bar span {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--bar-1), var(--bar-2));
+}
+/* Records strip: gold numbers (records/honours), everything else untouched. */
+body[data-page="dashboard"] #dash-records .num { color: var(--gold); }
+/* Chart leaders (tallest bar in each set) get the record-gold treatment. */
+body[data-page="dashboard"] .hbar-fill.top { background: linear-gradient(90deg, #e3b008, var(--gold)); }
+@media (max-width: 640px) {
+  body[data-page="dashboard"] .team-grid { grid-template-columns: 1fr; }
+  body[data-page="dashboard"] .team-nums { gap: 20px; }
+}
+
+/* ---------- Timeline depth (timeline page only; additive) ---------- */
+/* Numbered key dates: gold ordinals, list semantics kept. */
+body[data-page="timeline"] .keydates { counter-reset: kd; }
+body[data-page="timeline"] .keydates li {
+  counter-increment: kd; position: relative; padding-left: 46px;
+}
+body[data-page="timeline"] .keydates li::before {
+  content: counter(kd, decimal-leading-zero);
+  position: absolute; left: 0; top: 9px;
+  font-family: var(--font-head); font-weight: 800; font-size: 0.95rem;
+  color: var(--gold); min-width: 34px;
+}
+/* Per-era stat callout under the goal-share note (peak year + trophies). */
+body[data-page="timeline"] .ch-callout { color: var(--muted); font-size: 0.86rem; margin: 2px 0 4px; }
+body[data-page="timeline"] .ch-callout b { color: var(--ink); }
+/* Milestone tags + gold rail markers for record entries. */
+body[data-page="timeline"] .tl-tag {
+  flex: none; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--gold); background: var(--gold-soft);
+  border: 1px solid #ead9a0; border-radius: 999px; padding: 1px 9px; white-space: nowrap;
+}
+body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold); background: var(--gold-soft); }

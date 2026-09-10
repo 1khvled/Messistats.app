@@ -72,9 +72,14 @@ const CLUBS = {
   miami: { name: "Inter Miami", years: "2023 to present", badge: "MIA", colors: "#e1438b,#7a1c4d" },
   argentina: { name: "Argentina", years: "2005 to present", badge: "ARG", colors: "#2f9fd8,#1668a8" },
 };
-const badge = (k) => {
+/* Real club crests (self-hosted in public/img/teams/) layered over the
+   original CSS colour badge: if a crest file is missing, onerror drops the
+   <img> and the old badge shows through instead of a broken image. */
+const badge = (k, eager) => {
   const c = CLUBS[k];
-  return `<span class="club-badge" data-team="${k}" aria-hidden="true">${c.badge}</span>`;
+  const label = (k === "psg" ? "Paris Saint-Germain" : c.name) + " crest";
+  return `<span class="crest" data-team="${k}"><span class="club-badge" data-team="${k}" aria-hidden="true">${c.badge}</span>` +
+    `<img class="crest-img" src="img/teams/${k}.png" alt="${label}" width="30" height="30" loading="${eager ? "eager" : "lazy"}" decoding="async" onerror="this.remove()"></span>`;
 };
 const teamName = (k) => (k === "psg" ? "PSG" : CLUBS[k].name);
 const CLUB_KEY = { Barcelona: "barcelona", "Paris Saint-Germain": "psg", "Inter Miami": "miami" };
@@ -136,7 +141,7 @@ const EXPLORE = [
   { href: "goalsbyseason.html", page: "byseason", t: "Messi goals by season", d: () => "League, cup and continental splits for every club season." },
   { href: "dashboard.html", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
   { href: "timeline.html", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
-  { href: "achievements.html", page: "achievements", t: "Messi trophies and awards", d: () => "All 44 team titles plus a record 8 Ballons d'Or." },
+  { href: "achievements.html", page: "achievements", t: "Messi trophies and awards", d: () => "All 46 team titles plus a record 8 Ballons d'Or." },
 ];
 function renderExplore(d, page) {
   const e = el("explore");
@@ -168,8 +173,8 @@ function sparkSVG(rows, opts) {
   const step = W / rows.length;
   const bw = Math.min(24, step * 0.6);
   let s = `<svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.label || "Bar chart")}">`;
-  s += `<defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7aa5f8"/><stop offset="1" stop-color="#2f56cf"/></linearGradient>` +
-    `<linearGradient id="barPeak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a3260"/><stop offset="1" stop-color="#101f38"/></linearGradient></defs>`;
+  s += `<defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0f2"/><stop offset="1" stop-color="#0e7cc0"/></linearGradient>` +
+    `<linearGradient id="barPeak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eec22f"/><stop offset="1" stop-color="#8a6300"/></linearGradient></defs>`;
   if (opts.cumulative) {
     const tot = rows.reduce((a, r) => a + r.value, 0);
     let run = 0;
@@ -232,7 +237,7 @@ function renderHome(d) {
     kpi("Career goals", n(t.goals), `${t.goalsPerGame} goals per game across ${seasons} club seasons.`) +
     kpi("Senior appearances", n(t.apps), `${n(t.clubs.apps)} club, ${n(t.country.apps)} Argentina.`) +
     kpi("Argentina goals", n(t.country.goals), `${gpg(t.country.goals, t.country.apps)} per cap across ${n(t.country.apps)} caps.`) +
-    kpi("Team trophies", "44", `Plus a record 8 Ballons d'Or. <a href="achievements.html">Full honours list</a>.`) +
+    kpi("Team trophies", "46", `Plus a record 8 Ballons d'Or. <a href="achievements.html">Full honours list</a>.`) +
     `<div class="kpi progress"><span class="kpi-label">Road to 1,000 goals</span>` +
     `<span class="kpi-value">${n(t.goals)} <small style="font-size:1rem;color:var(--muted)">/ 1,000</small></span>` +
     `<div class="progress-track"><div class="progress-fill" style="width:${(t.goals / 10).toFixed(1)}%"></div></div>` +
@@ -246,7 +251,7 @@ function renderHome(d) {
     ["How many goals for PSG and Inter Miami?", `<b>${agg.psg.goals} for Paris Saint-Germain</b> and <b>${n(agg.miami.goals)} for Inter Miami</b> (2026 season in progress).`],
     ["How many goals has Messi scored for Argentina?", `<b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps since 2005, including World Cup, Copa América and qualifying goals.`],
     ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="goalsbyyear.html">every year</a>.`],
-    ["How many trophies has Messi won?", `<b>44 team titles</b> — 35 with Barcelona, 3 with PSG, 2 with Inter Miami and 4 with Argentina — plus 8 Ballons d'Or. <a href="achievements.html">The full list</a>.`],
+    ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="achievements.html">The full list</a>.`],
   ];
   el("qa").innerHTML = Q.map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
 
@@ -297,17 +302,17 @@ function renderHome(d) {
     [`129`, `<b>Champions League goals</b> — 120 for Barcelona and 9 for PSG, the second-most in the competition's history.`],
     [n(post30), `<b>Goals since turning 30</b> — about ${Math.round((post30 / t.goals) * 100)}% of his entire career total, scored from 2017 onward.`],
     [`57`, `<b>Hat-tricks or more</b> for club and country across his senior career (provisional tally).`],
-    [`44`, `<b>Team trophies</b> — the most decorated career in football history, crowned by the 2022 World Cup.`],
+    [`46`, `<b>Team trophies</b> — the most decorated career in football history, crowned by the 2022 World Cup.`],
   ].map((r) => `<div class="record"><span class="num">${r[0]}</span><span>${r[1]}</span></div>`).join("");
 
   const teamT = teamTrophyTotals(d);
   el("silver").innerHTML =
-    `<table class="data-table"><caption>44 senior team titles, club by club, plus the headline individual honours.</caption>` +
+    `<table class="data-table"><caption>46 senior team titles, club by club, plus the headline individual honours.</caption>` +
     `<thead><tr><th scope="col" class="left">Trophy</th><th scope="col">Times</th><th scope="col" class="left">Note</th></tr></thead><tbody>` +
     `<tr><th scope="row">Team trophies — Barcelona</th><td>35</td><td class="left">2005 to 2021, incl. 4 Champions Leagues</td></tr>` +
-    `<tr><th scope="row">Team trophies — Argentina</th><td>4</td><td class="left">World Cup 2022, Copas América 2021 &amp; 2024, Finalissima 2022</td></tr>` +
+    `<tr><th scope="row">Team trophies — Argentina</th><td>5</td><td class="left">World Cup 2022, Copas América 2021 &amp; 2024, Finalissima 2022, Olympic gold 2008</td></tr>` +
     `<tr><th scope="row">Team trophies — PSG</th><td>3</td><td class="left">Ligue 1 2022 &amp; 2023, Trophée des Champions 2022</td></tr>` +
-    `<tr><th scope="row">Team trophies — Inter Miami</th><td>2</td><td class="left">Leagues Cup 2023, MLS Cup 2025</td></tr>` +
+    `<tr><th scope="row">Team trophies — Inter Miami</th><td>3</td><td class="left">Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025</td></tr>` +
     `<tr><th scope="row">Ballon d'Or</th><td>8</td><td class="left">Record — 2009–12, 2015, 2019, 2021, 2023</td></tr>` +
     `</tbody></table>`;
   void teamT;
@@ -322,11 +327,11 @@ function renderHome(d) {
   el("faq").innerHTML = [
     ["How many goals has Messi scored in total?", `<b>${n(t.goals)} in ${n(t.apps)}</b> senior games — ${n(t.clubs.goals)} at club level and ${n(t.country.goals)} for Argentina.`],
     ["How many goals did Messi score in 2012?", `<b>91</b> — 79 for Barcelona and 12 for Argentina, a world record for a calendar year.`],
-    ["How many World Cup goals does Messi have?", `<b>${d.byCompetition.find((r) => r.competition === "FIFA World Cup").goals}</b> — the all-time record — crowned by 7 in Qatar 2022 and 8 in 2026.`],
+    ["How many World Cup goals does Messi have?", `<b>${d.byCompetition.find((r) => r.competition === "FIFA World Cup").goals}</b> — the all-time record until Kylian Mbappé overtook him at the 2026 finals — crowned by 7 in Qatar 2022 and 8 in 2026.`],
     ["How many free kicks has Messi scored?", `<b>${m.freeKicks}</b> in senior football (provisional tally, counting by hand).`],
     ["How many penalties has Messi scored?", `<b>${m.penalties}</b> (same provisional basis).`],
     ["How many Ballons d'Or has Messi won?", `<b>Eight</b> — 2009, 2010, 2011, 2012, 2015, 2019, 2021 and 2023.`],
-    ["How many trophies has Messi won?", `<b>44 team titles</b> plus every major individual award. <a href="achievements.html">Every trophy listed</a>.`],
+    ["How many trophies has Messi won?", `<b>46 team titles</b> plus every major individual award. <a href="achievements.html">Every trophy listed</a>.`],
     ["How often is this site updated?", `After every match, by hand, from named sources — the date stamp at the top of the page shows the last check (${esc(d.lastUpdated)}).`],
   ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
 
@@ -435,8 +440,8 @@ const TEAM_COMPS = {
   miami: [["Major League Soccer", 68], ["Concacaf Champions Cup", 8], ["Leagues Cup and playoffs", 22]],
   argentina: [["World Cup qualifiers and friendlies", 90], ["FIFA World Cup", 21], ["Copa América", 14]],
 };
-const FINISH_COLORS = { "Open play": "#2f56cf", Penalties: "#7aa5f8", "Free kicks": "#101f38" };
-const BODY_COLORS = { "Left foot": "#2f56cf", "Right foot": "#7aa5f8", Head: "#9db6f5", Other: "#101f38" };
+const FINISH_COLORS = { "Open play": "#0e7cc0", Penalties: "#7cc4ea", "Free kicks": "#132c52" };
+const BODY_COLORS = { "Left foot": "#0e7cc0", "Right foot": "#55a8dc", Head: "#a9d3ee", Other: "#132c52" };
 
 function renderDashboard(d, team) {
   const T = TEAM_COMPS[team] ? team : "all";
@@ -446,7 +451,9 @@ function renderDashboard(d, team) {
   const apps = T === "all" ? d.totals.apps : T === "argentina" ? d.totals.country.apps : clubAgg(d)[T].apps;
   const pills = [["all", "All teams"], ["barcelona", "Barcelona"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentina"]];
   setHead(d, `Every Messi goal sliced four ways — by competition, by season, by finish and by body part — filtered to <b>${esc(name)}</b>. Tap a team to re-cut every chart.`);
-  el("pills").innerHTML = pills.map((p) => `<button class="pill${T === p[0] ? " on" : ""}" data-team="${p[0]}" aria-pressed="${T === p[0]}">${p[1]}</button>`).join("");
+  el("pills").innerHTML = pills.map((p) => `<button class="pill${T === p[0] ? " on" : ""}" data-team="${p[0]}" aria-pressed="${T === p[0]}">` +
+    (p[0] === "all" ? "" : `<img class="pill-crest" src="img/teams/${p[0]}.png" alt="" width="20" height="20" loading="eager" decoding="async" onerror="this.remove()">`) +
+    `${p[1]}</button>`).join("");
   el("pills").querySelectorAll(".pill").forEach((b) =>
     b.addEventListener("click", () => {
       const url = new URL(location.href);
@@ -526,7 +533,7 @@ function renderDashboard(d, team) {
   el("comp-table").innerHTML =
     `<table class="data-table"><caption>Goals by competition — ${esc(name)}.</caption>` +
     `<thead><tr><th scope="col" class="left">Competition</th><th scope="col">Goals</th><th scope="col">Share</th></tr></thead><tbody>` +
-    compRows.map((r) => `<tr><th scope="row">${esc(r.competition)}</th><td><b>${r.goals}</b></td><td>${((r.goals / goals) * 100).toFixed(1)}%</td></tr>`).join("") +
+    compRows.map((r) => `<tr><th scope="row">${esc(r.competition)}${r.team ? `<small class="comp-team">${esc(r.team)}</small>` : ""}</th><td><b>${r.goals}</b></td><td>${((r.goals / goals) * 100).toFixed(1)}%</td></tr>`).join("") +
     `</tbody></table>`;
   el("finish-table").innerHTML =
     `<table class="data-table"><caption>How the goals were scored and with what — career totals, all teams.</caption>` +
@@ -538,6 +545,38 @@ function renderDashboard(d, team) {
     `<tr><th scope="row">Head</th><td><b>${d.byBodyPart.head}</b></td><td>${((d.byBodyPart.head / d.totals.goals) * 100).toFixed(1)}%</td></tr>` +
     `<tr><th scope="row">Other (chest etc.)</th><td><b>${d.byBodyPart.other}</b></td><td>${((d.byBodyPart.other / d.totals.goals) * 100).toFixed(1)}%</td></tr>` +
     `</tbody></table><p class="caveat">Finish and body-part splits are a provisional compiled tally.</p>`;
+  /* Per-team cards: career-wide, unaffected by the ?team= filter. */
+  const tc = el("team-cards");
+  if (tc) {
+    const aggAll = clubAgg(d);
+    const order = ["barcelona", "psg", "miami", "argentina"];
+    tc.innerHTML = order.map((k) => {
+      const a = aggAll[k];
+      const share = ((a.goals / d.totals.goals) * 100).toFixed(1);
+      return `<article class="team-card"><div class="team-card-head">${badge(k)}` +
+        `<div><strong>${teamName(k)}</strong><span class="sub">${CLUBS[k].years}</span></div>` +
+        `<span class="team-share">${share}% of 927</span></div>` +
+        `<div class="team-nums"><div><b>${n(a.goals)}</b><span>goals</span></div>` +
+        `<div><b>${n(a.apps)}</b><span>apps</span></div>` +
+        `<div><b>${gpg(a.goals, a.apps)}</b><span>per game</span></div></div>` +
+        `<div class="team-bar" role="img" aria-label="${teamName(k)}: ${n(a.goals)} goals"><span style="width:${((a.goals / aggAll.barcelona.goals) * 100).toFixed(1)}%"></span></div></article>`;
+    }).join("");
+  }
+
+  /* Records strip: the landmark numbers behind these charts, all from this dataset. */
+  const dr = el("dash-records");
+  if (dr) {
+    const comp = (nm) => (d.byCompetition.find((r) => r.competition === nm) || {}).goals || 0;
+    dr.innerHTML = [
+      ["91", `<b>Goals in 2012</b> — the most any footballer has scored in a calendar year.`],
+      [n(comp("La Liga")), `<b>La Liga goals</b>, the competition's all-time record, all for Barcelona.`],
+      [n(comp("UEFA Champions League")), `<b>Champions League goals</b> — 120 for Barcelona, 9 for PSG.`],
+      ["8", `<b>Ballons d'Or</b>, more than any player in history (2009–12, 2015, 2019, 2021, 2023).`],
+      [n(d.hatTricks), `<b>Hat-tricks or more</b> for club and country (provisional tally).`],
+      ["46", `<b>Team trophies</b> — the most decorated career football has seen.`],
+    ].map((r) => `<div class="record"><span class="num">${r[0]}</span><span>${r[1]}</span></div>`).join("");
+  }
+
   sortable(el("comp-table").querySelector("table"));
   sortable(el("finish-table").querySelector("table"));
   renderExplore(d, "dashboard");
@@ -591,14 +630,14 @@ function renderTimeline(d) {
   const t = d.totals;
   setHead(d, `From his Barcelona debut in 2004 to <b>${n(t.goals)} career goals</b> and counting — the defining nights, records and trophies, dated and in order.`);
   el("keydates").innerHTML =
-    `<ul class="keydates">` +
+    `<ol class="keydates">` +
     `<li><span class="kd-date">16 Oct 2004</span><span>Senior debut for <b>Barcelona</b> against Espanyol, aged 17.</span></li>` +
     `<li><span class="kd-date">1 May 2005</span><span>First senior goal, against Albacete — Barcelona's youngest scorer at the time.</span></li>` +
     `<li><span class="kd-date">17 Aug 2005</span><span><b>Argentina</b> debut against Hungary.</span></li>` +
     `<li><span class="kd-date">2012</span><span><b>91 goals</b> in the calendar year — football's all-time record.</span></li>` +
     `<li><span class="kd-date">18 Dec 2022</span><span>Wins the <b>World Cup</b> with Argentina in Qatar, scoring twice in the final.</span></li>` +
     `<li><span class="kd-date">${esc(d.lastUpdated)}</span><span><b>${n(t.goals)} career goals</b> for club and country — last checked this date.</span></li>` +
-    `</ul>`;
+    `</ol>`;
   const groups = [];
   d.timeline.forEach((e) => {
     const { era, range } = eraOf(e.year);
@@ -650,6 +689,25 @@ function renderTimeline(d) {
       try { history.replaceState(null, "", href); } catch (ignored) { /* e.g. file:// */ }
     });
   });
+  /* Milestone tags: one honest label per entry, derived from its own words. */
+  const tagFor = (txt) => {
+    if (/record/i.test(txt)) return "Record";
+    if (/ballon/i.test(txt)) return "Ballon d'Or";
+    if (/world cup/i.test(txt)) return "World Cup";
+    if (/first |debut|youngest/i.test(txt)) return "First";
+    return "";
+  };
+  /* Per-era callout: best calendar year inside the span + team trophies won there. */
+  const calloutFor = (g) => {
+    const yrs = d.calendarYears.filter((r) => r.year >= g.spanFrom && r.year <= g.spanTo);
+    if (!yrs.length) return "";
+    const pk = yrs.reduce((a, b) => (b.goals > a.goals ? b : a));
+    const tr = d.trophies
+      .filter((x) => x.team !== "Individual")
+      .reduce((s, x) => s + x.years.filter((y) => +y >= g.spanFrom && +y <= g.spanTo).length, 0);
+    return `<p class="ch-callout">Peak year <b>${pk.year} · ${pk.goals} goals</b>` +
+      (tr ? ` · <b>${tr}</b> team ${tr === 1 ? "trophy" : "trophies"} won in this span` : "") + `</p>`;
+  };
   /* Chapters: per-era goal bars, date badges, milestone markers, live chip. */
   el("chapters").innerHTML = groups.map((c, i) => {
     const last = i === groups.length - 1;
@@ -662,12 +720,15 @@ function renderTimeline(d) {
       `<div class="ch-goalbar" role="img" aria-label="${esc(c.era)}: ${n(c.goalsInEra)} goals, ${share} percent of a ${n(totalGoals)}-goal career">` +
       `<span class="ch-goalbar-fill" style="width:${width}%"></span></div>` +
       `<p class="ch-goalnote"><b>${n(c.goalsInEra)} goals</b> · ${share}% of ${n(totalGoals)}</p>` +
+      calloutFor(c) +
       eraPhotos(c.era) +
-      `<ol class="tl-events">` + c.events.map((e) =>
-        `<li class="tl-event" data-text="${esc((e.year + " " + e.event).toLowerCase())}">` +
-        `<span class="tl-marker" aria-hidden="true"></span>` +
-        `<span class="tl-date">${e.year}</span><span class="tl-text">${esc(e.event)}</span></li>`
-      ).join("") + `</ol></article>`;
+      `<ol class="tl-events">` + c.events.map((e) => {
+        const tag = tagFor(e.event);
+        return `<li class="tl-event${tag === "Record" ? " rec" : ""}" data-text="${esc((e.year + " " + e.event).toLowerCase())}">` +
+          `<span class="tl-marker" aria-hidden="true"></span>` +
+          `<span class="tl-date">${e.year}</span><span class="tl-text">${esc(e.event)}</span>` +
+          (tag ? `<span class="tl-tag">${tag}</span>` : "") + `</li>`;
+      }).join("") + `</ol></article>`;
   }).join("");
   /* Active-section highlight on the jump-nav. */
   const links = [...nav.querySelectorAll("a")];
@@ -756,23 +817,41 @@ function renderTimeline(d) {
 }
 
 /* ================= ACHIEVEMENTS ================= */
+/* Trophy cabinet: self-hosted Commons celebration photos, all CC-licensed,
+   each captioned with a Commons file link + licence. Mounted as #cabinet.
+   The 2022 World Cup lift is deliberately absent — no freely licensed photo
+   of Messi lifting that trophy could be verified, so none is shown. */
+const CABINET = [
+  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "img/cab-ballon.jpg", w: 1280, h: 726, alt: "Messi holding a golden trophy aloft on a floodlit pitch at night, seen from the stands", cap: "Messi lifts his record eighth Ballon d'Or before Inter Miami's Noche d'Or celebration, November 2023 — a distant view from the stands", file: "https://commons.wikimedia.org/wiki/File:Messi_lifting_Bal%C3%B3n_Dor.jpg", lic: "CC0", licUrl: "https://creativecommons.org/publicdomain/zero/1.0/" },
+  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "img/cab-ucl.jpg", w: 1280, h: 770, alt: "A Barcelona player hoists the European Cup as the squad celebrate in Rome", cap: "Piqué lifts the European Cup as Barcelona — Messi among the celebrating squad — toast the 2009 final win in Rome", file: "https://commons.wikimedia.org/wiki/File:Celebrando_la_Copa_de_Campeones_2008-09.jpg", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
+  { title: "La Liga — 10", sub: "Ten Spanish titles with Barcelona, 2005–2019.", src: "img/cab-liga.jpg", w: 1280, h: 693, alt: "Barcelona's players celebrating together on the Camp Nou pitch", cap: "Barcelona's squad celebrate clinching the 2009–10 La Liga title at Camp Nou — Messi top-scored in the league that season with 34 goals", file: "https://commons.wikimedia.org/wiki/File:FC_Barcelona_celebra_la_Liga_2009-2010.jpg", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
+];
+const cabinetPhotos = () => CABINET.map((p) =>
+  `<article class="cab-card"><h3>${esc(p.title)}</h3><p class="cab-sub">${esc(p.sub)}</p>` +
+  `<figure class="cab-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" />` +
+  `<figcaption class="photo-credit">${esc(p.cap)} — photo via <a href="${p.file}" rel="noopener">Wikimedia Commons</a>, <a href="${p.licUrl}" rel="noopener">${p.lic}</a></figcaption></figure></article>`
+).join("") +
+  `<p class="cab-note">Every photo is self-hosted from Wikimedia Commons under a Creative Commons or public-domain licence, captioned with its source. No World Cup lift photo appears here: no freely licensed photograph of Messi lifting the 2022 trophy could be verified, so — rather than use an unlicensed frame — that triumph is recorded in the titles below instead of pictured.</p>`;
 function renderAch(d) {
   const teamRows = d.trophies.filter((x) => x.team !== "Individual");
   const indRows = d.trophies.filter((x) => x.team === "Individual");
   const teamTotal = teamRows.reduce((a, x) => a + x.count, 0);
   const indTotal = indRows.reduce((a, x) => a + x.count, 0);
+  const per = {};
+  teamRows.forEach((x) => { per[x.team] = (per[x.team] || 0) + x.count; });
   setHead(d, `<b>${teamTotal} team trophies</b> — the most decorated career football has seen — plus a record <b>8 Ballons d'Or</b>. Every title, club by club, with the years won.`);
   el("kpis").innerHTML =
-    kpi4("Team trophies", teamTotal, "Barcelona 35 · Argentina 4 · PSG 3 · Miami 2.") +
+    kpi4("Team trophies", teamTotal, `Barcelona ${per["Barcelona"] || 0} · Argentina ${per["Argentina"] || 0} · PSG ${per["Paris Saint-Germain"] || 0} · Miami ${per["Inter Miami"] || 0}.`) +
     kpi4("Ballons d'Or", "8", "Record — 2009–12, 2015, 2019, 2021, 2023.") +
     kpi4("Champions Leagues", "4", "2006, 2009, 2011, 2015 — all with Barcelona.") +
     kpi4("Major internationals", "3", "World Cup 2022, Copas América 2021 & 2024.");
   el("qa").innerHTML = [
-    ["How many trophies has Messi won?", `<b>${teamTotal} senior team titles</b>: 35 Barcelona, 3 PSG, 2 Inter Miami and 4 Argentina.`],
+    ["How many trophies has Messi won?", `<b>${teamTotal} senior team titles</b>: ${per["Barcelona"] || 0} Barcelona, ${per["Paris Saint-Germain"] || 0} PSG, ${per["Inter Miami"] || 0} Inter Miami and ${per["Argentina"] || 0} Argentina.`],
     ["How many Ballons d'Or has Messi won?", "<b>Eight</b> — more than any player ever (2009–12, 2015, 2019, 2021, 2023)."],
     ["Has Messi won the World Cup?", "<b>Yes — 2022</b>, scoring twice in the final against France, plus Copas América 2021 and 2024."],
     ["How many Champions Leagues has Messi won?", "<b>Four</b>, all with Barcelona: 2006, 2009, 2011 and 2015."],
   ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
+  el("cabinet").innerHTML = cabinetPhotos();
   const order = ["Barcelona", "Paris Saint-Germain", "Inter Miami", "Argentina"];
   const trow = (x) => `<div class="tpill"><span class="tp-name">${esc(x.title)}</span><span class="tp-count">×${x.count}</span>` +
     `<span class="tp-years">${esc(x.years.join(", "))}</span></div>`;

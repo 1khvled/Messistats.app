@@ -1,6 +1,6 @@
 # CONTEXT.md — messi-stats (for AI agents)
 
-Read this before touching anything. Last updated 2026-09-09.
+Read this before touching anything. Last updated 2026-09-10.
 
 ## What this is
 
@@ -10,7 +10,7 @@ code or visual identity). 6 static pages, one JSON data file, no backend, no
 API keys, zero third-party requests by default.
 
 Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
-44 team trophies, 8 Ballons d'Or. Updated 9 September 2026.
+46 team trophies, 8 Ballons d'Or. Updated 10 September 2026.
 
 ## Stack & commands
 
@@ -18,8 +18,11 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   goalsbyseason, dashboard, timeline, achievements). `base: './'`, outDir `dist`.
 - `npm run dev` / `npm run build` (build output verified 2026-09-09, ~258ms).
 - `npm run verify` = `node scripts/verify.mjs` (free public feeds → writes
-  `public/data/last-check.json` ONLY) + `smart-check.mjs --dry-run`
-  (matchday-gated staging; cheap exit when nothing new). NEVER writes totals.
+  `public/data/last-check.json` ONLY) + `node scripts/source-watch.mjs`
+  (fetch-and-stage-only watcher: stages feed mismatches into `pending.json`,
+  NEVER writes totals) + `smart-check.mjs --dry-run`
+  (matchday-gated staging; cheap exit when nothing new).
+- `npm run verify:watch` runs the source-watcher alone.
 - `npm run verify:smart:write` persists staged rows to `public/data/pending.json`.
 - `scripts/confirm-provisional.mjs` = human confirms a pending row by hand.
 
@@ -47,7 +50,7 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
 - `calendarYears[]` (23 rows, 2004–2026): MUST sum to 927. 2026 row has `provisional:true`.
 - `byCompetition[]` (12 rows): MUST sum to 927. Derived from season rows (Barca continental=UCL 120, other=22; PSG UCL 9; Miami MLS 68/Concacaf 8/other 22) + country recounts (WC 21, Copa 14, other intl 90). Recompute from `clubSeasons` if editing.
 - `byFinish{openPlay:752, penalties:109, freeKicks:66}` + `hatTricks:57` + `byBodyPart[]` (740/150/27/10): widely published compiled tallies, PROVISIONAL until match-by-match hand count. Always show the caveat next to them (pages do).
-- `trophies[]` (20 rows, team-by-team with counts+seasons = 44 total), `individual[]` (8 awards), `timeline[]` (18 entries, dated).
+- `trophies[]` (22 rows, team-by-team with counts+seasons = 46 total), `individual[]` (8 awards), `timeline[]` (18 entries, dated).
 
 ## Iron rules
 
@@ -76,3 +79,11 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
 - TIMELINE UPGRADE + VERCEL-READY (user: "timeline is not an exact copy" + "make the website vercel ready"; exact-copy refused — reference is copyrighted, so same depth with original code only). Timeline subagent: sticky 7-era jump-nav (`nav#era-nav`, smooth-scroll reduced-motion safe, IntersectionObserver `aria-current` highlight), live milestone search (`input#tl-filter` + `aria-live` count, hides emptied chapters, no-results note), per-era CSS goal bars + share-of-927 notes, date badges/marker rail/"in progress" chip, reveal-on-scroll, ≤640px pass — all CSS scoped under `body[data-page="timeline"]`, mounts intact. ERA-MATH FIX: old eraOf ranges overlapped 2021+2023 (spans summed 1012); eras now non-overlapping spans 68/248/155/164/120/77/95 = 927 ✓, method note documents partitioning, JSON untouched. Verified Playwright: 0 console errors, "18 milestones across 7 eras · 927 goals", "World Cup"→6/18, 390px zero horizontal overflow, index regression clean. Vercel subagent: new `vercel.json` (build `npm run build`, output `dist`, cleanUrls, immutable fonts/img/assets, no-cache data; no functions/rewrites — every route is a real .html file) + minimal `.vercelignore` (worker, wrangler.toml, scripts) + README "Deploy on Vercel" section (import repo, Vite preset, build `npm run build`, output `dist`, no env vars; check all 6 clean URLs + /data/messi-data.json = 927). Verified dist preview: all 6 pages + JSON + fonts + photo 200, public/dist JSON SHA identical, base './' kept (build rebases /fonts/→../fonts/). Build ✓ (409ms), verify ✓ (cheap exit). NOT deployed — needs your Vercel import.
 - TEAM BADGES + TIMELINE ERA PHOTOS (user: "real barcelona icons, real team icons, real photos of messi on the timeline"). Official crests are trademarked — declined, shipped ORIGINAL club-colour badges instead: `.club-badge` now 30px rounded-square with per-team designs via `data-team` (barcelona=Blaugrana split, psg=navy+red band, miami=pink gradient, argentina=sky/white stripes; `badge()` in app.js drops inline styles). Real photos must be freely licensed: 7 CC action shots from Wikimedia Commons self-hosted in `public/img/` (era-2005/2011/2014/2016-Barca, era-2021-PSG, era-2022-Argentina WC, era-2025-Miami; ~600KB total, all lazy + explicit dimensions; era-2016 resized PNG→JPEG q82 730KB→71KB), wired into timeline chapters via `ERA_PHOTOS`+`eraPhotos()` with visible Commons-file + licence-deed credit captions (2019–2021 farewell era has no verified photo → renders no figure). Crests visible on shirts inside photos = documentary use, not reproduced assets. Verified dist preview: 7/7 imgs naturalWidth>0, Paris chapter screenshot (PSG+WC photos side by side), home club-grid badges screenshot (778+75+112+207=1172 ✓), 0 console errors, build ✓, verify ✓ (cheap exit).
 - TIMELINE CLOSE-UP UPGRADE (user: replace weak timeline photos with quality close-ups, displayed well). Viewed every era photo on disk with the Read tool — 2005/2021/2025 portraits all correct, 2011/2014 banner crops verified on screen. CAUGHT a stale-summary error: era-2016 on disk was STILL the rear-view Remontada free-kick shot (394,535B, 1280x1217) while the old caption claimed a front portrait — caption and pixels mismatched. Remontada series has only 3 Commons files, all rear views, so re-sourced from year-category enumeration instead: new era-2016 = File:Real Valladolid - FC Barcelona, 2018-08-25 (106) cropped.jpg (CC BY-SA 4.0, www.realvalladolid.es), 1280x1707 377KB front Blaugrana close-up, pos 50% 5% keeps full face in the 340px banner (screenshot-verified: eyes+beard+crest in frame), honest caption "Against Valladolid, La Liga 2018" (Aug 2018 inside the 2016–2018 chapter). JSON untouched. Build ✓, verify ✓ (cheap exit), console 0 errors (2 benign font-preload warnings), home badge regression clean (1,172/927 ✓). `candidate/` scratch deleted.
+- 44-TO-46 RECONCILE (user: "do 46"). messi.com's official career count is 46; bridging inclusions vs the old 44 are Supporters' Shield (Inter Miami 2024), MLS Cup (Inter Miami 2025), Olympic Gold 2008 (Argentina). teamTotal now derives from data (excludes Individual): 35 Barcelona + 3 PSG + 3 Miami + 5 Argentina = 46 across 22 trophy rows. "46th title (Oct 2024)" ordinal was unverifiable (messi.com fetch 403s) so the Shield note was neutralized to "First Supporters' Shield in club history (Oct 2024); one of the three Inter Miami titles in the official 46". Achievements splits converted from hardcoded copy to a data-derived `per` map so future edits propagate. Checksums hold: calendarYears = byCompetition = byBodyPart array = 927.
+- SOURCE-WATCHER WIRING (user: "make those all sources u just scraped permentante scripts that always fires and auto scrape" — reconciled as fetch-and-stage-only, user did not object). New `scripts/source-watch.mjs` wired into `npm run verify` (verify.mjs + source-watch.mjs + smart-check --dry-run) plus standalone `npm run verify:watch`. It NEVER writes totals: mismatches stage into `pending.json` for hand confirmation. Proven in production: one run staged 2 new rows (needs_review=3), messi-data.json untouched by design.
+- SEO/GEO PASS #2: SpeakableSpecification + Organization JSON-LD, sitemap.xml, robots.txt, hand-maintained public/llms.txt (46-title / WC-record wording kept in sync there too). Placeholder canonical domain https://messi-stats.vercel.app marked TODO — do NOT invent a production domain.
+- REAL TEAM CRESTS (user overrode the trademark rule 3 times, so shipped with trademark footers on all 6 pages). `public/img/teams/`: barcelona.png + psg.png + miami.png re-downloaded from ESPN CDN after a stopped agent mislabeled files (ground truth = viewed PNGs with Read tool, not agent summaries). No CC AFA crest exists on Commons, so argentina.png is the Argentina FLAG per ESPN national-team convention, not a crest. `badge()` renders crest-img with onerror fallback to the CSS colour badge. All 4 probe naturalWidth 500 (early 0s were lazy-load-below-fold, not broken files).
+- TROPHY CABINET on achievements.html: cab-ballon.jpg (CC0), cab-ucl.jpg (CC BY 2.0 galkiux, Rome 2009 squad), cab-liga.jpg (CC BY 2.0 Oemar). NO licensed WC-lift photo exists, so it is honestly omitted with a visible note instead of a fake. Root scratch `mls.json` + `wiki_messi.json` deleted (unreferenced).
+- WC-RECORD WORDING FIX (research conflict C4, report-only rule): web search CONFIRMED (beIN "Mbappe surpasses Messi", Gulf News "Mbappe overtakes Messi", FOX all-time list) that Mbappe overtook Messi's 21 at the 2026 finals, so all WC-record copy now says "the all-time record until Kylian Mbappe overtook him at the 2026 finals". Other open conflicts, NOT silently corrected: penalties 109 vs 114/149, hat-tricks 57 vs 54/61, assists 400 vs 422 — all stay provisional-with-caveat.
+- Verified 2026-09-10: build clean (444ms, 6 pages), verify exit 0 (927x3, expected staged items), Playwright on dist preview — home KPIs 927/1,172/125/46 + silver 35/5/3/3 + valid JSON-LD, achievements derived "35/5/3/3" + 3 cabinet imgs + 0 console errors, dashboard record 46 + team cards 672/32/98/125, 390px viewport no page overflow. Preview server stopped afterwards.
+- HAND-CHECK QUEUE (pending.json needs_review=3, for the user): `watch:espn-mls-stale:espn23` (ESPN 23 completed 2026 Miami games vs JSON league apps 20), `watch:article:espn-tracker:*` (tracker page changed), `watch:unreadable:messicom-46` (403, manual-only). Agents never commit; no commit ordered.
