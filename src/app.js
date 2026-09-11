@@ -173,7 +173,7 @@ function methodHTML(d, extra) {
     `<p>I count one thing: official senior first-team matches for ${teams} — ` +
     `every league game, domestic cup, continental night and international, and nothing else. No youth football, no reserves, no friendlies dressed up as history.</p>` +
     `<p>Season and calendar-year goals are tallied from full match records and checked against club ` +
-    `and competition sources after every game. The free-kick, penalty and hat-trick splits are a widely published tally, marked ` +
+    `and competition records plus free match-data feeds (ESPN, openfootball, football-data.org) after every game. The free-kick, penalty and hat-trick splits are a widely published tally, marked ` +
     `provisional until my match-by-match hand count is finished. ${extra || ""}</p>` +
     `<p class="colophon">This is a one-person site, kept by hand. Totals only ever change when I have a named source and have checked it twice — ` +
     `never by a script, never on a rumour. If you spot something wrong, that date stamp at the top tells you exactly when I last looked.</p>`;
@@ -230,6 +230,9 @@ function donutSVG(parts, total, centerTop, centerSub) {
   return s;
 }
 
+function clubTableCaption() {
+  return `<p class="table-hint">Click a column header to sort. Senior first-team matches only.</p>`;
+}
 /* ================= HOME ================= */
 function renderHome(d) {
   const t = d.totals, agg = clubAgg(d), p = d.profile;
@@ -245,6 +248,7 @@ function renderHome(d) {
     `<dl class="identity-facts"><div><dt>Role</dt><dd>${esc(p.role)}</dd></div>` +
     `<div><dt>Teams</dt><dd>${esc(p.teams.join(" · "))}</dd></div>` +
     `<div><dt>Now</dt><dd>${esc(p.current.join(" · "))}</dd></div></dl></div>`;
+  el("profile").classList.add("identity--tight");
 
   const togo = 1000 - t.goals;
   const done = d.calendarYears.filter((r) => !r.provisional);
@@ -262,6 +266,7 @@ function renderHome(d) {
     `<span class="kpi-note">${togo} to go${d.calendarYears[d.calendarYears.length - 1].provisional ? ", 2026 season in progress" : ""}. ` +
     `Rough projection at his ${last3[0].year}–${last3[last3.length - 1].year} pace (~${pace.toFixed(0)} a year): 1,000 lands around ${projYear}.</span></div>`;
   function kpi(l, v, s) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s}</span></div>`; }
+  el("kpis").classList.add("kpi--hero");
 
   const Q = [
     ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="goalsbyyear.html">year-by-year breakdown</a>.`],
@@ -272,6 +277,7 @@ function renderHome(d) {
     ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="achievements.html">The full list</a>.`],
   ];
   el("qa").innerHTML = Q.map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
+  el("qa").classList.add("qa--dense");
 
   const order = ["barcelona", "psg", "miami", "argentina"];
   const rows = order.map((k2) => {
@@ -282,7 +288,7 @@ function renderHome(d) {
   el("club-card").innerHTML =
     `<table class="data-table"><caption>Appearances and goals for every senior team Lionel Messi has played for, as of ${esc(d.lastUpdated)}. Full competition splits are on the <a href="goalsbyseason.html">goals by season page</a>.</caption>` +
     `<thead><tr><th scope="col" class="left">Team and years</th><th scope="col">Apps</th><th scope="col">Goals</th><th scope="col">Goals per game</th></tr></thead>` +
-    `<tbody>${rows}<tr class="total"><th scope="row">Career total</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>`;
+    `<tbody>${rows}<tr class="total"><th scope="row">Career total</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>` + clubTableCaption();
   sortable(el("club-card").querySelector("table"));
   sortable(el("silver").querySelector("table"));
 
@@ -941,7 +947,7 @@ function renderAch(d) {
   renderMethod(d, "");
 }
 
-/* ---------- /analytics: public visit counts (read-only rollup) ---------- */
+/* ---------- /admin: OWNER-ONLY visit counts (password-gated rollup) ---------- */
 const ANALYTICS_PAGES = [
   { page: "home", href: "index.html", t: "Home", s: "Home" },
   { page: "byyear", href: "goalsbyyear.html", t: "Goals by Year", s: "By Year" },
@@ -949,29 +955,78 @@ const ANALYTICS_PAGES = [
   { page: "dashboard", href: "dashboard.html", t: "Dashboard", s: "Dashboard" },
   { page: "timeline", href: "timeline.html", t: "Through the Years", s: "Timeline" },
   { page: "achievements", href: "achievements.html", t: "Achievements", s: "Trophies" },
-  { page: "analytics", href: "analytics.html", t: "Analytics", s: "Analytics" },
+  { page: "admin", href: "admin.html", t: "Admin", s: "Admin" },
 ];
 function kpiA(l, v, s) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s}</span></div>`; }
-async function renderAnalytics(d) {
-  setHead(d, `Every visit to every page on this site — <b>counted in the open, no names, no cookies</b>. The same counter lives in each page footer; this is all of them in one place.`);
-  renderExplore(d, "analytics");
+const AKEY = "ms-analytics-key"; /* tab-scoped: dies with the tab, unlike localStorage */
+function getAKey() { try { return sessionStorage.getItem(AKEY) || ""; } catch { return ""; } }
+function setAKey(v) { try { if (v) sessionStorage.setItem(AKEY, v); else sessionStorage.removeItem(AKEY); } catch { /* private mode: login just won't stick between reloads */ } }
+async function fetchStats(key) {
+  const r = await fetch("/api/count?stats=1", { cache: "no-store", headers: key ? { Authorization: `Bearer ${key}` } : {} });
+  if (r.status === 401) return { locked: true };
+  if (r.status === 503) return { unready: true };
+  if (!r.ok) throw 0;
+  return { pages: (await r.json()).pages };
+}
+function hideStatsTbl(tbl, kpis) {
+  if (tbl) tbl.style.display = "none"; /* empty card shell would render as a blank box */
+  if (el("page-table-head")) el("page-table-head").style.display = "none"; /* heading with no table under it */
+  if (kpis) kpis.innerHTML = "";
+}
+function showAdminLogin(d, box, tbl, kpis, msg) {
+  hideStatsTbl(tbl, kpis);
+  document.getElementById("a-lock-wrap")?.remove(); /* relock must not leave the old Lock button behind */
+  if (box) box.innerHTML =
+    `<p class="caveat">🔒 This corner is owner-only — the visit counts are classified, so they stay behind a password.</p>` +
+    `<form id="a-login">` +
+    `<label for="a-pass" class="a-label">Password</label>` +
+    `<input id="a-pass" class="a-input" type="password" name="password" autocomplete="current-password" />` +
+    `<p><button class="btn btn-primary" type="submit">Unlock the numbers</button></p>` +
+    (msg ? `<p class="caveat err" role="alert">${esc(msg)}</p>` : "") +
+    `</form>`;
+  const f = el("a-login");
+  if (f) f.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const pw = el("a-pass") ? el("a-pass").value : "";
+    let s = null;
+    try { s = await fetchStats(pw); } catch { /* backend unreachable: fall through to the error line */ }
+    if (s && s.pages) { setAKey(pw); renderAdmin(d); return; }
+    showAdminLogin(d, box, tbl, kpis, s && s.unready
+      ? "The counter backend isn't set up yet — the server password is missing."
+      : "Wrong password — try again.");
+  });
+}
+async function renderAdmin(d) {
+  setHead(d, `An owner-only corner: every visit to every page, counted quietly — <b>no names, no cookies, and only I hold the password</b>.`);
+  renderExplore(d, "admin");
   renderMethod(d, "");
   const kpis = el("kpis"), box = el("page-card"), tbl = el("page-table");
-  let rows = [];
+  let pages;
   try {
-    const r = await fetch("/api/count?stats=1", { cache: "no-store" });
-    if (!r.ok) throw 0;
-    const { pages } = await r.json();
-    rows = ANALYTICS_PAGES.map((p) => ({ ...p, views: (pages && Number(pages[p.page])) || 0 }))
-      .sort((a, b) => b.views - a.views);
+    const s = await fetchStats(getAKey());
+    if (s.locked) {
+      const stale = !!getAKey();
+      if (stale) setAKey(""); /* saved password went stale (it changed server-side): drop it */
+      showAdminLogin(d, box, tbl, kpis, stale ? "The password changed — log in again." : "");
+      return;
+    }
+    if (s.unready) {
+      if (box) box.innerHTML = `<p class="caveat">The visit-counter backend is live but has no password set yet, so the numbers stay locked until the owner sets one.</p>`;
+      hideStatsTbl(tbl, kpis);
+      return;
+    }
+    pages = s.pages;
   } catch {
     /* no backend here (local preview, static file, ad-blocked): explain, don't show zeros */
     if (box) box.innerHTML = `<p class="caveat">Live visit counts need the deployed site — this preview has no counter backend, so there is nothing to show yet.</p>`;
-    if (tbl) tbl.style.display = "none"; /* empty card shell would render as a blank box */
-    if (el("page-table-head")) el("page-table-head").style.display = "none"; /* heading with no table under it */
-    if (kpis) kpis.innerHTML = "";
+    hideStatsTbl(tbl, kpis);
     return;
   }
+  if (tbl) tbl.style.display = ""; /* undo hideStatsTbl() from a previous locked view */
+  const thead = el("page-table-head");
+  if (thead) thead.style.display = "";
+  const rows = ANALYTICS_PAGES.map((p) => ({ ...p, views: (pages && Number(pages[p.page])) || 0 }))
+    .sort((a, b) => b.views - a.views);
   const total = rows.reduce((a, x) => a + x.views, 0);
   const top = rows[0];
   if (kpis) kpis.innerHTML =
@@ -986,6 +1041,11 @@ async function renderAnalytics(d) {
     `<thead><tr><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th></tr></thead><tbody>` +
     rows.map((x) => `<tr><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? Math.round((x.views / total) * 100) + "%" : "—"}</td></tr>`).join("") +
     `</tbody></table>`;
+  const old = el("a-lock-wrap");
+  if (old) old.remove(); /* re-renders (login/logout) must not stack buttons */
+  if (tbl) tbl.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
+  const lock = el("a-lock");
+  if (lock) lock.addEventListener("click", () => { setAKey(""); renderAdmin(d); });
 }
 
 /* ================= BOOT ================= */
@@ -1002,7 +1062,7 @@ load().then((d) => {
     }
     else if (page === "timeline") renderTimeline(d);
     else if (page === "achievements") renderAch(d);
-    else if (page === "analytics") renderAnalytics(d);
+    else if (page === "admin") renderAdmin(d);
   } catch (e) {
     console.error(e);
   }

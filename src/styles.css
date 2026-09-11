@@ -62,8 +62,9 @@ body {
   min-height: 100vh;
   font-size: 16px;
   line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
-h1, h2, h3 { font-family: var(--font-head); color: var(--ink); line-height: 1.18; letter-spacing: -0.015em; }
+h1, h2, h3 { font-family: var(--font-head); color: var(--ink); line-height: 1.18; letter-spacing: -0.015em; text-wrap: balance; }
 h2 { font-size: 1.45rem; margin: 2.4rem 0 1rem; }
 h3 { font-size: 1.02rem; margin: 0 0 0.4rem; }
 p { margin: 0 0 0.9rem; }
@@ -162,7 +163,7 @@ a:hover { color: var(--brand-ink); text-decoration: underline; }
 }
 .updated-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 h1.page-title, .wrap > h1 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 800; margin: 0 0 12px; }
-.page-lead, .lede { color: var(--muted); font-size: 1.06rem; max-width: 62ch; }
+.page-lead, .lede { color: var(--muted); font-size: 1.06rem; max-width: 62ch; text-wrap: pretty; }
 .page-lead b, .lede b { color: var(--ink); }
 .btn {
   display: inline-block;
@@ -174,6 +175,11 @@ h1.page-title, .wrap > h1 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight
   box-shadow: var(--shadow-sm);
 }
 .btn:hover { border-color: var(--brand); color: var(--brand-ink); text-decoration: none; }
+.btn { transition: transform 0.12s ease, border-color 0.15s ease, color 0.15s ease; }
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: var(--navy); border-color: var(--navy); color: #fff; }
+.btn-primary:hover { background: var(--brand-ink); border-color: var(--brand-ink); color: #fff; }
+a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 /* ---------- Identity / profile ---------- */
 .identity, .profile {
@@ -542,6 +548,8 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 }
 .pill:hover { border-color: var(--brand); color: var(--brand-ink); }
 .pill.on { background: var(--navy); border-color: var(--navy); color: #fff; }
+.pill { transition: transform 0.12s ease, border-color 0.15s ease, color 0.15s ease; }
+.pill:active { transform: scale(0.96); }
 
 /* ---------- Explore links ---------- */
 .link-grid, .explore {
@@ -566,11 +574,21 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 .method p { color: var(--muted); font-size: 0.9rem; }
 .footer, footer p { color: var(--faint); font-size: 0.84rem; margin-top: 1.6rem; }
 .prose { max-width: 70ch; color: var(--ink-soft); }
-.prose p { margin-bottom: 0.9rem; }
+.prose p { margin-bottom: 0.9rem; text-wrap: pretty; }
 .caveat {
   background: #fff8e8; border: 1px solid #f0dfae; color: #7a5c14;
   border-radius: 12px; padding: 9px 15px; font-size: 0.86rem; margin-top: 12px;
 }
+.caveat.err { background: #fdeeee; border-color: #f3c2c2; color: #8f1d1d; }
+
+/* ---------- Admin login (admin page only) ---------- */
+.a-label { display: block; margin: 2px 0 6px; font-weight: 700; }
+.a-input {
+  width: 100%; max-width: 22rem; padding: 10px 14px; font: inherit; color: var(--ink);
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+}
+.a-input:focus { outline: 2px solid var(--brand-soft); border-color: var(--brand); }
+#a-login .btn { margin-top: 12px; }
 
 /* ---------- Reveal animation ---------- */
 .reveal { animation: rise 0.55s ease both; }
@@ -783,3 +801,11 @@ body[data-page="timeline"] .tl-tag {
   border: 1px solid #ead9a0; border-radius: 999px; padding: 1px 9px; white-space: nowrap;
 }
 body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold); background: var(--gold-soft); }
+/* Home polish (additive): tighter identity, hero KPIs, dense QA */
+.identity--tight { gap: 14px; padding: 18px 20px; }
+.identity--tight .identity-photo { flex-basis: 132px; width: 132px; }
+.kpi--hero .kpi-value { font-size: 2.35rem; letter-spacing: -0.02em; }
+.qa--dense { gap: 12px; }
+.qa--dense .qa { padding: 14px 16px; }
+.data-table tbody tr:hover td { background: var(--brand-soft); }
+.table-hint { color: var(--faint); font-size: 0.82rem; margin: 0.5rem 0 0; }
