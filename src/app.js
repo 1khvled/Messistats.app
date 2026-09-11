@@ -212,7 +212,8 @@ function sparkSVG(rows, opts) {
     if (r.peak) s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
     const peak = r.peak || (r.year != null && r.year === opts.peakYear);
     const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "");
-    s += `<rect class="${cls}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
+    const rect = `<rect class="${cls}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
+    s += (opts.linkPrefix && r.year != null) ? `<a href="${opts.linkPrefix}${r.year}">${rect}</a>` : rect;
     if (!opts.skipLabels || i % 2 === 0)
       s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="190">${esc(r.label)}</text>`;
   });
@@ -385,7 +386,7 @@ function renderByYear(d) {
   el("combo-card").innerHTML =
     `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
       ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === best.year, tip: `${x.year}: ${x.goals} goals (career total ${x.careerTotal})` })),
-      { cumulative: true, peakYear: 2012, provisionalYear: 2026, label: `Messi goals per calendar year with cumulative career total, peaking at ${best.goals} in ${best.year}` }
+      { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "goalsbyyear.html#y", label: `Messi goals per calendar year with cumulative career total, peaking at ${best.goals} in ${best.year}` }
     )}</div><figcaption class="figcap">Bars: goals that year (peak ${best.goals}, ${best.year}). Line: climb to ${n(t.goals)}.</figcaption></figure>`;
   el("kpis").innerHTML =
     kpi4("Career goals", n(t.goals), `After ${last.year}${last.provisional ? " (in progress)" : ""}.`) +
@@ -418,7 +419,7 @@ function renderByYear(d) {
     `<table class="data-table"><caption>Goals, running career total and age for every calendar year since Messi's 2004 debut.</caption>` +
     `<thead><tr><th scope="col" class="left">Year</th><th scope="col">Goals</th><th scope="col">Career total</th><th scope="col">Age</th></tr></thead><tbody>` +
     ys.slice().reverse().map((r) =>
-      `<tr${r.provisional ? ' class="total"' : ""}><th scope="row">${r.year}${r.provisional ? " *" : ""}` +
+      `<tr id="y${r.year}"${r.provisional ? ' class="total"' : ""}><th scope="row">${r.year}${r.provisional ? " *" : ""}` +
       (YEAR_NOTES[r.year] ? `<span class="yr-note">${YEAR_NOTES[r.year]}</span>` : "") +
       `</th><td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`
     ).join("") + `</tbody></table>` +
@@ -452,7 +453,7 @@ function renderBySeason(d) {
   el("club-table").innerHTML =
     `<table class="data-table"><caption>All ${ss.length} club seasons: Barcelona 2004/05–2020/21, PSG 2021/22–2022/23, Inter Miami 2023–2026.</caption>` +
     `<thead><tr><th scope="col" class="left">Season</th><th scope="col" class="left">Club</th><th scope="col">Apps</th><th scope="col">Goals</th><th scope="col">League</th><th scope="col">Cup</th><th scope="col">Continental</th><th scope="col">Other</th></tr></thead><tbody>` +
-    ss.map((s) => `<tr${s.provisional ? ' class="total"' : ""}><th scope="row">${esc(s.season)}${s.provisional ? " *" : ""}</th>` +
+    ss.map((s) => `<tr id="s${s.season.slice(0, 4)}"${s.provisional ? ' class="total"' : ""}><th scope="row">${esc(s.season)}${s.provisional ? " *" : ""}</th>` +
       `<td class="left">${dispClub(s.club)}</td><td>${n(s.apps)}</td><td><b>${n(s.goals)}</b></td>` +
       `<td>${pg(s.league.apps, s.league.goals)}</td><td>${pg(s.cup.apps, s.cup.goals)}</td>` +
       `<td>${pg(s.continental.apps, s.continental.goals)}</td><td>${pg(s.other.apps, s.other.goals)}</td></tr>`).join("") +
