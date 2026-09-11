@@ -555,20 +555,18 @@ function renderDashboard(d, team) {
       `</ul></div><p class="caveat">Career totals for all teams combined — no per-team split exists. Provisional until a full hand count finishes.</p>`
     : `<p class="caveat">No per-team finish split exists, so this chart only covers all teams combined — see the career totals below. ` +
       `Messi's ${n(d.totals.goals)} goals break down as ${d.byFinish.openPlay} open play, ${d.byFinish.penalties} penalties and ${d.byFinish.freeKicks} free kicks (provisional).</p>`;
-  el("finish-card").insertAdjacentHTML("beforeend", provisionalNote());
-  el("finish-card").insertAdjacentHTML("beforeend", clubTableCaption());
+  // Donut cards carry their own inline .caveat; no table caption applies.
 
   el("body-card").innerHTML =
     `<div class="donut-flex">${donutSVG(
       [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]]
         .map((p) => ({ label: p[0], value: p[1], color: BODY_COLORS[p[0]] })),
-      d.totals.goals, "740", "left-foot goals"
+      d.totals.goals, n(d.byBodyPart.left), "left-foot goals"
     )}<ul class="legend">` +
     [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]]
       .map((p) => `<li><span class="sw" style="background:${BODY_COLORS[p[0]]}"></span>${p[0]} — <b>${p[1]}</b> (${((p[1] / d.totals.goals) * 100).toFixed(1)}%)</li>`).join("") +
     `</ul></div><p class="caveat">Career totals for all teams combined (provisional until a full hand count finishes).</p>`;
-  el("body-card").insertAdjacentHTML("beforeend", provisionalNote());
-  el("body-card").insertAdjacentHTML("beforeend", clubTableCaption());
+  // Donut cards carry their own inline .caveat; no table caption applies.
 
   const ageEl = el("age-card");
   if (ageEl) {
@@ -589,7 +587,7 @@ function renderDashboard(d, team) {
     `<thead><tr><th scope="col" class="left">Competition</th><th scope="col">Goals</th><th scope="col">Share</th></tr></thead><tbody>` +
     compRows.map((r) => `<tr><th scope="row">${esc(r.competition)}${r.team ? `<small class="comp-team">${esc(r.team)}</small>` : ""}</th><td><b>${r.goals}</b></td><td>${((r.goals / goals) * 100).toFixed(1)}%</td></tr>`).join("") +
     `</tbody></table>`;
-  el("comp-table").insertAdjacentHTML("beforeend", provisionalNote());
+  // Competition splits are verified cross-checked totals: table caption only, no provisional note.
   el("comp-table").insertAdjacentHTML("beforeend", clubTableCaption());
   el("finish-table").innerHTML =
     `<table class="data-table"><caption>How the goals were scored and with what — career totals, all teams.</caption>` +
@@ -601,7 +599,7 @@ function renderDashboard(d, team) {
     `<tr><th scope="row">Head</th><td><b>${d.byBodyPart.head}</b></td><td>${((d.byBodyPart.head / d.totals.goals) * 100).toFixed(1)}%</td></tr>` +
     `<tr><th scope="row">Other (chest etc.)</th><td><b>${d.byBodyPart.other}</b></td><td>${((d.byBodyPart.other / d.totals.goals) * 100).toFixed(1)}%</td></tr>` +
     `</tbody></table><p class="caveat">Finish and body-part splits are a provisional compiled tally.</p>`;
-  el("finish-table").insertAdjacentHTML("beforeend", provisionalNote());
+  // Finish/body splits already carry an inline .caveat above: table caption only, no duplicate note.
   el("finish-table").insertAdjacentHTML("beforeend", clubTableCaption());
   /* Per-team cards: career-wide, unaffected by the ?team= filter. */
   const tc = el("team-cards");
