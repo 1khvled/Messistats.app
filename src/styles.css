@@ -365,7 +365,7 @@ svg.spark .cum-dot { fill: var(--navy); }
 .hbar-row { display: grid; grid-template-columns: minmax(150px, 230px) 1fr 52px; align-items: center; gap: 12px; font-size: 0.9rem; }
 .hbar-row .h-lab, .hbar-row .hbar-name { color: var(--ink-soft); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hbar-track { height: 13px; background: var(--surface-solid); border-radius: 999px; overflow: hidden; border: 1px solid var(--line-soft); }
-.hbar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--bar-1), var(--bar-2)); min-width: 3px; }
+.hbar-fill { height: 100%; border-radius: 999px; background: var(--bar-2); min-width: 3px; }
 .hbar-row .h-val, .hbar-row .hbar-val { font-weight: 800; text-align: right; }
 
 /* Sortable tables */
@@ -773,7 +773,7 @@ body[data-page="dashboard"] .team-bar span {
 /* Records strip: gold numbers (records/honours), everything else untouched. */
 body[data-page="dashboard"] #dash-records .num { color: var(--gold); }
 /* Chart leaders (tallest bar in each set) get the record-gold treatment. */
-body[data-page="dashboard"] .hbar-fill.top { background: linear-gradient(90deg, #e3b008, var(--gold)); }
+body[data-page="dashboard"] .hbar-fill.top { background: #c79500; }
 @media (max-width: 640px) {
   body[data-page="dashboard"] .team-grid { grid-template-columns: 1fr; }
   body[data-page="dashboard"] .team-nums { gap: 20px; }
