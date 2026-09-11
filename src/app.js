@@ -995,13 +995,17 @@ function showAdminLogin(d, box, tbl, kpis, msg) {
   hideStatsTbl(tbl, kpis);
   document.getElementById("a-lock-wrap")?.remove(); /* relock must not leave the old Lock button behind */
   if (box) box.innerHTML =
-    `<p class="caveat">🔒 This corner is owner-only — the visit counts are classified, so they stay behind a password.</p>` +
+    `<div class="vault">` +
+    `<p class="vault-mark" aria-hidden="true">🛡️</p>` +
+    `<p class="vault-kicker">Owner only</p>` +
+    `<p class="vault-sub">The visit counts are classified — unlock them with the owner password.</p>` +
     `<form id="a-login">` +
     `<label for="a-pass" class="a-label">Password</label>` +
     `<input id="a-pass" class="a-input" type="password" name="password" autocomplete="current-password" />` +
     `<p><button class="btn btn-primary" type="submit">Unlock the numbers</button></p>` +
     (msg ? `<p class="caveat err" role="alert">${esc(msg)}</p>` : "") +
-    `</form>`;
+    `<p class="vault-note">This tab only — closing it locks the numbers again.</p>` +
+    `</form></div>`;
   const f = el("a-login");
   if (f) f.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -1010,7 +1014,7 @@ function showAdminLogin(d, box, tbl, kpis, msg) {
     try { s = await fetchStats(pw); } catch { /* backend unreachable: fall through to the error line */ }
     if (s && s.pages) { setAKey(pw); renderAdmin(d); return; }
     showAdminLogin(d, box, tbl, kpis, s && s.unready
-      ? "The counter backend isn't set up yet — the server password is missing."
+      ? "The counter backend isn't set up yet — the server password is missing (owner setup: docs/VERCEL_ADMIN_SETUP.md)."
       : "Wrong password — try again.");
   });
 }
@@ -1025,21 +1029,25 @@ async function renderAdmin(d) {
     if (s.locked) {
       const stale = !!getAKey();
       if (stale) setAKey(""); /* saved password went stale (it changed server-side): drop it */
+      if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-locked"><span class="dot" aria-hidden="true"></span>Locked</span>`;
       showAdminLogin(d, box, tbl, kpis, stale ? "The password changed — log in again." : "");
       return;
     }
     if (s.unready) {
-      if (box) box.innerHTML = `<p class="caveat">The visit-counter backend is live but has no password set yet, so the numbers stay locked until the owner sets one.</p>`;
+      if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-off"><span class="dot" aria-hidden="true"></span>Not configured</span>`;
+      if (box) box.innerHTML = `<p class="caveat">The visit-counter backend is live but has no password set yet, so the numbers stay locked until the owner sets one — see <code>docs/VERCEL_ADMIN_SETUP.md</code>.</p>`;
       hideStatsTbl(tbl, kpis);
       return;
     }
     pages = s.pages;
   } catch {
     /* no backend here (local preview, static file, ad-blocked): explain, don't show zeros */
+    if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-off"><span class="dot" aria-hidden="true"></span>Offline preview</span>`;
     if (box) box.innerHTML = `<p class="caveat">Live visit counts need the deployed site — this preview has no counter backend, so there is nothing to show yet.</p>`;
     hideStatsTbl(tbl, kpis);
     return;
   }
+  if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-live"><span class="dot" aria-hidden="true"></span>Live</span>`;
   if (tbl) tbl.style.display = ""; /* undo hideStatsTbl() from a previous locked view */
   const thead = el("page-table-head");
   if (thead) thead.style.display = "";
@@ -1056,12 +1064,13 @@ async function renderAdmin(d) {
     `<figcaption class="figcap">Most-read on the left, in gold. Loading this page counts as one visit to it — the rollup itself never adds any.</figcaption></figure>`;
   if (tbl) tbl.innerHTML =
     `<table class="data-table"><caption>Page visits, most-read first. Reloads count, and so do my own visits — I won't pretend otherwise.</caption>` +
-    `<thead><tr><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th></tr></thead><tbody>` +
-    rows.map((x) => `<tr><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? Math.round((x.views / total) * 100) + "%" : "—"}</td></tr>`).join("") +
+    `<thead><tr><th scope="col">Rank</th><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th></tr></thead><tbody>` +
+    rows.map((x, i) => `<tr><td>${i < 3 ? `<span class="medal m${i + 1}" aria-label="Rank ${i + 1} of ${rows.length}">${i + 1}</span>` : `<span class="rank-num">${i + 1}</span>`}</td><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? Math.round((x.views / total) * 100) + "%" : "—"}</td></tr>`).join("") +
     `</tbody></table>`;
+  sortable(tbl.querySelector("table")); /* click a column header to re-sort; rank reflects the most-read order */
   const old = el("a-lock-wrap");
   if (old) old.remove(); /* re-renders (login/logout) must not stack buttons */
-  if (tbl) tbl.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
+  if (tbl) tbl.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn btn-lock" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
   const lock = el("a-lock");
   if (lock) lock.addEventListener("click", () => { setAKey(""); renderAdmin(d); });
   armEntrance(); /* async admin render lands after boot: arm its spark + KPI grid */

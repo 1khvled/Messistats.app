@@ -824,3 +824,49 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 @keyframes peakpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
 /* Donut sweep-in (additive) */
 .donut.in circle { transition: stroke-dashoffset 0.8s ease; }
+
+/* ---------- Admin mission-control (admin page only; additive, no new keyframes) ---------- */
+#status-strip { margin: 0.9rem 0 0; }
+#status-strip:empty { display: none; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,255,255,0.8);
+  border: 1px solid var(--line);
+  padding: 4px 12px 4px 9px;
+  border-radius: 999px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.status-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
+.status-pill.is-live .dot { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.status-pill.is-locked .dot { background: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+.status-pill.is-off .dot { background: #b04444; box-shadow: 0 0 0 3px #f6e0e0; }
+.vault {
+  max-width: 34rem; margin: 0.4rem auto; text-align: center;
+  background: var(--card);
+  border: 1px solid #e7d49a; border-top: 3px solid var(--gold);
+  border-radius: var(--radius); box-shadow: var(--shadow-sm);
+  padding: 26px 26px 20px;
+}
+.vault-mark { font-size: 2rem; margin: 0 0 6px; line-height: 1; }
+.vault-kicker {
+  font-family: var(--font-head); font-weight: 800; font-size: 1.15rem;
+  margin: 0 0 4px; color: var(--ink);
+}
+.vault-sub { color: var(--muted); font-size: 0.94rem; margin: 0 0 1rem; }
+.vault #a-login { text-align: left; }
+.vault #a-login .a-input { max-width: none; }
+.vault-note { color: var(--faint); font-size: 0.82rem; margin: 10px 0 0; }
+.medal {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 1.7rem; height: 1.7rem; padding: 0 6px; border-radius: 999px;
+  font-weight: 800; font-size: 0.8rem;
+}
+.medal.m1 { color: #7a5c14; background: var(--gold-soft); border: 1px solid #e7d49a; }
+.medal.m2 { color: #4a5568; background: #eef1f6; border: 1px solid #d5dbe5; }
+.medal.m3 { color: #7c4a1e; background: #f7e8d8; border: 1px solid #e8cba4; }
+.rank-num { color: var(--faint); font-weight: 700; }
+#a-lock-wrap { margin-top: 14px; }
+#a-lock-wrap:empty { display: none; }
+.btn-lock { background: transparent; border-color: #e5b4b4; color: #8f1d1d; }
+.btn-lock:hover { border-color: #8f1d1d; color: #8f1d1d; background: #fdf1f1; }
