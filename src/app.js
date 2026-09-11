@@ -226,7 +226,7 @@ function donutSVG(parts, total, centerTop, centerSub) {
   parts.forEach((p) => {
     const frac = p.value / total;
     const len = Math.max(frac * C - 3, 2);
-    s += `<circle cx="95" cy="95" r="${R}" fill="none" stroke="${p.color}" stroke-width="26" stroke-dasharray="${len.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 95 95)" stroke-linecap="butt"><title>${esc(p.label)}: ${p.value}</title></circle>`;
+    s += `<circle cx="95" cy="95" r="${R}" fill="none" stroke="${p.color}" stroke-width="26" stroke-dasharray="${len.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 95 95)" stroke-linecap="butt"><title>${esc(p.label)}: ${p.value} of ${total} (${(100 * p.value / total).toFixed(1)}%)</title></circle>`;
     off += frac * C;
   });
   s += `<text class="donut-hole" x="95" y="96">${centerTop}</text><text class="donut-sub" x="95" y="116">${esc(centerSub)}</text></svg>`;
