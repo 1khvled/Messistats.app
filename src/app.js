@@ -1162,14 +1162,14 @@ async function renderAdmin(d) {
     .sort((a, b) => b.views - a.views);
   const total = rows.reduce((a, x) => a + x.views, 0);
   const top = rows[0];
+  rows.forEach((x) => { x.pct = total ? Math.round((x.views / total) * 100) : 0; }); /* one pct per page, shared by bars + table */
   if (kpis) {
     /* Same #kpis grid → 4-up: .kpis-4 exists, so no new grid CSS. tickKpis() covers
        any plain-numeric .kpi-value in the grid, so cards 1 + 4 tick; names/ratios stay static. */
     kpis.classList.remove("kpis-3");
     kpis.classList.add("kpis-4");
     const active = rows.filter((x) => x.views > 0).length;
-    const least = rows[rows.length - 1];
-    const share = total ? Math.round((top.views / total) * 100) : 0;
+    const share = top.pct;
     kpis.innerHTML =
       kpiA("Total visits", n(total), `${rows.length} pages counted`) +
       kpiA("Most-read page", esc(top.t), total ? `${n(top.views)} visits · ${share}% of traffic` : "—") +
@@ -1178,11 +1178,12 @@ async function renderAdmin(d) {
   }
   if (box) box.innerHTML =
     `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(rows.map((x) => ({ value: x.views, label: x.s, tip: `${x.t}: ${n(x.views)} visits`, peak: x.page === top.page })), { label: "Site visits by page, most-read first" })}</div>` +
-    `<figcaption class="figcap">Most-read on the left, in gold. Loading this page counts as one visit to it — the rollup itself never adds any.</figcaption></figure>`;
+    `<figcaption class="figcap">Most-read on the left, in gold. Loading this page counts as one visit to it — the rollup itself never adds any.</figcaption></figure>` +
+    `<div class="traffic-rows">` + rows.map((x, i) => `<div class="traffic-row${i === 0 ? " hot" : ""}"><a href="${x.href}">${esc(x.t)}</a><div class="sharebar"><i style="width:${x.pct}%"></i></div><span class="tnum">${n(x.views)}</span></div>`).join("") + `</div>`;
   if (tbl) tbl.innerHTML =
-    `<table class="data-table"><caption>Page visits, most-read first. Reloads count, and so do my own visits — I won't pretend otherwise. The ranking is fixed in most-read order.</caption>` +
-    `<thead><tr><th scope="col">Rank</th><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th><th scope="col"><span class="vh">Share bar</span></th></tr></thead><tbody>` +
-    rows.map((x, i) => { const pct = total ? Math.round((x.views / total) * 100) : 0; return `<tr${i === 0 ? ` class="hot"` : ""}><td>${i < 3 ? `<span class="medal m${i + 1}" aria-label="Rank ${i + 1} of ${rows.length}">${i + 1}</span>` : `<span class="rank-num">${i + 1}</span>`}</td><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? pct + "%" : "—"}</td><td><div class="sharebar"><i style="width:${pct}%"></i></div></td></tr>`; }).join("") +
+    `<table class="data-table"><caption>Page visits, most-read first. Reloads count, and so do my own visits — I won't pretend otherwise. The ranking is fixed in most-read order. Bars live in the Traffic card above.</caption>` +
+    `<thead><tr><th scope="col">Rank</th><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th></tr></thead><tbody>` +
+    rows.map((x, i) => `<tr${i === 0 ? ` class="hot"` : ""}><td>${i < 3 ? `<span class="medal m${i + 1}" aria-label="Rank ${i + 1} of ${rows.length}">${i + 1}</span>` : `<span class="rank-num">${i + 1}</span>`}</td><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? x.pct + "%" : "—"}</td></tr>`).join("") +
     `</tbody></table>`;
   adminGrid(); /* unlocked dashboard: status + KPIs + Traffic + Pages left, Data + Access right */
   const old = el("a-lock-wrap");

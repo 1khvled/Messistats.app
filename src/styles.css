@@ -898,3 +898,6 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 #access-card { display: flex; flex-direction: column; gap: 10px; }
 #access-card .vault-note { margin: 0; }
 .access-backend { margin: 0; color: var(--muted); font-size: 0.88rem; }
+.traffic-rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.traffic-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:10px;align-items:center}
+.traffic-row a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
