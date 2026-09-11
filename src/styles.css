@@ -593,7 +593,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 /* ---------- Reveal animation ---------- */
 .reveal { animation: rise 0.55s ease both; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } .spark .bar { transform: none; transition: none; } .ybar.peak { animation: none; } }
 
 /* ---------- Ads (foundation, disabled by default) ---------- */
 .ad-slot { display: none; }
@@ -817,3 +817,8 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 /* Trust: method colophon + crest note (additive — .colophon/.caveat base rules exist above and are kept) */
 .colophon p { color: var(--ink-soft); }
 .crest-note { color: var(--faint); font-size: 0.8rem; }
+/* Chart entrance (additive) */
+.spark .bar { transform: scaleY(0); transform-box: fill-box; transform-origin: bottom; transition: transform 0.5s ease; transition-delay: min(calc(var(--i, 0) * 24ms), 480ms); }
+.spark.in .bar { transform: scaleY(1); }
+.ybar.peak { animation: peakpulse 1.6s ease 2; }
+@keyframes peakpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }

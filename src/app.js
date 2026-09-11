@@ -212,7 +212,7 @@ function sparkSVG(rows, opts) {
     if (r.peak) s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
     const peak = r.peak || (r.year != null && r.year === opts.peakYear);
     const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "");
-    const rect = `<rect class="${cls}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
+    const rect = `<rect class="${cls}" style="--i:${i}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
     s += (opts.linkPrefix && r.year != null) ? `<a href="${opts.linkPrefix}${r.year}">${rect}</a>` : rect;
     if (!opts.skipLabels || i % 2 === 0)
       s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="190">${esc(r.label)}</text>`;
@@ -1085,6 +1085,19 @@ load().then((d) => {
     console.error(e);
   }
   reveal();
+  /* Chart entrance: grow bars in on scroll — same pattern as the timeline
+     .tl-reveal wiring (no shared helper exists, so the pattern is copied). */
+  const sparks = document.querySelectorAll("svg.spark");
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const barObs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) { en.target.classList.add("in"); barObs.unobserve(en.target); }
+      });
+    }, { threshold: 0.08 });
+    sparks.forEach((s) => barObs.observe(s));
+  } else {
+    sparks.forEach((s) => s.classList.add("in"));
+  }
 }).catch(() => {
   document.querySelectorAll("main.wrap").forEach((m) => {
     const p = document.createElement("p");
