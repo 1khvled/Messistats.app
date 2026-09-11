@@ -165,7 +165,7 @@ h1.page-title, .wrap > h1 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight
 .page-lead b, .lede b { color: var(--ink); }
 .btn {
   display: inline-block;
-  background: rgba(255,255,255,0.85);
+  background: var(--card);
   border: 1px solid var(--line);
   color: var(--ink-soft);
   font-weight: 600; font-size: 0.9rem;
@@ -175,8 +175,6 @@ h1.page-title, .wrap > h1 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight
 .btn:hover { border-color: var(--brand); color: var(--brand-ink); text-decoration: none; }
 .btn { transition: transform 0.12s ease, border-color 0.15s ease, color 0.15s ease; }
 .btn:active { transform: scale(0.96); }
-.btn-primary { background: var(--navy); border-color: var(--navy); color: #fff; }
-.btn-primary:hover { background: var(--brand-ink); border-color: var(--brand-ink); color: #fff; }
 a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 /* ---------- Identity / profile ---------- */
@@ -579,16 +577,6 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   background: #fff8e8; border: 1px solid #f0dfae; color: #7a5c14;
   border-radius: 12px; padding: 9px 15px; font-size: 0.86rem; margin-top: 12px;
 }
-.caveat.err { background: #fdeeee; border-color: #f3c2c2; color: #8f1d1d; }
-
-/* ---------- Admin login (admin page only) ---------- */
-.a-label { display: block; margin: 2px 0 6px; font-weight: 700; }
-.a-input {
-  width: 100%; max-width: 22rem; padding: 10px 14px; font: inherit; color: var(--ink);
-  background: #fff; border: 1px solid var(--line); border-radius: 12px;
-}
-.a-input:focus { outline: 2px solid var(--brand-soft); border-color: var(--brand); }
-#a-login .btn { margin-top: 12px; }
 
 /* ---------- Reveal animation ---------- */
 .reveal { animation: rise 0.55s ease both; }
@@ -824,79 +812,3 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 /* Donut sweep-in (additive) */
 .donut.in circle { transition: stroke-dashoffset 0.8s ease; }
 
-/* ---------- Admin mission-control (admin page only; additive, no new keyframes) ---------- */
-#status-strip { margin: 0.9rem 0 0; }
-#status-strip:empty { display: none; }
-.status-pill {
-  display: inline-flex; align-items: center; gap: 7px;
-  background: rgba(255,255,255,0.8);
-  border: 1px solid var(--line);
-  padding: 4px 12px 4px 9px;
-  border-radius: 999px;
-  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--ink-soft);
-}
-.status-pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--faint); }
-.status-pill.is-live .dot { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.status-pill.is-locked .dot { background: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
-.status-pill.is-off .dot { background: #b04444; box-shadow: 0 0 0 3px #f6e0e0; }
-.vault {
-  max-width: 34rem; margin: 0.4rem auto; text-align: center;
-  background: var(--card);
-  border: 1px solid #e7d49a; border-top: 3px solid var(--gold);
-  border-radius: var(--radius); box-shadow: var(--shadow-sm);
-  padding: 26px 26px 20px;
-}
-.vault-mark { font-size: 2rem; margin: 0 0 6px; line-height: 1; }
-.vault-kicker {
-  font-family: var(--font-head); font-weight: 800; font-size: 1.15rem;
-  margin: 0 0 4px; color: var(--ink);
-}
-.vault-sub { color: var(--muted); font-size: 0.94rem; margin: 0 0 1rem; }
-.vault #a-login { text-align: left; }
-.vault #a-login .a-input { max-width: none; }
-.vault-note { color: var(--faint); font-size: 0.82rem; margin: 10px 0 0; }
-.medal {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-width: 1.7rem; height: 1.7rem; padding: 0 6px; border-radius: 999px;
-  font-weight: 800; font-size: 0.8rem;
-}
-.medal.m1 { color: #7a5c14; background: var(--gold-soft); border: 1px solid #e7d49a; }
-.medal.m2 { color: #4a5568; background: #eef1f6; border: 1px solid #d5dbe5; }
-.medal.m3 { color: #7c4a1e; background: #f7e8d8; border: 1px solid #e8cba4; }
-.rank-num { color: var(--faint); font-weight: 700; }
-#a-lock-wrap { margin-top: 14px; }
-#a-lock-wrap:empty { display: none; }
-.btn-lock { background: transparent; border-color: #e5b4b4; color: #8f1d1d; }
-.btn-lock:hover { border-color: #8f1d1d; color: #8f1d1d; background: #fdf1f1; }
-.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-.admin-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px}
-@media(max-width:900px){.admin-grid{grid-template-columns:1fr}}
-.admin-main{min-width:0}
-.admin-rail{display:flex;flex-direction:column;gap:16px;min-width:0}
-.admin-rail .card{margin-top:0}
-.sharebar{height:8px;border-radius:99px;background:var(--line-soft);overflow:hidden}
-.sharebar i{display:block;height:100%;background:var(--sky)}
-.hot .sharebar i{background:var(--gold)}
-.vault-mark svg{width:44px;height:44px}
-#health-card:empty{display:none}
-.admin-rail #a-lock-wrap{margin:0}
-/* ---------- Admin demo + health (additive: .caveat base kept, no new motion) ---------- */
-#health-card h2{font-size:1.02rem;margin:0}
-.demo-banner{border:2px dashed var(--gold);background:var(--gold-soft);color:var(--ink);font-weight:600}
-.demo-banner a{font-weight:700}
-.status-pill.is-demo .dot{background:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
-.health-list{list-style:none;margin:0.6rem 0 0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:0.92rem;color:var(--ink-soft)}
-.health-list li{display:flex;gap:10px;align-items:flex-start}
-.health-list .dot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;margin-top:6px;background:var(--faint)}
-.health-list .health-ok{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
-.health-list .health-bad{background:#b04444;box-shadow:0 0 0 3px #f6e0e0}
-.health-list .health-info{background:var(--sky);box-shadow:0 0 0 3px var(--brand-soft)}
-/* ---------- Admin overview sections (Task 1 additive: .shead/.card/.vault-note reused, no new motion) ---------- */
-.admin-main > .shead, .admin-rail > .shead { margin: 1.1rem 0 0.45rem; }
-#access-card { display: flex; flex-direction: column; gap: 10px; }
-#access-card .vault-note { margin: 0; }
-.access-backend { margin: 0; color: var(--muted); font-size: 0.88rem; }
-.traffic-rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.traffic-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr) auto;gap:10px;align-items:center}
-.traffic-row a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
