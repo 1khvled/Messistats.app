@@ -372,6 +372,8 @@ svg.spark .cum-dot { fill: var(--navy); }
 .data-table thead th[data-sortable]::after { content: " ↕"; opacity: 0.35; font-size: 0.85em; }
 .data-table thead th[data-sorted="asc"]::after { content: " ▲"; opacity: 1; color: var(--brand); }
 .data-table thead th[data-sorted="desc"]::after { content: " ▼"; opacity: 1; color: var(--brand); }
+.data-table thead th { position: sticky; top: 0; background: var(--card); z-index: 1; }
+.data-table tbody tr:target { outline: 2px solid var(--brand-soft); outline-offset: -2px; }
 
 /* Table search filter */
 .table-search { margin-bottom: 12px; }
