@@ -809,3 +809,8 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 .qa--dense .qa { padding: 14px 16px; }
 .data-table tbody tr:hover td { background: var(--brand-soft); }
 .table-hint { color: var(--faint); font-size: 0.82rem; margin: 0.5rem 0 0; }
+/* Charts: peak gold bar, provisional fade, active pill */
+.ybar.peak { fill: var(--gold); }
+.ybar.prov { opacity: 0.45; }
+.pill--active { background: var(--navy); color: #fff; border-color: var(--navy); }
+.chart-empty { color: var(--muted); font-size: 0.9rem; padding: 12px 4px; }

@@ -210,7 +210,9 @@ function sparkSVG(rows, opts) {
     const x = (i * step + (step - bw) / 2).toFixed(1);
     const y = (base - h).toFixed(1);
     if (r.peak) s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
-    s += `<rect class="bar${r.peak ? " peak" : ""}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
+    const peak = r.peak || (r.year != null && r.year === opts.peakYear);
+    const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "");
+    s += `<rect class="${cls}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
     if (!opts.skipLabels || i % 2 === 0)
       s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="190">${esc(r.label)}</text>`;
   });
@@ -232,6 +234,9 @@ function donutSVG(parts, total, centerTop, centerSub) {
 
 function clubTableCaption() {
   return `<p class="table-hint">Click a column header to sort. Senior first-team matches only.</p>`;
+}
+function provisionalNote() {
+  return `<p class="caveat">Penalties (109), free kicks (66), hat-tricks (57) and assists (400) are widely published compiled tallies, shown as provisional until a true match-by-match hand count is finished.</p>`;
 }
 /* ================= HOME ================= */
 function renderHome(d) {
@@ -376,8 +381,8 @@ function renderByYear(d) {
   setHead(d, `From his first senior goal in ${ys[0].year} to <b>${best.goals} in ${best.year}</b> — every calendar year of a ${n(t.goals)}-goal career, with running totals and his age.`);
   el("combo-card").innerHTML =
     `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
-      ys.map((x) => ({ label: String(x.year), value: x.goals, peak: x.year === best.year, tip: `${x.year}: ${x.goals} goals (career total ${x.careerTotal})` })),
-      { cumulative: true, label: `Messi goals per calendar year with cumulative career total, peaking at ${best.goals} in ${best.year}` }
+      ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === best.year, tip: `${x.year}: ${x.goals} goals (career total ${x.careerTotal})` })),
+      { cumulative: true, peakYear: 2012, provisionalYear: 2026, label: `Messi goals per calendar year with cumulative career total, peaking at ${best.goals} in ${best.year}` }
     )}</div><figcaption class="figcap">Bars: goals that year (peak ${best.goals}, ${best.year}). Line: climb to ${n(t.goals)}.</figcaption></figure>`;
   el("kpis").innerHTML =
     kpi4("Career goals", n(t.goals), `After ${last.year}${last.provisional ? " (in progress)" : ""}.`) +
@@ -517,6 +522,9 @@ function renderDashboard(d, team) {
       `<span class="hbar-track"><span class="hbar-fill${r.goals === cmax ? " top" : ""}" style="width:${((r.goals / cmax) * 100).toFixed(1)}%"></span></span>` +
       `<span class="hbar-val">${r.goals}</span></div>`
     ).join("") + `</div>`;
+  if (!compRows.length) {
+    el("comp-card").insertAdjacentHTML("beforeend", `<p class="chart-empty">No rows for this team filter.</p>`);
+  }
 
   let seasonRows;
   if (T === "all" || T === "argentina") {
@@ -544,6 +552,8 @@ function renderDashboard(d, team) {
       `</ul></div><p class="caveat">Career totals for all teams combined — no per-team split exists. Provisional until a full hand count finishes.</p>`
     : `<p class="caveat">No per-team finish split exists, so this chart only covers all teams combined — see the career totals below. ` +
       `Messi's ${n(d.totals.goals)} goals break down as ${d.byFinish.openPlay} open play, ${d.byFinish.penalties} penalties and ${d.byFinish.freeKicks} free kicks (provisional).</p>`;
+  el("finish-card").insertAdjacentHTML("beforeend", provisionalNote());
+  el("finish-card").insertAdjacentHTML("beforeend", clubTableCaption());
 
   el("body-card").innerHTML =
     `<div class="donut-flex">${donutSVG(
@@ -554,6 +564,8 @@ function renderDashboard(d, team) {
     [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]]
       .map((p) => `<li><span class="sw" style="background:${BODY_COLORS[p[0]]}"></span>${p[0]} — <b>${p[1]}</b> (${((p[1] / d.totals.goals) * 100).toFixed(1)}%)</li>`).join("") +
     `</ul></div><p class="caveat">Career totals for all teams combined (provisional until a full hand count finishes).</p>`;
+  el("body-card").insertAdjacentHTML("beforeend", provisionalNote());
+  el("body-card").insertAdjacentHTML("beforeend", clubTableCaption());
 
   const ageEl = el("age-card");
   if (ageEl) {
@@ -574,6 +586,8 @@ function renderDashboard(d, team) {
     `<thead><tr><th scope="col" class="left">Competition</th><th scope="col">Goals</th><th scope="col">Share</th></tr></thead><tbody>` +
     compRows.map((r) => `<tr><th scope="row">${esc(r.competition)}${r.team ? `<small class="comp-team">${esc(r.team)}</small>` : ""}</th><td><b>${r.goals}</b></td><td>${((r.goals / goals) * 100).toFixed(1)}%</td></tr>`).join("") +
     `</tbody></table>`;
+  el("comp-table").insertAdjacentHTML("beforeend", provisionalNote());
+  el("comp-table").insertAdjacentHTML("beforeend", clubTableCaption());
   el("finish-table").innerHTML =
     `<table class="data-table"><caption>How the goals were scored and with what — career totals, all teams.</caption>` +
     `<thead><tr><th scope="col" class="left">Finish</th><th scope="col">Goals</th><th scope="col">Share</th></tr></thead><tbody>` +
@@ -584,6 +598,8 @@ function renderDashboard(d, team) {
     `<tr><th scope="row">Head</th><td><b>${d.byBodyPart.head}</b></td><td>${((d.byBodyPart.head / d.totals.goals) * 100).toFixed(1)}%</td></tr>` +
     `<tr><th scope="row">Other (chest etc.)</th><td><b>${d.byBodyPart.other}</b></td><td>${((d.byBodyPart.other / d.totals.goals) * 100).toFixed(1)}%</td></tr>` +
     `</tbody></table><p class="caveat">Finish and body-part splits are a provisional compiled tally.</p>`;
+  el("finish-table").insertAdjacentHTML("beforeend", provisionalNote());
+  el("finish-table").insertAdjacentHTML("beforeend", clubTableCaption());
   /* Per-team cards: career-wide, unaffected by the ?team= filter. */
   const tc = el("team-cards");
   if (tc) {
