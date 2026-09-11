@@ -1,4 +1,4 @@
-/* MessiStats — light glass theme matching the ronaldostats.app reference structure.
+/* MessiStats — light editorial paper theme matching the ronaldostats.app reference structure.
    Own code, own data, own copy. DM Sans (body) + Plus Jakarta Sans (headings), self-hosted. */
 @font-face {
   font-family: "DM Sans";
@@ -17,10 +17,10 @@
    (deep blue/garnet) secondary, gold reserved for records and honours.
    Body text on white stays >= 4.5:1; fonts self-hosted, light theme kept. */
 :root {
-  --bg-1: #e6f1f8;
-  --bg-2: #f5f9fc;
-  --bg-3: #e9f2f8;
-  --surface: rgba(255, 255, 255, 0.72);
+  --bg-1: #f4f7fa;
+  --bg-2: #f4f7fa;
+  --bg-3: #eef3f7;
+  --surface: #ffffff;
   --card: #ffffff;
   --surface-solid: #f1f6fa;
   --line: #d9e6f1;
@@ -44,8 +44,8 @@
   --bar-2: #0e7cc0;
   --radius: 18px;
   --radius-lg: 26px;
-  --shadow: 0 18px 45px -22px rgba(22, 36, 58, 0.28);
-  --shadow-sm: 0 8px 24px -14px rgba(22, 36, 58, 0.25);
+  --shadow: 0 1px 2px rgba(22, 36, 58, 0.08);
+  --shadow-sm: 0 1px 2px rgba(22, 36, 58, 0.08);
   --rail-w: 76px;
   --rail-open: 248px;
   --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -58,7 +58,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--ink);
-  background: linear-gradient(180deg, var(--bg-1), var(--bg-2) 34%, var(--bg-3));
+  background: var(--bg-1);
   min-height: 100vh;
   font-size: 16px;
   line-height: 1.55;
@@ -78,9 +78,7 @@ a:hover { color: var(--brand-ink); text-decoration: underline; }
   inset: 16px auto 16px 16px;
   width: var(--rail-w);
   background: var(--surface);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   border-radius: 24px;
   display: flex;
@@ -258,7 +256,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 .kpi-note { color: var(--muted); font-size: 0.88rem; }
 .kpi-card.progress, .kpi.wide { grid-column: 1 / -1; }
 .progress-track { height: 12px; border-radius: 999px; background: var(--surface-solid); border: 1px solid var(--line-soft); overflow: hidden; margin: 8px 0 4px; }
-.progress-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #37c98d, #1d9e68); }
+.progress-fill { height: 100%; border-radius: 999px; background: #1d9e68; }
 
 /* ---------- QA / FAQ cards ---------- */
 .qa-grid, .faq-grid {
@@ -648,15 +646,14 @@ body[data-page="timeline"] .tl-era-nav {
   display: flex; gap: 8px; overflow-x: auto;
   padding: 10px 12px; margin-top: 1rem;
   background: var(--surface);
-  -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
-  border: 1px solid rgba(255,255,255,0.9); border-radius: 16px;
+  border: 1px solid var(--line); border-radius: 16px;
   box-shadow: var(--shadow-sm);
   scrollbar-width: thin;
 }
 body[data-page="timeline"] .tl-era-nav a {
   flex: 0 0 auto; display: flex; flex-direction: column; gap: 1px;
   padding: 7px 13px; border-radius: 999px;
-  border: 1px solid var(--line); background: rgba(255,255,255,0.85);
+  border: 1px solid var(--line); background: var(--surface-solid);
   color: var(--ink-soft); font-size: 0.8rem; font-weight: 700; line-height: 1.35;
   white-space: nowrap;
 }
@@ -692,7 +689,7 @@ body[data-page="timeline"] .ch-goalbar {
 }
 body[data-page="timeline"] .ch-goalbar-fill {
   display: block; height: 100%; border-radius: 999px;
-  background: linear-gradient(90deg, var(--bar-1), var(--bar-2));
+  background: var(--bar-2);
 }
 body[data-page="timeline"] .ch-goalnote { color: var(--muted); font-size: 0.84rem; margin: 0 0 2px; }
 body[data-page="timeline"] .ch-goalnote b { color: var(--ink); }
@@ -742,7 +739,7 @@ body[data-page="dashboard"] .team-grid {
 }
 body[data-page="dashboard"] .team-card {
   background: var(--card);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   padding: 18px 20px;
@@ -768,7 +765,7 @@ body[data-page="dashboard"] .team-bar {
 }
 body[data-page="dashboard"] .team-bar span {
   display: block; height: 100%; border-radius: 999px;
-  background: linear-gradient(90deg, var(--bar-1), var(--bar-2));
+  background: var(--bar-2);
 }
 /* Records strip: gold numbers (records/honours), everything else untouched. */
 body[data-page="dashboard"] #dash-records .num { color: var(--gold); }
