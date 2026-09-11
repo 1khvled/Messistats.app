@@ -996,7 +996,7 @@ function showAdminLogin(d, box, tbl, kpis, msg) {
   document.getElementById("a-lock-wrap")?.remove(); /* relock must not leave the old Lock button behind */
   if (box) box.innerHTML =
     `<div class="vault">` +
-    `<p class="vault-mark" aria-hidden="true">🛡️</p>` +
+    `<p class="vault-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><defs><linearGradient id="vaultg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d0f2e"/><stop offset=".55" stop-color="#1d3fae"/><stop offset="1" stop-color="#0e7cc0"/></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#vaultg)" stroke="#e3b93e" stroke-width="2.5" stroke-linejoin="round"/><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"/></svg></p>` +
     `<p class="vault-kicker">Owner only</p>` +
     `<p class="vault-sub">The visit counts are classified — unlock them with the owner password.</p>` +
     `<form id="a-login">` +
@@ -1018,11 +1018,43 @@ function showAdminLogin(d, box, tbl, kpis, msg) {
       : "Wrong password — try again.");
   });
 }
+/* Command grid: unlocked dashboard wraps the flat shell mounts into main + rail
+   columns; every other state restores the flat single column. Idempotent. */
+function adminGrid() {
+  let grid = el("admin-grid");
+  if (!grid) {
+    grid = document.createElement("div");
+    grid.className = "admin-grid";
+    grid.id = "admin-grid";
+    grid.innerHTML = `<div class="admin-main"></div><div class="admin-rail"></div>`;
+    const strip = el("status-strip");
+    strip.parentNode.insertBefore(grid, strip);
+  }
+  const main = grid.querySelector(".admin-main"), rail = grid.querySelector(".admin-rail");
+  ["status-strip", "kpis", "page-card"].forEach((id) => { const n = el(id); if (n) main.appendChild(n); });
+  ["page-table-head", "page-table", "health-card"].forEach((id) => { const n = el(id); if (n) rail.appendChild(n); });
+  const lock = el("a-lock-wrap");
+  if (lock) rail.appendChild(lock);
+  return grid;
+}
+function adminFlat() {
+  const grid = el("admin-grid");
+  if (!grid) return;
+  const parent = grid.parentNode, after = grid.nextSibling; /* static caveat note: lock belongs after it */
+  ["status-strip", "kpis", "page-card", "page-table-head", "page-table", "health-card"].forEach((id) => {
+    const n = el(id);
+    if (n) parent.insertBefore(n, grid);
+  });
+  const lock = el("a-lock-wrap");
+  if (lock) parent.insertBefore(lock, after ? after.nextSibling : null);
+  parent.removeChild(grid);
+}
 async function renderAdmin(d) {
   setHead(d, `An owner-only corner: every visit to every page, counted quietly — <b>no names, no cookies, and only I hold the password</b>.`);
   renderExplore(d, "admin");
   renderMethod(d, "");
   const kpis = el("kpis"), box = el("page-card"), tbl = el("page-table");
+  adminFlat(); /* grid is unlocked-only: every render starts from the flat shell */
   let pages;
   try {
     const s = await fetchStats(getAKey());
@@ -1063,14 +1095,15 @@ async function renderAdmin(d) {
     `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(rows.map((x) => ({ value: x.views, label: x.s, tip: `${x.t}: ${n(x.views)} visits`, peak: x.page === top.page })), { label: "Site visits by page, most-read first" })}</div>` +
     `<figcaption class="figcap">Most-read on the left, in gold. Loading this page counts as one visit to it — the rollup itself never adds any.</figcaption></figure>`;
   if (tbl) tbl.innerHTML =
-    `<table class="data-table"><caption>Page visits, most-read first. Reloads count, and so do my own visits — I won't pretend otherwise.</caption>` +
-    `<thead><tr><th scope="col">Rank</th><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th></tr></thead><tbody>` +
-    rows.map((x, i) => `<tr><td>${i < 3 ? `<span class="medal m${i + 1}" aria-label="Rank ${i + 1} of ${rows.length}">${i + 1}</span>` : `<span class="rank-num">${i + 1}</span>`}</td><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? Math.round((x.views / total) * 100) + "%" : "—"}</td></tr>`).join("") +
+    `<table class="data-table"><caption>Page visits, most-read first. Reloads count, and so do my own visits — I won't pretend otherwise. The ranking is fixed in most-read order.</caption>` +
+    `<thead><tr><th scope="col">Rank</th><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th><th scope="col"><span class="vh">Share bar</span></th></tr></thead><tbody>` +
+    rows.map((x, i) => { const pct = total ? Math.round((x.views / total) * 100) : 0; return `<tr${i === 0 ? ` class="hot"` : ""}><td>${i < 3 ? `<span class="medal m${i + 1}" aria-label="Rank ${i + 1} of ${rows.length}">${i + 1}</span>` : `<span class="rank-num">${i + 1}</span>`}</td><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? pct + "%" : "—"}</td><td><div class="sharebar"><i style="width:${pct}%"></i></div></td></tr>`; }).join("") +
     `</tbody></table>`;
-  sortable(tbl.querySelector("table")); /* click a column header to re-sort; rank reflects the most-read order */
+  adminGrid(); /* unlocked dashboard: status + KPIs + chart left, table + health + lock right */
   const old = el("a-lock-wrap");
   if (old) old.remove(); /* re-renders (login/logout) must not stack buttons */
-  if (tbl) tbl.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn btn-lock" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
+  const anchor = el("health-card") || tbl;
+  if (anchor) anchor.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn btn-lock" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
   const lock = el("a-lock");
   if (lock) lock.addEventListener("click", () => { setAKey(""); renderAdmin(d); });
   armEntrance(); /* async admin render lands after boot: arm its spark + KPI grid */
