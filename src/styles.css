@@ -593,7 +593,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 /* ---------- Reveal animation ---------- */
 .reveal { animation: rise 0.55s ease both; }
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } .spark .bar { transform: none; transition: none; } .ybar.peak { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .reveal { animation: none; } .spark .bar { transform: none; transition: none; } .ybar.peak { animation: none; } svg.donut.in circle { transition: none; } }
 
 /* ---------- Ads (foundation, disabled by default) ---------- */
 .ad-slot { display: none; }
@@ -822,3 +822,5 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 .spark.in .bar { transform: scaleY(1); }
 .ybar.peak { animation: peakpulse 1.6s ease 2; }
 @keyframes peakpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+/* Donut sweep-in (additive) */
+.donut.in circle { transition: stroke-dashoffset 0.8s ease; }

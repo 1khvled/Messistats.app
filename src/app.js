@@ -226,7 +226,7 @@ function donutSVG(parts, total, centerTop, centerSub) {
   parts.forEach((p) => {
     const frac = p.value / total;
     const len = Math.max(frac * C - 3, 2);
-    s += `<circle cx="95" cy="95" r="${R}" fill="none" stroke="${p.color}" stroke-width="26" stroke-dasharray="${len.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" transform="rotate(-90 95 95)" stroke-linecap="butt"><title>${esc(p.label)}: ${p.value} of ${total} (${(100 * p.value / total).toFixed(1)}%)</title></circle>`;
+    s += `<circle cx="95" cy="95" r="${R}" fill="none" stroke="${p.color}" stroke-width="26" stroke-dasharray="${len.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" data-off="${(-off).toFixed(1)}" transform="rotate(-90 95 95)" stroke-linecap="butt"><title>${esc(p.label)}: ${p.value} of ${total} (${(100 * p.value / total).toFixed(1)}%)</title></circle>`;
     off += frac * C;
   });
   s += `<text class="donut-hole" x="95" y="96">${centerTop}</text><text class="donut-sub" x="95" y="116">${esc(centerSub)}</text></svg>`;
@@ -1064,6 +1064,82 @@ async function renderAdmin(d) {
   if (tbl) tbl.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
   const lock = el("a-lock");
   if (lock) lock.addEventListener("click", () => { setAKey(""); renderAdmin(d); });
+  armEntrance(); /* async admin render lands after boot: arm its spark + KPI grid */
+}
+
+/* Entrance motion (additive): donut sweep + KPI tick share Task 1's boot observer —
+   one observer, not two. Markup always holds final numbers/offsets (no-JS safe). */
+let entranceObs = null;
+function tickKpis(grid) {
+  grid.querySelectorAll(".kpi-value").forEach((v) => {
+    if (v.dataset.tick) return;
+    v.dataset.tick = "1";
+    const m = v.textContent.trim().match(/^([\d,]+(?:\.\d+)?)$/);
+    if (!m) return; /* compound values ("2012 · 91", "927 / 1,000") stay static */
+    const final = m[1];
+    const dec = (final.split(".")[1] || "").length;
+    const target = parseFloat(final.replace(/,/g, ""));
+    if (!isFinite(target)) return;
+    const t0 = performance.now(), dur = 900;
+    const step = (t) => {
+      const k = Math.min((t - t0) / dur, 1);
+      const cur = target * (1 - Math.pow(1 - k, 3));
+      v.textContent = dec ? cur.toFixed(dec) : n(Math.round(cur));
+      if (k < 1) requestAnimationFrame(step);
+      else v.textContent = final; /* exact final grouping, never rounded off */
+    };
+    requestAnimationFrame(step);
+  });
+}
+function armEntrance() {
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const sparks = document.querySelectorAll("svg.spark:not(.in)");
+  const donuts = document.querySelectorAll("svg.donut:not(.in)");
+  const grids = document.querySelectorAll("#kpis, #decades");
+  if (reduce) {
+    /* Finals already in markup: show instantly, never animate. */
+    sparks.forEach((s) => s.classList.add("in"));
+    donuts.forEach((s) => s.classList.add("in"));
+    return;
+  }
+  donuts.forEach((svg) => {
+    svg.querySelectorAll("circle").forEach((c) => {
+      const C = parseFloat((c.getAttribute("stroke-dasharray") || "").split(/\s+/)[1]);
+      if (isFinite(C)) c.setAttribute("stroke-dashoffset", C.toFixed(1)); /* ring start; target kept in data-off */
+    });
+  });
+  if (!("IntersectionObserver" in window)) {
+    sparks.forEach((s) => s.classList.add("in"));
+    donuts.forEach((svg) => {
+      svg.classList.add("in");
+      svg.querySelectorAll("circle").forEach((c) => { if (c.dataset.off) c.setAttribute("stroke-dashoffset", c.dataset.off); });
+    });
+    grids.forEach(tickKpis);
+    return;
+  }
+  if (!entranceObs) {
+    entranceObs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        const t = en.target;
+        entranceObs.unobserve(t);
+        if (t.matches("svg.donut")) {
+          t.classList.add("in");
+          requestAnimationFrame(() => {
+            t.querySelectorAll("circle").forEach((c) => { if (c.dataset.off) c.setAttribute("stroke-dashoffset", c.dataset.off); });
+          });
+        } else if (t.matches("svg.spark")) {
+          t.classList.add("in");
+        } else {
+          t.dataset.armed = "1";
+          tickKpis(t);
+        }
+      });
+    }, { threshold: 0.08 });
+  }
+  sparks.forEach((s) => entranceObs.observe(s));
+  donuts.forEach((s) => entranceObs.observe(s));
+  grids.forEach((g) => { if (!g.dataset.armed) entranceObs.observe(g); });
 }
 
 /* ================= BOOT ================= */
@@ -1085,19 +1161,9 @@ load().then((d) => {
     console.error(e);
   }
   reveal();
-  /* Chart entrance: grow bars in on scroll — same pattern as the timeline
-     .tl-reveal wiring (no shared helper exists, so the pattern is copied). */
-  const sparks = document.querySelectorAll("svg.spark");
-  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const barObs = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) { en.target.classList.add("in"); barObs.unobserve(en.target); }
-      });
-    }, { threshold: 0.08 });
-    sparks.forEach((s) => barObs.observe(s));
-  } else {
-    sparks.forEach((s) => s.classList.add("in"));
-  }
+  /* Chart entrance: bars grow, donuts sweep, KPIs tick on visibility — one shared
+     boot observer, same pattern as the timeline .tl-reveal wiring. */
+  armEntrance();
 }).catch(() => {
   document.querySelectorAll("main.wrap").forEach((m) => {
     const p = document.createElement("p");
