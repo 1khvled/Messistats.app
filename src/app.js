@@ -93,7 +93,7 @@ function normalize(d) {
   t.apps = t.combined.appearances;
   t.clubs = { apps: t.club.appearances, goals: t.club.goals, goalsPerGame: t.club.goalsPerGame };
   t.country.apps = t.country.appearances;
-  d.lastUpdated = new Date(t && d.meta.updated + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  d.lastUpdated = new Date((d.meta.updated || "") + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   const fin = {};
   d.byFinish.forEach((r) => { fin[r.finish] = r.goals; });
   d.byFinish = { openPlay: fin["Open play"], penalties: fin["Penalties"], freeKicks: fin["Free kicks"] };
@@ -299,7 +299,6 @@ function renderHome(d) {
     `<thead><tr><th scope="col" class="left">Team and years</th><th scope="col">Apps</th><th scope="col">Goals</th><th scope="col">Goals per game</th></tr></thead>` +
     `<tbody>${rows}<tr class="total"><th scope="row">Career total</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>` + clubTableCaption();
   sortable(el("club-card").querySelector("table"));
-  sortable(el("silver").querySelector("table"));
 
   // year widget: dropdown + tiles + full-range bars
   const ys = d.calendarYears;
@@ -338,7 +337,6 @@ function renderHome(d) {
     [`46`, `<b>Team trophies</b> — the most decorated career in football history, crowned by the 2022 World Cup.`],
   ].map((r) => `<div class="record"><span class="num">${r[0]}</span><span>${r[1]}</span></div>`).join("");
 
-  const teamT = teamTrophyTotals(d);
   el("silver").innerHTML =
     `<table class="data-table"><caption>46 senior team titles, club by club, plus the headline individual honours.</caption>` +
     `<thead><tr><th scope="col" class="left">Trophy</th><th scope="col">Times</th><th scope="col" class="left">Note</th></tr></thead><tbody>` +
@@ -348,7 +346,7 @@ function renderHome(d) {
     `<tr><th scope="row">Team trophies — Inter Miami</th><td>3</td><td class="left">Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025</td></tr>` +
     `<tr><th scope="row">Ballon d'Or</th><td>8</td><td class="left">Record — 2009–12, 2015, 2019, 2021, 2023</td></tr>` +
     `</tbody></table>`;
-  void teamT;
+  sortable(el("silver").querySelector("table"));
 
   const m = d.byFinish;
   el("split").innerHTML = `<div class="split-grid">` +
@@ -370,11 +368,6 @@ function renderHome(d) {
 
   renderExplore(d, "home");
   renderMethod(d, "");
-}
-function teamTrophyTotals(d) {
-  const o = {};
-  (d.trophies || []).forEach((t) => { o[t.team] = (o[t.team] || 0) + t.count; });
-  return o;
 }
 
 /* ================= GOALS BY YEAR ================= */
