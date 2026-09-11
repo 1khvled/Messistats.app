@@ -1049,6 +1049,32 @@ function adminFlat() {
   if (lock) parent.insertBefore(lock, after ? after.nextSibling : null);
   parent.removeChild(grid);
 }
+/* Demo preview (?demo=1): sample visit counts, no backend touched. Named mock,
+   fenced before any fetchStats/key logic; the unlocked layout below is shared. */
+const DEMO_PAGES = { home: 128, byyear: 96, dashboard: 74, timeline: 61, byseason: 44, achievements: 31, admin: 12 };
+/* Data-health panel: every figure computed live from the real normalized dataset
+   (calendarYears[].goals and byCompetition[].goals vs totals.goals, meta.status)
+   or document — no backend, no invented numbers. backendLabel mirrors the pill. */
+function renderHealth(d, backendLabel) {
+  const card = el("health-card");
+  if (!card) return;
+  const calSum = d.calendarYears.reduce((a, r) => a + Number(r.goals || 0), 0);
+  const compSum = d.byCompetition.reduce((a, r) => a + Number(r.goals || 0), 0);
+  const total = d.totals.goals;
+  const row = (tone, html) => `<li><span class="dot health-${tone}" aria-hidden="true"></span><span>${html}</span></li>`;
+  const check = (sum, what) => {
+    const ok = sum === total;
+    return row(ok ? "ok" : "bad", `<b>${esc(what)}</b> — ${n(sum)} of ${n(total)} ${ok ? "✓" : "✗"}`);
+  };
+  card.innerHTML =
+    `<h2>Data health</h2><ul class="health-list">` +
+    check(calSum, "Calendar years") +
+    check(compSum, "Competitions") +
+    row("info", `<b>Dataset status</b> — ${esc(d.meta.status)} (updated ${esc(d.meta.updated)})`) +
+    row("info", `<b>Page stamp</b> — ${esc(document.lastModified)}`) +
+    row("info", `<b>Backend</b> — ${esc(backendLabel)}`) +
+    `</ul>`;
+}
 async function renderAdmin(d) {
   setHead(d, `An owner-only corner: every visit to every page, counted quietly — <b>no names, no cookies, and only I hold the password</b>.`);
   renderExplore(d, "admin");
@@ -1056,6 +1082,18 @@ async function renderAdmin(d) {
   const kpis = el("kpis"), box = el("page-card"), tbl = el("page-table");
   adminFlat(); /* grid is unlocked-only: every render starts from the flat shell */
   let pages;
+  const demoMode = new URLSearchParams(location.search).has("demo");
+  if (demoMode) {
+    /* demo branch: fenced BEFORE any fetchStats/key logic — mock data + banner,
+       then falls into the exact unlocked layout path below (pages is the only
+       input); the real counter backend is never touched. */
+    document.getElementById("demo-banner")?.remove(); /* re-renders must not stack banners */
+    if (el("status-strip")) {
+      el("status-strip").insertAdjacentHTML("beforebegin", `<p class="caveat demo-banner" id="demo-banner" role="note">Sample data for preview — connect the backend for real numbers. <a href="admin.html">Exit demo</a></p>`);
+      el("status-strip").innerHTML = `<span class="status-pill is-demo"><span class="dot" aria-hidden="true"></span>Demo</span>`;
+    }
+    pages = DEMO_PAGES;
+  } else {
   try {
     const s = await fetchStats(getAKey());
     if (s.locked) {
@@ -1063,23 +1101,27 @@ async function renderAdmin(d) {
       if (stale) setAKey(""); /* saved password went stale (it changed server-side): drop it */
       if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-locked"><span class="dot" aria-hidden="true"></span>Locked</span>`;
       showAdminLogin(d, box, tbl, kpis, stale ? "The password changed — log in again." : "");
+      renderHealth(d, "LOCKED");
       return;
     }
     if (s.unready) {
       if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-off"><span class="dot" aria-hidden="true"></span>Not configured</span>`;
       if (box) box.innerHTML = `<p class="caveat">The visit-counter backend is live but has no password set yet, so the numbers stay locked until the owner sets one — see <code>docs/VERCEL_ADMIN_SETUP.md</code>.</p>`;
       hideStatsTbl(tbl, kpis);
+      renderHealth(d, "NOT CONFIGURED");
       return;
     }
     pages = s.pages;
+    if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-live"><span class="dot" aria-hidden="true"></span>Live</span>`;
   } catch {
     /* no backend here (local preview, static file, ad-blocked): explain, don't show zeros */
     if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-off"><span class="dot" aria-hidden="true"></span>Offline preview</span>`;
     if (box) box.innerHTML = `<p class="caveat">Live visit counts need the deployed site — this preview has no counter backend, so there is nothing to show yet.</p>`;
     hideStatsTbl(tbl, kpis);
+    renderHealth(d, "OFFLINE");
     return;
   }
-  if (el("status-strip")) el("status-strip").innerHTML = `<span class="status-pill is-live"><span class="dot" aria-hidden="true"></span>Live</span>`;
+  }
   if (tbl) tbl.style.display = ""; /* undo hideStatsTbl() from a previous locked view */
   const thead = el("page-table-head");
   if (thead) thead.style.display = "";
@@ -1106,6 +1148,7 @@ async function renderAdmin(d) {
   if (anchor) anchor.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn btn-lock" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
   const lock = el("a-lock");
   if (lock) lock.addEventListener("click", () => { setAKey(""); renderAdmin(d); });
+  renderHealth(d, demoMode ? "DEMO" : "LIVE");
   armEntrance(); /* async admin render lands after boot: arm its spark + KPI grid */
 }
 

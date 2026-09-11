@@ -882,3 +882,13 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 .vault-mark svg{width:44px;height:44px}
 #health-card:empty{display:none}
 .admin-rail #a-lock-wrap{margin:0}
+/* ---------- Admin demo + health (additive: .caveat base kept, no new motion) ---------- */
+#health-card h2{font-size:1.02rem;margin:0}
+.demo-banner{border:2px dashed var(--gold);background:var(--gold-soft);color:var(--ink);font-weight:600}
+.demo-banner a{font-weight:700}
+.status-pill.is-demo .dot{background:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.health-list{list-style:none;margin:0.6rem 0 0;padding:0;display:flex;flex-direction:column;gap:9px;font-size:0.92rem;color:var(--ink-soft)}
+.health-list li{display:flex;gap:10px;align-items:flex-start}
+.health-list .dot{flex:0 0 8px;width:8px;height:8px;border-radius:50%;margin-top:6px;background:var(--faint)}
+.health-list .health-ok{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.health-list .health-bad{background:#b04444;box-shadow:0 0 0 3px #f6e0e0}

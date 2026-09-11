@@ -60,3 +60,6 @@ Quoted from the README limits table (verified 2026-09-09); Blob counters are pen
 | D1 rows read / written | 5,000,000 / 100,000 / day | tens / a few per run |
 | D1 storage | 5 GB | kilobytes |
 | KV (n/a here) | 100K reads / 1K writes / day | n/a |
+
+## 8. Demo preview (no backend needed)
+Open `http://localhost:5173/admin.html?demo=1` (or `/admin?demo=1` deployed) to see the full dashboard with sample data. Labeled DEMO everywhere; never touches the real counter; `Exit demo` returns to the locked page.
