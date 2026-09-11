@@ -893,3 +893,8 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 .health-list .health-ok{background:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .health-list .health-bad{background:#b04444;box-shadow:0 0 0 3px #f6e0e0}
 .health-list .health-info{background:var(--sky);box-shadow:0 0 0 3px var(--brand-soft)}
+/* ---------- Admin overview sections (Task 1 additive: .shead/.card/.vault-note reused, no new motion) ---------- */
+.admin-main > .shead, .admin-rail > .shead { margin: 1.1rem 0 0.45rem; }
+#access-card { display: flex; flex-direction: column; gap: 10px; }
+#access-card .vault-note { margin: 0; }
+.access-backend { margin: 0; color: var(--muted); font-size: 0.88rem; }

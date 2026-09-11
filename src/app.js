@@ -1018,6 +1018,19 @@ function showAdminLogin(d, box, tbl, kpis, msg) {
       : "Wrong password — try again.");
   });
 }
+/* Shopify overview section heads: created once, moved by adminGrid(), removed by
+   adminFlat(). The Pages head reuses the shell #page-table-head node (hideStatsTbl
+   binds it); its "Every page, in order" copy is stashed in dataset.orig. */
+function ensureShead(id, text) {
+  let h = el(id);
+  if (!h) {
+    h = document.createElement("div");
+    h.className = "shead";
+    h.id = id;
+    h.innerHTML = `<h2>${text}</h2>`;
+  }
+  return h;
+}
 /* Command grid: unlocked dashboard wraps the flat shell mounts into main + rail
    columns; every other state restores the flat single column. Idempotent. */
 function adminGrid() {
@@ -1031,10 +1044,25 @@ function adminGrid() {
     strip.parentNode.insertBefore(grid, strip);
   }
   const main = grid.querySelector(".admin-main"), rail = grid.querySelector(".admin-rail");
-  ["status-strip", "kpis", "page-card"].forEach((id) => { const n = el(id); if (n) main.appendChild(n); });
-  ["page-table-head", "page-table", "health-card"].forEach((id) => { const n = el(id); if (n) rail.appendChild(n); });
+  const trafficHead = ensureShead("traffic-head", "Traffic");
+  const dataHead = ensureShead("data-head", "Data");
+  const accessHead = ensureShead("access-head", "Access");
+  let access = el("access-card");
+  if (!access) {
+    access = document.createElement("section");
+    access.className = "card";
+    access.id = "access-card";
+  }
+  const ptHead = el("page-table-head");
+  if (ptHead) {
+    if (!ptHead.dataset.orig) ptHead.dataset.orig = ptHead.innerHTML;
+    ptHead.innerHTML = `<h2>Pages</h2>`;
+  }
+  /* main = status + KPIs + Traffic + Pages; rail = Data + Access */
+  [el("status-strip"), el("kpis"), trafficHead, el("page-card"), ptHead, el("page-table")].forEach((n) => { if (n) main.appendChild(n); });
+  [dataHead, el("health-card"), accessHead, access].forEach((n) => { if (n) rail.appendChild(n); });
   const lock = el("a-lock-wrap");
-  if (lock) rail.appendChild(lock);
+  if (lock && access) access.appendChild(lock);
   return grid;
 }
 function adminFlat() {
@@ -1047,6 +1075,11 @@ function adminFlat() {
   });
   const lock = el("a-lock-wrap");
   if (lock) parent.insertBefore(lock, after ? after.nextSibling : null);
+  /* Task 1 overview nodes live only in the grid: drop the created heads + empty
+     access shell (lock already moved out), restore the Pages head copy. */
+  ["traffic-head", "data-head", "access-head", "access-card"].forEach((id) => el(id)?.remove());
+  const ptHead = el("page-table-head");
+  if (ptHead && ptHead.dataset.orig) { ptHead.innerHTML = ptHead.dataset.orig; delete ptHead.dataset.orig; }
   parent.removeChild(grid);
 }
 /* Demo preview (?demo=1): sample visit counts, no backend touched. Named mock,
@@ -1129,10 +1162,20 @@ async function renderAdmin(d) {
     .sort((a, b) => b.views - a.views);
   const total = rows.reduce((a, x) => a + x.views, 0);
   const top = rows[0];
-  if (kpis) kpis.innerHTML =
-    kpiA("Total page visits", n(total), "Every page on this site, added together.") +
-    kpiA("Most-read page", esc(top.t), `${n(top.views)} visits and counting.`) +
-    kpiA("Pages counted", String(rows.length), "The stats pages, home, and this one.");
+  if (kpis) {
+    /* Same #kpis grid → 4-up: .kpis-4 exists, so no new grid CSS. tickKpis() covers
+       any plain-numeric .kpi-value in the grid, so cards 1 + 4 tick; names/ratios stay static. */
+    kpis.classList.remove("kpis-3");
+    kpis.classList.add("kpis-4");
+    const active = rows.filter((x) => x.views > 0).length;
+    const least = rows[rows.length - 1];
+    const share = total ? Math.round((top.views / total) * 100) : 0;
+    kpis.innerHTML =
+      kpiA("Total visits", n(total), `${rows.length} pages counted`) +
+      kpiA("Most-read page", esc(top.t), total ? `${n(top.views)} visits · ${share}% of traffic` : "—") +
+      kpiA("Pages with traffic", `${active} of ${rows.length}`, total ? `least-read: ${esc(least.t)}` : "No visits yet") +
+      kpiA("Avg visits/page", rows.length ? (total / rows.length).toFixed(1) : "—", `total ÷ ${rows.length} pages`);
+  }
   if (box) box.innerHTML =
     `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(rows.map((x) => ({ value: x.views, label: x.s, tip: `${x.t}: ${n(x.views)} visits`, peak: x.page === top.page })), { label: "Site visits by page, most-read first" })}</div>` +
     `<figcaption class="figcap">Most-read on the left, in gold. Loading this page counts as one visit to it — the rollup itself never adds any.</figcaption></figure>`;
@@ -1141,11 +1184,17 @@ async function renderAdmin(d) {
     `<thead><tr><th scope="col">Rank</th><th class="left" scope="col">Page</th><th scope="col">Visits</th><th scope="col">Share</th><th scope="col"><span class="vh">Share bar</span></th></tr></thead><tbody>` +
     rows.map((x, i) => { const pct = total ? Math.round((x.views / total) * 100) : 0; return `<tr${i === 0 ? ` class="hot"` : ""}><td>${i < 3 ? `<span class="medal m${i + 1}" aria-label="Rank ${i + 1} of ${rows.length}">${i + 1}</span>` : `<span class="rank-num">${i + 1}</span>`}</td><th scope="row"><a href="${x.href}">${esc(x.t)}</a></th><td>${n(x.views)}</td><td>${total ? pct + "%" : "—"}</td><td><div class="sharebar"><i style="width:${pct}%"></i></div></td></tr>`; }).join("") +
     `</tbody></table>`;
-  adminGrid(); /* unlocked dashboard: status + KPIs + chart left, table + health + lock right */
+  adminGrid(); /* unlocked dashboard: status + KPIs + Traffic + Pages left, Data + Access right */
   const old = el("a-lock-wrap");
   if (old) old.remove(); /* re-renders (login/logout) must not stack buttons */
-  const anchor = el("health-card") || tbl;
-  if (anchor) anchor.insertAdjacentHTML("afterend", `<p id="a-lock-wrap"><button class="btn btn-lock" id="a-lock" type="button">Lock it back up 🔒</button></p>`);
+  /* Access card: same lock id + handler (moved into the card, logic untouched),
+     existing session copy, backend row mirroring the status-pill label. */
+  const access = el("access-card");
+  const backendName = demoMode ? "Demo" : "Live"; /* same label text as the status pill */
+  if (access) access.innerHTML =
+    `<p id="a-lock-wrap"><button class="btn btn-lock" id="a-lock" type="button">Lock it back up 🔒</button></p>` +
+    `<p class="vault-note">This tab only — closing it locks the numbers again.</p>` +
+    `<p class="access-backend"><b>Backend</b> — ${backendName}</p>`;
   const lock = el("a-lock");
   if (lock) lock.addEventListener("click", () => { setAKey(""); renderAdmin(d); });
   renderHealth(d, demoMode ? "DEMO" : "LIVE");
