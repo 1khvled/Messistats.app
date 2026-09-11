@@ -1162,6 +1162,7 @@ async function renderAdmin(d) {
     .sort((a, b) => b.views - a.views);
   const total = rows.reduce((a, x) => a + x.views, 0);
   const top = rows[0];
+  const least = rows[rows.length - 1];
   rows.forEach((x) => { x.pct = total ? Math.round((x.views / total) * 100) : 0; }); /* one pct per page, shared by bars + table */
   if (kpis) {
     /* Same #kpis grid → 4-up: .kpis-4 exists, so no new grid CSS. tickKpis() covers
