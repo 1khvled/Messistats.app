@@ -814,3 +814,6 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 .ybar.prov { opacity: 0.45; }
 .pill--active { background: var(--navy); color: #fff; border-color: var(--navy); }
 .chart-empty { color: var(--muted); font-size: 0.9rem; padding: 12px 4px; }
+/* Trust: method colophon + crest note (additive — .colophon/.caveat base rules exist above and are kept) */
+.colophon p { color: var(--ink-soft); }
+.crest-note { color: var(--faint); font-size: 0.8rem; }
