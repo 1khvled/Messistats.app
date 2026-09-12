@@ -156,11 +156,12 @@ function methodHTML(d, extra) {
   return methodColophon(`<h2>How I put these numbers together</h2>` +
     `<p>I count one thing: official senior first-team matches for ${teams} — ` +
     `every league game, domestic cup, continental night and international, and nothing else. No youth football, no reserves, no friendlies dressed up as history.</p>` +
+    `<details class="method-more"><summary>How these numbers are checked</summary>` +
     `<p>Season and calendar-year goals are tallied from full match records and checked against club ` +
     `and competition records plus free match-data feeds (ESPN, openfootball, football-data.org) after every game. The free-kick, penalty and hat-trick splits are a widely published tally, marked ` +
     `provisional until my match-by-match hand count is finished. ${extra || ""}</p>` +
     `<p class="colophon">This is a one-person site, kept by hand. Totals only ever change when I have a named source and have checked it twice — ` +
-    `never by a script, never on a rumour. If you spot something wrong, that date stamp at the top tells you exactly when I last looked.</p>`);
+    `never by a script, never on a rumour. If you spot something wrong, that date stamp at the top tells you exactly when I last looked.</p></details>`);
 }
 function renderMethod(d, extra) {
   const m = el("method");
