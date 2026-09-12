@@ -146,3 +146,8 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   `/_vercel/insights/script.js` 404s silently); bundle +1.5KB. Exception to
   iron rule #4 (zero third-party requests) is user-ordered. Needs a redeploy +
   real visits before the dashboard shows data (allow ~30s, disable adblock).
+- SPEED INSIGHTS 2026-09-12 (same panel, same pattern): `npm i
+  @vercel/speed-insights` (0 vulns) + `injectSpeedInsights()` next to inject()
+  in app.js (panel's `<SpeedInsights/>` is Next-only; this is the vanilla
+  equivalent, all 6 pages covered). Bundle 64.2→65.8KB. Same production-only
+  behavior. Committed + pushed with the analytics change.
