@@ -137,3 +137,12 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   explaining why it must stay. worker/ + wrangler.toml stay ignored.
   Still open: Vercel import + production domain
   swap (canonical/OG/sitemap/robots TODOs), Chicago 1-1 Miami hand-check.
+- VERCEL ANALYTICS RE-ADDED 2026-09-12 (user pasted the get-started panel and
+  ordered it back, overriding the 0883309 removal): `npm i @vercel/analytics`
+  (0 vulns) + `inject()` at the top of src/app.js. The panel's Next.js
+  `<Analytics/>` component does not apply — no React here — so the documented
+  framework-free `inject()` is used instead; one call covers all 6 pages since
+  every shell loads app.js. Only sends data on the Vercel deployment (locally
+  `/_vercel/insights/script.js` 404s silently); bundle +1.5KB. Exception to
+  iron rule #4 (zero third-party requests) is user-ordered. Needs a redeploy +
+  real visits before the dashboard shows data (allow ~30s, disable adblock).

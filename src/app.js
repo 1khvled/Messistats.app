@@ -1,6 +1,8 @@
 /* MessiStats renderer — own code, own data, own copy.
    Layout structure mirrors the ronaldostats.app reference (rail, KPI cards,
    tables, charts, explore links); no reference code, images or text reused. */
+import { inject } from "@vercel/analytics";
+inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 async function load() {
   const r = await fetch("data/messi-data.json", { cache: "no-store" });
   if (!r.ok) throw new Error("data " + r.status);
