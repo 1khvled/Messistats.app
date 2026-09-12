@@ -1,5 +1,6 @@
 # Vercel build only needs the static-site sources; exclude Cloudflare-only
-# files (worker/, wrangler.toml) and local dev tooling (scripts/).
+# files (worker/, wrangler.toml). scripts/ MUST stay: `npm run build` runs
+# scripts/prebuild-check.mjs via the `prebuild` hook, and Vercel applies this
+# ignore before building (missing scripts/ fails the build).
 worker
 wrangler.toml
-scripts
