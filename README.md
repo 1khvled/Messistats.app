@@ -161,14 +161,30 @@ npm run verify              # raw check (last-check.json) + smart dry-run
 npm run verify:smart        # detection dry-run only (default, changes nothing)
 npm run verify:smart:write  # persist staged rows to public/data/pending.json
 npm run pending             # list staged rows with provenance
+npm run triage              # grouped queue summary (needs_review by family)
+npm run triage -- --prune   # collapse dupes + expire 90d+ rows + cap at 100
 node scripts/confirm-provisional.mjs --confirm <match_id>  # clear one flag
-npm run build               # must pass; vite bundles src/ads.js + matchday.js
+npm run build               # prebuild gate (927x3 + caveat check) + vite bundle
+npm run audit               # verify dist/ has every page, asset, skip link, print CSS
 ```
 
 `--dry-run` is the default: without `--write`, no file is changed and the run
 only prints what WOULD be staged. Exit 1 only when ALL sources fail or flags
 are invalid; partial failure prints warnings and exits 0 so `npm run verify`
 still reports the healthy sources.
+
+Article change-notes upsert under one stable row per slug
+(`watch:article:<slug>`, newest change wins), so live-updating pages like
+ESPN's tracker story can't flood the queue; `needs_review` is capped at 100
+rows with 90-day expiry (internal self-check rows exempt). Run `npm run triage`
+when the queue looks noisy — it groups rows by family so one glance shows
+whether anything is real.
+
+`npm run build` runs `scripts/prebuild-check.mjs` first: it fails the build
+if the three 927 sums (calendarYears / byCompetition / byBodyPart vs
+totals.combined.goals) disagree or if the provisional-caveat wording ever
+leaves `src/app.js`. Totals are still bumped by hand; the gate just makes a
+bad edit unshippable.
 
 ## Confirming provisional updates
 

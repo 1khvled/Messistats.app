@@ -1,7 +1,10 @@
 // Permanent scheduled source-watcher: auto-scrape our stat sources on every run.
 //
-// Compares free sources against public/data/messi-data.json and stages ALL
+// Compares free sources against public/data/messi-data.json and stages
 // findings to public/data/pending.json (needs_review bucket) for human review.
+// Article change-notes UPSERT under one stable row per slug
+// (watch:article:<slug>); structured findings stage one row per new state.
+// Queue is capped (100) with 90-day expiry so it can't grow without bound.
 // NEVER writes messi-data.json totals — it stages for human review only.
 // Exit 0 always (it is a watcher, not a gate).
 //
@@ -34,6 +37,8 @@ const statePath = resolve(root, "public", "data", "source-watch.json");
 const UA = "messi-stats-source-watch/0.1";
 const HASH_TTL_MS = 24 * 3600 * 1000; // article hashes re-checked daily at most
 const FULL_TTL_MS = 7 * 24 * 3600 * 1000; // heavy structured re-check weekly
+const MAX_NEEDS_REVIEW = 100; // queue cap: oldest non-internal rows drop first
+const RETENTION_MS = 90 * 24 * 3600 * 1000; // rows older than this expire (internal self-checks exempt)
 const MESSI_RE = /messi/i;
 const MIN_ARTICLE_CHARS = 800; // shorter readable bodies are bot-walls, not content
 
@@ -199,6 +204,7 @@ const store = loadPending();
 const seen = new Set([].concat(store.provisional, store.needs_review, store.confirmed || []).map((r) => String(r.match_id)));
 const staged = [];
 const checks = [];
+let touched = false; // set when an upsert rewrites a staged row in place
 function stage(row) {
   if (seen.has(String(row.match_id))) { console.log("dedupe: already staged " + row.match_id); return; }
   seen.add(String(row.match_id));
@@ -208,6 +214,29 @@ function stage(row) {
 function check(slug, kind, ok, detail) {
   checks.push({ slug: slug, kind: kind, ok: ok, at: nowIso(), detail: detail });
   console.log((ok ? "ok   " : "FAIL ") + kind + " " + slug + " — " + detail);
+}
+// Article rows upsert in place under a STABLE match_id (watch:article:<slug>).
+// Live-updating pages (e.g. ESPN's 2026 tracker story) change hash on nearly
+// every fetch; staging a new row per hash grew needs_review without bound
+// (29 rows by 2026-09-12, 14 from one slug). Updating the single per-slug row
+// keeps the signal (latest change + hash transition) without the spam.
+function upsertArticle(a, h, prev) {
+  const id = "watch:article:" + a.slug;
+  const sameSlug = (r) => { const m = String((r && r.match_id) || ""); return m === id || m.startsWith(id + ":"); };
+  const existing = store.needs_review.find(sameSlug) || staged.find(sameSlug);
+  const note = "Page changed since last check (" + (prev ? prev.slice(0, 12) : "new") + " -> " + h.slice(0, 12) +
+    ") — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). " + a.url;
+  if (existing) {
+    existing.match_id = id; // collapse any legacy :hash suffix
+    existing.note = note;
+    existing.fetched_at = nowIso();
+    existing.sources = [src(a.url)];
+    touched = true;
+    check("article:" + a.slug, "article", false, "CHANGED " + (prev ? prev.slice(0, 12) : "?") + " -> " + h.slice(0, 12) + " (row updated in place)");
+  } else {
+    check("article:" + a.slug, "article", false, "CHANGED " + (prev ? prev.slice(0, 12) : "?") + " -> " + h.slice(0, 12));
+    stage(watchRow(id, a.label, note, [a.url]));
+  }
 }
 
 // Read-only sanity: the three 927 sums (iron rule). Staging, never gating.
@@ -376,11 +405,7 @@ if (runHeavy) {
     state["hashAt:" + a.slug] = nowIso();
     if (!prev) { check("article:" + a.slug, "article", true, "baselined " + h.slice(0, 12)); continue; }
     if (h === prev) check("article:" + a.slug, "article", true, "unchanged");
-    else {
-      check("article:" + a.slug, "article", false, "CHANGED " + prev.slice(0, 12) + " -> " + h.slice(0, 12));
-      stage(watchRow("watch:article:" + a.slug + ":" + h.slice(0, 8), a.label,
-        "Page changed since last check — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). " + a.url, [a.url]));
-    }
+    else upsertArticle(a, h, prev);
   }
 } else {
   console.log("cheap exit: no match today and last full run fresh — heavy fetches skipped, hashes kept.");
@@ -394,14 +419,42 @@ if (runHeavy) {
 // football-data.org: keyless tier unreachable by design (see TODO(KEY) above).
 checks.push({ slug: "football-data.org", kind: "skip", ok: true, at: nowIso(), detail: FOOTBALL_DATA_SKIPPED });
 
-// Persist staged rows (append to needs_review, dedupe identical match_ids).
+// Persist staged rows (append to needs_review, dedupe identical match_ids),
+// then enforce retention + cap so the queue can't grow without bound.
+const isInternal = (r) => String((r && r.match_id) || "").startsWith("watch:internal:");
+let expired = 0;
+{
+  const cutoff = Date.now() - RETENTION_MS;
+  const before = store.needs_review.length;
+  store.needs_review = store.needs_review.filter((r) => {
+    if (isInternal(r)) return true;
+    const t = Date.parse(r.fetched_at || "");
+    return isNaN(t) || t >= cutoff;
+  });
+  expired = before - store.needs_review.length;
+  if (expired) console.log("expired " + expired + " row(s) older than 90 days.");
+}
 if (staged.length) {
   for (const row of staged) store.needs_review.push(row);
   store.updated = nowIso();
+  console.log("staged " + staged.length + " row(s) to pending.json (needs_review=" + store.needs_review.length + ")");
+} else if (!expired && !touched) console.log("clean: nothing to stage.");
+else store.updated = nowIso();
+if (store.needs_review.length > MAX_NEEDS_REVIEW) {
+  store.needs_review.sort((a, b) => String(a.fetched_at || "") < String(b.fetched_at || "") ? -1 : 1);
+  const drop = [];
+  while (store.needs_review.length > MAX_NEEDS_REVIEW) {
+    const i = store.needs_review.findIndex((r) => !isInternal(r));
+    if (i === -1) break; // only internal rows left: never drop those
+    drop.push(store.needs_review.splice(i, 1)[0].match_id);
+  }
+  if (drop.length) { console.log("capped queue at " + MAX_NEEDS_REVIEW + ": dropped oldest " + drop.length + " (" + drop.join(", ") + ")."); store.updated = nowIso(); expired += drop.length; }
+}
+if (staged.length || expired || touched) {
   mkdirSync(dirname(pendingPath), { recursive: true });
   writeFileSync(pendingPath, JSON.stringify(store, null, 2));
-  console.log("staged " + staged.length + " row(s) to pending.json (needs_review=" + store.needs_review.length + ")");
-} else console.log("clean: nothing to stage.");
+  console.log("wrote pending.json (needs_review=" + store.needs_review.length + ").");
+} else console.log("clean: nothing changed.");
 console.log("messi-data.json untouched by design.");
 
 // Persist watcher state (hashes + check log only).

@@ -818,3 +818,39 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 /* Donut sweep-in (additive) */
 .donut.in circle { transition: stroke-dashoffset 0.8s ease; }
 
+/* ---------- Accessibility + sharing (additive) ---------- */
+/* Skip link: off-screen until keyboard-focused, then a visible navy pill. */
+.skip {
+  position: absolute; left: 16px; top: -60px; z-index: 100;
+  background: var(--navy); color: #fff; font-weight: 700; font-size: 0.9rem;
+  padding: 10px 18px; border-radius: 999px; text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip:focus { top: 16px; color: #fff; text-decoration: none; }
+:focus-visible { outline: 3px solid #e3b93e; outline-offset: 2px; }
+/* Headline copy button under the home KPIs. */
+.share-row { display: flex; align-items: center; gap: 12px; margin: 14px 0 0; }
+.btn-primary {
+  background: var(--navy); color: #fff; border: 1px solid var(--navy);
+  font: 700 0.9rem var(--font-body); padding: 10px 20px; border-radius: 999px;
+  cursor: pointer; transition: background 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:hover { background: var(--brand-ink); color: #fff; }
+.btn-primary:active { transform: scale(0.96); }
+.share-msg { color: var(--muted); font-size: 0.86rem; }
+
+/* ---------- Print: stats on paper ---------- */
+@media print {
+  .rail, .skip, .table-search, .year-pick-control, .explore, #banner,
+  .share-row, .tl-era-nav, .tl-search, #pills { display: none !important; }
+  .page { margin-left: 0; }
+  .wrap { max-width: none; padding: 0; }
+  body { background: #fff; font-size: 11pt; }
+  .card, .kpi, .qa, .record, .team-card, .split-card { box-shadow: none; break-inside: avoid; }
+  thead { display: table-header-group; }
+  tr { break-inside: avoid; }
+  a { color: var(--ink); text-decoration: none; }
+  .reveal, body[data-page="timeline"] .tl-reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .spark .bar { transform: none; }
+}
+

@@ -29,9 +29,10 @@ match-by-match hand count is finished. The 927-goal total is unaffected.
 ## Machine-readable data
 
 - Full dataset (JSON, the single source the pages render): `/data/messi-data.json`
-- Structured data: JSON-LD in each page `<head>` (SportsPerson + FAQPage on
-  home, Dataset on the goals pages, FAQPage on timeline/achievements,
-  BreadcrumbList everywhere)
+- Structured data: JSON-LD in each page `<head>` (SportsPerson with sameAs
+  entity links + FAQPage on home, Dataset on the goals and dashboard pages,
+  FAQPage on timeline/achievements, Speakable highlights on every content
+  page, BreadcrumbList everywhere)
 
 ## Update cadence
 

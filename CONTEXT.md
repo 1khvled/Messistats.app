@@ -1,6 +1,6 @@
 # CONTEXT.md — messi-stats (for AI agents)
 
-Read this before touching anything. Last updated 2026-09-10.
+Read this before touching anything. Last updated 2026-09-12 (admin/analytics removal reconciled).
 
 ## What this is
 
@@ -92,7 +92,42 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
 - VERIFY 2026-09-10 ~11:35 UTC: exit 0, messi-data.json untouched; needs_review grew 3->9 (article hash changes incl. gulfnews-400 assists source, +1 matchday row: 2026-09-10 Chicago 1-1 Miami, ESPN names Messi 0G/1A, single-source so staged not applied). Flag the Chicago row + gulfnews-400 change to the user as hand-checks.
 - USER-PHOTO INSTALL (#18 done, 2026-09-10): user supplied own photos in `C:\Users\Abdelli\Desktop\candidate\` ("stop searching for photos"). Six installed into `public/img/` with pixel-verified identity (canvas-drawImage capture + dHash 0-1 + PIL dims): era-2011-wembley.jpg (399x501, user file "UCL 2025 LIFTING THE TROPHIE.jpg" = Wembley 2011 trophy lift despite filename) + era-2021-tears.jpg (1800x1800 webp->jpg, "messi farewell barcelona press conference.webp" = Camp Nou goodbye presser) + era-2014-stare.jpg (679x452 WC-final trophy stare) + era-2021-copa.jpg (397x503 kissing Copa) + era-2021-psg-signing.jpg (1200x900 PSG signing) + era-2023-miami.jpg (679x451 pink unveiling). Excluded as suspect: two-Copas composite (messicom watermark), "2026 wc crying" (actually 2022, HOLA watermark), both Ballon d'Or files (unverifiable years). ERA_PHOTOS w/h+pos+honest captions updated; credits render "fan-provided photo" with NO fake licence links. LESSON: parallel Read calls on images can return results SWAPPED â€” verify images with sequential Reads + dHash/canvas, never parallel eyeballing (one crossed misinstall caught and fixed this way). Verified fixed1/fixed4 desktop + fixed1/fixed4 mobile screenshots, build + verify clean. No commit (no order).
 - USER-PHOTO ROUND 2 (same session): viewed the rest of `candidate\` (sequential Reads; AVIFs unreadable by the Read tool so PIL-converted to PNG first — never Read .avif directly). Wired 4 more: peak era swaps Piqué-lifts-cup Rome shot for era-2012-ballon.jpg (554x554, polka-dot suit, 4th straight Ballon d'Or); Paris era swaps generic PSG-action for era-2021-ballon7.jpg (480x639, sparkling jacket, 7th); Miami era swaps 2025 action for era-2023-ballon8.jpg (554x554, record 8th) + era-2024-copa.jpg (562x546, two Copa trophies). Deduped by SHA-256 + dHash-0: user's "UCL 2025" file == era-2011-wembley (kept wired name), farewell webp == era-2021-tears (kept wired name), 2014 file == era-2014-stare, PSG webp == era-2021-psg-signing — deleted the 4 duplicate copies. Removed now-unwired Commons files era-2009-rome/era-2021/era-2025 (no orphans left). Still unused from user folder: 2009/2010/2011/2015 Ballon portraits, 2013-avif + 2019-avif ceremony shots, HOLA-watermarked 2026 file (skipped: commercial mag watermark). needs_review=16 (new: espn-tracker page changed again, Chicago 1-1 Miami row still single-source). All 7 chapters screenshot-verified desktop + 390px mobile, build + verify clean. No commit (no order).
-- VERCEL ANALYTICS (user pasted the Next.js get-started panel): this is a static Vite site, no React, so used the framework-free `inject()` from `@vercel/analytics` at the top of src/app.js — one call covers all 6 pages since every shell loads app.js. `npm i @vercel/analytics` (0 vulns). Only sends data on the Vercel deployment; verified the analytics code is inside the dist bundle. NOT committed (no order).
-- LOGO REDESIGN (user: "Create better LOGO NIGGA" — old was a plain "LM10" text pill + basic M10-circle favicon). New mark is ORIGINAL artwork (no copied club/crest assets): a shield with the Blaugrana diagonal gradient from --hero-grad (garnet #6d0f2e -> deep blue #1d3fae -> sky #0e7cc0), gold keyline (#e3b93e, the honours gold) + single gold star nodding to the 2022 World Cup, white M10 monogram. Rewrote public/favicon.svg with it AND swapped all 6 HTML rail badges from `LM<b>10</b>` text to the inline-SVG shield + `<span class="rail-word">Messi<b>Stats</b></span>` (gold "Stats"). CSS: .rail-mark 36px + drop shadow; .rail-word hidden via max-width:0 (keeps collapsed badge centered) and revealed on rail hover/focus mirroring the nav-label pattern; <=900px bottom bar hides the word and shrinks mark to 28px. Screenshot-verified collapsed + expanded + 390px mobile, build + verify clean (verify exit 0; known watch FAILs only: espn-mls-count staged, messicom-46 403, espn-tracker changed — all hand-check queue, needs_review=18). NOT committed (no order).
-- BLOB VISITOR COUNTER (user created private store messistats-app-blob, region CDG1, and chose "visitor counter" use). New `api/count.js` Vercel serverless route: GET /api/count?page=<slug> reads `counters/<slug>.json` from the private store via head()+fetch, increments, writes back with put(allowOverwrite:true), returns {page,views}. Slugs whitelisted to the 6 body[data-page] values. Needs BLOB_READ_WRITE_TOKEN (auto-provisioned when the store is connected to the project — check Project -> Storage tab). `npm i @vercel/blob` (0 vulns). Frontend: `bumpCounter()` in app.js fires from setHead() on every page, appends "This page has been visited X times." to #foot-date; try/catch + !ok guard so local dev/file/static previews stay silent with a clean footer. Verified on local dist: footer clean, and the only 404s are the two backend-only URLs (/_vercel/insights/script.js + /api/count) which both fail silently — no broken assets. Counts are best-effort (concurrent hits can drop one); vanity only, never stats. Build + verify clean (927x3, needs_review=19 — espn-tracker hash changed again, hand-check queue). NOT committed (no order).
-- ANALYTICS PAGE (user demanded public /analytics to expose the Blob counter data). New 7th page analytics.html (rail eye-icon link added to all 6 old pages; Vite input added; body data-page="analytics"). api/count.js gained a read-only stats rollup that NEVER increments (viewing stats cannot inflate them) + analytics slug whitelisted. src/app.js renderAnalytics(): 3 KPIs (total visits, most-read page, pages counted), sparkSVG bar chart with gold peak bar, Page/Visits/Share table (most-read first, caption admits reloads and own visits count), honest mood-not-a-census caveat. Zero new CSS (reuses kpis-3/chart-card/data-table/caveat). Degrades silently with no backend (local/file/ad-block): lede + fallback caveat + explore + method, table and its heading hidden, no console errors from our code. Verified BOTH branches with Playwright route-mocks: fallback clean, success renders 7 bars/7 rows with correct math. Deliberately NOT in EXPLORE cross-links (other pages keep 5 cards). Build + verify clean (927x3, exit 0). NOT committed (no order).
+- ANALYTICS/BLOB/ADMIN — REMOVED by design (commits 0883309 + 3caa74a, Sep 2026).
+  The `@vercel/analytics` inject, `api/count.js` Blob counter and `admin.html`
+  owner-gated page were built, then deliberately deleted: the Blob
+  read-increment-write races under concurrency, and Vercel Web Analytics covers
+  the use-case with zero code. Do NOT "restore" them without a user order.
+  `package.json` has no analytics/blob deps, there is no `api/` dir, and
+  `vite.config.js` has exactly 6 inputs (no admin).
+- LOGO (shipped, in repo): original shield mark — Blaugrana diagonal gradient
+  (--hero-grad), gold keyline + single gold star (2022 WC nod), white M10
+  monogram. `public/favicon.svg` + inline-SVG `.rail-mark` on all 6 shells with
+  `.rail-word` MessiStats reveal on hover. No club/crest assets copied.
+- UI-SKILLS POLISH (shipped, in repo): font smoothing, text-wrap balance/pretty,
+  btn/pill press scale + exact-property transitions, btn-primary navy fill,
+  :focus-visible gold outline, `.caveat.err` red. Rail rework / shadows / hbar
+  label changes were rejected per identity rules.
+  NOTE (2026-09-12 audit): `.btn-primary` was actually missing from styles.css
+  (only existed in the removed admin form) — re-added with the share-row styles.
+- FULL IMPROVEMENT PASS 2026-09-12 ("DO ALL"): (1) CONTEXT reconciled (above);
+  (2) `scripts/prebuild-check.mjs` + `prebuild` script — build fails if 927x3
+  sums disagree (vs totals.combined.goals, not hardcoded) or the provisional
+  caveat leaves app.js; (3) queue hygiene — article rows UPSERT per slug
+  (stable `watch:article:<slug>`, newest wins), cap 100 + 90d expiry
+  (internal exempt), new `npm run triage` (+ `--prune`); one prune collapsed
+  29→10 rows (14 were one ESPN tracker slug); (4) deploy fixes — `public/404.html`
+  rewritten self-contained (old linked dist-missing `src/styles.css` + nonexistent
+  classes), `_headers` gains fonts/img immutable to match vercel.json, sitemap
+  lastmod → 2026-09-12, new `scripts/dist-audit.cjs` (`npm run audit`) + 11-route
+  preview smoke test all 200; (5) images — 10 JPEGs >100KB re-encoded q80
+  progressive, max-edge 1280 (era-2008 1128→169KB, era-2016 368→134KB,
+  tears 297→118KB; total ~4.0→~1.7MB), ERA_PHOTOS w/h updated for the 3 resized,
+  OG stays 1200x630; (6) UX — skip-link + #main on all 6 shells, tableSearch
+  URL persistence (?q=, ?season=, ?country=; new country-table search),
+  home copy-headline-stats button with clipboard fallback, @media print rules,
+  contrast audit all ≥4.5 (gold 5.43, faint 4.54). LESSON: never edit HTML via
+  PowerShell Set-Content — it writes BOM + mangles UTF-8 dashes; use node fs.
+  Verified: build ✓ (prebuild gate runs), audit PASS, verify exit 0
+  (upsert proven live: "row updated in place", queue steady at 10).
+  NOT committed (no order). Still open: Vercel import + production domain
+  swap (canonical/OG/sitemap/robots TODOs), Chicago 1-1 Miami hand-check.

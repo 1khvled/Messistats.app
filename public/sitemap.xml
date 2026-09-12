@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- TODO(SEO): site not deployed yet — replace https://messi-stats.vercel.app with the production domain, then rebuild. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://messi-stats.vercel.app/</loc><lastmod>2026-09-09</lastmod></url>
-  <url><loc>https://messi-stats.vercel.app/goalsbyyear</loc><lastmod>2026-09-09</lastmod></url>
-  <url><loc>https://messi-stats.vercel.app/goalsbyseason</loc><lastmod>2026-09-09</lastmod></url>
-  <url><loc>https://messi-stats.vercel.app/dashboard</loc><lastmod>2026-09-09</lastmod></url>
-  <url><loc>https://messi-stats.vercel.app/timeline</loc><lastmod>2026-09-09</lastmod></url>
-  <url><loc>https://messi-stats.vercel.app/achievements</loc><lastmod>2026-09-09</lastmod></url>
+  <url><loc>https://messi-stats.vercel.app/</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>https://messi-stats.vercel.app/goalsbyyear</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>https://messi-stats.vercel.app/goalsbyseason</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>https://messi-stats.vercel.app/dashboard</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>https://messi-stats.vercel.app/timeline</loc><lastmod>2026-09-12</lastmod></url>
+  <url><loc>https://messi-stats.vercel.app/achievements</loc><lastmod>2026-09-12</lastmod></url>
 </urlset>

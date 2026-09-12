@@ -50,20 +50,38 @@ function sortable(table) {
   });
 }
 
-/* Live-filter a table's rows (total rows stay visible). */
-function tableSearch(table, placeholder) {
+/* Live-filter a table's rows (total rows stay visible). When `param` is given
+   the query persists in the URL (?param=text) via history.replaceState, so a
+   filtered view is shareable and survives reload; it is read back on init. */
+function tableSearch(table, placeholder, param) {
   if (!table || !table.parentElement) return;
   const box = document.createElement("div");
   box.className = "table-search";
   box.innerHTML = `<input type="search" placeholder="${placeholder}" aria-label="${placeholder}">`;
   table.before(box);
   const inp = box.querySelector("input");
-  inp.addEventListener("input", () => {
-    const q = inp.value.trim().toLowerCase();
+  const apply = (q) => {
+    q = q.trim().toLowerCase();
     [...table.tBodies[0].rows].forEach((r) => {
       r.hidden = !(!q || r.classList.contains("total") || r.textContent.toLowerCase().includes(q));
     });
+  };
+  let timer = null;
+  inp.addEventListener("input", () => {
+    apply(inp.value);
+    if (!param) return;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      const url = new URL(location.href);
+      if (inp.value.trim()) url.searchParams.set(param, inp.value.trim());
+      else url.searchParams.delete(param);
+      history.replaceState(null, "", url.pathname + url.search + url.hash);
+    }, 300);
   });
+  if (param) {
+    const initial = new URLSearchParams(location.search).get(param);
+    if (initial) { inp.value = initial; apply(initial); }
+  }
 }
 
 const CLUBS = {
@@ -267,6 +285,30 @@ function renderHome(d) {
     `Rough projection at his ${last3[0].year}–${last3[last3.length - 1].year} pace (~${pace.toFixed(0)} a year): 1,000 lands around ${projYear}.</span></div>`;
   function kpi(l, v, s) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s}</span></div>`; }
   el("kpis").classList.add("kpi--hero");
+  el("kpis").insertAdjacentHTML("afterend",
+    `<div class="share-row"><button type="button" class="btn-primary" id="copyStats">Copy headline stats</button>` +
+    `<span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
+  el("copyStats").addEventListener("click", async () => {
+    const text = `Messi: ${n(t.goals)} goals in ${n(t.apps)} senior apps ` +
+      `(${n(t.clubs.goals)} club, ${n(t.country.goals)} Argentina), 46 trophies, 8 Ballons d'Or — as of ${d.lastUpdated}.`;
+    const msg = el("copyMsg");
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
+      else {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        ta.remove();
+      }
+      msg.textContent = "Copied — paste it anywhere.";
+    } catch {
+      msg.textContent = text;
+    }
+    clearTimeout(el("copyStats").dataset.timer);
+    el("copyStats").dataset.timer = setTimeout(() => { msg.textContent = ""; }, 4000);
+  });
 
   const Q = [
     ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="goalsbyyear.html">year-by-year breakdown</a>.`],
@@ -409,7 +451,7 @@ function renderByYear(d) {
     ).join("") + `</tbody></table>` +
     (last.provisional ? `<p class="caveat">* ${last.year} season in progress — refreshes after each appearance.</p>` : "");
   sortable(el("year-table").querySelector("table"));
-  tableSearch(el("year-table").querySelector("table"), "Filter years — e.g. 2012");
+  tableSearch(el("year-table").querySelector("table"), "Filter years — e.g. 2012", "q");
   el("bestyear").innerHTML =
     `<p><b>${best.year} is the greatest goalscoring year football has seen: ${best.goals} goals</b> — 79 for Barcelona and 12 for Argentina — ` +
     `breaking Gerd Müller's 40-year-old record of 85. It included a run of 33 league games scored in consecutively and a five-goal Champions League night against Bayer Leverkusen.</p>` +
@@ -454,8 +496,9 @@ function renderBySeason(d) {
     }).join("") +
     `<tr class="total"><th scope="row">Argentina total</th><td>${t.country.apps}</td><td>${t.country.goals}</td><td class="left"></td></tr></tbody></table>`;
   sortable(el("club-table").querySelector("table"));
-  tableSearch(el("club-table").querySelector("table"), "Filter seasons — e.g. PSG, 2012");
+  tableSearch(el("club-table").querySelector("table"), "Filter seasons — e.g. PSG, 2012", "season");
   sortable(el("country-table").querySelector("table"));
+  tableSearch(el("country-table").querySelector("table"), "Filter Argentina years — e.g. 2022", "country");
   el("bestseason").innerHTML =
     `<p><b>${best.season} — ${best.goals} goals in ${best.apps} games for Barcelona</b> — is the most prolific club season ever played: ` +
     `50 in La Liga (a record), 14 in the Champions League, 3 in the Copa del Rey and 6 in the super cups. He scored in every competition he entered.</p>` +
@@ -640,7 +683,7 @@ function eraOf(y) {
    eras without an entry render no figure. */
 const ERA_PHOTOS = {
   "The boy from Rosario": [
-    { src: "img/era-2008-olympic.jpg", w: 1442, h: 1519, pos: "62% 28%", alt: "A young Messi in Argentina's number 15 shirt at the Beijing 2008 Olympics", cap: "Olympic semi-final vs Brazil, Beijing 2008", file: "https://commons.wikimedia.org/wiki/File:Messi_olympics-soccer-7%28Cropped%29_%28cropped%29.jpg", lic: "CC BY 2.5", licUrl: "https://creativecommons.org/licenses/by/2.5/" },
+    { src: "img/era-2008-olympic.jpg", w: 1215, h: 1280, pos: "62% 28%", alt: "A young Messi in Argentina's number 15 shirt at the Beijing 2008 Olympics", cap: "Olympic semi-final vs Brazil, Beijing 2008", file: "https://commons.wikimedia.org/wiki/File:Messi_olympics-soccer-7%28Cropped%29_%28cropped%29.jpg", lic: "CC BY 2.5", licUrl: "https://creativecommons.org/licenses/by/2.5/" },
   ],
   "The greatest peak football has seen": [
     { src: "img/era-2011-wembley.jpg", w: 399, h: 501, pos: "50% 18%", alt: "Messi holding the European Cup after the 2011 final at Wembley", cap: "Champions League winners, Wembley 2011", file: "", lic: "", licUrl: "" },
@@ -652,11 +695,11 @@ const ERA_PHOTOS = {
     { src: "img/era-2014-stare.jpg", w: 679, h: 452, pos: "55% 35%", alt: "Messi walking past the World Cup trophy after losing the 2014 final", cap: "The one that got away — World Cup final, Maracanã 2014", file: "", lic: "", licUrl: "" },
   ],
   "Carrying Barcelona": [
-    { src: "img/era-2016.jpg", w: 1280, h: 1707, pos: "50% 5%", alt: "Messi shielding the ball from a Valladolid defender in La Liga", cap: "Against Valladolid, La Liga 2018", file: "https://commons.wikimedia.org/wiki/File:Real_Valladolid_-_FC_Barcelona,_2018-08-25_(106)_cropped.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2016.jpg", w: 960, h: 1280, pos: "50% 5%", alt: "Messi shielding the ball from a Valladolid defender in La Liga", cap: "Against Valladolid, La Liga 2018", file: "https://commons.wikimedia.org/wiki/File:Real_Valladolid_-_FC_Barcelona,_2018-08-25_(106)_cropped.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
   ],
   "Farewell to Barcelona": [
     { src: "img/era-2019-ballon.jpg", w: 1280, h: 1024, pos: "68% 50%", alt: "Messi at home with six Ballon d'Or trophies after winning the 2019 award", cap: "Six Ballons d'Or at home, Barcelona 2019", file: "https://commons.wikimedia.org/wiki/File:Lionel_MESSI_Florent_TORCHUT.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
-    { src: "img/era-2021-tears.jpg", w: 1800, h: 1800, pos: "55% 28%", alt: "Messi in tears at his Barcelona farewell press conference", cap: "The goodbye press conference, Camp Nou 2021", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2021-tears.jpg", w: 1280, h: 1280, pos: "55% 28%", alt: "Messi in tears at his Barcelona farewell press conference", cap: "The goodbye press conference, Camp Nou 2021", file: "", lic: "", licUrl: "" },
     { src: "img/era-2021-copa.jpg", w: 397, h: 503, pos: "55% 22%", alt: "Messi kissing the Copa América trophy after winning it in 2021", cap: "Copa América champions, Maracanã 2021", file: "", lic: "", licUrl: "" },
   ],
   "Paris and the World Cup": [
