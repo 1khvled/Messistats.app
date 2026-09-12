@@ -129,5 +129,11 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   PowerShell Set-Content — it writes BOM + mangles UTF-8 dashes; use node fs.
   Verified: build ✓ (prebuild gate runs), audit PASS, verify exit 0
   (upsert proven live: "row updated in place", queue steady at 10).
-  NOT committed (no order). Still open: Vercel import + production domain
+  Committed dae8a91, pushed to origin/main (1khvled/Messistats.app).
+  FIX 2026-09-12 (7f19cf7): Vercel build failed MODULE_NOT_FOUND for
+  scripts/prebuild-check.mjs — .vercelignore excluded scripts/ and Vercel
+  applies the ignore BEFORE building. Removed `scripts` from .vercelignore
+  (audited: zero secrets in scripts/, keyless by design) with a comment
+  explaining why it must stay. worker/ + wrangler.toml stay ignored.
+  Still open: Vercel import + production domain
   swap (canonical/OG/sitemap/robots TODOs), Chicago 1-1 Miami hand-check.
