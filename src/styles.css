@@ -353,6 +353,10 @@ svg.spark .bar.peak { fill: url(#barPeak); }
 svg.spark .baseline { stroke: var(--line); stroke-width: 1.5; }
 svg.spark .peak-label { font-family: var(--font-head); font-weight: 800; fill: var(--brand-ink); font-size: 22px; text-anchor: middle; }
 svg.spark text.yr { font-size: 15px; fill: var(--faint); text-anchor: middle; font-family: var(--font-body); }
+svg.spark text.prov-label { font-size: 15px; fill: var(--muted); text-anchor: middle; font-family: var(--font-body); font-weight: 700; }
+svg.spark text.axis { font-size: 12px; fill: var(--faint); font-family: var(--font-body); }
+svg.spark line.thousand { stroke: var(--gold); stroke-width: 1.5; stroke-dasharray: 6 5; }
+svg.spark text.thousand-label { font-size: 13px; font-weight: 800; fill: var(--gold); text-anchor: end; font-family: var(--font-head); }
 svg.spark .grid { stroke: var(--line-soft); stroke-width: 1; }
 svg.spark .cum { fill: none; stroke: var(--navy); stroke-width: 2.5; }
 svg.spark .cum-dot { fill: var(--navy); }

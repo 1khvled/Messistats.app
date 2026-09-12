@@ -187,13 +187,19 @@ function sparkSVG(rows, opts) {
       return `${x},${y}`;
     });
     s += `<polyline class="cum" points="${pts.join(" ")}" fill="none"/>`;
+    if (tot < 1000) {
+      const my = (base - 8 - (1000 / tot) * (maxH - 10)).toFixed(1);
+      s += `<line class="thousand" x1="0" y1="${my}" x2="${W}" y2="${my}"/><text class="thousand-label" x="${W}" y="${(+my - 5).toFixed(1)}">1,000</text>`;
+    }
   }
   s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
+  s += `<text class="axis" x="2" y="${(base - maxH - 6).toFixed(1)}">${max}</text><text class="axis" x="2" y="${(base - 2).toFixed(1)}">0</text>`;
   rows.forEach((r, i) => {
     const h = Math.max(2, (r.value / max) * maxH);
     const x = (i * step + (step - bw) / 2).toFixed(1);
     const y = (base - h).toFixed(1);
     if (r.peak) s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
+    if (r.provisional && !r.peak) s += `<text class="prov-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
     const peak = r.peak || (r.year != null && r.year === opts.peakYear);
     const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "");
     const rect = `<rect class="${cls}" style="--i:${i}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
