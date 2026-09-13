@@ -3,8 +3,10 @@
    tables, charts, explore links); no reference code, images or text reused. */
 import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
+import { initAnalytics, trackBirthdaySearch, trackVideoPlay, trackShare } from "./analytics.js";
 inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 injectSpeedInsights(); // Core Web Vitals; same deal — production only, silent locally
+initAnalytics(); // lightweight Supabase live telemetry
 
 /* Theme manager (Dark / Light mode) with localStorage persistence and OS sync */
 function initTheme() {
@@ -1451,7 +1453,10 @@ async function renderBirthday(d) {
       if (watchBtn) {
         const idx = +watchBtn.dataset.idx;
         const match = currentMatches[idx];
-        if (match) openGoalVideo(match, 0);
+        if (match) {
+          trackVideoPlay(match.opponent, match.date, match.competition);
+          openGoalVideo(match, 0);
+        }
         return;
       }
 
@@ -1473,6 +1478,7 @@ async function renderBirthday(d) {
         });
 
         if (!isCurrentlyOpen) {
+          trackVideoPlay(match.opponent, match.date, match.competition);
           container.hidden = false;
           inlineBtn.classList.add("active");
           inlineBtn.textContent = "✕ Close Video";
@@ -1553,6 +1559,10 @@ async function renderBirthday(d) {
       history.replaceState(null, "", url.pathname + url.search + url.hash);
     } catch (_) {}
 
+    try {
+      trackBirthdaySearch(key, dayData.formatted, dayData.goalsCount);
+    } catch (_) {}
+
     const formatScore = (str) => {
       if (!str) return "—";
       const sm = String(str).match(/^(\d+)\s*[:\-\u2013]\s*(\d+)$/);
@@ -1628,6 +1638,7 @@ async function renderBirthday(d) {
         shareBtn.onclick = async () => {
           const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours?`;
           const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          try { trackShare("web_share", shareText); } catch (_) {}
           if (navigator.share) {
             try {
               await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
@@ -1699,6 +1710,7 @@ async function renderBirthday(d) {
         shareBtn.onclick = async () => {
           const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours?`;
           const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          try { trackShare("web_share", shareText); } catch (_) {}
           if (navigator.share) {
             try {
               await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });

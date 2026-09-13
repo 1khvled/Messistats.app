@@ -17,7 +17,8 @@ export default defineConfig({
         dashboard: resolve(root, 'dashboard.html'),
         timeline: resolve(root, 'timeline.html'),
         achievements: resolve(root, 'achievements.html'),
-        birthday: resolve(root, 'birthday.html')
+        birthday: resolve(root, 'birthday.html'),
+        admin: resolve(root, 'admin.html')
       }
     }
   }

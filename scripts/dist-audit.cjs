@@ -13,8 +13,8 @@ for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashbo
   const s = fs.readFileSync(dist + "/" + p, "utf8");
   if (!s.includes('class="skip"') || !s.includes('id="main"')) { ok = false; console.log("NO SKIP in " + p); }
 }
-const js = fs.readdirSync(dist + "/assets").find((f) => f.endsWith(".js"));
-const b = fs.readFileSync(dist + "/assets/" + js, "utf8");
+const jsFiles = fs.readdirSync(dist + "/assets").filter((f) => f.endsWith(".js"));
+const b = jsFiles.map((f) => fs.readFileSync(dist + "/assets/" + f, "utf8")).join("\n");
 for (const needle of ["copyStats", "replaceState", "btn-primary"]) {
   if (!b.includes(needle)) { ok = false; console.log("JS MISSING " + needle); }
 }

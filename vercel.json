@@ -12,7 +12,11 @@
     { "source": "/en/dashboard", "destination": "/dashboard.html" },
     { "source": "/en/timeline", "destination": "/timeline.html" },
     { "source": "/en/achievements", "destination": "/achievements.html" },
-    { "source": "/en/birthday", "destination": "/birthday.html" }
+    { "source": "/en/birthday", "destination": "/birthday.html" },
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/admin/", "destination": "/admin.html" },
+    { "source": "/en/admin", "destination": "/admin.html" },
+    { "source": "/en/admin/", "destination": "/admin.html" }
   ],
   "headers": [
     {
