@@ -57,10 +57,17 @@ function initTheme() {
 initTheme();
 
 async function load() {
-  const r = await fetch("data/messi-data.json", { cache: "no-store" });
+  let r;
+  try {
+    r = await fetch("/data/messi-data.json", { cache: "no-store" });
+  } catch (_) {}
+  if (!r || !r.ok) {
+    r = await fetch("data/messi-data.json", { cache: "no-store" });
+  }
   if (!r.ok) throw new Error("data " + r.status);
   return r.json();
 }
+const el = (id) => document.getElementById(id);
 const esc = (s) => {
   if (s == null) return "";
   return String(s).replace(/[&<>"']/g, (c) => ({
@@ -384,7 +391,9 @@ function renderHome(d) {
   el("kpis").insertAdjacentHTML("afterend",
     `<div class="share-row"><button type="button" class="btn-primary" id="copyStats">Copy headline stats</button>` +
     `<span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
-  el("copyStats").addEventListener("click", async () => {
+  const copyStatsBtn = el("copyStats");
+  if (copyStatsBtn) {
+    copyStatsBtn.addEventListener("click", async () => {
     const text = `Messi: ${n(t.goals)} goals in ${n(t.apps)} senior apps ` +
       `(${n(t.clubs.goals)} club, ${n(t.country.goals)} Argentina), 46 trophies, 8 Ballons d'Or — as of ${d.lastUpdated}.`;
     const msg = el("copyMsg");
@@ -402,9 +411,10 @@ function renderHome(d) {
     } catch {
       msg.textContent = text;
     }
-    clearTimeout(el("copyStats").dataset.timer);
-    el("copyStats").dataset.timer = setTimeout(() => { msg.textContent = ""; }, 4000);
-  });
+    clearTimeout(copyStatsBtn.dataset.timer);
+    copyStatsBtn.dataset.timer = setTimeout(() => { msg.textContent = ""; }, 4000);
+    });
+  }
 
   const Q = [
     ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="goalsbyyear.html">year-by-year breakdown</a>.`],
@@ -469,7 +479,8 @@ function renderHome(d) {
       }
     }
   };
-  el("yearPick").addEventListener("change", (e) => drawYear(e.target.value));
+  const yp = el("yearPick");
+  if (yp) yp.addEventListener("change", (e) => drawYear(e.target.value));
   drawYear(cur.year);
 
   const best = ys.reduce((a, b) => (b.goals > a.goals ? b : a));
@@ -525,7 +536,13 @@ async function renderOnThisDay() {
 
   let bdayData;
   try {
-    const res = await fetch("data/birthday-goals.json", { cache: "no-store" });
+    let res;
+    try {
+      res = await fetch("/data/birthday-goals.json", { cache: "no-store" });
+    } catch (_) {}
+    if (!res || !res.ok) {
+      res = await fetch("data/birthday-goals.json", { cache: "no-store" });
+    }
     if (!res.ok) throw new Error("status " + res.status);
     bdayData = await res.json();
   } catch (err) {
@@ -1448,7 +1465,13 @@ async function copyToClipboard(text, msgEl, successMsg = "Copied to clipboard!")
 async function renderBirthday(d) {
   let bdayData;
   try {
-    const res = await fetch("data/birthday-goals.json", { cache: "no-store" });
+    let res;
+    try {
+      res = await fetch("/data/birthday-goals.json", { cache: "no-store" });
+    } catch (_) {}
+    if (!res || !res.ok) {
+      res = await fetch("data/birthday-goals.json", { cache: "no-store" });
+    }
     if (!res.ok) throw new Error("birthday goals data " + res.status);
     bdayData = await res.json();
   } catch (err) {

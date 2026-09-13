@@ -1,3 +1,7 @@
+/en/data/* /data/:splat 200
+/en/img/* /img/:splat 200
+/en/fonts/* /fonts/:splat 200
+/en/assets/* /assets/:splat 200
 /en /index.html 200
 /en/ /index.html 200
 /en/goalsbyyear /goalsbyyear.html 200

@@ -5,6 +5,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/en/data/:path*", "destination": "/data/:path*" },
+    { "source": "/en/img/:path*", "destination": "/img/:path*" },
+    { "source": "/en/fonts/:path*", "destination": "/fonts/:path*" },
+    { "source": "/en/assets/:path*", "destination": "/assets/:path*" },
     { "source": "/en", "destination": "/index.html" },
     { "source": "/en/", "destination": "/index.html" },
     { "source": "/en/goalsbyyear", "destination": "/goalsbyyear.html" },
