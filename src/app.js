@@ -1529,6 +1529,13 @@ async function renderBirthday(d) {
       else cell.removeAttribute("aria-current");
     });
 
+    // Sync active state on preset chips
+    document.querySelectorAll(".bday-preset-chip").forEach((chip) => {
+      const cm = +chip.dataset.month;
+      const cd = +chip.dataset.day;
+      chip.classList.toggle("active", cm === m && cd === day);
+    });
+
     const key = makeKey(m, day);
     const dayData = calendar[key] || {
       key,
@@ -1545,6 +1552,15 @@ async function renderBirthday(d) {
       url.searchParams.set("date", key);
       history.replaceState(null, "", url.pathname + url.search + url.hash);
     } catch (_) {}
+
+    const formatScore = (str) => {
+      if (!str) return "—";
+      const sm = String(str).match(/^(\d+)\s*[:\-\u2013]\s*(\d+)$/);
+      if (sm) {
+        return `${parseInt(sm[1], 10)} – ${parseInt(sm[2], 10)}`;
+      }
+      return str;
+    };
 
     if (targetDateEl) targetDateEl.textContent = dayData.formatted;
 
@@ -1587,7 +1603,7 @@ async function renderBirthday(d) {
               </div>
               <div class="bday-match-fixture">
                 <span>${esc(match.team)}</span>
-                <span class="bday-score-pill">${esc(match.score || "—")}</span>
+                <span class="bday-score-pill">${esc(formatScore(match.score))}</span>
                 <span>${esc(match.opponent)}</span>
               </div>
               <div class="bday-goals-summary">
@@ -1609,9 +1625,23 @@ async function renderBirthday(d) {
 
       if (shareBtn) {
         shareBtn.hidden = false;
-        shareBtn.onclick = () => {
-          const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours? Check here: ${location.origin}${location.pathname}?date=${key}`;
-          copyToClipboard(shareText, shareMsg);
+        shareBtn.onclick = async () => {
+          const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours?`;
+          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          if (navigator.share) {
+            try {
+              await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
+              return;
+            } catch (_) {}
+          }
+          copyToClipboard(`${shareText} Check here: ${shareUrl}`, shareMsg);
+        };
+      }
+      const copyBtn = el("bday-copy-btn");
+      if (copyBtn) {
+        copyBtn.onclick = () => {
+          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          copyToClipboard(shareUrl, shareMsg);
         };
       }
     } else {
@@ -1644,8 +1674,8 @@ async function renderBirthday(d) {
           if (closest) {
             closestHtml = `
               <p>The closest calendar day Messi scored on is <b>${closest.formatted}</b> (${closest.goalsCount} career goals).</p>
-              <button type="button" class="btn bday-closest-btn" data-month="${closest.month}" data-day="${closest.day}">
-                Check ${closest.formatted} (${closest.goalsCount} goals)
+              <button type="button" class="bday-closest-btn" data-month="${closest.month}" data-day="${closest.day}">
+                Check ${closest.formatted} (${closest.goalsCount} goals) &rarr;
               </button>
             `;
           }
@@ -1666,9 +1696,23 @@ async function renderBirthday(d) {
 
       if (shareBtn) {
         shareBtn.hidden = false;
-        shareBtn.onclick = () => {
-          const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours? Find out: ${location.origin}${location.pathname}?date=${key}`;
-          copyToClipboard(shareText, shareMsg);
+        shareBtn.onclick = async () => {
+          const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours?`;
+          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          if (navigator.share) {
+            try {
+              await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
+              return;
+            } catch (_) {}
+          }
+          copyToClipboard(`${shareText} Find out: ${shareUrl}`, shareMsg);
+        };
+      }
+      const copyBtn = el("bday-copy-btn");
+      if (copyBtn) {
+        copyBtn.onclick = () => {
+          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          copyToClipboard(shareUrl, shareMsg);
         };
       }
     }

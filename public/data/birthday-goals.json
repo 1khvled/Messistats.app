@@ -235,7 +235,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "Copa del Rey",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "71",
@@ -284,7 +284,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Copa del Rey",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "52"
@@ -321,7 +321,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "Copa del Rey",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 3,
           "minutes": [
             "11",
@@ -372,7 +372,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "28"
@@ -399,7 +399,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "Copa del Rey",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "13",
@@ -438,7 +438,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -465,7 +465,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "38",
@@ -514,7 +514,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "12"
@@ -551,7 +551,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -578,7 +578,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "Copa del Rey",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "90",
@@ -617,7 +617,7 @@
           "team": "Barcelona",
           "opponent": "Elche CF",
           "competition": "Copa del Rey",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "45"
@@ -644,7 +644,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "90"
@@ -681,7 +681,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 3,
           "minutes": [
             "8",
@@ -732,7 +732,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "Supercopa",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -759,7 +759,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "35",
@@ -808,7 +808,7 @@
           "team": "Barcelona",
           "opponent": "CD Tenerife",
           "competition": "La Liga",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 3,
           "minutes": [
             "36",
@@ -869,7 +869,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "84"
@@ -896,7 +896,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "87"
@@ -923,7 +923,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Copa del Rey",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "78"
@@ -950,7 +950,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "Copa del Rey",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "13",
@@ -989,7 +989,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Angers SCO",
           "competition": "Ligue 1",
-          "score": "2:0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "72"
@@ -1026,7 +1026,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "Copa del Rey",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 3,
           "minutes": [
             "44",
@@ -1087,7 +1087,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "26"
@@ -1114,7 +1114,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "53"
@@ -1151,7 +1151,7 @@
           "team": "Barcelona",
           "opponent": "UD Las Palmas",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "52"
@@ -1178,7 +1178,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 1,
           "minutes": [
             "85"
@@ -1215,7 +1215,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "50"
@@ -1242,7 +1242,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "4:02",
+          "score": "4 – 2",
           "goalsCount": 2,
           "minutes": [
             "12",
@@ -1291,7 +1291,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "85",
@@ -1330,7 +1330,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "Copa del Rey",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "29"
@@ -1357,7 +1357,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "Copa del Rey",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "43",
@@ -1406,7 +1406,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "21"
@@ -1433,7 +1433,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 1,
           "minutes": [
             "7"
@@ -1460,7 +1460,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "Copa del Rey",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -1497,7 +1497,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 3,
           "minutes": [
             "11",
@@ -1548,7 +1548,7 @@
           "team": "Inter Miami",
           "opponent": "América",
           "competition": "1",
-          "score": "2-2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "34"
@@ -1574,7 +1574,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "Copa del Rey",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "37"
@@ -1601,7 +1601,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 1,
           "minutes": [
             "6"
@@ -1628,7 +1628,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "76"
@@ -1665,7 +1665,7 @@
           "team": "Barcelona",
           "opponent": "CD Leganes",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "90+2"
@@ -1702,7 +1702,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "Copa del Rey",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "85"
@@ -1729,7 +1729,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 2,
           "minutes": [
             "64",
@@ -1778,7 +1778,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "82"
@@ -1805,7 +1805,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "33"
@@ -1832,7 +1832,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 3,
           "minutes": [
             "32",
@@ -1883,7 +1883,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 1,
           "minutes": [
             "50"
@@ -1920,7 +1920,7 @@
           "team": "Barcelona",
           "opponent": "Real Valladolid CF",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -1947,7 +1947,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -1984,7 +1984,7 @@
           "team": "Barcelona",
           "opponent": "CD Numancia",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "49",
@@ -2023,7 +2023,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "Copa del Rey",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 1,
           "minutes": [
             "79"
@@ -2050,7 +2050,7 @@
           "team": "Barcelona",
           "opponent": "Elche CF",
           "competition": "La Liga",
-          "score": "0:06",
+          "score": "0 – 6",
           "goalsCount": 2,
           "minutes": [
             "55",
@@ -2099,7 +2099,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "Copa del Rey",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -2136,7 +2136,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "Copa del Rey",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "9",
@@ -2175,7 +2175,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "Copa del Rey",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -2212,7 +2212,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 4,
           "minutes": [
             "11",
@@ -2275,7 +2275,7 @@
           "team": "Barcelona",
           "opponent": "Girona FC",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "69"
@@ -2302,7 +2302,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "Copa del Rey",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "69"
@@ -2339,7 +2339,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "84"
@@ -2376,7 +2376,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 2,
           "minutes": [
             "75",
@@ -2415,7 +2415,7 @@
           "team": "Barcelona",
           "opponent": "Hercules CF",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 2,
           "minutes": [
             "87",
@@ -2454,7 +2454,7 @@
           "team": "Inter Miami",
           "opponent": "Al Hilal",
           "competition": "2024 Riyadh Season Cup",
-          "score": "4-3",
+          "score": "4 – 3",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -2480,7 +2480,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "30"
@@ -2507,7 +2507,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "Copa del Rey",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "90+2"
@@ -2534,7 +2534,7 @@
           "team": "Barcelona",
           "opponent": "CD Leganes",
           "competition": "Copa del Rey",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "59",
@@ -2583,7 +2583,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -2620,7 +2620,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "Copa del Rey",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "42"
@@ -2647,7 +2647,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "65",
@@ -2686,7 +2686,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -2713,7 +2713,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -2740,7 +2740,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "Copa del Rey",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "33"
@@ -2767,7 +2767,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Montpellier HSC",
           "competition": "Ligue 1",
-          "score": "1:3",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "72"
@@ -2804,7 +2804,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 2,
           "minutes": [
             "39",
@@ -2853,7 +2853,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "39"
@@ -2880,7 +2880,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "Copa del Rey",
-          "score": "7:00",
+          "score": "7 – 0",
           "goalsCount": 3,
           "minutes": [
             "29",
@@ -2941,7 +2941,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "72"
@@ -2968,7 +2968,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "40"
@@ -2995,7 +2995,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "FC Toulouse",
           "competition": "Ligue 1",
-          "score": "2:1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "58"
@@ -3032,7 +3032,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 3,
           "minutes": [
             "16",
@@ -3093,7 +3093,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "7"
@@ -3120,7 +3120,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "LOSC Lille",
           "competition": "Ligue 1",
-          "score": "1:05",
+          "score": "1 – 5",
           "goalsCount": 1,
           "minutes": [
             "38"
@@ -3157,7 +3157,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "59"
@@ -3184,7 +3184,7 @@
           "team": "Inter Miami",
           "opponent": "Barcelona SC",
           "competition": "3",
-          "score": "2-2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -3210,7 +3210,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:05",
+          "score": "2 – 5",
           "goalsCount": 1,
           "minutes": [
             "15"
@@ -3237,7 +3237,7 @@
           "team": "Inter Miami",
           "opponent": "Olimpia",
           "competition": "4",
-          "score": "0-5",
+          "score": "0 – 5",
           "goalsCount": 1,
           "minutes": [
             "27"
@@ -3288,7 +3288,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "44",
@@ -3337,7 +3337,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "13"
@@ -3374,7 +3374,7 @@
           "team": "Argentina",
           "opponent": "France",
           "competition": "Friendly",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -3399,7 +3399,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "Copa del Rey",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "41"
@@ -3426,7 +3426,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "0:06",
+          "score": "0 – 6",
           "goalsCount": 1,
           "minutes": [
             "59"
@@ -3463,7 +3463,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "Copa del Rey",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "26"
@@ -3500,7 +3500,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "45+1",
@@ -3549,7 +3549,7 @@
           "team": "Barcelona",
           "opponent": "Bayer 04 Leverkusen",
           "competition": "UEFA Champions League",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "88"
@@ -3576,7 +3576,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "28"
@@ -3613,7 +3613,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 2,
           "minutes": [
             "36",
@@ -3652,7 +3652,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 3,
           "minutes": [
             "38",
@@ -3713,7 +3713,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "49",
@@ -3752,7 +3752,7 @@
           "team": "Barcelona",
           "opponent": "Real Valladolid CF",
           "competition": "La Liga",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "43"
@@ -3779,7 +3779,7 @@
           "team": "Barcelona",
           "opponent": "Paris Saint-Germain",
           "competition": "UEFA Champions League",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 1,
           "minutes": [
             "27"
@@ -3814,9 +3814,9 @@
           "date": "2016-02-17",
           "year": 2016,
           "team": "Barcelona",
-          "opponent": "Sporting GijÃ³n",
+          "opponent": "Sporting Gijón",
           "competition": "La Liga",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 2,
           "minutes": [
             "25",
@@ -3865,7 +3865,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 1,
           "minutes": [
             "84"
@@ -3892,7 +3892,7 @@
           "team": "Barcelona",
           "opponent": "Manchester City",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -3929,7 +3929,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 4,
           "minutes": [
             "21",
@@ -3992,7 +3992,7 @@
           "team": "Barcelona",
           "opponent": "CD Leganes",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 2,
           "minutes": [
             "4",
@@ -4031,7 +4031,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "LOSC Lille",
           "competition": "Ligue 1",
-          "score": "4:3",
+          "score": "4 – 3",
           "goalsCount": 1,
           "minutes": [
             "90+5"
@@ -4058,7 +4058,7 @@
           "team": "Inter Miami",
           "opponent": "Sporting Kansas City",
           "competition": "First leg",
-          "score": "0-1",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "56"
@@ -4095,7 +4095,7 @@
           "team": "Barcelona",
           "opponent": "Celtic FC",
           "competition": "UEFA Champions League",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "18",
@@ -4134,7 +4134,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "78"
@@ -4161,7 +4161,7 @@
           "team": "Barcelona",
           "opponent": "Chelsea FC",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "75"
@@ -4198,7 +4198,7 @@
           "team": "Barcelona",
           "opponent": "Cadiz CF",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "32"
@@ -4235,7 +4235,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "36"
@@ -4262,7 +4262,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 4,
           "minutes": [
             "14",
@@ -4335,7 +4335,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "60"
@@ -4362,7 +4362,7 @@
           "team": "Barcelona",
           "opponent": "Arsenal FC",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "71",
@@ -4401,7 +4401,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 3,
           "minutes": [
             "26",
@@ -4462,7 +4462,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 1,
           "minutes": [
             "44"
@@ -4489,7 +4489,7 @@
           "team": "Barcelona",
           "opponent": "Girona FC",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 2,
           "minutes": [
             "30",
@@ -4528,7 +4528,7 @@
           "team": "Barcelona",
           "opponent": "Elche CF",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "48",
@@ -4577,7 +4577,7 @@
           "team": "Inter Miami",
           "opponent": "LA Galaxy",
           "competition": "2",
-          "score": "1-1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "90+2"
@@ -4604,7 +4604,7 @@
           "team": "Inter Miami",
           "opponent": "Sporting Kansas City",
           "competition": "Second leg",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "19"
@@ -4641,7 +4641,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "38"
@@ -4668,7 +4668,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "79"
@@ -4695,7 +4695,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -4722,7 +4722,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Olympique Marseille",
           "competition": "Ligue 1",
-          "score": "0:3",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "29"
@@ -4749,7 +4749,7 @@
           "team": "Inter Miami",
           "opponent": "Independiente del Valle",
           "competition": "Friendly",
-          "score": "2-1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "70"
@@ -4775,7 +4775,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "84"
@@ -4802,7 +4802,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "85"
@@ -4839,7 +4839,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "70"
@@ -4866,7 +4866,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -4903,7 +4903,7 @@
           "team": "Argentina",
           "opponent": "Switzerland",
           "competition": "Friendly",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -4960,7 +4960,7 @@
           "team": "Argentina",
           "opponent": "Croatia",
           "competition": "Friendly",
-          "score": "2–1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -4985,7 +4985,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "4:03",
+          "score": "4 – 3",
           "goalsCount": 1,
           "minutes": [
             "30"
@@ -5010,9 +5010,9 @@
           "date": "2017-03-01",
           "year": 2017,
           "team": "Barcelona",
-          "opponent": "Sporting GijÃ³n",
+          "opponent": "Sporting Gijón",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "9"
@@ -5039,7 +5039,7 @@
           "team": "Barcelona",
           "opponent": "UD Las Palmas",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "21"
@@ -5066,7 +5066,7 @@
           "team": "Inter Miami",
           "opponent": "Orlando City SC",
           "competition": "2",
-          "score": "2-4",
+          "score": "2 – 4",
           "goalsCount": 2,
           "minutes": [
             "57",
@@ -5115,7 +5115,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "77"
@@ -5142,7 +5142,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "18"
@@ -5169,7 +5169,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "24"
@@ -5196,7 +5196,7 @@
           "team": "Inter Miami",
           "opponent": "Orlando City SC",
           "competition": "3",
-          "score": "5-0",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "57",
@@ -5245,7 +5245,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "1:05",
+          "score": "1 – 5",
           "goalsCount": 3,
           "minutes": [
             "23",
@@ -5306,7 +5306,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "Copa del Rey",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "81"
@@ -5333,7 +5333,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "24",
@@ -5372,7 +5372,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "26"
@@ -5399,7 +5399,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "FC Nantes",
           "competition": "Ligue 1",
-          "score": "4:2",
+          "score": "4 – 2",
           "goalsCount": 1,
           "minutes": [
             "12"
@@ -5445,7 +5445,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 2,
           "minutes": [
             "42",
@@ -5484,7 +5484,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "42",
@@ -5533,7 +5533,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -5560,7 +5560,7 @@
           "team": "Barcelona",
           "opponent": "Bayer 04 Leverkusen",
           "competition": "UEFA Champions League",
-          "score": "7:01",
+          "score": "7 – 1",
           "goalsCount": 5,
           "minutes": [
             "25",
@@ -5635,7 +5635,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "81"
@@ -5662,7 +5662,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "First leg",
-          "score": "2-2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "52"
@@ -5689,7 +5689,7 @@
           "team": "Inter Miami",
           "opponent": "D.C. United",
           "competition": "3",
-          "score": "1-2",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "27"
@@ -5726,7 +5726,7 @@
           "team": "Barcelona",
           "opponent": "Arsenal FC",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "49",
@@ -5765,7 +5765,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 3,
           "minutes": [
             "56",
@@ -5816,7 +5816,7 @@
           "team": "Barcelona",
           "opponent": "Paris Saint-Germain",
           "competition": "UEFA Champions League",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "50"
@@ -5853,7 +5853,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "88"
@@ -5880,7 +5880,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -5917,7 +5917,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "3:03",
+          "score": "3 – 3",
           "goalsCount": 3,
           "minutes": [
             "11",
@@ -5968,7 +5968,7 @@
           "team": "Barcelona",
           "opponent": "Paris Saint-Germain",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "37"
@@ -6005,7 +6005,7 @@
           "team": "Barcelona",
           "opponent": "Olympique Lyon",
           "competition": "UEFA Champions League",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 1,
           "minutes": [
             "40"
@@ -6032,7 +6032,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "28",
@@ -6081,7 +6081,7 @@
           "team": "Barcelona",
           "opponent": "AC Milan",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "5",
@@ -6120,7 +6120,7 @@
           "team": "Barcelona",
           "opponent": "Manchester City",
           "competition": "UEFA Champions League",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -6147,7 +6147,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 1,
           "minutes": [
             "41"
@@ -6184,7 +6184,7 @@
           "team": "Barcelona",
           "opponent": "Olympique Lyon",
           "competition": "UEFA Champions League",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "18",
@@ -6223,7 +6223,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "Second leg",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -6250,7 +6250,7 @@
           "team": "Inter Miami",
           "opponent": "Cavalier",
           "competition": "Second leg",
-          "score": "0-2",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "90+2"
@@ -6287,7 +6287,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 3,
           "minutes": [
             "56",
@@ -6338,7 +6338,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "31",
@@ -6377,7 +6377,7 @@
           "team": "Barcelona",
           "opponent": "Chelsea FC",
           "competition": "UEFA Champions League",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "3",
@@ -6426,7 +6426,7 @@
           "team": "Barcelona",
           "opponent": "SD Huesca",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "13",
@@ -6475,7 +6475,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "7:00",
+          "score": "7 – 0",
           "goalsCount": 3,
           "minutes": [
             "18",
@@ -6526,7 +6526,7 @@
           "team": "Barcelona",
           "opponent": "Arsenal FC",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -6553,7 +6553,7 @@
           "team": "Inter Miami",
           "opponent": "Atlanta United FC",
           "competition": "4",
-          "score": "1-2",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -6590,7 +6590,7 @@
           "team": "Barcelona",
           "opponent": "Recreativo Huelva",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -6617,7 +6617,7 @@
           "team": "Barcelona",
           "opponent": "VfB Stuttgart",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "13",
@@ -6656,7 +6656,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -6683,7 +6683,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "40",
@@ -6722,7 +6722,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 3,
           "minutes": [
             "18",
@@ -6783,7 +6783,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "30"
@@ -6810,7 +6810,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "Second leg",
-          "score": "1-1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "7"
@@ -6847,7 +6847,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "4:02",
+          "score": "4 – 2",
           "goalsCount": 2,
           "minutes": [
             "45",
@@ -6896,7 +6896,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "5:03",
+          "score": "5 – 3",
           "goalsCount": 3,
           "minutes": [
             "16",
@@ -6957,7 +6957,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 3,
           "minutes": [
             "4",
@@ -7008,7 +7008,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "1:06",
+          "score": "1 – 6",
           "goalsCount": 2,
           "minutes": [
             "56",
@@ -7057,7 +7057,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 1,
           "minutes": [
             "26"
@@ -7109,7 +7109,7 @@
           "team": "Inter Miami",
           "opponent": "New York City FC",
           "competition": "5",
-          "score": "2-3",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "61"
@@ -7146,7 +7146,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "3:04",
+          "score": "3 – 4",
           "goalsCount": 3,
           "minutes": [
             "42",
@@ -7222,7 +7222,7 @@
           "team": "Argentina",
           "opponent": "Panama",
           "competition": "Friendly",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -7257,7 +7257,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -7294,7 +7294,7 @@
           "team": "Argentina",
           "opponent": "Venezuela",
           "competition": "[72]",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -7329,7 +7329,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "30"
@@ -7375,7 +7375,7 @@
           "team": "Argentina",
           "opponent": "Venezuela",
           "competition": "2010 FIFA World Cup qualification",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -7400,7 +7400,7 @@
           "team": "Argentina",
           "opponent": "Curaçao",
           "competition": "[83]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -7457,7 +7457,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "77"
@@ -7509,7 +7509,7 @@
           "team": "Inter Miami",
           "opponent": "Philadelphia Union",
           "competition": "5",
-          "score": "2-1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "57"
@@ -7546,7 +7546,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "73"
@@ -7573,7 +7573,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 2,
           "minutes": [
             "71",
@@ -7622,7 +7622,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "45"
@@ -7649,7 +7649,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "57"
@@ -7676,7 +7676,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "89"
@@ -7703,7 +7703,7 @@
           "team": "Argentina",
           "opponent": "Zambia",
           "competition": "[92]",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -7747,7 +7747,7 @@
           "team": "Barcelona",
           "opponent": "Paris Saint-Germain",
           "competition": "UEFA Champions League",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "38"
@@ -7774,7 +7774,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "4:04",
+          "score": "4 – 4",
           "goalsCount": 1,
           "minutes": [
             "90"
@@ -7811,7 +7811,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -7838,7 +7838,7 @@
           "team": "Barcelona",
           "opponent": "AC Milan",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "11",
@@ -7877,7 +7877,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "FC Lorient",
           "competition": "Ligue 1",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 1,
           "minutes": [
             "73"
@@ -7914,7 +7914,7 @@
           "team": "Inter Miami",
           "opponent": "Austin FC",
           "competition": "6",
-          "score": "2-2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "10"
@@ -7951,7 +7951,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "15",
@@ -7990,7 +7990,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "28",
@@ -8039,7 +8039,7 @@
           "team": "Barcelona",
           "opponent": "Arsenal FC",
           "competition": "UEFA Champions League",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 4,
           "minutes": [
             "21",
@@ -8102,7 +8102,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "87"
@@ -8129,7 +8129,7 @@
           "team": "Inter Miami",
           "opponent": "Colorado Rapids",
           "competition": "8",
-          "score": "2-2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "58"
@@ -8156,7 +8156,7 @@
           "team": "Inter Miami",
           "opponent": "Toronto FC",
           "competition": "6",
-          "score": "1-1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "45+5"
@@ -8193,7 +8193,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "39",
@@ -8232,7 +8232,7 @@
           "team": "Barcelona",
           "opponent": "CD Leganes",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 3,
           "minutes": [
             "27",
@@ -8293,7 +8293,7 @@
           "team": "Barcelona",
           "opponent": "Bayern Munich",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "9",
@@ -8332,7 +8332,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "33"
@@ -8369,7 +8369,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "52",
@@ -8408,7 +8408,7 @@
           "team": "Inter Miami",
           "opponent": "Los Angeles FC",
           "competition": "Second leg",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "35",
@@ -8457,7 +8457,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "32"
@@ -8484,7 +8484,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "44"
@@ -8521,7 +8521,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "15"
@@ -8558,7 +8558,7 @@
           "team": "Barcelona",
           "opponent": "Shakhtar Donetsk",
           "competition": "UEFA Champions League",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "42"
@@ -8595,7 +8595,7 @@
           "team": "Inter Miami",
           "opponent": "Sporting Kansas City",
           "competition": "9",
-          "score": "2-3",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -8632,7 +8632,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "64",
@@ -8681,7 +8681,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 2,
           "minutes": [
             "17",
@@ -8730,7 +8730,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "53"
@@ -8757,7 +8757,7 @@
           "team": "Barcelona",
           "opponent": "Manchester United",
           "competition": "UEFA Champions League",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "16",
@@ -8806,7 +8806,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "63"
@@ -8833,7 +8833,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Copa del Rey",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "68",
@@ -8882,7 +8882,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "Copa del Rey",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 2,
           "minutes": [
             "29",
@@ -8921,7 +8921,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "18"
@@ -8948,7 +8948,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "90+4"
@@ -8975,7 +8975,7 @@
           "team": "Inter Miami",
           "opponent": "Colorado Rapids",
           "competition": "8",
-          "score": "2-3",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "18",
@@ -9033,7 +9033,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "74"
@@ -9060,7 +9060,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "0:08",
+          "score": "0 – 8",
           "goalsCount": 1,
           "minutes": [
             "73"
@@ -9087,7 +9087,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "10",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "11",
@@ -9136,7 +9136,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "Copa del Rey",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -9173,7 +9173,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 2,
           "minutes": [
             "8",
@@ -9222,7 +9222,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "87"
@@ -9247,9 +9247,9 @@
           "date": "2016-04-23",
           "year": 2016,
           "team": "Barcelona",
-          "opponent": "Sporting GijÃ³n",
+          "opponent": "Sporting Gijón",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 1,
           "minutes": [
             "13"
@@ -9276,7 +9276,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "33",
@@ -9315,7 +9315,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "RC Lens",
           "competition": "Ligue 1",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "68"
@@ -9361,7 +9361,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -9388,7 +9388,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -9425,7 +9425,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "7:01",
+          "score": "7 – 1",
           "goalsCount": 2,
           "minutes": [
             "12",
@@ -9474,7 +9474,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "76",
@@ -9513,7 +9513,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -9540,7 +9540,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "83"
@@ -9567,7 +9567,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "62"
@@ -9594,7 +9594,7 @@
           "team": "Inter Miami",
           "opponent": "New England Revolution",
           "competition": "11",
-          "score": "1-4",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "32",
@@ -9643,7 +9643,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 2,
           "minutes": [
             "9",
@@ -9692,7 +9692,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "0:07",
+          "score": "0 – 7",
           "goalsCount": 2,
           "minutes": [
             "16",
@@ -9731,7 +9731,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 3,
           "minutes": [
             "38",
@@ -9782,7 +9782,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -9828,7 +9828,7 @@
           "team": "Barcelona",
           "opponent": "Albacete Balompie",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "90+1"
@@ -9855,7 +9855,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "18",
@@ -9894,7 +9894,7 @@
           "team": "Barcelona",
           "opponent": "Liverpool FC",
           "competition": "UEFA Champions League",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "75",
@@ -9943,7 +9943,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "2:06",
+          "score": "2 – 6",
           "goalsCount": 2,
           "minutes": [
             "35",
@@ -9982,7 +9982,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 3,
           "minutes": [
             "34",
@@ -10031,9 +10031,9 @@
           "date": "2015-05-02",
           "year": 2015,
           "team": "Barcelona",
-          "opponent": "CÃ³rdoba CF",
+          "opponent": "Córdoba CF",
           "competition": "La Liga",
-          "score": "0:08",
+          "score": "0 – 8",
           "goalsCount": 2,
           "minutes": [
             "47",
@@ -10072,7 +10072,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "57",
@@ -10111,7 +10111,7 @@
           "team": "Inter Miami",
           "opponent": "Orlando City SC",
           "competition": "11",
-          "score": "3-4",
+          "score": "3 – 4",
           "goalsCount": 1,
           "minutes": [
             "33"
@@ -10148,7 +10148,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -10175,7 +10175,7 @@
           "team": "Inter Miami",
           "opponent": "New York Red Bulls",
           "competition": "10",
-          "score": "4-1",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -10212,7 +10212,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 1,
           "minutes": [
             "5"
@@ -10239,7 +10239,7 @@
           "team": "Barcelona",
           "opponent": "CD Tenerife",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "16",
@@ -10278,7 +10278,7 @@
           "team": "Inter Miami",
           "opponent": "New York Red Bulls",
           "competition": "12",
-          "score": "6-2",
+          "score": "6 – 2",
           "goalsCount": 1,
           "minutes": [
             "50"
@@ -10315,7 +10315,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 4,
           "minutes": [
             "11",
@@ -10378,7 +10378,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "4:02",
+          "score": "4 – 2",
           "goalsCount": 2,
           "minutes": [
             "60",
@@ -10427,7 +10427,7 @@
           "team": "Barcelona",
           "opponent": "Bayern Munich",
           "competition": "UEFA Champions League",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "77",
@@ -10466,7 +10466,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "45",
@@ -10505,7 +10505,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "52"
@@ -10551,7 +10551,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "5"
@@ -10578,7 +10578,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "8"
@@ -10615,7 +10615,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 1,
           "minutes": [
             "45"
@@ -10642,7 +10642,7 @@
           "team": "Inter Miami",
           "opponent": "Toronto FC",
           "competition": "12",
-          "score": "2-4",
+          "score": "2 – 4",
           "goalsCount": 1,
           "minutes": [
             "75"
@@ -10679,7 +10679,7 @@
           "team": "Inter Miami",
           "opponent": "Minnesota United FC",
           "competition": "11",
-          "score": "4-1",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "48"
@@ -10716,7 +10716,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "3:03",
+          "score": "3 – 3",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -10762,7 +10762,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Copa del Rey",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -10789,7 +10789,7 @@
           "team": "Inter Miami",
           "opponent": "FC Cincinnati",
           "competition": "13",
-          "score": "3-5",
+          "score": "3 – 5",
           "goalsCount": 2,
           "minutes": [
             "24",
@@ -10838,7 +10838,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Montpellier",
           "competition": "Ligue 1",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "6",
@@ -10896,7 +10896,7 @@
           "team": "Barcelona",
           "opponent": "Real Valladolid CF",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "61",
@@ -10935,7 +10935,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "28"
@@ -10972,7 +10972,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "65"
@@ -10999,7 +10999,7 @@
           "team": "Inter Miami",
           "opponent": "Portland Timbers",
           "competition": "14",
-          "score": "2-0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -11045,7 +11045,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 2,
           "minutes": [
             "31",
@@ -11094,7 +11094,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "0:06",
+          "score": "0 – 6",
           "goalsCount": 2,
           "minutes": [
             "39",
@@ -11143,7 +11143,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "4:02",
+          "score": "4 – 2",
           "goalsCount": 2,
           "minutes": [
             "75",
@@ -11201,7 +11201,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 2,
           "minutes": [
             "5",
@@ -11250,7 +11250,7 @@
           "team": "Inter Miami",
           "opponent": "Philadelphia Union",
           "competition": "14",
-          "score": "3-3",
+          "score": "3 – 3",
           "goalsCount": 1,
           "minutes": [
             "87"
@@ -11287,7 +11287,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Copa del Rey",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -11314,7 +11314,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "Copa del Rey",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "73"
@@ -11360,7 +11360,7 @@
           "team": "Barcelona",
           "opponent": "Manchester United",
           "competition": "UEFA Champions League",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "70"
@@ -11387,7 +11387,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "Copa del Rey",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "30"
@@ -11424,7 +11424,7 @@
           "team": "Barcelona",
           "opponent": "Manchester United",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -11451,7 +11451,7 @@
           "team": "Inter Miami",
           "opponent": "CF Montréal",
           "competition": "15",
-          "score": "4-2",
+          "score": "4 – 2",
           "goalsCount": 2,
           "minutes": [
             "27",
@@ -11547,7 +11547,7 @@
           "team": "Inter Miami",
           "opponent": "Atlanta United FC",
           "competition": "17",
-          "score": "1-3",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "62"
@@ -11584,7 +11584,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Copa del Rey",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 2,
           "minutes": [
             "20",
@@ -11633,7 +11633,7 @@
           "team": "Inter Miami",
           "opponent": "Columbus Crew",
           "competition": "16",
-          "score": "5-1",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "15",
@@ -11682,7 +11682,7 @@
           "team": "Inter Miami",
           "opponent": "St. Louis City SC",
           "competition": "18",
-          "score": "3-3",
+          "score": "3 – 3",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -11719,7 +11719,7 @@
           "team": "Argentina",
           "opponent": "Ecuador",
           "competition": "2014 FIFA World Cup qualification",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -11789,7 +11789,7 @@
           "team": "Argentina",
           "opponent": "Mexico",
           "competition": "Friendly",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -11948,7 +11948,7 @@
           "team": "Argentina",
           "opponent": "Slovenia",
           "competition": "Friendly",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -11973,7 +11973,7 @@
           "team": "Argentina",
           "opponent": "Nicaragua",
           "competition": "Friendly",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -12028,7 +12028,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 2,
           "minutes": [
             "43",
@@ -12067,7 +12067,7 @@
           "team": "Argentina",
           "opponent": "Brazil",
           "competition": "Friendly",
-          "score": "1–1",
+          "score": "1 – 1",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -12149,7 +12149,7 @@
           "team": "Argentina",
           "opponent": "Panama",
           "competition": "Copa América Centenario",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -12249,7 +12249,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 1,
           "minutes": [
             "90+3"
@@ -12286,7 +12286,7 @@
           "team": "Argentina",
           "opponent": "Guatemala",
           "competition": "Friendly",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -12333,7 +12333,7 @@
           "team": "Argentina",
           "opponent": "1–0",
           "competition": "[67]",
-          "score": "1–1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12358,7 +12358,7 @@
           "team": "Argentina",
           "opponent": "Guatemala",
           "competition": "Friendly",
-          "score": "1–1",
+          "score": "1 – 1",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -12404,7 +12404,7 @@
           "team": "Argentina",
           "opponent": "Bosnia and Herzegovina",
           "competition": "2014 FIFA World Cup",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12429,7 +12429,7 @@
           "team": "Argentina",
           "opponent": "Australia",
           "competition": "[84]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12464,7 +12464,7 @@
           "team": "Argentina",
           "opponent": "Serbia and Montenegro",
           "competition": "2006 FIFA World Cup",
-          "score": "6–0",
+          "score": "6 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12489,7 +12489,7 @@
           "team": "Barcelona",
           "opponent": "CD Leganes",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "69"
@@ -12516,7 +12516,7 @@
           "team": "Argentina",
           "opponent": "Algeria",
           "competition": "2026 FIFA World Cup",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -12573,7 +12573,7 @@
           "team": "Barcelona",
           "opponent": "Gimnastic de Tarragona",
           "competition": "La Liga",
-          "score": "1:05",
+          "score": "1 – 5",
           "goalsCount": 2,
           "minutes": [
             "34",
@@ -12622,7 +12622,7 @@
           "team": "Argentina",
           "opponent": "Venezuela",
           "competition": "Copa América Centenario",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12682,7 +12682,7 @@
           "team": "Inter Miami",
           "opponent": "Porto",
           "competition": "2",
-          "score": "2-1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "54"
@@ -12719,7 +12719,7 @@
           "team": "Argentina",
           "opponent": "Albania",
           "competition": "[29]",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12754,7 +12754,7 @@
           "team": "Argentina",
           "opponent": "Iran",
           "competition": "[44]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12779,7 +12779,7 @@
           "team": "Argentina",
           "opponent": "United States",
           "competition": "[54]",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12814,7 +12814,7 @@
           "team": "Argentina",
           "opponent": "Austria",
           "competition": "[95]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -12878,7 +12878,7 @@
           "team": "Argentina",
           "opponent": "Nigeria",
           "competition": "[45]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -12924,7 +12924,7 @@
           "team": "Argentina",
           "opponent": "Nigeria",
           "competition": "2018 FIFA World Cup",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -12959,7 +12959,7 @@
           "team": "Argentina",
           "opponent": "3–1",
           "competition": "[95]",
-          "score": "3–1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13049,7 +13049,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "50"
@@ -13104,7 +13104,7 @@
           "team": "Argentina",
           "opponent": "Ecuador",
           "competition": "2021 Copa América",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13129,7 +13129,7 @@
           "team": "Argentina",
           "opponent": "Cape Verde",
           "competition": "2026 FIFA World Cup",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13173,7 +13173,7 @@
           "team": "Inter Miami",
           "opponent": "CF Montréal",
           "competition": "17",
-          "score": "1-4",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "40",
@@ -13231,7 +13231,7 @@
           "team": "Argentina",
           "opponent": "Egypt",
           "competition": "[98]",
-          "score": "2–2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13266,7 +13266,7 @@
           "team": "Argentina",
           "opponent": "Peru",
           "competition": "2007 Copa América",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13301,7 +13301,7 @@
           "team": "Argentina",
           "opponent": "Canada",
           "competition": "2024 Copa América",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13326,7 +13326,7 @@
           "team": "Inter Miami",
           "opponent": "New England Revolution",
           "competition": "18",
-          "score": "1-2",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "27",
@@ -13384,7 +13384,7 @@
           "team": "Argentina",
           "opponent": "Mexico",
           "competition": "[18]",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -13419,7 +13419,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "19",
-          "score": "2-1",
+          "score": "2 – 1",
           "goalsCount": 2,
           "minutes": [
             "17",
@@ -13495,7 +13495,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "62"
@@ -13550,7 +13550,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 2,
           "minutes": [
             "34",
@@ -13589,7 +13589,7 @@
           "team": "Inter Miami",
           "opponent": "New York Red Bulls",
           "competition": "21",
-          "score": "1-5",
+          "score": "1 – 5",
           "goalsCount": 2,
           "minutes": [
             "60",
@@ -13647,7 +13647,7 @@
           "team": "Inter Miami",
           "opponent": "Cruz Azul",
           "competition": "Group stage",
-          "score": "2-1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "90+4"
@@ -13711,7 +13711,7 @@
           "team": "Inter Miami",
           "opponent": "Atlanta United FC",
           "competition": "Group stage",
-          "score": "4-0",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "8",
@@ -13805,7 +13805,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "FC Nantes",
           "competition": "Trophée des Champions",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "22",
@@ -13853,7 +13853,7 @@
           "team": "Inter Miami",
           "opponent": "Orlando City SC",
           "competition": "Round of 32",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "7",
@@ -13920,7 +13920,7 @@
           "team": "Inter Miami",
           "opponent": "Atlético San Luis",
           "competition": "1",
-          "score": "4-2",
+          "score": "4 – 2",
           "goalsCount": 2,
           "minutes": [
             "11",
@@ -13969,7 +13969,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Clermont Foot",
           "competition": "Ligue 1",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 4,
           "minutes": [
             "80",
@@ -14012,7 +14012,7 @@
           "team": "Inter Miami",
           "opponent": "FC Dallas",
           "competition": "Round of 16",
-          "score": "4-4",
+          "score": "4 – 4",
           "goalsCount": 2,
           "minutes": [
             "6",
@@ -14070,7 +14070,7 @@
           "team": "Barcelona",
           "opponent": "SSC Napoli",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -14164,7 +14164,7 @@
           "team": "Inter Miami",
           "opponent": "Charlotte FC",
           "competition": "Quarter-finals",
-          "score": "4-0",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -14210,7 +14210,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "Supercopa",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "77"
@@ -14247,7 +14247,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "Supercopa",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "45"
@@ -14284,7 +14284,7 @@
           "team": "Argentina",
           "opponent": "Germany",
           "competition": "[35]",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -14309,7 +14309,7 @@
           "team": "Inter Miami",
           "opponent": "Philadelphia Union",
           "competition": "Semi-finals",
-          "score": "1-4",
+          "score": "1 – 4",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -14346,7 +14346,7 @@
           "team": "Inter Miami",
           "opponent": "LA Galaxy",
           "competition": "24",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "84"
@@ -14383,7 +14383,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "Supercopa",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 2,
           "minutes": [
             "44",
@@ -14422,7 +14422,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Supercopa",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "43"
@@ -14449,7 +14449,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "Supercopa",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -14486,7 +14486,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "7:00",
+          "score": "7 – 0",
           "goalsCount": 2,
           "minutes": [
             "13",
@@ -14525,7 +14525,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "64",
@@ -14574,7 +14574,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "10",
@@ -14613,7 +14613,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "Final",
-          "score": "1-1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -14640,7 +14640,7 @@
           "team": "Inter Miami",
           "opponent": "Philadelphia Union",
           "competition": "20",
-          "score": "2-2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "26"
@@ -14677,7 +14677,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "6:02",
+          "score": "6 – 2",
           "goalsCount": 2,
           "minutes": [
             "37",
@@ -14726,7 +14726,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "Supercopa",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 3,
           "minutes": [
             "25",
@@ -14777,7 +14777,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "LOSC Lille",
           "competition": "Ligue 1",
-          "score": "1:07",
+          "score": "1 – 7",
           "goalsCount": 1,
           "minutes": [
             "27"
@@ -14814,7 +14814,7 @@
           "team": "Inter Miami",
           "opponent": "Toronto FC",
           "competition": "21",
-          "score": "1-2",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "82"
@@ -14851,7 +14851,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "Supercopa",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "50",
@@ -14890,7 +14890,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "Supercopa",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 1,
           "minutes": [
             "60"
@@ -14927,7 +14927,7 @@
           "team": "Barcelona",
           "opponent": "Elche CF",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "42",
@@ -14985,7 +14985,7 @@
           "team": "Barcelona",
           "opponent": "FC Porto",
           "competition": "UEFA Super Cup",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "39"
@@ -15012,7 +15012,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "74",
@@ -15051,7 +15051,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "55",
@@ -15090,7 +15090,7 @@
           "team": "Inter Miami",
           "opponent": "New York Red Bulls",
           "competition": "23",
-          "score": "0-2",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "89"
@@ -15127,7 +15127,7 @@
           "team": "Inter Miami",
           "opponent": "Orlando City SC",
           "competition": "Semifinals",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "77",
@@ -15176,7 +15176,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "59"
@@ -15213,7 +15213,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "3"
@@ -15240,7 +15240,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "51",
@@ -15279,7 +15279,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "Supercopa",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "45"
@@ -15306,7 +15306,7 @@
           "team": "Inter Miami",
           "opponent": "CF Montréal",
           "competition": "22",
-          "score": "7-1",
+          "score": "7 – 1",
           "goalsCount": 2,
           "minutes": [
             "40",
@@ -15393,7 +15393,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 3,
           "minutes": [
             "11",
@@ -15444,7 +15444,7 @@
           "team": "Argentina",
           "opponent": "Uruguay",
           "competition": "2018 FIFA World Cup qualification",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -15479,7 +15479,7 @@
           "team": "Barcelona",
           "opponent": "SD Huesca",
           "competition": "La Liga",
-          "score": "8:02",
+          "score": "8 – 2",
           "goalsCount": 2,
           "minutes": [
             "16",
@@ -15537,7 +15537,7 @@
           "team": "Argentina",
           "opponent": "Bolivia",
           "competition": "Friendly",
-          "score": "5–0",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -15573,7 +15573,7 @@
           "team": "Argentina",
           "opponent": "1–0",
           "competition": "2026 FIFA World Cup qualification",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -15616,7 +15616,7 @@
           "team": "Argentina",
           "opponent": "1–0",
           "competition": "Friendly",
-          "score": "4–1",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -15641,7 +15641,7 @@
           "team": "Argentina",
           "opponent": "Paraguay",
           "competition": "2014 FIFA World Cup qualification",
-          "score": "3–1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -15666,7 +15666,7 @@
           "team": "Argentina",
           "opponent": "Ecuador",
           "competition": "2026 FIFA World Cup qualification",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -15701,7 +15701,7 @@
           "team": "Argentina",
           "opponent": "Mexico",
           "competition": "[50]",
-          "score": "2–2",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -15736,7 +15736,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "36"
@@ -15763,7 +15763,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 3,
           "minutes": [
             "26",
@@ -15814,7 +15814,7 @@
           "team": "Argentina",
           "opponent": "Bolivia",
           "competition": "2022 FIFA World Cup qualification",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -15926,7 +15926,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "78"
@@ -15953,7 +15953,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "77"
@@ -15980,7 +15980,7 @@
           "team": "Barcelona",
           "opponent": "Juventus FC",
           "competition": "UEFA Champions League",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "45",
@@ -16029,7 +16029,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "70"
@@ -16056,7 +16056,7 @@
           "team": "Barcelona",
           "opponent": "Celtic FC",
           "competition": "UEFA Champions League",
-          "score": "7:00",
+          "score": "7 – 0",
           "goalsCount": 3,
           "minutes": [
             "3",
@@ -16107,7 +16107,7 @@
           "team": "Inter Miami",
           "opponent": "Philadelphia Union",
           "competition": "Major League Soccer",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -16144,7 +16144,7 @@
           "team": "Barcelona",
           "opponent": "Panathinaikos Athens",
           "competition": "UEFA Champions League",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "22",
@@ -16183,7 +16183,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 1,
           "minutes": [
             "75"
@@ -16210,7 +16210,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Maccabi Haifa",
           "competition": "UEFA Champions League",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "37"
@@ -16237,7 +16237,7 @@
           "team": "Inter Miami",
           "opponent": "Philadelphia Union",
           "competition": "28",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "26",
@@ -16286,7 +16286,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "74",
@@ -16335,7 +16335,7 @@
           "team": "Inter Miami",
           "opponent": "Seattle Sounders FC",
           "competition": "27",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "41"
@@ -16372,7 +16372,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "8:00",
+          "score": "8 – 0",
           "goalsCount": 3,
           "minutes": [
             "5",
@@ -16423,7 +16423,7 @@
           "team": "Barcelona",
           "opponent": "CD Leganes",
           "competition": "La Liga",
-          "score": "1:05",
+          "score": "1 – 5",
           "goalsCount": 2,
           "minutes": [
             "15",
@@ -16472,7 +16472,7 @@
           "team": "Barcelona",
           "opponent": "Ajax Amsterdam",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 3,
           "minutes": [
             "22",
@@ -16523,7 +16523,7 @@
           "team": "Barcelona",
           "opponent": "PSV Eindhoven",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 3,
           "minutes": [
             "31",
@@ -16574,7 +16574,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Olympique Lyon",
           "competition": "Ligue 1",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "5"
@@ -16611,7 +16611,7 @@
           "team": "Barcelona",
           "opponent": "Olympique Lyon",
           "competition": "UEFA Champions League",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "82"
@@ -16638,7 +16638,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 2,
           "minutes": [
             "15",
@@ -16677,7 +16677,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "12"
@@ -16704,7 +16704,7 @@
           "team": "Barcelona",
           "opponent": "Spartak Moscow",
           "competition": "UEFA Champions League",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 2,
           "minutes": [
             "71",
@@ -16743,7 +16743,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 4,
           "minutes": [
             "21",
@@ -16816,7 +16816,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "61",
@@ -16855,7 +16855,7 @@
           "team": "Inter Miami",
           "opponent": "D.C. United",
           "competition": "28",
-          "score": "3-2",
+          "score": "3 – 2",
           "goalsCount": 2,
           "minutes": [
             "66",
@@ -16902,9 +16902,9 @@
           "date": "2008-09-21",
           "year": 2008,
           "team": "Barcelona",
-          "opponent": "Sporting GijÃ³n",
+          "opponent": "Sporting Gijón",
           "competition": "La Liga",
-          "score": "1:06",
+          "score": "1 – 6",
           "goalsCount": 2,
           "minutes": [
             "85",
@@ -16943,7 +16943,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 1,
           "minutes": [
             "77"
@@ -16980,7 +16980,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 2,
           "minutes": [
             "72",
@@ -17019,7 +17019,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 2,
           "minutes": [
             "23",
@@ -17068,7 +17068,7 @@
           "team": "Barcelona",
           "opponent": "Girona FC",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "19"
@@ -17141,7 +17141,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 3,
           "minutes": [
             "26",
@@ -17192,7 +17192,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "8"
@@ -17219,7 +17219,7 @@
           "team": "Inter Miami",
           "opponent": "New York City FC",
           "competition": "29",
-          "score": "0-4",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "74",
@@ -17277,7 +17277,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "5",
@@ -17326,7 +17326,7 @@
           "team": "Barcelona",
           "opponent": "SV Werder Bremen",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "89"
@@ -17353,7 +17353,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "90"
@@ -17380,7 +17380,7 @@
           "team": "Barcelona",
           "opponent": "Granada CF",
           "competition": "La Liga",
-          "score": "6:00",
+          "score": "6 – 0",
           "goalsCount": 2,
           "minutes": [
             "62",
@@ -17419,7 +17419,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "35"
@@ -17446,7 +17446,7 @@
           "team": "Argentina",
           "opponent": "Jamaica",
           "competition": "[74]",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -17492,7 +17492,7 @@
           "team": "Barcelona",
           "opponent": "BATE Borisov",
           "competition": "UEFA Champions League",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 2,
           "minutes": [
             "38",
@@ -17531,7 +17531,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "21"
@@ -17558,7 +17558,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Manchester City",
           "competition": "UEFA Champions League",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "74"
@@ -17585,7 +17585,7 @@
           "team": "Inter Miami",
           "opponent": "Charlotte FC",
           "competition": "31",
-          "score": "1-1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -17622,7 +17622,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 1,
           "minutes": [
             "50"
@@ -17649,7 +17649,7 @@
           "team": "Barcelona",
           "opponent": "Dynamo Kyiv",
           "competition": "UEFA Champions League",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "25"
@@ -17686,7 +17686,7 @@
           "team": "Barcelona",
           "opponent": "Paris Saint-Germain",
           "competition": "UEFA Champions League",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 1,
           "minutes": [
             "12"
@@ -17723,7 +17723,7 @@
           "team": "Barcelona",
           "opponent": "Shakhtar Donetsk",
           "competition": "UEFA Champions League",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "87",
@@ -17762,7 +17762,7 @@
           "team": "Barcelona",
           "opponent": "UD Las Palmas",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "70",
@@ -17801,7 +17801,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "OGC Nice",
           "competition": "Ligue 1",
-          "score": "2:1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "28"
@@ -17838,7 +17838,7 @@
           "team": "Barcelona",
           "opponent": "VfB Stuttgart",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "66"
@@ -17865,7 +17865,7 @@
           "team": "Inter Miami",
           "opponent": "Columbus Crew",
           "competition": "32",
-          "score": "2-3",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "45",
@@ -17914,7 +17914,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -17941,7 +17941,7 @@
           "team": "Barcelona",
           "opponent": "Tottenham Hotspur",
           "competition": "UEFA Champions League",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 2,
           "minutes": [
             "56",
@@ -17990,7 +17990,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "8"
@@ -18017,7 +18017,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "35"
@@ -18054,7 +18054,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "SL Benfica",
           "competition": "UEFA Champions League",
-          "score": "1:1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "22"
@@ -18091,7 +18091,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "78"
@@ -18128,7 +18128,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "19"
@@ -18155,7 +18155,7 @@
           "team": "Argentina",
           "opponent": "2–0",
           "competition": "[30]",
-          "score": "4–1",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -18180,7 +18180,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 2,
           "minutes": [
             "31",
@@ -18219,7 +18219,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -18300,7 +18300,7 @@
           "team": "Argentina",
           "opponent": "Ecuador",
           "competition": "[58]",
-          "score": "1–1",
+          "score": "1 – 1",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -18347,7 +18347,7 @@
           "team": "Argentina",
           "opponent": "1–0",
           "competition": "2022 FIFA World Cup qualification",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -18382,7 +18382,7 @@
           "team": "Argentina",
           "opponent": "Uruguay",
           "competition": "2010 FIFA World Cup qualification",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -18407,7 +18407,7 @@
           "team": "Inter Miami",
           "opponent": "Atlanta United FC",
           "competition": "33",
-          "score": "4-0",
+          "score": "4 – 0",
           "goalsCount": 2,
           "minutes": [
             "39",
@@ -18456,7 +18456,7 @@
           "team": "Argentina",
           "opponent": "Uruguay",
           "competition": "[37]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -18511,7 +18511,7 @@
           "team": "Argentina",
           "opponent": "Hong Kong",
           "competition": "Friendly",
-          "score": "5–0",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -18557,7 +18557,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "80"
@@ -18584,7 +18584,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 2,
           "minutes": [
             "11",
@@ -18623,7 +18623,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "58"
@@ -18650,7 +18650,7 @@
           "team": "Argentina",
           "opponent": "Bolivia",
           "competition": "2026 FIFA World Cup qualification",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 3,
           "minutes": [],
           "types": [
@@ -18707,7 +18707,7 @@
           "team": "Argentina",
           "opponent": "Venezuela",
           "competition": "2010 FIFA World Cup qualification",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -18732,7 +18732,7 @@
           "team": "Argentina",
           "opponent": "Chile",
           "competition": "[38]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -18767,7 +18767,7 @@
           "team": "Argentina",
           "opponent": "Peru",
           "competition": "[86]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 2,
           "minutes": [],
           "types": [
@@ -18813,7 +18813,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "74"
@@ -18840,7 +18840,7 @@
           "team": "Barcelona",
           "opponent": "Olympiacos Piraeus",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "61"
@@ -18867,7 +18867,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "34",
-          "score": "2-5",
+          "score": "2 – 5",
           "goalsCount": 3,
           "minutes": [
             "34",
@@ -18928,7 +18928,7 @@
           "team": "Barcelona",
           "opponent": "Manchester City",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 3,
           "minutes": [
             "17",
@@ -18979,7 +18979,7 @@
           "team": "Barcelona",
           "opponent": "SD Eibar",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "58"
@@ -19006,7 +19006,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "RB Leipzig",
           "competition": "UEFA Champions League",
-          "score": "3:02",
+          "score": "3 – 2",
           "goalsCount": 2,
           "minutes": [
             "67",
@@ -19045,7 +19045,7 @@
           "team": "Inter Miami",
           "opponent": "New England Revolution",
           "competition": "34",
-          "score": "6-2",
+          "score": "6 – 2",
           "goalsCount": 3,
           "minutes": [
             "78",
@@ -19106,7 +19106,7 @@
           "team": "Barcelona",
           "opponent": "FC Copenhagen",
           "competition": "UEFA Champions League",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 2,
           "minutes": [
             "18",
@@ -19145,7 +19145,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "4:05",
+          "score": "4 – 5",
           "goalsCount": 3,
           "minutes": [
             "17",
@@ -19196,7 +19196,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "4:02",
+          "score": "4 – 2",
           "goalsCount": 1,
           "minutes": [
             "12"
@@ -19223,7 +19223,7 @@
           "team": "Barcelona",
           "opponent": "Ferencvarosi TC",
           "competition": "UEFA Champions League",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 1,
           "minutes": [
             "27"
@@ -19260,7 +19260,7 @@
           "team": "Barcelona",
           "opponent": "Ajax Amsterdam",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "24"
@@ -19287,7 +19287,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "AC Ajaccio",
           "competition": "Ligue 1",
-          "score": "0:3",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "78"
@@ -19324,7 +19324,7 @@
           "team": "Barcelona",
           "opponent": "FC Basel 1893",
           "competition": "UEFA Champions League",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 1,
           "minutes": [
             "4"
@@ -19351,7 +19351,7 @@
           "team": "Barcelona",
           "opponent": "AC Milan",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -19378,7 +19378,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 2,
           "minutes": [
             "22",
@@ -19427,7 +19427,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "41",
@@ -19466,7 +19466,7 @@
           "team": "Barcelona",
           "opponent": "SK Slavia Prague",
           "competition": "UEFA Champions League",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "3"
@@ -19503,7 +19503,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "Round one match 1",
-          "score": "3-1",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "19",
@@ -19552,7 +19552,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 1,
           "minutes": [
             "80"
@@ -19579,7 +19579,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Maccabi Haifa",
           "competition": "UEFA Champions League",
-          "score": "7:2",
+          "score": "7 – 2",
           "goalsCount": 2,
           "minutes": [
             "19",
@@ -19637,7 +19637,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 2,
           "minutes": [
             "48",
@@ -19686,7 +19686,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "80"
@@ -19713,7 +19713,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "37"
@@ -19740,7 +19740,7 @@
           "team": "Barcelona",
           "opponent": "Juventus FC",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "90+1"
@@ -19777,7 +19777,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 3,
           "minutes": [
             "13",
@@ -19828,7 +19828,7 @@
           "team": "Barcelona",
           "opponent": "Real Valladolid CF",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "34",
@@ -19867,7 +19867,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "ESTAC Troyes",
           "competition": "Ligue 1",
-          "score": "4:3",
+          "score": "4 – 3",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -19904,7 +19904,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "4",
@@ -19962,7 +19962,7 @@
           "team": "Barcelona",
           "opponent": "Malaga CF",
           "competition": "La Liga",
-          "score": "1:04",
+          "score": "1 – 4",
           "goalsCount": 1,
           "minutes": [
             "19"
@@ -19989,7 +19989,7 @@
           "team": "Barcelona",
           "opponent": "FC Viktoria Plzen",
           "competition": "UEFA Champions League",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 3,
           "minutes": [
             "24",
@@ -20040,7 +20040,7 @@
           "team": "Barcelona",
           "opponent": "Manchester City",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "21"
@@ -20067,7 +20067,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "Round one match 2",
-          "score": "2-1",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "90"
@@ -20104,7 +20104,7 @@
           "team": "Barcelona",
           "opponent": "Panathinaikos Athens",
           "competition": "UEFA Champions League",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "34"
@@ -20131,7 +20131,7 @@
           "team": "Barcelona",
           "opponent": "FC Copenhagen",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -20158,7 +20158,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "38"
@@ -20204,7 +20204,7 @@
           "team": "Barcelona",
           "opponent": "FC Basel 1893",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "61"
@@ -20231,7 +20231,7 @@
           "team": "Barcelona",
           "opponent": "Dynamo Kyiv",
           "competition": "UEFA Champions League",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "5"
@@ -20268,7 +20268,7 @@
           "team": "Barcelona",
           "opponent": "Ajax Amsterdam",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "36",
@@ -20317,7 +20317,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "90"
@@ -20344,7 +20344,7 @@
           "team": "Barcelona",
           "opponent": "AC Milan",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "30",
@@ -20383,7 +20383,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "43"
@@ -20420,7 +20420,7 @@
           "team": "Barcelona",
           "opponent": "Rangers FC",
           "competition": "UEFA Champions League",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "41"
@@ -20447,7 +20447,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "4:02",
+          "score": "4 – 2",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -20474,7 +20474,7 @@
           "team": "Barcelona",
           "opponent": "Getafe CF",
           "competition": "La Liga",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "23"
@@ -20501,7 +20501,7 @@
           "team": "Barcelona",
           "opponent": "Celtic FC",
           "competition": "UEFA Champions League",
-          "score": "2:01",
+          "score": "2 – 1",
           "goalsCount": 1,
           "minutes": [
             "90+1"
@@ -20528,7 +20528,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 2,
           "minutes": [
             "61",
@@ -20577,7 +20577,7 @@
           "team": "Inter Miami",
           "opponent": "Nashville SC",
           "competition": "Round one match 3",
-          "score": "4-0",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "10"
@@ -20624,7 +20624,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 3,
           "minutes": [
             "23",
@@ -20685,7 +20685,7 @@
           "team": "Barcelona",
           "opponent": "Cultural Leonesa",
           "competition": "Copa del Rey",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "64"
@@ -20712,7 +20712,7 @@
           "team": "Barcelona",
           "opponent": "Club Atletico de Ceuta",
           "competition": "Copa del Rey",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 1,
           "minutes": [
             "67"
@@ -20749,7 +20749,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "2:04",
+          "score": "2 – 4",
           "goalsCount": 2,
           "minutes": [
             "43",
@@ -20788,7 +20788,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "3:04",
+          "score": "3 – 4",
           "goalsCount": 2,
           "minutes": [
             "68",
@@ -20837,7 +20837,7 @@
           "team": "Barcelona",
           "opponent": "Benidorm CD",
           "competition": "Copa del Rey",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -20899,7 +20899,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "58",
@@ -20973,7 +20973,7 @@
           "team": "Argentina",
           "opponent": "Angola",
           "competition": "Friendly",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21008,7 +21008,7 @@
           "team": "Argentina",
           "opponent": "Colombia",
           "competition": "[31]",
-          "score": "1–1",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21033,7 +21033,7 @@
           "team": "Argentina",
           "opponent": "Colombia",
           "competition": "[56]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21058,7 +21058,7 @@
           "team": "Argentina",
           "opponent": "Brazil",
           "competition": "2019 Superclásico de las Américas",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21093,7 +21093,7 @@
           "team": "Barcelona",
           "opponent": "Recreativo Huelva",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -21120,7 +21120,7 @@
           "team": "Argentina",
           "opponent": "United Arab Emirates",
           "competition": "[75]",
-          "score": "4–0",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21155,7 +21155,7 @@
           "team": "Argentina",
           "opponent": "Brazil",
           "competition": "[27]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21180,7 +21180,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 2,
           "minutes": [
             "15",
@@ -21264,7 +21264,7 @@
           "team": "Barcelona",
           "opponent": "Real Zaragoza",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "43"
@@ -21301,7 +21301,7 @@
           "team": "Argentina",
           "opponent": "Colombia",
           "competition": "[20]",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21326,7 +21326,7 @@
           "team": "Barcelona",
           "opponent": "UD Almera",
           "competition": "La Liga",
-          "score": "0:08",
+          "score": "0 – 8",
           "goalsCount": 3,
           "minutes": [
             "16",
@@ -21377,7 +21377,7 @@
           "team": "Barcelona",
           "opponent": "Spartak Moscow",
           "competition": "UEFA Champions League",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 2,
           "minutes": [
             "27",
@@ -21416,7 +21416,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "FC Nantes",
           "competition": "Ligue 1",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "87"
@@ -21462,7 +21462,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 3,
           "minutes": [
             "21",
@@ -21548,7 +21548,7 @@
           "team": "Barcelona",
           "opponent": "AC Milan",
           "competition": "UEFA Champions League",
-          "score": "2:03",
+          "score": "2 – 3",
           "goalsCount": 1,
           "minutes": [
             "31"
@@ -21575,7 +21575,7 @@
           "team": "Barcelona",
           "opponent": "Celtic FC",
           "competition": "UEFA Champions League",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "24",
@@ -21624,7 +21624,7 @@
           "team": "Barcelona",
           "opponent": "Recreativo Huelva",
           "competition": "La Liga",
-          "score": "3:00",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [
             "81"
@@ -21651,7 +21651,7 @@
           "team": "Barcelona",
           "opponent": "Panathinaikos Athens",
           "competition": "UEFA Champions League",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "63"
@@ -21678,7 +21678,7 @@
           "team": "Barcelona",
           "opponent": "AS Roma",
           "competition": "UEFA Champions League",
-          "score": "6:01",
+          "score": "6 – 1",
           "goalsCount": 2,
           "minutes": [
             "18",
@@ -21727,7 +21727,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "46",
@@ -21766,7 +21766,7 @@
           "team": "Barcelona",
           "opponent": "APOEL Nicosia",
           "competition": "UEFA Champions League",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 3,
           "minutes": [
             "38",
@@ -21827,7 +21827,7 @@
           "team": "Barcelona",
           "opponent": "Sporting CP",
           "competition": "UEFA Champions League",
-          "score": "2:05",
+          "score": "2 – 5",
           "goalsCount": 1,
           "minutes": [
             "49"
@@ -21854,7 +21854,7 @@
           "team": "Argentina",
           "opponent": "1–0",
           "competition": "2022 FIFA World Cup",
-          "score": "2–0",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -21889,7 +21889,7 @@
           "team": "Barcelona",
           "opponent": "Racing Santander",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "51"
@@ -21916,7 +21916,7 @@
           "team": "Barcelona",
           "opponent": "Olympique Lyon",
           "competition": "UEFA Champions League",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "58"
@@ -21943,7 +21943,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "59"
@@ -21970,7 +21970,7 @@
           "team": "Barcelona",
           "opponent": "Borussia Dortmund",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "33"
@@ -22007,7 +22007,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "90+1"
@@ -22034,7 +22034,7 @@
           "team": "Barcelona",
           "opponent": "PSV Eindhoven",
           "competition": "UEFA Champions League",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "61"
@@ -22071,7 +22071,7 @@
           "team": "Barcelona",
           "opponent": "Sevilla FC",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 2,
           "minutes": [
             "78",
@@ -22110,7 +22110,7 @@
           "team": "Barcelona",
           "opponent": "Rayo Vallecano",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "49"
@@ -22137,7 +22137,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "73"
@@ -22183,7 +22183,7 @@
           "team": "Barcelona",
           "opponent": "Athletic Bilbao",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 2,
           "minutes": [
             "24",
@@ -22222,7 +22222,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "0:01",
+          "score": "0 – 1",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -22259,7 +22259,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "22"
@@ -22296,7 +22296,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -22323,7 +22323,7 @@
           "team": "Argentina",
           "opponent": "Australia",
           "competition": "2022 FIFA World Cup",
-          "score": "1–0",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -22358,7 +22358,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 2,
           "minutes": [
             "64",
@@ -22407,7 +22407,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 2,
           "minutes": [
             "26",
@@ -22456,7 +22456,7 @@
           "team": "Barcelona",
           "opponent": "Borussia MÃ¶nchengladbach",
           "competition": "UEFA Champions League",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "16"
@@ -22493,7 +22493,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "5:01",
+          "score": "5 – 1",
           "goalsCount": 3,
           "minutes": [
             "45+1",
@@ -22544,7 +22544,7 @@
           "team": "Barcelona",
           "opponent": "RCD Mallorca",
           "competition": "La Liga",
-          "score": "5:02",
+          "score": "5 – 2",
           "goalsCount": 3,
           "minutes": [
             "17",
@@ -22595,7 +22595,7 @@
           "team": "Paris Saint-Germain",
           "opponent": "Club Brugge KV",
           "competition": "UEFA Champions League",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "38",
@@ -22644,7 +22644,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "17",
@@ -22693,7 +22693,7 @@
           "team": "Barcelona",
           "opponent": "Dynamo Kyiv",
           "competition": "UEFA Champions League",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 1,
           "minutes": [
             "86"
@@ -22720,7 +22720,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "1:02",
+          "score": "1 – 2",
           "goalsCount": 2,
           "minutes": [
             "16",
@@ -22759,7 +22759,7 @@
           "team": "Barcelona",
           "opponent": "Bayer 04 Leverkusen",
           "competition": "UEFA Champions League",
-          "score": "1:01",
+          "score": "1 – 1",
           "goalsCount": 1,
           "minutes": [
             "20"
@@ -22821,7 +22821,7 @@
           "team": "Barcelona",
           "opponent": "Paris Saint-Germain",
           "competition": "UEFA Champions League",
-          "score": "3:01",
+          "score": "3 – 1",
           "goalsCount": 1,
           "minutes": [
             "19"
@@ -22848,7 +22848,7 @@
           "team": "Barcelona",
           "opponent": "CA Osasuna",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 2,
           "minutes": [
             "72",
@@ -22887,7 +22887,7 @@
           "team": "Barcelona",
           "opponent": "Villarreal CF",
           "competition": "La Liga",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 1,
           "minutes": [
             "83"
@@ -22933,7 +22933,7 @@
           "team": "Barcelona",
           "opponent": "Real Sociedad",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "46",
@@ -22970,9 +22970,9 @@
           "date": "2012-12-12",
           "year": 2012,
           "team": "Barcelona",
-          "opponent": "CÃ³rdoba CF",
+          "opponent": "Córdoba CF",
           "competition": "Copa del Rey",
-          "score": "0:02",
+          "score": "0 – 2",
           "goalsCount": 2,
           "minutes": [
             "10",
@@ -23011,7 +23011,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo de La Coruaa",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "39"
@@ -23048,7 +23048,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "89"
@@ -23075,7 +23075,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "1:00",
+          "score": "1 – 0",
           "goalsCount": 1,
           "minutes": [
             "76"
@@ -23102,7 +23102,7 @@
           "team": "Argentina",
           "opponent": "1–0‡",
           "competition": "[79]",
-          "score": "3–0",
+          "score": "3 – 0",
           "goalsCount": 1,
           "minutes": [],
           "types": [
@@ -23155,7 +23155,7 @@
           "team": "Barcelona",
           "opponent": "CF Atlante",
           "competition": "FIFA Club World Cup",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "55"
@@ -23182,7 +23182,7 @@
           "team": "Barcelona",
           "opponent": "Atletico de Madrid",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 2,
           "minutes": [
             "58",
@@ -23221,7 +23221,7 @@
           "team": "Barcelona",
           "opponent": "Levante UD",
           "competition": "La Liga",
-          "score": "0:05",
+          "score": "0 – 5",
           "goalsCount": 3,
           "minutes": [
             "43",
@@ -23291,7 +23291,7 @@
           "team": "Barcelona",
           "opponent": "Santos FC",
           "competition": "FIFA Club World Cup",
-          "score": "0:04",
+          "score": "0 – 4",
           "goalsCount": 2,
           "minutes": [
             "17",
@@ -23330,7 +23330,7 @@
           "team": "Barcelona",
           "opponent": "RCD Espanyol Barcelona",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "90"
@@ -23430,7 +23430,7 @@
           "team": "Barcelona",
           "opponent": "Valencia CF",
           "competition": "La Liga",
-          "score": "2:02",
+          "score": "2 – 2",
           "goalsCount": 1,
           "minutes": [
             "45+4"
@@ -23465,9 +23465,9 @@
           "date": "2014-12-20",
           "year": 2014,
           "team": "Barcelona",
-          "opponent": "CÃ³rdoba CF",
+          "opponent": "Córdoba CF",
           "competition": "La Liga",
-          "score": "5:00",
+          "score": "5 – 0",
           "goalsCount": 2,
           "minutes": [
             "82",
@@ -23506,7 +23506,7 @@
           "team": "Barcelona",
           "opponent": "CA River Plate",
           "competition": "FIFA Club World Cup",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "36"
@@ -23543,7 +23543,7 @@
           "team": "Barcelona",
           "opponent": "Deportivo Alaves",
           "competition": "La Liga",
-          "score": "4:01",
+          "score": "4 – 1",
           "goalsCount": 1,
           "minutes": [
             "69"
@@ -23580,7 +23580,7 @@
           "team": "Barcelona",
           "opponent": "Real Valladolid CF",
           "competition": "La Liga",
-          "score": "1:03",
+          "score": "1 – 3",
           "goalsCount": 1,
           "minutes": [
             "59"
@@ -23607,7 +23607,7 @@
           "team": "Barcelona",
           "opponent": "Celta de Vigo",
           "competition": "La Liga",
-          "score": "2:00",
+          "score": "2 – 0",
           "goalsCount": 1,
           "minutes": [
             "45"
@@ -23634,7 +23634,7 @@
           "team": "Barcelona",
           "opponent": "Real Valladolid CF",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "65"
@@ -23671,7 +23671,7 @@
           "team": "Barcelona",
           "opponent": "Real Madrid",
           "competition": "La Liga",
-          "score": "0:03",
+          "score": "0 – 3",
           "goalsCount": 1,
           "minutes": [
             "64"
@@ -23762,7 +23762,7 @@
           "team": "Barcelona",
           "opponent": "Real Betis Balompie",
           "competition": "La Liga",
-          "score": "4:00",
+          "score": "4 – 0",
           "goalsCount": 1,
           "minutes": [
             "33"
