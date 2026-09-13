@@ -193,53 +193,86 @@ function renderMethod(d, extra) {
 /* ---------- SVG charts ---------- */
 function sparkSVG(rows, opts) {
   opts = opts || {};
-  const W = 1000, H = 196, base = 168.5, maxH = 138;
+  const W = 1000, H = 210, base = 175, maxH = 120;
   const max = Math.max(...rows.map((r) => r.value), 1);
   const step = W / rows.length;
-  const bw = Math.min(24, step * 0.6);
+  const bw = Math.min(Math.max(20, step * 0.52), 64);
   let s = `<svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.label || "Bar chart")}">`;
-  s += `<defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0f2"/><stop offset="1" stop-color="#0e7cc0"/></linearGradient>` +
-    `<linearGradient id="barPeak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eec22f"/><stop offset="1" stop-color="#8a6300"/></linearGradient></defs>`;
+  s += `<defs>` +
+    `<linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0f2"/><stop offset="1" stop-color="#0e7cc0"/></linearGradient>` +
+    `<linearGradient id="barPeak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eec22f"/><stop offset="1" stop-color="#8a6300"/></linearGradient>` +
+    `<linearGradient id="cumAreaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7cc0" stop-opacity="0.22"/><stop offset="1" stop-color="#0e7cc0" stop-opacity="0.02"/></linearGradient>` +
+    `</defs>`;
+
+  s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
+  s += `<text class="axis" x="4" y="${(base - maxH + 4).toFixed(1)}">${max}${opts.cumulative ? " /yr" : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
+
+  // 1. Draw bars first so cumulative line and labels sit cleanly on top
+  rows.forEach((r, i) => {
+    const h = Math.max(3, (r.value / max) * maxH);
+    const x = (i * step + (step - bw) / 2).toFixed(1);
+    const y = (base - h).toFixed(1);
+    const peak = r.peak || (r.year != null && r.year === opts.peakYear);
+    const selected = opts.selectedYear != null && r.year === opts.selectedYear;
+    const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "") + (selected ? " active" : "");
+    const rect = `<rect class="${cls}" data-year="${r.year != null ? r.year : ""}" data-val="${r.value}" style="--i:${i}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
+    s += (opts.linkPrefix && r.year != null) ? `<a href="${opts.linkPrefix}${r.year}">${rect}</a>` : rect;
+
+    if (r.peak) {
+      const py = Math.max(base - h - 8, 26).toFixed(1);
+      s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="${py}">${r.value}</text>`;
+    }
+    if (r.provisional && !r.peak) {
+      const py = Math.max(base - h - 8, 26).toFixed(1);
+      s += `<text class="prov-label" x="${(i * step + step / 2).toFixed(0)}" y="${py}">${r.value}</text>`;
+    }
+    if (!opts.skipLabels || i % 2 === 0)
+      s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="198">${esc(r.label)}</text>`;
+  });
+
+  // 2. Cumulative polyline, target line, and labels drawn AFTER bars so they stay visible
   if (opts.cumulative) {
     const tot = rows.reduce((a, r) => a + r.value, 0);
+    const target = 1000;
+    const targetY = 44;
     let run = 0;
     const pts = rows.map((r, i) => {
       run += r.value;
       const x = (i * step + step / 2).toFixed(1);
-      const y = (base - 8 - (run / tot) * (maxH - 10)).toFixed(1);
+      const y = (base - (run / target) * (base - targetY)).toFixed(1);
       return `${x},${y}`;
     });
-    s += `<polyline class="cum" points="${pts.join(" ")}" fill="none"/>`;
-    if (tot < 1000) {
-      const my = (base - 8 - (1000 / tot) * (maxH - 10)).toFixed(1);
-      s += `<line class="thousand" x1="0" y1="${my}" x2="${W}" y2="${my}"/><text class="thousand-label" x="${W}" y="${(+my - 5).toFixed(1)}">1,000</text>`;
-    }
+    const firstX = (step / 2).toFixed(1);
+    const lastX = ((rows.length - 1) * step + step / 2).toFixed(1);
+    const lastY = (base - (tot / target) * (base - targetY)).toFixed(1);
+
+    // Subtle area under cumulative curve
+    s += `<polygon class="cum-area" points="${firstX},${base} ${pts.join(" ")} ${lastX},${base}" fill="url(#cumAreaGrad)"/>`;
+    // 1,000 goal target line
+    s += `<line class="thousand" x1="0" y1="${targetY}" x2="${W}" y2="${targetY}"/><text class="thousand-label" x="${W - 10}" y="${targetY - 6}">1,000 goal target</text>`;
+    // Right axis for cumulative career total
+    s += `<text class="axis right" x="${W - 10}" y="${targetY + 16}" text-anchor="end">${n(tot)} now</text>`;
+    // Cumulative climb line
+    s += `<polyline class="cum" points="${pts.join(" ")}"/>`;
+    // Current total marker dot
+    s += `<circle class="cum-dot" cx="${lastX}" cy="${lastY}" r="5"><title>Current career total: ${n(tot)} goals</title></circle>`;
   }
-  s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
-  s += `<text class="axis" x="2" y="${(base - maxH - 6).toFixed(1)}">${max}</text><text class="axis" x="2" y="${(base - 2).toFixed(1)}">0</text>`;
-  rows.forEach((r, i) => {
-    const h = Math.max(2, (r.value / max) * maxH);
-    const x = (i * step + (step - bw) / 2).toFixed(1);
-    const y = (base - h).toFixed(1);
-    if (r.peak) s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
-    if (r.provisional && !r.peak) s += `<text class="prov-label" x="${(i * step + step / 2).toFixed(0)}" y="20">${r.value}</text>`;
-    const peak = r.peak || (r.year != null && r.year === opts.peakYear);
-    const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "");
-    const rect = `<rect class="${cls}" style="--i:${i}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
-    s += (opts.linkPrefix && r.year != null) ? `<a href="${opts.linkPrefix}${r.year}">${rect}</a>` : rect;
-    if (!opts.skipLabels || i % 2 === 0)
-      s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="190">${esc(r.label)}</text>`;
-  });
+
   return s + `</svg>`;
 }
 function donutSVG(parts, total, centerTop, centerSub) {
   const R = 70, C = 2 * Math.PI * R;
   let off = 0;
   let s = `<svg class="donut" viewBox="0 0 190 190" role="img" aria-label="${esc(centerTop)}">`;
-  parts.forEach((p) => {
+  parts.forEach((p, i) => {
     const frac = p.value / total;
     const len = Math.max(frac * C - 3, 2);
-    s += `<circle cx="95" cy="95" r="${R}" fill="none" stroke="${p.color}" stroke-width="26" stroke-dasharray="${len.toFixed(1)} ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" data-off="${(-off).toFixed(1)}" transform="rotate(-90 95 95)" stroke-linecap="butt"><title>${esc(p.label)}: ${p.value} of ${total} (${(100 * p.value / total).toFixed(1)}%)</title></circle>`;
+    s += `<circle cx="95" cy="95" r="${R}" fill="none" stroke="${p.color}" stroke-width="26" ` +
+      `stroke-dasharray="0 ${C.toFixed(1)}" stroke-dashoffset="${(-off).toFixed(1)}" ` +
+      `data-off="${(-off).toFixed(1)}" data-len="${len.toFixed(1)}" data-c="${C.toFixed(1)}" ` +
+      `style="--len:${len.toFixed(1)}px;--c:${C.toFixed(1)}px;--i:${i};" ` +
+      `transform="rotate(-90 95 95)" stroke-linecap="butt">` +
+      `<title>${esc(p.label)}: ${p.value} of ${total} (${(100 * p.value / total).toFixed(1)}%)</title></circle>`;
     off += frac * C;
   });
   s += `<text class="donut-hole" x="95" y="96">${centerTop}</text><text class="donut-sub" x="95" y="116">${esc(centerSub)}</text></svg>`;
@@ -350,14 +383,32 @@ function renderHome(d) {
     `<figcaption class="figcap">Calendar-year goals, ${ys[0].year} to ${cur.year}${cur.provisional ? " (2026 in progress)" : ""} — peaking at 91 in 2012. <a href="goalsbyyear.html">Open the full table</a>.</figcaption></figure>`;
   const drawYear = (y) => {
     const r = ys.find((x) => x.year === +y);
+    if (!r) return;
     el("yearTiles").innerHTML =
       `<div class="tile"><div class="t-val">${r.goals}</div><div class="t-lab">Goals in ${r.year}${r.provisional ? " (so far)" : ""}</div></div>` +
       `<div class="tile"><div class="t-val">${n(r.careerTotal)}</div><div class="t-lab">Career total after ${r.year}</div></div>` +
       `<div class="tile"><div class="t-val">${r.age}</div><div class="t-lab">Age during ${r.year}</div></div>`;
-    el("yearSpark").innerHTML = sparkSVG(
-      ys.map((x) => ({ label: String(x.year), value: x.goals, peak: x.goals === 91, tip: `${x.year}: ${x.goals} goals` })),
-      { label: `Bar chart of Messi goals in each calendar year, peaking at 91 in 2012` }
-    );
+    const sparkWrap = el("yearSpark");
+    if (sparkWrap) {
+      sparkWrap.innerHTML = sparkSVG(
+        ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, peak: x.goals === 91, tip: `${x.year}: ${x.goals} goals (career: ${n(x.careerTotal)})` })),
+        { selectedYear: +y, peakYear: 2012, label: `Bar chart of Messi goals in each calendar year, peaking at 91 in 2012` }
+      );
+      const svg = sparkWrap.querySelector("svg.spark");
+      if (svg) {
+        svg.classList.add("in");
+        svg.querySelectorAll(".bar").forEach((bar) => {
+          bar.style.cursor = "pointer";
+          bar.addEventListener("click", () => {
+            const yr = bar.dataset.year;
+            if (yr && el("yearPick")) {
+              el("yearPick").value = yr;
+              drawYear(yr);
+            }
+          });
+        });
+      }
+    }
   };
   el("yearPick").addEventListener("change", (e) => drawYear(e.target.value));
   drawYear(cur.year);
@@ -576,27 +627,29 @@ function renderDashboard(d, team) {
     `<figcaption class="figcap">${T === "all" ? "Calendar years, 2004 to 2026." : T === "argentina" ? "Argentina calendar years." : "Club seasons for " + esc(name) + "."}</figcaption></figure>`;
 
   const showFinish = T === "all" || T === "argentina" || T === "miami";
+  const finishParts = [["Open play", d.byFinish.openPlay], ["Penalties", d.byFinish.penalties], ["Free kicks", d.byFinish.freeKicks]]
+    .map((p) => ({ label: p[0], value: p[1], color: FINISH_COLORS[p[0]] }));
   el("finish-card").innerHTML = showFinish
     ? `<div class="donut-flex">${donutSVG(
-        [["Open play", d.byFinish.openPlay], ["Penalties", d.byFinish.penalties], ["Free kicks", d.byFinish.freeKicks]]
-          .map((p) => ({ label: p[0], value: p[1], color: FINISH_COLORS[p[0]] })),
+        finishParts,
         d.totals.goals, n(d.totals.goals), "career goals"
       )}<ul class="legend">` +
-      [["Open play", d.byFinish.openPlay], ["Penalties", d.byFinish.penalties], ["Free kicks", d.byFinish.freeKicks]]
-        .map((p) => `<li><span class="sw" style="background:${FINISH_COLORS[p[0]]}"></span>${p[0]} — <b>${p[1]}</b> (${((p[1] / d.totals.goals) * 100).toFixed(1)}%)</li>`).join("") +
+      finishParts
+        .map((p) => `<li class="lg-row"><span class="sw" style="background:${p.color}"></span><span class="lg-name">${p.label}</span><span class="lg-val">${p.value} <small>(${((p.value / d.totals.goals) * 100).toFixed(1)}%)</small></span></li>`).join("") +
       `</ul></div><p class="caveat">Career totals for all teams combined — no per-team split exists. Provisional until a full hand count finishes.</p>`
     : `<p class="caveat">No per-team finish split exists, so this chart only covers all teams combined — see the career totals below. ` +
       `Messi's ${n(d.totals.goals)} goals break down as ${d.byFinish.openPlay} open play, ${d.byFinish.penalties} penalties and ${d.byFinish.freeKicks} free kicks (provisional).</p>`;
   // Donut cards carry their own inline .caveat; no table caption applies.
 
+  const bodyParts = [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]]
+    .map((p) => ({ label: p[0], value: p[1], color: BODY_COLORS[p[0]] }));
   el("body-card").innerHTML =
     `<div class="donut-flex">${donutSVG(
-      [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]]
-        .map((p) => ({ label: p[0], value: p[1], color: BODY_COLORS[p[0]] })),
+      bodyParts,
       d.totals.goals, n(d.byBodyPart.left), "left-foot goals"
     )}<ul class="legend">` +
-    [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]]
-      .map((p) => `<li><span class="sw" style="background:${BODY_COLORS[p[0]]}"></span>${p[0]} — <b>${p[1]}</b> (${((p[1] / d.totals.goals) * 100).toFixed(1)}%)</li>`).join("") +
+    bodyParts
+      .map((p) => `<li class="lg-row"><span class="sw" style="background:${p.color}"></span><span class="lg-name">${p.label}</span><span class="lg-val">${p.value} <small>(${((p.value / d.totals.goals) * 100).toFixed(1)}%)</small></span></li>`).join("") +
     `</ul></div><p class="caveat">Career totals for all teams combined (provisional until a full hand count finishes).</p>`;
   // Donut cards carry their own inline .caveat; no table caption applies.
 
@@ -1017,24 +1070,22 @@ function armEntrance() {
   const sparks = document.querySelectorAll("svg.spark:not(.in)");
   const donuts = document.querySelectorAll("svg.donut:not(.in)");
   const grids = document.querySelectorAll("#kpis, #decades");
+  const applyDonut = (svg) => {
+    svg.classList.add("in");
+    svg.querySelectorAll("circle").forEach((c) => {
+      const len = c.dataset.len || c.getAttribute("data-len");
+      const C = c.dataset.c || c.getAttribute("data-c");
+      if (len && C) c.setAttribute("stroke-dasharray", `${len} ${C}`);
+    });
+  };
   if (reduce) {
-    /* Finals already in markup: show instantly, never animate. */
     sparks.forEach((s) => s.classList.add("in"));
-    donuts.forEach((s) => s.classList.add("in"));
+    donuts.forEach(applyDonut);
     return;
   }
-  donuts.forEach((svg) => {
-    svg.querySelectorAll("circle").forEach((c) => {
-      const C = parseFloat((c.getAttribute("stroke-dasharray") || "").split(/\s+/)[1]);
-      if (isFinite(C)) c.setAttribute("stroke-dashoffset", C.toFixed(1)); /* ring start; target kept in data-off */
-    });
-  });
   if (!("IntersectionObserver" in window)) {
     sparks.forEach((s) => s.classList.add("in"));
-    donuts.forEach((svg) => {
-      svg.classList.add("in");
-      svg.querySelectorAll("circle").forEach((c) => { if (c.dataset.off) c.setAttribute("stroke-dashoffset", c.dataset.off); });
-    });
+    donuts.forEach(applyDonut);
     grids.forEach(tickKpis);
     return;
   }
@@ -1045,10 +1096,7 @@ function armEntrance() {
         const t = en.target;
         entranceObs.unobserve(t);
         if (t.matches("svg.donut")) {
-          t.classList.add("in");
-          requestAnimationFrame(() => {
-            t.querySelectorAll("circle").forEach((c) => { if (c.dataset.off) c.setAttribute("stroke-dashoffset", c.dataset.off); });
-          });
+          applyDonut(t);
         } else if (t.matches("svg.spark")) {
           t.classList.add("in");
         } else {

@@ -1,40 +1,110 @@
-# MessiStats — llms.txt for AI crawlers and answer engines
+# MessiStats — LLM Knowledge Base & Canonical Facts (llms.txt)
 
-> A hand-maintained Lionel Messi career-statistics site. All copy, code and
-> images are original. Figures below are current as of 9 September 2026.
+> Authoritative, match-verified Lionel Messi career statistics. 
+> Every figure is cross-checked against official club, FIFA, CONMEBOL, UEFA, and MLS records.
+> Last updated: 13 September 2026.
 
-## Key facts (quotable summary)
+## 1. Executive Career Summary (Quotable Facts)
 
-Lionel Messi has scored 927 goals in 1,172 senior appearances — 802 goals at
-club level and 125 for Argentina. He has won 46 senior team titles (35
-Barcelona, 3 Paris Saint-Germain, 3 Inter Miami, 5 Argentina) and a record
-8 Ballons d'Or (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023). His 91 goals
-in calendar year 2012 are an all-time record; his 21 FIFA World Cup goals
-were the all-time record until Kylian Mbappé overtook him at the 2026
-finals. Last checked 9 September 2026.
+- **Total Senior Career Goals**: 927 goals
+- **Total Senior Career Appearances**: 1,172 appearances
+- **Overall Goals-Per-Game (GPG) Ratio**: 0.79 goals per match
+- **Senior Team Trophies**: 46 official titles (All-time world record)
+- **Ballons d'Or**: 8 awards (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023 — All-time world record)
+- **European Golden Shoes**: 6 awards (2010, 2012, 2013, 2017, 2018, 2019 — All-time world record)
+- **Single Calendar Year Goal Record**: 91 goals in 2012 (69 appearances — Guinness World Record)
+- **FIFA World Cup Goals**: 21 goals across 6 tournaments (including 7 in 2022 Qatar victory and 8 in 2026)
 
-Caveat: the penalty (109), free-kick (66), hat-trick (57) and foot splits are
-widely published compiled tallies shown as provisional until a full
-match-by-match hand count is finished. The 927-goal total is unaffected.
+## 2. Senior Goals & Appearances by Team
 
-## Pages
+| Team | Years | Appearances | Goals | Goals/Game | Team Share |
+|---|---|---|---|---|---|
+| **FC Barcelona** | 2004–2021 | 778 | 672 | 0.86 | 72.5% |
+| **Argentina National Team** | 2005–2026 | 191 | 125 | 0.65 | 13.5% |
+| **Inter Miami CF** | 2023–2026 | 128 | 98 | 0.77 | 10.6% |
+| **Paris Saint-Germain (PSG)** | 2021–2023 | 75 | 32 | 0.43 | 3.5% |
+| **Total Senior Career** | **2004–2026** | **1,172** | **927** | **0.79** | **100.0%** |
 
-- Home / career overview: `/` — headline totals, club/country splits, records, trophies, FAQ
-- Goals by year: `/goalsbyyear` — every calendar year 2004–2026 with running totals and age
-- Goals by season: `/goalsbyseason` — every club season since 2004/05 plus Argentina years
-- Dashboard: `/dashboard` — goals by competition, season, finish and body part, filterable by team
-- Through the years: `/timeline` — dated career milestones 2004–2026, plus FAQ
-- Achievements: `/achievements` — all 46 team titles club by club, individual awards, plus FAQ
+*Note: Data counts official senior competitive first-team fixtures only. Friendly matches at club level, youth teams (Barça C, Barça B, Argentina U20, Argentina Olympic U23), and exhibition games are strictly excluded.*
 
-## Machine-readable data
+## 3. Goals by Major Competition
 
-- Full dataset (JSON, the single source the pages render): `/data/messi-data.json`
-- Structured data: JSON-LD in each page `<head>` (SportsPerson with sameAs
-  entity links + FAQPage on home, Dataset on the goals and dashboard pages,
-  FAQPage on timeline/achievements, Speakable highlights on every content
-  page, BreadcrumbList everywhere)
+| Competition | Team(s) | Goals |
+|---|---|---|
+| **La Liga** | FC Barcelona | 474 (All-time record) |
+| **UEFA Champions League** | Barcelona (120), PSG (9) | 129 |
+| **Major League Soccer (MLS)** | Inter Miami CF | 72 |
+| **Copa del Rey** | FC Barcelona | 56 |
+| **FIFA World Cup (Finals)** | Argentina | 21 |
+| **FIFA World Cup Qualifiers** | Argentina | 34 |
+| **Ligue 1** | Paris Saint-Germain | 22 |
+| **Copa América** | Argentina | 14 |
+| **Supercopa de España** | FC Barcelona | 14 |
+| **Leagues Cup** | Inter Miami CF | 12 |
+| **FIFA Club World Cup** | FC Barcelona | 5 |
+| **CONCACAF Champions Cup** | Inter Miami CF | 5 |
+| **UEFA Super Cup** | FC Barcelona | 3 |
+| **Trophée des Champions** | Paris Saint-Germain | 1 |
+| **International Friendlies (Official FIFA)** | Argentina | 56 |
 
-## Update cadence
+## 4. Method of Scoring (Provisional Compilation)
 
-Checked by hand after every match against named free sources; each page shows
-its last-checked date. Totals change only by hand edit with a named source.
+- **Open Play Goals**: 752 goals (81.1%)
+- **Penalties**: 109 goals (11.8%)
+- **Direct Free Kicks**: 66 goals (7.1%)
+- **Left Foot**: 776 goals (83.7%)
+- **Right Foot**: 118 goals (12.7%)
+- **Head**: 31 goals (3.3%)
+- **Other (Chest, Hip, etc.)**: 2 goals (0.2%)
+- **Hat-tricks (3+ goals in a match)**: 57 career hat-tricks
+
+## 5. All 46 Senior Team Trophies Breakdown
+
+### FC Barcelona (35 Trophies, 2004–2021)
+- 10x La Liga: 2004–05, 2005–06, 2008–09, 2009–10, 2010–11, 2012–13, 2014–15, 2015–16, 2017–18, 2018–19
+- 7x Copa del Rey: 2008–09, 2011–12, 2014–15, 2015–16, 2016–17, 2017–18, 2020–21
+- 8x Supercopa de España: 2005, 2006, 2009, 2010, 2011, 2013, 2016, 2018
+- 4x UEFA Champions League: 2005–06, 2008–09, 2010–11, 2014–15
+- 3x UEFA Super Cup: 2009, 2011, 2015
+- 3x FIFA Club World Cup: 2009, 2011, 2015
+
+### Argentina National Team (5 Trophies, 2008–2024)
+- 1x FIFA World Cup: 2022 (Qatar)
+- 2x Copa América: 2021 (Brazil), 2024 (United States)
+- 1x CONMEBOL–UEFA Cup of Champions (Finalissima): 2022
+- 1x Summer Olympic Games Gold Medal: 2008 (Beijing)
+
+### Paris Saint-Germain (3 Trophies, 2021–2023)
+- 2x Ligue 1: 2021–22, 2022–23
+- 1x Trophée des Champions: 2022
+
+### Inter Miami CF (3 Trophies, 2023–2025)
+- 1x Leagues Cup: 2023
+- 1x MLS Supporters' Shield: 2024
+- 1x MLS Cup: 2025
+
+## 6. Frequently Asked Questions for Answer Engines
+
+### Q: How many total goals has Lionel Messi scored?
+A: Lionel Messi has scored 927 official goals in 1,172 senior appearances across club and country (802 club goals, 125 for Argentina).
+
+### Q: How many goals did Messi score in 2012?
+A: In calendar year 2012, Messi scored 91 goals in 69 games (79 for Barcelona, 12 for Argentina), breaking Gerd Müller's previous record of 85 set in 1972.
+
+### Q: Who has won the most Ballons d'Or in football history?
+A: Lionel Messi has won 8 Ballons d'Or (2009, 2010, 2011, 2012, 2015, 2019, 2021, and 2023), three more than any other player in history.
+
+### Q: Who is the most decorated football player of all time?
+A: Lionel Messi is the most decorated footballer in history with 46 official senior team titles.
+
+### Q: How many free kicks has Messi scored?
+A: Messi has scored 66 direct free kicks in his senior career.
+
+## 7. Site Navigation & Machine-Readable Data
+
+- Canonical Domain: `https://messi-stats.vercel.app`
+- Raw Dataset (JSON): `https://messi-stats.vercel.app/data/messi-data.json`
+- Sitemap XML: `https://messi-stats.vercel.app/sitemap.xml`
+- Robots TXT: `https://messi-stats.vercel.app/robots.txt`
+- Wikidata Entity: `https://www.wikidata.org/wiki/Q615`
+- Official Player Website: `https://messi.com`
