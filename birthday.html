@@ -4,23 +4,28 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#0b6fa4" />
-<meta name="description" content="Did Lionel Messi score on your birthday? Search all 365 calendar days across Messi's 927 senior career goals, watch goal video clips, explore opponents, exact minutes, and full interactive goal heatmap." />
-<meta name="keywords" content="did messi score on my birthday, messi birthday goals, messi 365 days goals, messi birthday goal video, messi goals calendar, messi birthday finder, lionel messi goal clips, messi goals by date, watch messi goals, messi birthday match video, messi birthday stats" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="geo.region" content="US-FL" />
+<meta name="geo.placename" content="Miami, Florida" />
+<meta name="geo.position" content="25.7617;-80.1918" />
+<meta name="ICBM" content="25.7617, -80.1918" />
+<meta name="description" content="Did Lionel Messi score on your birthday or on this day? Search all 366 calendar days across Messi's 928 senior career goals, watch goal video clips, explore opponents, exact minutes, and full interactive goal heatmap." />
+<meta name="keywords" content="did messi score on my birthday, did messi score on this day, messi birthday goals, messi goals today, messi 365 days goals, messi birthday goal video, messi goals calendar, messi birthday finder, lionel messi goal clips, messi goals by date, watch messi goals, messi birthday match video, messi birthday stats" />
 <link rel="canonical" href="https://www.messistat.com/en/birthday" />
 <link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
 <link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Did Messi Score on Your Birthday? 365 Days Goal Explorer & Video Clips" />
-<meta property="og:description" content="Discover every goal Lionel Messi has scored on your birthday throughout his 927-goal career. Watch goal video clips, search any day of the year, explore match timelines, and share your birthday stats!" />
+<meta property="og:description" content="Discover every goal Lionel Messi has scored on your birthday throughout his 928-goal career. Watch goal video clips, search any day of the year, explore match timelines, and share your birthday stats!" />
 <meta property="og:url" content="https://www.messistat.com/en/birthday" />
 <meta property="og:image" content="https://www.messistat.com/img/og-messi.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta property="og:image:type" content="image/jpeg" />
-<meta property="og:image:alt" content="Lionel Messi Birthday Goal Explorer: 927 career goals across 365 days" />
+<meta property="og:image:alt" content="Lionel Messi Birthday Goal Explorer: 928 career goals across 365 days" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Did Messi Score on Your Birthday? 365 Days Goal Explorer & Video Clips" />
-<meta name="twitter:description" content="Did Messi score on your birthday? Watch goal videos and check all 927 career goals across 365 calendar days, match breakdowns, and share your birthday stats!" />
+<meta name="twitter:description" content="Did Messi score on your birthday or today? Watch goal videos and check all 928 career goals across 366 calendar days, match breakdowns, and share your birthday stats!" />
 <meta name="twitter:image" content="https://www.messistat.com/img/og-messi.jpg" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
@@ -47,9 +52,13 @@
       "@id": "https://www.messistat.com/en/birthday#webpage",
       "url": "https://www.messistat.com/en/birthday",
       "name": "Did Messi Score on Your Birthday? 365 Days Goal Explorer & Video Clips",
-      "description": "Search any day of the year to see every goal Lionel Messi has scored on your birthday throughout his 927-goal career, with direct video playback.",
-      "dateModified": "2026-09-13",
+      "description": "Search any day of the year to see every goal Lionel Messi has scored on your birthday throughout his 928-goal career, with direct video playback.",
+      "dateModified": "2026-09-14",
       "inLanguage": "en",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["#bday-kpis", "#faq", "#bday-verdict", ".page-lead"]
+      },
       "publisher": {
         "@type": "Organization",
         "name": "MessiStats",
@@ -58,6 +67,27 @@
           "@type": "ImageObject",
           "url": "https://www.messistat.com/favicon.svg"
         }
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://www.messistat.com/en/birthday#dataset",
+      "name": "Lionel Messi Career Goals by Calendar Date (366 Days)",
+      "description": "Comprehensive, match-verified dataset recording all 928 senior career goals scored by Lionel Messi mapped across 366 calendar days, including opponent, date, competition, minute, scoreline, and direct video clip links.",
+      "url": "https://www.messistat.com/en/birthday",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creator": {
+        "@type": "Organization",
+        "name": "MessiStats",
+        "url": "https://www.messistat.com/en/"
+      },
+      "temporalCoverage": "2004-10-16/2026-09-14",
+      "spatialCoverage": "Worldwide (Argentina, Spain, France, United States)",
+      "variableMeasured": ["Goals", "Appearances", "Match Date", "Opponent", "Competition", "Goal Minute", "Video Clip"],
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://www.messistat.com/data/messi-data.json"
       }
     },
     {
@@ -84,6 +114,22 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Did Lionel Messi score on my birthday?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can check any date using the MessiStats Birthday Explorer (https://www.messistat.com/en/birthday?date=MM-DD). Messi has scored on 292 of 366 possible calendar days (79.8% of the year), with playable video highlights, exact minutes, and match stats for every fixture."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Did Messi score on this day?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, check the live 'On This Day' section on https://www.messistat.com/#on-this-day or enter today's date in the Messi Birthday Explorer to see all goals Messi scored on today's calendar date throughout his career."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Has Lionel Messi ever scored on his own birthday?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -96,6 +142,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Messi has scored 10 career goals on both 2 May and 19 September. His 2 May tally includes his historic brace in Barcelona's famous 6-2 El Clásico victory over Real Madrid in 2009."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Did Messi score on leap day (29 February)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! On 29 February 2012, Lionel Messi scored an international hat-trick for Argentina in a 3-1 victory against Switzerland in Bern."
           }
         },
         {

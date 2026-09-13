@@ -104,8 +104,14 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/birthday</loc>
-    <lastmod>2026-09-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <lastmod>2026-09-14</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Lionel Messi Birthday Goal Explorer: 928 Career Goals Across 366 Days</image:title>
+      <image:caption>Interactive visual map and video player showing all goals Lionel Messi scored across 366 calendar days.</image:caption>
+      <image:geo_location>Miami, Florida, United States / Barcelona, Spain / Buenos Aires, Argentina</image:geo_location>
+    </image:image>
   </url>
 </urlset>

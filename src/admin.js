@@ -32,6 +32,34 @@ const COUNTRY_FLAGS = {
   Direct: "🌐 Direct / Unknown"
 };
 
+// Authentication Constants & Crypto
+const ADMIN_SALT = "(dev-salt-removed)";
+// Default salted SHA-256 hash for: "messi10goat"
+const DEFAULT_HASH = "d8929aaa33eb1eb986bb0ebee05c57fe2a4d16e37f7aa1b9a507affc41c798af";
+
+async function computeSha256(text) {
+  const enc = new TextEncoder();
+  const data = enc.encode(ADMIN_SALT + text);
+  const buf = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function isAuthenticated() {
+  try {
+    return sessionStorage.getItem("messi_admin_auth") === "authenticated";
+  } catch (_) {
+    return false;
+  }
+}
+
+function getStoredPassHash() {
+  try {
+    return localStorage.getItem("messi_admin_custom_hash") || DEFAULT_HASH;
+  } catch (_) {
+    return DEFAULT_HASH;
+  }
+}
+
 // State
 let currentPeriod = "7d";
 let rawEvents = [];
@@ -39,9 +67,18 @@ let autoRefreshTimer = null;
 let lastSyncTime = null;
 let isTableConnected = false;
 
-// DOM Helpers
+// DOM Helpers (strictly hardened against attribute/text XSS)
 const $ = (id) => document.getElementById(id);
-const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const esc = (s) => {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[c]));
+};
 const fmtNum = (n) => (n || 0).toLocaleString();
 
 let currentStreamFilter = "all";
@@ -716,7 +753,10 @@ function renderEventStream(events) {
       detailsText = "Presence heartbeat";
     }
 
-    const countryFlag = COUNTRY_FLAGS[e.country_code] ? COUNTRY_FLAGS[e.country_code].split(" ")[0] : "🌐";
+    const cKey = String(e.country_code || "").toUpperCase();
+    const countryFlag = Object.prototype.hasOwnProperty.call(COUNTRY_FLAGS, cKey)
+      ? COUNTRY_FLAGS[cKey].split(" ")[0]
+      : "🌐";
     const clientId = (e.client_id || "").slice(0, 10);
 
     return `
@@ -803,6 +843,160 @@ function startAutoRefresh() {
 /* 10. EVENT LISTENERS & INITIALIZATION */
 /* ========================================================================= */
 document.addEventListener("DOMContentLoaded", () => {
+  let failedAttempts = 0;
+  let lockoutUntil = 0;
+
+  function updateAuthView() {
+    const loginView = $("admin-login-view");
+    const dashboardView = $("admin-dashboard-view");
+    const authed = isAuthenticated();
+
+    if (authed) {
+      if (loginView) loginView.style.display = "none";
+      if (dashboardView) dashboardView.style.display = "block";
+      loadDashboardData();
+      startAutoRefresh();
+    } else {
+      if (autoRefreshTimer) {
+        clearInterval(autoRefreshTimer);
+        autoRefreshTimer = null;
+      }
+      if (dashboardView) dashboardView.style.display = "none";
+      if (loginView) {
+        loginView.style.display = "flex";
+        const passInp = $("admin-pass-input");
+        if (passInp) {
+          passInp.value = "";
+          setTimeout(() => passInp.focus(), 150);
+        }
+      }
+    }
+  }
+
+  // Password submission & rate limiting
+  const loginForm = $("admin-login-form");
+  const loginError = $("admin-login-error");
+  const passInp = $("admin-pass-input");
+  const passToggle = $("admin-pass-toggle");
+
+  if (passToggle && passInp) {
+    passToggle.addEventListener("click", () => {
+      const isPass = passInp.type === "password";
+      passInp.type = isPass ? "text" : "password";
+      passToggle.textContent = isPass ? "🙈" : "👁️";
+    });
+  }
+
+  if (loginForm && passInp) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (Date.now() < lockoutUntil) {
+        const secLeft = Math.ceil((lockoutUntil - Date.now()) / 1000);
+        if (loginError) {
+          loginError.style.display = "block";
+          loginError.textContent = `Security lockout active. Please wait ${secLeft}s.`;
+        }
+        return;
+      }
+
+      const inputVal = passInp.value.trim();
+      if (!inputVal) return;
+
+      const hash = await computeSha256(inputVal);
+      const targetHash = getStoredPassHash();
+
+      if (hash === targetHash) {
+        failedAttempts = 0;
+        try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch (_) {}
+        if (loginError) loginError.style.display = "none";
+        updateAuthView();
+      } else {
+        failedAttempts++;
+        if (failedAttempts >= 5) {
+          lockoutUntil = Date.now() + 30000;
+          if (loginError) {
+            loginError.style.display = "block";
+            loginError.textContent = "Too many failed attempts. Security lockout active for 30s.";
+          }
+        } else {
+          if (loginError) {
+            loginError.style.display = "block";
+            loginError.textContent = `Incorrect passphrase. (${5 - failedAttempts} attempts remaining)`;
+          }
+        }
+      }
+    });
+  }
+
+  // Lock / Log out button
+  const lockBtn = $("admin-lock-btn");
+  if (lockBtn) {
+    lockBtn.addEventListener("click", () => {
+      try { sessionStorage.removeItem("messi_admin_auth"); } catch (_) {}
+      updateAuthView();
+    });
+  }
+
+  // Change password modal
+  const changePassBtn = $("admin-change-pass-btn");
+  const passModal = $("admin-pass-modal");
+  const passModalClose = $("pass-modal-close");
+  const passModalCancel = $("pass-modal-cancel");
+  const changePassForm = $("admin-change-pass-form");
+  const passModalError = $("pass-modal-error");
+  const newPassInp = $("new-pass-input");
+  const confirmPassInp = $("confirm-pass-input");
+
+  if (changePassBtn && passModal) {
+    changePassBtn.addEventListener("click", () => {
+      if (passModalError) passModalError.style.display = "none";
+      if (newPassInp) newPassInp.value = "";
+      if (confirmPassInp) confirmPassInp.value = "";
+      passModal.style.display = "flex";
+    });
+  }
+  if (passModalClose && passModal) {
+    passModalClose.addEventListener("click", () => { passModal.style.display = "none"; });
+  }
+  if (passModalCancel && passModal) {
+    passModalCancel.addEventListener("click", () => { passModal.style.display = "none"; });
+  }
+
+  if (changePassForm && newPassInp && confirmPassInp) {
+    changePassForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nPass = newPassInp.value.trim();
+      const cPass = confirmPassInp.value.trim();
+
+      if (nPass.length < 6) {
+        if (passModalError) {
+          passModalError.style.display = "block";
+          passModalError.textContent = "Passphrase must be at least 6 characters long.";
+        }
+        return;
+      }
+      if (nPass !== cPass) {
+        if (passModalError) {
+          passModalError.style.display = "block";
+          passModalError.textContent = "Passphrases do not match.";
+        }
+        return;
+      }
+
+      const newHash = await computeSha256(nPass);
+      try {
+        localStorage.setItem("messi_admin_custom_hash", newHash);
+        alert("Admin passphrase updated successfully!");
+        if (passModal) passModal.style.display = "none";
+      } catch (err) {
+        if (passModalError) {
+          passModalError.style.display = "block";
+          passModalError.textContent = "Could not save passphrase to storage.";
+        }
+      }
+    });
+  }
+
   // Period buttons
   document.querySelectorAll(".admin-period-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -867,7 +1061,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Immediate live telemetry load
-  loadDashboardData();
-  startAutoRefresh();
+  // Check auth state and initialize view
+  updateAuthView();
 });

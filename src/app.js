@@ -61,9 +61,16 @@ async function load() {
   if (!r.ok) throw new Error("data " + r.status);
   return r.json();
 }
-const el = (id) => document.getElementById(id);
-const esc = (s) =>
-  String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const esc = (s) => {
+  if (s == null) return "";
+  return String(s).replace(/[&<>"']/g, (c) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[c]));
+};
 const n = (v) => Number(v).toLocaleString("en-US");
 const gpg = (g, a) => (a ? (g / a).toFixed(2) : "—");
 

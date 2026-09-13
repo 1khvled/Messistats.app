@@ -86,50 +86,81 @@
 
 <div class="page">
 <main class="wrap admin-wrap" id="main">
-  <!-- Top Admin Control Header -->
-  <header class="admin-topbar">
-    <div class="admin-topbar-left">
-      <div class="admin-brand-line">
-        <div class="admin-live-badge" id="admin-live-badge">
-          <span class="live-dot pulse"></span>
-          <span class="live-text" id="live-indicator-text">Realtime Telemetry</span>
+  <!-- 0. ADMIN LOGIN AUTHENTICATION GATE (Visible when locked) -->
+  <section class="admin-login-section" id="admin-login-view">
+    <div class="admin-login-card">
+      <div class="admin-login-header">
+        <div class="admin-login-shield">🛡️</div>
+        <h2>Mission Control Access</h2>
+        <p>Enter the administrator passphrase to unlock real-time analytics &amp; KPIs.</p>
+      </div>
+      <form class="admin-login-form" id="admin-login-form" onsubmit="return false;">
+        <div class="admin-login-field">
+          <label for="admin-pass-input">Passphrase</label>
+          <div class="admin-pass-wrap">
+            <input type="password" id="admin-pass-input" class="admin-login-input" placeholder="Enter admin passphrase" autocomplete="current-password" required />
+            <button type="button" class="admin-pass-toggle" id="admin-pass-toggle" aria-label="Toggle password visibility">👁️</button>
+          </div>
         </div>
-        <span class="admin-db-status" id="admin-db-status" title="Supabase Database Connection">
-          <span class="db-dot"></span> <span id="db-status-text">Supabase Cloud Connected</span>
-        </span>
-      </div>
-      <h1 class="admin-page-title">Analytics &amp; KPI Mission Control</h1>
+        <div class="admin-login-error" id="admin-login-error" style="display: none;"></div>
+        <button type="submit" class="btn-primary admin-login-btn" id="admin-login-submit">Unlock Dashboard</button>
+        <p class="admin-login-hint">Default passphrase: <code>messi10goat</code> (Can be updated in settings once unlocked)</p>
+      </form>
     </div>
+  </section>
 
-    <div class="admin-topbar-actions">
-      <!-- Period Selector -->
-      <div aria-label="Time period" class="admin-btn-group" role="group">
-        <button class="admin-period-btn" data-period="24h" type="button">24 Hours</button>
-        <button class="admin-period-btn active" data-period="7d" type="button">7 Days</button>
-        <button class="admin-period-btn" data-period="30d" type="button">30 Days</button>
-        <button class="admin-period-btn" data-period="all" type="button">All Time</button>
+  <!-- PROTECTED DASHBOARD CONTAINER (Hidden until authenticated) -->
+  <div id="admin-dashboard-view" style="display: none;">
+    <!-- Top Admin Control Header -->
+    <header class="admin-topbar">
+      <div class="admin-topbar-left">
+        <div class="admin-brand-line">
+          <div class="admin-live-badge" id="admin-live-badge">
+            <span class="live-dot pulse"></span>
+            <span class="live-text" id="live-indicator-text">Realtime Telemetry</span>
+          </div>
+          <span class="admin-db-status" id="admin-db-status" title="Supabase Database Connection">
+            <span class="db-dot"></span> <span id="db-status-text">Supabase Cloud Connected</span>
+          </span>
+        </div>
+        <h1 class="admin-page-title">Analytics &amp; KPI Mission Control</h1>
       </div>
 
-      <!-- Auto-refresh dropdown -->
-      <div class="admin-refresh-wrap">
-        <select aria-label="Auto-refresh interval" class="admin-select" id="admin-refresh-select">
-          <option value="10000">Auto 10s</option>
-          <option selected value="30000">Auto 30s</option>
-          <option value="60000">Auto 1m</option>
-          <option value="0">Paused</option>
-        </select>
-        <button aria-label="Refresh now" class="btn btn-secondary admin-refresh-btn" id="admin-manual-refresh" title="Refresh data now" type="button">
-          <svg class="admin-spin-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+      <div class="admin-topbar-actions">
+        <!-- Period Selector -->
+        <div aria-label="Time period" class="admin-btn-group" role="group">
+          <button class="admin-period-btn" data-period="24h" type="button">24 Hours</button>
+          <button class="admin-period-btn active" data-period="7d" type="button">7 Days</button>
+          <button class="admin-period-btn" data-period="30d" type="button">30 Days</button>
+          <button class="admin-period-btn" data-period="all" type="button">All Time</button>
+        </div>
+
+        <!-- Auto-refresh dropdown -->
+        <div class="admin-refresh-wrap">
+          <select aria-label="Auto-refresh interval" class="admin-select" id="admin-refresh-select">
+            <option value="10000">Auto 10s</option>
+            <option selected value="30000">Auto 30s</option>
+            <option value="60000">Auto 1m</option>
+            <option value="0">Paused</option>
+          </select>
+          <button aria-label="Refresh now" class="btn btn-secondary admin-refresh-btn" id="admin-manual-refresh" title="Refresh data now" type="button">
+            <svg class="admin-spin-icon" fill="none" height="16" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="16"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>
+          </button>
+        </div>
+
+        <!-- Action Buttons -->
+        <button class="btn btn-primary" id="admin-export-btn" type="button">
+          <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>
+          Export Report
+        </button>
+        <button class="btn btn-secondary" id="admin-change-pass-btn" type="button" title="Change passphrase">
+          🔑 Key
+        </button>
+        <button class="btn btn-secondary" id="admin-lock-btn" type="button" title="Lock dashboard and log out">
+          🔒 Lock
         </button>
       </div>
-
-      <!-- Action Buttons -->
-      <button class="btn btn-primary" id="admin-export-btn" type="button">
-        <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>
-        Export Report
-      </button>
-    </div>
-  </header>
+    </header>
 
   <!-- HERO KPIS GRID (8 Cards) -->
   <section aria-label="Core Performance Indicators" class="admin-kpi-grid">
@@ -451,7 +482,42 @@
       <span id="footer-last-sync">Last sync: Just now</span>
     </div>
   </footer>
+  </div><!-- /#admin-dashboard-view -->
 </main>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MODAL: CHANGE ADMIN PASSPHRASE -->
+<!-- ========================================================================= -->
+<div aria-hidden="true" class="admin-modal-overlay" id="admin-pass-modal" style="display: none;">
+  <div class="admin-modal-card export-modal">
+    <div class="modal-header">
+      <div class="modal-title-wrap">
+        <div class="modal-icon">🔑</div>
+        <div>
+          <h2 class="modal-title">Admin Passphrase Settings</h2>
+          <p class="modal-sub">Set a custom passphrase (hashed locally in your browser)</p>
+        </div>
+      </div>
+      <button aria-label="Close modal" class="modal-close-btn" id="pass-modal-close" type="button">&times;</button>
+    </div>
+
+    <form id="admin-change-pass-form" onsubmit="return false;" style="padding: 20px 24px;">
+      <div class="admin-login-field" style="margin-bottom: 14px;">
+        <label for="new-pass-input">New Passphrase</label>
+        <input type="password" id="new-pass-input" class="admin-login-input" placeholder="Enter new secure passphrase" required />
+      </div>
+      <div class="admin-login-field" style="margin-bottom: 14px;">
+        <label for="confirm-pass-input">Confirm Passphrase</label>
+        <input type="password" id="confirm-pass-input" class="admin-login-input" placeholder="Confirm new passphrase" required />
+      </div>
+      <div class="admin-login-error" id="pass-modal-error" style="display: none; margin-bottom: 12px;"></div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn btn-secondary" id="pass-modal-cancel" type="button">Cancel</button>
+        <button class="btn btn-primary" id="pass-modal-save" type="submit">Save Passphrase</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <!-- ========================================================================= -->
