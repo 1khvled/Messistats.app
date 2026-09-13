@@ -1140,73 +1140,6 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   color: #cbd5e1;
 }
 
-.video-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--line-soft);
-  flex-wrap: wrap;
-}
-.video-toolbar-left, .video-toolbar-right {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.vtool-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  border-radius: 6px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.vtool-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.vspeed-group {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  background: var(--card);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 2px 4px;
-}
-.vspeed-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--muted);
-  margin-right: 2px;
-}
-.vspeed-btn {
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  border: none;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.vspeed-btn:hover {
-  color: var(--ink);
-}
-.vspeed-btn.active {
-  background: var(--primary);
-  color: #fff;
-}
-
 .video-goals-nav {
   display: flex;
   align-items: center;
@@ -1801,50 +1734,6 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   transform: scale(0.96);
 }
 
-/* Zodiac Sign Explorer */
-.bday-zodiac-wrap {
-  margin-top: 10px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--line);
-}
-.bday-zodiac-pills {
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-width: thin;
-}
-.bday-zodiac-chip {
-  flex: 0 0 auto;
-  padding: 5px 12px;
-  font-size: 0.76rem;
-  font-weight: 700;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.bday-zodiac-chip small {
-  font-size: 0.68rem;
-  opacity: 0.8;
-}
-.bday-zodiac-chip:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.bday-zodiac-chip.active {
-  background: var(--navy);
-  color: #fff;
-  border-color: var(--navy);
-}
-[data-theme="dark"] .bday-zodiac-chip.active {
-  background: var(--brand);
-  color: #090d16;
-  border-color: var(--brand);
-}
-
 /* ---------- Birthday Verdict Card ---------- */
 .bday-verdict-card {
   background: var(--card);
@@ -1864,89 +1753,6 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 }
 .bday-verdict-main {
   flex: 1 1 280px;
-}
-.bday-verdict-topline {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 8px;
-}
-.bday-confetti-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 4px 12px;
-  font-size: 0.78rem;
-  font-weight: 800;
-  border-radius: 999px;
-  border: 1px solid var(--gold);
-  background: rgba(250, 204, 21, 0.15);
-  color: #854d0e;
-  cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
-}
-[data-theme="dark"] .bday-confetti-btn {
-  color: #facc15;
-  background: rgba(250, 204, 21, 0.2);
-}
-.bday-confetti-btn:hover {
-  transform: scale(1.06);
-  background: rgba(250, 204, 21, 0.28);
-}
-.bday-stepper-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 6px 0 8px;
-  flex-wrap: wrap;
-}
-.bday-step-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  border-radius: 8px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--ink);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.bday-step-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: var(--card);
-}
-.bday-random-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  border-radius: 8px;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  color: var(--muted);
-  cursor: pointer;
-  margin-left: auto;
-  transition: all 0.15s ease;
-}
-.bday-random-pill:hover {
-  border-color: var(--primary);
-  color: var(--ink);
-}
-.bday-confetti-canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 10005;
 }
 .bday-badge-success {
   display: inline-flex;
@@ -2121,78 +1927,6 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   font-style: italic;
 }
 
-/* Match Pitch Goal Timeline */
-.bday-match-timeline {
-  margin-top: 6px;
-  padding: 10px 12px 14px;
-  background: var(--surface);
-  border-radius: 10px;
-  border: 1px solid var(--line-soft);
-}
-.timeline-pitch-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.timeline-pitch-bar {
-  position: relative;
-  height: 8px;
-  background: linear-gradient(90deg, rgba(14, 124, 192, 0.12), rgba(14, 124, 192, 0.22));
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  margin: 18px 12px 4px;
-}
-.timeline-half-mark {
-  position: absolute;
-  top: -4px;
-  bottom: -4px;
-  width: 2px;
-  background: var(--line);
-  transform: translateX(-50%);
-}
-.timeline-half-label {
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: var(--muted);
-}
-.timeline-goal-pin {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  cursor: pointer;
-  transition: transform 0.15s ease;
-  z-index: 2;
-}
-.timeline-goal-pin:hover {
-  transform: translate(-50%, -50%) scale(1.25);
-  z-index: 10;
-}
-.timeline-pin-bubble {
-  position: absolute;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #0f172a;
-  color: #fff;
-  font-size: 0.7rem;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 4px;
-  white-space: nowrap;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  pointer-events: none;
-}
-
 /* Empty verdict state */
 .bday-empty-box {
   background: var(--surface-solid);
@@ -2215,55 +1949,6 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 /* ---------- 366-Day Calendar Heatmap ---------- */
 .bday-heatmap-section {
   margin-top: 2.8rem;
-}
-.bday-heatmap-filter-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 14px;
-  flex-wrap: wrap;
-}
-.bday-filter-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--muted);
-}
-.bday-hfilter-btn {
-  padding: 5px 12px;
-  font-size: 0.75rem;
-  font-weight: 700;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-.bday-hfilter-btn:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-.bday-hfilter-btn.active {
-  background: var(--navy);
-  color: #fff;
-  border-color: var(--navy);
-}
-[data-theme="dark"] .bday-hfilter-btn.active {
-  background: var(--brand);
-  color: #090d16;
-  border-color: var(--brand);
-}
-.bday-day-btn.dimmed {
-  opacity: 0.12 !important;
-  transform: scale(0.88);
-}
-.bday-day-btn.highlighted {
-  transform: scale(1.22);
-  box-shadow: 0 0 10px rgba(250, 204, 21, 0.9);
-  outline: 2px solid #facc15;
-  z-index: 5;
 }
 .bday-heatmap-grid {
   display: grid;
