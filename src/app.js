@@ -263,7 +263,7 @@ function renderHome(d) {
     `A World Cup winner and record eight-time Ballon d'Or holder, counted by hand and checked twice, as of ${esc(d.lastUpdated)}.`);
   const dob = new Date(p.born + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   el("profile").innerHTML =
-    `<figure class="identity-photo"><img src="img/messi.jpg" alt="Lionel Messi playing for Argentina at the 2018 World Cup" width="440" height="627" loading="eager" fetchpriority="high"><figcaption class="photo-credit">Photo: <a href="https://commons.wikimedia.org/wiki/File:Lionel_Messi_20180626.jpg" rel="noopener">Kirill Venediktov</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener">CC BY-SA 3.0</a></figcaption></figure><div class="identity-main">` +
+    `<figure class="identity-photo"><img src="img/messi.jpg" alt="Lionel Messi" width="900" height="1600" loading="eager" fetchpriority="high"><figcaption class="photo-credit">Lionel Messi · Argentina & Inter Miami</figcaption></figure><div class="identity-main">` +
     `<p class="identity-name">${esc(p.short)} <span class="jersey" aria-label="Shirt number 10">${p.number}</span></p>` +
     `<p class="identity-meta">${esc(p.name)}, born ${dob} in ${esc(p.birthplace)}. ` +
     `He is ${p.age}, plays as a ${esc(p.position.toLowerCase())} and is currently at ${esc(p.current.join(" and "))}.</p>` +
@@ -681,40 +681,39 @@ function eraOf(y) {
   if (y <= 2023) return { era: "Paris and the World Cup", range: "2021–2023" };
   return { era: "Miami and the road to 1,000", range: "2023–present" };
 }
-/* Real era photos: self-hosted high-res Commons action shots, all CC-licensed,
-   each captioned with a Commons file link + licence. `pos` sets the CSS
-   focal point so faces survive the banner crop. Keyed by eraOf() name;
-   eras without an entry render no figure. */
+/* Real era photos: self-hosted high-res action and celebration photos.
+   `pos` sets the CSS focal point so faces survive the banner crop.
+   Keyed by eraOf() name; eras without an entry render no figure. */
 const ERA_PHOTOS = {
   "The boy from Rosario": [
-    { src: "img/era-2008-olympic.jpg", w: 1215, h: 1280, pos: "62% 28%", alt: "A young Messi in Argentina's number 15 shirt at the Beijing 2008 Olympics", cap: "Olympic semi-final vs Brazil, Beijing 2008", file: "https://commons.wikimedia.org/wiki/File:Messi_olympics-soccer-7%28Cropped%29_%28cropped%29.jpg", lic: "CC BY 2.5", licUrl: "https://creativecommons.org/licenses/by/2.5/" },
+    { src: "img/era-2008-olympic.jpg", w: 1636, h: 1400, pos: "50% 25%", alt: "Young Messi with long hair celebrating his El Clásico hat-trick in 2007", cap: "El Clásico hat-trick celebration at Camp Nou, March 2007" },
   ],
   "The greatest peak football has seen": [
-    { src: "img/era-2011-wembley.jpg", w: 399, h: 501, pos: "50% 18%", alt: "Messi holding the European Cup after the 2011 final at Wembley", cap: "Champions League winners, Wembley 2011", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2012-ballon.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi holding his fourth Ballon d'Or trophy in a row in 2012", cap: "Fourth Ballon d'Or in a row, 2012", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2011.jpg", w: 1280, h: 851, pos: "50% 45%", alt: "Messi striking the ball on the five-goal night against Bayer Leverkusen in 2012", cap: "Five-goal night vs Leverkusen, Champions League 2012", file: "https://commons.wikimedia.org/wiki/File:FC_Barcelona_-_Bayer_04_Leverkusen,_7_mar_2012_%2862%29.jpg", lic: "CC BY-SA 3.0", licUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
+    { src: "img/era-2011-wembley.jpg", w: 399, h: 501, pos: "50% 18%", alt: "Messi holding the European Cup after the 2011 final at Wembley", cap: "Champions League winners, Wembley 2011" },
+    { src: "img/era-2012-ballon.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi holding his fourth Ballon d'Or trophy in a row in 2012", cap: "Fourth Ballon d'Or in a row, 2012" },
+    { src: "img/era-2011.jpg", w: 1800, h: 1013, pos: "50% 20%", alt: "Messi celebrating his goal at Wembley in the 2011 Champions League final", cap: "Goal celebration at Wembley, Champions League final 2011" },
   ],
   "MSN and the second treble": [
-    { src: "img/era-2015-supercup.jpg", w: 900, h: 601, pos: "72% 28%", alt: "Messi wearing his winners' medal beside the trophy after the 2015 UEFA Super Cup", cap: "Winners' medal and trophy, UEFA Super Cup 2015", file: "https://commons.wikimedia.org/wiki/File:2015_UEFA_Super_Cup_103.jpg", lic: "CC BY-SA 3.0", licUrl: "https://creativecommons.org/licenses/by-sa/3.0/" },
-    { src: "img/era-2014-stare.jpg", w: 679, h: 452, pos: "55% 35%", alt: "Messi walking past the World Cup trophy after losing the 2014 final", cap: "The one that got away — World Cup final, Maracanã 2014", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2015-supercup.jpg", w: 1192, h: 670, pos: "50% 25%", alt: "Messi, Neymar and Suárez celebrating together at Barcelona", cap: "The MSN trident celebrating at Camp Nou, 2015" },
+    { src: "img/era-2014-stare.jpg", w: 679, h: 452, pos: "55% 35%", alt: "Messi walking past the World Cup trophy after losing the 2014 final", cap: "The one that got away — World Cup final, Maracanã 2014" },
   ],
   "Carrying Barcelona": [
-    { src: "img/era-2016.jpg", w: 960, h: 1280, pos: "50% 5%", alt: "Messi shielding the ball from a Valladolid defender in La Liga", cap: "Against Valladolid, La Liga 2018", file: "https://commons.wikimedia.org/wiki/File:Real_Valladolid_-_FC_Barcelona,_2018-08-25_(106)_cropped.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { src: "img/era-2016.jpg", w: 1013, h: 1800, pos: "50% 20%", alt: "Messi holding his number 10 shirt to the crowd at the Santiago Bernabéu in 2017", cap: "Holding up shirt #10 at the Santiago Bernabéu, April 2017" },
   ],
   "Farewell to Barcelona": [
-    { src: "img/era-2019-ballon.jpg", w: 1280, h: 1024, pos: "68% 50%", alt: "Messi at home with six Ballon d'Or trophies after winning the 2019 award", cap: "Six Ballons d'Or at home, Barcelona 2019", file: "https://commons.wikimedia.org/wiki/File:Lionel_MESSI_Florent_TORCHUT.jpg", lic: "CC BY-SA 4.0", licUrl: "https://creativecommons.org/licenses/by-sa/4.0/" },
-    { src: "img/era-2021-tears.jpg", w: 1280, h: 1280, pos: "55% 28%", alt: "Messi in tears at his Barcelona farewell press conference", cap: "The goodbye press conference, Camp Nou 2021", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2021-copa.jpg", w: 397, h: 503, pos: "55% 22%", alt: "Messi kissing the Copa América trophy after winning it in 2021", cap: "Copa América champions, Maracanã 2021", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2019-ballon.jpg", w: 1800, h: 1251, pos: "50% 30%", alt: "Messi on stage with six Ballons d'Or in Paris in 2019", cap: "Presented with six Ballons d'Or on stage, Paris 2019" },
+    { src: "img/era-2021-tears.jpg", w: 1280, h: 1280, pos: "55% 28%", alt: "Messi in tears at his Barcelona farewell press conference", cap: "The goodbye press conference, Camp Nou 2021" },
+    { src: "img/era-2021-copa.jpg", w: 397, h: 503, pos: "55% 22%", alt: "Messi kissing the Copa América trophy after winning it in 2021", cap: "Copa América champions, Maracanã 2021" },
   ],
   "Paris and the World Cup": [
-    { src: "img/era-2021-psg-signing.jpg", w: 1200, h: 900, pos: "20% 22%", alt: "Messi signing his Paris Saint-Germain contract alongside Nasser Al-Khelaifi", cap: "Signing for Paris Saint-Germain, 2021", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2021-ballon7.jpg", w: 480, h: 639, pos: "50% 20%", alt: "Messi in a sparkling jacket holding the Ballon d'Or after winning his seventh in 2021", cap: "Seventh Ballon d'Or, Paris 2021", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2022.jpg", w: 500, h: 749, pos: "50% 20%", alt: "Messi playing for Argentina at the 2022 World Cup", cap: "Argentina at the 2022 World Cup", file: "https://commons.wikimedia.org/wiki/File:Lionel-Messi-Argentina-2022-FIFA-World-Cup.jpg", lic: "CC BY 4.0", licUrl: "https://creativecommons.org/licenses/by/4.0/" },
+    { src: "img/era-2021-psg-signing.jpg", w: 1200, h: 900, pos: "20% 22%", alt: "Messi signing his Paris Saint-Germain contract alongside Nasser Al-Khelaifi", cap: "Signing for Paris Saint-Germain, 2021" },
+    { src: "img/era-2021-ballon7.jpg", w: 480, h: 639, pos: "50% 20%", alt: "Messi in a sparkling jacket holding the Ballon d'Or after winning his seventh in 2021", cap: "Seventh Ballon d'Or, Paris 2021" },
+    { src: "img/era-2022.jpg", w: 1800, h: 1212, pos: "50% 25%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "Lifting the World Cup on Agüero's shoulders, Lusail 2022" },
   ],
   "Miami and the road to 1,000": [
-    { src: "img/era-2023-miami.jpg", w: 679, h: 451, pos: "45% 40%", alt: "Messi unveiled as Inter Miami's number 10 alongside David Beckham", cap: "Unveiled in Miami with Beckham, 2023", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2023-ballon8.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi in a tuxedo holding the Ballon d'Or after winning a record eighth in 2023", cap: "Record eighth Ballon d'Or, 2023", file: "", lic: "", licUrl: "" },
-    { src: "img/era-2024-copa.jpg", w: 562, h: 546, pos: "50% 25%", alt: "Messi in Argentina's shirt holding two Copa América trophies in 2024", cap: "Back-to-back Copa América titles, 2024", file: "", lic: "", licUrl: "" },
+    { src: "img/era-2023-miami.jpg", w: 679, h: 451, pos: "45% 40%", alt: "Messi unveiled as Inter Miami's number 10 alongside David Beckham", cap: "Unveiled in Miami with Beckham, 2023" },
+    { src: "img/era-2023-ballon8.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi in a tuxedo holding the Ballon d'Or after winning a record eighth in 2023", cap: "Record eighth Ballon d'Or, 2023" },
+    { src: "img/era-2024-copa.jpg", w: 562, h: 546, pos: "50% 25%", alt: "Messi in Argentina's shirt holding two Copa América trophies in 2024", cap: "Back-to-back Copa América titles, 2024" },
   ],
 };
 /* Era openers: short fan-editor intros, one per chapter. Plain prose about
@@ -728,7 +727,7 @@ const ERA_INTRO = {
   "MSN and the second treble":
     `Messi, Suárez, Neymar — three forwards who should never have fit together, scoring for fun and sweeping a second treble in 2015, sealed in Berlin. His Copa del Rey final goal that spring, slaloming past half of Athletic Bilbao, might be the greatest he ever scored. Pick your own; there are a dozen candidates.`,
   "Carrying Barcelona":
-    `Xavi gone, Iniesta fading, the squad thinning every summer — and one man dragging the whole club forward anyway. The Remontada against PSG in 2017, another league-and-cup double in 2018: these were his teams in a way the great sides before them never quite were. Watch the Valladolid photo above — by now every defender in Spain knows exactly what is coming, and none of them can stop it.`,
+    `Xavi gone, Iniesta fading, the squad thinning every summer — and one man dragging the whole club forward anyway. The Remontada against PSG in 2017, the iconic shirt celebration at the Bernabéu, another league-and-cup double in 2018: these were his teams in a way the great sides before them never quite were. Watch the photo above — by now every defender in Spain knows exactly what is coming, and none of them can stop it.`,
   "Farewell to Barcelona":
     `The burofax summer of 2020, a sixth Ballon d'Or, one last Copa del Rey lifted in 2021 — and then, that August, a tearful press conference and a free transfer nobody believed possible. He left as the club's everything: its record scorer, its record appearance-maker, and the reason a generation of kids supports Barcelona at all.`,
   "Paris and the World Cup":
@@ -741,11 +740,8 @@ const eraPhotos = (era) => {
   const pics = ERA_PHOTOS[era];
   if (!pics || !pics.length) return "";
   return `<div class="ch-photos${pics.length === 1 ? " solo" : ""}">` + pics.map((p) => {
-    const cred = p.lic
-      ? `photo via <a href="${p.file}" rel="noopener">Wikimedia Commons</a>, <a href="${p.licUrl}" rel="noopener">${p.lic}</a>`
-      : `fan-provided photo`;
     return `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos}" />` +
-    `<figcaption class="photo-credit">${esc(p.cap)} — ${cred}</figcaption></figure>`;
+    `<figcaption class="photo-credit">${esc(p.cap)}</figcaption></figure>`;
   }).join("") + `</div>`;
 };
 function renderTimeline(d) {
@@ -940,21 +936,17 @@ function renderTimeline(d) {
 }
 
 /* ================= ACHIEVEMENTS ================= */
-/* Trophy cabinet: self-hosted Commons celebration photos, all CC-licensed,
-   each captioned with a Commons file link + licence. Mounted as #cabinet.
-   The 2022 World Cup lift is deliberately absent — no freely licensed photo
-   of Messi lifting that trophy could be verified, so none is shown. */
+/* Trophy cabinet: self-hosted celebration photos. Mounted as #cabinet. */
 const CABINET = [
-  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "img/cab-ballon.jpg", w: 1280, h: 726, alt: "Messi holding a golden trophy aloft on a floodlit pitch at night, seen from the stands", cap: "Messi lifts his record eighth Ballon d'Or before Inter Miami's Noche d'Or celebration, November 2023 — a distant view from the stands", file: "https://commons.wikimedia.org/wiki/File:Messi_lifting_Bal%C3%B3n_Dor.jpg", lic: "CC0", licUrl: "https://creativecommons.org/publicdomain/zero/1.0/" },
-  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "img/cab-ucl.jpg", w: 1280, h: 770, alt: "A Barcelona player hoists the European Cup as the squad celebrate in Rome", cap: "Piqué lifts the European Cup as Barcelona — Messi among the celebrating squad — toast the 2009 final win in Rome", file: "https://commons.wikimedia.org/wiki/File:Celebrando_la_Copa_de_Campeones_2008-09.jpg", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
-  { title: "La Liga — 10", sub: "Ten Spanish titles with Barcelona, 2005–2019.", src: "img/cab-liga.jpg", w: 1280, h: 693, alt: "Barcelona's players celebrating together on the Camp Nou pitch", cap: "Barcelona's squad celebrate clinching the 2009–10 La Liga title at Camp Nou — Messi top-scored in the league that season with 34 goals", file: "https://commons.wikimedia.org/wiki/File:FC_Barcelona_celebra_la_Liga_2009-2010.jpg", lic: "CC BY 2.0", licUrl: "https://creativecommons.org/licenses/by/2.0/" },
+  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "img/cab-ballon.jpg", w: 696, h: 1500, pos: "50% 25%", alt: "Messi holding the golden Ballon d'Or trophy in a black tuxedo", cap: "Messi holding his record eighth Ballon d'Or" },
+  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "img/cab-ucl.jpg", w: 1174, h: 1700, pos: "50% 15%", alt: "Messi hoisting the European Cup aloft at Wembley in 2011", cap: "Messi lifts the European Cup at Wembley, 2011" },
+  { title: "La Liga — 10", sub: "Ten Spanish titles with Barcelona, 2005–2019.", src: "img/cab-liga.jpg", w: 732, h: 1024, pos: "50% 25%", alt: "Messi as Barcelona captain hoisting the La Liga trophy at Camp Nou", cap: "Messi lifts the La Liga trophy as Barcelona captain, Camp Nou" },
 ];
 const cabinetPhotos = () => CABINET.map((p) =>
   `<article class="cab-card"><h3>${esc(p.title)}</h3><p class="cab-sub">${esc(p.sub)}</p>` +
-  `<figure class="cab-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" />` +
-  `<figcaption class="photo-credit">${esc(p.cap)} — photo via <a href="${p.file}" rel="noopener">Wikimedia Commons</a>, <a href="${p.licUrl}" rel="noopener">${p.lic}</a></figcaption></figure></article>`
-).join("") +
-  `<p class="cab-note">Every photo is self-hosted from Wikimedia Commons under a Creative Commons or public-domain licence, captioned with its source. No World Cup lift photo appears here: no freely licensed photograph of Messi lifting the 2022 trophy could be verified, so — rather than use an unlicensed frame — that triumph is recorded in the titles below instead of pictured.</p>`;
+  `<figure class="cab-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos || "50% 25%"}" />` +
+  `<figcaption class="photo-credit">${esc(p.cap)}</figcaption></figure></article>`
+).join("");
 function renderAch(d) {
   const teamRows = d.trophies.filter((x) => x.team !== "Individual");
   const indRows = d.trophies.filter((x) => x.team === "Individual");

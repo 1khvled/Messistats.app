@@ -151,3 +151,18 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   in app.js (panel's `<SpeedInsights/>` is Next-only; this is the vanilla
   equivalent, all 6 pages covered). Bundle 64.2→65.8KB. Same production-only
   behavior. Committed + pushed with the analytics change.
+- WIKIPEDIA PHOTO REPLACEMENT 2026-09-13 (user: "work on wikipedia photos delete them all replace them by good photos"):
+  Replaced all remaining Wikimedia Commons photos with high-resolution, iconic, professional action & celebration shots:
+  (1) `messi.jpg`: studio-lit official portrait in Argentina kit (900x1600, 182KB); re-rendered `og-messi.jpg` (1200x630, 82KB);
+  (2) `era-2008-olympic.jpg`: young Messi celebrating his iconic 2007 El Clásico hat-trick at Camp Nou (1636x1400, 324KB);
+  (3) `era-2011.jpg`: Messi roaring in joy celebrating at Wembley in 2011 Champions League final (1800x1013, 302KB);
+  (4) `era-2015-supercup.jpg`: MSN trident (Messi, Neymar, Suárez) running arm-in-arm celebrating at Camp Nou (1192x670, 114KB);
+  (5) `era-2016.jpg`: iconic Santiago Bernabéu shirt #10 celebration in April 2017 (1013x1800, 313KB);
+  (6) `era-2019-ballon.jpg`: Messi smiling on stage in Paris behind all six Ballons d'Or (1800x1251, 288KB);
+  (7) `era-2022.jpg`: Messi on Agüero's shoulders lifting the World Cup trophy in Lusail (1800x1212, 376KB);
+  (8) `cab-ballon.jpg`: Messi in black tie holding golden Ballon d'Or trophy smiling (696x1500, 128KB);
+  (9) `cab-ucl.jpg`: Messi hoisting the European Cup at Wembley 2011 with winners' medal (1174x1700, 301KB);
+  (10) `cab-liga.jpg`: Messi lifting the La Liga trophy as captain at Camp Nou (732x1024, 113KB).
+  Cleaned all Wikimedia Commons URLs, CC licenses, and disclaimer notes in `src/app.js`. Deleted obsolete `scripts/fetch-era-photos.ps1`.
+  Verified: build ✓, audit PASS, verify exit 0.
+
