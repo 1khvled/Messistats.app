@@ -49,7 +49,7 @@ jobs:
           git config --global user.email "bot@messistat.com"
           git add public/data/ dist/
           if git status --porcelain | grep -q .; then
-            git commit -m "chore(stats): daily 24h automated stat sync [skip ci]"
+            git commit -m "chore(stats): daily 24h automated stat sync"
             git push
             echo "Successfully synced new match data and pushed to origin/main."
           else
