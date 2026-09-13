@@ -23,8 +23,17 @@ import sys
 def log(msg):
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {msg}")
 
+DEFAULT_HEADERS = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/html, */*',
+    'Accept-Language': 'en-US,en;q=0.9'
+}
+
 def fetch_json(url, headers=None):
-    req = urllib.request.Request(url, headers=headers or {'User-Agent': 'messistat-sync/1.0'})
+    h = dict(DEFAULT_HEADERS)
+    h['Accept'] = 'application/json'
+    if headers: h.update(headers)
+    req = urllib.request.Request(url, headers=h)
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return json.loads(resp.read().decode('utf-8'))
@@ -33,7 +42,9 @@ def fetch_json(url, headers=None):
         return None
 
 def fetch_text(url, headers=None):
-    req = urllib.request.Request(url, headers=headers or {'User-Agent': 'messistat-sync/1.0'})
+    h = dict(DEFAULT_HEADERS)
+    if headers: h.update(headers)
+    req = urllib.request.Request(url, headers=h)
     try:
         with urllib.request.urlopen(req, timeout=15) as resp:
             return resp.read().decode('utf-8', errors='ignore')
