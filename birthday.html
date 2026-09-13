@@ -165,16 +165,16 @@
 <div class="page">
 <main class="wrap" id="main">
 <div id="banner" hidden></div>
-<p class="eyebrow">Interactive Calendar <i></i> <span class="updated-badge"><span class="dot"></span>Updated 13 September 2026</span></p>
+<p class="eyebrow">Interactive Calendar <i></i> <span class="updated-badge"><span class="dot"></span>Updated 14 September 2026</span></p>
 <h1 class="page-title">Did Messi score on your birthday?</h1>
-<p class="page-lead">Search any calendar day (all 366 days) to see every goal Lionel Messi has scored on your birthday throughout his <b>927-goal senior career</b>, including exact match dates, opponents, minute tags, and competition context.</p>
+<p class="page-lead">Search any calendar day (all 366 days) to see every goal Lionel Messi has scored on your birthday throughout his <b>928-goal senior career</b>, including exact match dates, opponents, minute tags, and competition context.</p>
 
 <!-- KPIs Grid -->
 <div class="kpis kpis-4" id="bday-kpis">
   <div class="kpi">
     <span class="kpi-label">Senior Goals</span>
-    <span class="kpi-value tnum">927</span>
-    <span class="kpi-note">1,172 appearances</span>
+    <span class="kpi-value tnum">928</span>
+    <span class="kpi-note">1,173 appearances</span>
   </div>
   <div class="kpi">
     <span class="kpi-label">Days Scored On</span>
@@ -243,6 +243,25 @@
       <button type="button" class="bday-preset-chip" id="bday-preset-today">Today's Date</button>
       <button type="button" class="bday-preset-chip" id="bday-preset-random">🎲 Random Day</button>
     </div>
+
+    <!-- Zodiac Sign Switcher -->
+    <div class="bday-zodiac-wrap">
+      <span class="bday-pills-label">Explore by Zodiac Season</span>
+      <div class="bday-zodiac-pills" id="bday-zodiac-pills">
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Aries" data-month="4" data-day="5">♈ Aries</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Taurus" data-month="5" data-day="2">♉ Taurus</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Gemini" data-month="6" data-day="5">♊ Gemini</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Cancer" data-month="6" data-day="24">♋ Cancer <small>(Messi)</small></button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Leo" data-month="8" data-day="15">♌ Leo</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Virgo" data-month="9" data-day="14">♍ Virgo</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Libra" data-month="10" data-day="19">♎ Libra</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Scorpio" data-month="11" data-day="15">♏ Scorpio</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Sagittarius" data-month="12" data-day="7">♐ Sagittarius</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Capricorn" data-month="1" data-day="6">♑ Capricorn</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Aquarius" data-month="2" data-day="1">♒ Aquarius</button>
+        <button type="button" class="bday-zodiac-chip" data-zodiac="Pisces" data-month="3" data-day="7">♓ Pisces</button>
+      </div>
+    </div>
   </form>
 </section>
 
@@ -258,11 +277,29 @@
 <section class="bday-verdict-card" id="bday-verdict" aria-live="polite">
   <div class="bday-verdict-header">
     <div class="bday-verdict-main">
-      <div id="bday-verdict-badge"></div>
-      <h2 class="bday-target-date" id="bday-target-date">2 May</h2>
+      <div class="bday-verdict-topline">
+        <div id="bday-verdict-badge"></div>
+        <button type="button" class="bday-confetti-btn" id="bday-confetti-btn" title="Celebrate with confetti!">🎉 Celebrate!</button>
+      </div>
+      <div class="bday-stepper-row">
+        <button type="button" class="bday-step-btn" id="bday-prev-day" title="Previous calendar day" aria-label="Previous day">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          Prev Day
+        </button>
+        <h2 class="bday-target-date" id="bday-target-date">2 May</h2>
+        <button type="button" class="bday-step-btn" id="bday-next-day" title="Next calendar day" aria-label="Next day">
+          Next Day
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+        <button type="button" class="bday-random-pill" id="bday-quick-random" title="Jump to random day with goals">🎲 Random Day</button>
+      </div>
       <p class="bday-headline" id="bday-headline">Checking goal history…</p>
       <div class="bday-actions">
-        <button type="button" class="btn-primary" id="bday-share-btn">Share My Birthday Stats</button>
+        <button type="button" class="btn-primary" id="bday-share-btn">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
+          Share My Birthday Stats
+        </button>
+        <button type="button" class="btn-secondary" id="bday-copy-btn">📋 Copy Result</button>
         <span class="bday-share-msg" id="bday-share-msg" aria-live="polite"></span>
       </div>
     </div>
@@ -289,6 +326,17 @@
     <span class="section-note">Click any day to see match breakdown</span>
   </div>
   <p class="section-sub">A complete visual map of all 366 calendar days across Lionel Messi's 22-year senior career. Every square is colored by the number of career goals scored on that date.</p>
+
+  <!-- Interactive Heatmap Filters -->
+  <div class="bday-heatmap-filter-bar" id="bday-heatmap-filters">
+    <span class="bday-filter-label">Filter:</span>
+    <button type="button" class="bday-hfilter-btn active" data-filter="all">All (366)</button>
+    <button type="button" class="bday-hfilter-btn" data-filter="scored">⚽ Scored (292)</button>
+    <button type="button" class="bday-hfilter-btn" data-filter="brace">🔥 2+ Goals (140+)</button>
+    <button type="button" class="bday-hfilter-btn" data-filter="hattrick">🎩 Hat-Tricks (62)</button>
+    <button type="button" class="bday-hfilter-btn" data-filter="peak">👑 Peak (9–10)</button>
+    <button type="button" class="bday-hfilter-btn" data-filter="empty">❌ Goal-Free (74)</button>
+  </div>
 
   <div class="bday-heatmap-grid" id="bday-heatmap-grid">
     <!-- 12 Month Cards populated by JS -->
@@ -463,6 +511,27 @@
           Search Goal Highlights on YouTube
         </a>
       </div>
+    <div class="video-toolbar" id="video-toolbar">
+      <div class="video-toolbar-left">
+        <button type="button" class="vtool-btn" id="vtool-replay" title="Replay Goal (R)">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+          Replay
+        </button>
+        <button type="button" class="vtool-btn" id="vtool-back5" title="Rewind 5s (←)">-5s</button>
+        <button type="button" class="vtool-btn" id="vtool-fwd5" title="Forward 5s (→)">+5s</button>
+      </div>
+      <div class="video-toolbar-right">
+        <div class="vspeed-group">
+          <span class="vspeed-label">Speed:</span>
+          <button type="button" class="vspeed-btn" data-speed="0.5">0.5x</button>
+          <button type="button" class="vspeed-btn" data-speed="0.75">0.75x</button>
+          <button type="button" class="vspeed-btn active" data-speed="1">1x</button>
+          <button type="button" class="vspeed-btn" data-speed="1.25">1.25x</button>
+        </div>
+        <button type="button" class="vtool-btn" id="vtool-fs" title="Fullscreen (F)" aria-label="Fullscreen">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+        </button>
+      </div>
     </div>
     
     <div class="video-goals-nav" id="video-goals-nav" hidden>
@@ -480,6 +549,8 @@
     </div>
   </div>
 </div>
+
+<canvas id="bday-confetti-canvas" class="bday-confetti-canvas" aria-hidden="true"></canvas>
 
 <script type="module" src="src/app.js"></script>
 </body>

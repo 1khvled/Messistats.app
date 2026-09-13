@@ -1302,6 +1302,84 @@ async function renderBirthday(d) {
   const vpillAssist = el("vpill-assist");
   const vpillXg = el("vpill-xg");
 
+  // Confetti Celebration Engine
+  const launchConfetti = (() => {
+    const canvas = el("bday-confetti-canvas");
+    if (!canvas) return () => {};
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let animId = null;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener("resize", resize);
+
+    const colors = ["#0e7cc0", "#38bdf8", "#facc15", "#eab308", "#ffffff", "#22c55e"];
+    const emojis = ["⚽", "🎉", "⭐", "🇦🇷"];
+
+    const createParticle = () => ({
+      x: Math.random() * canvas.width,
+      y: -20,
+      size: Math.random() * 8 + 6,
+      speedX: (Math.random() - 0.5) * 5,
+      speedY: Math.random() * 3 + 2.5,
+      rotation: Math.random() * 360,
+      rotSpeed: (Math.random() - 0.5) * 8,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      emoji: Math.random() < 0.25 ? emojis[Math.floor(Math.random() * emojis.length)] : null,
+      opacity: 1,
+      fadeSpeed: Math.random() * 0.008 + 0.005
+    });
+
+    const loop = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.rotation += p.rotSpeed;
+        p.opacity -= p.fadeSpeed;
+        if (p.opacity <= 0 || p.y > canvas.height + 20) {
+          particles.splice(i, 1);
+          continue;
+        }
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        if (p.emoji) {
+          ctx.font = `${p.size * 1.6}px sans-serif`;
+          ctx.textAlign = "center";
+          ctx.fillText(p.emoji, 0, 0);
+        } else {
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+        }
+        ctx.restore();
+      }
+      if (particles.length > 0) {
+        animId = requestAnimationFrame(loop);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    };
+
+    return () => {
+      resize();
+      for (let i = 0; i < 80; i++) {
+        particles.push(createParticle());
+      }
+      if (!animId) loop();
+    };
+  })();
+
+  const confettiBtn = el("bday-confetti-btn");
+  if (confettiBtn) confettiBtn.onclick = () => launchConfetti();
+
   const closeGoalVideo = () => {
     if (!videoModal) return;
     videoModal.hidden = true;
@@ -1339,6 +1417,49 @@ async function renderBirthday(d) {
     });
   }
 
+  const vtoolReplay = el("vtool-replay");
+  if (vtoolReplay) {
+    vtoolReplay.onclick = () => {
+      if (videoPlayer) {
+        videoPlayer.currentTime = 0;
+        videoPlayer.play().catch(() => {});
+      }
+    };
+  }
+  const vtoolBack5 = el("vtool-back5");
+  if (vtoolBack5) {
+    vtoolBack5.onclick = () => {
+      if (videoPlayer) videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 5);
+    };
+  }
+  const vtoolFwd5 = el("vtool-fwd5");
+  if (vtoolFwd5) {
+    vtoolFwd5.onclick = () => {
+      if (videoPlayer) videoPlayer.currentTime = Math.min(videoPlayer.duration || 999, videoPlayer.currentTime + 5);
+    };
+  }
+  document.querySelectorAll(".vspeed-btn").forEach((btn) => {
+    btn.onclick = () => {
+      const spd = parseFloat(btn.dataset.speed) || 1;
+      if (videoPlayer) videoPlayer.playbackRate = spd;
+      document.querySelectorAll(".vspeed-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    };
+  });
+  const vtoolFs = el("vtool-fs");
+  if (vtoolFs) {
+    vtoolFs.onclick = () => {
+      if (!videoPlayer) return;
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      } else if (videoPlayer.requestFullscreen) {
+        videoPlayer.requestFullscreen().catch(() => {});
+      } else if (videoPlayer.webkitEnterFullscreen) {
+        videoPlayer.webkitEnterFullscreen();
+      }
+    };
+  }
+
   if (videoClose) videoClose.onclick = closeGoalVideo;
   if (videoModal) {
     videoModal.onclick = (e) => {
@@ -1346,8 +1467,25 @@ async function renderBirthday(d) {
     };
   }
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && videoModal && !videoModal.hidden) {
+    if (!videoModal || videoModal.hidden) return;
+    if (e.key === "Escape") {
       closeGoalVideo();
+    } else if (e.code === "Space") {
+      e.preventDefault();
+      if (videoPlayer) {
+        if (videoPlayer.paused) videoPlayer.play().catch(() => {});
+        else videoPlayer.pause();
+      }
+    } else if (e.key === "ArrowLeft") {
+      if (videoPlayer) videoPlayer.currentTime = Math.max(0, videoPlayer.currentTime - 5);
+    } else if (e.key === "ArrowRight") {
+      if (videoPlayer) videoPlayer.currentTime = Math.min(videoPlayer.duration || 999, videoPlayer.currentTime + 5);
+    } else if (e.key.toLowerCase() === "m") {
+      if (videoPlayer) videoPlayer.muted = !videoPlayer.muted;
+    } else if (e.key.toLowerCase() === "r") {
+      if (videoPlayer) { videoPlayer.currentTime = 0; videoPlayer.play().catch(() => {}); }
+    } else if (e.key.toLowerCase() === "f") {
+      if (videoPlayer && videoPlayer.requestFullscreen) videoPlayer.requestFullscreen().catch(() => {});
     }
   });
 
@@ -1550,6 +1688,7 @@ async function renderBirthday(d) {
 
     if (dayData.goalsCount > 0) {
       currentMatches = dayData.matches || [];
+      if (confettiBtn) confettiBtn.hidden = false;
       if (badgeEl) {
         badgeEl.innerHTML = `<span class="bday-badge-success">🎉 Yes! Messi Scored On Your Birthday!</span>`;
       }
@@ -1568,6 +1707,31 @@ async function renderBirthday(d) {
           const typeTags = (match.types || []).filter(Boolean).length
             ? `<span class="bday-shot-types">(${match.types.join(", ")})</span>`
             : "";
+
+          // Interactive 90-Minute Pitch Timeline
+          const timelinePins = (match.minutes || []).map((minStr) => {
+            const mNum = parseInt(minStr) || 45;
+            const pct = Math.min(94, Math.max(6, (mNum / 95) * 100));
+            return `
+              <div class="timeline-goal-pin" style="left: ${pct}%;" title="${esc(minStr)}' Goal">
+                <span class="timeline-pin-bubble">⚽ ${esc(minStr)}'</span>
+              </div>
+            `;
+          }).join("");
+
+          const timelineHtml = (match.minutes && match.minutes.length > 0) ? `
+            <div class="bday-match-timeline">
+              <div class="timeline-pitch-head">
+                <span>Match Goal Timeline</span>
+                <span>${match.minutes.length === 1 ? '1 Goal' : match.minutes.length + ' Goals'}</span>
+              </div>
+              <div class="timeline-pitch-bar">
+                <div class="timeline-half-mark" style="left: 50%;"></div>
+                <span class="timeline-half-label">HT</span>
+                ${timelinePins}
+              </div>
+            </div>
+          ` : "";
 
           const hasVideos = match.videos && match.videos.length > 0;
           const videoBtn = hasVideos
@@ -1595,6 +1759,7 @@ async function renderBirthday(d) {
                 <div class="bday-minute-tags">${minTags}</div>
                 ${typeTags}
               </div>
+              ${timelineHtml}
               <div class="bday-match-actions">
                 ${videoBtn}
                 ${hasVideos ? `<button type="button" class="bday-inline-toggle-btn" data-idx="${matchIdx}">📺 Play Inline</button>` : ""}
@@ -1609,12 +1774,20 @@ async function renderBirthday(d) {
 
       if (shareBtn) {
         shareBtn.hidden = false;
-        shareBtn.onclick = () => {
-          const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours? Check here: ${location.origin}${location.pathname}?date=${key}`;
-          copyToClipboard(shareText, shareMsg);
+        shareBtn.onclick = async () => {
+          const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours?`;
+          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          if (navigator.share) {
+            try {
+              await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
+              return;
+            } catch (_) {}
+          }
+          copyToClipboard(`${shareText} Check here: ${shareUrl}`, shareMsg);
         };
       }
     } else {
+      if (confettiBtn) confettiBtn.hidden = true;
       const isMessiBday = (m === 6 && day === 24);
       if (isMessiBday) {
         if (badgeEl) {
@@ -1666,11 +1839,27 @@ async function renderBirthday(d) {
 
       if (shareBtn) {
         shareBtn.hidden = false;
-        shareBtn.onclick = () => {
-          const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours? Find out: ${location.origin}${location.pathname}?date=${key}`;
-          copyToClipboard(shareText, shareMsg);
+        shareBtn.onclick = async () => {
+          const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours?`;
+          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
+          if (navigator.share) {
+            try {
+              await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
+              return;
+            } catch (_) {}
+          }
+          copyToClipboard(`${shareText} Find out: ${shareUrl}`, shareMsg);
         };
       }
+    }
+
+    const copyBtn = el("bday-copy-btn");
+    if (copyBtn) {
+      copyBtn.onclick = () => {
+        const gWord = dayData.goalsCount === 1 ? "goal" : "goals";
+        const shareText = `Lionel Messi scored ${dayData.goalsCount} ${gWord} on my birthday (${dayData.formatted})! Did he score on yours? Find out: ${location.origin}${location.pathname}?date=${key}`;
+        copyToClipboard(shareText, shareMsg);
+      };
     }
 
     if (shouldScroll) {
@@ -1678,6 +1867,60 @@ async function renderBirthday(d) {
       if (v) v.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
+
+  // Stepper Controls
+  const prevBtn = el("bday-prev-day");
+  if (prevBtn) {
+    prevBtn.onclick = () => {
+      let curM = monthSelect ? +monthSelect.value : 5;
+      let curD = daySelect ? +daySelect.value : 2;
+      curD -= 1;
+      if (curD < 1) {
+        curM = curM === 1 ? 12 : curM - 1;
+        curD = DAYS_IN_MONTH[curM];
+      }
+      selectDate(curM, curD, false);
+    };
+  }
+
+  const nextBtn = el("bday-next-day");
+  if (nextBtn) {
+    nextBtn.onclick = () => {
+      let curM = monthSelect ? +monthSelect.value : 5;
+      let curD = daySelect ? +daySelect.value : 2;
+      const maxD = DAYS_IN_MONTH[curM];
+      curD += 1;
+      if (curD > maxD) {
+        curM = curM === 12 ? 1 : curM + 1;
+        curD = 1;
+      }
+      selectDate(curM, curD, false);
+    };
+  }
+
+  const quickRandom = el("bday-quick-random");
+  if (quickRandom) {
+    quickRandom.onclick = () => {
+      const scoringKeys = Object.keys(calendar).filter((k) => calendar[k].goalsCount > 0);
+      const randKey = scoringKeys[Math.floor(Math.random() * scoringKeys.length)];
+      const [rm, rd] = randKey.split("-").map(Number);
+      selectDate(rm, rd, true);
+    };
+  }
+
+  // Zodiac Season Switcher
+  const zodiacPills = el("bday-zodiac-pills");
+  if (zodiacPills) {
+    zodiacPills.addEventListener("click", (e) => {
+      const chip = e.target.closest(".bday-zodiac-chip");
+      if (!chip) return;
+      zodiacPills.querySelectorAll(".bday-zodiac-chip").forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      const m = +chip.dataset.month;
+      const d = +chip.dataset.day;
+      selectDate(m, d, true);
+    });
+  }
 
   if (monthSelect) {
     monthSelect.addEventListener("change", (e) => {
@@ -1764,6 +2007,43 @@ async function renderBirthday(d) {
       if (!cell) return;
       selectDate(+cell.dataset.month, +cell.dataset.day, true);
     });
+
+    const heatmapFilterBar = el("bday-heatmap-filters");
+    if (heatmapFilterBar) {
+      heatmapFilterBar.addEventListener("click", (e) => {
+        const btn = e.target.closest(".bday-hfilter-btn");
+        if (!btn) return;
+        heatmapFilterBar.querySelectorAll(".bday-hfilter-btn").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const fType = btn.dataset.filter;
+
+        heatmapGrid.querySelectorAll(".bday-day-btn").forEach((cell) => {
+          cell.classList.remove("dimmed", "highlighted");
+          const m = +cell.dataset.month;
+          const d = +cell.dataset.day;
+          const k = makeKey(m, d);
+          const dayInfo = calendar[k];
+          const gCount = dayInfo?.goalsCount || 0;
+
+          if (fType === "scored") {
+            if (gCount === 0) cell.classList.add("dimmed");
+          } else if (fType === "brace") {
+            if (gCount < 2) cell.classList.add("dimmed");
+            else cell.classList.add("highlighted");
+          } else if (fType === "hattrick") {
+            const hasHt = (dayInfo?.matches || []).some((match) => match.goalsCount >= 3);
+            if (!hasHt) cell.classList.add("dimmed");
+            else cell.classList.add("highlighted");
+          } else if (fType === "peak") {
+            if (gCount < 9) cell.classList.add("dimmed");
+            else cell.classList.add("highlighted");
+          } else if (fType === "empty") {
+            if (gCount > 0) cell.classList.add("dimmed");
+            else cell.classList.add("highlighted");
+          }
+        });
+      });
+    }
   }
 
   const topTbody = el("top-days-tbody");
