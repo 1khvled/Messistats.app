@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0b6fa4" />
+<meta name="description" content="Did Lionel Messi score on your birthday? Search all 365 calendar days across Messi's 927 senior career goals, with opponents, exact minutes, video-worthy matches and a full interactive goal heatmap." />
+<link rel="canonical" href="https://messi-stats.vercel.app/birthday" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Did Messi Score on Your Birthday? 365 Days Goal Explorer" />
+<meta property="og:description" content="Discover every goal Lionel Messi has scored on your birthday throughout his 927-goal career. Search any day of the year, explore match timelines, and share your birthday stats!" />
+<meta property="og:url" content="https://messi-stats.vercel.app/birthday" />
+<meta property="og:image" content="https://messi-stats.vercel.app/img/og-messi.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="Lionel Messi Birthday Goal Explorer: 927 career goals across 365 days" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Did Messi Score on Your Birthday? 365 Days Goal Explorer" />
+<meta name="twitter:description" content="Did Messi score on your birthday? Check all 927 career goals across 365 calendar days, match breakdowns, and share your birthday stats!" />
+<meta name="twitter:image" content="https://messi-stats.vercel.app/img/og-messi.jpg" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="preload" href="fonts/plus-jakarta-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<title>Did Messi Score on Your Birthday? 365 Days Goal Explorer & Stats</title>
+<link rel="stylesheet" href="src/styles.css" />
+<script>
+  (function() {
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch(e) {}
+  })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://messi-stats.vercel.app/birthday#webpage",
+      "url": "https://messi-stats.vercel.app/birthday",
+      "name": "Did Messi Score on Your Birthday? 365 Days Goal Explorer & Stats",
+      "description": "Search any day of the year to see every goal Lionel Messi has scored on your birthday throughout his 927-goal career.",
+      "dateModified": "2026-09-13",
+      "inLanguage": "en",
+      "publisher": {
+        "@type": "Organization",
+        "name": "MessiStats",
+        "url": "https://messi-stats.vercel.app/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://messi-stats.vercel.app/favicon.svg"
+        }
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://messi-stats.vercel.app/birthday#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Has Lionel Messi ever scored on his own birthday?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Lionel Messi was born on 24 June 1987. Because late June coincides with the European club summer break or rest days between major international tournament phases, Messi has never played a competitive senior match on 24 June."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What calendar day has Messi scored the most goals on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Messi has scored 10 career goals on both 2 May and 19 September. His 2 May tally includes his historic brace in Barcelona's famous 6-2 El Clásico victory over Real Madrid in 2009."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many days of the calendar year has Messi scored on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Messi has scored on 292 out of 366 possible calendar days (including leap day 29 February), representing an extraordinary 79.8% coverage of the entire year."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What month does Messi score the most goals in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "March is Messi's most prolific scoring month with 115 career goals, followed by September (99 goals) and January (96 goals)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Did Messi score on Christmas or New Year's Day?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Top-flight Spanish, French, and North American leagues pause for the winter holidays, so Messi has never played a senior competitive match on 25 December or 1 January."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://messi-stats.vercel.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Did Messi Score on Your Birthday?", "item": "https://messi-stats.vercel.app/birthday" }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body data-page="birthday">
+<a class="skip" href="#main">Skip to content</a>
+<aside class="rail" aria-label="Primary">
+<a class="rail-badge" href="index.html" aria-label="MessiStats home"><svg class="rail-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="msg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d0f2e"/><stop offset=".55" stop-color="#1d3fae"/><stop offset="1" stop-color="#0e7cc0"/></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg)" stroke="#e3b93e" stroke-width="2.5" stroke-linejoin="round"/><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"/><text x="31" y="44" text-anchor="middle" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" fill="#fff">M10</text></svg><span class="rail-word">Messi<b>Stats</b></span></a>
+<nav>
+<a href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 3l9 8.5"/><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"/></svg><span>Home</span></a>
+<a href="goalsbyyear.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"/></svg><span>Goals by Year</span></a>
+<a href="goalsbyseason.html"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7.5" height="7.5" rx="1.5"/><rect x="13" y="3.5" width="7.5" height="7.5" rx="1.5"/><rect x="3.5" y="13" width="7.5" height="7.5" rx="1.5"/><rect x="13" y="13" width="7.5" height="7.5" rx="1.5"/></svg><span>Goals by Season</span></a>
+<a href="dashboard.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5h17"/><path d="M6.5 20v-7M12 20V5M17.5 20v-10"/></svg><span>Dashboard</span></a>
+<a href="timeline.html"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Through the Years</span></a>
+<a href="achievements.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"/><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"/></svg><span>Achievements</span></a>
+<a href="birthday.html" class="on" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg><span>Birthday Goals</span></a>
+</nav>
+<button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+  <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+  <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <span class="theme-label">Dark mode</span>
+</button>
+</aside>
+<div class="page">
+<main class="wrap" id="main">
+<div id="banner" hidden></div>
+<p class="eyebrow">Interactive Calendar <i></i> <span class="updated-badge"><span class="dot"></span>Updated 13 September 2026</span></p>
+<h1 class="page-title">Did Messi score on your birthday?</h1>
+<p class="page-lead">Search any calendar day (all 366 days) to see every goal Lionel Messi has scored on your birthday throughout his <b>927-goal senior career</b>, including exact match dates, opponents, minute tags, and competition context.</p>
+
+<aside class="ad-native-wrap" aria-label="Advertisement">
+  <span class="ad-native-label">Advertisement</span>
+  <div class="ad-native-slot">
+    <script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
+    <div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
+  </div>
+</aside>
+
+<!-- KPIs Grid -->
+<div class="kpis kpis-4" id="bday-kpis">
+  <div class="kpi">
+    <span class="kpi-label">Senior Goals</span>
+    <span class="kpi-value tnum">927</span>
+    <span class="kpi-note">1,172 appearances</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-label">Days Scored On</span>
+    <span class="kpi-value tnum" id="kpi-days-scored">292</span>
+    <span class="kpi-note">79.8% of the calendar year</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-label">Goal-Free Days</span>
+    <span class="kpi-value tnum" id="kpi-days-empty">74</span>
+    <span class="kpi-note">Off-season &amp; breaks</span>
+  </div>
+  <div class="kpi">
+    <span class="kpi-label">Most Lethal Day</span>
+    <span class="kpi-value tnum">10</span>
+    <span class="kpi-note">2 May &amp; 19 September</span>
+  </div>
+</div>
+
+<!-- Birthday Picker Card -->
+<section class="bday-picker-card" id="bday-picker-section" aria-label="Select your birthday">
+  <form class="bday-form" id="bday-form" onsubmit="return false;">
+    <div class="bday-form-row">
+      <div class="bday-field">
+        <label for="bday-month-select">Select Month</label>
+        <select id="bday-month-select" class="bday-select" aria-label="Birthday Month">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5" selected>May</option>
+          <option value="6">June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+      </div>
+      <div class="bday-field">
+        <label for="bday-day-select">Select Day</label>
+        <select id="bday-day-select" class="bday-select" aria-label="Birthday Day">
+          <!-- Populated by JS based on month -->
+        </select>
+      </div>
+      <button type="button" class="btn-primary bday-check-btn" id="bday-check-btn">Check My Birthday</button>
+    </div>
+
+    <!-- Quick Month Switcher Pills -->
+    <div class="bday-pills-wrap">
+      <span class="bday-pills-label">Fast month jump</span>
+      <div class="bday-month-pills" id="bday-month-pills" role="tablist">
+        <!-- 12 month buttons generated by JS -->
+      </div>
+    </div>
+
+    <!-- Historic Presets -->
+    <div class="bday-presets">
+      <span class="bday-presets-title">Famous Dates:</span>
+      <button type="button" class="bday-preset-chip" data-month="5" data-day="2">2 May (El Clásico 6-2)</button>
+      <button type="button" class="bday-preset-chip" data-month="6" data-day="24">24 June (Messi's Birthday)</button>
+      <button type="button" class="bday-preset-chip" data-month="12" data-day="18">18 Dec (World Cup Final)</button>
+      <button type="button" class="bday-preset-chip" data-month="3" data-day="7">7 Mar (5 Goals vs Leverkusen)</button>
+      <button type="button" class="bday-preset-chip" data-month="12" data-day="22">22 Dec (91st Goal in 2012)</button>
+      <button type="button" class="bday-preset-chip" data-month="5" data-day="1">1 May (First Senior Goal)</button>
+      <button type="button" class="bday-preset-chip" id="bday-preset-today">Today's Date</button>
+      <button type="button" class="bday-preset-chip" id="bday-preset-random">🎲 Random Day</button>
+    </div>
+  </form>
+</section>
+
+<!-- Dynamic Verdict Section -->
+<section class="bday-verdict-card" id="bday-verdict" aria-live="polite">
+  <div class="bday-verdict-header">
+    <div class="bday-verdict-main">
+      <div id="bday-verdict-badge"></div>
+      <h2 class="bday-target-date" id="bday-target-date">2 May</h2>
+      <p class="bday-headline" id="bday-headline">Checking goal history…</p>
+      <div class="bday-actions">
+        <button type="button" class="btn-primary" id="bday-share-btn">Share My Birthday Stats</button>
+        <span class="bday-share-msg" id="bday-share-msg" aria-live="polite"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matches list container -->
+  <div class="bday-match-list" id="bday-match-list">
+    <!-- Populated by JS -->
+  </div>
+</section>
+
+<!-- 366-Day Calendar Heatmap Matrix -->
+<section class="bday-heatmap-section" id="bday-heatmap">
+  <div class="section-head">
+    <h2>366-Day Career Goal Matrix</h2>
+    <span class="section-note">Click any day to see match breakdown</span>
+  </div>
+  <p class="section-sub">A complete visual map of all 366 calendar days across Lionel Messi's 22-year senior career. Every square is colored by the number of career goals scored on that date.</p>
+
+  <div class="bday-heatmap-grid" id="bday-heatmap-grid">
+    <!-- 12 Month Cards populated by JS -->
+  </div>
+
+  <div class="bday-heatmap-legend">
+    <span>Goals scored:</span>
+    <div class="bday-legend-item"><span class="bday-legend-swatch tier-0"></span> 0 goals</div>
+    <div class="bday-legend-item"><span class="bday-legend-swatch tier-1"></span> 1–2 goals</div>
+    <div class="bday-legend-item"><span class="bday-legend-swatch tier-2"></span> 3–5 goals</div>
+    <div class="bday-legend-item"><span class="bday-legend-swatch tier-3"></span> 6–8 goals</div>
+    <div class="bday-legend-item"><span class="bday-legend-swatch tier-4"></span> 9–10 goals (Peak)</div>
+  </div>
+</section>
+
+<!-- Top Scoring Days Leaderboard -->
+<section class="table-card" id="bday-top-days" style="margin-top: 2.8rem;">
+  <div class="section-head" style="margin: 0 0 10px;">
+    <h2>Top 15 Most Prolific Calendar Days</h2>
+    <span class="section-note">Days with the highest career goal counts</span>
+  </div>
+  <div style="overflow-x: auto;">
+    <table class="data-table" id="top-days-table">
+      <caption>Lionel Messi's most lethal calendar dates across all club and international competitions</caption>
+      <thead>
+        <tr>
+          <th class="left">Rank</th>
+          <th class="left">Date</th>
+          <th>Goals</th>
+          <th>Matches</th>
+          <th>Rate (G/M)</th>
+          <th class="left">Historic Clashes</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="top-days-tbody">
+        <!-- Generated by JS -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Monthly Breakdown Table -->
+<section class="table-card" id="bday-monthly" style="margin-top: 2.8rem;">
+  <div class="section-head" style="margin: 0 0 10px;">
+    <h2>Goals by Calendar Month</h2>
+    <span class="section-note">Monthly distribution across 927 career goals</span>
+  </div>
+  <div style="overflow-x: auto;">
+    <table class="data-table" id="monthly-table">
+      <caption>Career goal distribution across the twelve months of the year</caption>
+      <thead>
+        <tr>
+          <th class="left">Month</th>
+          <th>Total Goals</th>
+          <th>% of Career</th>
+          <th>Days Scored On</th>
+          <th>Day Coverage</th>
+          <th class="left">Peak Day in Month</th>
+        </tr>
+      </thead>
+      <tbody id="monthly-tbody">
+        <!-- Generated by JS -->
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Frequently Asked Questions -->
+<section class="method" id="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="qa-grid">
+    <div class="qa">
+      <h3>Has Messi ever scored on his own birthday?</h3>
+      <p><b>No.</b> Messi was born on 24 June 1987. Late June corresponds to the European club off-season or rest intervals at international tournaments, meaning Messi has never played a competitive match on 24 June.</p>
+    </div>
+    <div class="qa">
+      <h3>What is Messi's single most prolific calendar day?</h3>
+      <p>Messi has scored <b>10 goals</b> on both 2 May and 19 September. His 2 May tally includes his historic two-goal display at the Santiago Bernabéu in the 6-2 El Clásico of 2009.</p>
+    </div>
+    <div class="qa">
+      <h3>How many days of the year has Messi scored a goal?</h3>
+      <p>Messi has scored on <b>292 of 366 possible days</b> (79.8% of the year), including leap day (29 February 2012 vs Switzerland, where he scored a hat-trick for Argentina).</p>
+    </div>
+    <div class="qa">
+      <h3>Which month does Messi score the most goals in?</h3>
+      <p><b>March</b> is Messi's peak scoring month with 115 goals, followed by September (99 goals) and January (96 goals). July is the lowest (22 goals) due to summer club breaks.</p>
+    </div>
+    <div class="qa">
+      <h3>Did Messi score on Christmas or New Year's Day?</h3>
+      <p>No. Competitive leagues in Spain, France, and North America take winter breaks over Christmas and New Year's Day, so Messi has never played on 25 December or 1 January.</p>
+    </div>
+    <div class="qa">
+      <h3>How is this goal dataset verified?</h3>
+      <p>Every single one of the 927 goals is dated and cross-checked against primary match logs from FC Barcelona, PSG, Inter Miami, and the Argentine Football Association.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Explore links -->
+<div class="section-head">
+  <h2>Explore More Messi Statistics</h2>
+</div>
+<div class="link-grid">
+  <a class="link-card" href="index.html">
+    <strong>Career Overview</strong>
+    <span>927 goals, 46 trophies, 8 Ballons d'Or summary</span>
+  </a>
+  <a class="link-card" href="goalsbyyear.html">
+    <strong>Goals by Year</strong>
+    <span>Full breakdown from 2004 to 2026, including 91 goals in 2012</span>
+  </a>
+  <a class="link-card" href="goalsbyseason.html">
+    <strong>Goals by Season</strong>
+    <span>Season-by-season records across Europe and MLS</span>
+  </a>
+  <a class="link-card" href="dashboard.html">
+    <strong>Deep Analytics Dashboard</strong>
+    <span>Team splits, home vs away, hat-tricks, and body-part goals</span>
+  </a>
+  <a class="link-card" href="timeline.html">
+    <strong>Through the Years</strong>
+    <span>Chronological timeline with photo archive and milestones</span>
+  </a>
+  <a class="link-card" href="achievements.html">
+    <strong>Trophy Cabinet</strong>
+    <span>Complete record of all 46 team titles and major individual honours</span>
+  </a>
+</div>
+
+<footer class="footer">
+  <div class="colophon">
+    <p><b>MessiStats</b> — independent statistical archive. Career total reconciled to exactly 927 senior goals (802 club + 125 Argentina) as of 13 September 2026. Free open data, updated after every fixture.</p>
+  </div>
+  <p>© 2026 MessiStats. Not affiliated with or endorsed by Lionel Messi, FC Barcelona, Inter Miami CF, PSG, or the AFA.</p>
+</footer>
+
+</main>
+</div>
+<script type="module" src="src/app.js"></script>
+</body>
+</html>

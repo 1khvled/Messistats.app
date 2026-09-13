@@ -5,6 +5,55 @@ import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
 inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 injectSpeedInsights(); // Core Web Vitals; same deal — production only, silent locally
+
+/* Theme manager (Dark / Light mode) with localStorage persistence and OS sync */
+function initTheme() {
+  const getPreferred = () => {
+    try {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || saved === "light") return saved;
+    } catch (_) {}
+    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  };
+
+  const applyTheme = (theme) => {
+    if (theme === "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.removeAttribute("data-theme");
+    }
+    const btns = document.querySelectorAll(".theme-toggle");
+    btns.forEach((btn) => {
+      const label = btn.querySelector(".theme-label");
+      if (label) label.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+      btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      btn.setAttribute("title", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+    });
+  };
+
+  applyTheme(getPreferred());
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".theme-toggle");
+    if (!btn) return;
+    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+    const next = current === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", next); } catch (_) {}
+    applyTheme(next);
+  });
+
+  if (window.matchMedia) {
+    try {
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
+        try {
+          if (!localStorage.getItem("theme")) applyTheme(e.matches ? "dark" : "light");
+        } catch (_) {}
+      });
+    } catch (_) {}
+  }
+}
+initTheme();
+
 async function load() {
   const r = await fetch("data/messi-data.json", { cache: "no-store" });
   if (!r.ok) throw new Error("data " + r.status);
@@ -164,12 +213,13 @@ const EXPLORE = [
   { href: "dashboard.html", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
   { href: "timeline.html", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
   { href: "achievements.html", page: "achievements", t: "Messi trophies and awards", d: () => "All 46 team titles plus a record 8 Ballons d'Or." },
+  { href: "birthday.html", page: "birthday", t: "Did Messi score on your birthday?", d: () => "Search all 365 calendar days across Messi's 927 senior career goals." },
 ];
 function renderExplore(d, page) {
   const e = el("explore");
   if (!e) return;
   e.innerHTML = EXPLORE.filter((x) => x.page !== page)
-    .slice(0, 5)
+    .slice(0, 6)
     .map((x) => `<a class="link-card" href="${x.href}"><strong>${esc(x.t)}</strong><span>${esc(x.d(d))}</span></a>`)
     .join("");
 }
@@ -1114,6 +1164,471 @@ function armEntrance() {
   grids.forEach((g) => { if (!g.dataset.armed) entranceObs.observe(g); });
 }
 
+/* Universal clipboard helper with textarea fallback */
+async function copyToClipboard(text, msgEl, successMsg = "Copied to clipboard!") {
+  let ok = false;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    }
+  } catch (_) {}
+  if (!ok) {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      ta.remove();
+      ok = true;
+    } catch (_) {}
+  }
+  if (msgEl) {
+    msgEl.textContent = ok ? successMsg : text;
+    clearTimeout(msgEl._timer);
+    msgEl._timer = setTimeout(() => { msgEl.textContent = ""; }, 3500);
+  }
+}
+
+/* ================= BIRTHDAY GOALS EXPLORER ================= */
+async function renderBirthday(d) {
+  let bdayData;
+  try {
+    const res = await fetch("data/birthday-goals.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("birthday goals data " + res.status);
+    bdayData = await res.json();
+  } catch (err) {
+    console.error("Failed to load birthday data", err);
+    return;
+  }
+
+  const meta = bdayData.meta || {};
+  const calendar = bdayData.calendar || {};
+
+  if (el("kpi-days-scored")) el("kpi-days-scored").textContent = meta.daysWithGoals || 292;
+  if (el("kpi-days-empty")) el("kpi-days-empty").textContent = meta.daysWithoutGoals || 74;
+
+  const MONTH_NAMES = [
+    "", "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const DAYS_IN_MONTH = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  const pad2 = (num) => String(num).padStart(2, "0");
+  const makeKey = (m, day) => `${pad2(m)}-${pad2(day)}`;
+
+  const monthSelect = el("bday-month-select");
+  const daySelect = el("bday-day-select");
+  const checkBtn = el("bday-check-btn");
+  const pillsWrap = el("bday-month-pills");
+
+  const updateDaysDropdown = (m, keepDay) => {
+    if (!daySelect) return;
+    const maxDays = DAYS_IN_MONTH[m] || 31;
+    let selected = keepDay ? Math.min(keepDay, maxDays) : +(daySelect.value || 1);
+    if (selected > maxDays) selected = maxDays;
+    let html = "";
+    for (let i = 1; i <= maxDays; i++) {
+      html += `<option value="${i}"${i === selected ? " selected" : ""}>${i}</option>`;
+    }
+    daySelect.innerHTML = html;
+  };
+
+  if (pillsWrap) {
+    let pillsHtml = "";
+    for (let m = 1; m <= 12; m++) {
+      const shortName = MONTH_NAMES[m].slice(0, 3);
+      pillsHtml += `<button type="button" class="bday-month-pill" data-month="${m}">${shortName}</button>`;
+    }
+    pillsWrap.innerHTML = pillsHtml;
+    pillsWrap.addEventListener("click", (e) => {
+      const btn = e.target.closest(".bday-month-pill");
+      if (!btn) return;
+      const m = +btn.dataset.month;
+      if (monthSelect) monthSelect.value = m;
+      const currentDay = daySelect ? +daySelect.value : 1;
+      updateDaysDropdown(m, currentDay);
+      selectDate(m, daySelect ? +daySelect.value : 1, false);
+    });
+  }
+
+  const findClosestScoringDay = (targetKey) => {
+    const keys = Object.keys(calendar);
+    const targetIdx = keys.indexOf(targetKey);
+    if (targetIdx === -1) return null;
+    let best = null;
+    let bestDist = Infinity;
+    for (let i = 0; i < keys.length; i++) {
+      const k = keys[i];
+      if (calendar[k] && calendar[k].goalsCount > 0) {
+        const dist = Math.min(
+          Math.abs(i - targetIdx),
+          keys.length - Math.abs(i - targetIdx)
+        );
+        if (dist < bestDist && dist > 0) {
+          bestDist = dist;
+          best = calendar[k];
+        }
+      }
+    }
+    return best;
+  };
+
+  const selectDate = (m, day, shouldScroll = false) => {
+    m = +m;
+    day = +day;
+    if (isNaN(m) || m < 1 || m > 12) m = 5;
+    const maxDays = DAYS_IN_MONTH[m] || 31;
+    if (isNaN(day) || day < 1 || day > maxDays) day = 2;
+
+    if (monthSelect) monthSelect.value = m;
+    updateDaysDropdown(m, day);
+    if (daySelect) daySelect.value = day;
+
+    if (pillsWrap) {
+      pillsWrap.querySelectorAll(".bday-month-pill").forEach((p) => {
+        p.classList.toggle("on", +p.dataset.month === m);
+      });
+    }
+
+    document.querySelectorAll(".bday-day-btn").forEach((cell) => {
+      const isMatch = +cell.dataset.month === m && +cell.dataset.day === day;
+      cell.classList.toggle("active", isMatch);
+      if (isMatch) cell.setAttribute("aria-current", "date");
+      else cell.removeAttribute("aria-current");
+    });
+
+    const key = makeKey(m, day);
+    const dayData = calendar[key] || {
+      key,
+      month: m,
+      day,
+      monthName: MONTH_NAMES[m],
+      formatted: `${day} ${MONTH_NAMES[m]}`,
+      goalsCount: 0,
+      matches: []
+    };
+
+    try {
+      const url = new URL(location.href);
+      url.searchParams.set("date", key);
+      history.replaceState(null, "", url.pathname + url.search + url.hash);
+    } catch (_) {}
+
+    const targetDateEl = el("bday-target-date");
+    const badgeEl = el("bday-verdict-badge");
+    const headlineEl = el("bday-headline");
+    const matchListEl = el("bday-match-list");
+    const shareBtn = el("bday-share-btn");
+    const shareMsg = el("bday-share-msg");
+
+    if (targetDateEl) targetDateEl.textContent = dayData.formatted;
+
+    if (dayData.goalsCount > 0) {
+      if (badgeEl) {
+        badgeEl.innerHTML = `<span class="bday-badge-success">🎉 Yes! Messi Scored On Your Birthday!</span>`;
+      }
+      const matchWord = dayData.matches.length === 1 ? "match" : "matches";
+      const goalWord = dayData.goalsCount === 1 ? "goal" : "goals";
+      if (headlineEl) {
+        headlineEl.innerHTML = `Lionel Messi scored <b>${dayData.goalsCount} ${goalWord}</b> in <b>${dayData.matches.length} ${matchWord}</b> on ${dayData.formatted} throughout his senior career!`;
+      }
+
+      if (matchListEl) {
+        let matchesHtml = "";
+        dayData.matches.forEach((match) => {
+          const minTags = (match.minutes || [])
+            .map((min) => `<span class="bday-min-tag">⚽ ${esc(min)}'</span>`)
+            .join(" ");
+          const typeTags = (match.types || []).filter(Boolean).length
+            ? `<span class="bday-shot-types">(${match.types.join(", ")})</span>`
+            : "";
+
+          matchesHtml += `
+            <article class="bday-match-card">
+              <div class="bday-match-meta">
+                <span class="bday-match-date-badge">${esc(match.date)}</span>
+                <span class="bday-comp-chip">${esc(match.competition || "Official Match")}</span>
+              </div>
+              <div class="bday-match-fixture">
+                <span>${esc(match.team)}</span>
+                <span class="bday-score-pill">${esc(match.score || "—")}</span>
+                <span>${esc(match.opponent)}</span>
+              </div>
+              <div class="bday-goals-summary">
+                <strong>${match.goalsCount} ${match.goalsCount === 1 ? "goal" : "goals"} scored:</strong>
+                <div class="bday-minute-tags">${minTags}</div>
+                ${typeTags}
+              </div>
+            </article>
+          `;
+        });
+        matchListEl.innerHTML = matchesHtml;
+      }
+
+      if (shareBtn) {
+        shareBtn.hidden = false;
+        shareBtn.onclick = () => {
+          const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours? Check here: ${location.origin}${location.pathname}?date=${key}`;
+          copyToClipboard(shareText, shareMsg);
+        };
+      }
+    } else {
+      const isMessiBday = (m === 6 && day === 24);
+      if (isMessiBday) {
+        if (badgeEl) {
+          badgeEl.innerHTML = `<span class="bday-badge-messi">🎂 Leo Messi's Own Birthday!</span>`;
+        }
+        if (headlineEl) {
+          headlineEl.innerHTML = `You share a birthday with <b>Lionel Andrés Messi</b> (born 24 June 1987 in Rosario)!`;
+        }
+        if (matchListEl) {
+          matchListEl.innerHTML = `
+            <div class="bday-empty-box">
+              <p><b>Why 0 goals?</b> Lionel Messi has never played a competitive senior match on 24 June because late June falls during the European club summer off-season or scheduled rest intervals between international tournament rounds.</p>
+              <p>You share your special day with the greatest footballer in history!</p>
+            </div>
+          `;
+        }
+      } else {
+        if (badgeEl) {
+          badgeEl.innerHTML = `<span class="bday-badge-empty">No Goals on this Date</span>`;
+        }
+        if (headlineEl) {
+          headlineEl.innerHTML = `Lionel Messi has not scored on <b>${dayData.formatted}</b> during his senior career.`;
+        }
+        const closest = findClosestScoringDay(key);
+        if (matchListEl) {
+          let closestHtml = "";
+          if (closest) {
+            closestHtml = `
+              <p>The closest calendar day Messi scored on is <b>${closest.formatted}</b> (${closest.goalsCount} career goals).</p>
+              <button type="button" class="btn bday-closest-btn" data-month="${closest.month}" data-day="${closest.day}">
+                Check ${closest.formatted} (${closest.goalsCount} goals)
+              </button>
+            `;
+          }
+          matchListEl.innerHTML = `
+            <div class="bday-empty-box">
+              <p>Messi did not have a match scheduled or did not score on this specific calendar day — but he has scored on <b>292 of 366 days (79.8%)</b> of the year!</p>
+              ${closestHtml}
+            </div>
+          `;
+          const closestBtn = matchListEl.querySelector(".bday-closest-btn");
+          if (closestBtn) {
+            closestBtn.addEventListener("click", () => {
+              selectDate(+closestBtn.dataset.month, +closestBtn.dataset.day, true);
+            });
+          }
+        }
+      }
+
+      if (shareBtn) {
+        shareBtn.hidden = false;
+        shareBtn.onclick = () => {
+          const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours? Find out: ${location.origin}${location.pathname}?date=${key}`;
+          copyToClipboard(shareText, shareMsg);
+        };
+      }
+    }
+
+    if (shouldScroll) {
+      const v = el("bday-verdict");
+      if (v) v.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  if (monthSelect) {
+    monthSelect.addEventListener("change", (e) => {
+      const m = +e.target.value;
+      const currentDay = daySelect ? +daySelect.value : 1;
+      updateDaysDropdown(m, currentDay);
+      selectDate(m, daySelect ? +daySelect.value : 1, false);
+    });
+  }
+  if (daySelect) {
+    daySelect.addEventListener("change", (e) => {
+      const dVal = +e.target.value;
+      const m = monthSelect ? +monthSelect.value : 5;
+      selectDate(m, dVal, false);
+    });
+  }
+  if (checkBtn) {
+    checkBtn.addEventListener("click", () => {
+      const m = monthSelect ? +monthSelect.value : 5;
+      const dVal = daySelect ? +daySelect.value : 2;
+      selectDate(m, dVal, true);
+    });
+  }
+
+  document.querySelectorAll(".bday-preset-chip[data-month]").forEach((chip) => {
+    chip.addEventListener("click", () => {
+      selectDate(+chip.dataset.month, +chip.dataset.day, true);
+    });
+  });
+
+  const todayBtn = el("bday-preset-today");
+  if (todayBtn) {
+    todayBtn.addEventListener("click", () => {
+      const now = new Date();
+      selectDate(now.getMonth() + 1, now.getDate(), true);
+    });
+  }
+
+  const randomBtn = el("bday-preset-random");
+  if (randomBtn) {
+    randomBtn.addEventListener("click", () => {
+      const keys = Object.keys(calendar);
+      const randomKey = keys[Math.floor(Math.random() * keys.length)];
+      const [rm, rd] = randomKey.split("-").map(Number);
+      selectDate(rm, rd, true);
+    });
+  }
+
+  const heatmapGrid = el("bday-heatmap-grid");
+  if (heatmapGrid) {
+    let heatmapHtml = "";
+    for (let m = 1; m <= 12; m++) {
+      const mName = MONTH_NAMES[m];
+      const maxDays = DAYS_IN_MONTH[m];
+      const mMeta = (meta.months || []).find((x) => x.month === m) || { goals: 0, daysScored: 0 };
+
+      let daysHtml = "";
+      for (let day = 1; day <= maxDays; day++) {
+        const k = makeKey(m, day);
+        const gCount = calendar[k]?.goalsCount || 0;
+        let tier = "tier-0";
+        if (gCount >= 9) tier = "tier-4";
+        else if (gCount >= 6) tier = "tier-3";
+        else if (gCount >= 3) tier = "tier-2";
+        else if (gCount >= 1) tier = "tier-1";
+
+        const title = `${day} ${mName}: ${gCount} ${gCount === 1 ? "goal" : "goals"}`;
+        daysHtml += `<button type="button" class="bday-day-btn ${tier}" data-month="${m}" data-day="${day}" title="${esc(title)}" aria-label="${esc(title)}">${day}</button>`;
+      }
+
+      heatmapHtml += `
+        <div class="bday-month-card">
+          <div class="bday-month-card-head">
+            <h3 class="bday-month-card-title">${mName}</h3>
+            <span class="bday-month-card-goals">${mMeta.goals} goals</span>
+          </div>
+          <div class="bday-days-grid">${daysHtml}</div>
+        </div>
+      `;
+    }
+    heatmapGrid.innerHTML = heatmapHtml;
+    heatmapGrid.addEventListener("click", (e) => {
+      const cell = e.target.closest(".bday-day-btn");
+      if (!cell) return;
+      selectDate(+cell.dataset.month, +cell.dataset.day, true);
+    });
+  }
+
+  const topTbody = el("top-days-tbody");
+  if (topTbody && meta.topDays) {
+    let topHtml = "";
+    const highlights = {
+      "05-02": "El Clásico 6-2 at the Bernabéu (2009), Getafe brace (2015)",
+      "09-19": "Champions League hat-trick vs Ajax (2013), Eibar 4 goals (2017)",
+      "01-06": "Hat-trick vs Atlético Madrid in Copa del Rey (2009)",
+      "03-07": "Historic 5-goal Champions League night vs Bayer Leverkusen (2012)",
+      "03-17": "Hat-trick at Real Betis with iconic Camp Nou standing ovation (2019)",
+      "10-19": "Champions League hat-trick vs Manchester City (2016)",
+      "02-19": "4 goals vs Valencia in La Liga (2012)",
+      "12-07": "Hat-trick vs Mallorca (2019), Espanyol brace (2018)",
+      "02-01": "Two goals vs Racing Santander, 5,000th Barça league goal (2009)",
+      "03-14": "Chelsea UCL brace & 100th Champions League goal (2018)",
+      "04-06": "Famous 4 goals vs Arsenal in Champions League quarter-final (2010)",
+      "04-27": "Semi-final Bernabéu solo wondergoal vs Real Madrid (2011)",
+      "06-05": "Historic 5 goals for Argentina vs Estonia (2022)",
+      "09-09": "Hat-trick vs Bolivia in World Cup qualifying (2021)",
+      "09-18": "Champions League hat-trick vs PSV Eindhoven (2018)"
+    };
+
+    meta.topDays.forEach((td, idx) => {
+      const rate = td.matchCount ? (td.goalsCount / td.matchCount).toFixed(2) : "—";
+      const [m, day] = td.key.split("-").map(Number);
+      const note = highlights[td.key] || `${td.goalsCount} goals across ${td.matchCount} appearances`;
+
+      topHtml += `
+        <tr>
+          <td class="left"><b>#${idx + 1}</b></td>
+          <td class="left"><b>${esc(td.formatted)}</b></td>
+          <td><b>${td.goalsCount}</b></td>
+          <td>${td.matchCount}</td>
+          <td>${rate}</td>
+          <td class="left" style="font-size:0.86rem;color:var(--ink-soft)">${esc(note)}</td>
+          <td>
+            <button type="button" class="btn" style="padding:4px 12px;font-size:0.78rem" data-month="${m}" data-day="${day}">Check</button>
+          </td>
+        </tr>
+      `;
+    });
+    topTbody.innerHTML = topHtml;
+    topTbody.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-month]");
+      if (btn) selectDate(+btn.dataset.month, +btn.dataset.day, true);
+    });
+  }
+
+  const monthlyTbody = el("monthly-tbody");
+  if (monthlyTbody && meta.months) {
+    let mHtml = "";
+    meta.months.forEach((row) => {
+      const pct = ((row.goals / meta.totalGoals) * 100).toFixed(1);
+      const dayPct = ((row.daysScored / row.totalDays) * 100).toFixed(1);
+
+      let peakDay = 1, peakGoals = 0;
+      for (let d = 1; d <= row.totalDays; d++) {
+        const k = makeKey(row.month, d);
+        const gc = calendar[k]?.goalsCount || 0;
+        if (gc > peakGoals) {
+          peakGoals = gc;
+          peakDay = d;
+        }
+      }
+      const peakStr = peakGoals > 0 ? `${peakDay} ${row.name} (${peakGoals} goals)` : "—";
+
+      mHtml += `
+        <tr>
+          <td class="left"><b>${esc(row.name)}</b></td>
+          <td><b>${row.goals}</b></td>
+          <td>${pct}%</td>
+          <td>${row.daysScored} / ${row.totalDays}</td>
+          <td>${dayPct}%</td>
+          <td class="left">${esc(peakStr)}</td>
+        </tr>
+      `;
+    });
+    monthlyTbody.innerHTML = mHtml;
+  }
+
+  const params = new URLSearchParams(location.search);
+  let initMonth = 5;
+  let initDay = 2;
+
+  if (params.get("date")) {
+    const parts = params.get("date").split("-");
+    if (parts.length === 2) {
+      initMonth = parseInt(parts[0], 10);
+      initDay = parseInt(parts[1], 10);
+    }
+  } else if (params.get("month") && params.get("day")) {
+    initMonth = parseInt(params.get("month"), 10);
+    initDay = parseInt(params.get("day"), 10);
+  }
+
+  updateDaysDropdown(initMonth, initDay);
+  selectDate(initMonth, initDay, false);
+
+  renderExplore(d, "birthday");
+  renderMethod(d, "Every single one of the 927 senior goals is cross-referenced with exact date, opponent, competition, minute, and scoreline.");
+}
+
 /* ================= BOOT ================= */
 load().then((d) => {
   normalize(d);
@@ -1128,6 +1643,7 @@ load().then((d) => {
     }
     else if (page === "timeline") renderTimeline(d);
     else if (page === "achievements") renderAch(d);
+    else if (page === "birthday") renderBirthday(d);
   } catch (e) {
     console.error(e);
   }

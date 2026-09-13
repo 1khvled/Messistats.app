@@ -2,3 +2,5 @@ node_modules/
 dist/
 .wrangler/
 .superpowers/
+scratch/
+scratch_audit/

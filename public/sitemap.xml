@@ -102,4 +102,10 @@
       <image:geo_location>Rio de Janeiro, Brazil / Miami, USA</image:geo_location>
     </image:image>
   </url>
+  <url>
+    <loc>https://messi-stats.vercel.app/birthday</loc>
+    <lastmod>2026-09-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>
