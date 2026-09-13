@@ -102,9 +102,9 @@ A: Messi has scored 66 direct free kicks in his senior career.
 
 ## 7. Site Navigation & Machine-Readable Data
 
-- Canonical Domain: `https://messi-stats.vercel.app`
-- Raw Dataset (JSON): `https://messi-stats.vercel.app/data/messi-data.json`
-- Sitemap XML: `https://messi-stats.vercel.app/sitemap.xml`
-- Robots TXT: `https://messi-stats.vercel.app/robots.txt`
+- Canonical Domain: `https://www.messistat.com/en`
+- Raw Dataset (JSON): `https://www.messistat.com/data/messi-data.json`
+- Sitemap XML: `https://www.messistat.com/sitemap.xml`
+- Robots TXT: `https://www.messistat.com/robots.txt`
 - Wikidata Entity: `https://www.wikidata.org/wiki/Q615`
 - Official Player Website: `https://messi.com`

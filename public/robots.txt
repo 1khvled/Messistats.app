@@ -1,5 +1,4 @@
-# TODO(SEO): replace the sitemap host with the production domain on deploy.
 User-agent: *
 Allow: /
 
-Sitemap: https://messi-stats.vercel.app/sitemap.xml
+Sitemap: https://www.messistat.com/sitemap.xml

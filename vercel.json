@@ -4,6 +4,16 @@
   "outputDirectory": "dist",
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/en", "destination": "/index.html" },
+    { "source": "/en/", "destination": "/index.html" },
+    { "source": "/en/goalsbyyear", "destination": "/goalsbyyear.html" },
+    { "source": "/en/goalsbyseason", "destination": "/goalsbyseason.html" },
+    { "source": "/en/dashboard", "destination": "/dashboard.html" },
+    { "source": "/en/timeline", "destination": "/timeline.html" },
+    { "source": "/en/achievements", "destination": "/achievements.html" },
+    { "source": "/en/birthday", "destination": "/birthday.html" }
+  ],
   "headers": [
     {
       "source": "/fonts/(.*)",

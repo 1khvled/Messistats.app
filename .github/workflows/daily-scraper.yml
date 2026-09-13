@@ -1,0 +1,57 @@
+name: Daily Messi Stats Scraper & Auto-Deploy
+
+on:
+  schedule:
+    # Runs every 24 hours at 04:00 UTC (midnight EST / post-match evening Americas)
+    - cron: '0 4 * * *'
+  workflow_dispatch: # Allows manual one-click trigger anytime from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  scrape-and-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Python & Node Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install beautifulsoup4
+          npm ci
+
+      - name: Run 24h Scrapers & Auto-Sync
+        run: |
+          python scripts/scrape-live-sync.py
+          node scripts/source-watch.mjs
+
+      - name: Build & Run Verification Audits
+        run: |
+          npm run build
+          npm run audit
+
+      - name: Commit & Push New Match Stats
+        run: |
+          git config --global user.name "messistat-bot"
+          git config --global user.email "bot@messistat.com"
+          git add public/data/ dist/
+          if git status --porcelain | grep -q .; then
+            git commit -m "chore(stats): daily 24h automated stat sync [skip ci]"
+            git push
+            echo "Successfully synced new match data and pushed to origin/main."
+          else
+            echo "All stats up to date. No new match changes to commit."
+          fi

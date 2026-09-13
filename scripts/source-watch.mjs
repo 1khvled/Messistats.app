@@ -239,17 +239,18 @@ function upsertArticle(a, h, prev) {
   }
 }
 
-// Read-only sanity: the three 927 sums (iron rule). Staging, never gating.
+// Read-only sanity: the three sums must reconcile to totals.combined.goals.
 {
+  const total = d?.totals?.combined?.goals || 928;
   const s1 = d.calendarYears.reduce((a, r) => a + r.goals, 0);
   const s2 = d.byCompetition.reduce((a, r) => a + r.goals, 0);
   const s3 = d.byBodyPart.reduce((a, r) => a + r.goals, 0);
-  console.log("sums: calendarYears=" + s1 + " byCompetition=" + s2 + " byBodyPart=" + s3);
-  if (s1 === 927 && s2 === 927 && s3 === 927) check("internal-927", "structured", true, "all three sums reconcile to 927");
+  console.log("sums: calendarYears=" + s1 + " byCompetition=" + s2 + " byBodyPart=" + s3 + " total=" + total);
+  if (s1 === total && s2 === total && s3 === total) check("internal-checksums", "structured", true, "all three sums reconcile to " + total);
   else {
-    check("internal-927", "structured", false, "sums=" + s1 + "/" + s2 + "/" + s3);
+    check("internal-checksums", "structured", false, "sums=" + s1 + "/" + s2 + "/" + s3 + " vs total=" + total);
     stage(watchRow("watch:internal:sums", "messi-data.json self-check",
-      "Internal sums broke 927 (" + s1 + "/" + s2 + "/" + s3 + ") — hand-fix before anything else.", []));
+      "Internal sums broke " + total + " (" + s1 + "/" + s2 + "/" + s3 + ") — hand-fix before anything else.", []));
   }
 }
 

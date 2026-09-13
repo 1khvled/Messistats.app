@@ -15,7 +15,8 @@
     "verify:watch": "node scripts/source-watch.mjs",
     "pending": "node scripts/confirm-provisional.mjs --list",
     "triage": "node scripts/triage.mjs",
-    "audit": "node scripts/dist-audit.cjs"
+    "audit": "node scripts/dist-audit.cjs",
+    "sync:daily": "python scripts/scrape-live-sync.py && node scripts/source-watch.mjs"
   },
   "devDependencies": {
     "vite": "^6.0.0"

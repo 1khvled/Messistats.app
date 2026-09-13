@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "CROSS_CHECKED",
-    "updated": "2026-09-09",
+    "updated": "2026-09-14",
     "methodology": "Senior first-team matches only (league, national cup, continental, other). Youth/reserve excluded (Barcelona C/B rows dropped from totals). Each row cross-checked across 2+ free sources; splits must reconcile to the row total.",
     "verification": [
       "Club season splits: Wikipedia Lionel Messi career table (cites BDFutbol match logs), fetched 2026-09-09. Corrected 6 AS.com rows that disagreed (2009/10, 2010/11, 2011/12, 2012/13, 2013/14, 2015/16).",
@@ -44,8 +44,8 @@
   },
   "totals": {
     "club": {
-      "appearances": 965,
-      "goals": 802,
+      "appearances": 966,
+      "goals": 803,
       "goalsPerGame": 0.83
     },
     "country": {
@@ -54,8 +54,8 @@
       "goalsPerGame": 0.6
     },
     "combined": {
-      "appearances": 1172,
-      "goals": 927
+      "appearances": 1173,
+      "goals": 928
     },
     "assists": null,
     "note": "Apps/goals are cross-checked sums of the rows below. Assists pending hand compilation.",
@@ -551,8 +551,8 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        20,
-        18
+        21,
+        19
       ],
       "cup": [
         0,
@@ -566,8 +566,8 @@
         2,
         2
       ],
-      "apps": 24,
-      "goals": 21
+      "apps": 25,
+      "goals": 22
     }
   ],
   "countryYears": [
@@ -900,7 +900,7 @@
     {
       "competition": "MLS (regular season)",
       "team": "Inter Miami",
-      "goals": 68
+      "goals": 69
     },
     {
       "competition": "Copa del Rey",
@@ -947,7 +947,7 @@
   "byFinish": [
     {
       "finish": "Open play",
-      "goals": 752
+      "goals": 753
     },
     {
       "finish": "Penalties",
@@ -961,7 +961,7 @@
   "byBodyPart": [
     {
       "part": "Left foot",
-      "goals": 740
+      "goals": 741
     },
     {
       "part": "Right foot",
@@ -1425,8 +1425,8 @@
     },
     {
       "year": 2026,
-      "goals": 31,
-      "careerTotal": 927,
+      "goals": 32,
+      "careerTotal": 928,
       "age": 39,
       "status": "provisional-ongoing"
     }

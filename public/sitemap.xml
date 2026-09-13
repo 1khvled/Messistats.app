@@ -2,108 +2,108 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://messi-stats.vercel.app/</loc>
+    <loc>https://www.messistat.com/en/</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/messi.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/messi.jpg</image:loc>
       <image:title>Lionel Messi Inter Miami CF 2026</image:title>
       <image:caption>Lionel Messi wearing the captain's armband for Inter Miami CF during the 2026 season.</image:caption>
       <image:geo_location>Miami, Florida, United States</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/og-messi.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/og-messi.jpg</image:loc>
       <image:title>Lionel Messi 927 Career Goals Official Stats</image:title>
       <image:caption>Lionel Messi career overview: 927 goals in 1,172 senior appearances, 46 trophies, 8 Ballons d'Or.</image:caption>
     </image:image>
   </url>
   <url>
-    <loc>https://messi-stats.vercel.app/goalsbyyear</loc>
+    <loc>https://www.messistat.com/en/goalsbyyear</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://messi-stats.vercel.app/goalsbyseason</loc>
+    <loc>https://www.messistat.com/en/goalsbyseason</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://messi-stats.vercel.app/dashboard</loc>
+    <loc>https://www.messistat.com/en/dashboard</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://messi-stats.vercel.app/timeline</loc>
+    <loc>https://www.messistat.com/en/timeline</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/era-barca-early.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/era-barca-early.jpg</image:loc>
       <image:title>Lionel Messi Barcelona Breakthrough (2004–2008)</image:title>
       <image:caption>Lionel Messi during his breakthrough early years at FC Barcelona wearing number 19.</image:caption>
       <image:geo_location>Barcelona, Spain</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/era-barca-peak.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/era-barca-peak.jpg</image:loc>
       <image:title>Lionel Messi Peak Barcelona Era (2008–2012)</image:title>
       <image:caption>Lionel Messi during the peak Pep Guardiola sextuple era and 91-goal 2012 world-record year.</image:caption>
       <image:geo_location>Barcelona, Spain</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/era-barca-late.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/era-barca-late.jpg</image:loc>
       <image:title>Lionel Messi Barcelona Captaincy and MSN Era (2014–2021)</image:title>
       <image:caption>Lionel Messi captaining FC Barcelona through the 2015 treble and final Camp Nou years.</image:caption>
       <image:geo_location>Barcelona, Spain</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/era-psg.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/era-psg.jpg</image:loc>
       <image:title>Lionel Messi Paris Saint-Germain (2021–2023)</image:title>
       <image:caption>Lionel Messi playing for Paris Saint-Germain at Parc des Princes in Ligue 1.</image:caption>
       <image:geo_location>Paris, France</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/era-miami.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/era-miami.jpg</image:loc>
       <image:title>Lionel Messi Inter Miami CF (2023–2026)</image:title>
       <image:caption>Lionel Messi leading Inter Miami to Leagues Cup, Supporters' Shield and MLS Cup titles.</image:caption>
       <image:geo_location>Fort Lauderdale, Florida, United States</image:geo_location>
     </image:image>
   </url>
   <url>
-    <loc>https://messi-stats.vercel.app/achievements</loc>
+    <loc>https://www.messistat.com/en/achievements</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/cab-ballon.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/cab-ballon.jpg</image:loc>
       <image:title>Lionel Messi Record 8 Ballons d'Or</image:title>
       <image:caption>Lionel Messi celebrating his record 8th Ballon d'Or award (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023).</image:caption>
       <image:geo_location>Paris, France</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/cab-wc.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/cab-wc.jpg</image:loc>
       <image:title>Lionel Messi FIFA World Cup Trophy 2022</image:title>
       <image:caption>Lionel Messi lifting the FIFA World Cup trophy after Argentina's final victory against France in Qatar.</image:caption>
       <image:geo_location>Lusail, Qatar</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/cab-ucl.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/cab-ucl.jpg</image:loc>
       <image:title>Lionel Messi UEFA Champions League Trophies</image:title>
       <image:caption>Lionel Messi celebrating one of his 4 UEFA Champions League titles with FC Barcelona (2006, 2009, 2011, 2015).</image:caption>
       <image:geo_location>Rome, Italy / London, UK / Berlin, Germany</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://messi-stats.vercel.app/img/cab-copa.jpg</image:loc>
+      <image:loc>https://www.messistat.com/en/img/cab-copa.jpg</image:loc>
       <image:title>Lionel Messi Copa América Champion</image:title>
       <image:caption>Lionel Messi celebrating continental championship with Argentina at Copa América (2021 and 2024).</image:caption>
       <image:geo_location>Rio de Janeiro, Brazil / Miami, USA</image:geo_location>
     </image:image>
   </url>
   <url>
-    <loc>https://messi-stats.vercel.app/birthday</loc>
+    <loc>https://www.messistat.com/en/birthday</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
