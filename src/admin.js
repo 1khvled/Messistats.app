@@ -34,7 +34,6 @@ const COUNTRY_FLAGS = {
 
 // Authentication Constants & Crypto
 const ADMIN_SALT = "(dev-salt-removed)";
-// Default salted SHA-256 hash for: "messi10goat"
 const DEFAULT_HASH = "d8929aaa33eb1eb986bb0ebee05c57fe2a4d16e37f7aa1b9a507affc41c798af";
 
 async function computeSha256(text) {
