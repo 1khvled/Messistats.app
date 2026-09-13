@@ -508,6 +508,248 @@ function renderHome(d) {
 
   renderExplore(d, "home");
   renderMethod(d, "");
+  renderOnThisDay();
+}
+
+/* ================= ON THIS DAY (HOME PAGE WIDGET) ================= */
+async function renderOnThisDay() {
+  const container = el("on-this-day");
+  if (!container) return;
+
+  let bdayData;
+  try {
+    const res = await fetch("data/birthday-goals.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("status " + res.status);
+    bdayData = await res.json();
+  } catch (err) {
+    console.error("Failed to load birthday goals for On This Day", err);
+    container.innerHTML = `<p class="otd-error">Could not load today's match history. <a href="birthday.html">Check birthday explorer &rarr;</a></p>`;
+    return;
+  }
+
+  const calendar = bdayData.calendar || {};
+  const pad2 = (n) => String(n).padStart(2, "0");
+
+  // Daily UTC0 date determination
+  const now = new Date();
+  const utcM = now.getUTCMonth() + 1;
+  const utcD = now.getUTCDate();
+  const todayKey = `${pad2(utcM)}-${pad2(utcD)}`;
+
+  let dayData = calendar[todayKey];
+  let isClosest = false;
+
+  if (!dayData || dayData.goalsCount === 0) {
+    const keys = Object.keys(calendar);
+    const targetIdx = keys.indexOf(todayKey);
+    let closestKey = null;
+    let minDiff = Infinity;
+    keys.forEach((k, idx) => {
+      if (calendar[k] && calendar[k].goalsCount > 0) {
+        const diff = Math.abs(idx - (targetIdx >= 0 ? targetIdx : 0));
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestKey = k;
+        }
+      }
+    });
+    if (closestKey && calendar[closestKey]) {
+      dayData = calendar[closestKey];
+      isClosest = true;
+    }
+  }
+
+  if (!dayData) {
+    container.innerHTML = `<p class="otd-empty">No match data on record for today. <a href="birthday.html">Explore all 365 days &rarr;</a></p>`;
+    return;
+  }
+
+  let activeMatchIdx = 0;
+  let activeGoalIdx = 0;
+
+  const renderContent = () => {
+    const matches = dayData.matches || [];
+    const activeMatch = matches[activeMatchIdx] || matches[0];
+    if (!activeMatch) {
+      container.innerHTML = `<p class="otd-empty">No match data available.</p>`;
+      return;
+    }
+
+    const videos = activeMatch.videos || [];
+    const activeVideo = videos[activeGoalIdx] || videos[0] || {};
+    const hasVideo = !!activeVideo.videoUrl;
+
+    let matchTabsHtml = "";
+    if (matches.length > 1) {
+      matchTabsHtml = `<div class="otd-match-tabs" role="tablist">` +
+        matches.map((m, idx) => {
+          const isActive = idx === activeMatchIdx;
+          const hatTrickLabel = m.goalsCount >= 3 ? " 🎩 Hat-trick" : "";
+          return `<button type="button" class="otd-match-tab${isActive ? " active" : ""}" data-midx="${idx}" role="tab" aria-selected="${isActive}">
+            ${m.year} vs ${esc(m.opponent)} (${m.goalsCount}⚽${hatTrickLabel})
+          </button>`;
+        }).join("") +
+      `</div>`;
+    }
+
+    let goalTabsHtml = "";
+    if (videos.length > 1 || (activeMatch.minutes && activeMatch.minutes.length > 1)) {
+      const count = Math.max(videos.length, activeMatch.minutes ? activeMatch.minutes.length : 1);
+      goalTabsHtml = `<div class="otd-goal-tabs">` +
+        Array.from({ length: count }, (_, gIdx) => {
+          const isActive = gIdx === activeGoalIdx;
+          const min = (videos[gIdx] && videos[gIdx].minute) || (activeMatch.minutes && activeMatch.minutes[gIdx]) || "";
+          return `<button type="button" class="otd-goal-tab${isActive ? " active" : ""}" data-gidx="${gIdx}">
+            Goal ${gIdx + 1}${min ? ` (${min}')` : ""}
+          </button>`;
+        }).join("") +
+      `</div>`;
+    }
+
+    const currentMin = activeVideo.minute || (activeMatch.minutes && activeMatch.minutes[activeGoalIdx]) || "";
+    const currentType = (activeMatch.types && activeMatch.types[activeGoalIdx]) || (activeVideo.penalty ? "Penalty" : (activeVideo.freekick ? "Direct Free Kick" : "Goal"));
+    const goalNumberBadge = activeVideo.goalNumber ? `<span class="otd-goal-num-badge">Career Goal #${activeVideo.goalNumber}</span>` : "";
+
+    const videoPlayerHtml = hasVideo
+      ? `<div class="otd-video-wrap">
+          ${goalTabsHtml}
+          <div class="otd-player-frame">
+            <video controls playsinline preload="metadata" poster="img/og-messi.jpg" src="${esc(activeVideo.videoUrl)}" class="otd-video-element">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>`
+      : `<div class="otd-no-video">
+          <div class="otd-no-video-inner">
+            <p>📺 Video clip for this goal is being verified.</p>
+            <a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(activeMatch.opponent)}+${activeMatch.date}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+              🔍 Search clip on YouTube &rarr;
+            </a>
+          </div>
+        </div>`;
+
+    const statusBadge = isClosest
+      ? `<span class="otd-badge otd-badge-closest">📅 CLOSEST SCORING DAY • ${dayData.formatted.toUpperCase()}</span>`
+      : `<span class="otd-badge"><span class="live-dot pulse"></span> <b>ON THIS DAY • ${dayData.formatted.toUpperCase()} (UTC)</b></span>`;
+
+    const headlineText = isClosest
+      ? `No senior match scheduled today (${now.getUTCDate()} ${["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][utcM]} UTC). Closest scoring day: <b>${dayData.goalsCount} goals</b> on ${dayData.formatted}!`
+      : `On this day in history, Lionel Messi scored <b>${dayData.goalsCount} goals</b> in <b>${matches.length} match${matches.length > 1 ? "es" : ""}</b>!`;
+
+    container.innerHTML = `
+      <div class="otd-header">
+        <div class="otd-header-left">
+          ${statusBadge}
+          <h3 class="otd-headline">${headlineText}</h3>
+        </div>
+        <div class="otd-header-right">
+          <a href="birthday.html?date=${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
+            🎂 Did Messi score on your birthday?
+          </a>
+        </div>
+      </div>
+
+      ${matchTabsHtml}
+
+      <div class="otd-body">
+        <div class="otd-player-column">
+          ${videoPlayerHtml}
+        </div>
+
+        <div class="otd-info-column">
+          <div class="otd-match-scoreline">
+            <span class="otd-team">${esc(activeMatch.team)}</span>
+            <span class="otd-score">${esc(activeMatch.score)}</span>
+            <span class="otd-opponent">${esc(activeMatch.opponent)}</span>
+          </div>
+
+          <div class="otd-meta-row">
+            <span class="otd-comp-badge">${esc(activeMatch.competition)}</span>
+            <span class="otd-date-badge">${esc(activeMatch.date)}</span>
+            ${goalNumberBadge}
+          </div>
+
+          <div class="otd-goal-details-card">
+            <div class="otd-detail-item">
+              <span class="otd-dt-label">Minute</span>
+              <strong class="otd-dt-val">⚽ ${esc(currentMin ? `${currentMin}'` : "—")}</strong>
+            </div>
+            <div class="otd-detail-item">
+              <span class="otd-dt-label">Shot Type</span>
+              <strong class="otd-dt-val">${esc(currentType)}</strong>
+            </div>
+            ${activeVideo.assist ? `
+            <div class="otd-detail-item">
+              <span class="otd-dt-label">Assist</span>
+              <strong class="otd-dt-val">👟 ${esc(activeVideo.assist)}</strong>
+            </div>` : ""}
+            ${activeVideo.xg ? `
+            <div class="otd-detail-item">
+              <span class="otd-dt-label">Expected Goal (xG)</span>
+              <strong class="otd-dt-val">📊 ${activeVideo.xg}</strong>
+            </div>` : ""}
+          </div>
+
+          <div class="otd-cta-row">
+            <a href="birthday.html?date=${todayKey}" class="btn btn-primary btn-sm">
+              Explore All 365 Days &rarr;
+            </a>
+            <button type="button" class="btn btn-secondary btn-sm otd-share-btn">
+              🔗 Share Clip
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    container.querySelectorAll(".otd-match-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        activeMatchIdx = +tab.dataset.midx;
+        activeGoalIdx = 0;
+        renderContent();
+      });
+    });
+
+    container.querySelectorAll(".otd-goal-tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        activeGoalIdx = +tab.dataset.gidx;
+        renderContent();
+      });
+    });
+
+    const vid = container.querySelector("video");
+    if (vid) {
+      vid.addEventListener("play", () => {
+        try {
+          trackVideoPlay(activeMatch.opponent, activeMatch.date, activeMatch.competition);
+        } catch (_) {}
+      }, { once: true });
+    }
+
+    const shareBtn = container.querySelector(".otd-share-btn");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", async () => {
+        const shareText = `On this day in history (${dayData.formatted}), Lionel Messi scored vs ${activeMatch.opponent}! Watch the goal:`;
+        const shareUrl = `${location.origin}/birthday.html?date=${todayKey}`;
+        try {
+          trackShare("otd_card", shareText);
+        } catch (_) {}
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: "Messi Goal On This Day", text: shareText, url: shareUrl });
+            return;
+          } catch (_) {}
+        }
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
+          shareBtn.textContent = "✓ Copied Link!";
+          setTimeout(() => { shareBtn.textContent = "🔗 Share Clip"; }, 2500);
+        }
+      });
+    }
+  };
+
+  renderContent();
 }
 
 /* ================= GOALS BY YEAR ================= */
