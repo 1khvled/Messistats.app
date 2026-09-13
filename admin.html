@@ -127,6 +127,11 @@
         Export
       </button>
 
+      <button class="btn btn-secondary" id="admin-pwd-btn" title="Change Custom Password" type="button">
+        <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Password
+      </button>
+
       <button class="btn btn-secondary" id="admin-sql-btn" title="View Database Setup SQL" type="button">
         <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M4 7c0-1.66 3.58-3 8-3s8 1.34 8 3v10c0 1.66-3.58 3-8 3s-8-1.34-8-3V7z"></path><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"></path></svg>
         SQL Setup
@@ -477,21 +482,54 @@
     <div class="auth-icon-wrap">
       <svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
     </div>
-    <h2 class="auth-title">Admin Access Protected</h2>
-    <p class="auth-desc">Enter your administrator passcode or secret key to view live telemetry and KPIs.</p>
+    <h2 class="auth-title" id="auth-modal-title">Admin Access Protected</h2>
+    <p class="auth-desc" id="auth-modal-desc">Enter your custom administrator password to access live telemetry and KPIs.</p>
 
     <form class="auth-form" id="admin-auth-form">
       <div class="auth-input-group">
-        <input autocomplete="current-password" autofocus class="auth-input" id="admin-passcode-input" placeholder="Enter passcode…" required type="password"/>
+        <input autocomplete="current-password" autofocus class="auth-input" id="admin-passcode-input" placeholder="Enter custom password…" required type="password"/>
+      </div>
+      <div class="auth-input-group" id="admin-confirm-group" style="display: none;">
+        <input autocomplete="new-password" class="auth-input" id="admin-confirm-passcode-input" placeholder="Confirm custom password…" type="password"/>
       </div>
       <label class="auth-remember">
         <input checked id="admin-remember-chk" type="checkbox"/>
         <span>Remember login on this browser</span>
       </label>
       <div class="auth-error-msg" id="auth-error-msg" style="display: none;"></div>
-      <button class="btn btn-primary auth-submit-btn" type="submit">Unlock Dashboard &rarr;</button>
+      <button class="btn btn-primary auth-submit-btn" id="auth-submit-btn" type="submit">Unlock Dashboard &rarr;</button>
     </form>
-    <p class="auth-hint">Default passcode: <code>messi10</code> (or your Supabase secret key)</p>
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- MODAL 3: CHANGE ADMIN PASSWORD -->
+<!-- ========================================================================= -->
+<div aria-hidden="true" class="admin-modal-overlay" id="admin-pwd-modal" style="display: none;">
+  <div class="admin-modal-card auth-modal">
+    <div class="auth-icon-wrap">
+      <svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32"><path d="M21 2l-2 2m-1.5 1.5L10 13l-4 1 1-4 7.5-7.5m2-2L19 2"></path><circle cx="7.5" cy="16.5" r="4.5"></circle></svg>
+    </div>
+    <h2 class="auth-title">Change Custom Password</h2>
+    <p class="auth-desc">Update your admin dashboard password stored in Supabase.</p>
+
+    <form class="auth-form" id="admin-change-pwd-form">
+      <div class="auth-input-group">
+        <input autocomplete="current-password" class="auth-input" id="admin-current-pwd-input" placeholder="Current password…" required type="password"/>
+      </div>
+      <div class="auth-input-group">
+        <input autocomplete="new-password" class="auth-input" id="admin-new-pwd-input" placeholder="New custom password…" required type="password"/>
+      </div>
+      <div class="auth-input-group">
+        <input autocomplete="new-password" class="auth-input" id="admin-confirm-new-pwd-input" placeholder="Confirm new password…" required type="password"/>
+      </div>
+      <div class="auth-error-msg" id="pwd-error-msg" style="display: none;"></div>
+      <div class="auth-success-msg" id="pwd-success-msg" style="display: none; color: #10b981; font-weight: 700; font-size: 0.88rem; text-align: center; margin-bottom: 8px;"></div>
+      <div style="display: flex; gap: 8px; width: 100%;">
+        <button class="btn btn-primary auth-submit-btn" style="flex: 1;" type="submit">Update Password &rarr;</button>
+        <button class="btn btn-secondary" id="admin-pwd-cancel-btn" type="button">Cancel</button>
+      </div>
+    </form>
   </div>
 </div>
 

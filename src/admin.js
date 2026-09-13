@@ -45,55 +45,220 @@ const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").
 const fmtNum = (n) => (n || 0).toLocaleString();
 
 /* ========================================================================= */
-/* 1. AUTHENTICATION & LOCK SCREEN */
+/* 1. AUTHENTICATION & CLIENT-SIDE SUPABASE SECURITY */
 /* ========================================================================= */
-function checkAuth() {
-  const isAuth = sessionStorage.getItem("messi_admin_auth") === "1" ||
-                 localStorage.getItem("messi_admin_auth") === "1";
-  const modal = $("admin-auth-modal");
-  if (!modal) return true;
+// Master recovery key from Supabase project config (in case custom password is ever forgotten)
+const MASTER_RECOVERY_KEY = "(recovery-key-removed)";
 
-  if (isAuth) {
-    modal.style.display = "none";
-    modal.setAttribute("aria-hidden", "true");
-    return true;
-  } else {
-    modal.style.display = "flex";
-    modal.setAttribute("aria-hidden", "false");
+// Cryptographic hash helper using Web Crypto API
+async function hashPasswordWithSalt(password, salt) {
+  const enc = new TextEncoder();
+  const data = enc.encode(`${salt}:${password}`);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+function generateRandomSalt() {
+  const arr = new Uint8Array(16);
+  crypto.getRandomValues(arr);
+  return Array.from(arr).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+// Retrieve custom admin password hash from Supabase
+async function fetchSupabaseAuthConfig() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?event=eq.admin_auth_config&select=*&order=created_at.desc&limit=1`, {
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY
+      }
+    });
+    if (!res.ok) return null;
+    const rows = await res.json();
+    if (rows && rows[0] && rows[0].meta && rows[0].meta.hash) {
+      return rows[0].meta;
+    }
+    return null;
+  } catch (_) {
+    return null;
+  }
+}
+
+// Save new custom admin password hash to Supabase
+async function saveSupabaseAuthConfig(hash, salt) {
+  const payload = {
+    client_id: "messi_admin_vault",
+    session_id: "auth_setup",
+    event: "admin_auth_config",
+    path: "/admin.html",
+    referrer: "client_admin_auth",
+    user_agent: navigator.userAgent || "Admin Browser",
+    device_type: "desktop",
+    meta: {
+      hash,
+      salt,
+      updated_at: new Date().toISOString()
+    }
+  };
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(payload)
+    });
+    return res.ok;
+  } catch (_) {
     return false;
   }
 }
 
-function initAuth() {
+function checkAuth() {
+  const token = sessionStorage.getItem("messi_admin_auth") ||
+                localStorage.getItem("messi_admin_auth");
+  return !!token;
+}
+
+async function initAuth() {
+  const modal = $("admin-auth-modal");
   const form = $("admin-auth-form");
   const input = $("admin-passcode-input");
+  const confirmGroup = $("admin-confirm-group");
+  const confirmInput = $("admin-confirm-passcode-input");
+  const modalTitle = $("auth-modal-title");
+  const modalDesc = $("auth-modal-desc");
+  const submitBtn = $("auth-submit-btn");
   const errEl = $("auth-error-msg");
   const rememberChk = $("admin-remember-chk");
   const logoutBtn = $("admin-logout-btn");
 
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const val = (input.value || "").trim();
-      // Valid passcodes: messi10, admin, or the service_role / anon key
-      const valid = val === "messi10" || val === "admin" ||
-                    val === "(recovery-key-removed)" ||
-                    val.length >= 6;
+  const isAuth = checkAuth();
+  if (isAuth) {
+    if (modal) {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+    }
+    loadDashboardData();
+    startAutoRefresh();
+  } else {
+    if (modal) {
+      modal.style.display = "flex";
+      modal.setAttribute("aria-hidden", "false");
+    }
+  }
 
-      if (valid) {
-        if (rememberChk && rememberChk.checked) {
-          localStorage.setItem("messi_admin_auth", "1");
-        } else {
-          sessionStorage.setItem("messi_admin_auth", "1");
+  // Check Supabase for existing custom password
+  let authConfig = await fetchSupabaseAuthConfig();
+  let isSetupMode = !authConfig;
+
+  if (isSetupMode) {
+    if (modalTitle) modalTitle.textContent = "Setup Custom Admin Password";
+    if (modalDesc) modalDesc.textContent = "Create your own custom password to protect your admin dashboard across all devices.";
+    if (input) input.placeholder = "Create custom password…";
+    if (confirmGroup) confirmGroup.style.display = "block";
+    if (submitBtn) submitBtn.textContent = "Set Password & Unlock →";
+  } else {
+    if (modalTitle) modalTitle.textContent = "Admin Access Protected";
+    if (modalDesc) modalDesc.textContent = "Enter your custom administrator password to view live telemetry and KPIs.";
+    if (input) input.placeholder = "Enter custom password…";
+    if (confirmGroup) confirmGroup.style.display = "none";
+    if (submitBtn) submitBtn.textContent = "Unlock Dashboard →";
+  }
+
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (errEl) errEl.style.display = "none";
+      const pass = (input.value || "").trim();
+
+      if (isSetupMode) {
+        const confirmPass = (confirmInput ? confirmInput.value || "" : "").trim();
+        if (pass.length < 4) {
+          if (errEl) {
+            errEl.textContent = "Password must be at least 4 characters.";
+            errEl.style.display = "block";
+          }
+          return;
         }
-        $("admin-auth-modal").style.display = "none";
-        loadDashboardData();
-        startAutoRefresh();
+        if (pass !== confirmPass) {
+          if (errEl) {
+            errEl.textContent = "Passwords do not match. Please re-enter.";
+            errEl.style.display = "block";
+          }
+          return;
+        }
+
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Saving to Supabase…";
+        }
+
+        const salt = generateRandomSalt();
+        const hash = await hashPasswordWithSalt(pass, salt);
+        const saved = await saveSupabaseAuthConfig(hash, salt);
+
+        if (!saved) {
+          if (errEl) {
+            errEl.textContent = "Could not save password to Supabase. Check database table.";
+            errEl.style.display = "block";
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Set Password & Unlock →";
+          }
+          return;
+        }
+
+        authConfig = { hash, salt };
+        isSetupMode = false;
+        grantAccess(hash);
       } else {
-        errEl.textContent = "Invalid passcode. Please try again.";
-        errEl.style.display = "block";
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = "Verifying…";
+        }
+
+        // Re-check latest config from Supabase in case changed from another device
+        const latestConfig = await fetchSupabaseAuthConfig();
+        if (latestConfig) authConfig = latestConfig;
+
+        const candidateHash = authConfig ? await hashPasswordWithSalt(pass, authConfig.salt) : "";
+        const isMatch = (authConfig && candidateHash === authConfig.hash) ||
+                        pass === MASTER_RECOVERY_KEY;
+
+        if (isMatch) {
+          grantAccess(authConfig ? authConfig.hash : "master_session");
+        } else {
+          if (errEl) {
+            errEl.textContent = "Incorrect password. Please try again.";
+            errEl.style.display = "block";
+          }
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Unlock Dashboard →";
+          }
+        }
       }
     });
+  }
+
+  function grantAccess(token) {
+    if (rememberChk && rememberChk.checked) {
+      localStorage.setItem("messi_admin_auth", token);
+    } else {
+      sessionStorage.setItem("messi_admin_auth", token);
+    }
+    if (modal) {
+      modal.style.display = "none";
+      modal.setAttribute("aria-hidden", "true");
+    }
+    loadDashboardData();
+    startAutoRefresh();
   }
 
   if (logoutBtn) {
@@ -101,6 +266,103 @@ function initAuth() {
       sessionStorage.removeItem("messi_admin_auth");
       localStorage.removeItem("messi_admin_auth");
       location.reload();
+    });
+  }
+
+  initChangePasswordModal();
+}
+
+function initChangePasswordModal() {
+  const pwdBtn = $("admin-pwd-btn");
+  const pwdModal = $("admin-pwd-modal");
+  const pwdCancel = $("admin-pwd-cancel-btn");
+  const pwdForm = $("admin-change-pwd-form");
+  const curInput = $("admin-current-pwd-input");
+  const newInput = $("admin-new-pwd-input");
+  const confirmInput = $("admin-confirm-new-pwd-input");
+  const errEl = $("pwd-error-msg");
+  const succEl = $("pwd-success-msg");
+
+  if (pwdBtn && pwdModal) {
+    pwdBtn.addEventListener("click", () => {
+      pwdModal.style.display = "flex";
+      pwdModal.setAttribute("aria-hidden", "false");
+      if (errEl) errEl.style.display = "none";
+      if (succEl) succEl.style.display = "none";
+      if (pwdForm) pwdForm.reset();
+    });
+  }
+
+  if (pwdCancel && pwdModal) {
+    pwdCancel.addEventListener("click", () => {
+      pwdModal.style.display = "none";
+      pwdModal.setAttribute("aria-hidden", "true");
+    });
+  }
+
+  if (pwdForm) {
+    pwdForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (errEl) errEl.style.display = "none";
+      if (succEl) succEl.style.display = "none";
+
+      const curPass = (curInput.value || "").trim();
+      const newPass = (newInput.value || "").trim();
+      const confirmPass = (confirmInput.value || "").trim();
+
+      if (newPass.length < 4) {
+        if (errEl) {
+          errEl.textContent = "New password must be at least 4 characters.";
+          errEl.style.display = "block";
+        }
+        return;
+      }
+      if (newPass !== confirmPass) {
+        if (errEl) {
+          errEl.textContent = "New passwords do not match.";
+          errEl.style.display = "block";
+        }
+        return;
+      }
+
+      const config = await fetchSupabaseAuthConfig();
+      const curHash = config ? await hashPasswordWithSalt(curPass, config.salt) : "";
+      const isCurValid = (config && curHash === config.hash) || curPass === MASTER_RECOVERY_KEY;
+
+      if (!isCurValid) {
+        if (errEl) {
+          errEl.textContent = "Current password is incorrect.";
+          errEl.style.display = "block";
+        }
+        return;
+      }
+
+      const newSalt = generateRandomSalt();
+      const newHash = await hashPasswordWithSalt(newPass, newSalt);
+      const saved = await saveSupabaseAuthConfig(newHash, newSalt);
+
+      if (saved) {
+        if (succEl) {
+          succEl.textContent = "✓ Custom password updated in Supabase!";
+          succEl.style.display = "block";
+        }
+        if (localStorage.getItem("messi_admin_auth")) {
+          localStorage.setItem("messi_admin_auth", newHash);
+        } else {
+          sessionStorage.setItem("messi_admin_auth", newHash);
+        }
+        setTimeout(() => {
+          if (pwdModal) {
+            pwdModal.style.display = "none";
+            pwdModal.setAttribute("aria-hidden", "true");
+          }
+        }, 1500);
+      } else {
+        if (errEl) {
+          errEl.textContent = "Failed to update password in Supabase.";
+          errEl.style.display = "block";
+        }
+      }
     });
   }
 }
@@ -130,10 +392,11 @@ async function fetchSupabaseEvents() {
     if (res.ok) {
       const data = await res.json();
       isTableConnected = true;
-      if (dbStatusText) dbStatusText.textContent = `Supabase Connected (${data.length} records)`;
+      const validEvents = (Array.isArray(data) ? data : []).filter((e) => e.event !== "admin_auth_config");
+      if (dbStatusText) dbStatusText.textContent = `Supabase Connected (${validEvents.length} records)`;
       if (dbStatusWrap) dbStatusWrap.className = "admin-db-status connected";
       if (banner) banner.style.display = "none";
-      return Array.isArray(data) ? data : [];
+      return validEvents;
     } else {
       // Table pending creation or restricted
       isTableConnected = false;
