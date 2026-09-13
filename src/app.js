@@ -1277,6 +1277,234 @@ async function renderBirthday(d) {
     return best;
   };
 
+  const targetDateEl = el("bday-target-date");
+  const badgeEl = el("bday-verdict-badge");
+  const headlineEl = el("bday-headline");
+  const matchListEl = el("bday-match-list");
+  const shareBtn = el("bday-share-btn");
+  const shareMsg = el("bday-share-msg");
+
+  let currentMatches = [];
+
+  // Goal Video Modal Controller
+  const videoModal = el("video-modal");
+  const videoPlayer = el("goal-video-player");
+  const videoBigPlayBtn = el("video-big-play-btn");
+  const videoTitle = el("video-modal-title");
+  const videoEyebrow = el("video-modal-eyebrow");
+  const videoClose = el("video-modal-close");
+  const videoGoalsNav = el("video-goals-nav");
+  const videoFallback = el("video-fallback");
+  const videoYtLink = el("video-yt-link");
+  const vpillMin = el("vpill-minute");
+  const vpillComp = el("vpill-comp");
+  const vpillScore = el("vpill-score");
+  const vpillAssist = el("vpill-assist");
+  const vpillXg = el("vpill-xg");
+
+  const closeGoalVideo = () => {
+    if (!videoModal) return;
+    videoModal.hidden = true;
+    videoModal.setAttribute("aria-hidden", "true");
+    if (videoPlayer) {
+      videoPlayer.pause();
+      videoPlayer.removeAttribute("src");
+      videoPlayer.load();
+    }
+    if (videoBigPlayBtn) videoBigPlayBtn.hidden = true;
+    document.body.style.overflow = "";
+  };
+
+  if (videoBigPlayBtn) {
+    videoBigPlayBtn.onclick = () => {
+      if (videoPlayer) {
+        videoPlayer.play().then(() => {
+          videoBigPlayBtn.hidden = true;
+        }).catch((err) => {
+          console.log("Play blocked:", err);
+        });
+      }
+    };
+  }
+
+  if (videoPlayer) {
+    videoPlayer.addEventListener("play", () => {
+      if (videoBigPlayBtn) videoBigPlayBtn.hidden = true;
+    });
+    videoPlayer.addEventListener("pause", () => {
+      if (videoModal && !videoModal.hidden && videoBigPlayBtn) videoBigPlayBtn.hidden = false;
+    });
+    videoPlayer.addEventListener("ended", () => {
+      if (videoBigPlayBtn) videoBigPlayBtn.hidden = false;
+    });
+  }
+
+  if (videoClose) videoClose.onclick = closeGoalVideo;
+  if (videoModal) {
+    videoModal.onclick = (e) => {
+      if (e.target === videoModal) closeGoalVideo();
+    };
+  }
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && videoModal && !videoModal.hidden) {
+      closeGoalVideo();
+    }
+  });
+
+  const openGoalVideo = (match, initialIndex = 0) => {
+    if (!videoModal || !match) return;
+    const videos = match.videos || [];
+    if (!videos.length) {
+      const ytQuery = encodeURIComponent(`Lionel Messi goal vs ${match.opponent} ${match.date}`);
+      window.open(`https://www.youtube.com/results?search_query=${ytQuery}`, "_blank");
+      return;
+    }
+
+    const loadGoalIndex = (idx) => {
+      const v = videos[idx];
+      if (!v) return;
+
+      if (videoFallback) videoFallback.hidden = true;
+      if (videoBigPlayBtn) videoBigPlayBtn.hidden = true;
+      if (videoTitle) {
+        const numStr = v.goalNumber ? `Goal #${v.goalNumber}: ` : "Goal: ";
+        videoTitle.textContent = `${numStr}Messi vs ${match.opponent}`;
+      }
+      if (videoEyebrow) {
+        videoEyebrow.textContent = `${match.date} • ${match.competition || "Official Match"}`;
+      }
+      if (vpillMin) vpillMin.textContent = `⚽ ${v.minute || match.minutes?.[idx] || ""}'`;
+      if (vpillComp) vpillComp.textContent = match.competition || "Match";
+      if (vpillScore) vpillScore.textContent = `${match.team} ${match.score} ${match.opponent}`;
+      
+      if (vpillAssist) {
+        if (v.assist) {
+          vpillAssist.hidden = false;
+          vpillAssist.textContent = `Assist: ${v.assist}`;
+        } else {
+          vpillAssist.hidden = true;
+        }
+      }
+      if (vpillXg) {
+        if (v.xg != null) {
+          vpillXg.hidden = false;
+          vpillXg.textContent = `xG: ${v.xg}`;
+        } else {
+          vpillXg.hidden = true;
+        }
+      }
+
+      if (videoYtLink) {
+        videoYtLink.href = `https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(match.opponent)}+${match.date}`;
+      }
+
+      if (videoPlayer) {
+        videoPlayer.src = v.videoUrl;
+        videoPlayer.load();
+        const playPromise = videoPlayer.play();
+        if (playPromise) {
+          playPromise.catch((err) => {
+            console.log("Autoplay paused by policy:", err);
+            if (videoBigPlayBtn) videoBigPlayBtn.hidden = false;
+          });
+        }
+        videoPlayer.onerror = () => {
+          if (videoFallback) videoFallback.hidden = false;
+          if (videoBigPlayBtn) videoBigPlayBtn.hidden = true;
+        };
+      }
+
+      if (videoGoalsNav) {
+        videoGoalsNav.querySelectorAll(".video-goal-tab").forEach((tab, tIdx) => {
+          tab.classList.toggle("active", tIdx === idx);
+        });
+      }
+    };
+
+    if (videoGoalsNav) {
+      if (videos.length > 1) {
+        videoGoalsNav.hidden = false;
+        let tabsHtml = "";
+        videos.forEach((v, i) => {
+          const minLabel = v.minute ? ` (${v.minute}')` : "";
+          tabsHtml += `<button type="button" class="video-goal-tab${i === initialIndex ? " active" : ""}" data-gidx="${i}">Goal ${i + 1}${minLabel}</button>`;
+        });
+        videoGoalsNav.innerHTML = tabsHtml;
+        videoGoalsNav.querySelectorAll(".video-goal-tab").forEach((tab) => {
+          tab.onclick = () => loadGoalIndex(+tab.dataset.gidx);
+        });
+      } else {
+        videoGoalsNav.hidden = true;
+        videoGoalsNav.innerHTML = "";
+      }
+    }
+
+    loadGoalIndex(initialIndex);
+    videoModal.hidden = false;
+    videoModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  if (matchListEl) {
+    matchListEl.addEventListener("click", (e) => {
+      const watchBtn = e.target.closest(".bday-watch-video-btn");
+      if (watchBtn) {
+        const idx = +watchBtn.dataset.idx;
+        const match = currentMatches[idx];
+        if (match) openGoalVideo(match, 0);
+        return;
+      }
+
+      const inlineBtn = e.target.closest(".bday-inline-toggle-btn");
+      if (inlineBtn) {
+        const idx = +inlineBtn.dataset.idx;
+        const match = currentMatches[idx];
+        const container = el(`bday-inline-player-${idx}`);
+        if (!match || !container) return;
+
+        const isCurrentlyOpen = !container.hidden;
+        matchListEl.querySelectorAll(".bday-card-inline-player").forEach((p) => {
+          p.hidden = true;
+          p.innerHTML = "";
+        });
+        matchListEl.querySelectorAll(".bday-inline-toggle-btn").forEach((b) => {
+          b.classList.remove("active");
+          b.textContent = "📺 Play Inline";
+        });
+
+        if (!isCurrentlyOpen) {
+          container.hidden = false;
+          inlineBtn.classList.add("active");
+          inlineBtn.textContent = "✕ Close Video";
+
+          const videos = match.videos || [];
+          const renderInline = (vIdx) => {
+            const v = videos[vIdx];
+            if (!v) return;
+            let navHtml = "";
+            if (videos.length > 1) {
+              navHtml = `<div class="bday-card-inline-nav">` +
+                videos.map((vid, i) => `<button type="button" class="video-goal-tab${i === vIdx ? " active" : ""}" data-inidx="${i}">Goal ${i + 1}${vid.minute ? ` (${vid.minute}')` : ""}</button>`).join("") +
+              `</div>`;
+            }
+            container.innerHTML = `
+              ${navHtml}
+              <video controls playsinline webkit-playsinline preload="auto" poster="img/og-messi.jpg" src="${v.videoUrl}" style="width:100%;aspect-ratio:16/9;background:#000;display:block;">
+                Your browser does not support video.
+              </video>
+            `;
+            const inVid = container.querySelector("video");
+            if (inVid) inVid.play().catch(() => {});
+            container.querySelectorAll(".video-goal-tab").forEach((tab) => {
+              tab.onclick = () => renderInline(+tab.dataset.inidx);
+            });
+          };
+          renderInline(0);
+        }
+      }
+    });
+  }
+
   const selectDate = (m, day, shouldScroll = false) => {
     m = +m;
     day = +day;
@@ -1317,155 +1545,6 @@ async function renderBirthday(d) {
       url.searchParams.set("date", key);
       history.replaceState(null, "", url.pathname + url.search + url.hash);
     } catch (_) {}
-
-    const targetDateEl = el("bday-target-date");
-    const badgeEl = el("bday-verdict-badge");
-    const headlineEl = el("bday-headline");
-    const matchListEl = el("bday-match-list");
-    const shareBtn = el("bday-share-btn");
-    const shareMsg = el("bday-share-msg");
-
-    let currentMatches = [];
-
-    // Goal Video Modal Controller
-    const videoModal = el("video-modal");
-    const videoPlayer = el("goal-video-player");
-    const videoTitle = el("video-modal-title");
-    const videoEyebrow = el("video-modal-eyebrow");
-    const videoClose = el("video-modal-close");
-    const videoGoalsNav = el("video-goals-nav");
-    const videoFallback = el("video-fallback");
-    const videoYtLink = el("video-yt-link");
-    const vpillMin = el("vpill-minute");
-    const vpillComp = el("vpill-comp");
-    const vpillScore = el("vpill-score");
-    const vpillAssist = el("vpill-assist");
-    const vpillXg = el("vpill-xg");
-
-    const closeGoalVideo = () => {
-      if (!videoModal) return;
-      videoModal.hidden = true;
-      videoModal.setAttribute("aria-hidden", "true");
-      if (videoPlayer) {
-        videoPlayer.pause();
-        videoPlayer.removeAttribute("src");
-        videoPlayer.load();
-      }
-      document.body.style.overflow = "";
-    };
-
-    if (videoClose) videoClose.onclick = closeGoalVideo;
-    if (videoModal) {
-      videoModal.onclick = (e) => {
-        if (e.target === videoModal) closeGoalVideo();
-      };
-    }
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && videoModal && !videoModal.hidden) {
-        closeGoalVideo();
-      }
-    });
-
-    const openGoalVideo = (match, initialIndex = 0) => {
-      if (!videoModal || !match) return;
-      const videos = match.videos || [];
-      if (!videos.length) {
-        const ytQuery = encodeURIComponent(`Lionel Messi goal vs ${match.opponent} ${match.date}`);
-        window.open(`https://www.youtube.com/results?search_query=${ytQuery}`, "_blank");
-        return;
-      }
-
-      const loadGoalIndex = (idx) => {
-        const v = videos[idx];
-        if (!v) return;
-
-        if (videoFallback) videoFallback.hidden = true;
-        if (videoTitle) {
-          const numStr = v.goalNumber ? `Goal #${v.goalNumber}: ` : "Goal: ";
-          videoTitle.textContent = `${numStr}Messi vs ${match.opponent}`;
-        }
-        if (videoEyebrow) {
-          videoEyebrow.textContent = `${match.date} • ${match.competition || "Official Match"}`;
-        }
-        if (vpillMin) vpillMin.textContent = `⚽ ${v.minute || match.minutes?.[idx] || ""}'`;
-        if (vpillComp) vpillComp.textContent = match.competition || "Match";
-        if (vpillScore) vpillScore.textContent = `${match.team} ${match.score} ${match.opponent}`;
-        
-        if (vpillAssist) {
-          if (v.assist) {
-            vpillAssist.hidden = false;
-            vpillAssist.textContent = `Assist: ${v.assist}`;
-          } else {
-            vpillAssist.hidden = true;
-          }
-        }
-        if (vpillXg) {
-          if (v.xg != null) {
-            vpillXg.hidden = false;
-            vpillXg.textContent = `xG: ${v.xg}`;
-          } else {
-            vpillXg.hidden = true;
-          }
-        }
-
-        if (videoYtLink) {
-          videoYtLink.href = `https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(match.opponent)}+${match.date}`;
-        }
-
-        if (videoPlayer) {
-          videoPlayer.src = v.videoUrl;
-          videoPlayer.load();
-          const playPromise = videoPlayer.play();
-          if (playPromise) {
-            playPromise.catch((err) => {
-              console.log("Autoplay paused by policy:", err);
-            });
-          }
-          videoPlayer.onerror = () => {
-            if (videoFallback) videoFallback.hidden = false;
-          };
-        }
-
-        if (videoGoalsNav) {
-          videoGoalsNav.querySelectorAll(".video-goal-tab").forEach((tab, tIdx) => {
-            tab.classList.toggle("active", tIdx === idx);
-          });
-        }
-      };
-
-      if (videoGoalsNav) {
-        if (videos.length > 1) {
-          videoGoalsNav.hidden = false;
-          let tabsHtml = "";
-          videos.forEach((v, i) => {
-            const minLabel = v.minute ? ` (${v.minute}')` : "";
-            tabsHtml += `<button type="button" class="video-goal-tab${i === initialIndex ? " active" : ""}" data-gidx="${i}">Goal ${i + 1}${minLabel}</button>`;
-          });
-          videoGoalsNav.innerHTML = tabsHtml;
-          videoGoalsNav.querySelectorAll(".video-goal-tab").forEach((tab) => {
-            tab.onclick = () => loadGoalIndex(+tab.dataset.gidx);
-          });
-        } else {
-          videoGoalsNav.hidden = true;
-          videoGoalsNav.innerHTML = "";
-        }
-      }
-
-      loadGoalIndex(initialIndex);
-      videoModal.hidden = false;
-      videoModal.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    };
-
-    if (matchListEl) {
-      matchListEl.addEventListener("click", (e) => {
-        const btn = e.target.closest(".bday-watch-video-btn");
-        if (!btn) return;
-        const idx = +btn.dataset.idx;
-        const match = currentMatches[idx];
-        if (match) openGoalVideo(match, 0);
-      });
-    }
 
     if (targetDateEl) targetDateEl.textContent = dayData.formatted;
 
@@ -1518,8 +1597,10 @@ async function renderBirthday(d) {
               </div>
               <div class="bday-match-actions">
                 ${videoBtn}
+                ${hasVideos ? `<button type="button" class="bday-inline-toggle-btn" data-idx="${matchIdx}">📺 Play Inline</button>` : ""}
                 ${hasVideos ? `<a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(match.opponent)}+${match.date}" target="_blank" rel="noopener noreferrer" class="bday-yt-search-btn">YouTube Highlights</a>` : ""}
               </div>
+              <div class="bday-card-inline-player" id="bday-inline-player-${matchIdx}" hidden></div>
             </article>
           `;
         });

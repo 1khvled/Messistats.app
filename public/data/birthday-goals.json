@@ -1,6 +1,6 @@
 {
   "meta": {
-    "totalGoals": 927,
+    "totalGoals": 928,
     "totalDaysInYear": 366,
     "daysWithGoals": 292,
     "daysWithoutGoals": 74,
@@ -163,7 +163,7 @@
       {
         "month": 9,
         "name": "September",
-        "goals": 99,
+        "goals": 100,
         "daysScored": 25,
         "totalDays": 30
       },
@@ -189,7 +189,7 @@
         "totalDays": 31
       }
     ],
-    "totalVideosAvailable": 920,
+    "totalVideosAvailable": 921,
     "matchesWithVideoCount": 604,
     "videoCoveragePercent": 99.0
   },
@@ -16021,7 +16021,7 @@
       "day": 13,
       "monthName": "September",
       "formatted": "13 September",
-      "goalsCount": 4,
+      "goalsCount": 5,
       "matches": [
         {
           "date": "2008-09-13",
@@ -16096,6 +16096,33 @@
               "opponent": "Celtic",
               "assist": "Luis Suárez",
               "xg": 0.661,
+              "freekick": false,
+              "penalty": false
+            }
+          ]
+        },
+        {
+          "date": "2026-09-13",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "Philadelphia Union",
+          "competition": "Major League Soccer",
+          "score": "3-1",
+          "goalsCount": 1,
+          "minutes": [
+            "67"
+          ],
+          "types": [
+            "Left-footed shot"
+          ],
+          "videos": [
+            {
+              "goalNumber": 928,
+              "videoUrl": "https://cdn.messiallgoals.com/Goal928.mp4",
+              "minute": "67",
+              "opponent": "Philadelphia Union",
+              "assist": "Luis Suárez",
+              "xg": 0.28,
               "freekick": false,
               "penalty": false
             }

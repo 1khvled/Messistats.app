@@ -429,10 +429,15 @@
 
 <footer class="footer">
   <div class="colophon">
-    <p><b>MessiStats</b> — independent statistical archive. Career total reconciled to exactly 927 senior goals (802 club + 125 Argentina) as of 13 September 2026. Free open data, updated after every fixture.</p>
+    <p><b>MessiStats</b> — independent statistical archive. Career total reconciled to exactly 928 senior goals (803 club + 125 Argentina) as of 14 September 2026. Free open data, updated after every fixture.</p>
   </div>
   <p>© 2026 MessiStats. Not affiliated with or endorsed by Lionel Messi, FC Barcelona, Inter Miami CF, PSG, or the AFA.</p>
-<!-- Messi Goal Video Player Modal -->
+</footer>
+
+</main>
+</div>
+
+<!-- Messi Goal Video Player Modal (Direct child of body, immune to any parent transform) -->
 <div class="video-modal-backdrop" id="video-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="video-modal-title">
   <div class="video-modal-container">
     <div class="video-modal-header">
@@ -444,10 +449,13 @@
     </div>
     
     <div class="video-player-box" id="video-player-box">
-      <video id="goal-video-player" playsinline controls preload="metadata" poster="img/og-messi.jpg">
+      <video id="goal-video-player" playsinline webkit-playsinline controls preload="auto" poster="img/og-messi.jpg">
         <source id="goal-video-src" src="" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
+      <button type="button" class="video-big-play-btn" id="video-big-play-btn" aria-label="Play video" hidden>
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><polygon points="7 4 20 12 7 20 7 4"/></svg>
+      </button>
       <div class="video-fallback-banner" id="video-fallback" hidden>
         <p>Goal clip direct stream unavailable.</p>
         <a id="video-yt-link" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary">
@@ -473,8 +481,6 @@
   </div>
 </div>
 
-</main>
-</div>
 <script type="module" src="src/app.js"></script>
 </body>
 </html>
