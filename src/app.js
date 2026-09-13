@@ -742,7 +742,7 @@ const ERA_PHOTOS = {
     { src: "img/era-2008-olympic.jpg", w: 1636, h: 1400, pos: "50% 25%", alt: "Young Messi with long hair celebrating his El Clásico hat-trick in 2007", cap: "El Clásico hat-trick celebration at Camp Nou, March 2007" },
   ],
   "The greatest peak football has seen": [
-    { src: "img/era-2011-wembley.jpg", w: 399, h: 501, pos: "50% 18%", alt: "Messi holding the European Cup after the 2011 final at Wembley", cap: "Champions League winners, Wembley 2011" },
+    { src: "img/era-2011-wembley.jpg", w: 1080, h: 1350, pos: "50% 18%", alt: "Messi holding the European Cup after the 2011 final at Wembley", cap: "Champions League winners, Wembley 2011" },
     { src: "img/era-2012-ballon.jpg", w: 554, h: 554, pos: "50% 25%", alt: "Messi holding his fourth Ballon d'Or trophy in a row in 2012", cap: "Fourth Ballon d'Or in a row, 2012" },
     { src: "img/era-2011.jpg", w: 1800, h: 1013, pos: "50% 20%", alt: "Messi celebrating his goal at Wembley in the 2011 Champions League final", cap: "Goal celebration at Wembley, Champions League final 2011" },
   ],
@@ -756,11 +756,11 @@ const ERA_PHOTOS = {
   "Farewell to Barcelona": [
     { src: "img/era-2019-ballon.jpg", w: 1800, h: 1251, pos: "50% 30%", alt: "Messi on stage with six Ballons d'Or in Paris in 2019", cap: "Presented with six Ballons d'Or on stage, Paris 2019" },
     { src: "img/era-2021-tears.jpg", w: 1280, h: 1280, pos: "55% 28%", alt: "Messi in tears at his Barcelona farewell press conference", cap: "The goodbye press conference, Camp Nou 2021" },
-    { src: "img/era-2021-copa.jpg", w: 397, h: 503, pos: "55% 22%", alt: "Messi kissing the Copa América trophy after winning it in 2021", cap: "Copa América champions, Maracanã 2021" },
+    { src: "img/era-2021-copa.jpg", w: 1200, h: 1521, pos: "55% 22%", alt: "Messi kissing the Copa América trophy after winning it in 2021", cap: "Copa América champions, Maracanã 2021" },
   ],
   "Paris and the World Cup": [
     { src: "img/era-2021-psg-signing.jpg", w: 1200, h: 900, pos: "20% 22%", alt: "Messi signing his Paris Saint-Germain contract alongside Nasser Al-Khelaifi", cap: "Signing for Paris Saint-Germain, 2021" },
-    { src: "img/era-2021-ballon7.jpg", w: 480, h: 639, pos: "50% 20%", alt: "Messi in a sparkling jacket holding the Ballon d'Or after winning his seventh in 2021", cap: "Seventh Ballon d'Or, Paris 2021" },
+    { src: "img/era-2021-ballon7.jpg", w: 1600, h: 1062, pos: "50% 20%", alt: "Messi in a sparkling jacket holding the Ballon d'Or after winning his seventh in 2021", cap: "Seventh Ballon d'Or, Paris 2021" },
     { src: "img/era-2022.jpg", w: 1800, h: 1212, pos: "50% 25%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "Lifting the World Cup on Agüero's shoulders, Lusail 2022" },
   ],
   "Miami and the road to 1,000": [
@@ -856,6 +856,7 @@ function renderTimeline(d) {
       const target = document.getElementById(href.slice(1));
       if (!target) return;
       ev.preventDefault();
+      target.classList.add("in");
       target.scrollIntoView({ behavior: calmScroll() ? "auto" : "smooth", block: "start" });
       try { history.replaceState(null, "", href); } catch (ignored) { /* e.g. file:// */ }
     });
@@ -926,7 +927,7 @@ function renderTimeline(d) {
       entries.forEach((en) => {
         if (en.isIntersecting) { en.target.classList.add("in"); riseObs.unobserve(en.target); }
       });
-    }, { threshold: 0.08 });
+    }, { rootMargin: "250px 0px 250px 0px", threshold: 0.01 });
     cards.forEach((c) => riseObs.observe(c));
   } else {
     cards.forEach((c) => c.classList.add("in"));
@@ -963,6 +964,7 @@ function renderTimeline(d) {
         if (hit) { vis++; shown++; }
       });
       ch.hidden = vis === 0;
+      if (vis > 0 && q) ch.classList.add("in");
     });
     let empty = el("tl-empty");
     if (shown === 0) {
@@ -1105,7 +1107,7 @@ function armEntrance() {
           tickKpis(t);
         }
       });
-    }, { threshold: 0.08 });
+    }, { rootMargin: "250px 0px 250px 0px", threshold: 0.01 });
   }
   sparks.forEach((s) => entranceObs.observe(s));
   donuts.forEach((s) => entranceObs.observe(s));

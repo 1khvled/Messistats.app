@@ -967,6 +967,7 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   tr { break-inside: avoid; }
   a { color: var(--ink); text-decoration: none; }
   .reveal, body[data-page="timeline"] .tl-reveal { opacity: 1 !important; transform: none !important; animation: none !important; }
-  .spark .bar { transform: none; }
+  .spark .bar { transform: none !important; }
+  svg.donut circle { stroke-dasharray: none !important; }
 }
 

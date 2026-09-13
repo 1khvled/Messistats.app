@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-13T02:08:09.771Z",
+  "updated": "2026-09-13T02:24:49.098Z",
   "generator": "scripts/source-watch.mjs; never messi-data.json",
   "lastFull": "2026-09-12T17:47:41.962Z",
   "matchdayToday": false,
@@ -17,112 +17,112 @@
       "slug": "internal-927",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-13T02:08:08.100Z",
+      "at": "2026-09-13T02:24:47.785Z",
       "detail": "all three sums reconcile to 927"
     },
     {
       "slug": "espn-mls-count",
       "kind": "structured",
       "ok": false,
-      "at": "2026-09-13T02:08:09.770Z",
+      "at": "2026-09-13T02:24:49.097Z",
       "detail": "espn=25 json=20"
     },
     {
       "slug": "espn-arg-count",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "espn completed=8 vs json apps=11"
     },
     {
       "slug": "article:fox-wc21",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:sportstar-400",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:planet-elclasico",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:mvrapp-detailed",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:mvrapp-elclasico",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:messicom-46",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:espn-tracker",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:gulfnews-400",
       "kind": "article",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (hash fresh)"
     },
     {
       "slug": "of-wc2022",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (full fresh)"
     },
     {
       "slug": "of-wc2026",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (full fresh)"
     },
     {
       "slug": "wiki-achievements",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (full fresh)"
     },
     {
       "slug": "wiki-messi",
       "kind": "structured",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "deferred (full fresh)"
     },
     {
       "slug": "football-data.org",
       "kind": "skip",
       "ok": true,
-      "at": "2026-09-13T02:08:09.771Z",
+      "at": "2026-09-13T02:24:49.098Z",
       "detail": "requires X-Auth-Token key; no key provisioned"
     }
   ],
