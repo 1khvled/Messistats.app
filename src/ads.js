@@ -94,7 +94,7 @@
       `<div><span class="ad-badge">${cr.badge}</span><h3 class="ad-title">${cr.title}</h3><p class="ad-desc">${cr.desc}</p></div>` +
       `<span class="ad-btn">${cr.btn}</span>` +
       `</a>` +
-      `<ins class="adsbygoogle" style="display:none" data-ad-client="ca-pub-0000000000000000" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
+      `<ins class="adsbygoogle" style="display:none" data-ad-client="ca-pub-8397501846754760" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>`;
 
     return el;
   }

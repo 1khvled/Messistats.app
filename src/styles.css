@@ -317,6 +317,7 @@ table.data-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; m
    <img> (onerror) and the badge underneath becomes the visible fallback. */
 .crest { position: relative; flex: 0 0 30px; width: 30px; height: 30px; display: inline-block; }
 .crest .club-badge { width: 100%; height: 100%; }
+.crest:has(.crest-img) .club-badge { display: none; }
 .crest-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 .team-card-head .crest { flex: none; }
 .pill-crest { width: 20px; height: 20px; object-fit: contain; }
@@ -467,17 +468,19 @@ svg.donut circle:hover { stroke-width: 30; }
 .tp-years { color: var(--muted); font-size: 0.85rem; }
 
 /* ---------- Trophy cabinet (achievements only) ----------
-   Real CC-licensed celebration photos. Grid on desktop, stacked on mobile. */
-body[data-page="achievements"] .cabinet { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 12px 0 4px; }
+   Real celebration photos. Grid on desktop, stacked on mobile. */
+body[data-page="achievements"] .cabinet { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0 4px; }
 body[data-page="achievements"] .cab-card { background: var(--card); border: 1px solid rgba(255,255,255,0.9); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 14px 14px 12px; margin: 0; min-width: 0; }
 body[data-page="achievements"] .cab-card h3 { font-size: 1.02rem; margin: 0 0 2px; }
 body[data-page="achievements"] .cab-sub { color: var(--muted); font-size: 0.86rem; margin: 0 0 10px; }
 body[data-page="achievements"] .cab-photo { margin: 0; min-width: 0; }
-body[data-page="achievements"] .cab-photo img { display: block; width: 100%; height: 200px; object-fit: cover; border-radius: 10px; background: var(--surface-solid); }
+body[data-page="achievements"] .cab-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 10px; background: var(--surface-solid); }
 body[data-page="achievements"] .cab-note { color: var(--muted); font-size: 0.86rem; margin: 10px 2px 0; grid-column: 1 / -1; }
-@media (max-width: 900px) {
-  body[data-page="achievements"] .cabinet { grid-template-columns: 1fr; gap: 12px; }
-  body[data-page="achievements"] .cab-photo img { height: 230px; }
+@media (max-width: 1024px) {
+  body[data-page="achievements"] .cabinet { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+}
+@media (max-width: 600px) {
+  body[data-page="achievements"] .cabinet { grid-template-columns: 1fr; }
 }
 
 /* ---------- Split cards (FK / pens / hat-tricks) ---------- */
@@ -517,7 +520,7 @@ body[data-page="timeline"] .ch-photo img {
   object-fit: cover; object-position: 50% 18%;
   border-radius: 14px; box-shadow: var(--shadow-sm); background: var(--surface-solid);
 }
-body[data-page="timeline"] .ch-photos.solo .ch-photo img { height: 340px; }
+body[data-page="timeline"] .ch-photos.solo .ch-photo img { height: 380px; object-position: 50% 25%; }
 /* Human touches: polaroid chapter photos, standfirst intros with drop caps. */
 body[data-page="timeline"] .ch-photo {
   background: #fff;

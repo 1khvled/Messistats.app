@@ -165,4 +165,11 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   (10) `cab-liga.jpg`: Messi lifting the La Liga trophy as captain at Camp Nou (732x1024, 113KB).
   Cleaned all Wikimedia Commons URLs, CC licenses, and disclaimer notes in `src/app.js`. Deleted obsolete `scripts/fetch-era-photos.ps1`.
   Verified: build ✓, audit PASS, verify exit 0.
+- ADSENSE, BERNABÉU CELEBRATION, TROPHY CABINET & CREST FIXES 2026-09-13:
+  (1) Google AdSense: inserted `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8397501846754760" crossorigin="anonymous"></script>` in `<head>` across all 6 HTML shells; configured publisher `pub-8397501846754760` in `public/ads.txt` and `src/ads.js`.
+  (2) Santiago Bernabéu Shirt Celebration (`era-2016.jpg`): replaced awkward 9:16 vertical wallpaper crop with the canonical 16:9 landscape photo (1800x1013, 224KB) of Messi holding his #10 jersey to the Bernabéu crowd after his 500th goal in April 2017; updated `.ch-photos.solo .ch-photo img` to `height: 380px; object-position: 50% 25%` so Messi's face, jersey #10 and the crowd are completely visible.
+  (3) Trophy Cabinet on `achievements.html`: added the 2022 World Cup trophy lift (`cab-wc.jpg`) as the crowning #1 card; added 8x Ballon d'Or (`cab-ballon.jpg`), 4x Champions League (`cab-ucl.jpg`), and 2x Copa América (`cab-copa.jpg`); re-cropped all 4 to 800x600 (4:3) with both Messi and the trophy centered; upgraded `.cabinet` to a responsive 4-card grid (4 cols desktop, 2 cols tablet, 1 col mobile) with `aspect-ratio: 4 / 3; height: auto; object-fit: cover`.
+  (4) Club Logos/Crests: fixed `.crest:has(.crest-img) .club-badge { display: none; }` and inline fallback handling so square gradient badges and text no longer bleed behind transparent crests; replaced `argentina.png` with a clean 500x500 circular emblem (albiceleste sky blue ring + official 3-star AFA gold shield) matching the style of PSG and Inter Miami.
+  Verified: prebuild-check ✓ (927x3 checksums hold), vite build ✓ (502ms), dist audit PASS, verify exit 0.
+
 

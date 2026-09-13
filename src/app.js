@@ -100,8 +100,8 @@ const CLUBS = {
 const badge = (k, eager) => {
   const c = CLUBS[k];
   const label = (k === "psg" ? "Paris Saint-Germain" : c.name) + " crest";
-  return `<span class="crest" data-team="${k}"><span class="club-badge" data-team="${k}" aria-hidden="true">${c.badge}</span>` +
-    `<img class="crest-img" src="img/teams/${k}.png" alt="${label}" width="30" height="30" loading="${eager ? "eager" : "lazy"}" decoding="async" onerror="this.remove()"></span>`;
+  return `<span class="crest" data-team="${k}"><span class="club-badge" data-team="${k}" aria-hidden="true" style="display:none">${c.badge}</span>` +
+    `<img class="crest-img" src="img/teams/${k}.png" alt="${label}" width="30" height="30" loading="${eager ? "eager" : "lazy"}" decoding="async" onerror="const b=this.previousElementSibling;if(b)b.style.display='';this.remove()"></span>`;
 };
 const teamName = (k) => (k === "psg" ? "PSG" : CLUBS[k].name);
 const CLUB_KEY = { Barcelona: "barcelona", "Paris Saint-Germain": "psg", "Inter Miami": "miami" };
@@ -751,7 +751,7 @@ const ERA_PHOTOS = {
     { src: "img/era-2014-stare.jpg", w: 679, h: 452, pos: "55% 35%", alt: "Messi walking past the World Cup trophy after losing the 2014 final", cap: "The one that got away — World Cup final, Maracanã 2014" },
   ],
   "Carrying Barcelona": [
-    { src: "img/era-2016.jpg", w: 1013, h: 1800, pos: "50% 20%", alt: "Messi holding his number 10 shirt to the crowd at the Santiago Bernabéu in 2017", cap: "Holding up shirt #10 at the Santiago Bernabéu, April 2017" },
+    { src: "img/era-2016.jpg", w: 1800, h: 1013, pos: "50% 25%", alt: "Messi holding his number 10 shirt to the crowd at the Santiago Bernabéu after scoring his 500th goal in 2017", cap: "Holding up shirt #10 at the Santiago Bernabéu, April 2017" },
   ],
   "Farewell to Barcelona": [
     { src: "img/era-2019-ballon.jpg", w: 1800, h: 1251, pos: "50% 30%", alt: "Messi on stage with six Ballons d'Or in Paris in 2019", cap: "Presented with six Ballons d'Or on stage, Paris 2019" },
@@ -991,9 +991,10 @@ function renderTimeline(d) {
 /* ================= ACHIEVEMENTS ================= */
 /* Trophy cabinet: self-hosted celebration photos. Mounted as #cabinet. */
 const CABINET = [
-  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "img/cab-ballon.jpg", w: 696, h: 1500, pos: "50% 25%", alt: "Messi holding the golden Ballon d'Or trophy in a black tuxedo", cap: "Messi holding his record eighth Ballon d'Or" },
-  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "img/cab-ucl.jpg", w: 1174, h: 1700, pos: "50% 15%", alt: "Messi hoisting the European Cup aloft at Wembley in 2011", cap: "Messi lifts the European Cup at Wembley, 2011" },
-  { title: "La Liga — 10", sub: "Ten Spanish titles with Barcelona, 2005–2019.", src: "img/cab-liga.jpg", w: 732, h: 1024, pos: "50% 25%", alt: "Messi as Barcelona captain hoisting the La Liga trophy at Camp Nou", cap: "Messi lifts the La Liga trophy as Barcelona captain, Camp Nou" },
+  { title: "FIFA World Cup — 2022", sub: "The ultimate crowning glory, Lusail 18 Dec 2022.", src: "img/cab-wc.jpg", w: 800, h: 600, pos: "50% 30%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "World Cup champions, Lusail 2022" },
+  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "img/cab-ballon.jpg", w: 800, h: 600, pos: "50% 30%", alt: "Messi holding his record eighth Ballon d'Or trophy aloft", cap: "Record eighth Ballon d'Or award" },
+  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "img/cab-ucl.jpg", w: 800, h: 600, pos: "50% 25%", alt: "Messi celebrating with the Champions League trophy holding four fingers up", cap: "Four-time European champion with Barcelona" },
+  { title: "Copa América — 2", sub: "Back-to-back continental champion, 2021 & 2024.", src: "img/cab-copa.jpg", w: 800, h: 600, pos: "50% 25%", alt: "Messi kissing the Copa América trophy after winning at the Maracanã", cap: "Copa América champions, Maracanã 2021" },
 ];
 const cabinetPhotos = () => CABINET.map((p) =>
   `<article class="cab-card"><h3>${esc(p.title)}</h3><p class="cab-sub">${esc(p.sub)}</p>` +
