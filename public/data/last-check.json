@@ -1,17 +1,10 @@
 {
-  "checkedAt": "2026-09-13T03:53:28.439Z",
+  "checkedAt": "2026-09-13T10:49:20.178Z",
   "espnMls": {
     "ok": true,
     "status": 200,
     "error": null,
-    "miamiEvents": [
-      {
-        "id": "761800",
-        "date": "2026-09-12T23:30Z",
-        "name": "Nashville SC at Inter Miami CF",
-        "status": "Full Time"
-      }
-    ]
+    "miamiEvents": []
   },
   "worldcup2026": {
     "ok": true,
