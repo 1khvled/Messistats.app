@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite --port 5173 --host",
     "prebuild": "node scripts/prebuild-check.mjs",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-en.mjs",
     "preview": "vite preview --port 4173",
     "verify": "node scripts/verify.mjs && node scripts/source-watch.mjs && node scripts/smart-check.mjs --dry-run",
     "verify:smart": "node scripts/smart-check.mjs --dry-run",
