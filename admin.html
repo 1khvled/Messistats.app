@@ -89,20 +89,22 @@
   <!-- Top Admin Control Header -->
   <header class="admin-topbar">
     <div class="admin-topbar-left">
-      <div class="admin-live-badge" id="admin-live-badge">
-        <span class="live-dot pulse"></span>
-        <span class="live-text" id="live-indicator-text">Realtime Live</span>
+      <div class="admin-brand-line">
+        <div class="admin-live-badge" id="admin-live-badge">
+          <span class="live-dot pulse"></span>
+          <span class="live-text" id="live-indicator-text">Realtime Telemetry</span>
+        </div>
+        <span class="admin-db-status" id="admin-db-status" title="Supabase Database Connection">
+          <span class="db-dot"></span> <span id="db-status-text">Supabase Cloud Connected</span>
+        </span>
       </div>
-      <h1 class="admin-page-title">Analytics &amp; KPI Dashboard</h1>
-      <span class="admin-db-status" id="admin-db-status" title="Supabase Database Connection">
-        <span class="db-dot"></span> <span id="db-status-text">Connecting to Supabase…</span>
-      </span>
+      <h1 class="admin-page-title">Analytics &amp; KPI Mission Control</h1>
     </div>
 
     <div class="admin-topbar-actions">
       <!-- Period Selector -->
       <div aria-label="Time period" class="admin-btn-group" role="group">
-        <button class="admin-period-btn" data-period="24h" type="button">24h</button>
+        <button class="admin-period-btn" data-period="24h" type="button">24 Hours</button>
         <button class="admin-period-btn active" data-period="7d" type="button">7 Days</button>
         <button class="admin-period-btn" data-period="30d" type="button">30 Days</button>
         <button class="admin-period-btn" data-period="all" type="button">All Time</button>
@@ -111,9 +113,9 @@
       <!-- Auto-refresh dropdown -->
       <div class="admin-refresh-wrap">
         <select aria-label="Auto-refresh interval" class="admin-select" id="admin-refresh-select">
-          <option value="10000">Auto-refresh (10s)</option>
-          <option selected value="30000">Auto-refresh (30s)</option>
-          <option value="60000">Auto-refresh (1m)</option>
+          <option value="10000">Auto 10s</option>
+          <option selected value="30000">Auto 30s</option>
+          <option value="60000">Auto 1m</option>
           <option value="0">Paused</option>
         </select>
         <button aria-label="Refresh now" class="btn btn-secondary admin-refresh-btn" id="admin-manual-refresh" title="Refresh data now" type="button">
@@ -122,41 +124,12 @@
       </div>
 
       <!-- Action Buttons -->
-      <button class="btn btn-secondary" id="admin-export-btn" type="button">
+      <button class="btn btn-primary" id="admin-export-btn" type="button">
         <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>
-        Export
-      </button>
-
-      <button class="btn btn-secondary" id="admin-pwd-btn" title="Change Custom Password" type="button">
-        <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        Password
-      </button>
-
-      <button class="btn btn-secondary" id="admin-sql-btn" title="View Database Setup SQL" type="button">
-        <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><path d="M4 7c0-1.66 3.58-3 8-3s8 1.34 8 3v10c0 1.66-3.58 3-8 3s-8-1.34-8-3V7z"></path><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"></path></svg>
-        SQL Setup
-      </button>
-
-      <button class="btn btn-secondary" id="admin-logout-btn" title="Lock Dashboard" type="button">
-        <svg fill="none" height="14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="14"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Export Report
       </button>
     </div>
   </header>
-
-  <!-- Notice Banner if Table Setup Needed -->
-  <aside class="admin-setup-banner" id="admin-setup-banner" style="display: none;">
-    <div class="setup-banner-content">
-      <div class="setup-banner-icon">⚡</div>
-      <div class="setup-banner-text">
-        <strong>One-Time Supabase Setup Needed:</strong>
-        Table <code>public.messi_page_events</code> is pending creation. Run the SQL script in your Supabase SQL Editor to enable full live cloud telemetry.
-      </div>
-    </div>
-    <div class="setup-banner-actions">
-      <button class="btn btn-primary" id="setup-copy-sql-btn" type="button">Copy SQL Script</button>
-      <a class="btn btn-secondary" href="https://supabase.com/dashboard/project/(supabase-ref-removed)/sql" rel="noopener noreferrer" target="_blank">Open Supabase SQL Editor &rarr;</a>
-    </div>
-  </aside>
 
   <!-- HERO KPIS GRID (8 Cards) -->
   <section aria-label="Core Performance Indicators" class="admin-kpi-grid">
@@ -435,6 +408,13 @@
         <span class="stream-badge" id="stream-count-badge">Streaming live…</span>
       </div>
       <div class="stream-controls">
+        <div class="stream-filter-pills" id="stream-filter-pills">
+          <button type="button" class="stream-pill active" data-filter="all">All Events</button>
+          <button type="button" class="stream-pill" data-filter="view">Views</button>
+          <button type="button" class="stream-pill" data-filter="birthday_search">Birthdays</button>
+          <button type="button" class="stream-pill" data-filter="video_play">Videos</button>
+          <button type="button" class="stream-pill" data-filter="share">Shares</button>
+        </div>
         <button class="btn btn-secondary btn-sm" id="stream-clear-view-btn" type="button">Clear View</button>
       </div>
     </div>
@@ -472,144 +452,6 @@
     </div>
   </footer>
 </main>
-</div>
-
-<!-- ========================================================================= -->
-<!-- MODAL 1: PASSCODE LOCK SCREEN -->
-<!-- ========================================================================= -->
-<div aria-hidden="true" class="admin-modal-overlay" id="admin-auth-modal">
-  <div class="admin-modal-card auth-modal">
-    <div class="auth-icon-wrap">
-      <svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32"><rect height="11" rx="2" ry="2" width="18" x="3" y="11"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-    </div>
-    <h2 class="auth-title" id="auth-modal-title">Admin Access Protected</h2>
-    <p class="auth-desc" id="auth-modal-desc">Enter your custom administrator password to access live telemetry and KPIs.</p>
-
-    <form class="auth-form" id="admin-auth-form">
-      <div class="auth-input-group">
-        <input autocomplete="current-password" autofocus class="auth-input" id="admin-passcode-input" placeholder="Enter custom password…" required type="password"/>
-      </div>
-      <div class="auth-input-group" id="admin-confirm-group" style="display: none;">
-        <input autocomplete="new-password" class="auth-input" id="admin-confirm-passcode-input" placeholder="Confirm custom password…" type="password"/>
-      </div>
-      <label class="auth-remember">
-        <input checked id="admin-remember-chk" type="checkbox"/>
-        <span>Remember login on this browser</span>
-      </label>
-      <div class="auth-error-msg" id="auth-error-msg" style="display: none;"></div>
-      <button class="btn btn-primary auth-submit-btn" id="auth-submit-btn" type="submit">Unlock Dashboard &rarr;</button>
-    </form>
-  </div>
-</div>
-
-<!-- ========================================================================= -->
-<!-- MODAL 3: CHANGE ADMIN PASSWORD -->
-<!-- ========================================================================= -->
-<div aria-hidden="true" class="admin-modal-overlay" id="admin-pwd-modal" style="display: none;">
-  <div class="admin-modal-card auth-modal">
-    <div class="auth-icon-wrap">
-      <svg fill="none" height="32" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="32"><path d="M21 2l-2 2m-1.5 1.5L10 13l-4 1 1-4 7.5-7.5m2-2L19 2"></path><circle cx="7.5" cy="16.5" r="4.5"></circle></svg>
-    </div>
-    <h2 class="auth-title">Change Custom Password</h2>
-    <p class="auth-desc">Update your admin dashboard password stored in Supabase.</p>
-
-    <form class="auth-form" id="admin-change-pwd-form">
-      <div class="auth-input-group">
-        <input autocomplete="current-password" class="auth-input" id="admin-current-pwd-input" placeholder="Current password…" required type="password"/>
-      </div>
-      <div class="auth-input-group">
-        <input autocomplete="new-password" class="auth-input" id="admin-new-pwd-input" placeholder="New custom password…" required type="password"/>
-      </div>
-      <div class="auth-input-group">
-        <input autocomplete="new-password" class="auth-input" id="admin-confirm-new-pwd-input" placeholder="Confirm new password…" required type="password"/>
-      </div>
-      <div class="auth-error-msg" id="pwd-error-msg" style="display: none;"></div>
-      <div class="auth-success-msg" id="pwd-success-msg" style="display: none; color: #10b981; font-weight: 700; font-size: 0.88rem; text-align: center; margin-bottom: 8px;"></div>
-      <div style="display: flex; gap: 8px; width: 100%;">
-        <button class="btn btn-primary auth-submit-btn" style="flex: 1;" type="submit">Update Password &rarr;</button>
-        <button class="btn btn-secondary" id="admin-pwd-cancel-btn" type="button">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- ========================================================================= -->
-<!-- MODAL 2: SQL SETUP INSTRUCTIONS -->
-<!-- ========================================================================= -->
-<div aria-hidden="true" class="admin-modal-overlay" id="admin-sql-modal" style="display: none;">
-  <div class="admin-modal-card sql-modal">
-    <div class="modal-header">
-      <div class="modal-title-wrap">
-        <div class="modal-icon">💾</div>
-        <div>
-          <h2 class="modal-title">Supabase Database Setup</h2>
-          <p class="modal-sub">Dedicated isolated table: <code>public.messi_page_events</code></p>
-        </div>
-      </div>
-      <button aria-label="Close modal" class="modal-close-btn" id="sql-modal-close" type="button">&times;</button>
-    </div>
-
-    <div class="sql-modal-body">
-      <div class="sql-guide-alert">
-        <strong>Zero Risk:</strong> This SQL script creates only <code>public.messi_page_events</code>. It never touches, modifies, or drops any tables from other projects sharing this database.
-      </div>
-
-      <div class="sql-code-box-wrap">
-        <div class="sql-code-header">
-          <span>supabase-messi-analytics.sql</span>
-          <button class="btn btn-sm btn-secondary" id="copy-sql-modal-btn" type="button">Copy All SQL</button>
-        </div>
-        <pre class="sql-pre"><code id="sql-script-content">-- 1. Create table for tracking pageviews and interactions
-create table if not exists public.messi_page_events (
-  id bigserial primary key,
-  client_id text not null,
-  session_id text,
-  event text not null default 'view',
-  path text not null,
-  referrer text,
-  user_agent text,
-  country_code text,
-  device_type text default 'desktop',
-  meta jsonb default '{}'::jsonb,
-  created_at timestamptz not null default now()
-);
-
--- 2. Indexes for fast KPI aggregations
-create index if not exists messi_events_created_at_idx on public.messi_page_events (created_at desc);
-create index if not exists messi_events_event_idx on public.messi_page_events (event);
-create index if not exists messi_events_path_idx on public.messi_page_events (path);
-create index if not exists messi_events_client_id_idx on public.messi_page_events (client_id);
-
--- 3. Row Level Security
-alter table public.messi_page_events enable row level security;
-
-create policy "messi_allow_insert" on public.messi_page_events
-  for insert to anon, authenticated, service_role
-  with check (true);
-
-create policy "messi_allow_select" on public.messi_page_events
-  for select to anon, authenticated, service_role
-  using (true);
-
-grant select, insert on public.messi_page_events to anon, authenticated, service_role;
-grant usage, select on sequence public.messi_page_events_id_seq to anon, authenticated, service_role;</code></pre>
-      </div>
-
-      <div class="sql-instructions-list">
-        <ol>
-          <li>Click <b>Copy All SQL</b> above.</li>
-          <li>Open your Supabase Project Dashboard: <a href="https://supabase.com/dashboard/project/(supabase-ref-removed)/sql" rel="noopener noreferrer" target="_blank">SQL Editor ((supabase-ref-removed))</a>.</li>
-          <li>Paste the query and click <b>Run</b>.</li>
-          <li>Return here and click <b>Refresh Now</b> — live data will stream instantly!</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="modal-footer">
-      <button class="btn btn-secondary" id="sql-modal-done" type="button">Done</button>
-      <a class="btn btn-primary" href="https://supabase.com/dashboard/project/(supabase-ref-removed)/sql" rel="noopener noreferrer" target="_blank">Open Supabase &rarr;</a>
-    </div>
-  </div>
 </div>
 
 <!-- ========================================================================= -->

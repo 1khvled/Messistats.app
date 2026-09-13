@@ -44,331 +44,10 @@ const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 const fmtNum = (n) => (n || 0).toLocaleString();
 
-/* ========================================================================= */
-/* 1. AUTHENTICATION & CLIENT-SIDE SUPABASE SECURITY */
-/* ========================================================================= */
-// Master recovery key from Supabase project config (in case custom password is ever forgotten)
-const MASTER_RECOVERY_KEY = "(recovery-key-removed)";
-
-// Cryptographic hash helper using Web Crypto API
-async function hashPasswordWithSalt(password, salt) {
-  const enc = new TextEncoder();
-  const data = enc.encode(`${salt}:${password}`);
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-function generateRandomSalt() {
-  const arr = new Uint8Array(16);
-  crypto.getRandomValues(arr);
-  return Array.from(arr).map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-// Retrieve custom admin password hash from Supabase
-async function fetchSupabaseAuthConfig() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}?event=eq.admin_auth_config&select=*&order=created_at.desc&limit=1`, {
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY
-      }
-    });
-    if (!res.ok) return null;
-    const rows = await res.json();
-    if (rows && rows[0] && rows[0].meta && rows[0].meta.hash) {
-      return rows[0].meta;
-    }
-    return null;
-  } catch (_) {
-    return null;
-  }
-}
-
-// Save new custom admin password hash to Supabase
-async function saveSupabaseAuthConfig(hash, salt) {
-  const payload = {
-    client_id: "messi_admin_vault",
-    session_id: "auth_setup",
-    event: "admin_auth_config",
-    path: "/admin.html",
-    referrer: "client_admin_auth",
-    user_agent: navigator.userAgent || "Admin Browser",
-    device_type: "desktop",
-    meta: {
-      hash,
-      salt,
-      updated_at: new Date().toISOString()
-    }
-  };
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_NAME}`, {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-        "Content-Type": "application/json",
-        "Prefer": "return=minimal"
-      },
-      body: JSON.stringify(payload)
-    });
-    return res.ok;
-  } catch (_) {
-    return false;
-  }
-}
-
-function checkAuth() {
-  const token = sessionStorage.getItem("messi_admin_auth") ||
-                localStorage.getItem("messi_admin_auth");
-  return !!token;
-}
-
-async function initAuth() {
-  const modal = $("admin-auth-modal");
-  const form = $("admin-auth-form");
-  const input = $("admin-passcode-input");
-  const confirmGroup = $("admin-confirm-group");
-  const confirmInput = $("admin-confirm-passcode-input");
-  const modalTitle = $("auth-modal-title");
-  const modalDesc = $("auth-modal-desc");
-  const submitBtn = $("auth-submit-btn");
-  const errEl = $("auth-error-msg");
-  const rememberChk = $("admin-remember-chk");
-  const logoutBtn = $("admin-logout-btn");
-
-  const isAuth = checkAuth();
-  if (isAuth) {
-    if (modal) {
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
-    }
-    loadDashboardData();
-    startAutoRefresh();
-  } else {
-    if (modal) {
-      modal.style.display = "flex";
-      modal.setAttribute("aria-hidden", "false");
-    }
-  }
-
-  // Check Supabase for existing custom password
-  let authConfig = await fetchSupabaseAuthConfig();
-  let isSetupMode = !authConfig;
-
-  if (isSetupMode) {
-    if (modalTitle) modalTitle.textContent = "Setup Custom Admin Password";
-    if (modalDesc) modalDesc.textContent = "Create your own custom password to protect your admin dashboard across all devices.";
-    if (input) input.placeholder = "Create custom password…";
-    if (confirmGroup) confirmGroup.style.display = "block";
-    if (submitBtn) submitBtn.textContent = "Set Password & Unlock →";
-  } else {
-    if (modalTitle) modalTitle.textContent = "Admin Access Protected";
-    if (modalDesc) modalDesc.textContent = "Enter your custom administrator password to view live telemetry and KPIs.";
-    if (input) input.placeholder = "Enter custom password…";
-    if (confirmGroup) confirmGroup.style.display = "none";
-    if (submitBtn) submitBtn.textContent = "Unlock Dashboard →";
-  }
-
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (errEl) errEl.style.display = "none";
-      const pass = (input.value || "").trim();
-
-      if (isSetupMode) {
-        const confirmPass = (confirmInput ? confirmInput.value || "" : "").trim();
-        if (pass.length < 4) {
-          if (errEl) {
-            errEl.textContent = "Password must be at least 4 characters.";
-            errEl.style.display = "block";
-          }
-          return;
-        }
-        if (pass !== confirmPass) {
-          if (errEl) {
-            errEl.textContent = "Passwords do not match. Please re-enter.";
-            errEl.style.display = "block";
-          }
-          return;
-        }
-
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Saving to Supabase…";
-        }
-
-        const salt = generateRandomSalt();
-        const hash = await hashPasswordWithSalt(pass, salt);
-        const saved = await saveSupabaseAuthConfig(hash, salt);
-
-        if (!saved) {
-          if (errEl) {
-            errEl.textContent = "Could not save password to Supabase. Check database table.";
-            errEl.style.display = "block";
-          }
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Set Password & Unlock →";
-          }
-          return;
-        }
-
-        authConfig = { hash, salt };
-        isSetupMode = false;
-        grantAccess(hash);
-      } else {
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.textContent = "Verifying…";
-        }
-
-        // Re-check latest config from Supabase in case changed from another device
-        const latestConfig = await fetchSupabaseAuthConfig();
-        if (latestConfig) authConfig = latestConfig;
-
-        const candidateHash = authConfig ? await hashPasswordWithSalt(pass, authConfig.salt) : "";
-        const isMatch = (authConfig && candidateHash === authConfig.hash) ||
-                        pass === MASTER_RECOVERY_KEY;
-
-        if (isMatch) {
-          grantAccess(authConfig ? authConfig.hash : "master_session");
-        } else {
-          if (errEl) {
-            errEl.textContent = "Incorrect password. Please try again.";
-            errEl.style.display = "block";
-          }
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Unlock Dashboard →";
-          }
-        }
-      }
-    });
-  }
-
-  function grantAccess(token) {
-    if (rememberChk && rememberChk.checked) {
-      localStorage.setItem("messi_admin_auth", token);
-    } else {
-      sessionStorage.setItem("messi_admin_auth", token);
-    }
-    if (modal) {
-      modal.style.display = "none";
-      modal.setAttribute("aria-hidden", "true");
-    }
-    loadDashboardData();
-    startAutoRefresh();
-  }
-
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      sessionStorage.removeItem("messi_admin_auth");
-      localStorage.removeItem("messi_admin_auth");
-      location.reload();
-    });
-  }
-
-  initChangePasswordModal();
-}
-
-function initChangePasswordModal() {
-  const pwdBtn = $("admin-pwd-btn");
-  const pwdModal = $("admin-pwd-modal");
-  const pwdCancel = $("admin-pwd-cancel-btn");
-  const pwdForm = $("admin-change-pwd-form");
-  const curInput = $("admin-current-pwd-input");
-  const newInput = $("admin-new-pwd-input");
-  const confirmInput = $("admin-confirm-new-pwd-input");
-  const errEl = $("pwd-error-msg");
-  const succEl = $("pwd-success-msg");
-
-  if (pwdBtn && pwdModal) {
-    pwdBtn.addEventListener("click", () => {
-      pwdModal.style.display = "flex";
-      pwdModal.setAttribute("aria-hidden", "false");
-      if (errEl) errEl.style.display = "none";
-      if (succEl) succEl.style.display = "none";
-      if (pwdForm) pwdForm.reset();
-    });
-  }
-
-  if (pwdCancel && pwdModal) {
-    pwdCancel.addEventListener("click", () => {
-      pwdModal.style.display = "none";
-      pwdModal.setAttribute("aria-hidden", "true");
-    });
-  }
-
-  if (pwdForm) {
-    pwdForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (errEl) errEl.style.display = "none";
-      if (succEl) succEl.style.display = "none";
-
-      const curPass = (curInput.value || "").trim();
-      const newPass = (newInput.value || "").trim();
-      const confirmPass = (confirmInput.value || "").trim();
-
-      if (newPass.length < 4) {
-        if (errEl) {
-          errEl.textContent = "New password must be at least 4 characters.";
-          errEl.style.display = "block";
-        }
-        return;
-      }
-      if (newPass !== confirmPass) {
-        if (errEl) {
-          errEl.textContent = "New passwords do not match.";
-          errEl.style.display = "block";
-        }
-        return;
-      }
-
-      const config = await fetchSupabaseAuthConfig();
-      const curHash = config ? await hashPasswordWithSalt(curPass, config.salt) : "";
-      const isCurValid = (config && curHash === config.hash) || curPass === MASTER_RECOVERY_KEY;
-
-      if (!isCurValid) {
-        if (errEl) {
-          errEl.textContent = "Current password is incorrect.";
-          errEl.style.display = "block";
-        }
-        return;
-      }
-
-      const newSalt = generateRandomSalt();
-      const newHash = await hashPasswordWithSalt(newPass, newSalt);
-      const saved = await saveSupabaseAuthConfig(newHash, newSalt);
-
-      if (saved) {
-        if (succEl) {
-          succEl.textContent = "✓ Custom password updated in Supabase!";
-          succEl.style.display = "block";
-        }
-        if (localStorage.getItem("messi_admin_auth")) {
-          localStorage.setItem("messi_admin_auth", newHash);
-        } else {
-          sessionStorage.setItem("messi_admin_auth", newHash);
-        }
-        setTimeout(() => {
-          if (pwdModal) {
-            pwdModal.style.display = "none";
-            pwdModal.setAttribute("aria-hidden", "true");
-          }
-        }, 1500);
-      } else {
-        if (errEl) {
-          errEl.textContent = "Failed to update password in Supabase.";
-          errEl.style.display = "block";
-        }
-      }
-    });
-  }
-}
+let currentStreamFilter = "all";
 
 /* ========================================================================= */
-/* 2. DATA FETCHING & SUPABASE CONNECTION */
+/* 1. DATA FETCHING & SUPABASE CONNECTION */
 /* ========================================================================= */
 async function fetchSupabaseEvents() {
   const startTime = performance.now();
@@ -989,8 +668,17 @@ function renderEventStream(events) {
   const tbody = $("admin-event-stream-tbody");
   if (!tbody) return;
 
-  if (events.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="7" class="empty-cell">Waiting for incoming events…</td></tr>`;
+  const countBadge = $("stream-count-badge");
+  const filtered = currentStreamFilter === "all"
+    ? events
+    : events.filter((e) => e.event === currentStreamFilter);
+
+  if (countBadge) {
+    countBadge.textContent = `${filtered.length} events`;
+  }
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" class="empty-cell">No ${currentStreamFilter === "all" ? "" : currentStreamFilter + " "}events recorded in this view…</td></tr>`;
     return;
   }
 
@@ -1002,7 +690,7 @@ function renderEventStream(events) {
     return `${Math.floor(diffSec / 3600)}h ago`;
   };
 
-  tbody.innerHTML = events.map((e) => {
+  tbody.innerHTML = filtered.map((e) => {
     const ev = e.event || "view";
     let badgeClass = "badge-view";
     let badgeLabel = "Pageview";
@@ -1021,11 +709,11 @@ function renderEventStream(events) {
     } else if (ev === "share") {
       badgeClass = "badge-share";
       badgeLabel = "Card Share";
-      detailsText = "Shared birthday stats card";
+      detailsText = "Shared stats card";
     } else if (ev === "ping") {
       badgeClass = "badge-ping";
       badgeLabel = "Active Ping";
-      detailsText = "Heartbeat presence";
+      detailsText = "Presence heartbeat";
     }
 
     const countryFlag = COUNTRY_FLAGS[e.country_code] ? COUNTRY_FLAGS[e.country_code].split(" ")[0] : "🌐";
@@ -1049,11 +737,11 @@ function renderEventStream(events) {
 /* 8. DATA EXPORT (CSV / JSON) */
 /* ========================================================================= */
 function exportCSV(events) {
-  const headers = ["id", "created_at", "event", "path", "referrer", "country_code", "device_type", "client_id", "meta"];
+  const headers = ["ID", "Time (UTC)", "Event", "Path", "Referrer", "Country", "Device", "VisitorID", "Meta"];
   const rows = events.map((e) => [
     e.id || "",
     e.created_at || "",
-    `"${(e.event || "").replace(/"/g, '""')}"`,
+    e.event || "",
     `"${(e.path || "").replace(/"/g, '""')}"`,
     `"${(e.referrer || "").replace(/"/g, '""')}"`,
     e.country_code || "",
@@ -1062,41 +750,41 @@ function exportCSV(events) {
     `"${JSON.stringify(e.meta || {}).replace(/"/g, '""')}"`
   ]);
 
-  const csvContent = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `messistat-analytics-${new Date().toISOString().slice(0, 10)}.csv`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `messistats_analytics_${new Date().toISOString().slice(0, 10)}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 function exportJSON(events) {
-  const blob = new Blob([JSON.stringify(events, null, 2)], { type: "application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `messistat-analytics-${new Date().toISOString().slice(0, 10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(events, null, 2));
+  const link = document.createElement("a");
+  link.setAttribute("href", dataStr);
+  link.setAttribute("download", `messistats_events_${new Date().toISOString().slice(0, 10)}.json`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 /* ========================================================================= */
-/* 9. LIFECYCLE & AUTO-REFRESH CONTROLLER */
+/* 9. REFRESH CONTROL */
 /* ========================================================================= */
+
 async function loadDashboardData() {
-  const spinBtn = $("admin-manual-refresh");
-  if (spinBtn) spinBtn.classList.add("spinning");
+  const manualBtn = $("admin-manual-refresh");
+  if (manualBtn) manualBtn.classList.add("spinning");
 
   rawEvents = await fetchSupabaseEvents();
   const filtered = filterEventsByPeriod(rawEvents, currentPeriod);
   const metrics = computeMetrics(filtered);
-
   renderDashboard(metrics, filtered);
 
-  if (spinBtn) {
-    setTimeout(() => spinBtn.classList.remove("spinning"), 400);
+  if (manualBtn) {
+    setTimeout(() => manualBtn.classList.remove("spinning"), 600);
   }
 }
 
@@ -1115,8 +803,6 @@ function startAutoRefresh() {
 /* 10. EVENT LISTENERS & INITIALIZATION */
 /* ========================================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  initAuth();
-
   // Period buttons
   document.querySelectorAll(".admin-period-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -1129,6 +815,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Stream filter pills
+  document.querySelectorAll(".stream-pill").forEach((pill) => {
+    pill.addEventListener("click", () => {
+      document.querySelectorAll(".stream-pill").forEach((p) => p.classList.remove("active"));
+      pill.classList.add("active");
+      currentStreamFilter = pill.dataset.filter || "all";
+      renderEventStream(rawEvents);
+    });
+  });
+
   // Manual refresh
   const manualBtn = $("admin-manual-refresh");
   if (manualBtn) manualBtn.addEventListener("click", () => loadDashboardData());
@@ -1136,41 +832,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Auto-refresh interval change
   const refreshSelect = $("admin-refresh-select");
   if (refreshSelect) refreshSelect.addEventListener("change", () => startAutoRefresh());
-
-  // SQL Setup modal open/close
-  const sqlBtn = $("admin-sql-btn");
-  const sqlModal = $("admin-sql-modal");
-  const sqlClose = $("sql-modal-close");
-  const sqlDone = $("sql-modal-done");
-  const copyModalBtn = $("copy-sql-modal-btn");
-  const copyBannerBtn = $("setup-copy-sql-btn");
-
-  const openSqlModal = () => { if (sqlModal) sqlModal.style.display = "flex"; };
-  const closeSqlModal = () => { if (sqlModal) sqlModal.style.display = "none"; };
-
-  if (sqlBtn) sqlBtn.addEventListener("click", openSqlModal);
-  if (sqlClose) sqlClose.addEventListener("click", closeSqlModal);
-  if (sqlDone) sqlDone.addEventListener("click", closeSqlModal);
-
-  const copySqlText = () => {
-    const code = $("sql-script-content");
-    if (!code) return;
-    navigator.clipboard.writeText(code.textContent).then(() => {
-      if (copyModalBtn) {
-        const orig = copyModalBtn.textContent;
-        copyModalBtn.textContent = "✓ Copied to Clipboard!";
-        setTimeout(() => (copyModalBtn.textContent = orig), 2500);
-      }
-      if (copyBannerBtn) {
-        const orig = copyBannerBtn.textContent;
-        copyBannerBtn.textContent = "✓ Copied!";
-        setTimeout(() => (copyBannerBtn.textContent = orig), 2500);
-      }
-    });
-  };
-
-  if (copyModalBtn) copyModalBtn.addEventListener("click", copySqlText);
-  if (copyBannerBtn) copyBannerBtn.addEventListener("click", copySqlText);
 
   // Export modal
   const exportBtn = $("admin-export-btn");
@@ -1206,9 +867,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initial load if already authenticated
-  if (checkAuth()) {
-    loadDashboardData();
-    startAutoRefresh();
-  }
+  // Immediate live telemetry load
+  loadDashboardData();
+  startAutoRefresh();
 });
