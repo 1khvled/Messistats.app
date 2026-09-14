@@ -767,6 +767,20 @@ async function renderOnThisDay() {
 
     const vid = container.querySelector("video");
     if (vid) {
+      vid.addEventListener("error", () => {
+        const frame = container.querySelector(".otd-player-frame");
+        if (frame) {
+          frame.innerHTML = `
+            <div class="otd-no-video">
+              <div class="otd-no-video-inner">
+                <p>📺 Video clip direct stream unavailable.</p>
+                <a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(activeMatch.opponent)}+${activeMatch.date}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                  🔍 Search clip on YouTube &rarr;
+                </a>
+              </div>
+            </div>`;
+        }
+      });
       vid.addEventListener("play", () => {
         try {
           trackVideoPlay(activeMatch.opponent, activeMatch.date, activeMatch.competition);
@@ -1697,6 +1711,10 @@ async function renderBirthday(d) {
       }
 
       if (videoPlayer) {
+        videoPlayer.onerror = () => {
+          if (videoFallback) videoFallback.hidden = false;
+          if (videoBigPlayBtn) videoBigPlayBtn.hidden = true;
+        };
         videoPlayer.src = v.videoUrl;
         videoPlayer.load();
         const playPromise = videoPlayer.play();
@@ -1706,10 +1724,6 @@ async function renderBirthday(d) {
             if (videoBigPlayBtn) videoBigPlayBtn.hidden = false;
           });
         }
-        videoPlayer.onerror = () => {
-          if (videoFallback) videoFallback.hidden = false;
-          if (videoBigPlayBtn) videoBigPlayBtn.hidden = true;
-        };
       }
 
       if (videoGoalsNav) {
