@@ -62,16 +62,16 @@ export function cleanEnv(val) {
 /** Salt must be secret in production — never the public default. */
 export function getSalt() {
   const s = cleanEnv(process.env.ADMIN_SALT || process.env.VITE_ADMIN_SALT);
-  if (s && s.length >= 16) return s;
-  if (isProduction()) return s || null; // operator should set ADMIN_SALT for legacy SHA256
+  if (s && s.length >= 8) return s;
+  if (isProduction()) return s || null;
   return s || '(dev-salt-removed)'; // local dev only
 }
 
 export function getSessionSecret() {
   const s = cleanEnv(process.env.ADMIN_SESSION_SECRET || process.env.VITE_ADMIN_SESSION_SECRET);
-  if (s && s.length >= 16) return s;
+  if (s && s.length >= 8) return s;
   const salt = cleanEnv(process.env.ADMIN_SALT || process.env.VITE_ADMIN_SALT);
-  if (salt && salt.length >= 16) return salt;
+  if (salt && salt.length >= 8) return salt;
   // If scrypt hash is present, hashHex is a high-entropy 64-byte random secret known only to the server
   const envHash = cleanEnv(process.env.ADMIN_PASSWORD_HASH || process.env.VITE_ADMIN_PASSWORD_HASH);
   if (envHash && envHash.startsWith('scrypt$')) {
@@ -220,34 +220,21 @@ export function verifyPassword(password) {
 
     // Legacy: 64-hex sha256(salt + password) — accepted for migration
     if (/^[a-f0-9]{64}$/i.test(envHash)) {
-      const salt = envSalt || getSalt();
-      if (!salt) {
-        const why = 'ADMIN_SALT is missing or <16 chars in Vercel ENV (required for legacy 64-hex SHA-256 hash)';
-        logMisconfig(why);
-        return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
-      }
+      const salt = envSalt || getSalt() || '';
       const ok = safeEqualStr(sha256hex(salt + password), envHash.toLowerCase());
       return ok ? { ok: true, mode: 'legacy-sha256' } : { ok: false };
     }
-
-    const why = `ADMIN_PASSWORD_HASH format unrecognized (length ${envHash.length}; expected scrypt$16384$8$1$... or 64-hex SHA-256; check for pasted quotes/spaces)`;
-    logMisconfig(why);
-    return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
   }
 
-  if (envPass) {
-    // Plaintext compare via double-hash to avoid length-timing leak
-    if (/^[a-f0-9]{64}$/i.test(envPass)) {
-      const salt = envSalt || getSalt();
-      if (!salt) {
-        const why = 'ADMIN_SALT is missing in Vercel ENV (required for 64-hex SHA-256 in ADMIN_PASSWORD)';
-        logMisconfig(why);
-        return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
-      }
-      const ok = safeEqualStr(sha256hex(salt + password), envPass.toLowerCase());
+  // Fallback to ADMIN_PASSWORD or candidate plaintext password
+  const candidatePass = envPass || (envHash && !envHash.startsWith('scrypt$') ? envHash : '');
+  if (candidatePass) {
+    if (/^[a-f0-9]{64}$/i.test(candidatePass)) {
+      const salt = envSalt || getSalt() || '';
+      const ok = safeEqualStr(sha256hex(salt + password), candidatePass.toLowerCase());
       return ok ? { ok: true, mode: 'legacy-sha256' } : { ok: false };
     }
-    const ok = safeEqualStr(sha256hex('pw:' + password), sha256hex('pw:' + envPass));
+    const ok = safeEqualStr(sha256hex('pw:' + password), sha256hex('pw:' + candidatePass));
     return ok ? { ok: true, mode: 'plaintext-env' } : { ok: false };
   }
 
