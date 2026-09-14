@@ -73,7 +73,7 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-14 — muse-spark-1.2 — 2ba8e26 — AdSense re-insert & BOM/mojibake fix (user: insert ca-pub-8397501846754760 then push). Restored 8 HTML shells from HEAD and re-inserted via Node fs utf8 no BOM before <title>; wrote public/ads.txt. Files: index, achievements, dashboard, birthday, goalsbyseason, goalsbyyear, timeline, admin, public/ads.txt, CONTEXT.md. Verify: Node — emdash true, mojibake false, BOM false, ads 8/8; npm run build 1.36s prebuild 928x3 ok, dist+dist/en verified; git push origin/main.
 
-- 2026-09-14 — muse-spark-1.2 — a136c01 — admin password logic → Vercel ENV (not Supabase). Created api/admin-auth.js (serverless, sha256(salt+password), timingSafeEqual, 5/15min rate limit, supports ADMIN_PASSWORD_HASH/ADMIN_PASSWORD + ADMIN_SALT, fallback dev hash). Patched src/admin.js (remove ADMIN_SALT/DEFAULT_HASH/computeSha256/localStorage, now fetch POST /api/admin-auth, disabled change-pass modal → ENV instructions). Patched admin.html modal subtitle to Vercel ENV. Added .env.example, scripts/generate-admin-hash.mjs, npm run admin:hash, .gitignore .env. Verify: hash gen ok, api 200/401/429 tests pass, npm run build 1.05s prebuild 928x3 ok, dist/admin.html 25KB.
+- 2026-09-14 — muse-spark-1.2 — 9524bdb — admin password logic → Vercel ENV (not Supabase). Created api/admin-auth.js (serverless, sha256(salt+password), timingSafeEqual, 5/15min rate limit, supports ADMIN_PASSWORD_HASH/ADMIN_PASSWORD + ADMIN_SALT, fallback dev hash). Patched src/admin.js (remove ADMIN_SALT/DEFAULT_HASH/computeSha256/localStorage, now fetch POST /api/admin-auth, disabled change-pass modal → ENV instructions). Patched admin.html modal subtitle to Vercel ENV. Added .env.example, scripts/generate-admin-hash.mjs, npm run admin:hash, .gitignore .env. Verify: hash gen ok, api 200/401/429 tests pass, npm run build 1.05s prebuild 928x3 ok, dist/admin.html 25KB.
 
 <!-- ADD NEW ENTRIES BELOW THIS LINE — DO NOT EDIT ABOVE -->
 
@@ -83,5 +83,5 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 |---|---|---|---|---|
 | 2026-09-14 | muse-spark-1.2 | AdSense re-insert & BOM fix + push | 2ba8e26 | 8 HTML, public/ads.txt, CONTEXT.md |
 
-| 2026-09-14 | muse-spark-1.2 | admin ENV fix (Vercel not Supabase) | a136c01 | api/admin-auth.js, src/admin.js, admin.html, .env.example, scripts/generate-admin-hash.mjs, package.json, .gitignore, README.md, CONTEXT.md |
+| 2026-09-14 | muse-spark-1.2 | admin ENV fix (Vercel not Supabase) | 9524bdb | api/admin-auth.js, src/admin.js, admin.html, .env.example, scripts/generate-admin-hash.mjs, package.json, .gitignore, README.md, CONTEXT.md |
 <!-- ADD NEW ROWS BELOW — KEEP CHRONOLOGICAL -->
