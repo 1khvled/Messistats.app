@@ -95,6 +95,8 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-14 — antigravity (gemini-3.8-flash) — 6b59ed3 — fix admin auth resilience & diagnostics (user: admin auth not configured despite setting ENV and redeploying). Fixed failure modes: 1) verifyPassword blocked scrypt if ADMIN_SALT was missing even though scrypt embeds its own salt; 2) accidental quotes around pasted ENV values broke prefix matching; 3) supported VITE_ fallback for keys; 4) 503 response now returns clear diagnostics + help so operator sees exact ENV presence instead of generic failure. Files: api/_auth-shared.js, api/admin-auth.js, api/admin-events.js, api/track.js, CONTEXT.md. Verify: auth unit tests (scrypt without salt, quotes, VITE_ prefix, plaintext, diagnostics) pass, npm run build (558ms, 928x3 ok), npm run audit ok.
 
+- 2026-09-14 — antigravity (gemini-3.8-flash) — 299e898 — allow plaintext password in ADMIN_PASSWORD_HASH and 8+ char salt (live diagnostics showed user set 12-char password into ADMIN_PASSWORD_HASH + 12-char salt, triggering unrecognized format error). Added automatic fallback to candidatePass for non-hash ADMIN_PASSWORD_HASH and lowered salt requirement to 8+ chars. Files: api/_auth-shared.js, CONTEXT.md. Verify: unit test with 12-char password and 12-char salt passes, npm run build (557ms, 928x3 ok), npm run audit ok.
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -113,3 +115,4 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-14 | muse-spark | admin 503 diagnostics logging | 5e53cc1 | api/_auth-shared.js, CONTEXT.md |
 | 2026-09-14 | antigravity (gemini-3.8-flash) | fix video clips blocked by CSP & video player fallback | a952478 | vercel.json, birthday.html, src/app.js, CONTEXT.md |
 | 2026-09-14 | antigravity (gemini-3.8-flash) | fix admin auth resilience & diagnostics | 6b59ed3 | api/_auth-shared.js, api/admin-auth.js, api/admin-events.js, api/track.js, CONTEXT.md |
+| 2026-09-14 | antigravity (gemini-3.8-flash) | support plaintext in ADMIN_PASSWORD_HASH & 8+ salt | 299e898 | api/_auth-shared.js, CONTEXT.md |
