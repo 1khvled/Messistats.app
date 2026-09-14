@@ -91,6 +91,21 @@ and fonts to `../fonts/*`, so pages also work from any subpath or plain file
 host. `src/ads.js` and `src/matchday.js` ship disabled-by-default (early
 return unless their `window.*` switch is set), so the deployed site still
 makes zero third-party requests.
+
+### Admin Dashboard — env password (Vercel, not Supabase)
+
+`/admin` is protected by a Vercel serverless function `api/admin-auth.js`. No Supabase table, no localStorage hash. Set the passphrase as a Vercel Environment Variable then redeploy:
+
+1. Generate a hash (recommended, 64 hex): `npm run admin:hash -- yourpassword`
+   — uses salt `(dev-salt-removed)` (override with `ADMIN_SALT` if you change it).
+2. Vercel Dashboard → Your Project → Settings → Environment Variables → Add:
+   - `ADMIN_PASSWORD_HASH` = the 64-char hash (preferred)
+   - or `ADMIN_PASSWORD` = plaintext (works, hash preferred)
+   - optional `ADMIN_SALT` = custom salt (must match generation)
+3. Redeploy (Vercel auto-redeploys after env add if enabled, else manual Deploy).
+4. Open `/admin` and enter the same password. Server checks `sha256(salt + password)` with `crypto.timingSafeEqual` + 5-attempt / 15-min rate limit (30s lockout). Session lives in `sessionStorage`; use “Lock” to log out.
+
+Local dev without env falls back to the legacy hash so `npm run dev` still works; set `ADMIN_PASSWORD_HASH` locally in `.env` to test the real path. The “Change passphrase” modal is disabled — it now explains the Vercel ENV flow. Never commit `.env` (see `.env.example`).
 ## Smart scheduling (how it works)
 
 One cron trigger, every 2h at minute 0 (`0 */2 * * *`, 12 runs/day). The

@@ -4,3 +4,6 @@ dist/
 .superpowers/
 scratch/
 scratch_audit/
+# env — admin password never committed
+.env
+.env.local

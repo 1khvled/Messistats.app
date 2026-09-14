@@ -32,30 +32,12 @@ const COUNTRY_FLAGS = {
   Direct: "🌐 Direct / Unknown"
 };
 
-// Authentication Constants & Crypto
-const ADMIN_SALT = "(dev-salt-removed)";
-const DEFAULT_HASH = "d8929aaa33eb1eb986bb0ebee05c57fe2a4d16e37f7aa1b9a507affc41c798af";
-
-async function computeSha256(text) {
-  const enc = new TextEncoder();
-  const data = enc.encode(ADMIN_SALT + text);
-  const buf = await crypto.subtle.digest("SHA-256", data);
-  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
+// Admin auth — Verifies via Vercel ENV (api/admin-auth, never in Supabase or localStorage)
 function isAuthenticated() {
   try {
     return sessionStorage.getItem("messi_admin_auth") === "authenticated";
   } catch (_) {
     return false;
-  }
-}
-
-function getStoredPassHash() {
-  try {
-    return localStorage.getItem("messi_admin_custom_hash") || DEFAULT_HASH;
-  } catch (_) {
-    return DEFAULT_HASH;
   }
 }
 
@@ -901,28 +883,45 @@ document.addEventListener("DOMContentLoaded", () => {
       const inputVal = passInp.value.trim();
       if (!inputVal) return;
 
-      const hash = await computeSha256(inputVal);
-      const targetHash = getStoredPassHash();
+      // Disable button while verifying via Vercel ENV
+      const submitBtn = $("admin-login-submit");
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Verifying…"; }
+      if (loginError) loginError.style.display = "none";
 
-      if (hash === targetHash) {
-        failedAttempts = 0;
-        try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch (_) {}
-        if (loginError) loginError.style.display = "none";
-        updateAuthView();
-      } else {
-        failedAttempts++;
-        if (failedAttempts >= 5) {
-          lockoutUntil = Date.now() + 30000;
-          if (loginError) {
-            loginError.style.display = "block";
-            loginError.textContent = "Too many failed attempts. Security lockout active for 30s.";
-          }
+      try {
+        const res = await fetch("/api/admin-auth", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: inputVal })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          failedAttempts = 0;
+          try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch (_) {}
+          if (loginError) loginError.style.display = "none";
+          updateAuthView();
         } else {
+          // Use server message if provided, else fallback
+          const msg = data && data.error ? data.error : (res.status === 429 ? "Too many attempts. Try again shortly." : "Incorrect passphrase.");
+          // Track client lockout if server says 429 or after 5 fails
+          if (res.status === 429) {
+            lockoutUntil = Date.now() + (data.retryAfter ? data.retryAfter * 1000 : 30000);
+          } else {
+            failedAttempts++;
+            if (failedAttempts >= 5) lockoutUntil = Date.now() + 30000;
+          }
           if (loginError) {
             loginError.style.display = "block";
-            loginError.textContent = `Incorrect passphrase. (${5 - failedAttempts} attempts remaining)`;
+            loginError.textContent = msg;
           }
         }
+      } catch (err) {
+        if (loginError) {
+          loginError.style.display = "block";
+          loginError.textContent = "Network error. Please try again.";
+        }
+      } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Unlock Dashboard"; }
       }
     });
   }
@@ -964,34 +963,9 @@ document.addEventListener("DOMContentLoaded", () => {
   if (changePassForm && newPassInp && confirmPassInp) {
     changePassForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const nPass = newPassInp.value.trim();
-      const cPass = confirmPassInp.value.trim();
-
-      if (nPass.length < 6) {
-        if (passModalError) {
-          passModalError.style.display = "block";
-          passModalError.textContent = "Passphrase must be at least 6 characters long.";
-        }
-        return;
-      }
-      if (nPass !== cPass) {
-        if (passModalError) {
-          passModalError.style.display = "block";
-          passModalError.textContent = "Passphrases do not match.";
-        }
-        return;
-      }
-
-      const newHash = await computeSha256(nPass);
-      try {
-        localStorage.setItem("messi_admin_custom_hash", newHash);
-        alert("Admin passphrase updated successfully!");
-        if (passModal) passModal.style.display = "none";
-      } catch (err) {
-        if (passModalError) {
-          passModalError.style.display = "block";
-          passModalError.textContent = "Could not save passphrase to storage.";
-        }
+      if (passModalError) {
+        passModalError.style.display = "block";
+        passModalError.innerHTML = 'Passphrase is managed via Vercel ENV (<code>ADMIN_PASSWORD_HASH</code> or <code>ADMIN_PASSWORD</code>).<br>Update it in Vercel Dashboard → Settings → Environment Variables, then redeploy. No Supabase or localStorage is used.';
       }
     });
   }

@@ -16,7 +16,8 @@
     "pending": "node scripts/confirm-provisional.mjs --list",
     "triage": "node scripts/triage.mjs",
     "audit": "node scripts/dist-audit.cjs",
-    "sync:daily": "python scripts/scrape-live-sync.py && node scripts/source-watch.mjs"
+    "sync:daily": "python scripts/scrape-live-sync.py && node scripts/source-watch.mjs",
+    "admin:hash": "node scripts/generate-admin-hash.mjs"
   },
   "devDependencies": {
     "vite": "^6.0.0"
