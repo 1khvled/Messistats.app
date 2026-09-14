@@ -4,8 +4,34 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('.', import.meta.url));
 
+function cleanEnRouting() {
+  const handler = (req, res, next) => {
+    let url = req.url.split('?')[0];
+    const query = req.url.includes('?') ? '?' + req.url.split('?')[1] : '';
+    if (url === '/en' || url === '/en/') {
+      req.url = '/' + query;
+    } else if (url.startsWith('/en/')) {
+      const slug = url.slice(4);
+      req.url = '/' + slug + '.html' + query;
+    } else if (!url.includes('.') && url !== '/') {
+      req.url = url + '.html' + query;
+    }
+    next();
+  };
+  return {
+    name: 'clean-en-routing',
+    configureServer(server) {
+      server.middlewares.use(handler);
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(handler);
+    }
+  };
+}
+
 export default defineConfig({
   base: '/',
+  plugins: [cleanEnRouting()],
   build: {
     outDir: 'dist',
     emptyOutDir: true,

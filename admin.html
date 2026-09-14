@@ -21,13 +21,28 @@
       }
     } catch(e) {}
   })();
+<title>Admin Live Analytics &amp; Telemetry — MessiStats</title>
+<link href="favicon.svg" rel="icon" type="image/svg+xml"/>
+<link as="font" crossorigin="" href="fonts/plus-jakarta-sans-latin.woff2" rel="preload" type="font/woff2"/>
+<link as="font" crossorigin="" href="fonts/dm-sans-latin.woff2" rel="preload" type="font/woff2"/>
+<link href="src/styles.css" rel="stylesheet"/>
+<script>
+  (function() {
+    try {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch(e) {}
+  })();
 </script>
 </head>
 <body data-page="admin">
 <a class="skip" href="#main">Skip to content</a>
 
 <aside aria-label="Primary" class="rail">
-  <a aria-label="MessiStats home" class="rail-badge" href="index.html">
+  <a aria-label="MessiStats home" class="rail-badge" href="/en">
     <svg aria-hidden="true" class="rail-mark" viewbox="0 0 64 64">
       <defs>
         <lineargradient id="msg-admin" x1="0" x2="1" y1="0" y2="1">
@@ -44,35 +59,35 @@
   </a>
 
   <nav>
-    <a href="index.html">
+    <a href="/en">
       <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>
       <span>Home</span>
     </a>
-    <a href="goalsbyyear.html">
+    <a href="/en/goalsbyyear">
       <svg aria-hidden="true" viewbox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>
       <span>Goals by Year</span>
     </a>
-    <a href="goalsbyseason.html">
+    <a href="/en/goalsbyseason">
       <svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>
       <span>Goals by Season</span>
     </a>
-    <a href="dashboard.html">
+    <a href="/en/dashboard">
       <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>
       <span>Dashboard</span>
     </a>
-    <a href="timeline.html">
+    <a href="/en/timeline">
       <svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>
       <span>Through the Years</span>
     </a>
-    <a href="achievements.html">
+    <a href="/en/achievements">
       <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>
       <span>Achievements</span>
     </a>
-    <a href="birthday.html">
+    <a href="/en/birthday">
       <svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>
       <span>Birthday Goals</span>
     </a>
-    <a id="rail-admin-link" aria-current="page" class="on" href="admin.html" style="display:none;">
+    <a id="rail-admin-link" aria-current="page" class="on" href="/en/admin" style="display:none;">
       <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M12 6v6l4 2"></path></svg>
       <span>Admin Analytics</span>
     </a>

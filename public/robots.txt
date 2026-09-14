@@ -1,5 +1,11 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/
+Disallow: /en/admin
+Disallow: /en/admin/
+Disallow: /api/
+Disallow: /api
 
 # Dedicated permissions for AI search engines & assistants
 User-agent: GPTBot
