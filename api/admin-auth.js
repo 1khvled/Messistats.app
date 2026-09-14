@@ -24,6 +24,7 @@ import {
   recordFail,
   clearFails,
   rateLimitStore,
+  getDiagnostics,
   sleep,
 } from './_auth-shared.js';
 
@@ -126,7 +127,9 @@ export default async function handler(req, res) {
     // Fail closed — never fall back to a hardcoded hash in production
     return res.status(503).json({
       ok: false,
-      error: 'Admin auth is not configured (set ADMIN_PASSWORD_HASH + ADMIN_SALT in Vercel ENV)',
+      error: verdict.detail || 'Admin auth is not configured (set ADMIN_PASSWORD_HASH in Vercel ENV)',
+      diagnostics: verdict.diagnostics || getDiagnostics(),
+      help: 'In Vercel Dashboard > Project Settings > Environment Variables: ensure ADMIN_PASSWORD_HASH is set with "Production" environment checked, then trigger a new deployment.',
     });
   }
 

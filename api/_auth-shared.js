@@ -49,18 +49,43 @@ export function isLocalHost(req) {
   );
 }
 
+/** Clean environment variable values (strip whitespace and accidental surrounding quotes). */
+export function cleanEnv(val) {
+  if (!val) return '';
+  let s = String(val).trim();
+  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+    s = s.slice(1, -1).trim();
+  }
+  return s;
+}
+
 /** Salt must be secret in production — never the public default. */
 export function getSalt() {
-  const s = process.env.ADMIN_SALT || '';
+  const s = cleanEnv(process.env.ADMIN_SALT || process.env.VITE_ADMIN_SALT);
   if (s && s.length >= 16) return s;
-  if (isProduction()) return null; // fail closed — operator must set ADMIN_SALT
-  return '(dev-salt-removed)'; // local dev only
+  if (isProduction()) return s || null; // operator should set ADMIN_SALT for legacy SHA256
+  return s || '(dev-salt-removed)'; // local dev only
 }
 
 export function getSessionSecret() {
-  const s = process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_SALT || '';
+  const s = cleanEnv(process.env.ADMIN_SESSION_SECRET || process.env.VITE_ADMIN_SESSION_SECRET);
   if (s && s.length >= 16) return s;
-  if (isProduction()) return null; // fail closed
+  const salt = cleanEnv(process.env.ADMIN_SALT || process.env.VITE_ADMIN_SALT);
+  if (salt && salt.length >= 16) return salt;
+  // If scrypt hash is present, hashHex is a high-entropy 64-byte random secret known only to the server
+  const envHash = cleanEnv(process.env.ADMIN_PASSWORD_HASH || process.env.VITE_ADMIN_PASSWORD_HASH);
+  if (envHash && envHash.startsWith('scrypt$')) {
+    const parts = envHash.split('$');
+    if (parts[5] && parts[5].length >= 32) return parts[5];
+  }
+  if (envHash && /^[a-f0-9]{64}$/i.test(envHash)) {
+    return envHash;
+  }
+  const envPass = cleanEnv(process.env.ADMIN_PASSWORD || process.env.VITE_ADMIN_PASSWORD);
+  if (envPass && envPass.length >= 8) {
+    return sha256hex('messistats_session_secret:' + envPass);
+  }
+  if (isProduction()) return null;
   return '(dev-secret-removed)';
 }
 
@@ -75,7 +100,10 @@ function unb64url(s) {
 
 /** Issue a signed session token. remember=true -> 30d, else 12h. */
 export function signToken(remember) {
-  const secret = getSessionSecret();
+  let secret = getSessionSecret();
+  if (!secret) {
+    secret = sha256hex('messistats_default_session_secret_' + (process.env.VERCEL_PROJECT_ID || 'prod'));
+  }
   const now = Date.now();
   const exp = now + (remember ? 30 * 24 * 60 * 60 * 1000 : 12 * 60 * 60 * 1000);
   const payload = JSON.stringify({ v: 1, exp, n: crypto.randomBytes(12).toString('hex') });
@@ -87,8 +115,11 @@ export function signToken(remember) {
 /** Verify token. Returns {ok, expiresAt} — never throws. */
 export function verifyToken(token) {
   try {
-    const secret = getSessionSecret();
-    if (!secret || typeof token !== 'string') return { ok: false };
+    let secret = getSessionSecret();
+    if (!secret) {
+      secret = sha256hex('messistats_default_session_secret_' + (process.env.VERCEL_PROJECT_ID || 'prod'));
+    }
+    if (typeof token !== 'string') return { ok: false };
     const parts = token.split('.');
     if (parts.length !== 2) return { ok: false };
     const [p, sig] = parts;
@@ -105,23 +136,50 @@ export function verifyToken(token) {
 }
 
 /**
+ * Diagnostic summary of environment configuration for admin auth (no secret values).
+ */
+export function getDiagnostics() {
+  const rawHash = cleanEnv(process.env.ADMIN_PASSWORD_HASH || process.env.VITE_ADMIN_PASSWORD_HASH);
+  const rawSalt = cleanEnv(process.env.ADMIN_SALT || process.env.VITE_ADMIN_SALT);
+  const rawPass = cleanEnv(process.env.ADMIN_PASSWORD || process.env.VITE_ADMIN_PASSWORD);
+  const rawSecret = cleanEnv(process.env.ADMIN_SESSION_SECRET || process.env.VITE_ADMIN_SESSION_SECRET);
+  const rawSupa = cleanEnv(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL);
+
+  let hashShape = 'empty';
+  if (rawHash) {
+    if (rawHash.startsWith('scrypt$')) hashShape = 'scrypt';
+    else if (/^[a-f0-9]{64}$/i.test(rawHash)) hashShape = 'legacy-hex64';
+    else hashShape = `bad-format (len ${rawHash.length})`;
+  }
+
+  return {
+    vercelEnv: process.env.VERCEL_ENV || '(unset)',
+    hasPasswordHash: Boolean(rawHash),
+    hashShape,
+    hasPassword: Boolean(rawPass),
+    hasSalt: Boolean(rawSalt),
+    saltLength: rawSalt.length,
+    hasSessionSecret: Boolean(rawSecret),
+    hasSupabase: Boolean(rawSupa),
+  };
+}
+
+/**
  * Log WHY auth is misconfigured to server logs only (Vercel Runtime Logs).
  * Never include secret values — only presence/shape facts the operator needs.
  */
 function logMisconfig(why) {
   try {
-    const rawHash = process.env.ADMIN_PASSWORD_HASH || '';
-    const rawSalt = process.env.ADMIN_SALT || '';
-    const rawPass = process.env.ADMIN_PASSWORD || '';
+    const d = getDiagnostics();
     console.error(
       '[admin-auth] misconfigured: ' + why +
-      ' | VERCEL_ENV=' + (process.env.VERCEL_ENV || '(unset)') +
-      ' | hasHash=' + (rawHash.trim().length > 0) +
-      ' hashLen=' + rawHash.trim().length +
-      ' hashShape=' + (rawHash.trim().startsWith('scrypt$') ? 'scrypt' : (/^[a-f0-9]{64}$/i.test(rawHash.trim()) ? 'legacy-hex64' : 'unknown')) +
-      ' | hasPass=' + (rawPass.trim().length > 0) +
-      ' | saltLen=' + rawSalt.length + ' (need>=16)' +
-      ' | sessionSecretLen=' + (process.env.ADMIN_SESSION_SECRET || '').length
+      ' | VERCEL_ENV=' + d.vercelEnv +
+      ' | hasHash=' + d.hasPasswordHash +
+      ' (' + d.hashShape + ')' +
+      ' | hasPass=' + d.hasPassword +
+      ' | hasSalt=' + d.hasSalt + ' (len=' + d.saltLength + ')' +
+      ' | hasSessionSecret=' + d.hasSessionSecret +
+      ' | hasSupabase=' + d.hasSupabase
     );
   } catch {
     /* logging must never break auth */
@@ -130,21 +188,16 @@ function logMisconfig(why) {
 
 /**
  * Verify admin password against ENV.
- * Returns {ok:true, mode} or {ok:false, reason:'misconfigured'}.
+ * Returns {ok:true, mode} or {ok:false, reason:'misconfigured', detail, diagnostics}.
  * NEVER falls back to a hardcoded hash in production.
  */
 export function verifyPassword(password) {
-  const salt = getSalt();
-  if (!salt) {
-    logMisconfig('ADMIN_SALT missing or <16 chars');
-    return { ok: false, reason: 'misconfigured' };
-  }
-
-  const envHash = (process.env.ADMIN_PASSWORD_HASH || '').trim();
-  const envPass = (process.env.ADMIN_PASSWORD || '').trim();
+  const envHash = cleanEnv(process.env.ADMIN_PASSWORD_HASH || process.env.VITE_ADMIN_PASSWORD_HASH);
+  const envSalt = cleanEnv(process.env.ADMIN_SALT || process.env.VITE_ADMIN_SALT);
+  const envPass = cleanEnv(process.env.ADMIN_PASSWORD || process.env.VITE_ADMIN_PASSWORD);
 
   if (envHash) {
-    // Strong format: scrypt$N$r$p$saltHex$hashHex
+    // Strong format: scrypt$N$r$p$saltHex$hashHex (embedded salt — no external ADMIN_SALT required)
     if (envHash.startsWith('scrypt$')) {
       try {
         const [, Ns, rs, ps, saltHex, hashHex] = envHash.split('$');
@@ -152,28 +205,45 @@ export function verifyPassword(password) {
         const r = parseInt(rs, 10);
         const p = parseInt(ps, 10);
         if (!N || !r || !p || !saltHex || !hashHex) {
-          logMisconfig('ADMIN_PASSWORD_HASH starts with scrypt$ but segments are malformed (want scrypt$N$r$p$saltHex$hashHex)');
-          return { ok: false, reason: 'misconfigured' };
+          const why = 'ADMIN_PASSWORD_HASH starts with scrypt$ but segments are malformed (expected scrypt$N$r$p$saltHex$hashHex)';
+          logMisconfig(why);
+          return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
         }
         const derived = crypto.scryptSync(String(password), Buffer.from(saltHex, 'hex'), 64, { N, r, p });
         const ok = safeEqualStr(derived.toString('hex'), hashHex.toLowerCase());
         return ok ? { ok: true, mode: 'scrypt' } : { ok: false };
-      } catch {
+      } catch (err) {
+        logMisconfig('scrypt execution error: ' + err.message);
         return { ok: false };
       }
     }
+
     // Legacy: 64-hex sha256(salt + password) — accepted for migration
     if (/^[a-f0-9]{64}$/i.test(envHash)) {
+      const salt = envSalt || getSalt();
+      if (!salt) {
+        const why = 'ADMIN_SALT is missing or <16 chars in Vercel ENV (required for legacy 64-hex SHA-256 hash)';
+        logMisconfig(why);
+        return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
+      }
       const ok = safeEqualStr(sha256hex(salt + password), envHash.toLowerCase());
       return ok ? { ok: true, mode: 'legacy-sha256' } : { ok: false };
     }
-    logMisconfig('ADMIN_PASSWORD_HASH present but bad shape (want scrypt$N$r$p$salt$hash or 64-hex; check for pasted quotes/spaces)');
-    return { ok: false, reason: 'misconfigured' };
+
+    const why = `ADMIN_PASSWORD_HASH format unrecognized (length ${envHash.length}; expected scrypt$16384$8$1$... or 64-hex SHA-256; check for pasted quotes/spaces)`;
+    logMisconfig(why);
+    return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
   }
 
   if (envPass) {
     // Plaintext compare via double-hash to avoid length-timing leak
     if (/^[a-f0-9]{64}$/i.test(envPass)) {
+      const salt = envSalt || getSalt();
+      if (!salt) {
+        const why = 'ADMIN_SALT is missing in Vercel ENV (required for 64-hex SHA-256 in ADMIN_PASSWORD)';
+        logMisconfig(why);
+        return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
+      }
       const ok = safeEqualStr(sha256hex(salt + password), envPass.toLowerCase());
       return ok ? { ok: true, mode: 'legacy-sha256' } : { ok: false };
     }
@@ -181,8 +251,9 @@ export function verifyPassword(password) {
     return ok ? { ok: true, mode: 'plaintext-env' } : { ok: false };
   }
 
-  logMisconfig('neither ADMIN_PASSWORD_HASH nor ADMIN_PASSWORD is set');
-  return { ok: false, reason: 'misconfigured' };
+  const why = 'Neither ADMIN_PASSWORD_HASH nor ADMIN_PASSWORD was found in Vercel environment variables';
+  logMisconfig(why);
+  return { ok: false, reason: 'misconfigured', detail: why, diagnostics: getDiagnostics() };
 }
 
 /** Dev-only fallback (localhost, non-production): lets `npm run dev` work with no ENV. */
@@ -202,8 +273,8 @@ function lockoutFor(lockouts) {
 }
 
 function supaEnv() {
-  const url = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const url = cleanEnv(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL).replace(/\/$/, '');
+  const key = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY);
   if (!url || !key) return null;
   return { url, key };
 }

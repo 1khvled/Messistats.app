@@ -7,7 +7,7 @@
  * Validates same rules as the RLS WITH CHECK policy, throttles per IP,
  * then inserts via SERVICE_ROLE (server-side only).
  */
-import { getClientIp } from './_auth-shared.js';
+import { getClientIp, cleanEnv } from './_auth-shared.js';
 
 const ALLOWED_EVENTS = new Set(['view', 'ping', 'birthday_search', 'video_play', 'share']);
 
@@ -116,8 +116,8 @@ export default async function handler(req, res) {
     meta,
   };
 
-  const url = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const url = cleanEnv(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL).replace(/\/$/, '');
+  const key = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY);
   if (!url || !key) return res.status(503).json({ ok: false, error: 'Tracking proxy not configured' });
 
   try {

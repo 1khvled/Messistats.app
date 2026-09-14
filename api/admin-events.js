@@ -4,7 +4,7 @@
  * key (server-side only) so the anon key can be INSERT-only and the
  * client bundle never holds read access to the analytics table.
  */
-import { getClientIp, verifyToken } from './_auth-shared.js';
+import { getClientIp, verifyToken, cleanEnv } from './_auth-shared.js';
 
 // Light per-IP throttle for the proxy itself (per isolate, best-effort)
 const hits = new Map();
@@ -54,8 +54,8 @@ export default async function handler(req, res) {
     return res.status(429).json({ ok: false, error: 'Too many requests. Slow down.' });
   }
 
-  const url = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const url = cleanEnv(process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL).replace(/\/$/, '');
+  const key = cleanEnv(process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_SERVICE_ROLE_KEY);
   if (!url || !key) {
     return res.status(503).json({
       ok: false,
