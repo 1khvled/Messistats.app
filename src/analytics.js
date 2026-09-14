@@ -156,17 +156,28 @@ async function sendToSupabase(payload) {
 }
 
 function isAdminAuthenticated() {
+  // Token-based (server-issued). Cosmetic only — the real gate is the
+  // server proxy + RLS; this just keeps admin browsing out of KPIs.
   try {
-    if (sessionStorage.getItem("messi_admin_auth") === "authenticated") return true;
-    const p = localStorage.getItem("messi_admin_auth");
-    const u = localStorage.getItem("messi_admin_remember_until");
-    if (p === "authenticated" && u) {
-      const exp = parseInt(u, 10);
-      if (!isNaN(exp) && Date.now() < exp) return true;
+    const tok = sessionStorage.getItem("messi_admin_token");
+    const exp = parseInt(sessionStorage.getItem("messi_admin_token_exp") || "0", 10);
+    if (tok && !isNaN(exp) && Date.now() < exp) return true;
+    const p = localStorage.getItem("messi_admin_token");
+    const u = localStorage.getItem("messi_admin_token_exp");
+    if (p && u) {
+      const le = parseInt(u, 10);
+      if (!isNaN(le) && Date.now() < le) return true;
     }
   } catch (_) {}
   return false;
 }
+
+// Client-side abuse caps: the table is INSERT-open by design (public
+// tracking), so validate + throttle here AND in the RLS WITH CHECK policy.
+const ALLOWED_EVENTS = new Set(["view", "ping", "birthday_search", "video_play", "share"]);
+const MAX_EVENTS_PER_SESSION = 300;
+let sessionEventCount = 0;
+let lastSendAt = 0;
 
 // Core tracking dispatcher
 export function trackEvent(eventType, meta = {}) {
@@ -178,17 +189,37 @@ export function trackEvent(eventType, meta = {}) {
   if (isAdminAuthenticated()) {
     return;
   }
+  if (!ALLOWED_EVENTS.has(eventType || "view")) return;
+  if (sessionEventCount >= MAX_EVENTS_PER_SESSION) return;
+  const nowMs = Date.now();
+  // Min 2s between sends — drops runaway loops / spammy callers
+  if (nowMs - lastSendAt < 2000 && eventType !== "view") return;
+
+  let safeMeta = {};
+  try {
+    safeMeta = meta && typeof meta === "object" ? meta : {};
+    const s = JSON.stringify(safeMeta);
+    if (s.length > 2000) return; // oversized payload — drop
+  } catch (_) {
+    return;
+  }
+
+  const path = String(window.location.pathname || "/").slice(0, 200);
+  const referrer = String(getCleanReferrer() || "Direct").slice(0, 200);
+  const country = getEstimatedCountry();
+  sessionEventCount += 1;
+  lastSendAt = nowMs;
 
   const payload = {
-    client_id: getVisitorId(),
-    session_id: getSessionId(),
+    client_id: String(getVisitorId()).slice(0, 80),
+    session_id: String(getSessionId()).slice(0, 80),
     event: eventType || "view",
-    path: window.location.pathname || "/",
-    referrer: getCleanReferrer(),
+    path,
+    referrer,
     user_agent: (navigator.userAgent || "").substring(0, 300),
-    country_code: getEstimatedCountry(),
-    device_type: getDeviceType(),
-    meta: meta || {},
+    country_code: country ? String(country).slice(0, 8) : null,
+    device_type: String(getDeviceType()).slice(0, 16),
+    meta: safeMeta || {},
     created_at: new Date().toISOString()
   };
 

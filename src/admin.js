@@ -1,11 +1,62 @@
 /**
  * MessiStats Admin Analytics & Real-Time KPI Dashboard Engine
- * Connects directly to Supabase table: public.messi_page_events
+ * Reads analytics ONLY through the server proxy /api/admin-events
+ * (Bearer session token). The anon key is never bundled here, so a
+ * forged localStorage flag alone reveals zero data.
  */
 
-const SUPABASE_URL = "https://(supabase-url-removed)";
-const SUPABASE_ANON_KEY = "(supabase-anon-key-removed)";
-const TABLE_NAME = "messi_page_events";
+// Admin auth — server-issued HMAC token (api/admin-auth), NOT a plain flag.
+// Token lives in sessionStorage; "remember me" additionally persists it
+// (with expiry) in localStorage for 30 days.
+const TOKEN_KEY = 'messi_admin_token';
+const TOKEN_EXP_KEY = 'messi_admin_token_exp';
+
+function getStoredToken() {
+  try {
+    let tok = sessionStorage.getItem(TOKEN_KEY);
+    let exp = parseInt(sessionStorage.getItem(TOKEN_EXP_KEY) || '0', 10);
+    if (tok && !isNaN(exp) && Date.now() < exp) return tok;
+    tok = localStorage.getItem(TOKEN_KEY);
+    exp = parseInt(localStorage.getItem(TOKEN_EXP_KEY) || '0', 10);
+    if (tok && !isNaN(exp) && Date.now() < exp) {
+      // hydrate session for current tab
+      try {
+        sessionStorage.setItem(TOKEN_KEY, tok);
+        sessionStorage.setItem(TOKEN_EXP_KEY, String(exp));
+      } catch {}
+      return tok;
+    }
+  } catch (_) {}
+  return '';
+}
+function isAuthenticated() {
+  return !!getStoredToken();
+}
+function setAuthenticated(token, expiresAt, remember) {
+  try { sessionStorage.setItem(TOKEN_KEY, token); } catch {}
+  try { sessionStorage.setItem(TOKEN_EXP_KEY, String(expiresAt)); } catch {}
+  try {
+    if (remember) {
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(TOKEN_EXP_KEY, String(expiresAt));
+    } else {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(TOKEN_EXP_KEY);
+    }
+  } catch {}
+}
+function clearAuthenticated() {
+  try { sessionStorage.removeItem(TOKEN_KEY); } catch {}
+  try { sessionStorage.removeItem(TOKEN_EXP_KEY); } catch {}
+  try { localStorage.removeItem(TOKEN_KEY); } catch {}
+  try { localStorage.removeItem(TOKEN_EXP_KEY); } catch {}
+}
+// Backwards-compat: drop the legacy forgeable flag if present
+try {
+  sessionStorage.removeItem('messi_admin_auth');
+  localStorage.removeItem('messi_admin_auth');
+  localStorage.removeItem('messi_admin_remember_until');
+} catch {}
 
 // Country Flag Emoji Map
 const COUNTRY_FLAGS = {
@@ -32,43 +83,7 @@ const COUNTRY_FLAGS = {
   Direct: "🌐 Direct / Unknown"
 };
 
-// Admin auth — Verifies via Vercel ENV (api/admin-auth, never in Supabase). Remember-me persists 30d via localStorage.
-function isAuthenticated() {
-  try {
-    if (sessionStorage.getItem("messi_admin_auth") === "authenticated") return true;
-    const persist = localStorage.getItem("messi_admin_auth");
-    const until = localStorage.getItem("messi_admin_remember_until");
-    if (persist === "authenticated" && until) {
-      const exp = parseInt(until, 10);
-      if (!isNaN(exp) && Date.now() < exp) {
-        // hydrate session for current tab
-        try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch {}
-        return true;
-      }
-      try { localStorage.removeItem("messi_admin_auth"); localStorage.removeItem("messi_admin_remember_until"); } catch {}
-    }
-    return false;
-  } catch (_) {
-    return false;
-  }
-}
-function setAuthenticated(remember) {
-  try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch {}
-  try {
-    if (remember) {
-      const until = Date.now() + 30 * 24 * 60 * 60 * 1000;
-      localStorage.setItem("messi_admin_auth", "authenticated");
-      localStorage.setItem("messi_admin_remember_until", String(until));
-    } else {
-      localStorage.removeItem("messi_admin_auth");
-      localStorage.removeItem("messi_admin_remember_until");
-    }
-  } catch {}
-}
-function clearAuthenticated() {
-  try { sessionStorage.removeItem("messi_admin_auth"); } catch {}
-  try { localStorage.removeItem("messi_admin_auth"); localStorage.removeItem("messi_admin_remember_until"); } catch {}
-}
+// (legacy flag-based auth removed — token auth above is the only gate)
 function updateRailAdminVisibility() {
   const el = document.getElementById("rail-admin-link");
   if (!el) return;
@@ -99,7 +114,8 @@ const fmtNum = (n) => (n || 0).toLocaleString();
 let currentStreamFilter = "all";
 
 /* ========================================================================= */
-/* 1. DATA FETCHING & SUPABASE CONNECTION */
+/* 1. DATA FETCHING — via server proxy (Bearer token). No anon key here,   */
+/*    so a forged client flag alone can never reveal analytics data.       */
 /* ========================================================================= */
 async function fetchSupabaseEvents() {
   const startTime = performance.now();
@@ -108,40 +124,61 @@ async function fetchSupabaseEvents() {
   const footerLatency = $("footer-latency");
   const banner = $("admin-setup-banner");
 
+  const fail = (label, cls) => {
+    if (dbStatusText) dbStatusText.textContent = label;
+    if (dbStatusWrap) dbStatusWrap.className = "admin-db-status pending";
+    if (banner) banner.style.display = "flex";
+    return getFallbackEvents();
+  };
+
+  // Shown when the session expired mid-visit (401) — mirrors updateAuthView
+  // without depending on its DOMContentLoaded-scoped definition.
+  const showLoginGate = () => {
+    try {
+      if (autoRefreshTimer) { clearInterval(autoRefreshTimer); autoRefreshTimer = null; }
+      const dv = document.getElementById("admin-dashboard-view");
+      const lv = document.getElementById("admin-login-view");
+      if (dv) dv.style.display = "none";
+      if (lv) lv.style.display = "flex";
+      updateRailAdminVisibility();
+      window.dispatchEvent(new CustomEvent("messi:admin-expired"));
+    } catch (_) {}
+  };
+
   try {
-    const url = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?order=created_at.desc&limit=5000`;
-    const res = await fetch(url, {
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY
-      }
+    const token = getStoredToken();
+    if (!token) {
+      clearAuthenticated();
+      return [];
+    }
+    const res = await fetch("/api/admin-events", {
+      headers: { "Authorization": "Bearer " + token }
     });
 
     const latencyMs = Math.round(performance.now() - startTime);
     if (footerLatency) footerLatency.textContent = `API Latency: ${latencyMs}ms`;
 
+    if (res.status === 401) {
+      // Token expired / forged — drop back to the login gate
+      clearAuthenticated();
+      showLoginGate();
+      return [];
+    }
     if (res.ok) {
-      const data = await res.json();
+      const payload = await res.json();
+      const data = payload && Array.isArray(payload.events) ? payload.events : [];
       isTableConnected = true;
-      const validEvents = (Array.isArray(data) ? data : []).filter((e) => e.event !== "admin_auth_config");
-      if (dbStatusText) dbStatusText.textContent = `Supabase Connected (${validEvents.length} records)`;
+      const validEvents = data.filter((e) => e.event !== "admin_auth_config");
+      if (dbStatusText) dbStatusText.textContent = `Secure Proxy Connected (${validEvents.length} records)`;
       if (dbStatusWrap) dbStatusWrap.className = "admin-db-status connected";
       if (banner) banner.style.display = "none";
       return validEvents;
-    } else {
-      // Table pending creation or restricted
-      isTableConnected = false;
-      if (dbStatusText) dbStatusText.textContent = "Table Setup Required";
-      if (dbStatusWrap) dbStatusWrap.className = "admin-db-status pending";
-      if (banner) banner.style.display = "flex";
-      return getFallbackEvents();
     }
+    isTableConnected = false;
+    return fail("Proxy Setup Required", "pending");
   } catch (err) {
     isTableConnected = false;
-    if (dbStatusText) dbStatusText.textContent = "Local Telemetry Mode";
-    if (dbStatusWrap) dbStatusWrap.className = "admin-db-status pending";
-    if (banner) banner.style.display = "flex";
-    return getFallbackEvents();
+    return fail("Local Telemetry Mode", "pending");
   }
 }
 
@@ -318,18 +355,21 @@ function computeMetrics(events) {
       pathStats.set(p, cur);
     } else if (t === "birthday_search") {
       bdaySearches++;
-      const meta = e.meta || {};
-      const key = meta.formatted || meta.dateKey || "Unknown Date";
-      const g = meta.goalsCount !== undefined ? meta.goalsCount : (meta.goals || 0);
+      const meta = (e.meta && typeof e.meta === "object") ? e.meta : {};
+      // Coerce attacker-controlled fields to safe primitives at ingest
+      const rawKey = meta.formatted || meta.dateKey || "Unknown Date";
+      const key = String(rawKey).slice(0, 60);
+      const g = Number(meta.goalsCount !== undefined ? meta.goalsCount : meta.goals) || 0;
       const cur = bdayStats.get(key) || { key, searches: 0, goals: g };
       cur.searches++;
+      if (!Number.isFinite(cur.goals)) cur.goals = 0;
       bdayStats.set(key, cur);
     } else if (t === "video_play") {
       videoPlays++;
-      const meta = e.meta || {};
-      const opp = meta.opponent || meta.title || "Match Clip";
-      const key = `${opp} (${meta.date || ""})`;
-      const cur = videoStats.get(key) || { opponent: opp, date: meta.date || "—", competition: meta.competition || "Match", plays: 0 };
+      const meta = (e.meta && typeof e.meta === "object") ? e.meta : {};
+      const opp = String(meta.opponent || meta.title || "Match Clip").slice(0, 80);
+      const key = `${opp} (${String(meta.date || "").slice(0, 20)})`;
+      const cur = videoStats.get(key) || { opponent: opp, date: String(meta.date || "—").slice(0, 20), competition: String(meta.competition || "Match").slice(0, 60), plays: 0 };
       cur.plays++;
       videoStats.set(key, cur);
     } else if (t === "share") {
@@ -584,16 +624,17 @@ function renderTopBirthdays(bdayStats, totalSearches) {
   }
 
   tbody.innerHTML = sorted.slice(0, 6).map((row) => {
-    const isMessi = row.key.includes("24 June");
+    const isMessi = String(row.key).includes("24 June");
+    const goals = Number(row.goals) || 0;
     const statusBadge = isMessi
       ? `<span class="badge badge-gold">Leo Messi</span>`
-      : (row.goals > 0 ? `<span class="badge badge-success">Scored (${row.goals}⚽)</span>` : `<span class="badge badge-muted">No game</span>`);
+      : (goals > 0 ? `<span class="badge badge-success">Scored (${goals}⚽)</span>` : `<span class="badge badge-muted">No game</span>`);
 
     return `
       <tr>
         <td><strong>${esc(row.key)}</strong></td>
         <td class="num font-bold">${fmtNum(row.searches)}</td>
-        <td class="num">${row.goals}</td>
+        <td class="num">${goals}</td>
         <td>${statusBadge}</td>
       </tr>
     `;
@@ -859,8 +900,27 @@ function startAutoRefresh() {
 /* 10. EVENT LISTENERS & INITIALIZATION */
 /* ========================================================================= */
 document.addEventListener("DOMContentLoaded", () => {
-  let failedAttempts = 0;
-  let lockoutUntil = 0;
+  // Client-side lockout mirror — persisted in localStorage so a refresh
+  // can NEVER reset it (server enforces the real limit independently).
+  const FAIL_KEY = "messi_admin_client_fails";
+  const readFails = () => {
+    try {
+      const o = JSON.parse(localStorage.getItem(FAIL_KEY) || "{}");
+      return { count: Number(o.count) || 0, lockoutUntil: Number(o.lockoutUntil) || 0 };
+    } catch (_) { return { count: 0, lockoutUntil: 0 }; }
+  };
+  const writeFails = (count, lockoutUntil) => {
+    try { localStorage.setItem(FAIL_KEY, JSON.stringify({ count, lockoutUntil })); } catch {}
+  };
+  const clearFails = () => {
+    try { localStorage.removeItem(FAIL_KEY); } catch {}
+  };
+  const fmtWait = (ms) => {
+    const s = Math.ceil(ms / 1000);
+    if (s < 90) return `${s}s`;
+    const m = Math.ceil(s / 60);
+    return m >= 60 ? `${Math.round(m / 60)}h` : `${m} minute(s)`;
+  };
 
   function updateAuthView() {
     updateRailAdminVisibility();
@@ -907,11 +967,11 @@ document.addEventListener("DOMContentLoaded", () => {
   if (loginForm && passInp) {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      if (Date.now() < lockoutUntil) {
-        const secLeft = Math.ceil((lockoutUntil - Date.now()) / 1000);
+      const state = readFails();
+      if (Date.now() < state.lockoutUntil) {
         if (loginError) {
           loginError.style.display = "block";
-          loginError.textContent = `Security lockout active. Please wait ${secLeft}s.`;
+          loginError.textContent = `Security lockout active. Please wait ${fmtWait(state.lockoutUntil - Date.now())}.`;
         }
         return;
       }
@@ -919,34 +979,36 @@ document.addEventListener("DOMContentLoaded", () => {
       const inputVal = passInp.value.trim();
       if (!inputVal) return;
 
-      // Disable button while verifying via Vercel ENV
+      // Disable button while verifying via server
       const submitBtn = $("admin-login-submit");
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Verifying…"; }
       if (loginError) loginError.style.display = "none";
 
       try {
+        const rememberEl = document.getElementById("admin-remember-me");
+        const remember = !!(rememberEl && rememberEl.checked);
         const res = await fetch("/api/admin-auth", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password: inputVal })
+          body: JSON.stringify({ password: inputVal, remember })
         });
         const data = await res.json().catch(() => ({}));
-        if (res.ok && data.ok) {
-          failedAttempts = 0;
-          const rememberEl = document.getElementById("admin-remember-me");
-          const remember = !!(rememberEl && rememberEl.checked);
-          setAuthenticated(remember);
+        if (res.ok && data.ok && data.token) {
+          clearFails();
+          setAuthenticated(data.token, data.expiresAt || (Date.now() + 12 * 3600 * 1000), remember);
+          passInp.value = "";
           if (loginError) loginError.style.display = "none";
           updateAuthView();
         } else {
-          // Use server message if provided, else fallback
           const msg = data && data.error ? data.error : (res.status === 429 ? "Too many attempts. Try again shortly." : "Incorrect passphrase.");
-          // Track client lockout if server says 429 or after 5 fails
           if (res.status === 429) {
-            lockoutUntil = Date.now() + (data.retryAfter ? data.retryAfter * 1000 : 30000);
+            // Server lockout wins — persist it so refresh can't clear it
+            writeFails(5, Date.now() + (data.retryAfter ? data.retryAfter * 1000 : 15 * 60 * 1000));
+          } else if (res.status === 503) {
+            // Misconfigured server — do NOT count against the client
           } else {
-            failedAttempts++;
-            if (failedAttempts >= 5) lockoutUntil = Date.now() + 30000;
+            const next = state.count + 1;
+            writeFails(next, next >= 5 ? Date.now() + 15 * 60 * 1000 : 0);
           }
           if (loginError) {
             loginError.style.display = "block";

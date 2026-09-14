@@ -7,18 +7,23 @@ import { initAnalytics, trackBirthdaySearch, trackVideoPlay, trackShare } from "
 inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 injectSpeedInsights(); // Core Web Vitals; same deal — production only, silent locally
 initAnalytics();
-// — Hide admin nav for users, show for admins (Vercel ENV auth)
-function isAdminAuthed() {
+// — Hide admin nav for users, show for admins (server-issued token auth)
+function hasAdminToken() {
   try {
-    if (sessionStorage.getItem("messi_admin_auth") === "authenticated") return true;
-    const pv = localStorage.getItem("messi_admin_auth");
-    const uv = localStorage.getItem("messi_admin_remember_until");
-    if (pv === "authenticated" && uv) {
-      const exp = parseInt(uv, 10);
-      if (!isNaN(exp) && Date.now() < exp) return true;
+    const tok = sessionStorage.getItem("messi_admin_token");
+    const exp = parseInt(sessionStorage.getItem("messi_admin_token_exp") || "0", 10);
+    if (tok && !isNaN(exp) && Date.now() < exp) return true;
+    const pv = localStorage.getItem("messi_admin_token");
+    const uv = localStorage.getItem("messi_admin_token_exp");
+    if (pv && uv) {
+      const le = parseInt(uv, 10);
+      if (!isNaN(le) && Date.now() < le) return true;
     }
   } catch {}
   return false;
+}
+function isAdminAuthed() {
+  return hasAdminToken();
 }
 function revealAdminNav() {
   const el = document.getElementById("rail-admin-link");
@@ -2245,46 +2250,17 @@ load().then((d) => {
   });
 });
 
-// Reveal admin nav for authenticated admins only
+// Reveal admin nav for authenticated admins only (server-issued token)
 if (typeof window !== 'undefined') {
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => {
-    const el = document.getElementById("rail-admin-link");
-    if (el) {
-      try {
-        if (sessionStorage.getItem("messi_admin_auth") === "authenticated") el.style.display = "flex";
-        else {
-          const pv = localStorage.getItem("messi_admin_auth");
-          const uv = localStorage.getItem("messi_admin_remember_until");
-          if (pv === "authenticated" && uv && Date.now() < parseInt(uv,10)) el.style.display = "flex";
-        }
-      } catch {}
-    }
-  });
-  else {
-    const el = document.getElementById("rail-admin-link");
-    if (el) {
-      try {
-        if (sessionStorage.getItem("messi_admin_auth") === "authenticated") el.style.display = "flex";
-        else {
-          const pv = localStorage.getItem("messi_admin_auth");
-          const uv = localStorage.getItem("messi_admin_remember_until");
-          if (pv === "authenticated" && uv && Date.now() < parseInt(uv,10)) el.style.display = "flex";
-        }
-      } catch {}
-    }
-  }
-  window.addEventListener('storage', () => {
+  const syncRailAdmin = () => {
     const el = document.getElementById("rail-admin-link");
     if (!el) return;
     try {
-      if (sessionStorage.getItem("messi_admin_auth") === "authenticated") el.style.display = "flex";
-      else {
-        const pv = localStorage.getItem("messi_admin_auth");
-        const uv = localStorage.getItem("messi_admin_remember_until");
-        if (pv === "authenticated" && uv && Date.now() < parseInt(uv,10)) el.style.display = "flex";
-        else el.style.display = "none";
-      }
+      el.style.display = hasAdminToken() ? "flex" : "none";
     } catch {}
-  });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncRailAdmin);
+  else syncRailAdmin();
+  window.addEventListener('storage', syncRailAdmin);
 }
 

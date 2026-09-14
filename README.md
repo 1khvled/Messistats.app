@@ -92,20 +92,37 @@ host. `src/ads.js` and `src/matchday.js` ship disabled-by-default (early
 return unless their `window.*` switch is set), so the deployed site still
 makes zero third-party requests.
 
-### Admin Dashboard — env password (Vercel, not Supabase)
+### Admin Dashboard — hardened auth (Vercel + Supabase RLS)
 
-`/admin` is protected by a Vercel serverless function `api/admin-auth.js`. No Supabase table, no localStorage hash. Set the passphrase as a Vercel Environment Variable then redeploy:
+`/admin` login is verified by serverless `api/admin-auth.js`, reads go through
+`api/admin-events.js` (Bearer session token), and the database is locked by
+`supabase-security-fix.sql`. Rate limits persist in Supabase
+(`messi_admin_rate_limits`), so refresh / cold starts / multi-instance can
+never reset them: 5 fails per 15 min → exponential lockout (15m → 2h cap),
+plus client lockout mirrored in localStorage, tarpit delay, and generic
+error messages. No hardcoded fallback hash — misconfigured servers fail
+closed (503). Never use `VITE_ADMIN_*` names: `VITE_*` leaks to client JS.
 
-1. Generate a hash (recommended, 64 hex): `npm run admin:hash -- yourpassword`
-   — uses salt `(dev-salt-removed)` (override with `ADMIN_SALT` if you change it).
-2. Vercel Dashboard → Your Project → Settings → Environment Variables → Add:
-   - `ADMIN_PASSWORD_HASH` = the 64-char hash (preferred)
-   - or `ADMIN_PASSWORD` = plaintext (works, hash preferred)
-   - optional `ADMIN_SALT` = custom salt (must match generation)
-3. Redeploy (Vercel auto-redeploys after env add if enabled, else manual Deploy).
-4. Open `/admin` and enter the same password. Server checks `sha256(salt + password)` with `crypto.timingSafeEqual` + 5-attempt / 15-min rate limit (30s lockout). Session lives in `sessionStorage`; use “Lock” to log out.
+1. Run `supabase-security-fix.sql` in Supabase SQL editor (revokes anon
+   SELECT + anon wipe-function, validates INSERTs, creates rate-limit table).
+2. Generate a hash: `npm run admin:hash -- "your-strong-passphrase"` (scrypt).
+3. Vercel Dashboard → Settings → Environment Variables → add:
+   - `ADMIN_PASSWORD_HASH` = scrypt output (legacy 64-hex sha256 also accepted)
+   - `ADMIN_SALT` = random 32+ chars (required in production)
+   - `ADMIN_SESSION_SECRET` = random 32+ chars (token signing)
+   - `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (rate-limit store + proxy)
+4. Redeploy. Open `/admin`, enter the passphrase. Sessions are HMAC-signed
+   tokens (12h, or 30d with “Remember me”). “Lock” logs out everywhere on
+   that browser. The “Change passphrase” modal intentionally only explains
+   the Vercel ENV flow. Never commit `.env` (see `.env.example`).
 
-Local dev without env falls back to the legacy hash so `npm run dev` still works; set `ADMIN_PASSWORD_HASH` locally in `.env` to test the real path. The “Change passphrase” modal is disabled — it now explains the Vercel ENV flow. Never commit `.env` (see `.env.example`).
+Pentest notes (2026-09-14): prior holes closed — forged-localStorage login
+bypass (reads now need a server token), in-memory-only rate limit, public
+anon SELECT dump (verified live, HTTP 200), anon `messi_clear_old_events`
+wipe, stored XSS via `meta.goalsCount` (unescaped `<td>`), default-salt
+single-SHA256 cracking, `VITE_*` secret support, Supabase ref footer leak.
+DDoS/bot flooding stays on Vercel's edge (per operator); the API adds a
+120/min proxy throttle + Origin checks on top.
 ## Smart scheduling (how it works)
 
 One cron trigger, every 2h at minute 0 (`0 */2 * * *`, 12 runs/day). The
