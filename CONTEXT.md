@@ -89,7 +89,7 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-14 — muse-spark-1.3 — 3dde6ff — hide Supabase keys from client (user: admin page literally exposes keys). Removed hardcoded SUPABASE_URL + ANON_KEY from src/analytics.js — analytics now POSTs to new server proxy api/track.js (SERVICE_ROLE server-side only, Origin check + 30/min throttle, RLS validation), client bundle verified dist/assets/* contains zero supabase.co / anon JWT. Dropped supabase.co from vercel.json CSP connect-src, scrubbed project ref from .env.example placeholder + SQL comments. Files: api/track.js (new), src/analytics.js, vercel.json, .env.example, supabase-*.sql, CONTEXT.md. Verify: node --check ok, npm run build 734ms prebuild 928x3 ok, DIST CLEAN.
 
-- 2026-09-14 — muse-spark — <SHA> — admin 503 diagnostics (user: Admin auth not configured after setting ENV + redeploy). Live-verified production POST /api/admin-auth → 503 (ENV invisible to function) + X-RateLimit-Store memory-single-instance (SUPABASE_* also missing in prod). Added server-log-only logMisconfig() in api/_auth-shared.js (presence/shape facts, never secret values; client stays generic) on all 4 misconfigured paths + malformed-scrypt now 503 instead of misleading 401. Files: api/_auth-shared.js, CONTEXT.md. Verify: node --check ok, scrypt good/bad/token unit checks pass, npm run build ok.
+- 2026-09-14 — muse-spark — 5e53cc1 — admin 503 diagnostics (user: Admin auth not configured after setting ENV + redeploy). Live-verified production POST /api/admin-auth → 503 (ENV invisible to function) + X-RateLimit-Store memory-single-instance (SUPABASE_* also missing in prod). Added server-log-only logMisconfig() in api/_auth-shared.js (presence/shape facts, never secret values; client stays generic) on all 4 misconfigured paths + malformed-scrypt now 503 instead of misleading 401. Files: api/_auth-shared.js, CONTEXT.md. Verify: node --check ok, scrypt good/bad/token unit checks pass, npm run build ok.
 
 ## Agent Log
 
@@ -106,4 +106,4 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 <!-- ADD NEW ROWS BELOW — KEEP CHRONOLOGICAL -->
 | 2026-09-14 | muse-spark-1.3 | security hardening pentest+fix | f34ed17 | api/_auth-shared.js, api/admin-events.js, supabase-security-fix.sql (new); api/admin-auth.js, src/admin.js, src/analytics.js, src/app.js, admin.html, vercel.json, .env.example, generate-admin-hash.mjs, README.md, CONTEXT.md |
 | 2026-09-14 | muse-spark-1.3 | hide Supabase keys from client bundle | 3dde6ff | api/track.js (new), src/analytics.js, vercel.json, .env.example, supabase-*.sql, CONTEXT.md |
-| 2026-09-14 | muse-spark | admin 503 diagnostics logging | <SHA> | api/_auth-shared.js, CONTEXT.md |
+| 2026-09-14 | muse-spark | admin 503 diagnostics logging | 5e53cc1 | api/_auth-shared.js, CONTEXT.md |
