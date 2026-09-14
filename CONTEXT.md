@@ -91,6 +91,8 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-14 — muse-spark — 5e53cc1 — admin 503 diagnostics (user: Admin auth not configured after setting ENV + redeploy). Live-verified production POST /api/admin-auth → 503 (ENV invisible to function) + X-RateLimit-Store memory-single-instance (SUPABASE_* also missing in prod). Added server-log-only logMisconfig() in api/_auth-shared.js (presence/shape facts, never secret values; client stays generic) on all 4 misconfigured paths + malformed-scrypt now 503 instead of misleading 401. Files: api/_auth-shared.js, CONTEXT.md. Verify: node --check ok, scrypt good/bad/token unit checks pass, npm run build ok.
 
+- 2026-09-14 — antigravity (gemini-3.8-flash) — a952478 — fix video clips CSP & direct stream playback (user: clips not working, video player says search clip on youtube). In f34ed17 CSP was added to vercel.json without media-src, which fell back to default-src 'self' and blocked all 921 clips hosted on https://cdn.messiallgoals.com, triggering video.onerror and showing fallback banner. Added media-src 'self' https://cdn.messiallgoals.com blob:; connect-src cdn.messiallgoals.com + AdSense telemetry; script/frame-src profitableratecpmnetwork.com. Removed invalid empty source element in birthday.html. Attached onerror before src in src/app.js + added graceful error fallback to On This Day widget. Files: vercel.json, birthday.html, src/app.js, CONTEXT.md. Verify: Playwright CSP verification test passed (readyState 4, 0 media CSP errors, fallback hidden), verify-all-players.py passed desktop+mobile, npm run build (678ms, 928x3 checksums ok), dist-audit pass.
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -107,3 +109,4 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-14 | muse-spark-1.3 | security hardening pentest+fix | f34ed17 | api/_auth-shared.js, api/admin-events.js, supabase-security-fix.sql (new); api/admin-auth.js, src/admin.js, src/analytics.js, src/app.js, admin.html, vercel.json, .env.example, generate-admin-hash.mjs, README.md, CONTEXT.md |
 | 2026-09-14 | muse-spark-1.3 | hide Supabase keys from client bundle | 3dde6ff | api/track.js (new), src/analytics.js, vercel.json, .env.example, supabase-*.sql, CONTEXT.md |
 | 2026-09-14 | muse-spark | admin 503 diagnostics logging | 5e53cc1 | api/_auth-shared.js, CONTEXT.md |
+| 2026-09-14 | antigravity (gemini-3.8-flash) | fix video clips blocked by CSP & video player fallback | a952478 | vercel.json, birthday.html, src/app.js, CONTEXT.md |
