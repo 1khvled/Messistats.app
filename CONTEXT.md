@@ -85,6 +85,8 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 
 <!-- ADD NEW ENTRIES BELOW THIS LINE — DO NOT EDIT ABOVE -->
 
+- 2026-09-14 — muse-spark-1.3 — f34ed17 — security hardening pentest+fix (user: hack site, fix vulns, hard rate limit surviving refresh; DDoS/bots stay on Vercel). Closed: forged-localStorage login bypass (reads now need HMAC server token via api/admin-events proxy), in-memory-only rate limit (now Supabase-persistent 5/15min + exponential 15m–2h lockout + client localStorage mirror), live-verified anon SELECT dump (curl HTTP 200 → revoked), anon messi_clear_old_events wipe (revoked), stored XSS via meta.goalsCount unescaped td (numeric coercion), prod fallback hash (fail-closed 503), VITE_ secret support (removed), default-salt single-SHA256 (scrypt + random salt), footer Supabase ref leak. Added HSTS/CSP/COOP + noindex admin/api headers. Files: api/_auth-shared.js + api/admin-events.js + supabase-security-fix.sql (new), api/admin-auth.js rewrite, src/admin.js (token/proxy/persistent lockout/XSS), src/analytics.js (whitelist/caps/throttle), src/app.js (token nav), admin.html, vercel.json, .env.example, scripts/generate-admin-hash.mjs (scrypt), README.md. Verify: node --check 7 files ok, scrypt gen ok, 15/15 auth unit tests pass, npm run build 618ms prebuild 928x3 ok, npm run audit dist 928x3 pass, admin bundle has no supabase URL. ACTION REQUIRED (operator): run supabase-security-fix.sql in Supabase SQL editor + set ADMIN_PASSWORD_HASH (scrypt) / ADMIN_SALT / ADMIN_SESSION_SECRET / SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY in Vercel ENV + redeploy — admin reads 503 until then by design.
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -98,3 +100,4 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-14 | muse-spark-1.2 | hide admin nav + hero polish | b73d921 | admin.html, index.html, goalsbyyear.html, goalsbyseason.html, dashboard.html, timeline.html, achievements.html, birthday.html, src/app.js, src/admin.js, src/styles.css, CONTEXT.md |
 
 <!-- ADD NEW ROWS BELOW — KEEP CHRONOLOGICAL -->
+| 2026-09-14 | muse-spark-1.3 | security hardening pentest+fix | f34ed17 | api/_auth-shared.js, api/admin-events.js, supabase-security-fix.sql (new); api/admin-auth.js, src/admin.js, src/analytics.js, src/app.js, admin.html, vercel.json, .env.example, generate-admin-hash.mjs, README.md, CONTEXT.md |
