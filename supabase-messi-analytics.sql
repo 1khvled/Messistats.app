@@ -1,6 +1,7 @@
 -- =============================================================================
--- MessiStats (messistat.com) Dedicated Analytics Schema
--- Compatible with Supabase Project: (supabase-ref-removed)
+-- MessiStats (messistat.com) Analytics Schema — legacy baseline
+-- NOTE: Run supabase-security-fix.sql AFTER this to harden RLS
+-- (revokes anon SELECT, validates INSERT, locks wipe function).
 -- Safe & Idempotent: DOES NOT modify or delete any tables from other projects!
 -- =============================================================================
 

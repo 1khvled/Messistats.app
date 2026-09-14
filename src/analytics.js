@@ -1,12 +1,9 @@
 /**
  * MessiStats Client-side Analytics Tracker
  * Privacy-friendly, non-blocking, lightweight telemetry.
- * Connects directly to Supabase table: messi_page_events
+ * All inserts go through /api/track (server proxy) so the Supabase
+ * URL and keys never appear in the client bundle.
  */
-
-const SUPABASE_URL = "https://(supabase-url-removed)";
-const SUPABASE_ANON_KEY = "(supabase-anon-key-removed)";
-const TABLE_NAME = "messi_page_events";
 
 // Generate or retrieve persistent Visitor ID
 function getVisitorId() {
@@ -126,28 +123,19 @@ function recordLocalEvent(eventRow) {
 
 let tableWarningShown = false;
 
-// Send event payload to Supabase
+// Send event payload via server proxy (hides Supabase URL/keys from client)
 async function sendToSupabase(payload) {
   try {
-    const endpoint = `${SUPABASE_URL}/rest/v1/${TABLE_NAME}`;
-    const res = await fetch(endpoint, {
+    const res = await fetch("/api/track", {
       method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Authorization": "Bearer " + SUPABASE_ANON_KEY,
-        "Content-Type": "application/json",
-        "Prefer": "return=minimal"
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
       keepalive: true
     });
-
-    if (!res.ok) {
-      if (res.status === 404 || res.status === 401) {
-        if (!tableWarningShown) {
-          console.warn(`[MessiStats Analytics] Supabase table '${TABLE_NAME}' not ready yet. Check admin page for setup SQL.`);
-          tableWarningShown = true;
-        }
+    if (!res.ok && res.status === 503) {
+      if (!tableWarningShown) {
+        console.warn("[MessiStats Analytics] tracking proxy not configured (set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in Vercel ENV).");
+        tableWarningShown = true;
       }
     }
   } catch (err) {

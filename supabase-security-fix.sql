@@ -1,5 +1,5 @@
 -- =============================================================================
--- MessiStats SECURITY FIX — run in Supabase SQL editor (project (supabase-ref-removed))
+-- MessiStats SECURITY FIX — run in Supabase SQL editor
 -- Date: 2026-09-14. Idempotent — safe to run twice.
 --
 -- What was wrong (pentest 2026-09-14, verified live):
