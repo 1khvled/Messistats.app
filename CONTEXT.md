@@ -173,3 +173,6 @@ Live numbers: **927 goals / 1,172 apps** (802 club + 125 Argentina),
   Verified: prebuild-check ✓ (927x3 checksums hold), vite build ✓ (502ms), dist audit PASS, verify exit 0.
 
 
+- ADSENSE RE-INSERT & ENCODING FIX 2026-09-14 (user request: insert AdSense snippet ca-pub-8397501846754760 then push):
+  Restored 8 HTML shells from HEAD (previous working copy had UTF-8 BOM + mojibake via PowerShell Set-Content, violating CONTEXT iron rule) and re-inserted via Node fs.writeFileSync utf8 before <title>: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8397501846754760" crossorigin="anonymous"></script> across all 8 Vite inputs (index, achievements, dashboard, birthday, goalsbyseason, goalsbyyear, timeline, admin). Wrote public/ads.txt with google.com, pub-8397501846754760, DIRECT, f08c47fec0942fa0. Verified: Node check shows emdash intact, mojibake false, BOM false, ads present on all 8 files; npm run build 1.36s (prebuild 928x3 ok, 16 modules, 8 HTML + 8 en mirrors), dist and dist/en contain ads script, ads.txt copied. Ready to commit + push to origin/main (1khvled/Messistats.app).
+
