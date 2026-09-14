@@ -72,8 +72,8 @@
       <svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>
       <span>Birthday Goals</span>
     </a>
-    <a aria-current="page" class="on" href="admin.html">
-      <svg aria-hidden="true" viewbox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M12 6v6l4 2"></path></svg>
+    <a id="rail-admin-link" aria-current="page" class="on" href="admin.html" style="display:none;">
+      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path><path d="M12 6v6l4 2"></path></svg>
       <span>Admin Analytics</span>
     </a>
   </nav>
@@ -165,6 +165,37 @@
         </button>
       </div>
     </header>
+
+  <!-- CREATIVE HERO: Messi Pulse + Quick Actions (admins invisible) -->
+  <section class="admin-hero" aria-label="Messi Pulse">
+    <div class="admin-hero-main">
+      <div class="admin-hero-media">
+        <img src="/img/messi.jpg" alt="Lionel Messi" width="84" height="84" loading="lazy" />
+        <span class="admin-hero-pulse" aria-hidden="true"></span>
+      </div>
+      <div class="admin-hero-copy">
+        <div class="admin-hero-eyebrow"><span class="live-dot pulse"></span> Messi Pulse • Live 928 goals • Admins invisible</div>
+        <h2 class="admin-hero-title">Every fan counts. Except you.</h2>
+        <p class="admin-hero-lede">You’re viewing as admin — your visits, birthday checks and video plays are <strong>not counted</strong> in any KPI, chart or stream below. Perfect for testing without polluting analytics.</p>
+        <div class="admin-hero-stats">
+          <span class="hero-stat"><b>928</b> goals tracked</span>
+          <span class="hero-dot">•</span>
+          <span class="hero-stat"><b>46</b> trophies</span>
+          <span class="hero-dot">•</span>
+          <span class="hero-stat"><b id="hero-live-count">—</b> live now</span>
+        </div>
+      </div>
+    </div>
+    <div class="admin-hero-actions">
+      <div class="hero-action-label">Quick actions</div>
+      <div class="hero-actions-row">
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('admin-manual-refresh')?.click()">↻ Refresh</button>
+        <button class="btn btn-secondary btn-sm" onclick="document.getElementById('admin-export-btn')?.click()">⭳ Export</button>
+        <button class="btn btn-primary btn-sm" onclick="document.getElementById('admin-lock-btn')?.click()">🔒 Lock</button>
+      </div>
+      <div class="hero-hint">Remember me keeps you logged in for 30 days — even after closing the browser.</div>
+    </div>
+  </section>
 
   <!-- HERO KPIS GRID (8 Cards) -->
   <section aria-label="Core Performance Indicators" class="admin-kpi-grid">

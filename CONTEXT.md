@@ -80,6 +80,9 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 - 2026-09-14 — muse-spark-1.2 — acbb6b1 — admin UI/UX rebuild (fix side-offset weird). Removed @media (min-width:1280px) body[data-page="admin"] .page {margin-left:calc(var(--rail-open)+24px)} that pushed content 272px left; now body[data-page="admin"] .page {margin-left:calc(var(--rail-w)+32px)} + .admin-wrap{max-width:1320px;margin:0 auto}. Rebuilt admin dashboard core (topbar sticky+blur, KPI 4-col grid with hover lift, charts row equal height, breakdowns 2-col, stream compact sticky header, modals blur, footer subtle, 640px responsive). Rebuilt login gate: centered min-height min(72vh,640px), card 440px radius 24 with hero-grad top bar, shield 56px, input focus ring, remember-me CSS, error, button. Cleaned inline styles. Verify: build 0.72s prebuild 928x3 ok, styles 82.31KB, admin 25.17KB.
 
 
+- 2026-09-14 — muse-spark-1.2 — PENDING_SHA — hide admin from sidebar for users + creative hero polish. All 8 HTML shells now have hidden #rail-admin-link (display:none); src/app.js + src/admin.js reveal only when isAdminAuthed (session or 30d localStorage). admin.html: added Messi Pulse hero (media 84px + pulse, eyebrow, title, lede, stats 928/46/live, quick actions) + fixed img src to /img/messi.jpg + synced hero-live-count with KPI. src/styles.css already centered admin (fixed side-offset) + hero grid. Verify: build 0.56s prebuild 928x3 ok, admin 27.11KB, styles 84.69KB.
+
+
 <!-- ADD NEW ENTRIES BELOW THIS LINE — DO NOT EDIT ABOVE -->
 
 ## Agent Log
@@ -91,5 +94,7 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-14 | muse-spark-1.2 | admin ENV fix (Vercel not Supabase) | 9524bdb | api/admin-auth.js, src/admin.js, admin.html, .env.example, scripts/generate-admin-hash.mjs, package.json, .gitignore, README.md, CONTEXT.md |
 | 2026-09-14 | muse-spark-1.2 | remember me + ignore admin views | e54443b | admin.html, src/admin.js, src/analytics.js, CONTEXT.md |
 | 2026-09-14 | muse-spark-1.2 | admin UI/UX rebuild + side-offset fix | acbb6b1 | src/styles.css, admin.html, CONTEXT.md |
+
+| 2026-09-14 | muse-spark-1.2 | hide admin nav + hero polish | PENDING_SHA | admin.html, index.html, goalsbyyear.html, goalsbyseason.html, dashboard.html, timeline.html, achievements.html, birthday.html, src/app.js, src/admin.js, src/styles.css, CONTEXT.md |
 
 <!-- ADD NEW ROWS BELOW — KEEP CHRONOLOGICAL -->

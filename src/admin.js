@@ -69,6 +69,11 @@ function clearAuthenticated() {
   try { sessionStorage.removeItem("messi_admin_auth"); } catch {}
   try { localStorage.removeItem("messi_admin_auth"); localStorage.removeItem("messi_admin_remember_until"); } catch {}
 }
+function updateRailAdminVisibility() {
+  const el = document.getElementById("rail-admin-link");
+  if (!el) return;
+  el.style.display = isAuthenticated() ? "flex" : "none";
+}
 
 // State
 let currentPeriod = "7d";
@@ -366,6 +371,7 @@ function computeMetrics(events) {
 function renderDashboard(metrics, filteredEvents) {
   // 1. Hero Cards
   if ($("kpi-online-now")) $("kpi-online-now").textContent = fmtNum(metrics.onlineNow);
+  if ($("hero-live-count")) $("hero-live-count").textContent = fmtNum(metrics.onlineNow);
   if ($("kpi-total-views")) $("kpi-total-views").textContent = fmtNum(metrics.totalViews);
   if ($("kpi-unique-visitors")) $("kpi-unique-visitors").textContent = fmtNum(metrics.uniqueVisitors);
   if ($("kpi-uniques-ratio")) $("kpi-uniques-ratio").textContent = `${metrics.viewsPerUnique} views / visitor`;
@@ -857,6 +863,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let lockoutUntil = 0;
 
   function updateAuthView() {
+    updateRailAdminVisibility();
     const loginView = $("admin-login-view");
     const dashboardView = $("admin-dashboard-view");
     const authed = isAuthenticated();
@@ -1067,4 +1074,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Check auth state and initialize view
   updateAuthView();
+  // also observe storage changes (e.g., logout in another tab)
+  window.addEventListener("storage", () => updateRailAdminVisibility());
 });
