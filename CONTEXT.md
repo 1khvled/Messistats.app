@@ -75,6 +75,8 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-14 — muse-spark-1.2 — 9524bdb — admin password logic → Vercel ENV (not Supabase). Created api/admin-auth.js (serverless, sha256(salt+password), timingSafeEqual, 5/15min rate limit, supports ADMIN_PASSWORD_HASH/ADMIN_PASSWORD + ADMIN_SALT, fallback dev hash). Patched src/admin.js (remove ADMIN_SALT/DEFAULT_HASH/computeSha256/localStorage, now fetch POST /api/admin-auth, disabled change-pass modal → ENV instructions). Patched admin.html modal subtitle to Vercel ENV. Added .env.example, scripts/generate-admin-hash.mjs, npm run admin:hash, .gitignore .env. Verify: hash gen ok, api 200/401/429 tests pass, npm run build 1.05s prebuild 928x3 ok, dist/admin.html 25KB.
 
+- 2026-09-14 — muse-spark-1.2 — PENDING_SHA — remember me (30d) + ignore admin views. admin.html: added checkbox #admin-remember-me (Remember me for 30 days) before error div. src/admin.js: new isAuthenticated (session + localStorage with expiry), setAuthenticated(remember)/clearAuthenticated helpers, login success reads checkbox and persists 30d localStorage + session, lock clears both. src/analytics.js: added isAdminAuthenticated() (checks same keys), trackEvent and initAnalytics now early-return if admin (pathname or admin auth) so admin traffic not counted. Verify: build 0.70s prebuild 928x3 ok, admin 25.34KB, app 91.85KB, dist verified.
+
 <!-- ADD NEW ENTRIES BELOW THIS LINE — DO NOT EDIT ABOVE -->
 
 ## Agent Log
@@ -84,4 +86,5 @@ Live: **928 goals / 1,173 apps** (803 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-14 | muse-spark-1.2 | AdSense re-insert & BOM fix + push | 2ba8e26 | 8 HTML, public/ads.txt, CONTEXT.md |
 
 | 2026-09-14 | muse-spark-1.2 | admin ENV fix (Vercel not Supabase) | 9524bdb | api/admin-auth.js, src/admin.js, admin.html, .env.example, scripts/generate-admin-hash.mjs, package.json, .gitignore, README.md, CONTEXT.md |
+| 2026-09-14 | muse-spark-1.2 | remember me + ignore admin views | PENDING_SHA | admin.html, src/admin.js, src/analytics.js, CONTEXT.md |
 <!-- ADD NEW ROWS BELOW — KEEP CHRONOLOGICAL -->

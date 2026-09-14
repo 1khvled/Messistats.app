@@ -32,13 +32,42 @@ const COUNTRY_FLAGS = {
   Direct: "🌐 Direct / Unknown"
 };
 
-// Admin auth — Verifies via Vercel ENV (api/admin-auth, never in Supabase or localStorage)
+// Admin auth — Verifies via Vercel ENV (api/admin-auth, never in Supabase). Remember-me persists 30d via localStorage.
 function isAuthenticated() {
   try {
-    return sessionStorage.getItem("messi_admin_auth") === "authenticated";
+    if (sessionStorage.getItem("messi_admin_auth") === "authenticated") return true;
+    const persist = localStorage.getItem("messi_admin_auth");
+    const until = localStorage.getItem("messi_admin_remember_until");
+    if (persist === "authenticated" && until) {
+      const exp = parseInt(until, 10);
+      if (!isNaN(exp) && Date.now() < exp) {
+        // hydrate session for current tab
+        try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch {}
+        return true;
+      }
+      try { localStorage.removeItem("messi_admin_auth"); localStorage.removeItem("messi_admin_remember_until"); } catch {}
+    }
+    return false;
   } catch (_) {
     return false;
   }
+}
+function setAuthenticated(remember) {
+  try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch {}
+  try {
+    if (remember) {
+      const until = Date.now() + 30 * 24 * 60 * 60 * 1000;
+      localStorage.setItem("messi_admin_auth", "authenticated");
+      localStorage.setItem("messi_admin_remember_until", String(until));
+    } else {
+      localStorage.removeItem("messi_admin_auth");
+      localStorage.removeItem("messi_admin_remember_until");
+    }
+  } catch {}
+}
+function clearAuthenticated() {
+  try { sessionStorage.removeItem("messi_admin_auth"); } catch {}
+  try { localStorage.removeItem("messi_admin_auth"); localStorage.removeItem("messi_admin_remember_until"); } catch {}
 }
 
 // State
@@ -897,7 +926,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = await res.json().catch(() => ({}));
         if (res.ok && data.ok) {
           failedAttempts = 0;
-          try { sessionStorage.setItem("messi_admin_auth", "authenticated"); } catch (_) {}
+          const rememberEl = document.getElementById("admin-remember-me");
+          const remember = !!(rememberEl && rememberEl.checked);
+          setAuthenticated(remember);
           if (loginError) loginError.style.display = "none";
           updateAuthView();
         } else {
@@ -930,7 +961,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const lockBtn = $("admin-lock-btn");
   if (lockBtn) {
     lockBtn.addEventListener("click", () => {
-      try { sessionStorage.removeItem("messi_admin_auth"); } catch (_) {}
+      clearAuthenticated();
       updateAuthView();
     });
   }

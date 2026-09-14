@@ -155,10 +155,27 @@ async function sendToSupabase(payload) {
   }
 }
 
+function isAdminAuthenticated() {
+  try {
+    if (sessionStorage.getItem("messi_admin_auth") === "authenticated") return true;
+    const p = localStorage.getItem("messi_admin_auth");
+    const u = localStorage.getItem("messi_admin_remember_until");
+    if (p === "authenticated" && u) {
+      const exp = parseInt(u, 10);
+      if (!isNaN(exp) && Date.now() < exp) return true;
+    }
+  } catch (_) {}
+  return false;
+}
+
 // Core tracking dispatcher
 export function trackEvent(eventType, meta = {}) {
   // Never track admin actions as user traffic
   if (window.location.pathname.includes("admin")) {
+    return;
+  }
+  // Ignore logged-in admins even when they browse public pages (not counted in KPIs)
+  if (isAdminAuthenticated()) {
     return;
   }
 
@@ -214,6 +231,7 @@ export function trackShare(channel, text) {
 let initialized = false;
 export function initAnalytics() {
   if (initialized || typeof window === "undefined") return;
+  if (isAdminAuthenticated()) return;
   initialized = true;
 
   // Track initial page view (skip on admin page)
