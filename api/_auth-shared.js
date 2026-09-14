@@ -105,13 +105,40 @@ export function verifyToken(token) {
 }
 
 /**
+ * Log WHY auth is misconfigured to server logs only (Vercel Runtime Logs).
+ * Never include secret values — only presence/shape facts the operator needs.
+ */
+function logMisconfig(why) {
+  try {
+    const rawHash = process.env.ADMIN_PASSWORD_HASH || '';
+    const rawSalt = process.env.ADMIN_SALT || '';
+    const rawPass = process.env.ADMIN_PASSWORD || '';
+    console.error(
+      '[admin-auth] misconfigured: ' + why +
+      ' | VERCEL_ENV=' + (process.env.VERCEL_ENV || '(unset)') +
+      ' | hasHash=' + (rawHash.trim().length > 0) +
+      ' hashLen=' + rawHash.trim().length +
+      ' hashShape=' + (rawHash.trim().startsWith('scrypt$') ? 'scrypt' : (/^[a-f0-9]{64}$/i.test(rawHash.trim()) ? 'legacy-hex64' : 'unknown')) +
+      ' | hasPass=' + (rawPass.trim().length > 0) +
+      ' | saltLen=' + rawSalt.length + ' (need>=16)' +
+      ' | sessionSecretLen=' + (process.env.ADMIN_SESSION_SECRET || '').length
+    );
+  } catch {
+    /* logging must never break auth */
+  }
+}
+
+/**
  * Verify admin password against ENV.
  * Returns {ok:true, mode} or {ok:false, reason:'misconfigured'}.
  * NEVER falls back to a hardcoded hash in production.
  */
 export function verifyPassword(password) {
   const salt = getSalt();
-  if (!salt) return { ok: false, reason: 'misconfigured' };
+  if (!salt) {
+    logMisconfig('ADMIN_SALT missing or <16 chars');
+    return { ok: false, reason: 'misconfigured' };
+  }
 
   const envHash = (process.env.ADMIN_PASSWORD_HASH || '').trim();
   const envPass = (process.env.ADMIN_PASSWORD || '').trim();
@@ -124,7 +151,10 @@ export function verifyPassword(password) {
         const N = parseInt(Ns, 10);
         const r = parseInt(rs, 10);
         const p = parseInt(ps, 10);
-        if (!N || !r || !p || !saltHex || !hashHex) return { ok: false };
+        if (!N || !r || !p || !saltHex || !hashHex) {
+          logMisconfig('ADMIN_PASSWORD_HASH starts with scrypt$ but segments are malformed (want scrypt$N$r$p$saltHex$hashHex)');
+          return { ok: false, reason: 'misconfigured' };
+        }
         const derived = crypto.scryptSync(String(password), Buffer.from(saltHex, 'hex'), 64, { N, r, p });
         const ok = safeEqualStr(derived.toString('hex'), hashHex.toLowerCase());
         return ok ? { ok: true, mode: 'scrypt' } : { ok: false };
@@ -137,6 +167,7 @@ export function verifyPassword(password) {
       const ok = safeEqualStr(sha256hex(salt + password), envHash.toLowerCase());
       return ok ? { ok: true, mode: 'legacy-sha256' } : { ok: false };
     }
+    logMisconfig('ADMIN_PASSWORD_HASH present but bad shape (want scrypt$N$r$p$salt$hash or 64-hex; check for pasted quotes/spaces)');
     return { ok: false, reason: 'misconfigured' };
   }
 
@@ -150,6 +181,7 @@ export function verifyPassword(password) {
     return ok ? { ok: true, mode: 'plaintext-env' } : { ok: false };
   }
 
+  logMisconfig('neither ADMIN_PASSWORD_HASH nor ADMIN_PASSWORD is set');
   return { ok: false, reason: 'misconfigured' };
 }
 
