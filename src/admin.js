@@ -833,21 +833,29 @@ function renderEventStream(events) {
 /* ========================================================================= */
 /* 8. DATA EXPORT (CSV / JSON) */
 /* ========================================================================= */
+function safeCsvCell(val) {
+  let s = val == null ? "" : String(val);
+  if (/^[=+\-@\t\r]/.test(s)) {
+    s = "'" + s;
+  }
+  return `"${s.replace(/"/g, '""')}"`;
+}
+
 function exportCSV(events) {
   const headers = ["ID", "Time (UTC)", "Event", "Path", "Referrer", "Country", "Device", "VisitorID", "Meta"];
   const rows = events.map((e) => [
-    e.id || "",
-    e.created_at || "",
-    e.event || "",
-    `"${(e.path || "").replace(/"/g, '""')}"`,
-    `"${(e.referrer || "").replace(/"/g, '""')}"`,
-    e.country_code || "",
-    e.device_type || "",
-    e.client_id || "",
-    `"${JSON.stringify(e.meta || {}).replace(/"/g, '""')}"`
+    safeCsvCell(e.id),
+    safeCsvCell(e.created_at),
+    safeCsvCell(e.event),
+    safeCsvCell(e.path),
+    safeCsvCell(e.referrer),
+    safeCsvCell(e.country_code),
+    safeCsvCell(e.device_type),
+    safeCsvCell(e.client_id),
+    safeCsvCell(JSON.stringify(e.meta || {}))
   ]);
 
-  const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+  const csvContent = "data:text/csv;charset=utf-8," + [headers.map(safeCsvCell).join(","), ...rows.map((r) => r.join(","))].join("\n");
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);

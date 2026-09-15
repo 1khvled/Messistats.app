@@ -26,6 +26,7 @@ import {
   rateLimitStore,
   getDiagnostics,
   sleep,
+  isOriginAllowed,
 } from './_auth-shared.js';
 
 function setSecurityHeaders(res) {
@@ -42,27 +43,6 @@ function rateHeaders(res, remaining) {
   res.setHeader('X-RateLimit-Store', rateLimitStore());
 }
 
-/** Same-origin (or dev) only — blocks evil-site CSRF brute force. */
-function originAllowed(req) {
-  const origin = String(req.headers?.origin || '').toLowerCase();
-  const referer = String(req.headers?.referer || '').toLowerCase();
-  const probe = origin || referer;
-  if (!probe) return true; // curl / same-origin navigations without Origin
-  try {
-    const host = new URL(probe).hostname.toLowerCase();
-    return (
-      host === 'messistat.com' ||
-      host.endsWith('.messistat.com') ||
-      host.endsWith('.vercel.app') ||
-      host === 'localhost' ||
-      host === '127.0.0.1' ||
-      host === '[::1]'
-    );
-  } catch {
-    return false;
-  }
-}
-
 export default async function handler(req, res) {
   setSecurityHeaders(res);
 
@@ -75,7 +55,7 @@ export default async function handler(req, res) {
     res.setHeader('Allow', 'POST, OPTIONS');
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
   }
-  if (!originAllowed(req)) {
+  if (!isOriginAllowed(req)) {
     return res.status(403).json({ ok: false, error: 'Forbidden origin' });
   }
 
@@ -135,10 +115,18 @@ export default async function handler(req, res) {
 
   if (verdict.ok) {
     await clearFails(ip, rl.key);
-    const { token, expiresAt } = signToken(remember);
-    rateHeaders(res, MAX_FAILS);
-    if (mode && mode !== 'scrypt') res.setHeader('X-Auth-Mode', mode);
-    return res.status(200).json({ ok: true, token, expiresAt });
+    try {
+      const { token, expiresAt } = signToken(remember);
+      rateHeaders(res, MAX_FAILS);
+      if (mode && mode !== 'scrypt') res.setHeader('X-Auth-Mode', mode);
+      return res.status(200).json({ ok: true, token, expiresAt });
+    } catch (err) {
+      return res.status(503).json({
+        ok: false,
+        error: 'Admin session secret is not configured in production',
+        help: 'Ensure ADMIN_SESSION_SECRET or ADMIN_PASSWORD_HASH is set in Vercel ENV and redeploy.',
+      });
+    }
   }
 
   // Failure: tarpit (slows online brute force) + count + exponential lockout

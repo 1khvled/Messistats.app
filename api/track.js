@@ -7,7 +7,7 @@
  * Validates same rules as the RLS WITH CHECK policy, throttles per IP,
  * then inserts via SERVICE_ROLE (server-side only).
  */
-import { getClientIp, cleanEnv } from './_auth-shared.js';
+import { getClientIp, cleanEnv, isOriginAllowed } from './_auth-shared.js';
 
 const ALLOWED_EVENTS = new Set(['view', 'ping', 'birthday_search', 'video_play', 'share']);
 
@@ -29,23 +29,6 @@ function allowedByThrottle(ip) {
   return rec.count <= 120;
 }
 
-function originAllowed(req) {
-  const probe = String(req.headers?.origin || req.headers?.referer || '').toLowerCase();
-  if (!probe) return true; // direct navigation / beacon without Origin is ok for analytics
-  try {
-    const host = new URL(probe).hostname.toLowerCase();
-    return (
-      host === 'messistat.com' ||
-      host.endsWith('.messistat.com') ||
-      host.endsWith('.vercel.app') ||
-      host === 'localhost' ||
-      host === '127.0.0.1'
-    );
-  } catch {
-    return false;
-  }
-}
-
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   res.setHeader('X-Content-Type-Options', 'nosniff');
@@ -62,7 +45,7 @@ export default async function handler(req, res) {
   // Admin traffic is never tracked — drop it server-side too
   const refPath = String(req.headers?.referer || '');
   if (refPath.includes('/admin')) return res.status(204).end();
-  if (!originAllowed(req)) return res.status(403).json({ ok: false, error: 'Forbidden origin' });
+  if (!isOriginAllowed(req)) return res.status(403).json({ ok: false, error: 'Forbidden origin' });
 
   const ip = getClientIp(req);
   if (!allowedByThrottle(ip)) {

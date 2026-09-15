@@ -4,7 +4,7 @@
  * key (server-side only) so the anon key can be INSERT-only and the
  * client bundle never holds read access to the analytics table.
  */
-import { getClientIp, verifyToken, cleanEnv } from './_auth-shared.js';
+import { getClientIp, verifyToken, cleanEnv, isOriginAllowed } from './_auth-shared.js';
 
 // Light per-IP throttle for the proxy itself (per isolate, best-effort)
 const hits = new Map();
@@ -36,6 +36,9 @@ export default async function handler(req, res) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET, OPTIONS');
     return res.status(405).json({ ok: false, error: 'Method not allowed' });
+  }
+  if (!isOriginAllowed(req)) {
+    return res.status(403).json({ ok: false, error: 'Forbidden origin' });
   }
 
   const auth = String(req.headers?.authorization || '');

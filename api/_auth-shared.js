@@ -98,11 +98,50 @@ function unb64url(s) {
   return Buffer.from(s, 'base64');
 }
 
-/** Issue a signed session token. remember=true -> 30d, else 12h. */
+export function isOriginAllowed(req) {
+  const origin = String(req.headers?.origin || '').toLowerCase();
+  const referer = String(req.headers?.referer || '').toLowerCase();
+  const probe = origin || referer;
+  if (!probe) {
+    if (isProduction()) {
+      const host = String(req.headers?.host || '').toLowerCase();
+      return host === 'messistat.com' || host === 'www.messistat.com' || host.endsWith('.messistat.com');
+    }
+    return true;
+  }
+  try {
+    const parsed = new URL(probe);
+    const host = parsed.hostname.toLowerCase();
+    if (host === 'messistat.com' || host === 'www.messistat.com' || host.endsWith('.messistat.com')) {
+      return true;
+    }
+    if (!isProduction()) {
+      if (host === 'localhost' || host === '127.0.0.1' || host === '[::1]') {
+        return true;
+      }
+    }
+    const vercelUrl = cleanEnv(process.env.VERCEL_URL || process.env.VERCEL_BRANCH_URL).toLowerCase();
+    if (vercelUrl) {
+      const vHost = vercelUrl.includes('/') ? new URL(`https://${vercelUrl}`).hostname.toLowerCase() : vercelUrl;
+      if (host === vHost) return true;
+    }
+    if (host.startsWith('messi-stats') && host.endsWith('.vercel.app')) {
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
+
+/** Issue a signed session token. remember=true -> 30d, else 12h. Fail-closed in prod. */
 export function signToken(remember) {
   let secret = getSessionSecret();
   if (!secret) {
-    secret = sha256hex('messistats_default_session_secret_' + (process.env.VERCEL_PROJECT_ID || 'prod'));
+    if (isProduction()) {
+      throw new Error('Admin session secret is not configured in production');
+    }
+    secret = '(dev-secret-removed)';
   }
   const now = Date.now();
   const exp = now + (remember ? 30 * 24 * 60 * 60 * 1000 : 12 * 60 * 60 * 1000);
@@ -112,12 +151,13 @@ export function signToken(remember) {
   return { token: `${p}.${sig}`, expiresAt: exp };
 }
 
-/** Verify token. Returns {ok, expiresAt} — never throws. */
+/** Verify token. Returns {ok, expiresAt} — never throws. Fail-closed in prod. */
 export function verifyToken(token) {
   try {
     let secret = getSessionSecret();
     if (!secret) {
-      secret = sha256hex('messistats_default_session_secret_' + (process.env.VERCEL_PROJECT_ID || 'prod'));
+      if (isProduction()) return { ok: false };
+      secret = '(dev-secret-removed)';
     }
     if (typeof token !== 'string') return { ok: false };
     const parts = token.split('.');
