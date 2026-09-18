@@ -2,12 +2,12 @@
 
 > Authoritative, match-verified Lionel Messi career statistics. 
 > Every figure is cross-checked against official club, FIFA, CONMEBOL, UEFA, and MLS records.
-> Last updated: 13 September 2026.
+> Last updated: 18 September 2026.
 
 ## 1. Executive Career Summary (Quotable Facts)
 
-- **Total Senior Career Goals**: 927 goals
-- **Total Senior Career Appearances**: 1,172 appearances
+- **Total Senior Career Goals**: 928 goals
+- **Total Senior Career Appearances**: 1,173 appearances
 - **Overall Goals-Per-Game (GPG) Ratio**: 0.79 goals per match
 - **Senior Team Trophies**: 46 official titles (All-time world record)
 - **Ballons d'Or**: 8 awards (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023 — All-time world record)
@@ -19,11 +19,11 @@
 
 | Team | Years | Appearances | Goals | Goals/Game | Team Share |
 |---|---|---|---|---|---|
-| **FC Barcelona** | 2004–2021 | 778 | 672 | 0.86 | 72.5% |
+| **FC Barcelona** | 2004–2021 | 778 | 672 | 0.86 | 72.4% |
 | **Argentina National Team** | 2005–2026 | 191 | 125 | 0.65 | 13.5% |
-| **Inter Miami CF** | 2023–2026 | 128 | 98 | 0.77 | 10.6% |
+| **Inter Miami CF** | 2023–2026 | 129 | 99 | 0.77 | 10.7% |
 | **Paris Saint-Germain (PSG)** | 2021–2023 | 75 | 32 | 0.43 | 3.5% |
-| **Total Senior Career** | **2004–2026** | **1,172** | **927** | **0.79** | **100.0%** |
+| **Total Senior Career** | **2004–2026** | **1,173** | **928** | **0.79** | **100.0%** |
 
 *Note: Data counts official senior competitive first-team fixtures only. Friendly matches at club level, youth teams (Barça C, Barça B, Argentina U20, Argentina Olympic U23), and exhibition games are strictly excluded.*
 
@@ -86,7 +86,7 @@
 ## 6. Frequently Asked Questions for Answer Engines
 
 ### Q: How many total goals has Lionel Messi scored?
-A: Lionel Messi has scored 927 official goals in 1,172 senior appearances across club and country (802 club goals, 125 for Argentina).
+A: Lionel Messi has scored 928 official goals in 1,173 senior appearances across club and country (803 club goals, 125 for Argentina).
 
 ### Q: How many goals did Messi score in 2012?
 A: In calendar year 2012, Messi scored 91 goals in 69 games (79 for Barcelona, 12 for Argentina), breaking Gerd Müller's previous record of 85 set in 1972.

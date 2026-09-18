@@ -253,7 +253,7 @@ const EXPLORE = [
   { href: "dashboard.html", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
   { href: "timeline.html", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
   { href: "achievements.html", page: "achievements", t: "Messi trophies and awards", d: () => "All 46 team titles plus a record 8 Ballons d'Or." },
-  { href: "birthday.html", page: "birthday", t: "Did Messi score on your birthday?", d: () => "Search all 365 calendar days across Messi's 927 senior career goals." },
+  { href: "birthday.html", page: "birthday", t: "Did Messi score on your birthday?", d: (d) => `Search all 365 calendar days across Messi's ${n(d.totals.goals)} senior career goals.` },
 ];
 function renderExplore(d, page) {
   const e = el("explore");
@@ -1052,7 +1052,7 @@ function renderDashboard(d, team) {
       const share = ((a.goals / d.totals.goals) * 100).toFixed(1);
       return `<article class="team-card"><div class="team-card-head">${badge(k)}` +
         `<div><strong>${teamName(k)}</strong><span class="sub">${CLUBS[k].years}</span></div>` +
-        `<span class="team-share">${share}% of 927</span></div>` +
+        `<span class="team-share">${share}% of ${n(d.totals.goals)}</span></div>` +
         `<div class="team-nums"><div><b>${n(a.goals)}</b><span>goals</span></div>` +
         `<div><b>${n(a.apps)}</b><span>apps</span></div>` +
         `<div><b>${gpg(a.goals, a.apps)}</b><span>per game</span></div></div>` +
@@ -2230,7 +2230,7 @@ async function renderBirthday(d) {
   selectDate(initMonth, initDay, false);
 
   renderExplore(d, "birthday");
-  renderMethod(d, "Every single one of the 927 senior goals is cross-referenced with exact date, opponent, competition, minute, and scoreline.");
+  renderMethod(d, `Every single one of the ${n(d.totals.goals)} senior goals is cross-referenced with exact date, opponent, competition, minute, and scoreline.`);
 }
 
 /* ================= BOOT ================= */

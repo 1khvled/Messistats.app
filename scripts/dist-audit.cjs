@@ -4,7 +4,8 @@ const dist = "./dist";
 const must = ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html",
   "timeline.html", "achievements.html", "birthday.html", "404.html", "sitemap.xml", "robots.txt", "llms.txt",
   "data/messi-data.json", "data/birthday-goals.json", "fonts/dm-sans-latin.woff2", "img/og-messi.jpg",
-  "img/era-2008-olympic.jpg", "img/teams/barcelona.png", "favicon.svg"];
+  "img/era-2008-olympic.jpg", "img/teams/barcelona.png", "favicon.svg", "favicon.ico", "favicon-48x48.png",
+  "apple-touch-icon.png", "site.webmanifest", "img/logo.png"];
 let ok = true;
 for (const f of must) {
   if (!fs.existsSync(dist + "/" + f)) { ok = false; console.log("MISSING " + f); }

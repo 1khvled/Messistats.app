@@ -7,6 +7,15 @@ Disallow: /en/admin/
 Disallow: /api/
 Disallow: /api
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+Allow: /favicon*
+Allow: /apple-touch-icon.png
+Allow: /img/
+
 # Dedicated permissions for AI search engines & assistants
 User-agent: GPTBot
 Allow: /

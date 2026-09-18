@@ -33,16 +33,16 @@ def label(xy, s, size, fill, bold=True, anchor="la"):
 # thin gold frame + accent bar
 d.rectangle([14, 14, W-15, H-15], outline=GOLD, width=3)
 label((90, 84), "LIONEL MESSI  \\u00b7  CAREER STATISTICS", 34, GOLD)
-label((88, 150), "927", 200, PAPER)
-label((90, 350), "career goals in 1,172 senior appearances", 36, PAPER)
-label((90, 398), "Barcelona 672  \\u00b7  PSG 32  \\u00b7  Inter Miami 98  \\u00b7  Argentina 125", 25, MUTED, bold=False)
-# club-colour strip: original segmented bar, widths proportional to goals (672/32/98/125)
+label((88, 150), "928", 200, PAPER)
+label((90, 350), "career goals in 1,173 senior appearances", 36, PAPER)
+label((90, 398), "Barcelona 672  \\u00b7  PSG 32  \\u00b7  Inter Miami 99  \\u00b7  Argentina 125", 25, MUTED, bold=False)
+# club-colour strip: original segmented bar, widths proportional to goals (672/32/99/125)
 bx, bw, by, bh = 90, 610, 436, 10
 segs = [(672, "#A50044", "#004D98", "v"), (32, "#0a2540", "#DA291C", "band"),
-        (98, "#e1438b", "#7a1c4d", "h"), (125, "#f4f0e8", "#2f9fd8", "stripes")]
+        (99, "#e1438b", "#7a1c4d", "h"), (125, "#f4f0e8", "#2f9fd8", "stripes")]
 x = bx
 for goals, c1, c2, style in segs:
-    w = max(int(round(bw * goals / 927)), 8)
+    w = max(int(round(bw * goals / 928)), 8)
     w = min(w, bx + bw - x)
     if style == "v":
         d.rectangle([x, by, x+w//2, by+bh], fill=c1)
@@ -60,7 +60,7 @@ for i, (a, b) in enumerate([("91", "2012 \\u00b7 world record"), ("21", "World C
     x = (90, 330, 560)[i]
     label((x, 462), a, 44, GOLD)
     label((x, 515), b, 26, PAPER, bold=False)
-label((90, 566), "MESSISTATS  \\u00b7  Updated 9 September 2026", 24, MUTED, bold=False)
+label((90, 566), "MESSISTATS  \\u00b7  Updated 18 September 2026", 24, MUTED, bold=False)
 # photo panel: self-hosted portrait, left edge feathered into the navy
 photo = Image.open(os.path.join(root, "public", "img", "messi.jpg")).convert("RGB")
 PW = 330
