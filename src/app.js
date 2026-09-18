@@ -2569,3 +2569,216 @@ if (typeof window !== 'undefined') {
   window.addEventListener('storage', syncRailAdmin);
 }
 
+/* ================= REDESIGNED LANGUAGE SELECTOR & MOBILE TOPBAR ================= */
+function initLanguageAndMobileTopBar() {
+  if (typeof document === "undefined") return;
+
+  const LANGUAGES = [
+    { code: "en", flag: "🇺🇸", name: "English", native: "English", note: "US, NG, IN, PH" },
+    { code: "es", flag: "🇪🇸", name: "Spanish", native: "Español", note: "Argentina, España" },
+    { code: "pt", flag: "🇧🇷", name: "Portuguese", native: "Português", note: "Brasil, Portugal" },
+    { code: "fr", flag: "🇫🇷", name: "French", native: "Français", note: "France, Niger" },
+    { code: "ar", flag: "🇪🇬", name: "Arabic", native: "العربية", note: "مصر والوطن العربي", rtl: true },
+    { code: "bn", flag: "🇧🇩", name: "Bengali", native: "বাংলা", note: "বাংলাদেশ ও ভারত" },
+    { code: "hi", flag: "🇮🇳", name: "Hindi", native: "हिन्दी", note: "भारत" },
+    { code: "ro", flag: "🇷🇴", name: "Romanian", native: "Română", note: "România" },
+    { code: "uz", flag: "🇺🇿", name: "Uzbek", native: "Oʻzbekcha", note: "Oʻzbekiston" }
+  ];
+
+  // Detect current language from <html lang="..."> or URL pathname
+  const docLang = (document.documentElement.lang || "").toLowerCase().split("-")[0];
+  const pathParts = location.pathname.split("/").filter(Boolean);
+  let curLangCode = "en";
+  if (LANGUAGES.some((l) => l.code === docLang)) {
+    curLangCode = docLang;
+  } else if (pathParts[0] && LANGUAGES.some((l) => l.code === pathParts[0])) {
+    curLangCode = pathParts[0];
+  }
+
+  const curLangObj = LANGUAGES.find((l) => l.code === curLangCode) || LANGUAGES[0];
+
+  function getLangUrl(targetCode) {
+    const isTargetEn = targetCode === "en";
+    const isTargetEs = targetCode === "es";
+
+    let subpage = "";
+    if (pathParts.length > 1) {
+      subpage = pathParts[1];
+    } else if (pathParts.length === 1 && !LANGUAGES.some((l) => l.code === pathParts[0])) {
+      subpage = pathParts[0].replace(/\.html$/, "");
+    }
+
+    if (isTargetEn) {
+      if (subpage) return `/en/${subpage}${location.search}${location.hash}`;
+      return `/en${location.search}${location.hash}`;
+    }
+
+    if (isTargetEs) {
+      const validEsPages = ["birthday", "goalsbyyear", "goalsbyseason", "dashboard", "timeline", "achievements"];
+      if (validEsPages.includes(subpage)) {
+        return `/es/${subpage}${location.search}${location.hash}`;
+      }
+      return `/es${location.search}${location.hash}`;
+    }
+
+    return `/${targetCode}${location.search}${location.hash}`;
+  }
+
+  // Remove any legacy inline .lang-switcher elements
+  document.querySelectorAll(".lang-switcher").forEach((el) => el.remove());
+
+  // 1. Setup Desktop Rail Language Button
+  const rail = document.querySelector(".rail");
+  if (rail) {
+    let railLangWrap = rail.querySelector(".rail-lang-wrap");
+    if (!railLangWrap) {
+      railLangWrap = document.createElement("div");
+      railLangWrap.className = "rail-lang-wrap";
+      railLangWrap.innerHTML = `
+        <button type="button" class="rail-lang-btn" id="rail-lang-btn" aria-label="Select Language (${curLangObj.name})" title="Select Language">
+          <svg class="rail-lang-globe" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="rail-lang-label">${curLangObj.name}</span>
+          <span class="rail-lang-tag">${curLangObj.code.toUpperCase()}</span>
+        </button>
+      `;
+      const railBadge = rail.querySelector(".rail-badge");
+      if (railBadge && railBadge.nextSibling) {
+        rail.insertBefore(railLangWrap, railBadge.nextSibling);
+      } else {
+        rail.prepend(railLangWrap);
+      }
+    }
+    const railBtn = document.getElementById("rail-lang-btn");
+    if (railBtn) railBtn.onclick = () => openLangModal();
+  }
+
+  // 2. Setup Mobile Top Bar
+  let mobileTopBar = document.querySelector(".mobile-topbar");
+  if (!mobileTopBar) {
+    mobileTopBar = document.createElement("header");
+    mobileTopBar.className = "mobile-topbar";
+    mobileTopBar.setAttribute("aria-label", "Mobile navigation header");
+    mobileTopBar.innerHTML = `
+      <a href="${getLangUrl(curLangCode)}" class="mobile-topbar-brand" aria-label="MessiStats">
+        <svg class="mobile-topbar-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="msg-mtb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-mtb)" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg>
+        <span class="mobile-topbar-title">Messi<b>Stats</b></span>
+      </a>
+      <div class="mobile-topbar-actions">
+        <button type="button" class="mobile-lang-btn" id="mobile-lang-btn" aria-label="Change language">
+          <span class="mobile-lang-flag">${curLangObj.flag}</span>
+          <span class="mobile-lang-code">${curLangObj.code.toUpperCase()}</span>
+          <span class="mobile-lang-arrow">▾</span>
+        </button>
+        <button type="button" class="mobile-theme-btn" id="mobile-theme-btn" aria-label="Toggle dark mode">
+          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    `;
+    document.body.prepend(mobileTopBar);
+  }
+
+  const mobThemeBtn = document.getElementById("mobile-theme-btn");
+  if (mobThemeBtn) {
+    mobThemeBtn.onclick = () => {
+      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+      const nextTheme = isDark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", nextTheme);
+      try { localStorage.setItem("theme", nextTheme); } catch (_) {}
+    };
+  }
+
+  const mobLangBtn = document.getElementById("mobile-lang-btn");
+  if (mobLangBtn) mobLangBtn.onclick = () => openLangModal();
+
+  // 3. Setup Universal Language Modal / Bottom Sheet
+  let langModal = document.getElementById("lang-modal");
+  if (!langModal) {
+    langModal = document.createElement("div");
+    langModal.id = "lang-modal";
+    langModal.className = "lang-modal-backdrop";
+    langModal.hidden = true;
+    langModal.setAttribute("aria-hidden", "true");
+    langModal.setAttribute("role", "dialog");
+    langModal.setAttribute("aria-modal", "true");
+    langModal.setAttribute("aria-labelledby", "lang-modal-heading");
+
+    let cardsHtml = "";
+    LANGUAGES.forEach((l) => {
+      const isActive = l.code === curLangCode;
+      const href = getLangUrl(l.code);
+      cardsHtml += `
+        <a href="${href}" class="lang-card-option${isActive ? " active" : ""}" data-code="${l.code}">
+          <span class="lang-card-flag">${l.flag}</span>
+          <div class="lang-card-info">
+            <span class="lang-card-name">${l.name}</span>
+            <span class="lang-card-native">${l.native}</span>
+            <span class="lang-card-countries">${l.note}</span>
+          </div>
+          ${isActive ? `<span class="lang-card-check">✓</span>` : ""}
+        </a>
+      `;
+    });
+
+    langModal.innerHTML = `
+      <div class="lang-modal-sheet">
+        <div class="lang-modal-handle"></div>
+        <div class="lang-modal-header">
+          <div class="lang-modal-title-wrap">
+            <svg class="rail-lang-globe" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <h3 class="lang-modal-title" id="lang-modal-heading">Select Language / Idioma</h3>
+          </div>
+          <button type="button" class="lang-modal-close" id="lang-modal-close-btn" aria-label="Close language selector">&times;</button>
+        </div>
+        <div class="lang-modal-grid">
+          ${cardsHtml}
+        </div>
+      </div>
+    `;
+    document.body.appendChild(langModal);
+  }
+
+  const openLangModal = () => {
+    if (!langModal) return;
+    langModal.hidden = false;
+    langModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeLangModal = () => {
+    if (!langModal) return;
+    langModal.hidden = true;
+    langModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  const closeBtn = document.getElementById("lang-modal-close-btn");
+  if (closeBtn) closeBtn.onclick = closeLangModal;
+
+  langModal.onclick = (e) => {
+    if (e.target === langModal) closeLangModal();
+  };
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && langModal && !langModal.hidden) {
+      closeLangModal();
+    }
+  });
+}
+
+if (typeof window !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLanguageAndMobileTopBar);
+  } else {
+    initLanguageAndMobileTopBar();
+  }
+}
+
