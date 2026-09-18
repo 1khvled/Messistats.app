@@ -282,17 +282,41 @@
   <div class="video-modal-container" style="max-width: 680px;">
     <div class="video-modal-header">
       <div class="video-modal-titles">
-        <span class="video-modal-eyebrow">Tarjeta Social</span>
+        <span class="video-modal-eyebrow">Tarjeta Coleccionable</span>
         <h3 class="video-modal-title">Tu Tarjeta de Cumpleaños</h3>
       </div>
       <button type="button" class="video-modal-close" id="bday-card-modal-close">&times;</button>
     </div>
+
+    <div class="bday-card-controls">
+      <div class="bday-card-format-tabs" role="tablist" aria-label="Formato de tarjeta">
+        <button type="button" class="card-format-btn active" data-format="story" role="tab" aria-selected="true">
+          📱 Historia (9:16)
+        </button>
+        <button type="button" class="card-format-btn" data-format="square" role="tab" aria-selected="false">
+          🖼️ Cuadrada (1:1)
+        </button>
+        <button type="button" class="card-format-btn" data-format="wide" role="tab" aria-selected="false">
+          💻 Panorámica (16:9)
+        </button>
+      </div>
+      <div class="bday-card-theme-chips">
+        <span class="card-theme-label">Tema:</span>
+        <button type="button" class="card-theme-chip active" data-theme="auto" title="Color dinámico del equipo">⚡ Auto</button>
+        <button type="button" class="card-theme-chip" data-theme="gold" title="Oro 24K Balón de Oro">🏆 Oro</button>
+        <button type="button" class="card-theme-chip" data-theme="barca" title="Blaugrana">🔵🔴 Barça</button>
+        <button type="button" class="card-theme-chip" data-theme="argentina" title="Albiceleste">🇦🇷 Argentina</button>
+        <button type="button" class="card-theme-chip" data-theme="miami" title="Rosa Miami">💖 Miami</button>
+      </div>
+    </div>
+
     <div class="bday-card-preview-wrap">
-      <canvas id="bday-card-canvas" width="1200" height="630" class="bday-canvas-preview"></canvas>
+      <canvas id="bday-card-canvas" width="1080" height="1920" class="bday-canvas-preview"></canvas>
     </div>
     <div class="bday-card-modal-actions">
-      <button type="button" class="btn-primary" id="bday-download-card-btn">Descargar Imagen (PNG)</button>
+      <button type="button" class="btn-primary" id="bday-download-card-btn">Descargar Tarjeta HD</button>
       <button type="button" class="btn-secondary" id="bday-native-share-card-btn">Compartir Tarjeta</button>
+      <button type="button" class="btn-secondary" id="bday-copy-card-btn">Copiar Imagen</button>
     </div>
   </div>
 </div>

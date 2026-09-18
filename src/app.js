@@ -1586,129 +1586,506 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
   const closeBtn = el("bday-card-modal-close");
   const downloadBtn = el("bday-download-card-btn");
   const nativeShareBtn = el("bday-native-share-card-btn");
+  const copyBtn = el("bday-copy-card-btn");
   const canvas = el("bday-card-canvas");
 
   if (!cardBtn || !modal || !canvas) return;
 
+  let currentFormat = typeof window !== "undefined" && window.innerWidth <= 640 ? "story" : "square";
+  let currentTheme = "auto";
+
+  // Preload Messi celebration image
+  const messiImg = new Image();
+  messiImg.crossOrigin = "anonymous";
+  messiImg.src = "/img/og-messi.jpg";
+  let imgLoaded = false;
+  messiImg.onload = () => {
+    imgLoaded = true;
+    if (modal && !modal.hidden) drawCanvas();
+  };
+
+  function roundRect(ctx, x, y, w, h, r) {
+    if (w < 2 * r) r = w / 2;
+    if (h < 2 * r) r = h / 2;
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function getThemeColors() {
+    let t = currentTheme;
+    if (t === "auto") {
+      if (dayData.matches && dayData.matches[0]) {
+        const team = (dayData.matches[0].team || "").toLowerCase();
+        if (team.includes("argentina")) t = "argentina";
+        else if (team.includes("barcelona")) t = "barca";
+        else if (team.includes("miami")) t = "miami";
+        else if (team.includes("paris")) t = "barca";
+        else t = "gold";
+      } else {
+        t = "gold";
+      }
+    }
+
+    if (t === "barca") {
+      return {
+        primary: "#edbb00",
+        secondary: "#a50044",
+        accent: "#004d98",
+        glow: "rgba(165, 0, 68, 0.4)",
+        glow2: "rgba(0, 77, 152, 0.35)",
+        name: "FC Barcelona"
+      };
+    }
+    if (t === "argentina") {
+      return {
+        primary: "#f6b40e",
+        secondary: "#75aadb",
+        accent: "#ffffff",
+        glow: "rgba(117, 170, 219, 0.45)",
+        glow2: "rgba(246, 180, 14, 0.3)",
+        name: "Argentina"
+      };
+    }
+    if (t === "miami") {
+      return {
+        primary: "#f7b5cd",
+        secondary: "#f0599a",
+        accent: "#231f20",
+        glow: "rgba(247, 181, 205, 0.4)",
+        glow2: "rgba(240, 89, 154, 0.3)",
+        name: "Inter Miami"
+      };
+    }
+    // Gold / World Cup Champion default
+    return {
+      primary: "#e3b93e",
+      secondary: "#f59e0b",
+      accent: "#38bdf8",
+      glow: "rgba(227, 185, 62, 0.4)",
+      glow2: "rgba(56, 189, 248, 0.25)",
+      name: "World Champion"
+    };
+  }
+
   function drawCanvas() {
-    canvas.width = 1200;
-    canvas.height = 630;
+    let W = 1080;
+    let H = 1920;
+    if (currentFormat === "square") {
+      W = 1080;
+      H = 1080;
+    } else if (currentFormat === "wide") {
+      W = 1200;
+      H = 675;
+    }
+
+    canvas.width = W;
+    canvas.height = H;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
-    bgGrad.addColorStop(0, "#08101d");
-    bgGrad.addColorStop(0.5, "#101f38");
-    bgGrad.addColorStop(1, "#192c4f");
-    ctx.fillStyle = bgGrad;
-    ctx.fillRect(0, 0, 1200, 630);
+    const colors = getThemeColors();
+    const isStory = currentFormat === "story";
+    const isSquare = currentFormat === "square";
+    const isWide = currentFormat === "wide";
 
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
+    // 1. BASE BACKGROUND GRADIENT
+    const bg = ctx.createLinearGradient(0, 0, W, H);
+    bg.addColorStop(0, "#050a14");
+    bg.addColorStop(0.35, "#0a1324");
+    bg.addColorStop(0.7, "#0c1729");
+    bg.addColorStop(1, "#03060c");
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // 2. AMBIENT GLOWS
+    const glow1 = ctx.createRadialGradient(W * 0.75, H * 0.22, 40, W * 0.75, H * 0.22, W * 0.7);
+    glow1.addColorStop(0, colors.glow);
+    glow1.addColorStop(1, "transparent");
+    ctx.fillStyle = glow1;
+    ctx.fillRect(0, 0, W, H);
+
+    const glow2 = ctx.createRadialGradient(W * 0.2, H * 0.75, 50, W * 0.2, H * 0.75, W * 0.65);
+    glow2.addColorStop(0, colors.glow2);
+    glow2.addColorStop(1, "transparent");
+    ctx.fillStyle = glow2;
+    ctx.fillRect(0, 0, W, H);
+
+    // 3. SUBTLE FOOTBALL PITCH & STADIUM LIGHT LINES
+    ctx.save();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.035)";
     ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.arc(600, 315, 220, 0, Math.PI * 2);
+    ctx.arc(W / 2, isStory ? H * 0.42 : H / 2, W * 0.36, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0, isStory ? H * 0.42 : H / 2);
+    ctx.lineTo(W, isStory ? H * 0.42 : H / 2);
     ctx.stroke();
 
-    ctx.strokeStyle = "rgba(227, 185, 62, 0.45)";
+    // Stadium Floodlight Rays
+    ctx.fillStyle = "rgba(255, 255, 255, 0.012)";
+    ctx.beginPath();
+    ctx.moveTo(W * 0.3, 0);
+    ctx.lineTo(W * 0.55, 0);
+    ctx.lineTo(W * 0.9, H);
+    ctx.lineTo(W * 0.65, H);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // 4. WATERMARK "10" IN BACKGROUND
+    ctx.save();
+    ctx.font = `900 ${isStory ? "420px" : isSquare ? "300px" : "240px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.035)";
     ctx.lineWidth = 4;
-    ctx.strokeRect(24, 24, 1152, 582);
+    ctx.strokeText("10", W * 0.5, isStory ? H * 0.32 : H * 0.38);
+    ctx.restore();
 
-    ctx.fillStyle = "#e3b93e";
-    ctx.font = "800 24px system-ui, sans-serif";
-    ctx.fillText("MESSI STATS", 56, 76);
+    // 5. DRAW MESSI PHOTO WITH CINEMATIC BLEND
+    if (imgLoaded && messiImg.naturalWidth > 0) {
+      ctx.save();
+      const imgW = isStory ? W * 0.88 : isSquare ? W * 0.62 : W * 0.52;
+      const imgH = imgW * (messiImg.naturalHeight / messiImg.naturalWidth);
+      const imgX = isStory ? W * 0.06 : isSquare ? W * 0.42 : W * 0.5;
+      const imgY = isStory ? H * 0.12 : isSquare ? H * 0.08 : H * 0.06;
 
-    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-    ctx.font = "600 18px system-ui, sans-serif";
-    ctx.fillText("929 CAREER GOALS • OFFICIAL ARCHIVE", 56, 102);
+      ctx.globalAlpha = isStory ? 0.46 : 0.5;
+      ctx.drawImage(messiImg, imgX, imgY, imgW, imgH);
 
-    ctx.fillStyle = "#38bdf8";
-    ctx.textAlign = "right";
-    ctx.font = "700 18px system-ui, sans-serif";
-    ctx.fillText("366-DAY VIDEO EXPLORER", 1144, 76);
-    ctx.textAlign = "left";
+      // Bottom fade mask to seamlessly melt photo into dark card background
+      const fade = ctx.createLinearGradient(0, imgY + imgH * 0.3, 0, imgY + imgH);
+      fade.addColorStop(0, "rgba(6, 11, 22, 0)");
+      fade.addColorStop(0.65, "rgba(6, 11, 22, 0.75)");
+      fade.addColorStop(1, "rgba(6, 11, 22, 1)");
+      ctx.fillStyle = fade;
+      ctx.fillRect(imgX, imgY, imgW, imgH + 20);
 
-    const isMessiBday = (dayData.month === 6 && dayData.day === 24);
-    if (dayData.goalsCount > 0) {
-      ctx.fillStyle = "rgba(16, 185, 129, 0.2)";
-      ctx.fillRect(56, 138, 480, 42);
-      ctx.strokeStyle = "rgba(16, 185, 129, 0.6)";
-      ctx.lineWidth = 2;
-      ctx.strokeRect(56, 138, 480, 42);
-      ctx.fillStyle = "#34d399";
-      ctx.font = "800 18px system-ui, sans-serif";
-      ctx.fillText("🎉 YES! MESSI SCORED ON MY BIRTHDAY", 76, 166);
-
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 52px system-ui, sans-serif";
-      ctx.fillText(dayData.formatted.toUpperCase(), 56, 240);
-
-      const gWord = dayData.goalsCount === 1 ? "GOAL" : "GOALS";
-      const mWord = dayData.matches.length === 1 ? "MATCH" : "MATCHES";
-      ctx.fillStyle = "#e3b93e";
-      ctx.font = "800 36px system-ui, sans-serif";
-      ctx.fillText(`⚽ ${dayData.goalsCount} ${gWord} IN ${dayData.matches.length} ${mWord}`, 56, 296);
-
-      if (dayData.matches && dayData.matches[0]) {
-        const m = dayData.matches[0];
-        ctx.fillStyle = "rgba(255, 255, 255, 0.06)";
-        ctx.fillRect(56, 332, 1088, 140);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
-        ctx.lineWidth = 1;
-        ctx.strokeRect(56, 332, 1088, 140);
-
-        ctx.fillStyle = "#94a3b8";
-        ctx.font = "700 16px system-ui, sans-serif";
-        ctx.fillText(`FEATURED FIXTURE • ${m.date} (${m.competition || "Official Match"})`, 80, 368);
-
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "800 28px system-ui, sans-serif";
-        ctx.fillText(`${m.team}  ${m.score}  ${m.opponent}`, 80, 410);
-
-        ctx.fillStyle = "#38bdf8";
-        ctx.font = "600 18px system-ui, sans-serif";
-        const mins = (m.minutes || []).map(min => `${min}'`).join(", ");
-        ctx.fillText(`Goals scored: ${m.goalsCount} (Minutes: ${mins})`, 80, 444);
+      // Side fade mask for square/wide layout
+      if (!isStory) {
+        const fadeSide = ctx.createLinearGradient(imgX, 0, imgX + imgW * 0.4, 0);
+        fadeSide.addColorStop(0, "rgba(6, 11, 22, 0.95)");
+        fadeSide.addColorStop(1, "rgba(6, 11, 22, 0)");
+        ctx.fillStyle = fadeSide;
+        ctx.fillRect(imgX, imgY, imgW * 0.4, imgH);
       }
-    } else if (isMessiBday) {
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 48px system-ui, sans-serif";
-      ctx.fillText("I SHARE A BIRTHDAY WITH", 56, 200);
-      ctx.fillStyle = "#e3b93e";
-      ctx.font = "900 58px system-ui, sans-serif";
-      ctx.fillText("LIONEL ANDRÉS MESSI! 🐐", 56, 268);
-
-      ctx.fillStyle = "#cbd5e1";
-      ctx.font = "600 24px system-ui, sans-serif";
-      ctx.fillText("Born 24 June 1987 in Rosario, Argentina", 56, 324);
-      ctx.fillText("8 Ballons d'Or • 46 Official Trophies • 929 Senior Goals", 56, 364);
-    } else {
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 48px system-ui, sans-serif";
-      ctx.fillText("DID MESSI SCORE ON YOUR BIRTHDAY?", 56, 210);
-
-      ctx.fillStyle = "#e3b93e";
-      ctx.font = "800 36px system-ui, sans-serif";
-      ctx.fillText(`Date checked: ${dayData.formatted}`, 56, 272);
-
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "600 22px system-ui, sans-serif";
-      ctx.fillText("Messi has scored on 292 of 366 days (79.8% of the year)!", 56, 324);
-      ctx.fillText("Find which of your friends shares a Messi goal date.", 56, 360);
+      ctx.restore();
     }
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
-    ctx.fillRect(24, 520, 1152, 86);
+    // 6. CARD FRAME & METALLIC CORNER BRACKETS
+    ctx.save();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.09)";
+    ctx.lineWidth = 2;
+    roundRect(ctx, 32, 32, W - 64, H - 64, 28);
+    ctx.stroke();
+
+    const cSize = 26;
+    ctx.strokeStyle = colors.primary;
+    ctx.lineWidth = 4;
+    // Top-left
+    ctx.beginPath(); ctx.moveTo(42, 42 + cSize); ctx.lineTo(42, 42); ctx.lineTo(42 + cSize, 42); ctx.stroke();
+    // Top-right
+    ctx.beginPath(); ctx.moveTo(W - 42 - cSize, 42); ctx.lineTo(W - 42, 42); ctx.lineTo(W - 42, 42 + cSize); ctx.stroke();
+    // Bottom-left
+    ctx.beginPath(); ctx.moveTo(42, H - 42 - cSize); ctx.lineTo(42, H - 42); ctx.lineTo(42 + cSize, H - 42); ctx.stroke();
+    // Bottom-right
+    ctx.beginPath(); ctx.moveTo(W - 42 - cSize, H - 42); ctx.lineTo(W - 42, H - 42); ctx.lineTo(W - 42, H - 42 - cSize); ctx.stroke();
+    ctx.restore();
+
+    // 7. HEADER BRANDING & VERIFIED BADGE
+    ctx.save();
+    const sX = 64, sY = 64;
+    // Vector shield icon
+    ctx.fillStyle = colors.primary;
+    ctx.beginPath();
+    ctx.moveTo(sX + 16, sY);
+    ctx.lineTo(sX + 32, sY + 6);
+    ctx.lineTo(sX + 32, sY + 22);
+    ctx.bezierCurveTo(sX + 32, sY + 34, sX + 16, sY + 40, sX + 16, sY + 42);
+    ctx.bezierCurveTo(sX + 16, sY + 40, sX, sY + 34, sX, sY + 22);
+    ctx.lineTo(sX, sY + 6);
+    ctx.closePath();
+    ctx.fill();
 
     ctx.fillStyle = "#ffffff";
-    ctx.font = "700 22px system-ui, sans-serif";
-    ctx.fillText("Check your birthday at: messistat.com/en/birthday", 56, 570);
+    ctx.font = '900 13px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.textAlign = "center";
+    ctx.fillText("M10", sX + 16, sY + 26);
 
-    ctx.fillStyle = "#94a3b8";
-    ctx.textAlign = "right";
-    ctx.font = "600 18px system-ui, sans-serif";
-    ctx.fillText("Watch Video Highlights & Stats", 1144, 570);
     ctx.textAlign = "left";
+    ctx.fillStyle = "#ffffff";
+    ctx.font = '800 24px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText("MESSI", sX + 44, sY + 20);
+    ctx.fillStyle = colors.primary;
+    ctx.fillText("STATS", sX + 124, sY + 20);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+    ctx.font = '600 14px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText("OFFICIAL ARCHIVE • 929 CAREER GOALS", sX + 44, sY + 39);
+
+    // Top-Right Verified Pill
+    const pW = 168, pH = 36;
+    const pX = W - 64 - pW, pY = 64;
+    ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
+    roundRect(ctx, pX, pY, pW, pH, 18);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = "#38bdf8";
+    ctx.font = '800 13px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.textAlign = "center";
+    ctx.fillText("✓ VERIFIED ARCHIVE", pX + pW / 2, pY + 23);
+    ctx.restore();
+
+    // 8. HERO BIRTHDAY VERDICT
+    const isMessiBday = (dayData.month === 6 && dayData.day === 24);
+    const contentY = isStory ? 170 : isSquare ? 144 : 126;
+
+    ctx.save();
+    if (dayData.goalsCount > 0) {
+      const rText = "👑 YES! MESSI SCORED ON MY BIRTHDAY";
+      ctx.font = '800 15px "Plus Jakarta Sans", system-ui, sans-serif';
+      const rW = ctx.measureText(rText).width + 36;
+      ctx.fillStyle = "rgba(16, 185, 129, 0.22)";
+      roundRect(ctx, 64, contentY, rW, 36, 18);
+      ctx.fill();
+      ctx.strokeStyle = "#10b981";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = "#34d399";
+      ctx.fillText(rText, 82, contentY + 23);
+
+      // Date Header
+      ctx.fillStyle = "#ffffff";
+      ctx.font = `900 ${isStory ? "78px" : isSquare ? "60px" : "50px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+      ctx.fillText(dayData.formatted.toUpperCase(), 64, contentY + (isStory ? 112 : 90));
+
+      // Golden KPI Bar
+      const gCount = dayData.goalsCount;
+      const mCount = dayData.matches.length;
+      const gWord = gCount === 1 ? "GOAL" : "GOALS";
+      const mWord = mCount === 1 ? "MATCH" : "MATCHES";
+      
+      const kpiGrad = ctx.createLinearGradient(64, 0, 600, 0);
+      kpiGrad.addColorStop(0, colors.primary);
+      kpiGrad.addColorStop(1, "#fbbf24");
+      ctx.fillStyle = kpiGrad;
+      ctx.font = `800 ${isStory ? "38px" : isSquare ? "30px" : "26px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+      ctx.fillText(`⚽ ${gCount} ${gWord} IN ${mCount} ${mWord}`, 64, contentY + (isStory ? 166 : 136));
+
+    } else if (isMessiBday) {
+      const rText = "🐐 I SHARE A BIRTHDAY WITH THE GOAT";
+      ctx.font = '800 15px "Plus Jakarta Sans", system-ui, sans-serif';
+      const rW = ctx.measureText(rText).width + 36;
+      ctx.fillStyle = "rgba(227, 185, 62, 0.22)";
+      roundRect(ctx, 64, contentY, rW, 36, 18);
+      ctx.fill();
+      ctx.strokeStyle = "#e3b93e";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = "#fbbf24";
+      ctx.fillText(rText, 82, contentY + 23);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = `900 ${isStory ? "72px" : "54px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+      ctx.fillText("24 JUNE 1987", 64, contentY + (isStory ? 106 : 86));
+
+      ctx.fillStyle = colors.primary;
+      ctx.font = '800 34px "Plus Jakarta Sans", system-ui, sans-serif';
+      ctx.fillText("LIONEL ANDRÉS MESSI 👑", 64, contentY + (isStory ? 160 : 132));
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      ctx.font = '600 19px "Plus Jakarta Sans", system-ui, sans-serif';
+      ctx.fillText("Born in Rosario, Argentina • 8 Ballons d'Or • 46 Titles", 64, contentY + (isStory ? 204 : 168));
+    } else {
+      const rText = "🎂 OFFICIAL MESSI BIRTHDAY ARCHIVE";
+      ctx.font = '800 15px "Plus Jakarta Sans", system-ui, sans-serif';
+      const rW = ctx.measureText(rText).width + 36;
+      ctx.fillStyle = "rgba(148, 163, 184, 0.18)";
+      roundRect(ctx, 64, contentY, rW, 36, 18);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(148, 163, 184, 0.4)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.fillStyle = "#cbd5e1";
+      ctx.fillText(rText, 82, contentY + 23);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = `900 ${isStory ? "72px" : "54px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+      ctx.fillText(dayData.formatted.toUpperCase(), 64, contentY + (isStory ? 106 : 86));
+
+      ctx.fillStyle = colors.primary;
+      ctx.font = '800 32px "Plus Jakarta Sans", system-ui, sans-serif';
+      ctx.fillText("REST DAY FOR THE GOAT 👑", 64, contentY + (isStory ? 158 : 130));
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.font = '600 19px "Plus Jakarta Sans", system-ui, sans-serif';
+      ctx.fillText("Messi scored on 292 of 366 calendar days (79.8% of the year)!", 64, contentY + (isStory ? 200 : 166));
+    }
+    ctx.restore();
+
+    // 9. MATCH SPOTLIGHT CARDS
+    const matches = dayData.matches || [];
+    let startY = isStory ? contentY + 224 : isSquare ? contentY + 172 : contentY + 150;
+    const maxMatches = isStory ? 3 : isSquare ? 1 : 1;
+
+    if (matches.length > 0) {
+      const cardHeight = isStory ? 158 : isSquare ? 146 : 126;
+      const cardGap = 16;
+      const toShow = matches.slice(0, maxMatches);
+
+      toShow.forEach((m, idx) => {
+        const curY = startY + idx * (cardHeight + cardGap);
+        const cardW = W - 128;
+
+        ctx.save();
+        ctx.fillStyle = "rgba(255, 255, 255, 0.055)";
+        roundRect(ctx, 64, curY, cardW, cardHeight, 18);
+        ctx.fill();
+
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.11)";
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        ctx.fillStyle = colors.primary;
+        roundRect(ctx, 64, curY, 6, cardHeight, 3);
+        ctx.fill();
+
+        // Competition Tag
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = '700 15px "Plus Jakarta Sans", system-ui, sans-serif';
+        const compStr = `🏆 ${m.competition || "Official Match"} • ${m.date}`;
+        ctx.fillText(compStr.toUpperCase(), 92, curY + 34);
+
+        // Scoreline
+        ctx.fillStyle = "#ffffff";
+        ctx.font = `800 ${isStory ? "28px" : "24px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+        const scoreText = `${m.team}  ${m.score}  ${m.opponent}`;
+        ctx.fillText(scoreText, 92, curY + 74);
+
+        // Goal Minutes & Types Pill
+        const mins = (m.minutes && m.minutes.length) ? m.minutes.map(mn => `${mn}'`).join(", ") : "";
+        const mInfo = `⚽ ${m.goalsCount} ${m.goalsCount === 1 ? "Goal" : "Goals"}${mins ? ` (Min: ${mins})` : ""}`;
+        
+        ctx.fillStyle = "rgba(56, 189, 248, 0.15)";
+        ctx.font = '700 15px "Plus Jakarta Sans", system-ui, sans-serif';
+        const pillW = ctx.measureText(mInfo).width + 24;
+        roundRect(ctx, 92, curY + 94, pillW, 30, 8);
+        ctx.fill();
+
+        ctx.fillStyle = "#38bdf8";
+        ctx.fillText(mInfo, 104, curY + 114);
+
+        if (m.types && m.types[0]) {
+          const typeText = `🎯 ${m.types.join(", ")}`;
+          ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+          ctx.font = '600 14px "Plus Jakarta Sans", system-ui, sans-serif';
+          ctx.fillText(typeText, 92 + pillW + 14, curY + 114);
+        }
+
+        ctx.restore();
+      });
+
+      if (matches.length > maxMatches) {
+        const remY = startY + toShow.length * (cardHeight + cardGap);
+        ctx.save();
+        ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+        ctx.font = '600 16px "Plus Jakarta Sans", system-ui, sans-serif';
+        ctx.fillText(`+ ${matches.length - maxMatches} more historic match${matches.length - maxMatches > 1 ? "es" : ""} on this date`, 64, remY + 10);
+        ctx.restore();
+      }
+    } else {
+      const curY = startY;
+      const cardW = W - 128;
+      const cardH = isStory ? 200 : 150;
+
+      ctx.save();
+      ctx.fillStyle = "rgba(255, 255, 255, 0.055)";
+      roundRect(ctx, 64, curY, cardW, cardH, 18);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.11)";
+      ctx.stroke();
+
+      ctx.fillStyle = colors.primary;
+      roundRect(ctx, 64, curY, 6, cardH, 3);
+      ctx.fill();
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = '800 22px "Plus Jakarta Sans", system-ui, sans-serif';
+      ctx.fillText("🌟 LEO MESSI ALL-TIME CAREER STATS", 92, curY + 42);
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      ctx.font = '600 17px "Plus Jakarta Sans", system-ui, sans-serif';
+      ctx.fillText("• 929 Official Senior Goals (All-Time Record South American Scorer)", 92, curY + 80);
+      ctx.fillText("• 404 Official Career Assists (World Record)", 92, curY + 114);
+      ctx.fillText("• 46 Major Trophies (Most decorated football player in history)", 92, curY + 148);
+      if (isStory) {
+        ctx.fillText("• 8 Ballon d'Or Trophies • 6 European Golden Shoes • 1 FIFA World Cup", 92, curY + 182);
+      }
+      ctx.restore();
+    }
+
+    // 10. CALL TO ACTION FOOTER BANNER
+    ctx.save();
+    const footH = isStory ? 128 : isSquare ? 106 : 94;
+    const footY = H - 42 - footH;
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
+    roundRect(ctx, 42, footY, W - 84, footH, 20);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.09)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `800 ${isStory ? "24px" : "20px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+    ctx.fillText("Check what Messi did on your birthday 🎂", 72, footY + (isStory ? 44 : 38));
+
+    ctx.fillStyle = colors.primary;
+    ctx.font = `800 ${isStory ? "26px" : "22px"} "Plus Jakarta Sans", system-ui, sans-serif`;
+    ctx.fillText("messistat.com/birthday", 72, footY + (isStory ? 86 : 74));
+
+    ctx.textAlign = "right";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+    ctx.font = '600 15px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText("Search all 366 days & watch video goals", W - 72, footY + (isStory ? 44 : 38));
+
+    ctx.fillStyle = "#38bdf8";
+    ctx.font = '700 16px "Plus Jakarta Sans", system-ui, sans-serif';
+    ctx.fillText("#MessiStats • Official Archive", W - 72, footY + (isStory ? 84 : 74));
+    ctx.restore();
   }
+
+  // Wire Format Buttons
+  modal.querySelectorAll(".card-format-btn").forEach((btn) => {
+    btn.onclick = () => {
+      modal.querySelectorAll(".card-format-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFormat = btn.getAttribute("data-format") || "story";
+      drawCanvas();
+    };
+  });
+
+  // Wire Theme Chips
+  modal.querySelectorAll(".card-theme-chip").forEach((chip) => {
+    chip.onclick = () => {
+      modal.querySelectorAll(".card-theme-chip").forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      currentTheme = chip.getAttribute("data-theme") || "auto";
+      drawCanvas();
+    };
+  });
 
   cardBtn.onclick = () => {
     drawCanvas();
@@ -1736,10 +2113,36 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
         if (!blob) return;
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `messi-birthday-${key}.png`;
+        a.download = `messi-birthday-${key}-${currentFormat}.png`;
         a.click();
         URL.revokeObjectURL(a.href);
       }, "image/png");
+    };
+  }
+
+  if (copyBtn) {
+    copyBtn.onclick = async () => {
+      try {
+        canvas.toBlob(async (blob) => {
+          if (!blob) return;
+          if (navigator.clipboard && window.ClipboardItem) {
+            await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = "✓ Copied Image!";
+            copyBtn.style.background = "var(--brand-soft)";
+            copyBtn.style.borderColor = "var(--brand)";
+            setTimeout(() => {
+              copyBtn.innerHTML = originalText;
+              copyBtn.style.background = "";
+              copyBtn.style.borderColor = "";
+            }, 2200);
+          } else {
+            downloadBtn.click();
+          }
+        }, "image/png");
+      } catch (_) {
+        downloadBtn.click();
+      }
     };
   }
 
@@ -1747,11 +2150,11 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
     nativeShareBtn.onclick = async () => {
       canvas.toBlob(async (blob) => {
         if (!blob) return;
-        const file = new File([blob], `messi-birthday-${key}.png`, { type: "image/png" });
+        const file = new File([blob], `messi-birthday-${key}-${currentFormat}.png`, { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
-              title: "My Messi Birthday Stats",
+              title: "My Messi Birthday Goal Card",
               text: shareText,
               files: [file]
             });
@@ -1760,7 +2163,7 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
         }
         if (navigator.share) {
           try {
-            await navigator.share({ title: "My Messi Birthday Stats", text: shareText, url: shareUrl });
+            await navigator.share({ title: "My Messi Birthday Goal Card", text: shareText, url: shareUrl });
             return;
           } catch (_) {}
         }
