@@ -4,16 +4,34 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="Panel interactivo de estadísticas de Lionel Messi: goles por equipo, parte del cuerpo, tipo de remate, minutos y asistencias. Filtros dinámicos en vivo." name="description"/>
-<link href="https://www.messistat.com/es/dashboard" rel="canonical"/>
-<link href="https://www.messistat.com/en/dashboard" hreflang="en" rel="alternate"/>
-<link href="https://www.messistat.com/en/dashboard" hreflang="en-US" rel="alternate"/>
-<link href="https://www.messistat.com/en/dashboard" hreflang="en-NG" rel="alternate"/>
-<link href="https://www.messistat.com/en/dashboard" hreflang="en-IN" rel="alternate"/>
-<link href="https://www.messistat.com/en/dashboard" hreflang="en-PH" rel="alternate"/>
-<link href="https://www.messistat.com/es/dashboard" hreflang="es" rel="alternate"/>
-<link href="https://www.messistat.com/es/dashboard" hreflang="es-AR" rel="alternate"/>
-<link href="https://www.messistat.com/es/dashboard" hreflang="es-ES" rel="alternate"/>
-<link href="https://www.messistat.com/en/dashboard" hreflang="x-default" rel="alternate"/>
+<link rel="canonical" href="https://www.messistat.com/es/dashboard"/>
+<link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard"/>
+<link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/dashboard"/>
+<link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/dashboard"/>
+<link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/dashboard"/>
+<link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/dashboard"/>
+<link rel="alternate" hreflang="es" href="https://www.messistat.com/es/dashboard"/>
+<link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/dashboard"/>
+<link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/dashboard"/>
+<link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/dashboard"/>
+<link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/dashboard"/>
+<link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/dashboard"/>
+<link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/dashboard"/>
+<link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/dashboard"/>
+<link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/dashboard"/>
+<link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard"/>
+<link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard"/>
+<link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn/dashboard"/>
+<link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn/dashboard"/>
+<link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn/dashboard"/>
+<link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi/dashboard"/>
+<link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi/dashboard"/>
+<link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/dashboard"/>
+<link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/dashboard"/>
+<link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard"/>
+<link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz/dashboard"/>
+<link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard"/>
+
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
 <meta content="#16243a" name="theme-color"/>
 <meta content="MessiStats" name="author"/>
@@ -92,18 +110,43 @@
 <div hidden="" id="banner"></div>
 <p class="eyebrow">Panel Interactivo <i></i> <span id="upd">Actualizado 18 Septiembre 2026</span></p>
 <h1>Panel de Estadísticas de Lionel Messi</h1>
-<p class="lede" id="lede">Explora visualmente los 929 goles de Lionel Messi: filtra por club o selección, mira goles por parte del cuerpo, tipo de remate y zonas.</p>
+<p class="lede" id="lede">Análisis interactivo de los 929 goles en la carrera de Lionel Messi en todas las competiciones, temporadas, tipos de remate y partes del cuerpo — filtrable por Barcelona, PSG, Inter Miami y Argentina.</p>
 <p><a class="btn" href="/es">← Volver a estadísticas</a></p>
-<div class="shead"><h2>Filtro de equipo</h2></div>
-<nav aria-label="Filtrar por equipo" class="pills" id="team-filter"></nav>
-<div class="shead"><h2>Goles y promedio</h2></div>
-<section aria-label="Resumen de goles" class="kpis kpis-4" id="kpis"></section>
-<div class="shead"><h2>Por parte del cuerpo</h2></div>
-<section aria-label="Goles por parte del cuerpo" class="donuts" id="body-donuts"></section>
-<div class="shead"><h2>Tipo de definición</h2></div>
-<section aria-label="Tipo de definición" class="breakdown-grid card" id="finishes"></section>
-<div class="shead"><h2>Por competición</h2></div>
-<section aria-label="Goles por competición" class="table-wrap card" id="comps"></section>
+<div aria-label="Filtrar gráficos por equipo" class="pills" id="pills" role="group"></div>
+<p class="section-sub" id="filter-note"></p>
+<section aria-label="Totales filtrados" class="kpis kpis-3" id="kpis"></section>
+<div class="shead"><h2>¿En qué competiciones ha marcado más goles Messi?</h2></div>
+<section class="card chart-card" id="comp-card"></section>
+<aside aria-label="Publicidad" class="ad-native-wrap">
+<span class="ad-native-label">Publicidad</span>
+<div class="ad-native-slot">
+<script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
+<div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
+</div>
+</aside>
+<div class="shead"><h2>¿Cómo ha cambiado su ritmo goleador temporada tras temporada?</h2></div>
+<section class="card chart-card" id="season-card"></section>
+<div class="shead"><h2>Goles con cada equipo</h2></div>
+<section aria-label="Partidos y goles por equipo" class="team-grid" id="team-cards">Cargando…</section>
+<div class="shead"><h2>¿Jugada abierta, penaltis o tiros libres?</h2></div>
+<section class="card chart-card" id="finish-card"></section>
+<aside aria-label="Publicidad" class="ad-native-wrap">
+<span class="ad-native-label">Publicidad</span>
+<div class="ad-native-slot">
+<script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
+<div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
+</div>
+</aside>
+<div class="shead"><h2>¿Con qué pie o parte del cuerpo marca Messi?</h2></div>
+<section class="card chart-card" id="body-card"></section>
+<div class="shead"><h2>Goles a cada edad</h2></div>
+<section class="card chart-card" id="age-card"></section>
+<div class="shead"><h2>Totales de carrera detrás de estos gráficos</h2></div>
+<section class="card" id="comp-table">Cargando…</section>
+<div class="shead"><h2>¿Cómo anota sus goles Lionel Messi?</h2></div>
+<section class="card" id="finish-table">Cargando…</section>
+<div class="shead"><h2>Récords de Messi en estos números</h2></div>
+<section aria-label="Récords detrás de los números del panel" class="records" id="dash-records"></section>
 
 <!-- VIRAL MAIN ATTRACTION: Birthday Promo Card -->
 <aside class="bday-promo-card" aria-label="¿Marcó Messi en tu cumpleaños?">
@@ -118,9 +161,16 @@
 </aside>
 
 <h2>Explora todas las estadísticas</h2>
+<aside aria-label="Publicidad" class="ad-native-wrap">
+<span class="ad-native-label">Publicidad</span>
+<div class="ad-native-slot">
+<script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
+<div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
+</div>
+</aside>
 <nav aria-label="Más estadísticas de Lionel Messi" class="explore" id="explore"></nav>
 <section class="card method" id="method"></section>
-<footer><p id="foot-date"></p><p class="crest-note">Los escudos de los clubes son marcas registradas de sus respectivos clubes.</p></footer>
+<footer><p id="foot-date"></p><p class="crest-note">Los escudos de los clubes son marcas registradas de sus respectivos clubes, mostrados con fines de identificación.</p></footer>
 </main>
 </div>
 <script src="/src/app.js" type="module"></script><script src="/src/matchday.js" type="module"></script>
