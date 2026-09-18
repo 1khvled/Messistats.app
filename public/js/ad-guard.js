@@ -14,6 +14,8 @@
     'wa.me',
     'facebook.com',
     't.me',
+    'youtube.com',
+    'youtu.be',
     'messistat.com',
     'localhost'
   ];

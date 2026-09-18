@@ -2354,6 +2354,30 @@ async function renderBirthday(d) {
     });
   }
 
+  const heatmapNav = el("bday-heatmap-nav");
+  if (heatmapNav) {
+    let navHtml = `<button type="button" class="bday-heatmap-nav-btn active" data-m="all">All Months</button>`;
+    for (let m = 1; m <= 12; m++) {
+      navHtml += `<button type="button" class="bday-heatmap-nav-btn" data-m="${m}">${MONTH_NAMES[m].slice(0, 3)}</button>`;
+    }
+    heatmapNav.innerHTML = navHtml;
+    heatmapNav.addEventListener("click", (e) => {
+      const btn = e.target.closest(".bday-heatmap-nav-btn");
+      if (!btn) return;
+      heatmapNav.querySelectorAll(".bday-heatmap-nav-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const targetM = btn.dataset.m;
+      if (targetM === "all") {
+        heatmapGrid?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        const card = el(`bday-month-card-${targetM}`);
+        if (card) {
+          card.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
+  }
+
   const heatmapGrid = el("bday-heatmap-grid");
   if (heatmapGrid) {
     let heatmapHtml = "";
@@ -2377,7 +2401,7 @@ async function renderBirthday(d) {
       }
 
       heatmapHtml += `
-        <div class="bday-month-card">
+        <div class="bday-month-card" id="bday-month-card-${m}" data-month="${m}">
           <div class="bday-month-card-head">
             <h3 class="bday-month-card-title">${mName}</h3>
             <span class="bday-month-card-goals">${mMeta.goals} goals</span>
