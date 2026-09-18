@@ -81,6 +81,503 @@ function initTheme() {
 }
 initTheme();
 
+/* ================= REDESIGNED LANGUAGE SELECTOR & MOBILE TOPBAR ================= */
+const LANGUAGES = [
+  { code: "en", flag: "🇺🇸", name: "English", native: "English", note: "US, NG, IN, PH" },
+  { code: "es", flag: "🇪🇸", name: "Spanish", native: "Español", note: "Argentina, España" },
+  { code: "pt", flag: "🇧🇷", name: "Portuguese", native: "Português", note: "Brasil, Portugal" },
+  { code: "fr", flag: "🇫🇷", name: "French", native: "Français", note: "France, Niger" },
+  { code: "ar", flag: "🇪🇬", name: "Arabic", native: "العربية", note: "مصر والوطن العربي", rtl: true },
+  { code: "bn", flag: "🇧🇩", name: "Bengali", native: "বাংলা", note: "বাংলাদেশ ও ভারত" },
+  { code: "hi", flag: "🇮🇳", name: "Hindi", native: "हिन्दी", note: "भारत" },
+  { code: "ro", flag: "🇷🇴", name: "Romanian", native: "Română", note: "România" },
+  { code: "uz", flag: "🇺🇿", name: "Uzbek", native: "Oʻzbekcha", note: "Oʻzbekiston" }
+];
+
+function getCurrentLangCode() {
+  if (typeof document === "undefined") return "en";
+  const docLang = (document.documentElement.lang || "").toLowerCase().split("-")[0];
+  const pathParts = (typeof location !== "undefined" ? location.pathname : "").split("/").filter(Boolean);
+  if (LANGUAGES.some((l) => l.code === docLang)) {
+    return docLang;
+  }
+  if (pathParts[0] && LANGUAGES.some((l) => l.code === pathParts[0])) {
+    return pathParts[0];
+  }
+  return "en";
+}
+
+function getLangUrl(targetCode) {
+  if (typeof location === "undefined") return `/${targetCode}`;
+  const validSubpages = [
+    "birthday",
+    "goalsbyyear",
+    "goalsbyseason",
+    "dashboard",
+    "timeline",
+    "achievements",
+    "messi-vs-ronaldo",
+    "vs-real-madrid"
+  ];
+  const pathParts = location.pathname.split("/").filter(Boolean);
+  let subpage = "";
+  if (pathParts.length > 1) {
+    subpage = pathParts[1].replace(/\.html$/, "");
+  } else if (pathParts.length === 1 && !LANGUAGES.some((l) => l.code === pathParts[0])) {
+    subpage = pathParts[0].replace(/\.html$/, "");
+  }
+
+  if (subpage === "champions-league") {
+    return `/en/champions-league${location.search}${location.hash}`;
+  }
+
+  if (subpage && validSubpages.includes(subpage)) {
+    return `/${targetCode}/${subpage}${location.search}${location.hash}`;
+  }
+
+  return `/${targetCode}${location.search}${location.hash}`;
+}
+
+function centerActiveNav() {
+  if (typeof window === "undefined" || window.innerWidth > 900) return;
+  const activeNav = document.querySelector(".rail nav a.on");
+  if (activeNav) {
+    activeNav.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    setTimeout(() => {
+      activeNav.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }, 80);
+  }
+}
+
+function ensureLangModal() {
+  if (typeof document === "undefined") return null;
+  let langModal = document.getElementById("lang-modal");
+  if (langModal) return langModal;
+
+  const curLangCode = getCurrentLangCode();
+
+  langModal = document.createElement("div");
+  langModal.id = "lang-modal";
+  langModal.className = "lang-modal-backdrop";
+  langModal.hidden = true;
+  langModal.setAttribute("aria-hidden", "true");
+  langModal.setAttribute("role", "dialog");
+  langModal.setAttribute("aria-modal", "true");
+  langModal.setAttribute("aria-labelledby", "lang-modal-heading");
+
+  let cardsHtml = "";
+  LANGUAGES.forEach((l) => {
+    const isActive = l.code === curLangCode;
+    const href = getLangUrl(l.code);
+    cardsHtml += `
+      <a href="${href}" class="lang-card-option${isActive ? " active" : ""}" data-code="${l.code}">
+        <span class="lang-card-flag">${l.flag}</span>
+        <div class="lang-card-info">
+          <span class="lang-card-name">${l.name}</span>
+          <span class="lang-card-native">${l.native}</span>
+          <span class="lang-card-countries">${l.note}</span>
+        </div>
+        ${isActive ? `<span class="lang-card-check">✓</span>` : ""}
+      </a>
+    `;
+  });
+
+  langModal.innerHTML = `
+    <div class="lang-modal-sheet">
+      <div class="lang-modal-handle"></div>
+      <div class="lang-modal-header">
+        <div class="lang-modal-title-wrap">
+          <svg class="rail-lang-globe" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <h3 class="lang-modal-title" id="lang-modal-heading">Select Language / Idioma</h3>
+        </div>
+        <button type="button" class="lang-modal-close" id="lang-modal-close-btn" aria-label="Close language selector">&times;</button>
+      </div>
+      <div class="lang-modal-grid">
+        ${cardsHtml}
+      </div>
+    </div>
+  `;
+
+  if (document.body) {
+    document.body.appendChild(langModal);
+  }
+  return langModal;
+}
+
+function openLangModal() {
+  const modal = ensureLangModal();
+  if (!modal) return;
+  modal.hidden = false;
+  modal.setAttribute("aria-hidden", "false");
+  if (document.body) document.body.style.overflow = "hidden";
+}
+
+function closeLangModal() {
+  const modal = document.getElementById("lang-modal");
+  if (!modal) return;
+  modal.hidden = true;
+  modal.setAttribute("aria-hidden", "true");
+  if (document.body) document.body.style.overflow = "";
+}
+
+// Global click and keydown delegation for language switcher, close buttons, theme toggles, and modal backdrop
+if (typeof document !== "undefined") {
+  document.addEventListener("click", (e) => {
+    const langTrigger = e.target.closest("#rail-lang-btn, .rail-lang-btn, #mobile-lang-btn, .mobile-lang-btn");
+    if (langTrigger) {
+      e.preventDefault();
+      openLangModal();
+      return;
+    }
+    const closeTrigger = e.target.closest("#lang-modal-close-btn, .lang-modal-close");
+    if (closeTrigger) {
+      e.preventDefault();
+      closeLangModal();
+      return;
+    }
+    const modal = document.getElementById("lang-modal");
+    if (modal && e.target === modal) {
+      closeLangModal();
+      return;
+    }
+    const langCard = e.target.closest(".lang-card-option");
+    if (langCard) {
+      const code = langCard.getAttribute("data-code");
+      if (code) {
+        try { localStorage.setItem("messistats_lang_choice", code); } catch (_) {}
+      }
+      return;
+    }
+    const mobTheme = e.target.closest("#mobile-theme-btn, .mobile-theme-btn");
+    if (mobTheme) {
+      e.preventDefault();
+      const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      if (next === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+      }
+      try { localStorage.setItem("theme", next); } catch (_) {}
+      return;
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      const modal = document.getElementById("lang-modal");
+      if (modal && !modal.hidden) {
+        closeLangModal();
+      }
+    }
+  });
+}
+
+function initLanguageAndMobileTopBar() {
+  if (typeof document === "undefined") return;
+
+  const curLangCode = getCurrentLangCode();
+  const curLangObj = LANGUAGES.find((l) => l.code === curLangCode) || LANGUAGES[0];
+
+  // Remove any legacy inline .lang-switcher elements
+  try {
+    document.querySelectorAll(".lang-switcher").forEach((el) => el.remove());
+  } catch (_) {}
+
+  // 1. Setup Desktop Rail Language Button
+  try {
+    const rail = document.querySelector(".rail");
+    if (rail) {
+      let railLangWrap = rail.querySelector(".rail-lang-wrap");
+      if (!railLangWrap) {
+        railLangWrap = document.createElement("div");
+        railLangWrap.className = "rail-lang-wrap";
+        railLangWrap.innerHTML = `
+          <button type="button" class="rail-lang-btn" id="rail-lang-btn" aria-label="Select Language (${curLangObj.name})" title="Select Language">
+            <svg class="rail-lang-globe" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span class="rail-lang-label">${curLangObj.name}</span>
+            <span class="rail-lang-tag">${curLangObj.code.toUpperCase()}</span>
+          </button>
+        `;
+        const railBadge = rail.querySelector(".rail-badge");
+        if (railBadge && railBadge.nextSibling) {
+          rail.insertBefore(railLangWrap, railBadge.nextSibling);
+        } else {
+          rail.prepend(railLangWrap);
+        }
+      }
+    }
+  } catch (_) {}
+
+  // 2. Setup Mobile Top Bar
+  try {
+    let mobileTopBar = document.querySelector(".mobile-topbar");
+    if (!mobileTopBar && document.body) {
+      mobileTopBar = document.createElement("header");
+      mobileTopBar.className = "mobile-topbar";
+      mobileTopBar.setAttribute("aria-label", "Mobile navigation header");
+      mobileTopBar.innerHTML = `
+        <a href="${getLangUrl(curLangCode)}" class="mobile-topbar-brand" aria-label="MessiStats">
+          <svg class="mobile-topbar-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="msg-mtb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-mtb)" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg>
+          <span class="mobile-topbar-title">Messi<b>Stats</b></span>
+        </a>
+        <div class="mobile-topbar-actions">
+          <button type="button" class="mobile-lang-btn" id="mobile-lang-btn" aria-label="Change language">
+            <span class="mobile-lang-flag">${curLangObj.flag}</span>
+            <span class="mobile-lang-code">${curLangObj.code.toUpperCase()}</span>
+            <span class="mobile-lang-arrow">▾</span>
+          </button>
+          <button type="button" class="mobile-theme-btn" id="mobile-theme-btn" aria-label="Toggle dark mode">
+            <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </div>
+      `;
+      document.body.prepend(mobileTopBar);
+    }
+  } catch (_) {}
+
+  // 3. Ensure language modal is created
+  try {
+    ensureLangModal();
+  } catch (_) {}
+
+  // 4. Device & Location-Based Language View Detection
+  const LANG_MESSAGES = {
+    es: {
+      name: "Español",
+      flag: "🇪🇸",
+      detected: "Detectamos que tu dispositivo está en español.",
+      suggest: "¿Deseas ver MessiStats en español?",
+      switchBtn: "Ver en Español",
+      stayBtn: "Continuar en English",
+      autoNotice: "Mostrando en Español según tu dispositivo.",
+      changeBtn: "Cambiar"
+    },
+    pt: {
+      name: "Português",
+      flag: "🇧🇷",
+      detected: "Detectamos que seu dispositivo está em português.",
+      suggest: "Deseja ver o MessiStats em português?",
+      switchBtn: "Ver em Português",
+      stayBtn: "Continuar en English",
+      autoNotice: "Exibindo em Português conforme seu dispositivo.",
+      changeBtn: "Mudar"
+    },
+    fr: {
+      name: "Français",
+      flag: "🇫🇷",
+      detected: "Votre appareil est configuré en français.",
+      suggest: "Souhaitez-vous voir MessiStats en français ?",
+      switchBtn: "Voir en Français",
+      stayBtn: "Continuer en anglais",
+      autoNotice: "Affiché en français selon votre appareil.",
+      changeBtn: "Changer"
+    },
+    ar: {
+      name: "العربية",
+      flag: "🇪🇬",
+      detected: "تم اكتشاف أن لغة جهازك هي العربية.",
+      suggest: "هل ترغب في تصفح ميسي ستاتس باللغة العربية؟",
+      switchBtn: "التصفح بالعربية",
+      stayBtn: "المتابعة بالإنجليزية",
+      autoNotice: "يتم العرض بالعربية بناءً على إعدادات جهازك.",
+      changeBtn: "تغيير"
+    },
+    bn: {
+      name: "বাংলা",
+      flag: "🇧🇩",
+      detected: "আপনার ডিভাইসের ভাষা বাংলা হিসেবে শনাক্ত হয়েছে।",
+      suggest: "আপনি কি বাংলায় মেসি পরিসংখ্যান দেখতে চান?",
+      switchBtn: "বাংলায় দেখুন",
+      stayBtn: "English এ থাকুন",
+      autoNotice: "আপনার ডিভাইস অনুযায়ী বাংলায় দেখানো হচ্ছে।",
+      changeBtn: "পরিবর্তন"
+    },
+    hi: {
+      name: "हिन्दी",
+      flag: "🇮🇳",
+      detected: "आपकी डिवाइस की भाषा हिन्दी पहचानी गई है।",
+      suggest: "क्या आप मेस्सी के आंकड़े हिन्दी में देखना चाहते हैं?",
+      switchBtn: "हिन्दी में देखें",
+      stayBtn: "English में जारी रखें",
+      autoNotice: "आपके डिवाइस के अनुसार हिन्दी में प्रदर्शित।",
+      changeBtn: "बदलें"
+    },
+    ro: {
+      name: "Română",
+      flag: "🇷🇴",
+      detected: "Am detectat că limba dispozitivului tău este română.",
+      suggest: "Dorești să vezi MessiStats în limba română?",
+      switchBtn: "Vezi în Română",
+      stayBtn: "Rămâi pe English",
+      autoNotice: "Afișat în română conform dispozitivului tău.",
+      changeBtn: "Schimbă"
+    },
+    uz: {
+      name: "Oʻzbekcha",
+      flag: "🇺🇿",
+      detected: "Qurilmangiz tili oʻzbekcha ekanligi aniqlandi.",
+      suggest: "MessiStatsni oʻzbek tilida koʻrishni xohlaysizmi?",
+      switchBtn: "Oʻzbekcha koʻrish",
+      stayBtn: "Englishda davom etish",
+      autoNotice: "Qurilmangizga mos ravishda oʻzbek tilida koʻrsatilmoqda.",
+      changeBtn: "Oʻzgartirish"
+    },
+    en: {
+      name: "English",
+      flag: "🇺🇸",
+      detected: "Your device is set to English.",
+      suggest: "Would you like to view MessiStats in English?",
+      switchBtn: "Switch to English",
+      stayBtn: "Stay here",
+      autoNotice: "Viewing in English based on device settings.",
+      changeBtn: "Change"
+    }
+  };
+
+  function detectDeviceAndLocationLang() {
+    try {
+      const saved = localStorage.getItem("messistats_lang_choice");
+      if (saved && LANGUAGES.some((l) => l.code === saved)) return saved;
+    } catch (_) {}
+
+    const langs = (typeof navigator !== "undefined" && navigator.languages && navigator.languages.length) ? navigator.languages : [typeof navigator !== "undefined" ? (navigator.language || "") : ""];
+    for (const l of langs) {
+      const lower = (l || "").toLowerCase();
+      if (lower.startsWith("es")) return "es";
+      if (lower.startsWith("pt")) return "pt";
+      if (lower.startsWith("fr")) return "fr";
+      if (lower.startsWith("ar")) return "ar";
+      if (lower.startsWith("bn")) return "bn";
+      if (lower.startsWith("hi")) return "hi";
+      if (lower.startsWith("ro")) return "ro";
+      if (lower.startsWith("uz")) return "uz";
+      if (lower.startsWith("en")) return "en";
+    }
+
+    let tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (_) {}
+
+    if (/Argentina|Buenos_Aires|Cordoba|Rosario|Mendoza|Catamarca|Jujuy|San_Juan|Tucuman|Ushuaia|Madrid|Canary|Santiago|Bogota|Lima|Caracas|Montevideo|Mexico|Cancun|Merida|Monterrey|Tijuana|Guatemala|Costa_Rica|Panama|Guayaquil|Asuncion|La_Paz|Santo_Domingo|Havana/i.test(tz)) {
+      return "es";
+    }
+    if (/Sao_Paulo|Lisbon|Madeira|Azores|Recife|Fortaleza|Belem|Manaus|Brasilia|Bahia|Cuiaba|Porto_Velho|Boa_Vista|Luanda|Maputo/i.test(tz)) {
+      return "pt";
+    }
+    if (/Paris|Niamey|Dakar|Abidjan|Douala|Kinshasa|Bamako|Ouagadougou|Brussels|Geneva/i.test(tz)) {
+      return "fr";
+    }
+    if (/Cairo|Riyadh|Dubai|Baghdad|Kuwait|Qatar|Casablanca|Algiers|Tunis|Amman|Beirut|Muscat|Bahrain|Tripoli|Khartoum/i.test(tz)) {
+      return "ar";
+    }
+    if (/Dhaka/i.test(tz)) {
+      return "bn";
+    }
+    if (/Bucharest|Chisinau/i.test(tz)) {
+      return "ro";
+    }
+    if (/Tashkent|Samarkand/i.test(tz)) {
+      return "uz";
+    }
+
+    return "en";
+  }
+
+  // 5. Show Auto-Routed Notice Toast
+  try {
+    const wasAutoRouted = sessionStorage.getItem("geo_routed");
+    if (wasAutoRouted) {
+      sessionStorage.removeItem("geo_routed");
+      const msgObj = LANG_MESSAGES[curLangCode] || LANG_MESSAGES.en;
+      const notice = document.createElement("div");
+      notice.className = "lang-auto-notice";
+      notice.setAttribute("role", "status");
+      notice.innerHTML = `
+        <span class="lang-auto-notice-flag">${msgObj.flag}</span>
+        <span class="lang-auto-notice-text">${msgObj.autoNotice}</span>
+        <button type="button" class="lang-auto-notice-link" id="lang-notice-change">${msgObj.changeBtn}</button>
+        <button type="button" class="lang-auto-notice-close" id="lang-notice-close" aria-label="Close">&times;</button>
+      `;
+      document.body.appendChild(notice);
+      document.getElementById("lang-notice-change")?.addEventListener("click", () => {
+        notice.remove();
+        openLangModal();
+      });
+      document.getElementById("lang-notice-close")?.addEventListener("click", () => {
+        notice.remove();
+      });
+      setTimeout(() => {
+        if (notice && notice.parentNode) notice.remove();
+      }, 7500);
+    }
+  } catch (_) {}
+
+  // 6. Show Smart Language Suggestion Banner
+  try {
+    const isBot = typeof navigator !== "undefined" && /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+    if (!isBot) {
+      const detectedLang = detectDeviceAndLocationLang();
+      const userChoice = localStorage.getItem("messistats_lang_choice");
+      const dismissed = sessionStorage.getItem("messistats_lang_dismissed");
+
+      if (detectedLang && detectedLang !== curLangCode && !userChoice && dismissed !== detectedLang) {
+        const targetMsg = LANG_MESSAGES[detectedLang] || LANG_MESSAGES.en;
+        const targetUrl = getLangUrl(detectedLang);
+
+        const banner = document.createElement("div");
+        banner.className = "lang-suggest-banner";
+        banner.id = "lang-suggest-banner";
+        banner.setAttribute("role", "region");
+        banner.setAttribute("aria-label", "Language recommendation");
+        banner.innerHTML = `
+          <div class="lang-suggest-content">
+            <span class="lang-suggest-flag">${targetMsg.flag}</span>
+            <span class="lang-suggest-text">${targetMsg.detected} <b>${targetMsg.suggest}</b></span>
+          </div>
+          <div class="lang-suggest-actions">
+            <a href="${targetUrl}" class="lang-suggest-btn-primary" id="lang-suggest-switch">${targetMsg.switchBtn}</a>
+            <button type="button" class="lang-suggest-btn-dismiss" id="lang-suggest-dismiss">${targetMsg.stayBtn}</button>
+          </div>
+        `;
+        if (document.body) {
+          document.body.prepend(banner);
+        }
+
+        document.getElementById("lang-suggest-switch")?.addEventListener("click", () => {
+          try { localStorage.setItem("messistats_lang_choice", detectedLang); } catch (_) {}
+        });
+        document.getElementById("lang-suggest-dismiss")?.addEventListener("click", () => {
+          try {
+            sessionStorage.setItem("messistats_lang_dismissed", detectedLang);
+            localStorage.setItem("messistats_lang_choice", curLangCode);
+          } catch (_) {}
+          banner.remove();
+        });
+      }
+    }
+  } catch (_) {}
+
+  centerActiveNav();
+  if (typeof window !== "undefined") {
+    window.addEventListener("resize", centerActiveNav, { passive: true });
+  }
+}
+
+// Initialize immediately and also on DOMContentLoaded
+initLanguageAndMobileTopBar();
+if (typeof window !== "undefined" && document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initLanguageAndMobileTopBar);
+}
+
 async function load() {
   let r;
   try {
@@ -1236,10 +1733,10 @@ const BY_YEAR_I18N = {
     chartLabel: (best) => `साल दर साल मेसी के गोल`,
     kpiCareer: "करियर कुल गोल",
     kpiBest: "सर्वश्रेष्ठ साल",
-    kpiBestNote: "एक कैलेंडर वर्ष में विश्व रिकॉर्ड।",
-    kpiCurrNote: "सीज़न जारी है।",
-    kpiScoringYears: "गोल करने वाले साल",
-    kpiYearsNote: `${ys[0].year} से ${last.year} तक हर साल।`,
+    kpiBestSub: "एक कैलेंडर वर्ष में विश्व रिकॉर्ड।",
+    kpiCurrSub: "सीज़न जारी है।",
+    kpiYears: "गोल करने वाले साल",
+    kpiYearsSub: (ys, last) => `${ys[0].year} से ${last.year} तक हर साल।`,
     decades: "दशक के गोल",
     tableSub: "सबसे नया साल पहले। 2026 सीज़न प्रगति पर है। छांटने के लिए कॉलम पर क्लिक करें।",
     caption: "2004 के पदार्पण से हर साल के गोल, करियर कुल और उम्र।",
@@ -3913,458 +4410,3 @@ if (typeof window !== 'undefined') {
   else syncRailAdmin();
   window.addEventListener('storage', syncRailAdmin);
 }
-
-/* ================= REDESIGNED LANGUAGE SELECTOR & MOBILE TOPBAR ================= */
-function initLanguageAndMobileTopBar() {
-  if (typeof document === "undefined") return;
-
-  const LANGUAGES = [
-    { code: "en", flag: "🇺🇸", name: "English", native: "English", note: "US, NG, IN, PH" },
-    { code: "es", flag: "🇪🇸", name: "Spanish", native: "Español", note: "Argentina, España" },
-    { code: "pt", flag: "🇧🇷", name: "Portuguese", native: "Português", note: "Brasil, Portugal" },
-    { code: "fr", flag: "🇫🇷", name: "French", native: "Français", note: "France, Niger" },
-    { code: "ar", flag: "🇪🇬", name: "Arabic", native: "العربية", note: "مصر والوطن العربي", rtl: true },
-    { code: "bn", flag: "🇧🇩", name: "Bengali", native: "বাংলা", note: "বাংলাদেশ ও ভারত" },
-    { code: "hi", flag: "🇮🇳", name: "Hindi", native: "हिन्दी", note: "भारत" },
-    { code: "ro", flag: "🇷🇴", name: "Romanian", native: "Română", note: "România" },
-    { code: "uz", flag: "🇺🇿", name: "Uzbek", native: "Oʻzbekcha", note: "Oʻzbekiston" }
-  ];
-
-  // Detect current language from <html lang="..."> or URL pathname
-  const docLang = (document.documentElement.lang || "").toLowerCase().split("-")[0];
-  const pathParts = location.pathname.split("/").filter(Boolean);
-  let curLangCode = "en";
-  if (LANGUAGES.some((l) => l.code === docLang)) {
-    curLangCode = docLang;
-  } else if (pathParts[0] && LANGUAGES.some((l) => l.code === pathParts[0])) {
-    curLangCode = pathParts[0];
-  }
-
-  const curLangObj = LANGUAGES.find((l) => l.code === curLangCode) || LANGUAGES[0];
-
-  function getLangUrl(targetCode) {
-    const validSubpages = [
-      "birthday",
-      "goalsbyyear",
-      "goalsbyseason",
-      "dashboard",
-      "timeline",
-      "achievements",
-      "messi-vs-ronaldo",
-      "vs-real-madrid"
-    ];
-
-    let subpage = "";
-    if (pathParts.length > 1) {
-      subpage = pathParts[1].replace(/\.html$/, "");
-    } else if (pathParts.length === 1 && !LANGUAGES.some((l) => l.code === pathParts[0])) {
-      subpage = pathParts[0].replace(/\.html$/, "");
-    }
-
-    if (subpage === "champions-league") {
-      return `/en/champions-league${location.search}${location.hash}`;
-    }
-
-    if (subpage && validSubpages.includes(subpage)) {
-      return `/${targetCode}/${subpage}${location.search}${location.hash}`;
-    }
-
-    return `/${targetCode}${location.search}${location.hash}`;
-  }
-
-  function centerActiveNav() {
-    if (typeof window === "undefined" || window.innerWidth > 900) return;
-    const activeNav = document.querySelector(".rail nav a.on");
-    if (activeNav) {
-      setTimeout(() => {
-        activeNav.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      }, 70);
-    }
-  }
-
-  // Remove any legacy inline .lang-switcher elements
-  document.querySelectorAll(".lang-switcher").forEach((el) => el.remove());
-
-  // 1. Setup Desktop Rail Language Button
-  const rail = document.querySelector(".rail");
-  if (rail) {
-    let railLangWrap = rail.querySelector(".rail-lang-wrap");
-    if (!railLangWrap) {
-      railLangWrap = document.createElement("div");
-      railLangWrap.className = "rail-lang-wrap";
-      railLangWrap.innerHTML = `
-        <button type="button" class="rail-lang-btn" id="rail-lang-btn" aria-label="Select Language (${curLangObj.name})" title="Select Language">
-          <svg class="rail-lang-globe" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="2" y1="12" x2="22" y2="12"></line>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg>
-          <span class="rail-lang-label">${curLangObj.name}</span>
-          <span class="rail-lang-tag">${curLangObj.code.toUpperCase()}</span>
-        </button>
-      `;
-      const railBadge = rail.querySelector(".rail-badge");
-      if (railBadge && railBadge.nextSibling) {
-        rail.insertBefore(railLangWrap, railBadge.nextSibling);
-      } else {
-        rail.prepend(railLangWrap);
-      }
-    }
-    const railBtn = document.getElementById("rail-lang-btn");
-    if (railBtn) railBtn.onclick = () => openLangModal();
-  }
-
-  // 2. Setup Mobile Top Bar
-  let mobileTopBar = document.querySelector(".mobile-topbar");
-  if (!mobileTopBar) {
-    mobileTopBar = document.createElement("header");
-    mobileTopBar.className = "mobile-topbar";
-    mobileTopBar.setAttribute("aria-label", "Mobile navigation header");
-    mobileTopBar.innerHTML = `
-      <a href="${getLangUrl(curLangCode)}" class="mobile-topbar-brand" aria-label="MessiStats">
-        <svg class="mobile-topbar-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="msg-mtb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-mtb)" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg>
-        <span class="mobile-topbar-title">Messi<b>Stats</b></span>
-      </a>
-      <div class="mobile-topbar-actions">
-        <button type="button" class="mobile-lang-btn" id="mobile-lang-btn" aria-label="Change language">
-          <span class="mobile-lang-flag">${curLangObj.flag}</span>
-          <span class="mobile-lang-code">${curLangObj.code.toUpperCase()}</span>
-          <span class="mobile-lang-arrow">▾</span>
-        </button>
-        <button type="button" class="mobile-theme-btn" id="mobile-theme-btn" aria-label="Toggle dark mode">
-          <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-          <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        </button>
-      </div>
-    `;
-    document.body.prepend(mobileTopBar);
-  }
-
-  const mobThemeBtn = document.getElementById("mobile-theme-btn");
-  if (mobThemeBtn) {
-    mobThemeBtn.onclick = () => {
-      const isDark = document.documentElement.getAttribute("data-theme") === "dark";
-      const nextTheme = isDark ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", nextTheme);
-      try { localStorage.setItem("theme", nextTheme); } catch (_) {}
-    };
-  }
-
-  const mobLangBtn = document.getElementById("mobile-lang-btn");
-  if (mobLangBtn) mobLangBtn.onclick = () => openLangModal();
-
-  // 3. Setup Universal Language Modal / Bottom Sheet
-  let langModal = document.getElementById("lang-modal");
-  if (!langModal) {
-    langModal = document.createElement("div");
-    langModal.id = "lang-modal";
-    langModal.className = "lang-modal-backdrop";
-    langModal.hidden = true;
-    langModal.setAttribute("aria-hidden", "true");
-    langModal.setAttribute("role", "dialog");
-    langModal.setAttribute("aria-modal", "true");
-    langModal.setAttribute("aria-labelledby", "lang-modal-heading");
-
-    let cardsHtml = "";
-    LANGUAGES.forEach((l) => {
-      const isActive = l.code === curLangCode;
-      const href = getLangUrl(l.code);
-      cardsHtml += `
-        <a href="${href}" class="lang-card-option${isActive ? " active" : ""}" data-code="${l.code}">
-          <span class="lang-card-flag">${l.flag}</span>
-          <div class="lang-card-info">
-            <span class="lang-card-name">${l.name}</span>
-            <span class="lang-card-native">${l.native}</span>
-            <span class="lang-card-countries">${l.note}</span>
-          </div>
-          ${isActive ? `<span class="lang-card-check">✓</span>` : ""}
-        </a>
-      `;
-    });
-
-    langModal.innerHTML = `
-      <div class="lang-modal-sheet">
-        <div class="lang-modal-handle"></div>
-        <div class="lang-modal-header">
-          <div class="lang-modal-title-wrap">
-            <svg class="rail-lang-globe" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"></circle>
-              <line x1="2" y1="12" x2="22" y2="12"></line>
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-            </svg>
-            <h3 class="lang-modal-title" id="lang-modal-heading">Select Language / Idioma</h3>
-          </div>
-          <button type="button" class="lang-modal-close" id="lang-modal-close-btn" aria-label="Close language selector">&times;</button>
-        </div>
-        <div class="lang-modal-grid">
-          ${cardsHtml}
-        </div>
-      </div>
-    `;
-    langModal.querySelectorAll(".lang-card-option").forEach((card) => {
-      card.addEventListener("click", () => {
-        const code = card.getAttribute("data-code");
-        if (code) {
-          try {
-            localStorage.setItem("messistats_lang_choice", code);
-          } catch (_) {}
-        }
-      });
-    });
-
-    document.body.appendChild(langModal);
-  }
-
-  const openLangModal = () => {
-    if (!langModal) return;
-    langModal.hidden = false;
-    langModal.setAttribute("aria-hidden", "false");
-    document.body.style.overflow = "hidden";
-  };
-
-  const closeLangModal = () => {
-    if (!langModal) return;
-    langModal.hidden = true;
-    langModal.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = "";
-  };
-
-  const closeBtn = document.getElementById("lang-modal-close-btn");
-  if (closeBtn) closeBtn.onclick = closeLangModal;
-
-  langModal.onclick = (e) => {
-    if (e.target === langModal) closeLangModal();
-  };
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && langModal && !langModal.hidden) {
-      closeLangModal();
-    }
-  });
-
-  // 4. Device & Location-Based Language View Detection
-  const LANG_MESSAGES = {
-    es: {
-      name: "Español",
-      flag: "🇪🇸",
-      detected: "Detectamos que tu dispositivo está en español.",
-      suggest: "¿Deseas ver MessiStats en español?",
-      switchBtn: "Ver en Español",
-      stayBtn: "Continuar en English",
-      autoNotice: "Mostrando en Español según tu dispositivo.",
-      changeBtn: "Cambiar"
-    },
-    pt: {
-      name: "Português",
-      flag: "🇧🇷",
-      detected: "Detectamos que seu dispositivo está em português.",
-      suggest: "Deseja ver o MessiStats em português?",
-      switchBtn: "Ver em Português",
-      stayBtn: "Continuar em English",
-      autoNotice: "Exibindo em Português conforme seu dispositivo.",
-      changeBtn: "Mudar"
-    },
-    fr: {
-      name: "Français",
-      flag: "🇫🇷",
-      detected: "Votre appareil est configuré en français.",
-      suggest: "Souhaitez-vous voir MessiStats en français ?",
-      switchBtn: "Voir en Français",
-      stayBtn: "Continuer en anglais",
-      autoNotice: "Affiché en français selon votre appareil.",
-      changeBtn: "Changer"
-    },
-    ar: {
-      name: "العربية",
-      flag: "🇪🇬",
-      detected: "تم اكتشاف أن لغة جهازك هي العربية.",
-      suggest: "هل ترغب في تصفح ميسي ستاتس باللغة العربية؟",
-      switchBtn: "التصفح بالعربية",
-      stayBtn: "المتابعة بالإنجليزية",
-      autoNotice: "يتم العرض بالعربية بناءً على إعدادات جهازك.",
-      changeBtn: "تغيير"
-    },
-    bn: {
-      name: "বাংলা",
-      flag: "🇧🇩",
-      detected: "আপনার ডিভাইসের ভাষা বাংলা হিসেবে শনাক্ত হয়েছে।",
-      suggest: "আপনি কি বাংলায় মেসি পরিসংখ্যান দেখতে চান?",
-      switchBtn: "বাংলায় দেখুন",
-      stayBtn: "English এ থাকুন",
-      autoNotice: "আপনার ডিভাইস অনুযায়ী বাংলায় দেখানো হচ্ছে।",
-      changeBtn: "পরিবর্তন"
-    },
-    hi: {
-      name: "हिन्दी",
-      flag: "🇮🇳",
-      detected: "आपकी डिवाइस की भाषा हिन्दी पहचानी गई है।",
-      suggest: "क्या आप मेस्सी के आंकड़े हिन्दी में देखना चाहते हैं?",
-      switchBtn: "हिन्दी में देखें",
-      stayBtn: "English में जारी रखें",
-      autoNotice: "आपके डिवाइस के अनुसार हिन्दी में प्रदर्शित।",
-      changeBtn: "बदलें"
-    },
-    ro: {
-      name: "Română",
-      flag: "🇷🇴",
-      detected: "Am detectat că limba dispozitivului tău este română.",
-      suggest: "Dorești să vezi MessiStats în limba română?",
-      switchBtn: "Vezi în Română",
-      stayBtn: "Rămâi pe English",
-      autoNotice: "Afișat în română conform dispozitivului tău.",
-      changeBtn: "Schimbă"
-    },
-    uz: {
-      name: "Oʻzbekcha",
-      flag: "🇺🇿",
-      detected: "Qurilmangiz tili oʻzbekcha ekanligi aniqlandi.",
-      suggest: "MessiStatsni oʻzbek tilida koʻrishni xohlaysizmi?",
-      switchBtn: "Oʻzbekcha koʻrish",
-      stayBtn: "Englishda davom etish",
-      autoNotice: "Qurilmangizga mos ravishda oʻzbek tilida koʻrsatilmoqda.",
-      changeBtn: "Oʻzgartirish"
-    },
-    en: {
-      name: "English",
-      flag: "🇺🇸",
-      detected: "Your device is set to English.",
-      suggest: "Would you like to view MessiStats in English?",
-      switchBtn: "Switch to English",
-      stayBtn: "Stay here",
-      autoNotice: "Viewing in English based on device settings.",
-      changeBtn: "Change"
-    }
-  };
-
-  function detectDeviceAndLocationLang() {
-    try {
-      const saved = localStorage.getItem("messistats_lang_choice");
-      if (saved && LANGUAGES.some((l) => l.code === saved)) return saved;
-    } catch (_) {}
-
-    const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ""];
-    for (const l of langs) {
-      const lower = (l || "").toLowerCase();
-      if (lower.startsWith("es")) return "es";
-      if (lower.startsWith("pt")) return "pt";
-      if (lower.startsWith("fr")) return "fr";
-      if (lower.startsWith("ar")) return "ar";
-      if (lower.startsWith("bn")) return "bn";
-      if (lower.startsWith("hi")) return "hi";
-      if (lower.startsWith("ro")) return "ro";
-      if (lower.startsWith("uz")) return "uz";
-      if (lower.startsWith("en")) return "en";
-    }
-
-    let tz = "";
-    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (_) {}
-
-    if (/Argentina|Buenos_Aires|Cordoba|Rosario|Mendoza|Catamarca|Jujuy|San_Juan|Tucuman|Ushuaia|Madrid|Canary|Santiago|Bogota|Lima|Caracas|Montevideo|Mexico|Cancun|Merida|Monterrey|Tijuana|Guatemala|Costa_Rica|Panama|Guayaquil|Asuncion|La_Paz|Santo_Domingo|Havana/i.test(tz)) {
-      return "es";
-    }
-    if (/Sao_Paulo|Lisbon|Madeira|Azores|Recife|Fortaleza|Belem|Manaus|Brasilia|Bahia|Cuiaba|Porto_Velho|Boa_Vista|Luanda|Maputo/i.test(tz)) {
-      return "pt";
-    }
-    if (/Paris|Niamey|Dakar|Abidjan|Douala|Kinshasa|Bamako|Ouagadougou|Brussels|Geneva/i.test(tz)) {
-      return "fr";
-    }
-    if (/Cairo|Riyadh|Dubai|Baghdad|Kuwait|Qatar|Casablanca|Algiers|Tunis|Amman|Beirut|Muscat|Bahrain|Tripoli|Khartoum/i.test(tz)) {
-      return "ar";
-    }
-    if (/Dhaka/i.test(tz)) {
-      return "bn";
-    }
-    if (/Bucharest|Chisinau/i.test(tz)) {
-      return "ro";
-    }
-    if (/Tashkent|Samarkand/i.test(tz)) {
-      return "uz";
-    }
-
-    return "en";
-  }
-
-  // 5. Show Auto-Routed Notice Toast (if user was just auto-routed to their native hub)
-  try {
-    const wasAutoRouted = sessionStorage.getItem("geo_routed");
-    if (wasAutoRouted) {
-      sessionStorage.removeItem("geo_routed");
-      const msgObj = LANG_MESSAGES[curLangCode] || LANG_MESSAGES.en;
-      const notice = document.createElement("div");
-      notice.className = "lang-auto-notice";
-      notice.setAttribute("role", "status");
-      notice.innerHTML = `
-        <span class="lang-auto-notice-flag">${msgObj.flag}</span>
-        <span class="lang-auto-notice-text">${msgObj.autoNotice}</span>
-        <button type="button" class="lang-auto-notice-link" id="lang-notice-change">${msgObj.changeBtn}</button>
-        <button type="button" class="lang-auto-notice-close" id="lang-notice-close" aria-label="Close">&times;</button>
-      `;
-      document.body.appendChild(notice);
-      document.getElementById("lang-notice-change")?.addEventListener("click", () => {
-        notice.remove();
-        openLangModal();
-      });
-      document.getElementById("lang-notice-close")?.addEventListener("click", () => {
-        notice.remove();
-      });
-      setTimeout(() => {
-        if (notice && notice.parentNode) notice.remove();
-      }, 7500);
-    }
-  } catch (_) {}
-
-  // 6. Show Smart Language Suggestion Banner (if viewing a language different from detected device/location)
-  try {
-    const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
-    if (!isBot) {
-      const detectedLang = detectDeviceAndLocationLang();
-      const userChoice = localStorage.getItem("messistats_lang_choice");
-      const dismissed = sessionStorage.getItem("messistats_lang_dismissed");
-
-      if (detectedLang && detectedLang !== curLangCode && !userChoice && dismissed !== detectedLang) {
-        const targetMsg = LANG_MESSAGES[detectedLang] || LANG_MESSAGES.en;
-        const targetUrl = getLangUrl(detectedLang);
-
-        const banner = document.createElement("div");
-        banner.className = "lang-suggest-banner";
-        banner.id = "lang-suggest-banner";
-        banner.setAttribute("role", "region");
-        banner.setAttribute("aria-label", "Language recommendation");
-        banner.innerHTML = `
-          <div class="lang-suggest-content">
-            <span class="lang-suggest-flag">${targetMsg.flag}</span>
-            <span class="lang-suggest-text">${targetMsg.detected} <b>${targetMsg.suggest}</b></span>
-          </div>
-          <div class="lang-suggest-actions">
-            <a href="${targetUrl}" class="lang-suggest-btn-primary" id="lang-suggest-switch">${targetMsg.switchBtn}</a>
-            <button type="button" class="lang-suggest-btn-dismiss" id="lang-suggest-dismiss">${targetMsg.stayBtn}</button>
-          </div>
-        `;
-        document.body.prepend(banner);
-
-        document.getElementById("lang-suggest-switch")?.addEventListener("click", () => {
-          try { localStorage.setItem("messistats_lang_choice", detectedLang); } catch (_) {}
-        });
-        document.getElementById("lang-suggest-dismiss")?.addEventListener("click", () => {
-          try {
-            sessionStorage.setItem("messistats_lang_dismissed", detectedLang);
-            localStorage.setItem("messistats_lang_choice", curLangCode);
-          } catch (_) {}
-          banner.remove();
-        });
-      }
-    }
-  } catch (_) {}
-
-  centerActiveNav();
-  window.addEventListener("resize", centerActiveNav, { passive: true });
-}
-
-if (typeof window !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initLanguageAndMobileTopBar);
-  } else {
-    initLanguageAndMobileTopBar();
-  }
-}
-

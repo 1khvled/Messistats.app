@@ -138,6 +138,7 @@ a:hover { color: var(--brand-ink); text-decoration: underline; }
   z-index: 50;
   overflow: hidden;
   transition: width 0.22s ease;
+  max-height: calc(100vh - 32px);
 }
 .rail:hover, .rail:focus-within { width: var(--rail-open); }
 .rail-badge {
@@ -161,7 +162,19 @@ a:hover { color: var(--brand-ink); text-decoration: underline; }
 .rail-word { opacity: 0; max-width: 0; margin-left: 0; overflow: hidden; font-size: 1.02rem; letter-spacing: 0.01em; transition: opacity 0.15s ease, max-width 0.22s ease, margin-left 0.22s ease; }
 .rail-word b { font-weight: 400; color: #f3d27a; }
 .rail:hover .rail-word, .rail:focus-within .rail-word { opacity: 1; max-width: 180px; margin-left: 10px; }
-.rail nav { display: flex; flex-direction: column; gap: 2px; }
+.rail nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.rail nav::-webkit-scrollbar {
+  display: none;
+}
 .rail nav a {
   display: flex;
   align-items: center;
@@ -1271,6 +1284,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   .rail {
     inset: auto 12px calc(10px + env(safe-area-inset-bottom, 0px)) 12px;
     width: auto;
+    max-height: none;
     flex-direction: row;
     align-items: center;
     border-radius: 22px;
@@ -1284,10 +1298,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   }
   .rail:hover, .rail:focus-within { width: auto; }
   .rail-badge {
-    margin: 0;
-    padding: 6px 8px;
-    border-radius: 14px;
-    flex-shrink: 0;
+    display: none !important; /* Brand mark is prominently displayed in mobile topbar */
   }
   .rail-mark {
     width: 28px;
@@ -1300,11 +1311,12 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
     flex-direction: row;
     flex: 1;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     scroll-snap-type: x proximity;
-    gap: 5px;
+    gap: 6px;
     scrollbar-width: none;
-    padding: 2px 2px;
+    padding: 2px 4px;
   }
   .rail nav::-webkit-scrollbar {
     display: none;
@@ -5314,3 +5326,33 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   align-items: center;
   min-height: 50px;
 }
+
+/* ================= RTL & ARABIC INTEGRITY ================= */
+html[dir="rtl"] .rail {
+  inset: 16px 16px 16px auto;
+}
+html[dir="rtl"] .page {
+  margin-left: 0;
+  margin-right: calc(var(--rail-w) + 32px);
+}
+@media (max-width: 900px) {
+  html[dir="rtl"] .rail {
+    inset: auto 12px calc(10px + env(safe-area-inset-bottom, 0px)) 12px;
+  }
+  html[dir="rtl"] .page {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+html[dir="rtl"] .rail-lang-label {
+  text-align: right;
+}
+html[dir="rtl"] .lang-auto-notice {
+  right: auto;
+  left: 16px;
+}
+html[dir="rtl"] .faq-chevron {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
