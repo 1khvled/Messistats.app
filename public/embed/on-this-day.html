@@ -236,7 +236,7 @@
         </div>
         ${videoUrl ? `
           <div class="w-video-box" id="w-video-box" style="display:block;">
-            <video controls playsinline preload="none" poster="/img/og-messi.jpg" src="${videoUrl}"></video>
+            <video controls playsinline preload="metadata" src="${videoUrl}" style="background:#000;"></video>
           </div>
         ` : ""}
       `;

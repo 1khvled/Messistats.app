@@ -264,7 +264,7 @@
 <div id="banner" hidden></div>
 <p class="eyebrow">Interactive Calendar <i></i> <span class="updated-badge"><span class="dot"></span>Updated 18 September 2026</span></p>
 <h1 class="page-title">Did Messi score on your birthday?</h1>
-<p class="page-lead">Search any calendar day (all 366 days) to see every goal Lionel Messi has scored on your birthday throughout his <b>929-goal senior career</b>, including exact match dates, opponents, minute tags, and competition context.</p>
+<p class="page-lead">Pick any date to see every goal Lionel Messi scored on your birthday across his <b>929 career goals</b>.</p>
 
 <!-- KPIs Grid -->
 <div class="kpis kpis-4" id="bday-kpis">
@@ -363,20 +363,17 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
           Share Stats
         </button>
-        <button type="button" class="btn-secondary" id="bday-card-btn">
-          📸 Generate Goal Card
-        </button>
         <button type="button" class="btn-secondary" id="bday-copy-btn">
           <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
           Copy Link
         </button>
-        <a id="bday-x-share-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-social-x" title="Share on 𝕏 (Twitter)">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Post
-        </a>
         <a id="bday-wa-share-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-social-wa" title="Share on WhatsApp">
           <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M17.472 14.382c-.301-.15-1.78-.878-2.056-.978-.276-.1-.477-.15-.678.15-.2.301-.778.978-.954 1.179-.175.2-.351.226-.652.075s-1.272-.469-2.422-1.496c-.895-.798-1.5-1.784-1.675-2.085-.175-.301-.019-.464.132-.614.136-.135.301-.351.451-.527.151-.176.201-.301.301-.502.1-.2.05-.376-.025-.526-.075-.15-.678-1.633-.929-2.238-.244-.589-.493-.509-.678-.518l-.578-.01c-.2 0-.526.075-.802.376-.276.301-1.054 1.03-1.054 2.511 0 1.481 1.079 2.91 1.229 3.111.15.2 2.124 3.243 5.145 4.549.718.311 1.28.497 1.718.636.723.23 1.381.197 1.902.12.58-.087 1.78-.727 2.031-1.43.25-.703.25-1.305.175-1.43-.075-.126-.276-.201-.577-.351z"/></svg>
           WhatsApp
+        </a>
+        <a id="bday-x-share-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn-social-x" title="Share on 𝕏 (Twitter)">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Post
         </a>
         <button type="button" class="btn-embed-trigger" id="bday-embed-trigger-btn" title="Embed this on your site">
           &lt;/&gt; Embed
@@ -406,7 +403,7 @@
     <h2>366-Day Career Goal Matrix</h2>
     <span class="section-note">Click any day to see match breakdown</span>
   </div>
-  <p class="section-sub">A complete visual map of all 366 calendar days across Lionel Messi's 22-year senior career. Every square is colored by the number of career goals scored on that date.</p>
+  <p class="section-sub">366 calendar days colored by goal volume. Tap any day to view matches.</p>
   <div class="bday-heatmap-nav" id="bday-heatmap-nav" aria-label="Quick jump month in heatmap"></div>
 
   <div class="bday-heatmap-grid" id="bday-heatmap-grid">
@@ -454,7 +451,7 @@
 <section class="table-card" id="bday-monthly" style="margin-top: 2.8rem;">
   <div class="section-head" style="margin: 0 0 10px;">
     <h2>Goals by Calendar Month</h2>
-    <span class="section-note">Monthly distribution across 927 career goals</span>
+    <span class="section-note">Monthly distribution across 929 career goals</span>
   </div>
   <div style="overflow-x: auto;">
     <table class="data-table" id="monthly-table">
@@ -482,27 +479,27 @@
   <div class="qa-grid">
     <div class="qa">
       <h3>Has Messi ever scored on his own birthday?</h3>
-      <p><b>No.</b> Messi was born on 24 June 1987. Late June corresponds to the European club off-season or rest intervals at international tournaments, meaning Messi has never played a competitive match on 24 June.</p>
+      <p><b>No.</b> Born 24 June 1987 — late June falls during European club off-seasons or tournament rest intervals.</p>
     </div>
     <div class="qa">
       <h3>What is Messi's single most prolific calendar day?</h3>
-      <p>Messi has scored <b>10 goals</b> on both 2 May and 19 September. His 2 May tally includes his historic two-goal display at the Santiago Bernabéu in the 6-2 El Clásico of 2009.</p>
+      <p><b>10 goals</b> on both <strong>2 May</strong> (including the 6-2 El Clásico at the Bernabéu) and <strong>19 September</strong>.</p>
     </div>
     <div class="qa">
       <h3>How many days of the year has Messi scored a goal?</h3>
-      <p>Messi has scored on <b>292 of 366 possible days</b> (79.8% of the year), including leap day (29 February 2012 vs Switzerland, where he scored a hat-trick for Argentina).</p>
+      <p><b>292 of 366 days</b> (79.8% of the year), including leap day 29 Feb (hat-trick vs Switzerland in 2012).</p>
     </div>
     <div class="qa">
       <h3>Which month does Messi score the most goals in?</h3>
-      <p><b>March</b> is Messi's peak scoring month with 115 goals, followed by September (99 goals) and January (96 goals). July is the lowest (22 goals) due to summer club breaks.</p>
+      <p><b>March</b> is his peak month with 115 goals, followed by September (99) and January (96).</p>
     </div>
     <div class="qa">
       <h3>Did Messi score on Christmas or New Year's Day?</h3>
-      <p>No. Competitive leagues in Spain, France, and North America take winter breaks over Christmas and New Year's Day, so Messi has never played on 25 December or 1 January.</p>
+      <p><b>No.</b> European and MLS leagues take winter breaks on 25 Dec and 1 Jan.</p>
     </div>
     <div class="qa">
       <h3>How is this goal dataset verified?</h3>
-      <p>Every single one of the 927 goals is dated and cross-checked against primary match logs from FC Barcelona, PSG, Inter Miami, and the Argentine Football Association.</p>
+      <p>All <b>929 goals</b> are verified with primary official match records from Barcelona, PSG, Inter Miami, and Argentina FA.</p>
     </div>
   </div>
 </section>
@@ -611,7 +608,7 @@
     </div>
     
     <div class="video-player-box" id="video-player-box">
-      <video id="goal-video-player" playsinline webkit-playsinline controls preload="none" poster="/img/og-messi.jpg">
+      <video id="goal-video-player" playsinline webkit-playsinline controls preload="metadata" style="background:#000;">
         Your browser does not support the video tag.
       </video>
       <button type="button" class="video-big-play-btn" id="video-big-play-btn" aria-label="Play video" hidden>
@@ -638,60 +635,6 @@
         <span class="vpill" id="vpill-assist" hidden>Assist: —</span>
         <span class="vpill" id="vpill-xg" hidden>xG: —</span>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- Messi Birthday Goal Card Generator Modal -->
-<div class="video-modal-backdrop" id="bday-card-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="bday-card-modal-title">
-  <div class="video-modal-container" style="max-width: 680px;">
-    <div class="video-modal-header">
-      <div class="video-modal-titles">
-        <span class="video-modal-eyebrow">Viral Collector Card</span>
-        <h3 class="video-modal-title" id="bday-card-modal-title">Your Messi Birthday Card</h3>
-      </div>
-      <button type="button" class="video-modal-close" id="bday-card-modal-close" aria-label="Close card modal">&times;</button>
-    </div>
-
-    <div class="bday-card-controls">
-      <div class="bday-card-format-tabs" role="tablist" aria-label="Card format">
-        <button type="button" class="card-format-btn active" data-format="story" role="tab" aria-selected="true">
-          📱 Story (9:16)
-        </button>
-        <button type="button" class="card-format-btn" data-format="square" role="tab" aria-selected="false">
-          🖼️ Square (1:1)
-        </button>
-        <button type="button" class="card-format-btn" data-format="wide" role="tab" aria-selected="false">
-          💻 Wide (16:9)
-        </button>
-      </div>
-      <div class="bday-card-theme-chips">
-        <span class="card-theme-label">Theme:</span>
-        <button type="button" class="card-theme-chip active" data-theme="auto" title="Dynamic match team color">⚡ Auto</button>
-        <button type="button" class="card-theme-chip" data-theme="gold" title="24K Ballon d'Or Gold">🏆 Gold</button>
-        <button type="button" class="card-theme-chip" data-theme="barca" title="Blaugrana">🔵🔴 Barça</button>
-        <button type="button" class="card-theme-chip" data-theme="argentina" title="Albiceleste">🇦🇷 Argentina</button>
-        <button type="button" class="card-theme-chip" data-theme="miami" title="Vice Pink">💖 Miami</button>
-      </div>
-    </div>
-    
-    <div class="bday-card-preview-wrap">
-      <canvas id="bday-card-canvas" width="1080" height="1920" class="bday-canvas-preview"></canvas>
-    </div>
-    
-    <div class="bday-card-modal-actions">
-      <button type="button" class="btn-primary" id="bday-download-card-btn">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-        Download HD Card
-      </button>
-      <button type="button" class="btn-secondary" id="bday-native-share-card-btn">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z"/></svg>
-        Share to Stories / Apps
-      </button>
-      <button type="button" class="btn-secondary" id="bday-copy-card-btn" title="Copy image to clipboard">
-        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-        Copy Image
-      </button>
     </div>
   </div>
 </div>

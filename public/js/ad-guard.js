@@ -61,7 +61,7 @@
       const vh = window.innerHeight || document.documentElement.clientHeight;
 
       elements.forEach(el => {
-        if (el.id === 'bday-card-modal' || el.id === 'bday-embed-modal' || el.id === 'banner' || el.classList.contains('page') || el.classList.contains('rail')) {
+        if (el.id === 'video-modal' || el.id === 'bday-embed-modal' || el.id === 'banner' || el.classList.contains('page') || el.classList.contains('rail')) {
           return;
         }
         const style = window.getComputedStyle(el);
