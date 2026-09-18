@@ -2,7 +2,7 @@
 
 > Authoritative, match-verified Lionel Messi career statistics and 366-day calendar goal distribution.
 > Every figure is verified against official club, FIFA, CONMEBOL, UEFA, and MLS records.
-> Dataset version: 14 September 2026.
+> Dataset version: 18 September 2026.
 > Canonical Domain: https://www.messistat.com/en/
 > Raw JSON Dataset: https://www.messistat.com/data/messi-data.json
 > Interactive Birthday Explorer: https://www.messistat.com/en/birthday
@@ -13,8 +13,8 @@
 
 - **Full Name**: Lionel Andrés Messi
 - **Date of Birth**: 24 June 1987 (Rosario, Santa Fe, Argentina)
-- **Senior Career Goals**: 928 official goals (803 club + 125 international)
-- **Senior Appearances**: 1,173 matches
+- **Senior Career Goals**: 929 official goals (804 club + 125 international)
+- **Senior Appearances**: 1,175 matches
 - **Career Goals per Game (GPG)**: 0.79
 - **Senior Career Trophies**: 46 official titles (World record)
 - **Ballons d'Or**: 8 (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023 — World record)

@@ -17,7 +17,8 @@
     "triage": "node scripts/triage.mjs",
     "audit": "node scripts/dist-audit.cjs",
     "audit:security": "node scripts/security-audit-test.mjs",
-    "sync:daily": "python scripts/scrape-live-sync.py && node scripts/source-watch.mjs",
+    "sync:daily": "node scripts/auto-sync-matches.mjs && node scripts/source-watch.mjs",
+    "sync:auto": "node scripts/auto-sync-matches.mjs",
     "admin:hash": "node scripts/generate-admin-hash.mjs"
   },
   "devDependencies": {

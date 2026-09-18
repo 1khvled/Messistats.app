@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "CROSS_CHECKED",
-    "updated": "2026-09-14",
+    "updated": "2026-09-18",
     "methodology": "Senior first-team matches only (league, national cup, continental, other). Youth/reserve excluded (Barcelona C/B rows dropped from totals). Each row cross-checked across 2+ free sources; splits must reconcile to the row total.",
     "verification": [
       "Club season splits: Wikipedia Lionel Messi career table (cites BDFutbol match logs), fetched 2026-09-09. Corrected 6 AS.com rows that disagreed (2009/10, 2010/11, 2011/12, 2012/13, 2013/14, 2015/16).",
@@ -11,7 +11,8 @@
       "2026 combined reconciliation: Miami 24/21 + Argentina 11/10 = 35/31 through early Sep 2026, consistent with ESPN 29/25 on 13 Aug 2026 plus games since.",
       "Competition split is derived arithmetic from the season rows (e.g. Barca continental = UCL 120; other = 14 Supercopa + 3 UEFA Super Cup + 5 Club World Cup), so it reconciles to 927 by construction.",
       "Calendar-year table reconciles to 927 and to the Argentina years in this file; 2012 = 91 (record). 2026 is provisional (season ongoing).",
-      "PROVISIONAL: byFinish/byBodyPart show widely published compiled tallies (penalties 109, free kicks 66, hat-tricks 57) and must be treated as provisional until hand-counted match by match like ronaldostats.app does."
+      "PROVISIONAL: byFinish/byBodyPart show widely published compiled tallies (penalties 109, free kicks 66, hat-tricks 57) and must be treated as provisional until hand-counted match by match like ronaldostats.app does.",
+      "Auto-synced on 2026-09-18: Inter Miami vs Cruz Azul (+1G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -19,6 +20,11 @@
       "https://www.espn.com/soccer/story/_/id/47978642 (2026 tracker: 29/25/10 on 13 Aug 2026; 911th goal 9 Jun 2026)",
       "https://github.com/openfootball/worldcup.json (2022 + 2026 finals data, CC0)",
       "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard (MLS live check, no key)"
+    ],
+    "syncedMatches": [
+      "761792",
+      "761800",
+      "401901377"
     ]
   },
   "profile": {
@@ -44,8 +50,8 @@
   },
   "totals": {
     "club": {
-      "appearances": 966,
-      "goals": 803,
+      "appearances": 968,
+      "goals": 804,
       "goalsPerGame": 0.83
     },
     "country": {
@@ -54,8 +60,8 @@
       "goalsPerGame": 0.6
     },
     "combined": {
-      "appearances": 1173,
-      "goals": 928
+      "appearances": 1175,
+      "goals": 929
     },
     "assists": null,
     "note": "Apps/goals are cross-checked sums of the rows below. Assists pending hand compilation.",
@@ -563,11 +569,11 @@
         1
       ],
       "other": [
-        2,
-        2
+        3,
+        3
       ],
-      "apps": 25,
-      "goals": 22
+      "apps": 27,
+      "goals": 23
     }
   ],
   "countryYears": [
@@ -920,7 +926,7 @@
     {
       "competition": "Leagues Cup / MLS playoffs / other cups",
       "team": "Inter Miami",
-      "goals": 22
+      "goals": 23
     },
     {
       "competition": "FIFA World Cup",
@@ -947,7 +953,7 @@
   "byFinish": [
     {
       "finish": "Open play",
-      "goals": 753
+      "goals": 754
     },
     {
       "finish": "Penalties",
@@ -969,7 +975,7 @@
     },
     {
       "part": "Head",
-      "goals": 27
+      "goals": 28
     },
     {
       "part": "Other (chest etc.)",
@@ -1425,8 +1431,8 @@
     },
     {
       "year": 2026,
-      "goals": 32,
-      "careerTotal": 928,
+      "goals": 33,
+      "careerTotal": 929,
       "age": 39,
       "status": "provisional-ongoing"
     }

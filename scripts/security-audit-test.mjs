@@ -209,8 +209,8 @@ console.log('[7/7] Testing Data Integrity Checksums...');
   assert.equal(ySum, totalGoals);
   assert.equal(cSum, totalGoals);
   assert.equal(bSum, totalGoals);
-  assert.equal(totalGoals, 928);
-  console.log(`  -> Data checksums invariant verified: 928 goals across all slices!`);
+  assert.equal(totalGoals, 929);
+  console.log(`  -> Data checksums invariant verified: ${totalGoals} goals across all slices!`);
 }
 
 console.log('\n=== ALL SECURITY AUDIT TESTS PASSED WITH 0 DEFECTS ===\n');

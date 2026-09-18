@@ -35,7 +35,7 @@ jobs:
 
       - name: Run 24h Scrapers & Auto-Sync
         run: |
-          python scripts/scrape-live-sync.py
+          node scripts/auto-sync-matches.mjs
           node scripts/source-watch.mjs
 
       - name: Build & Run Verification Audits

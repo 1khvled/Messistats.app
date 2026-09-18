@@ -1,12 +1,12 @@
 # MessiStats
 
-> Authoritative, match-verified Lionel Messi career statistics database: 928 goals in 1,173 senior games, 46 team trophies, 8 Ballons d'Or. Checked after every match against official club, FIFA, CONMEBOL, UEFA, and MLS records.
+> Authoritative, match-verified Lionel Messi career statistics database: 929 goals in 1,175 senior games, 46 team trophies, 8 Ballons d'Or. Checked after every match against official club, FIFA, CONMEBOL, UEFA, and MLS records.
 
 MessiStats is the definitive Lionel Messi career statistics portal. Every figure is compiled by hand, match by match, covering his 23-season senior career with FC Barcelona, Argentina, Paris Saint-Germain, and Inter Miami CF.
 
 ## Canonical Pages
 
-- [Home](https://www.messistat.com/en): Overview of career totals (928 goals, 1,173 appearances), current season progress, trophy counts, and FAQs.
+- [Home](https://www.messistat.com/en): Overview of career totals (929 goals, 1,175 appearances), current season progress, trophy counts, and FAQs.
 - [Goals by Year](https://www.messistat.com/en/goalsbyyear): Complete calendar-year breakdown from his 2004 debut to 2026, including his world-record 91 goals in 2012.
 - [Goals by Season](https://www.messistat.com/en/goalsbyseason): Detailed club and international campaign logs across league, domestic cups, and continental tournaments.
 - [Dashboard](https://www.messistat.com/en/dashboard): Interactive analytics, competition-by-competition charts, scoring methods, and milestone tracker.
@@ -16,5 +16,5 @@ MessiStats is the definitive Lionel Messi career statistics portal. Every figure
 
 ## Optional
 
-- [Raw Statistics Dataset](https://www.messistat.com/data/messi-data.json): Canonical structured JSON source of truth with 928-goal checksums and match records.
+- [Raw Statistics Dataset](https://www.messistat.com/data/messi-data.json): Canonical structured JSON source of truth with 929-goal checksums and match records.
 - [Full LLM Knowledge Base](https://www.messistat.com/llms-full.txt): Comprehensive deep-dive document with complete tables, competition splits, and citation notes.
