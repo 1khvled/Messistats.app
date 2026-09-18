@@ -1170,7 +1170,7 @@ ${renderRailNav(lang, "birthday")}
 </section>
 
 ${renderAdSlot(lang)}
-<div class="shead"><h2>366 Days Calendar</h2></div>
+<div class="shead"><h2>${dict.calendarTitle}</h2></div>
 <div id="bday-calendar-grid" class="bday-grid"></div>
 
 ${renderAdSlot(lang)}
@@ -1196,7 +1196,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "Lionel Messi vs Cristiano Ronaldo: 929 gols vs 924+, 46 títulos vs 35, 8 Bolas de Ouro vs 5. Estatísticas completas e os 36 confrontos diretos.",
       h1: "Messi vs Cristiano Ronaldo: A Comparação Definitiva",
       lede: "A comparação estatística definitiva entre Lionel Messi e Cristiano Ronaldo: 929 vs 924 gols, 46 vs 35 títulos e 8 vs 5 Bolas de Ouro.",
+      kpiMessiNote: "1.175 jogos (0,79 g/j)",
+      kpiRonaldoNote: "1.280+ jogos (0,72 g/j)",
+      kpiDiff: "Diferença",
+      kpiDiffNote: "Messi em 105 jogos a menos",
+      titlesName: "🏆 Títulos Coletivos",
+      titlesGoals: "Messi: 46 <span>vs Ronaldo: 35</span>",
+      titlesMeta: "Messi detém o recorde mundial absoluto na história do futebol.",
+      bdoName: "🌕 Bola de Ouro",
+      bdoGoals: "Messi: 8 <span>vs Ronaldo: 5</span>",
+      bdoMeta: "Recorde histórico de 8 Bolas de Ouro em três décadas diferentes.",
+      wcName: "🌍 Copa do Mundo FIFA",
+      wcGoals: "Messi: 1 <span>vs Ronaldo: 0</span>",
+      wcMeta: "Campeão e 2x vencedor da Bola de Ouro do torneio (2014, 2022).",
       tableTitle: "Os 36 confrontos diretos entre Messi e Ronaldo",
+      tableCaption: "Histórico frente a frente em 36 partidas oficiais",
+      thMetric: "Métrica",
+      thMessi: "Lionel Messi",
+      thRonaldo: "Cristiano Ronaldo",
+      rowWins: "Vitórias",
+      rowWinsMessi: "<b>16 vitórias</b> (44,4%)",
+      rowWinsRonaldo: "11 vitórias (30,6%)",
+      rowDraws: "Empates",
+      rowDrawsVal: "9 empates (25,0%)",
+      rowGoals: "Gols Marcados",
+      rowGoalsMessi: "<b>22 gols</b>",
+      rowGoalsRonaldo: "21 gols",
+      rowAssists: "Assistências",
+      rowAssistsMessi: "<b>12 assistências</b>",
+      rowAssistsRonaldo: "1 assistência",
       faqHead: "Perguntas frequentes sobre Messi vs Ronaldo",
       exploreTitle: "Explore todas as estatísticas"
     },
@@ -1205,7 +1233,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "Lionel Messi vs Cristiano Ronaldo : 929 buts vs 924+, 46 trophées vs 35, 8 Ballons d'Or vs 5. Statistiques complètes et les 36 confrontations directes.",
       h1: "Messi vs Cristiano Ronaldo : La Comparaison Ultime",
       lede: "Le comparatif statistique absolu entre Lionel Messi et Cristiano Ronaldo : 929 contre 924 buts, 46 contre 35 titres et 8 contre 5 Ballons d'Or.",
+      kpiMessiNote: "1 175 matchs (0,79 b/m)",
+      kpiRonaldoNote: "1 280+ matchs (0,72 b/m)",
+      kpiDiff: "Différence",
+      kpiDiffNote: "Messi en 105 matchs de moins",
+      titlesName: "🏆 Titres Collectifs",
+      titlesGoals: "Messi : 46 <span>vs Ronaldo : 35</span>",
+      titlesMeta: "Messi détient le record mondial absolu dans l'histoire du football.",
+      bdoName: "🌕 Ballon d'Or",
+      bdoGoals: "Messi : 8 <span>vs Ronaldo : 5</span>",
+      bdoMeta: "Record de 8 Ballons d'Or remportés sur trois décennies distinctes.",
+      wcName: "🌍 Coupe du Monde de la FIFA",
+      wcGoals: "Messi : 1 <span>vs Ronaldo : 0</span>",
+      wcMeta: "Champion du monde et 2x meilleur joueur du tournoi (2014, 2022).",
       tableTitle: "Les 36 confrontations directes entre Messi et Ronaldo",
+      tableCaption: "Bilan des confrontations directes en 36 matchs officiels",
+      thMetric: "Statistique",
+      thMessi: "Lionel Messi",
+      thRonaldo: "Cristiano Ronaldo",
+      rowWins: "Victoires",
+      rowWinsMessi: "<b>16 victoires</b> (44,4%)",
+      rowWinsRonaldo: "11 victoires (30,6%)",
+      rowDraws: "Matchs nuls",
+      rowDrawsVal: "9 nuls (25,0%)",
+      rowGoals: "Buts Marqués",
+      rowGoalsMessi: "<b>22 buts</b>",
+      rowGoalsRonaldo: "21 buts",
+      rowAssists: "Passes Décisives",
+      rowAssistsMessi: "<b>12 passes</b>",
+      rowAssistsRonaldo: "1 passe",
       faqHead: "Foire aux questions Messi vs Ronaldo",
       exploreTitle: "Explorer toutes les statistiques"
     },
@@ -1214,7 +1270,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "ليونيل ميسي ضد كريستيانو رونالدو: 929 هدفاً مقابل 924+، 46 بطولة مقابل 35، و8 كرات ذهبية مقابل 5. تفاصيل الـ 36 مباراة المباشرة.",
       h1: "ميسي ضد كريستيانو رونالدو: المقارنة التاريخية",
       lede: "المقارنة الإحصائية الشاملة بين ليونيل ميسي وكريستيانو رونالدو: 929 مقابل 924 هدفاً، 46 مقابل 35 لقباً، و8 كرات ذهبية مقابل 5.",
+      kpiMessiNote: "1,175 مباراة (0.79 هدف/مباراة)",
+      kpiRonaldoNote: "+1,280 مباراة (0.72 هدف/مباراة)",
+      kpiDiff: "الفارق",
+      kpiDiffNote: "ميسي في 105 مباريات أقل",
+      titlesName: "🏆 البطولات الجماعية",
+      titlesGoals: "ميسي: 46 <span>ضد رونالدو: 35</span>",
+      titlesMeta: "ميسي يحمل الرقم القياسي العالمي في تاريخ كرة القدم.",
+      bdoName: "🌕 الكرة الذهبية",
+      bdoGoals: "ميسي: 8 <span>ضد رونالدو: 5</span>",
+      bdoMeta: "رقم قياسي بـ 8 كرات ذهبية عبر ثلاثة عقود مختلفة.",
+      wcName: "🌍 كأس العالم FIFA",
+      wcGoals: "ميسي: 1 <span>ضد رونالدو: 0</span>",
+      wcMeta: "بطل العالم وأفضل لاعب في البطولة مرتين (2014، 2022).",
       tableTitle: "المواجهات المباشرة الـ 36 بين ميسي ورونالدو",
+      tableCaption: "سجل المواجهات المباشرة عبر 36 مباراة رسمية",
+      thMetric: "المؤشر",
+      thMessi: "ليونيل ميسي",
+      thRonaldo: "كريستيانو رونالدو",
+      rowWins: "الانتصارات",
+      rowWinsMessi: "<b>16 فوزاً</b> (44.4%)",
+      rowWinsRonaldo: "11 فوزاً (30.6%)",
+      rowDraws: "التعادلات",
+      rowDrawsVal: "9 تعادلات (25.0%)",
+      rowGoals: "الأهداف المسجلة",
+      rowGoalsMessi: "<b>22 هدفاً</b>",
+      rowGoalsRonaldo: "21 هدفاً",
+      rowAssists: "التمريرات الحاسمة",
+      rowAssistsMessi: "<b>12 تمريرة</b>",
+      rowAssistsRonaldo: "تمريرة واحدة",
       faqHead: "الأسئلة الشائعة حول صراع ميسي ورونالدو",
       exploreTitle: "استكشف جميع الإحصائيات"
     },
@@ -1223,7 +1307,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯২৯ গোল বনাম ৯২৪+, ৪৬ ট্রফি বনাম ৩৫, এবং ৮টি ব্যালন ডি'অর বনাম ৫। মুখোমুখি ৩৬টি ম্যাচের রেকর্ড।",
       h1: "মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: সর্বকালের সেরা তুলনা",
       lede: "মেসি ও রোনালদোর ক্যারিয়ারের পুঙ্খানুপুঙ্খ পরিসংখ্যান: ৯২৯ বনাম ৯২৪ গোল, ৪৬ বনাম ৩৫টি শিরোপা এবং ৮ বনাম ৫টি ব্যালন ডি'অর।",
+      kpiMessiNote: "১,১৭৫ ম্যাচ (০.৭৯ গোল/ম্যাচ)",
+      kpiRonaldoNote: "১,২৮০+ ম্যাচ (০.৭২ গোল/ম্যাচ)",
+      kpiDiff: "পার্থক্য",
+      kpiDiffNote: "১০৫ ম্যাচ কম খেলে মেসি",
+      titlesName: "🏆 দলগত শিরোপা",
+      titlesGoals: "মেসি: ৪৬ <span>বনাম রোনালদো: ৩৫</span>",
+      titlesMeta: "মেসি ফুটবল ইতিহাসের সর্বকালের বিশ্বরেকর্ডের অধিকারী।",
+      bdoName: "🌕 ব্যালন ডি'অর",
+      bdoGoals: "মেসি: ৮ <span>বনাম রোনালদো: ৫</span>",
+      bdoMeta: "তিনটি আলাদা দশকে রেকর্ড ৮টি ব্যালন ডি'অর জয়ের অনন্য কীর্তি।",
+      wcName: "🌍 ফিফা বিশ্বকাপ",
+      wcGoals: "মেসি: ১ <span>বনাম রোনালদো: ০</span>",
+      wcMeta: "বিশ্ব চ্যাম্পিয়ন এবং ২ বার সেরা খেলোয়াড়ের গোল্ডেন বল জয়ী (২০১৪, ২০২২)।",
       tableTitle: "মেসি ও রোনালদোর মুখোমুখি ৩৬টি ম্যাচের ফলাফল",
+      tableCaption: "অফিসিয়াল ৩৬টি মুখোমুখি লড়াইয়ের রেকর্ড",
+      thMetric: "পরিসংখ্যান",
+      thMessi: "লিওনেল মেসি",
+      thRonaldo: "ক্রিশ্চিয়ানো রোনালদো",
+      rowWins: "জয়",
+      rowWinsMessi: "<b>১৬ জয়</b> (৪৪.৪%)",
+      rowWinsRonaldo: "১১ জয় (৩০.৬%)",
+      rowDraws: "ড্র",
+      rowDrawsVal: "৯ ড্র (২৫.০%)",
+      rowGoals: "গোল সংখ্যা",
+      rowGoalsMessi: "<b>২২ গোল</b>",
+      rowGoalsRonaldo: "২১ গোল",
+      rowAssists: "অ্যাসিস্ট",
+      rowAssistsMessi: "<b>১২ অ্যাসিস্ট</b>",
+      rowAssistsRonaldo: "১ অ্যাসিস্ট",
       faqHead: "মেসি বনাম রোনালদো সাধারণ জিজ্ঞাসা",
       exploreTitle: "সব পরিসংখ্যান দেখুন"
     },
@@ -1232,7 +1344,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 929 गोल बनाम 924+, 46 खिताब बनाम 35, और 8 बैलन डी'ओर बनाम 5। दोनों के बीच 36 सीधे मैचों का विवरण।",
       h1: "मेसी बनाम क्रिस्टियानो रोनाल्डो: अंतिम तुलना",
       lede: "लियोनेल मेसी और क्रिस्टियानो रोनाल्डो के आंकड़ों का पूर्ण तुलनात्मक विश्लेषण: 929 बनाम 924 गोल, 46 बनाम 35 ट्रॉफियां और 8 बनाम 5 बैलन डी'ओर।",
+      kpiMessiNote: "1,175 मैच (0.79 गोल/मैच)",
+      kpiRonaldoNote: "1,280+ मैच (0.72 गोल/मैच)",
+      kpiDiff: "अंतर",
+      kpiDiffNote: "मेसी ने 105 कम मैचों में",
+      titlesName: "🏆 टीम खिताब",
+      titlesGoals: "मेसी: 46 <span>बनाम रोनाल्डो: 35</span>",
+      titlesMeta: "मेसी के नाम फुटबॉल इतिहास में सर्वकालिक विश्व रिकॉर्ड है।",
+      bdoName: "🌕 बैलन डी'ओर",
+      bdoGoals: "मेसी: 8 <span>बनाम रोनाल्डो: 5</span>",
+      bdoMeta: "तीन अलग-अलग दशकों में रिकॉर्ड 8 बैलन डी'ओर जीतने का रिकॉर्ड।",
+      wcName: "🌍 फीफा विश्व कप",
+      wcGoals: "मेसी: 1 <span>बनाम रोनाल्डो: 0</span>",
+      wcMeta: "विश्व चैंपियन और टूर्नामेंट के 2 बार गोल्डन बॉल विजेता (2014, 2022)।",
       tableTitle: "मेसी और रोनाल्डो के बीच 36 आमने-सामने के मैच",
+      tableCaption: "36 आधिकारिक मैचों में आमने-सामने का रिकॉर्ड",
+      thMetric: "आँकड़ा",
+      thMessi: "लियोनेल मेसी",
+      thRonaldo: "क्रिस्टियानो रोनाल्डो",
+      rowWins: "जीत",
+      rowWinsMessi: "<b>16 जीत</b> (44.4%)",
+      rowWinsRonaldo: "11 जीत (30.6%)",
+      rowDraws: "ड्रॉ",
+      rowDrawsVal: "9 ड्रॉ (25.0%)",
+      rowGoals: "किए गए गोल",
+      rowGoalsMessi: "<b>22 गोल</b>",
+      rowGoalsRonaldo: "21 गोल",
+      rowAssists: "असिस्ट",
+      rowAssistsMessi: "<b>12 असिस्ट</b>",
+      rowAssistsRonaldo: "1 असिस्ट",
       faqHead: "अक्सर पूछे जाने वाले सवाल",
       exploreTitle: "सभी आंकड़े देखें"
     },
@@ -1241,7 +1381,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "Lionel Messi vs Cristiano Ronaldo: 929 goluri vs 924+, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparație completă și cele 36 de meciuri directe.",
       h1: "Messi vs Cristiano Ronaldo: Comparația Supremă",
       lede: "Comparația statistică definitivă între Lionel Messi și Cristiano Ronaldo: 929 vs 924 goluri, 46 vs 35 trofee și 8 vs 5 Baloane de Aur.",
+      kpiMessiNote: "1.175 meciuri (0,79 g/m)",
+      kpiRonaldoNote: "1.280+ meciuri (0,72 g/m)",
+      kpiDiff: "Diferență",
+      kpiDiffNote: "Messi în 105 meciuri mai puține",
+      titlesName: "🏆 Titluri de Echipă",
+      titlesGoals: "Messi: 46 <span>vs Ronaldo: 35</span>",
+      titlesMeta: "Messi deține recordul mondial absolut din istoria fotbalului.",
+      bdoName: "🌕 Balonul de Aur",
+      bdoGoals: "Messi: 8 <span>vs Ronaldo: 5</span>",
+      bdoMeta: "Record de 8 Baloane de Aur de-a lungul a trei decenii diferite.",
+      wcName: "🌍 Cupa Mondială FIFA",
+      wcGoals: "Messi: 1 <span>vs Ronaldo: 0</span>",
+      wcMeta: "Campion mondial și de 2 ori câștigător al Balonului de Aur al turneului (2014, 2022).",
       tableTitle: "Cele 36 de meciuri directe între Messi și Ronaldo",
+      tableCaption: "Palmaresul confruntărilor directe în 36 de meciuri oficiale",
+      thMetric: "Statistică",
+      thMessi: "Lionel Messi",
+      thRonaldo: "Cristiano Ronaldo",
+      rowWins: "Victorii",
+      rowWinsMessi: "<b>16 victorii</b> (44,4%)",
+      rowWinsRonaldo: "11 victorii (30,6%)",
+      rowDraws: "Egaluri",
+      rowDrawsVal: "9 egaluri (25,0%)",
+      rowGoals: "Goluri Marcate",
+      rowGoalsMessi: "<b>22 goluri</b>",
+      rowGoalsRonaldo: "21 goluri",
+      rowAssists: "Pase de Gol",
+      rowAssistsMessi: "<b>12 pase</b>",
+      rowAssistsRonaldo: "1 pasă",
       faqHead: "Întrebări frecvente Messi vs Ronaldo",
       exploreTitle: "Explorează toate statisticile"
     },
@@ -1250,7 +1418,35 @@ function generateMessiVsRonaldo(lang) {
       desc: "Lionel Messi va Krishtianu Ronaldu: 929 ta gol vs 924+, 46 ta titul vs 35, 8 ta “Oltin to'p” vs 5. O'zaro 36 ta o'yin natijalari.",
       h1: "Messi vs Krishtianu Ronaldu: Karyeralar Qiyosi",
       lede: "Lionel Messi va Krishtianu Ronaldu o'rtasidagi to'liq statistik taqqoslash: 929 ga 924 ta gol, 46 ga 35 ta sovrin va 8 ga 5 ta “Oltin to'p”.",
+      kpiMessiNote: "1 175 o'yin (0,79 g/o')",
+      kpiRonaldoNote: "1 280+ o'yin (0,72 g/o')",
+      kpiDiff: "Farq",
+      kpiDiffNote: "Messi 105 ta kam o'yinda",
+      titlesName: "🏆 Jamoaviy Sovrinlar",
+      titlesGoals: "Messi: 46 <span>vs Ronaldu: 35</span>",
+      titlesMeta: "Messi futbol tarixidagi mutlaq jahon rekordchisidir.",
+      bdoName: "🌕 “Oltin to'p”",
+      bdoGoals: "Messi: 8 <span>vs Ronaldu: 5</span>",
+      bdoMeta: "Uch xil o'n yillikda rekord darajadagi 8 ta “Oltin to'p”.",
+      wcName: "🌍 FIFA Jahon Chempionati",
+      wcGoals: "Messi: 1 <span>vs Ronaldu: 0</span>",
+      wcMeta: "Jahon chempioni va 2 karra turnirning eng yaxshi futbolchisi (2014, 2022).",
       tableTitle: "Messi va Ronaldu o'rtasidagi 36 ta o'zaro to'qnashuv",
+      tableCaption: "36 ta rasmiy o'yindagi o'zaro to'qnashuvlar rekordi",
+      thMetric: "Ko'rsatkich",
+      thMessi: "Lionel Messi",
+      thRonaldo: "Krishtianu Ronaldu",
+      rowWins: "G'alabalar",
+      rowWinsMessi: "<b>16 g'alaba</b> (44,4%)",
+      rowWinsRonaldo: "11 g'alaba (30,6%)",
+      rowDraws: "Duranglar",
+      rowDrawsVal: "9 durang (25,0%)",
+      rowGoals: "Urilgan gollar",
+      rowGoalsMessi: "<b>22 gol</b>",
+      rowGoalsRonaldo: "21 gol",
+      rowAssists: "Golli uzatmalar",
+      rowAssistsMessi: "<b>12 uzatma</b>",
+      rowAssistsRonaldo: "1 uzatma",
       faqHead: "Ko'p beriladigan savollar",
       exploreTitle: "Barcha statistikalarni o'rganing"
     }
@@ -1270,9 +1466,9 @@ ${renderRailNav(lang, "messi-vs-ronaldo")}
 
 <!-- HEAD TO HEAD KPIS -->
 <section class="kpis kpis-3" aria-label="Head to Head">
-  <div class="kpi"><span class="kpi-label">Lionel Messi</span><span class="kpi-value">929</span><span class="kpi-note">1,175 games (0.79 g/g)</span></div>
-  <div class="kpi"><span class="kpi-label">Cristiano Ronaldo</span><span class="kpi-value">924</span><span class="kpi-note">1,280+ games (0.72 g/g)</span></div>
-  <div class="kpi"><span class="kpi-label">Difference</span><span class="kpi-value">+5</span><span class="kpi-note">Messi in 105 fewer games</span></div>
+  <div class="kpi"><span class="kpi-label">Lionel Messi</span><span class="kpi-value">929</span><span class="kpi-note">${dict.kpiMessiNote}</span></div>
+  <div class="kpi"><span class="kpi-label">Cristiano Ronaldo</span><span class="kpi-value">924</span><span class="kpi-note">${dict.kpiRonaldoNote}</span></div>
+  <div class="kpi"><span class="kpi-label">${dict.kpiDiff}</span><span class="kpi-value">+5</span><span class="kpi-note">${dict.kpiDiffNote}</span></div>
 </section>
 
 ${renderAdSlot(lang)}
@@ -1280,19 +1476,19 @@ ${renderAdSlot(lang)}
 <!-- COMPARISON CARDS -->
 <section class="team-grid" aria-label="Career Breakdown">
   <div class="team-card">
-    <div class="team-name">🏆 Team Titles</div>
-    <div class="team-goals">Messi: 46 <span>vs Ronaldo: 35</span></div>
-    <div class="team-meta">Messi holds the all-time world record in football history.</div>
+    <div class="team-name">${dict.titlesName}</div>
+    <div class="team-goals">${dict.titlesGoals}</div>
+    <div class="team-meta">${dict.titlesMeta}</div>
   </div>
   <div class="team-card">
-    <div class="team-name">🌕 Ballon d'Or</div>
-    <div class="team-goals">Messi: 8 <span>vs Ronaldo: 5</span></div>
-    <div class="team-meta">Record 8 Ballons d'Or across three separate decades.</div>
+    <div class="team-name">${dict.bdoName}</div>
+    <div class="team-goals">${dict.bdoGoals}</div>
+    <div class="team-meta">${dict.bdoMeta}</div>
   </div>
   <div class="team-card">
-    <div class="team-name">🌍 FIFA World Cup</div>
-    <div class="team-goals">Messi: 1 <span>vs Ronaldo: 0</span></div>
-    <div class="team-meta">Champion & 2x Golden Ball winner (2014, 2022).</div>
+    <div class="team-name">${dict.wcName}</div>
+    <div class="team-goals">${dict.wcGoals}</div>
+    <div class="team-meta">${dict.wcMeta}</div>
   </div>
 </section>
 
@@ -1300,15 +1496,15 @@ ${renderAdSlot(lang)}
 <div class="shead"><h2>${dict.tableTitle}</h2></div>
 <section class="card" id="h2h-table">
   <table class="data-table">
-    <caption>Head-to-head records across 36 official matches</caption>
+    <caption>${dict.tableCaption}</caption>
     <thead>
-      <tr><th scope="col" class="left">Metric</th><th scope="col">Lionel Messi</th><th scope="col">Cristiano Ronaldo</th></tr>
+      <tr><th scope="col" class="left">${dict.thMetric}</th><th scope="col">${dict.thMessi}</th><th scope="col">${dict.thRonaldo}</th></tr>
     </thead>
     <tbody>
-      <tr><th scope="row">Wins</th><td><b>16 wins</b> (44.4%)</td><td>11 wins (30.6%)</td></tr>
-      <tr><th scope="row">Draws</th><td colspan="2">9 draws (25.0%)</td></tr>
-      <tr><th scope="row">Goals Scored</th><td><b>22 goals</b></td><td>21 goals</td></tr>
-      <tr><th scope="row">Assists</th><td><b>12 assists</b></td><td>1 assist</td></tr>
+      <tr><th scope="row">${dict.rowWins}</th><td>${dict.rowWinsMessi}</td><td>${dict.rowWinsRonaldo}</td></tr>
+      <tr><th scope="row">${dict.rowDraws}</th><td colspan="2">${dict.rowDrawsVal}</td></tr>
+      <tr><th scope="row">${dict.rowGoals}</th><td>${dict.rowGoalsMessi}</td><td>${dict.rowGoalsRonaldo}</td></tr>
+      <tr><th scope="row">${dict.rowAssists}</th><td>${dict.rowAssistsMessi}</td><td>${dict.rowAssistsRonaldo}</td></tr>
     </tbody>
   </table>
 </section>
@@ -1336,8 +1532,38 @@ function generateVsRealMadrid(lang) {
       desc: "Histórico completo de Lionel Messi contra o Real Madrid: 26 gols e 14 assistências em 45 jogos oficiais. O maior artilheiro do El Clásico.",
       h1: "Lionel Messi vs Real Madrid: O Rei do El Clásico",
       lede: "O histórico completo do maior artilheiro da história do El Clásico: 26 gols, 14 assistências e 16 vitórias em 45 partidas contra o Real Madrid.",
+      kpiApps: "Partidas",
+      kpiAppsNote: "Todas as partidas oficiais",
+      kpiGoals: "Gols",
+      kpiGoalsNote: "Maior artilheiro do El Clásico",
+      kpiAssists: "Assistências",
+      kpiAssistsNote: "Líder histórico de assistências",
+      kpiWins: "Vitórias",
+      kpiWinsNote: "Triunfos em todas as competições",
       breakdownHead: "Resumo do histórico de Messi contra o Real Madrid",
+      tableCaption: "Histórico de Messi contra o Real Madrid por competição",
+      thComp: "Competição",
+      thApps: "Jogos",
+      thGoals: "Gols",
+      thAssists: "Assistências",
+      compLaLiga: "La Liga",
+      compSupercopa: "Supercopa da Espanha",
+      compUcl: "Liga dos Campeões da UEFA",
+      compCdr: "Copa do Rei",
+      compTotal: "Total em Todas as Competições",
       momentsHead: "Momentos mágicos de Messi no Bernabéu e Camp Nou",
+      m1Name: "Hat-trick aos 19 Anos (2007)",
+      m1Goals: "Camp Nou · 3-3",
+      m1Meta: "Primeiro hat-trick da carreira profissional, empatando 3 vezes contra o Real Madrid.",
+      m2Name: "O Histórico 2-6 (2009)",
+      m2Goals: "Santiago Bernabéu · 2 gols",
+      m2Meta: "Guardiola inventa a função de Falso 9 para Leo Messi em pleno Bernabéu.",
+      m3Name: "Gol Solo Antológico na Champions (2011)",
+      m3Goals: "Santiago Bernabéu · 0-2",
+      m3Meta: "Slalom icônico passando por 4 defensores do Madrid na semifinal da Champions League.",
+      m4Name: "A Comemoração da Camisa no Gol 500 (2017)",
+      m4Goals: "Santiago Bernabéu · 2-3",
+      m4Meta: "Gol da vitória aos 92 minutos seguido pela icônica exibição da camisa 10 ao Bernabéu.",
       faqHead: "Perguntas frequentes sobre Messi vs Real Madrid",
       exploreTitle: "Explore todas as estatísticas"
     },
@@ -1346,8 +1572,38 @@ function generateVsRealMadrid(lang) {
       desc: "Historique complet de Lionel Messi face au Real Madrid : 26 buts, 14 passes décisives en 45 matchs. Meilleur buteur de l'histoire du Clásico.",
       h1: "Lionel Messi vs Real Madrid : Le Roi du Clásico",
       lede: "L'historique complet du meilleur buteur de l'histoire du Clásico : 26 buts, 14 passes décisives et 16 victoires en 45 confrontations contre le Real Madrid.",
+      kpiApps: "Matchs Joués",
+      kpiAppsNote: "Toutes compétitions officielles",
+      kpiGoals: "Buts",
+      kpiGoalsNote: "Meilleur buteur historique du Clásico",
+      kpiAssists: "Passes Décisives",
+      kpiAssistsNote: "Record absolu du Clásico",
+      kpiWins: "Victoires",
+      kpiWinsNote: "Gains toutes compétitions confondues",
       breakdownHead: "Résumé statistique de Messi face au Real Madrid",
+      tableCaption: "Bilan de Messi contre le Real Madrid par compétition",
+      thComp: "Compétition",
+      thApps: "Matchs",
+      thGoals: "Buts",
+      thAssists: "Passes",
+      compLaLiga: "La Liga",
+      compSupercopa: "Supercoupe d'Espagne",
+      compUcl: "Ligue des Champions de l'UEFA",
+      compCdr: "Coupe du Roi",
+      compTotal: "Total Toutes Compétitions",
       momentsHead: "Nuits magiques au Bernabéu et au Camp Nou",
+      m1Name: "Coup du chapeau à 19 ans (2007)",
+      m1Goals: "Camp Nou · 3-3",
+      m1Meta: "Premier triplé en carrière senior, égalisant 3 fois contre le Real Madrid.",
+      m2Name: "L'Historique 2-6 (2009)",
+      m2Goals: "Santiago Bernabéu · 2 buts",
+      m2Meta: "Guardiola invente le rôle de Faux 9 pour Leo Messi au Bernabéu.",
+      m3Name: "Chef-d'œuvre solitaire en C1 (2011)",
+      m3Goals: "Santiago Bernabéu · 0-2",
+      m3Meta: "Slalom d'anthologie effaçant 4 défenseurs madrilènes en demi-finale de C1.",
+      m4Name: "La Célébration du Maillot pour le 500e But (2017)",
+      m4Goals: "Santiago Bernabéu · 2-3",
+      m4Meta: "But de la victoire à la 92e minute, suivi du maillot #10 brandi face au Bernabéu.",
       faqHead: "Foire aux questions Messi vs Real Madrid",
       exploreTitle: "Explorer toutes les statistiques"
     },
@@ -1356,8 +1612,38 @@ function generateVsRealMadrid(lang) {
       desc: "السجل التاريخي الكامل لليونيل ميسي ضد ريال مدريد: 26 هدفاً و14 تمريرة حاسمة في 45 مباراة رسمية. الهداف التاريخي لمباريات الكلاسيكو.",
       h1: "ليونيل ميسي ضد ريال مدريد: ملك الكلاسيكو",
       lede: "السجل التاريخي الكامل للهداف التاريخي لمباريات الكلاسيكو: 26 هدفاً و14 تمريرة حاسمة و16 انتصاراً في 45 مباراة ضد ريال مدريد.",
+      kpiApps: "المباريات",
+      kpiAppsNote: "كافة المباريات الرسمية",
+      kpiGoals: "الأهداف",
+      kpiGoalsNote: "الهداف التاريخي الأول للكلاسيكو",
+      kpiAssists: "التمريرات الحاسمة",
+      kpiAssistsNote: "الأكثر صناعة في تاريخ الكلاسيكو",
+      kpiWins: "الانتصارات",
+      kpiWinsNote: "الفوز في كافة البطولات",
       breakdownHead: "ملخص أرقام ميسي ضد ريال مدريد",
+      tableCaption: "سجل أرقام ميسي ضد ريال مدريد حسب المسابقة",
+      thComp: "المسابقة",
+      thApps: "المباريات",
+      thGoals: "الأهداف",
+      thAssists: "التمريرات",
+      compLaLiga: "الدوري الإسباني (La Liga)",
+      compSupercopa: "كأس السوبر الإسباني",
+      compUcl: "دوري أبطال أوروبا",
+      compCdr: "كأس ملك إسبانيا",
+      compTotal: "المجموع في جميع المسابقات",
       momentsHead: "لحظات ميسي الخالدة في البرنابيو والكامب نو",
+      m1Name: "هاتريك في سن الـ 19 (2007)",
+      m1Goals: "كامب نو · 3-3",
+      m1Meta: "أول هاتريك في مسيرته الاحترافية، مُعادلاً النتيجة 3 مرات ضد ريال مدريد.",
+      m2Name: "السداسية التاريخية 2-6 (2009)",
+      m2Goals: "سانتياغو برنابيو · هدفان",
+      m2Meta: "غوارديولا يبتكر مركز المهاجم الوهمي (False 9) لميسي في قلب مدريد.",
+      m3Name: "الهدف الإعجازي في دوري الأبطال (2011)",
+      m3Goals: "سانتياغو برنابيو · 0-2",
+      m3Meta: "مراوغة أسطورية تخطى بها 4 مدافعين من مدريد في نصف نهائي الأبطال.",
+      m4Name: "احتفال القميص بالهدف رقم 500 (2017)",
+      m4Goals: "سانتياغو برنابيو · 2-3",
+      m4Meta: "هدف الفوز في الدقيقة 92 متبوعاً برفع قميصه رقم 10 التاريخي في قلب البرنابيو.",
       faqHead: "الأسئلة الشائعة حول ميسي وريال مدريد",
       exploreTitle: "استكشف جميع الإحصائيات"
     },
@@ -1366,8 +1652,38 @@ function generateVsRealMadrid(lang) {
       desc: "রিয়াল মাদ্রিদের বিপক্ষে লিওনেল মেসির ক্যারিয়ার রেকর্ড: ৪৫ ম্যাচে ২৬ গোল ও ১৪টি অ্যাসিস্ট। এল ক্লাসিকোর সর্বকালের শীর্ষ গোলদাতা।",
       h1: "লিওনেল মেসি বনাম রিয়াল মাদ্রিদ: এল ক্লাসিকোর রাজা",
       lede: "এল ক্লাসিকোর ইতিহাসের সর্বোচ্চ গোলদাতার পূর্ণাঙ্গ রেকর্ড: ৪৫ ম্যাচে ২৬ গোল, ১৪টি অ্যাসিস্ট এবং ১৬টি ঐতিহাসিক জয়।",
+      kpiApps: "ম্যাচ সংখ্যা",
+      kpiAppsNote: "সকল অফিসিয়াল ম্যাচ",
+      kpiGoals: "গোল",
+      kpiGoalsNote: "এল ক্লাসিকোর সর্বকালের #১ গোলদাতা",
+      kpiAssists: "অ্যাসিস্ট",
+      kpiAssistsNote: "এল ক্লাসিকোর সর্বকালের রেকর্ড",
+      kpiWins: "জয়",
+      kpiWinsNote: "সকল প্রতিযোগিতা মিলিয়ে জয়",
       breakdownHead: "রিয়াল মাদ্রিদের বিরুদ্ধে মেসির সামগ্রিক পরিসংখ্যান",
+      tableCaption: "প্রতিযোগিতা অনুসারে রিয়াল মাদ্রিদের বিরুদ্ধে মেসির রেকর্ড",
+      thComp: "প্রতিযোগিতা",
+      thApps: "ম্যাচ",
+      thGoals: "গোল",
+      thAssists: "অ্যাসিস্ট",
+      compLaLiga: "লা লিগা",
+      compSupercopa: "স্প্যানিশ সুপার কাপ",
+      compUcl: "উয়েফা চ্যাম্পিয়নস লিগ",
+      compCdr: "কোপা দেল রে",
+      compTotal: "সর্বমোট (সকল প্রতিযোগিতা)",
       momentsHead: "বার্নাব্যু ও ক্যাম্প ন্যু-তে মেসির সেরা মুহূর্ত",
+      m1Name: "১৯ বছর বয়সে হ্যাটট্রিক (২০০৭)",
+      m1Goals: "ক্যাম্প ন্যু · ৩-৩",
+      m1Meta: "সিনিয়র ক্যারিয়ারের প্রথম হ্যাটট্রিক, যেখানে রিয়ালের বিপক্ষে ৩ বার সমতা ফেরান।",
+      m2Name: "ঐতিহাসিক ২-৬ ব্যবধানের জয় (২০০৯)",
+      m2Goals: "সান্তিয়াগো বার্নাব্যু · ২ গোল",
+      m2Meta: "বার্নাব্যুতে মেসির জন্য পেপ গার্দিওলার 'ফলস নাইন' পজিশনের সূচনা।",
+      m3Name: "চ্যাম্পিয়নস লিগে একক নৈপুণ্যের গোল (২০১১)",
+      m3Goals: "সান্তিয়াগো বার্নাব্যু · ০-২",
+      m3Meta: "চ্যাম্পিয়নস লিগের সেমিফাইনালে রিয়ালের ৪ ডিফেন্ডারকে কাটিয়ে করা জাদুকরী গোল।",
+      m4Name: "৫০০তম গোলে জার্সি উঁচিয়ে উদযাপন (২০১৭)",
+      m4Goals: "সান্তিয়াগো বার্নাব্যু · ২-৩",
+      m4Meta: "৯২তম মিনিটের জয়সূচক গোল এবং বার্নাব্যুর সামনে নিজের ১০ নম্বর জার্সি তুলে ধরা।",
       faqHead: "মেসি বনাম রিয়াল মাদ্রিদ সাধারণ জিজ্ঞাসা",
       exploreTitle: "সব পরিসংখ্যান দেখুন"
     },
@@ -1376,8 +1692,38 @@ function generateVsRealMadrid(lang) {
       desc: "रियल मैड्रिड के खिलाफ लियोनेल मेसी का ऐतिहासिक रिकॉर्ड: 45 मैचों में 26 गोल और 14 असिस्ट। एल क्लासिको के सर्वकालिक शीर्ष स्कोरर।",
       h1: "लियोनेल मेसी बनाम रियल मैड्रिड: एल क्लासिको के बादशाह",
       lede: "एल क्लासिको इतिहास के सबसे बड़े स्कोरर का पूरा रिकॉर्ड: रियल मैड्रिड के खिलाफ 45 मैचों में 26 गोल, 14 असिस्ट और 16 जीत।",
+      kpiApps: "मैच खेले",
+      kpiAppsNote: "सभी आधिकारिक मैच",
+      kpiGoals: "गोल",
+      kpiGoalsNote: "एल क्लासिको के सर्वकालिक #1 स्कोरर",
+      kpiAssists: "असिस्ट",
+      kpiAssistsNote: "एल क्लासिको का सर्वकालिक रिकॉर्ड",
+      kpiWins: "जीत",
+      kpiWinsNote: "सभी प्रतियोगिताओं में जीत",
       breakdownHead: "रियल मैड्रिड के खिलाफ मेसी के आंकड़ों का सारांश",
+      tableCaption: "प्रतियोगिता अनुसार रियल मैड्रिड के खिलाफ मेसी का रिकॉर्ड",
+      thComp: "प्रतियोगिता",
+      thApps: "मैच",
+      thGoals: "गोल",
+      thAssists: "असिस्ट",
+      compLaLiga: "ला लीगा",
+      compSupercopa: "सुपरकोपा डे एस्पान्या",
+      compUcl: "यूईएफए चैंपियंस लीग",
+      compCdr: "कोपा डेल रे",
+      compTotal: "कुल योग (सभी प्रतियोगिताएं)",
       momentsHead: "बर्नाबेउ और कैंप नोउ में मेसी के जादुई पल",
+      m1Name: "19 साल की उम्र में हैट्रिक (2007)",
+      m1Goals: "कैंप नोउ · 3-3",
+      m1Meta: "सीनियर करियर की पहली हैट्रिक, रियल मैड्रिड के खिलाफ 3 बार बराबरी की।",
+      m2Name: "ऐतिहासिक 2-6 की जीत (2009)",
+      m2Goals: "सैंटियागो बर्नाबेउ · 2 गोल",
+      m2Meta: "गार्डियोला ने मैड्रिड में लियो मेसी के लिए फाल्स 9 रोल की शुरुआत की।",
+      m3Name: "चैंपियंस लीग में जादुई सोलो गोल (2011)",
+      m3Goals: "सैंटियागो बर्नाबेउ · 0-2",
+      m3Meta: "चैंपियंस लीग सेमीफाइनल में मैड्रिड के 4 डिफेंडरों को छकाकर किया गया ऐतिहासिक गोल।",
+      m4Name: "500वें गोल पर जर्सी का ऐतिहासिक जश्न (2017)",
+      m4Goals: "सैंटियागो बर्नाबेउ · 2-3",
+      m4Meta: "92वें मिनट में विजयी गोल और बर्नाबेउ में अपनी 10 नंबर जर्सी को लहराने का ऐतिहासिक पल।",
       faqHead: "अक्सर पूछे जाने वाले सवाल",
       exploreTitle: "सभी आंकड़े देखें"
     },
@@ -1386,8 +1732,38 @@ function generateVsRealMadrid(lang) {
       desc: "Istoricul complet al lui Lionel Messi împotriva lui Real Madrid: 26 de goluri și 14 pase de gol în 45 de meciuri oficiale. Golgheterul El Clásico.",
       h1: "Lionel Messi vs Real Madrid: Regele din El Clásico",
       lede: "Istoricul complet al celui mai prolific marcator din istoria El Clásico: 26 de goluri, 14 assist-uri și 16 victorii în 45 de partide contra lui Real Madrid.",
+      kpiApps: "Meciuri Jucate",
+      kpiAppsNote: "Toate meciurile oficiale",
+      kpiGoals: "Goluri",
+      kpiGoalsNote: "Golgheterul all-time din El Clásico",
+      kpiAssists: "Pase de Gol",
+      kpiAssistsNote: "Record all-time în El Clásico",
+      kpiWins: "Victorii",
+      kpiWinsNote: "Victorii în toate competițiile",
       breakdownHead: "Rezumatul statistic al lui Messi contra lui Real Madrid",
+      tableCaption: "Palmaresul lui Messi contra lui Real Madrid pe competiții",
+      thComp: "Competiție",
+      thApps: "Meciuri",
+      thGoals: "Goluri",
+      thAssists: "Pase",
+      compLaLiga: "La Liga",
+      compSupercopa: "Supercupa Spaniei",
+      compUcl: "UEFA Champions League",
+      compCdr: "Copa del Rey",
+      compTotal: "Total în Toate Competițiile",
       momentsHead: "Nopți magice pe Bernabéu și Camp Nou",
+      m1Name: "Hat-trick la 19 ani (2007)",
+      m1Goals: "Camp Nou · 3-3",
+      m1Meta: "Primul hat-trick la seniori, egalând de 3 ori împotriva lui Real Madrid.",
+      m2Name: "Istoricul 2-6 (2009)",
+      m2Goals: "Santiago Bernabéu · 2 goluri",
+      m2Meta: "Guardiola inventează rolul de Fals 9 pentru Leo Messi pe Bernabéu.",
+      m3Name: "Golul antologic solitar din UCL (2011)",
+      m3Goals: "Santiago Bernabéu · 0-2",
+      m3Meta: "Slalom memorabil depășind 4 fundași madrileni în semifinala Ligii Campionilor.",
+      m4Name: "Sărbătorirea tricoului la Golul 500 (2017)",
+      m4Goals: "Santiago Bernabéu · 2-3",
+      m4Meta: "Gol victorios în minutul 92, urmat de ridicarea celebră a tricoului cu numărul 10.",
       faqHead: "Întrebări frecvente Messi vs Real Madrid",
       exploreTitle: "Explorează toate statisticile"
     },
@@ -1396,8 +1772,38 @@ function generateVsRealMadrid(lang) {
       desc: "Lionel Messining “Real Madrid”ga qarshi to'liq statistikasi: 45 ta o'yinda 26 ta gol va 14 ta assist. El-Klasiko tarixidagi eng yaxshi to'purar.",
       h1: "Lionel Messi vs Real Madrid: El-Klasiko Qiroli",
       lede: "El-Klasiko tarixidagi eng yaxshi to'purarning to'liq ko'rsatkichi: “Real Madrid”ga qarshi 45 ta o'yinda 26 ta gol, 14 ta golli uzatma va 16 ta g'alaba.",
+      kpiApps: "O'yinlar",
+      kpiAppsNote: "Barcha rasmiy o'yinlar",
+      kpiGoals: "Gollar",
+      kpiGoalsNote: "El-Klasiko tarixidagi mutlaq #1 to'purar",
+      kpiAssists: "Assistlar",
+      kpiAssistsNote: "El-Klasiko tarixidagi rekord",
+      kpiWins: "G'alabalar",
+      kpiWinsNote: "Barcha musobaqalardagi g'alabalar",
       breakdownHead: "Messining “Real Madrid”ga qarshi statistikasi xulosasi",
+      tableCaption: "Messining “Real Madrid”ga qarshi musobaqalar bo'yicha statistikasi",
+      thComp: "Musobaqa",
+      thApps: "O'yinlar",
+      thGoals: "Gollar",
+      thAssists: "Assistlar",
+      compLaLiga: "La Liga",
+      compSupercopa: "Ispaniya Superkubogi",
+      compUcl: "UEFA Chempionlar Ligasi",
+      compCdr: "Qirol Kubogi (Copa del Rey)",
+      compTotal: "Barcha musobaqalar jami",
       momentsHead: "Bernabeu va Kamp Noudagi afsonaviy lahzalar",
+      m1Name: "19 yoshda het-trik (2007)",
+      m1Goals: "Kamp Nou · 3-3",
+      m1Meta: "Karyerasidagi ilk het-trik, “Real Madrid”ga qarshi 3 marta hisobni tenglashtirgan.",
+      m2Name: "Tarixiy 2:6 (2009)",
+      m2Goals: "Santyago Bernabeu · 2 ta gol",
+      m2Meta: "Gvardiola Bernabeuda Leo Messi uchun “Soxta to'qqizlik” rolini yaratdi.",
+      m3Name: "ECHLdagi ajoyib yakkaxon gol (2011)",
+      m3Goals: "Santyago Bernabeu · 0-2",
+      m3Meta: "Chempionlar Ligasi yarim finalida “Real”ning 4 nafar himoyachisini aldab o'tilgan afsonaviy gol.",
+      m4Name: "500-gol va futbolka bilan nishonlash (2017)",
+      m4Goals: "Santyago Bernabeu · 2-3",
+      m4Meta: "92-daqiqadagi g'alaba goli va Bernabeuda 10-raqamli futbolkasini ko'rsatib nishonlashi.",
       faqHead: "Ko'p beriladigan savollar",
       exploreTitle: "Barcha statistikalarni o'rganing"
     }
@@ -1417,10 +1823,10 @@ ${renderRailNav(lang, "vs-real-madrid")}
 
 <!-- STATS CARDS -->
 <section class="kpis kpis-4" aria-label="El Clasico KPIs">
-  <div class="kpi"><span class="kpi-label">Appearances</span><span class="kpi-value">45</span><span class="kpi-note">All official matches</span></div>
-  <div class="kpi"><span class="kpi-label">Goals</span><span class="kpi-value">26</span><span class="kpi-note">All-time #1 El Clásico</span></div>
-  <div class="kpi"><span class="kpi-label">Assists</span><span class="kpi-value">14</span><span class="kpi-note">All-time #1 El Clásico</span></div>
-  <div class="kpi"><span class="kpi-label">Victories</span><span class="kpi-value">19</span><span class="kpi-note">Wins across all comps</span></div>
+  <div class="kpi"><span class="kpi-label">${dict.kpiApps}</span><span class="kpi-value">45</span><span class="kpi-note">${dict.kpiAppsNote}</span></div>
+  <div class="kpi"><span class="kpi-label">${dict.kpiGoals}</span><span class="kpi-value">26</span><span class="kpi-note">${dict.kpiGoalsNote}</span></div>
+  <div class="kpi"><span class="kpi-label">${dict.kpiAssists}</span><span class="kpi-value">14</span><span class="kpi-note">${dict.kpiAssistsNote}</span></div>
+  <div class="kpi"><span class="kpi-label">${dict.kpiWins}</span><span class="kpi-value">19</span><span class="kpi-note">${dict.kpiWinsNote}</span></div>
 </section>
 
 ${renderAdSlot(lang)}
@@ -1428,16 +1834,16 @@ ${renderAdSlot(lang)}
 <div class="shead"><h2>${dict.breakdownHead}</h2></div>
 <section class="card">
   <table class="data-table">
-    <caption>Messi records against Real Madrid by competition</caption>
+    <caption>${dict.tableCaption}</caption>
     <thead>
-      <tr><th scope="col" class="left">Competition</th><th scope="col">Apps</th><th scope="col">Goals</th><th scope="col">Assists</th></tr>
+      <tr><th scope="col" class="left">${dict.thComp}</th><th scope="col">${dict.thApps}</th><th scope="col">${dict.thGoals}</th><th scope="col">${dict.thAssists}</th></tr>
     </thead>
     <tbody>
-      <tr><th scope="row">La Liga</th><td>29</td><td><b>18</b></td><td>9</td></tr>
-      <tr><th scope="row">Supercopa de España</th><td>6</td><td><b>6</b></td><td>2</td></tr>
-      <tr><th scope="row">UEFA Champions League</th><td>4</td><td><b>2</b></td><td>0</td></tr>
-      <tr><th scope="row">Copa del Rey</th><td>6</td><td><b>0</b></td><td>3</td></tr>
-      <tr class="total"><th scope="row">All Competitions Total</th><td>45</td><td><b>26</b></td><td>14</td></tr>
+      <tr><th scope="row">${dict.compLaLiga}</th><td>29</td><td><b>18</b></td><td>9</td></tr>
+      <tr><th scope="row">${dict.compSupercopa}</th><td>6</td><td><b>6</b></td><td>2</td></tr>
+      <tr><th scope="row">${dict.compUcl}</th><td>4</td><td><b>2</b></td><td>0</td></tr>
+      <tr><th scope="row">${dict.compCdr}</th><td>6</td><td><b>0</b></td><td>3</td></tr>
+      <tr class="total"><th scope="row">${dict.compTotal}</th><td>45</td><td><b>26</b></td><td>14</td></tr>
     </tbody>
   </table>
 </section>
@@ -1447,24 +1853,24 @@ ${renderAdSlot(lang)}
 <div class="shead"><h2>${dict.momentsHead}</h2></div>
 <section class="team-grid">
   <div class="team-card">
-    <div class="team-name">Hat-trick at Age 19 (2007)</div>
-    <div class="team-goals">Camp Nou · 3-3</div>
-    <div class="team-meta">First senior career hat-trick, equalizing 3 times against Real Madrid.</div>
+    <div class="team-name">${dict.m1Name}</div>
+    <div class="team-goals">${dict.m1Goals}</div>
+    <div class="team-meta">${dict.m1Meta}</div>
   </div>
   <div class="team-card">
-    <div class="team-name">The Historic 2-6 (2009)</div>
-    <div class="team-goals">Santiago Bernabéu · 2 goals</div>
-    <div class="team-meta">Guardiola invents the False 9 role for Leo Messi in Madrid.</div>
+    <div class="team-name">${dict.m2Name}</div>
+    <div class="team-goals">${dict.m2Goals}</div>
+    <div class="team-meta">${dict.m2Meta}</div>
   </div>
   <div class="team-card">
-    <div class="team-name">UCL Solo Wonder Goal (2011)</div>
-    <div class="team-goals">Santiago Bernabéu · 0-2</div>
-    <div class="team-meta">Iconic slalom past 4 Madrid defenders in the Champions League semifinal.</div>
+    <div class="team-name">${dict.m3Name}</div>
+    <div class="team-goals">${dict.m3Goals}</div>
+    <div class="team-meta">${dict.m3Meta}</div>
   </div>
   <div class="team-card">
-    <div class="team-name">The 500th Goal Shirt Celebration (2017)</div>
-    <div class="team-goals">Santiago Bernabéu · 2-3</div>
-    <div class="team-meta">92nd-minute match winner followed by hoisting his #10 shirt to the Bernabéu.</div>
+    <div class="team-name">${dict.m4Name}</div>
+    <div class="team-goals">${dict.m4Goals}</div>
+    <div class="team-meta">${dict.m4Meta}</div>
   </div>
 </section>
 
@@ -1482,9 +1888,6 @@ ${renderBdayPromo(lang)}
 </html>`;
 }
 
-// -------------------------------------------------------------
-// EXECUTION
-// -------------------------------------------------------------
 const generators = {
   "dashboard.html": generateDashboard,
   "goalsbyseason.html": generateGoalsBySeason,

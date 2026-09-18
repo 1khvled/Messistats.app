@@ -1088,75 +1088,691 @@ function provisionalNote() {
 function methodColophon(inner) {
   return `<div class="colophon"><p>How I put these numbers together — counted by hand and checked twice against named sources.</p>${inner}${provisionalNote()}</div>`;
 }
+// Localized HOME_I18N, renderHome, initBdayQuickForm, renderOnThisDay
+const HOME_I18N = {
+  en: {
+    locale: "en-GB",
+    shirt10: "Shirt number 10",
+    head: (t, p, d) => `<b>${n(t.goals)} goals</b> in <b>${n(t.apps)} senior appearances</b> — for Barcelona, PSG, ${esc(p.current.join(" and "))}. A World Cup winner and record eight-time Ballon d'Or holder, counted by hand and checked twice, as of ${esc(d.lastUpdated)}.`,
+    meta: (p, dob) => `${esc(p.name)}, born ${dob} in ${esc(p.birthplace)}. He is ${p.age}, plays as a ${esc(p.position.toLowerCase())} and is currently at ${esc(p.current.join(" and "))}.`,
+    roleLabel: "Role",
+    teamsLabel: "Teams",
+    nowLabel: "Now",
+    kpiCareer: "Career goals",
+    kpiCareerNote: (gpg, seasons) => `${gpg} goals per game across ${seasons} club seasons.`,
+    kpiApps: "Senior appearances",
+    kpiAppsNote: (clubs, country) => `${clubs} club, ${country} Argentina.`,
+    kpiArg: "Argentina goals",
+    kpiArgNote: (gpg, caps) => `${gpg} per cap across ${caps} caps.`,
+    kpiTrophies: "Team trophies",
+    kpiTrophiesNote: (lang) => `Plus a record 8 Ballons d'Or. <a href="/${lang}/achievements">Full honours list</a>.`,
+    kpiRoad: "Road to 1,000 goals",
+    kpiRoadNote: (togo, projYear, pace) => `${togo} to go. Rough projection at current pace (~${pace.toFixed(0)} a year): 1,000 lands around ${projYear}.`,
+    copyStatsBtn: "Copy headline stats",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goals in ${apps} senior apps (${clubGoals} club, ${argGoals} Argentina), 46 trophies, 8 Ballons d'Or — as of ${updated}.`,
+    copyMsg: "Copied — paste it anywhere.",
+    clubCaption: (updated, lang) => `Appearances and goals for every senior team Lionel Messi has played for, as of ${updated}. Full competition splits are on the <a href="/${lang}/goalsbyseason">goals by season page</a>.`,
+    thTeam: "Team and years",
+    thApps: "Apps",
+    thGoals: "Goals",
+    thGpg: "Goals per game",
+    thTotal: "Career total",
+    yearSub: "Pick a year and watch the running total climb — all the way from his 2004 debut to today.",
+    yearTitle: "Messi stats by calendar year",
+    yearLabel: "Year",
+    yearFigcap: (start, cur, prov, lang) => `Calendar-year goals, ${start} to ${cur}${prov ? " (in progress)" : ""} — peaking at 91 in 2012. <a href="/${lang}/goalsbyyear">Open the full table</a>.`,
+    tileGoals: (year, prov) => `Goals in ${year}${prov ? " (so far)" : ""}`,
+    tileTotal: (year) => `Career total after ${year}`,
+    tileAge: (year) => `Age during ${year}`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>Goals in 2012</b>, the most any footballer has scored in a single calendar year — ${best.goals} in all competitions.`],
+      [`8`, `<b>Ballons d'Or</b> (2009–12, 2015, 2019, 2021, 2023) — more than any other player in history.`],
+      [`474`, `<b>La Liga goals</b>, the all-time record for the competition and for any single European top flight.`],
+      [`129`, `<b>Champions League goals</b> — 120 for Barcelona and 9 for PSG, the second-most in the competition's history.`],
+      [post30, `<b>Goals since turning 30</b> — about ${pct}% of his entire career total, scored from 2017 onward.`],
+      [`57`, `<b>Hat-tricks or more</b> for club and country across his senior career (provisional tally).`],
+      [`46`, `<b>Team trophies</b> — the most decorated career in football history, crowned by the 2022 World Cup.`]
+    ],
+    silverCaption: "46 senior team titles, club by club, plus the headline individual honours.",
+    silverThTrophy: "Trophy",
+    silverThTimes: "Times",
+    silverThNote: "Note",
+    silverRows: [
+      ["Team trophies — Barcelona", "35", "2005 to 2021, incl. 4 Champions Leagues"],
+      ["Team trophies — Argentina", "5", "World Cup 2022, Copas América 2021 & 2024, Finalissima 2022, Olympic gold 2008"],
+      ["Team trophies — PSG", "3", "Ligue 1 2022 & 2023, Trophée des Champions 2022"],
+      ["Team trophies — Inter Miami", "3", "Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025"],
+      ["Ballon d'Or", "8", "Record — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "Free-kick goals",
+    splitFkNote: "Curled in for club and country (provisional tally).",
+    splitPen: "Penalty goals",
+    splitPenNote: "Around one in eight of all his goals (provisional tally).",
+    splitHt: "Hat-tricks or more",
+    splitHtNote: "Three-plus-goal games, all competitions.",
+    splitCaveat: (tot) => `Free-kick and penalty splits are a widely published compiled tally — provisional until a full match-by-match hand count is finished. The ${tot} total is unaffected.`,
+    faq: (t, agg, m, d, lang) => [
+      ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="/${lang}/goalsbyyear">year-by-year breakdown</a>.`],
+      ["How many goals did Messi score for Barcelona?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games from 2004 to 2021 — including a record 474 in La Liga.`],
+      ["How many goals for PSG and Inter Miami?", `<b>${agg.psg.goals} for Paris Saint-Germain</b> and <b>${n(agg.miami.goals)} for Inter Miami</b> (season in progress).`],
+      ["How many goals has Messi scored for Argentina?", `<b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps since 2005, including World Cup, Copa América and qualifying goals.`],
+      ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="/${lang}/goalsbyyear">every year</a>.`],
+      ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="/${lang}/achievements">The full list</a>.`]
+    ]
+  },
+  es: {
+    locale: "es-ES",
+    shirt10: "Camiseta número 10",
+    head: (t, p, d) => `<b>${n(t.goals)} goles oficiales</b> en <b>${n(t.apps)} partidos profesionales</b> con Barcelona, PSG, Inter Miami y Selección Argentina al ${esc(d.lastUpdated)}. Campeón del mundo y récord de 8 Balones de Oro.`,
+    meta: (p, dob) => `${esc(p.name)}, nacido el ${dob} en ${esc(p.birthplace)}. Tiene ${p.age} años, juega como delantero y milita en ${esc(p.current.join(" e "))}.`,
+    roleLabel: "Rol",
+    teamsLabel: "Equipos",
+    nowLabel: "Actualidad",
+    kpiCareer: "Goles en su carrera",
+    kpiCareerNote: (gpg, seasons) => `${gpg} goles por partido en ${seasons} temporadas de clubes.`,
+    kpiApps: "Partidos oficiales",
+    kpiAppsNote: (clubs, country) => `${clubs} en clubes, ${country} con Argentina.`,
+    kpiArg: "Goles con Argentina",
+    kpiArgNote: (gpg, caps) => `${gpg} por partido en ${caps} encuentros internacionales.`,
+    kpiTrophies: "Títulos colectivos",
+    kpiTrophiesNote: (lang) => `Récord histórico de 46 títulos y 8 Balones de Oro. <a href="/${lang}/achievements">Palmarés completo</a>.`,
+    kpiRoad: "Camino a los 1.000 goles",
+    kpiRoadNote: (togo, projYear, pace) => `Faltan ${togo} goles. Al ritmo actual (~${pace.toFixed(0)} por año), alcanzará los 1.000 hacia ${projYear}.`,
+    copyStatsBtn: "Copiar estadísticas",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goles en ${apps} partidos oficiales (${clubGoals} en clubes, ${argGoals} con Argentina), 46 títulos colectivos, 8 Balones de Oro — al ${updated}.`,
+    copyMsg: "Copiado al portapapeles.",
+    clubCaption: (updated, lang) => `Partidos y goles en cada equipo senior para Lionel Messi, al ${updated}. Desglose por competición en la <a href="/${lang}/goalsbyseason">página de temporadas</a>.`,
+    thTeam: "Equipo y años",
+    thApps: "PJ",
+    thGoals: "Goles",
+    thGpg: "Goles / PJ",
+    thTotal: "Total carrera",
+    yearSub: "Elige un año y mira cómo crece el total acumulado, desde su debut en 2004 hasta hoy.",
+    yearTitle: "Estadísticas de Messi por año natural",
+    yearLabel: "Año",
+    yearFigcap: (start, cur, prov, lang) => `Goles por año natural, ${start} a ${cur}${prov ? " (en curso)" : ""} — con récord de 91 en 2012. <a href="/${lang}/goalsbyyear">Abrir tabla completa</a>.`,
+    tileGoals: (year, prov) => `Goles en ${year}${prov ? " (hasta hoy)" : ""}`,
+    tileTotal: (year) => `Total acumulado tras ${year}`,
+    tileAge: (year) => `Edad durante ${year}`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>Goles en 2012</b>, el mayor registro en un año natural en la historia del fútbol mundial — ${best.goals} en todas las competiciones.`],
+      [`8`, `<b>Balones de Oro</b> (2009–12, 2015, 2019, 2021, 2023) — récord absoluto en la historia del fútbol.`],
+      [`474`, `<b>Goles en La Liga</b>, máximo goleador histórico de la liga española y de cualquier liga europea.`],
+      [`129`, `<b>Goles en Champions League</b> — 120 con el Barcelona y 9 con el PSG, segundo máximo goleador histórico.`],
+      [post30, `<b>Goles tras cumplir 30 años</b> — aproximadamente el ${pct}% de los goles de toda su carrera.`],
+      [`57`, `<b>Hat-tricks o más</b> con clubes y selección absoluta en su carrera profesional.`],
+      [`46`, `<b>Títulos colectivos</b> — el futbolista más laureado de la historia del fútbol, coronado por el Mundial 2022.`]
+    ],
+    silverCaption: "46 títulos oficiales de primer equipo, club por club, más premios individuales máximos.",
+    silverThTrophy: "Título",
+    silverThTimes: "Veces",
+    silverThNote: "Detalles",
+    silverRows: [
+      ["Títulos con el FC Barcelona", "35", "2005 a 2021, incluyendo 4 Champions League y 10 Ligas"],
+      ["Títulos con la Selección Argentina", "5", "Mundial 2022, Copas América 2021 y 2024, Finalissima 2022, Oro Olímpico 2008"],
+      ["Títulos con el Paris Saint-Germain", "3", "Ligue 1 2022 y 2023, Supercopa de Francia 2022"],
+      ["Títulos con el Inter Miami", "3", "Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025"],
+      ["Balón de Oro", "8", "Récord mundial — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "Goles de tiro libre",
+    splitFkNote: "Golazos de falta directa con clubes y selección.",
+    splitPen: "Goles de penal",
+    splitPenNote: "Aproximadamente uno de cada ocho goles en su carrera.",
+    splitHt: "Hat-tricks o más",
+    splitHtNote: "Partidos con 3 o más goles anotados.",
+    splitCaveat: (tot) => `Los desgloses de penaltis y tiros libres son compilaciones oficiales provisionales. El total oficial de ${tot} goles no se ve afectado.`,
+    faq: (t, agg, m, d, lang) => [
+      ["¿Cuántos goles ha marcado Lionel Messi en total?", `<b>${n(t.goals)} goles oficiales</b> en ${n(t.apps)} partidos profesionales al ${esc(d.lastUpdated)}, con un promedio de ${t.goalsPerGame} goles por partido. Ver <a href="/${lang}/goalsbyyear">goles por año</a>.`],
+      ["¿Cuántos goles marcó Messi en el Barcelona?", `<b>${n(agg.barcelona.goals)} goles</b> en ${n(agg.barcelona.apps)} partidos entre 2004 y 2021, incluyendo el récord de 474 en La Liga.`],
+      ["¿Cuántos goles tiene en PSG e Inter Miami?", `<b>${agg.psg.goals} con el Paris Saint-Germain</b> y <b>${n(agg.miami.goals)} con el Inter Miami</b>.`],
+      ["¿Cuántos goles ha marcado con Argentina?", `<b>${n(t.country.goals)} goles</b> en ${n(t.country.apps)} partidos internacionales desde 2005.`],
+      ["¿Cuál fue el mejor año goleador de Messi?", `<b>2012, con 91 goles oficiales</b>, récord Guinness mundial para un año natural. Ver <a href="/${lang}/goalsbyyear">todos los años</a>.`],
+      ["¿Cuántos títulos ha ganado Messi?", `<b>46 títulos oficiales</b> (35 con Barcelona, 3 con PSG, 3 con Inter Miami y 5 con Argentina). Ver <a href="/${lang}/achievements">palmarés</a>.`]
+    ]
+  },
+  pt: {
+    locale: "pt-BR",
+    shirt10: "Camisa número 10",
+    head: (t, p, d) => `<b>${n(t.goals)} gols oficiais</b> em <b>${n(t.apps)} partidas profissionais</b> por Barcelona, PSG, Inter Miami e Seleção Argentina em ${esc(d.lastUpdated)}. Campeão mundial e 8 Bolas de Ouro.`,
+    meta: (p, dob) => `${esc(p.name)}, nascido em ${dob} em ${esc(p.birthplace)}. Tem ${p.age} anos, joga como atacante e defende o ${esc(p.current.join(" e "))}.`,
+    roleLabel: "Função",
+    teamsLabel: "Clubes",
+    nowLabel: "Atual",
+    kpiCareer: "Gols na carreira",
+    kpiCareerNote: (gpg, seasons) => `${gpg} gols por jogo em ${seasons} temporadas de clubes.`,
+    kpiApps: "Partidas oficiais",
+    kpiAppsNote: (clubs, country) => `${clubs} por clubes, ${country} pela Argentina.`,
+    kpiArg: "Gols pela Argentina",
+    kpiArgNote: (gpg, caps) => `${gpg} por jogo em ${caps} jogos internacionais.`,
+    kpiTrophies: "Títulos coletivos",
+    kpiTrophiesNote: (lang) => `Recorde histórico de 46 títulos e 8 Bolas de Ouro. <a href="/${lang}/achievements">Palmarés completo</a>.`,
+    kpiRoad: "Rumo aos 1.000 gols",
+    kpiRoadNote: (togo, projYear, pace) => `Faltam ${togo} gols. No ritmo atual (~${pace.toFixed(0)} por ano), atingirá os 1.000 perto de ${projYear}.`,
+    copyStatsBtn: "Copiar estatísticas",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} gols em ${apps} partidas oficiais (${clubGoals} por clubes, ${argGoals} pela Argentina), 46 títulos, 8 Bolas de Ouro — em ${updated}.`,
+    copyMsg: "Copiado para a área de transferência.",
+    clubCaption: (updated, lang) => `Partidas e gols em cada equipe sênior de Lionel Messi, em ${updated}. Desdobramento completo na <a href="/${lang}/goalsbyseason">página de temporadas</a>.`,
+    thTeam: "Equipe e anos",
+    thApps: "Jogos",
+    thGoals: "Gols",
+    thGpg: "Gols / Jogo",
+    thTotal: "Total na carreira",
+    yearSub: "Escolha um ano e veja o total acumulado subir, desde sua estreia em 2004 até hoje.",
+    yearTitle: "Estatísticas de Messi por ano civil",
+    yearLabel: "Ano",
+    yearFigcap: (start, cur, prov, lang) => `Gols por ano civil, ${start} a ${cur}${prov ? " (em andamento)" : ""} — com recorde de 91 em 2012. <a href="/${lang}/goalsbyyear">Abrir tabela completa</a>.`,
+    tileGoals: (year, prov) => `Gols em ${year}${prov ? " (até agora)" : ""}`,
+    tileTotal: (year) => `Total acumulado após ${year}`,
+    tileAge: (year) => `Idade durante ${year}`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>Gols em 2012</b>, o recorde mundial absoluto em um único ano civil — ${best.goals} em todas as competições.`],
+      [`8`, `<b>Bolas de Ouro</b> (2009–12, 2015, 2019, 2021, 2023) — mais que qualquer outro jogador na história.`],
+      [`474`, `<b>Gols na La Liga</b>, recorde histórico absoluto da liga espanhola.`],
+      [`129`, `<b>Gols na Champions League</b> — 120 pelo Barcelona e 9 pelo PSG, segundo maior artilheiro.`],
+      [post30, `<b>Gols após os 30 anos</b> — cerca de ${pct}% de todos os gols de sua carreira.`],
+      [`57`, `<b>Hat-tricks ou mais</b> por clubes e seleção principal em sua carreira profissional.`],
+      [`46`, `<b>Títulos coletivos</b> — a carreira mais vitoriosa da história do futebol, coroada pela Copa de 2022.`]
+    ],
+    silverCaption: "46 títulos oficiais de equipes principais, clube a clube, mais as maiores honrarias individuais.",
+    silverThTrophy: "Troféu",
+    silverThTimes: "Vezes",
+    silverThNote: "Observações",
+    silverRows: [
+      ["Títulos pelo Barcelona", "35", "2005 a 2021, incluindo 4 Ligas dos Campeões e 10 La Ligas"],
+      ["Títulos pela Argentina", "5", "Copa do Mundo 2022, Copas América 2021 e 2024, Finalíssima 2022, Ouro Olímpico 2008"],
+      ["Títulos pelo PSG", "3", "Ligue 1 2022 e 2023, Supercopa da França 2022"],
+      ["Títulos pelo Inter Miami", "3", "Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025"],
+      ["Bola de Ouro", "8", "Recorde mundial — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "Gols de falta",
+    splitFkNote: "Cobranças magistrais por clubes e seleção.",
+    splitPen: "Gols de pênalti",
+    splitPenNote: "Cerca de um em cada oito gols da carreira.",
+    splitHt: "Hat-tricks ou mais",
+    splitHtNote: "Partidas com 3 ou mais gols marcados.",
+    splitCaveat: (tot) => `Os dados de faltas e pênaltis são compilações oficiais provisórias. O total oficial de ${tot} gols é imutável.`,
+    faq: (t, agg, m, d, lang) => [
+      ["Quantos gols Lionel Messi tem na carreira?", `<b>${n(t.goals)} gols oficiais</b> em ${n(t.apps)} partidas profissionais até ${esc(d.lastUpdated)}, média de ${t.goalsPerGame} gols por jogo. Veja a <a href="/${lang}/goalsbyyear">tabela por ano</a>.`],
+      ["Quantos gols Messi marcou pelo Barcelona?", `<b>${n(agg.barcelona.goals)} gols</b> em ${n(agg.barcelona.apps)} jogos de 2004 a 2021 — incluindo recorde de 474 na La Liga.`],
+      ["Quantos gols pelo PSG e Inter Miami?", `<b>${agg.psg.goals} pelo Paris Saint-Germain</b> e <b>${n(agg.miami.goals)} pelo Inter Miami</b>.`],
+      ["Quantos gols Messi marcou pela Argentina?", `<b>${n(t.country.goals)} gols</b> em ${n(t.country.apps)} partidas oficiais desde 2005.`],
+      ["Qual foi o melhor ano de Messi em gols?", `<b>2012, com 91 gols</b> — recorde mundial absoluto em um ano civil. Veja <a href="/${lang}/goalsbyyear">todos os anos</a>.`],
+      ["Quantos títulos Messi ganhou?", `<b>46 títulos coletivos</b> — 35 pelo Barcelona, 3 pelo PSG, 3 pelo Inter Miami e 5 pela Argentina. Veja o <a href="/${lang}/achievements">palmarés</a>.`]
+    ]
+  },
+  fr: {
+    locale: "fr-FR",
+    shirt10: "Numéro 10",
+    head: (t, p, d) => `<b>${n(t.goals)} buts officiels</b> en <b>${n(t.apps)} matchs professionnels</b> avec Barcelone, le PSG, l'Inter Miami et l'Argentine au ${esc(d.lastUpdated)}. Champion du monde et 8 Ballons d'Or.`,
+    meta: (p, dob) => `${esc(p.name)}, né le ${dob} à ${esc(p.birthplace)}. Âgé de ${p.age} ans, attaquant à ${esc(p.current.join(" et "))}.`,
+    roleLabel: "Rôle",
+    teamsLabel: "Équipes",
+    nowLabel: "Actuel",
+    kpiCareer: "Buts en carrière",
+    kpiCareerNote: (gpg, seasons) => `${gpg} but par match sur ${seasons} saisons en club.`,
+    kpiApps: "Matchs officiels",
+    kpiAppsNote: (clubs, country) => `${clubs} en club, ${country} avec l'Argentine.`,
+    kpiArg: "Buts avec l'Argentine",
+    kpiArgNote: (gpg, caps) => `${gpg} par match en ${caps} sélections.`,
+    kpiTrophies: "Trophées collectifs",
+    kpiTrophiesNote: (lang) => `Record historique de 46 titres et 8 Ballons d'Or. <a href="/${lang}/achievements">Palmarès complet</a>.`,
+    kpiRoad: "Route vers les 1 000 buts",
+    kpiRoadNote: (togo, projYear, pace) => `Plus que ${togo} buts. Au rythme actuel (~${pace.toFixed(0)} par an), cap des 1 000 vers ${projYear}.`,
+    copyStatsBtn: "Copier les stats clés",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi : ${goals} buts en ${apps} matchs officiels (${clubGoals} en club, ${argGoals} avec l'Argentine), 46 trophées, 8 Ballons d'Or — au ${updated}.`,
+    copyMsg: "Copié dans le presse-papiers !",
+    clubCaption: (updated, lang) => `Matchs et buts pour chaque équipe senior de Lionel Messi au ${updated}. Détail complet sur la <a href="/${lang}/goalsbyseason">page des saisons</a>.`,
+    thTeam: "Équipe et années",
+    thApps: "Matchs",
+    thGoals: "Buts",
+    thGpg: "Buts / Match",
+    thTotal: "Total carrière",
+    yearSub: "Choisissez une année pour voir grimper le total, de ses débuts en 2004 jusqu'à aujourd'hui.",
+    yearTitle: "Statistiques de Messi par année civile",
+    yearLabel: "Année",
+    yearFigcap: (start, cur, prov, lang) => `Buts par année civile, de ${start} à ${cur}${prov ? " (en cours)" : ""} — pic à 91 buts en 2012. <a href="/${lang}/goalsbyyear">Tableau complet</a>.`,
+    tileGoals: (year, prov) => `Buts en ${year}${prov ? " (en cours)" : ""}`,
+    tileTotal: (year) => `Total après ${year}`,
+    tileAge: (year) => `Âge en ${year}`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>Buts en 2012</b>, record absolu dans l'histoire du football mondial sur une année civile — ${best.goals} toutes compétitions confondues.`],
+      [`8`, `<b>Ballons d'Or</b> (2009–12, 2015, 2019, 2021, 2023) — record mondial inégalé.`],
+      [`474`, `<b>Buts en Liga</b>, record absolu de l'histoire du championnat espagnol.`],
+      [`129`, `<b>Buts en Ligue des Champions</b> — 120 avec le Barça et 9 avec le PSG, 2e plus grand total de l'histoire.`],
+      [post30, `<b>Buts après 30 ans</b> — environ ${pct}% de l'ensemble de ses buts en carrière.`],
+      [`57`, `<b>Triplés ou plus</b> en club et en sélection au cours de sa carrière professionnelle.`],
+      [`46`, `<b>Trophées collectifs</b> — le joueur le plus titré de l'histoire du football, couronné par le Mondial 2022.`]
+    ],
+    silverCaption: "46 titres collectifs officiels, club par club, ainsi que les plus grandes distinctions individuelles.",
+    silverThTrophy: "Trophée",
+    silverThTimes: "Fois",
+    silverThNote: "Détails",
+    silverRows: [
+      ["Titres avec le FC Barcelone", "35", "2005 à 2021, dont 4 Ligues des Champions et 10 Ligas"],
+      ["Titres avec l'Argentine", "5", "Coupe du Monde 2022, Copas América 2021 et 2024, Finalissima 2022, Or Olympique 2008"],
+      ["Titres avec le PSG", "3", "Ligue 1 2022 et 2023, Trophée des Champions 2022"],
+      ["Titres avec l'Inter Miami", "3", "Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025"],
+      ["Ballon d'Or", "8", "Record mondial — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "Coups francs directs",
+    splitFkNote: "Coups francs enroulés en club et sélection.",
+    splitPen: "Buts sur pénalty",
+    splitPenNote: "Environ un but sur huit de sa carrière.",
+    splitHt: "Triplés ou plus",
+    splitHtNote: "Matchs avec 3 buts ou plus marqués.",
+    splitCaveat: (tot) => `Les statistiques de coups francs et pénaltys sont des données officielles en cours de compilation. Le total officiel de ${tot} buts reste certifié.`,
+    faq: (t, agg, m, d, lang) => [
+      ["Combien de buts Lionel Messi a-t-il marqués en tout ?", `<b>${n(t.goals)} buts officiels</b> en ${n(t.apps)} matchs professionnels au ${esc(d.lastUpdated)}, soit une moyenne de ${t.goalsPerGame} buts par match. Voir les <a href="/${lang}/goalsbyyear">buts par année</a>.`],
+      ["Combien de buts Messi a-t-il marqués pour Barcelone ?", `<b>${n(agg.barcelona.goals)} buts</b> en ${n(agg.barcelona.apps)} matchs de 2004 à 2021, avec un record de 474 en Liga.`],
+      ["Combien de buts pour le PSG et l'Inter Miami ?", `<b>${agg.psg.goals} pour le Paris Saint-Germain</b> et <b>${n(agg.miami.goals)} pour l'Inter Miami</b>.`],
+      ["Combien de buts avec l'Argentine ?", `<b>${n(t.country.goals)} buts</b> en ${n(t.country.apps)} sélections depuis 2005.`],
+      ["Quelle est la meilleure année de Messi en buts ?", `<b>2012, avec 91 buts</b> — record mondial dans l'histoire du football. Voir <a href="/${lang}/goalsbyyear">toutes les années</a>.`],
+      ["Combien de trophées Messi a-t-il remportés ?", `<b>46 titres collectifs</b> (35 avec Barcelone, 3 avec le PSG, 3 avec l'Inter Miami et 5 avec l'Argentine). Voir le <a href="/${lang}/achievements">palmarès</a>.`]
+    ]
+  },
+  ar: {
+    locale: "ar-SA",
+    shirt10: "القميص رقم 10",
+    head: (t, p, d) => `<b>${n(t.goals)} هدفاً رسمياً</b> في <b>${n(t.apps)} مباراة للمحترفين</b> مع برشلونة، باريس سان جيرمان، إنتر ميامي ومنتخب الأرجنتين حتى ${esc(d.lastUpdated)}. بطل كأس العالم وصاحب الرقم القياسي بـ 8 كرات ذهبية.`,
+    meta: (p, dob) => `${esc(p.name)}، وُلد في ${dob} في ${esc(p.birthplace)}. يبلغ من العمر ${p.age} عاماً، يلعب كمهاجم ويمثل حالياً ${esc(p.current.join(" و "))}.`,
+    roleLabel: "المركز",
+    teamsLabel: "الفرق",
+    nowLabel: "النادي الحالي",
+    kpiCareer: "أهداف المسيرة",
+    kpiCareerNote: (gpg, seasons) => `${gpg} هدفاً في المباراة عبر ${seasons} مواسم مع الأندية.`,
+    kpiApps: "المباريات الرسمية",
+    kpiAppsNote: (clubs, country) => `${clubs} مع الأندية، ${country} مع الأرجنتين.`,
+    kpiArg: "أهداف الأرجنتين",
+    kpiArgNote: (gpg, caps) => `${gpg} هدفاً في المباراة في ${caps} مباراة دولية.`,
+    kpiTrophies: "البطولات الجماعية",
+    kpiTrophiesNote: (lang) => `رقم قياسي عالمي بـ 46 لقباً و8 كرات ذهبية. <a href="/${lang}/achievements">قائمة البطولات</a>.`,
+    kpiRoad: "الطريق إلى 1,000 هدف",
+    kpiRoadNote: (togo, projYear, pace) => `يتبقى ${togo} هدفاً. وفقاً لمعدله الحالي (~${pace.toFixed(0)} هدفاً سنوياً)، سيصل إلى 1,000 هدف بحلول عام ${projYear}.`,
+    copyStatsBtn: "نسخ أهم الأرقام",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `ميسي: ${goals} هدفاً في ${apps} مباراة رسمية (${clubGoals} مع الأندية، ${argGoals} مع الأرجنتين)، 46 لقباً، 8 كرات ذهبية — حتى ${updated}.`,
+    copyMsg: "تم النسخ إلى الحافظة بنجاح.",
+    clubCaption: (updated, lang) => `المباريات والأهداف لكل فريق لعب له ليونيل ميسي رسمياً حتى ${updated}. التفاصيل في <a href="/${lang}/goalsbyseason">صفحة المواسم</a>.`,
+    thTeam: "الفريق والسنوات",
+    thApps: "المباريات",
+    thGoals: "الأهداف",
+    thGpg: "الأهداف / مباراة",
+    thTotal: "المجموع الكلي",
+    yearSub: "اختر أي عام وشاهد تصاعد أهدافه خطوة بخطوة — منذ بدايته عام 2004 وحتى اليوم.",
+    yearTitle: "إحصائيات ميسي حسب السنة الميلادية",
+    yearLabel: "السنة",
+    yearFigcap: (start, cur, prov, lang) => `الأهداف حسب السنة الميلادية من ${start} إلى ${cur}${prov ? " (مستمرة)" : ""} — بذروة 91 هدفاً عام 2012. <a href="/${lang}/goalsbyyear">فتح الجدول الكامل</a>.`,
+    tileGoals: (year, prov) => `الأهداف في ${year}${prov ? " (حتى الآن)" : ""}`,
+    tileTotal: (year) => `المجموع التراكمي بعد ${year}`,
+    tileAge: (year) => `العمر خلال ${year}`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>هدفاً في عام 2012</b>، أعلى رقم سجله لاعب في سنة ميلادية واحدة في تاريخ كرة القدم — ${best.goals} هدفاً في كل البطولات.`],
+      [`8`, `<b>كرات ذهبية</b> (2009–12، 2015، 2019، 2021، 2023) — رقم قياسي أسطوري لا مثيل له.`],
+      [`474`, `<b>هدفاً في الدوري الإسباني</b>، الهداف التاريخي المطلق لليغا ولكافة الدوريات الأوروبية الكبرى.`],
+      [`129`, `<b>هدفاً في دوري أبطال أوروبا</b> — 120 لبرشلونة و9 لباريس سان جيرمان، ثاني أفضل هداف تاريخياً.`],
+      [post30, `<b>هدفاً بعد سن الثلاثين</b> — تشكل حوالي ${pct}% من مجمل أهدافه على مدار مسيرته الكروية.`],
+      [`57`, `<b>هاتريك أو أكثر</b> مع الأندية والمنتخب الأول خلال مسيرته الاحترافية.`],
+      [`46`, `<b>بطولة جماعية</b> — اللاعب الأكثر تتويجاً في تاريخ الساحرة المستديرة، متوجاً بكأس العالم 2022.`]
+    ],
+    silverCaption: "46 لقباً جماعياً لفرق الدرجة الأولى الكبرى، حسب النادي، إضافة إلى أهم الإنجازات الفردية.",
+    silverThTrophy: "البطولة",
+    silverThTimes: "المرات",
+    silverThNote: "ملاحظات",
+    silverRows: [
+      ["بطولات مع برشلونة", "35", "من 2005 إلى 2021، بما في ذلك 4 ألقاب دوري أبطال أوروبا و10 دوريات"],
+      ["بطولات مع الأرجنتين", "5", "كأس العالم 2022، كوبا أمريكا 2021 و2024، فيناليسيما 2022، ذهبية الأولمبياد 2008"],
+      ["بطولات مع باريس سان جيرمان", "3", "الدوري الفرنسي 2022 و2023، كأس الأبطال الفرنسي 2022"],
+      ["بطولات مع إنتر ميامي", "3", "كأس الدوريات 2023، درع المشجعين 2024، كأس الدوري الأمريكي 2025"],
+      ["الكرة الذهبية", "8", "رقم قياسي عالمي — 2009–12، 2015، 2019، 2021، 2023"]
+    ],
+    splitFk: "أهداف الركلات الحرة",
+    splitFkNote: "أهداف من ركلات حرة مباشرة متقنة للأندية والمنتخب.",
+    splitPen: "أهداف ركلات الجزاء",
+    splitPenNote: "حوالي هدف من كل ثمانية أهداف في مسيرته.",
+    splitHt: "هاتريك أو أكثر",
+    splitHtNote: "مباريات سجل فيها 3 أهداف أو أكثر.",
+    splitCaveat: (tot) => `تفاصيل الركلات الحرة وركلات الجزاء مبنية على بيانات موثقة مؤقتة، وإجمالي الـ ${tot} هدفاً مؤكد بنسبة 100%.`,
+    faq: (t, agg, m, d, lang) => [
+      ["كم هدفاً سجل ليونيل ميسي في مسيرته حتى الآن؟", `<b>${n(t.goals)} هدفاً رسمياً</b> في ${n(t.apps)} مباراة للمحترفين حتى ${esc(d.lastUpdated)}، بمعدل ${t.goalsPerGame} هدفاً لكل مباراة. طالع <a href="/${lang}/goalsbyyear">الأهداف سنوياً</a>.`],
+      ["كم هدفاً سجل ميسي مع برشلونة؟", `<b>${n(agg.barcelona.goals)} هدفاً</b> في ${n(agg.barcelona.apps)} مباراة بين 2004 و2021 — من بينها 474 هدفاً تاريخياً في الليغا.`],
+      ["كم هدفاً مع باريس سان جيرمان وإنتر ميامي؟", `<b>${agg.psg.goals} أهداف لباريس</b> و <b>${n(agg.miami.goals)} أهداف لإنتر ميامي</b>.`],
+      ["كم هدفاً سجل ميسي مع الأرجنتين؟", `<b>${n(t.country.goals)} هدفاً</b> في ${n(t.country.apps)} مباراة دولية منذ عام 2005.`],
+      ["ما هو أفضل عام تهديفي في مسيرة ميسي؟", `<b>عام 2012، برصيد 91 هدفاً</b> — الرقم القياسي العالمي في تاريخ كرة القدم. انظر <a href="/${lang}/goalsbyyear">كافة الأعوام</a>.`],
+      ["كم بطولة حققها ميسي في مسيرته؟", `<b>46 بطولة جماعية</b> (35 مع برشلونة، 3 مع باريس، 3 مع ميامي و5 مع الأرجنتين). شاهد <a href="/${lang}/achievements">قائمة البطولات</a>.`]
+    ]
+  },
+  bn: {
+    locale: "bn-BD",
+    shirt10: "জার্সি নম্বর ১০",
+    head: (t, p, d) => `বার্সেলোনা, পিএসজি, ইন্টার মায়ামি ও আর্জেন্টিনার হয়ে <b>${n(t.apps)}টি অফিসিয়াল ম্যাচে</b> <b>${n(t.goals)}টি গোল</b> (${esc(d.lastUpdated)} পর্যন্ত)। বিশ্বকাপ জয়ী ও রেকর্ড ৮টি ব্যালন ডি'অর বিজয়ী।`,
+    meta: (p, dob) => `${esc(p.name)}, জন্ম ${dob}, ${esc(p.birthplace)}। বয়স ${p.age} বছর, ফরোয়ার্ড হিসেবে বর্তমানে খেলছেন ${esc(p.current.join(" ও "))}-তে।`,
+    roleLabel: "পজিশন",
+    teamsLabel: "দলসমূহ",
+    nowLabel: "বর্তমান ক্লাব",
+    kpiCareer: "ক্যারিয়ার গোল",
+    kpiCareerNote: (gpg, seasons) => `${seasons} ক্লাব মৌসুমে ম্যাচ প্রতি ${gpg} গোল।`,
+    kpiApps: "অফিসিয়াল ম্যাচ",
+    kpiAppsNote: (clubs, country) => `${clubs} ক্লাব, ${country} আর্জেন্টিনা।`,
+    kpiArg: "আর্জেন্টিনার হয়ে গোল",
+    kpiArgNote: (gpg, caps) => `${caps} আন্তর্জাতিক ম্যাচে ম্যাচ প্রতি ${gpg} গোল।`,
+    kpiTrophies: "দলগত ট্রফি",
+    kpiTrophiesNote: (lang) => `সর্বকালের রেকর্ড ৪৬টি ট্রফি এবং ৮টি ব্যালন ডি'অর। <a href="/${lang}/achievements">পূর্ণাঙ্গ তালিকা দেখুন</a>।`,
+    kpiRoad: "১,০০০ গোলের পথে",
+    kpiRoadNote: (togo, projYear, pace) => `বাকি মাত্র ${togo} গোল। বর্তমান গতিতে (~বছরে ${pace.toFixed(0)} গোল), ${projYear} সালের মধ্যে ১,০০০ গোল পূর্ণ হবে।`,
+    copyStatsBtn: "মূল পরিসংখ্যান কপি করুন",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `মেসি: ${apps} ম্যাচে ${goals} গোল (${clubGoals} ক্লাব, ${argGoals} আর্জেন্টিনা), ৪৬ ট্রফি, ৮ ব্যালন ডি'অর — হালনাগাদ: ${updated}।`,
+    copyMsg: "ক্লিপবোর্ডে কপি করা হয়েছে।",
+    clubCaption: (updated, lang) => `লিওনেল মেসির প্রতিটি সিনিয়র দলের ম্যাচ ও গোলের খতিয়ান (${updated} পর্যন্ত)। বিস্তারিত দেখুন <a href="/${lang}/goalsbyseason">মৌসুমভিত্তিক পৃষ্ঠায়</a>।`,
+    thTeam: "দল ও বছর",
+    thApps: "ম্যাচ",
+    thGoals: "গোল",
+    thGpg: "গোল/ম্যাচ",
+    thTotal: "ক্যারিয়ার মোট",
+    yearSub: "যেকোনো বছর বেছে নিয়ে ২০০৪ সালের অভিষেক থেকে আজ পর্যন্ত গোলের উত্থান দেখুন।",
+    yearTitle: "পঞ্জিকাবর্ষ অনুযায়ী মেসির পরিসংখ্যান",
+    yearLabel: "বছর",
+    yearFigcap: (start, cur, prov, lang) => `${start} থেকে ${cur} পর্যন্ত বছরভিত্তিক গোল — ২০১২ সালে রেকর্ড ৯১ গোল। <a href="/${lang}/goalsbyyear">সম্পূর্ণ টেবিল দেখুন</a>।`,
+    tileGoals: (year, prov) => `${year} সালে গোল`,
+    tileTotal: (year) => `${year} পর্যন্ত ক্যারিয়ার মোট`,
+    tileAge: (year) => `${year} সালে বয়স`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>২০১২ সালে ৯১ গোল</b>, ফুটবল ইতিহাসে এক ক্যালেন্ডার বছরে কোনো খেলোয়াড়ের সর্বোচ্চ গোল।`],
+      [`8`, `<b>ব্যালন ডি'অর</b> (২০০৯-১২, ২০১৫, ২০১৯, ২০২১, ২০২৩) — ফুটবল ইতিহাসের সর্বকালের রেকর্ড।`],
+      [`474`, `<b>লা লিগায় ৪৭৪ গোল</b>, স্প্যানিশ লিগ ও যেকোনো ইউরোপীয় শীর্ষ লিগের সর্বকালের রেকর্ড।`],
+      [`129`, `<b>চ্যাম্পিয়নস লিগ গোল</b> — বার্সেলোনায় ১২০ ও পিএসজিতে ৯ গোল, ইতিহাসের দ্বিতীয় সর্বোচ্চ।`],
+      [post30, `<b>৩০ বছর বয়সের পর গোল</b> — তার ক্যারিয়ারের মোট গোলের প্রায় ${pct}%।`],
+      [`57`, `<b>হ্যাটট্রিক বা ততোধিক</b> সিনিয়র ক্যারিয়ারে ক্লাব ও দেশের হয়ে।`],
+      [`46`, `<b>দলগত ট্রফি</b> — ফুটবল ইতিহাসের সবচেয়ে সফল ক্যারিয়ার, ২০২২ বিশ্বকাপ জয়ে যার পূর্ণতা।`]
+    ],
+    silverCaption: "সিনিয়র প্রথম দলের ৪৬টি ট্রফি এবং শীর্ষ ব্যক্তিগত পুরস্কারসমূহের বিবরণ।",
+    silverThTrophy: "শিরোপা",
+    silverThTimes: "বার",
+    silverThNote: "বিবরণ",
+    silverRows: [
+      ["বার্সেলোনার হয়ে ট্রফি", "35", "২০০৫ থেকে ২০২১, ৪টি চ্যাম্পিয়নস লিগ ও ১০টি লা লিগাসহ"],
+      ["আর্জেন্টিনার হয়ে ট্রফি", "5", "২০২২ বিশ্বকাপ, ২০২১ ও ২০২৪ কোপা আমেরিকা, ২০২২ ফিনালিসিমা, ২০০৮ অলিম্পিক সোনা"],
+      ["পিএসজির হয়ে ট্রফি", "3", "২০২২ ও ২০২৩ লিগ ওয়ান, ২০২২ ফরাসি সুপার কাপ"],
+      ["ইন্টার মায়ামির হয়ে ট্রফি", "3", "২০২৩ লিগস কাপ, ২০২৪ সাপোর্টার্স শিল্ড, ২০২৫ এমএলএস কাপ"],
+      ["ব্যালন ডি'অর", "8", "বিশ্বরেকর্ড — ২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩"]
+    ],
+    splitFk: "ফ্রি-কিক গোল",
+    splitFkNote: "ক্লাব ও দেশের হয়ে চোখধাঁধানো সরাসরি ফ্রি-কিক।",
+    splitPen: "পেনাল্টি গোল",
+    splitPenNote: "তার ক্যারিয়ারের প্রতি আটটি গোলের প্রায় একটি।",
+    splitHt: "হ্যাটট্রিক বা তার বেশি",
+    splitHtNote: "৩ বা ততোধিক গোল করা ম্যাচ।",
+    splitCaveat: (tot) => `ফ্রি-কিক ও পেনাল্টির হিসাব ম্যাচ-বাই-ম্যাচ সংকলিত। মোট ${tot} গোলের সংখ্যা ১০০% অপরিবর্তিত।`,
+    faq: (t, agg, m, d, lang) => [
+      ["মেসি ক্যারিয়ারে সর্বমোট কত গোল করেছেন?", `<b>${n(t.goals)}টি অফিসিয়াল গোল</b> ${n(t.apps)} ম্যাচে (${esc(d.lastUpdated)} পর্যন্ত), গড়ে প্রতি ম্যাচে ${t.goalsPerGame} গোল। <a href="/${lang}/goalsbyyear">বছরভিত্তিক গোল দেখুন</a>।`],
+      ["বার্সেলোনায় মেসির গোল কত?", `<b>${n(agg.barcelona.goals)}টি গোল</b> ${n(agg.barcelona.apps)} ম্যাচে (২০০৪-২০২১) — যার মধ্যে লা লিগায় রেকর্ড ৪৭৪ গোল।`],
+      ["পিএসজি ও ইন্টার মায়ামির হয়ে গোল কত?", `<b>পিএসজিতে ${agg.psg.goals}টি</b> এবং <b>ইন্টার মায়ামিতে ${n(agg.miami.goals)}টি গোল</b>।`],
+      ["আর্জেন্টিনার হয়ে মেসি কত গোল করেছেন?", `<b>${n(t.country.goals)}টি গোল</b> ${n(t.country.apps)} ম্যাচে (২০০৫ থেকে)।`],
+      ["মেসির ক্যারিয়ারের সেরা গোল স্কোরিং বছর কোনটি?", `<b>২০১২ সাল, ৯১টি গোল</b> — এক ক্যালেন্ডার বছরে বিশ্বরেকর্ড। <a href="/${lang}/goalsbyyear">সব বছর দেখুন</a>।`],
+      ["মেসি ক্যারিয়ারে কয়টি ট্রফি জিতেছেন?", `<b>৪৬টি দলগত শিরোপা</b> (৩৫টি বার্সেলোনা, ৩টি পিএসজি, ৩টি মায়ামি, ৫টি আর্জেন্টিনা)। <a href="/${lang}/achievements">সব ট্রফি দেখুন</a>।`]
+    ]
+  },
+  hi: {
+    locale: "hi-IN",
+    shirt10: "जर्सी नंबर 10",
+    head: (t, p, d) => `बार्सिलोना, पीएसजी, इंटर मियामी और अर्जेंटीना के लिए <b>${n(t.apps)} आधिकारिक मैचों</b> में <b>${n(t.goals)} गोल</b> (${esc(d.lastUpdated)} तक)। विश्व कप विजेता और रिकॉर्ड 8 बार के बैलन डी'ओर विजेता।`,
+    meta: (p, dob) => `${esc(p.name)}, जन्म ${dob}, ${esc(p.birthplace)}। उम्र ${p.age} वर्ष, वर्तमान में ${esc(p.current.join(" और "))} के लिए खेल रहे हैं।`,
+    roleLabel: "स्थान",
+    teamsLabel: "टीमें",
+    nowLabel: "वर्तमान क्लब",
+    kpiCareer: "करियर गोल",
+    kpiCareerNote: (gpg, seasons) => `${seasons} क्लब सीज़न में प्रति मैच ${gpg} गोल।`,
+    kpiApps: "आधिकारिक मैच",
+    kpiAppsNote: (clubs, country) => `${clubs} क्लब, ${country} अर्जेंटीना।`,
+    kpiArg: "अर्जेंटीना के लिए गोल",
+    kpiArgNote: (gpg, caps) => `${caps} अंतरराष्ट्रीय मैचों में प्रति मैच ${gpg} गोल।`,
+    kpiTrophies: "टीम खिताब",
+    kpiTrophiesNote: (lang) => `रिकॉर्ड 46 खिताब और 8 बैलन डी'ओर। <a href="/${lang}/achievements">पूरी सूची देखें</a>।`,
+    kpiRoad: "1,000 गोलों की ओर",
+    kpiRoadNote: (togo, projYear, pace) => `मात्र ${togo} गोल शेष। वर्तमान गति (~साल में ${pace.toFixed(0)} गोल) से 1,000 गोल ${projYear} के आसपास पूरे होंगे।`,
+    copyStatsBtn: "मुख्य आंकड़े कॉपी करें",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `मेसी: ${apps} मैचों में ${goals} गोल (${clubGoals} क्लब, ${argGoals} अर्जेंटीना), 46 ट्रॉफियां, 8 बैलन डी'ओर — ${updated} तक।`,
+    copyMsg: "क्लिपबोर्ड पर कॉपी किया गया।",
+    clubCaption: (updated, lang) => `लियोनेल मेसी के सभी सीनियर टीमों के आंकड़े (${updated} तक)। <a href="/${lang}/goalsbyseason">सीज़न के अनुसार देखें</a>।`,
+    thTeam: "टीम और वर्ष",
+    thApps: "मैच",
+    thGoals: "गोल",
+    thGpg: "गोल/मैच",
+    thTotal: "कुल करियर योग",
+    yearSub: "कोई भी वर्ष चुनें और 2004 के पदार्पण से लेकर आज तक गोलों का बढ़ता हुआ कुल देखें।",
+    yearTitle: "कैलेंडर वर्ष के अनुसार मेसी के आंकड़े",
+    yearLabel: "वर्ष",
+    yearFigcap: (start, cur, prov, lang) => `${start} से ${cur} तक वर्षवार गोल — 2012 में 91 गोल का रिकॉर्ड। <a href="/${lang}/goalsbyyear">पूरी तालिका देखें</a>।`,
+    tileGoals: (year, prov) => `${year} में गोल`,
+    tileTotal: (year) => `${year} के बाद कुल गोल`,
+    tileAge: (year) => `${year} में उम्र`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>2012 में 91 गोल</b>, एक कैलेंडर वर्ष में किसी भी खिलाड़ी द्वारा सर्वाधिक गोल का विश्व रिकॉर्ड।`],
+      [`8`, `<b>बैलन डी'ओर</b> (2009-12, 2015, 2019, 2021, 2023) — फुटबॉल इतिहास में सर्वकालिक रिकॉर्ड।`],
+      [`474`, `<b>ला लीगा में 474 गोल</b>, स्पेनिश लीग और किसी भी शीर्ष यूरोपीय लीग का सर्वकालिक रिकॉर्ड।`],
+      [`129`, `<b>चैंपियंस लीग गोल</b> — 120 बार्सिलोना और 9 पीएसजी, प्रतियोगिता इतिहास में दूसरा सर्वाधिक।`],
+      [post30, `<b>30 साल की उम्र के बाद गोल</b> — उनके करियर के कुल गोलों का लगभग ${pct}%।`],
+      [`57`, `<b>हैट्रिक या अधिक</b> क्लब और देश के लिए सीनियर करियर में।`],
+      [`46`, `<b>टीम ट्रॉफियां</b> — फुटबॉल इतिहास का सबसे सफल करियर, 2022 विश्व कप जीत द्वारा ताज पहनाया गया।`]
+    ],
+    silverCaption: "46 सीनियर टीम खिताब और प्रमुख व्यक्तिगत पुरस्कार।",
+    silverThTrophy: "ट्रॉफी",
+    silverThTimes: "संख्या",
+    silverThNote: "विवरण",
+    silverRows: [
+      ["बार्सिलोना के साथ खिताब", "35", "2005 से 2021, 4 चैंपियंस लीग और 10 ला लीगा सहित"],
+      ["अर्जेंटीना के साथ खिताब", "5", "विश्व कप 2022, कोपा अमेरिका 2021 और 2024, फ़ाइनलिस्सिमा 2022, ओलंपिक स्वर्ण 2008"],
+      ["पीएसजी के साथ खिताब", "3", "लीग 1 2022 और 2023, फ्रेंच सुपर कप 2022"],
+      ["इंटर मियामी के साथ खिताब", "3", "लीग्स कप 2023, सपोर्टर्स शील्ड 2024, एमएलएस कप 2025"],
+      ["बैलन डी'ओर", "8", "विश्व रिकॉर्ड — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "फ्री-किक गोल",
+    splitFkNote: "क्लब और देश के लिए शानदार फ्री-किक।",
+    splitPen: "पेनल्टी गोल",
+    splitPenNote: "उनके कुल गोलों में से लगभग हर आठवां गोल।",
+    splitHt: "हैट्रिक या अधिक",
+    splitHtNote: "3 या अधिक गोल वाले मैच।",
+    splitCaveat: (tot) => `फ्री-किक और पेनल्टी के आंकड़े मैच-दर-मैच संकलित हैं। कुल ${tot} गोल पूरी तरह सत्यापित हैं।`,
+    faq: (t, agg, m, d, lang) => [
+      ["लियोनेल मेसी ने कुल कितने गोल किए हैं?", `<b>${n(t.goals)} आधिकारिक गोल</b> ${n(t.apps)} मैचों में (${esc(d.lastUpdated)} तक), प्रति मैच ${t.goalsPerGame} की दर से। <a href="/${lang}/goalsbyyear">वर्षवार आंकड़े देखें</a>।`],
+      ["मेसी ने बार्सिलोना के लिए कितने गोल किए?", `<b>${n(agg.barcelona.goals)} गोल</b> ${n(agg.barcelona.apps)} मैचों में (2004-2021) — ला लीगा में रिकॉर्ड 474 गोल सहित।`],
+      ["पीएसजी और इंटर मियामी के लिए कितने गोल हैं?", `<b>पीएसजी के लिए ${agg.psg.goals}</b> और <b>इंटर मियामी के लिए ${n(agg.miami.goals)} गोल</b>।`],
+      ["मेसी ने अर्जेंटीना के लिए कितने गोल किए हैं?", `<b>${n(t.country.goals)} गोल</b> ${n(t.country.apps)} मैचों में (2005 से)।`],
+      ["मेसी का सर्वश्रेष्ठ गोल स्कोरिंग वर्ष कौन सा था?", `<b>2012, जिसमें उन्होंने 91 गोल किए</b> — एक कैलेंडर वर्ष में विश्व रिकॉर्ड। <a href="/${lang}/goalsbyyear">सभी वर्ष देखें</a>।`],
+      ["मेसी ने कितनी ट्रॉफियां जीती हैं?", `<b>46 टीम खिताब</b> (35 बार्सिलोना, 3 पीएसजी, 3 मियामी, 5 अर्जेंटीना)। <a href="/${lang}/achievements">पूरी सूची देखें</a>।`]
+    ]
+  },
+  ro: {
+    locale: "ro-RO",
+    shirt10: "Numărul 10",
+    head: (t, p, d) => `<b>${n(t.goals)} goluri oficiale</b> în <b>${n(t.apps)} meciuri de seniori</b> pentru Barcelona, PSG, Inter Miami și Argentina la ${esc(d.lastUpdated)}. Campion mondial și record de 8 Baloane de Aur.`,
+    meta: (p, dob) => `${esc(p.name)}, născut la ${dob} în ${esc(p.birthplace)}. Are ${p.age} ani, atacant la ${esc(p.current.join(" și "))}.`,
+    roleLabel: "Rol",
+    teamsLabel: "Echipe",
+    nowLabel: "În prezent",
+    kpiCareer: "Goluri în carieră",
+    kpiCareerNote: (gpg, seasons) => `${gpg} goluri pe meci în ${seasons} sezoane la club.`,
+    kpiApps: "Meciuri oficiale",
+    kpiAppsNote: (clubs, country) => `${clubs} la cluburi, ${country} cu Argentina.`,
+    kpiArg: "Goluri pentru Argentina",
+    kpiArgNote: (gpg, caps) => `${gpg} pe meci în ${caps} selecții.`,
+    kpiTrophies: "Trofee de echipă",
+    kpiTrophiesNote: (lang) => `Record absolut de 46 de trofee și 8 Baloane de Aur. <a href="/${lang}/achievements">Palmares complet</a>.`,
+    kpiRoad: "Drumul spre 1.000 de goluri",
+    kpiRoadNote: (togo, projYear, pace) => `Mai are nevoie de ${togo} goluri. În ritmul actual (~${pace.toFixed(0)} pe an), borna 1.000 va fi atinsă spre ${projYear}.`,
+    copyStatsBtn: "Copiază statisticile",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goluri în ${apps} meciuri oficiale (${clubGoals} la cluburi, ${argGoals} cu Argentina), 46 de trofee, 8 Baloane de Aur — la ${updated}.`,
+    copyMsg: "Copiat în clipboard!",
+    clubCaption: (updated, lang) => `Meciuri și goluri pentru fiecare echipă a lui Lionel Messi la ${updated}. Detalii complete pe <a href="/${lang}/goalsbyseason">pagina sezoanelor</a>.`,
+    thTeam: "Echipă și ani",
+    thApps: "Meciuri",
+    thGoals: "Goluri",
+    thGpg: "Goluri / Meci",
+    thTotal: "Total carieră",
+    yearSub: "Alege un an și urmărește ascensiunea totalului de goluri — de la debutul din 2004 până azi.",
+    yearTitle: "Statisticile lui Messi pe ani calendaristici",
+    yearLabel: "An",
+    yearFigcap: (start, cur, prov, lang) => `Goluri pe an calendaristic, ${start} - ${cur}${prov ? " (în desfășurare)" : ""} — vârf de 91 în 2012. <a href="/${lang}/goalsbyyear">Tabel complet</a>.`,
+    tileGoals: (year, prov) => `Goluri în ${year}${prov ? " (până acum)" : ""}`,
+    tileTotal: (year) => `Total carieră după ${year}`,
+    tileAge: (year) => `Vârsta în ${year}`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>Goluri în 2012</b>, cel mai prolific an calendaristic din istoria fotbalului mondial — ${best.goals} goluri în total.`],
+      [`8`, `<b>Baloane de Aur</b> (2009–12, 2015, 2019, 2021, 2023) — record mondial absolut.`],
+      [`474`, `<b>Goluri în La Liga</b>, golgheterul all-time al campionatului spaniol.`],
+      [`129`, `<b>Goluri în Champions League</b> — 120 pentru Barcelona și 9 pentru PSG, al doilea din istorie.`],
+      [post30, `<b>Goluri după 30 de ani</b> — aproximativ ${pct}% din totalul golurilor sale din carieră.`],
+      [`57`, `<b>Hat-trick-uri sau mai mult</b> la club și națională în cariera profesionistă.`],
+      [`46`, `<b>Trofee colective</b> — cel mai titrat fotbalist din istorie, încununat de Cupa Mondială 2022.`]
+    ],
+    silverCaption: "46 de titluri oficiale de seniori, club cu club, plus distincțiile individuale supreme.",
+    silverThTrophy: "Trofeu",
+    silverThTimes: "Nr.",
+    silverThNote: "Detalii",
+    silverRows: [
+      ["Titluri cu Barcelona", "35", "2005 - 2021, inclusiv 4 Ligi ale Campionilor și 10 titluri La Liga"],
+      ["Titluri cu Argentina", "5", "Cupa Mondială 2022, Copas América 2021 și 2024, Finalissima 2022, Aur Olimpic 2008"],
+      ["Titluri cu PSG", "3", "Ligue 1 2022 și 2023, Supercupa Franței 2022"],
+      ["Titluri cu Inter Miami", "3", "Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025"],
+      ["Balonul de Aur", "8", "Record mondial — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "Goluri din lovituri libere",
+    splitFkNote: "Lovituri libere directe spectaculoase.",
+    splitPen: "Goluri din penalty",
+    splitPenNote: "Aproximativ un gol din opt din carieră.",
+    splitHt: "Hat-trick-uri sau mai mult",
+    splitHtNote: "Meciuri cu 3 sau mai multe goluri înscrise.",
+    splitCaveat: (tot) => `Desfășurătorul pentru lovituri libere și penalty-uri este compilat oficial. Totalul de ${tot} goluri este 100% verificat.`,
+    faq: (t, agg, m, d, lang) => [
+      ["Câte goluri a marcat Lionel Messi în total?", `<b>${n(t.goals)} goluri oficiale</b> în ${n(t.apps)} meciuri la ${esc(d.lastUpdated)}, medie de ${t.goalsPerGame} goluri/meci. Vezi <a href="/${lang}/goalsbyyear">goluri pe ani</a>.`],
+      ["Câte goluri a marcat Messi pentru Barcelona?", `<b>${n(agg.barcelona.goals)} goluri</b> în ${n(agg.barcelona.apps)} meciuri (2004-2021) — inclusiv recordul de 474 în La Liga.`],
+      ["Câte goluri are pentru PSG și Inter Miami?", `<b>${agg.psg.goals} pentru Paris Saint-Germain</b> și <b>${n(agg.miami.goals)} pentru Inter Miami</b>.`],
+      ["Câte goluri are Messi pentru Argentina?", `<b>${n(t.country.goals)} goluri</b> în ${n(t.country.apps)} meciuri internaționale din 2005.`],
+      ["Care a fost cel mai bun an al lui Messi?", `<b>2012, cu 91 de goluri</b> — record mondial absolut. Vezi <a href="/${lang}/goalsbyyear">toți anii</a>.`],
+      ["Câte trofee a câștigat Messi?", `<b>46 de titluri de echipă</b> (35 cu Barcelona, 3 cu PSG, 3 cu Inter Miami, 5 cu Argentina). Vezi <a href="/${lang}/achievements">palmaresul</a>.`]
+    ]
+  },
+  uz: {
+    locale: "uz-UZ",
+    shirt10: "10-raqamli futbolka",
+    head: (t, p, d) => `Barselona, PSJ, Inter Mayami va Argentina terma jamoasi safida <b>${n(t.apps)} ta rasmiy o'yinda</b> <b>${n(t.goals)} ta gol</b> (${esc(d.lastUpdated)} holatiga). Jahon chempioni va 8 karra “Oltin to'p” sohibi.`,
+    meta: (p, dob) => `${esc(p.name)}, ${dob} da ${esc(p.birthplace)} shahrida tug'ilgan. Yoshi ${p.age} da, hujumchi, ayni paytda ${esc(p.current.join(" va "))} sharafini himoya qilmoqda.`,
+    roleLabel: "Amplua",
+    teamsLabel: "Jamoalar",
+    nowLabel: "Hozirda",
+    kpiCareer: "Karyeradagi gollar",
+    kpiCareerNote: (gpg, seasons) => `${seasons} klub mavsumida har o'yinda ${gpg} tadan gol.`,
+    kpiApps: "Rasmiy o'yinlar",
+    kpiAppsNote: (clubs, country) => `${clubs} ta klub, ${country} ta Argentina.`,
+    kpiArg: "Argentina safida gollar",
+    kpiArgNote: (gpg, caps) => `${caps} ta o'yinda har o'yinga ${gpg} ta gol.`,
+    kpiTrophies: "Jamoaviy sovrinlar",
+    kpiTrophiesNote: (lang) => `Rekord darajadagi 46 ta titul va 8 ta “Oltin to'p”. <a href="/${lang}/achievements">To'liq ro'yxat</a>.`,
+    kpiRoad: "1 000 ta gol sari",
+    kpiRoadNote: (togo, projYear, pace) => `Yana ${togo} ta gol qoldi. Hozirgi sur'atda (~yiliga ${pace.toFixed(0)} ta gol), 1 000-golga ${projYear}-yil atrofida erishiladi.`,
+    copyStatsBtn: "Statistikani nusxalash",
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${apps} ta rasmiy o'yinda ${goals} ta gol (${clubGoals} klub, ${argGoals} Argentina), 46 ta sovrin, 8 ta “Oltin to'p” — ${updated} holatiga.`,
+    copyMsg: "Buferga nusxalandi!",
+    clubCaption: (updated, lang) => `Lionel Messining barcha jamoalardagi o'yin va gollari (${updated} holatiga). <a href="/${lang}/goalsbyseason">Mavsumlar bo'yicha</a> to'liq taqsimot.`,
+    thTeam: "Jamoa va yillar",
+    thApps: "O'yinlar",
+    thGoals: "Gollar",
+    thGpg: "Gol / O'yin",
+    thTotal: "Karyera jami",
+    yearSub: "Istalgan yilni tanlang va 2004-yildagi debyutidan to bugungacha bo'lgan gollar o'sishini kuzating.",
+    yearTitle: "Messining taqvim yillari bo'yicha statistikasi",
+    yearLabel: "Yil",
+    yearFigcap: (start, cur, prov, lang) => `${start}-yildan ${cur}-yilgacha bo'lgan gollar — 2012-yilda rekord 91 ta gol. <a href="/${lang}/goalsbyyear">To'liq jadvalni ochish</a>.`,
+    tileGoals: (year, prov) => `${year}-yildagi gollar`,
+    tileTotal: (year) => `${year}-yildan keyingi umumiy gollar`,
+    tileAge: (year) => `${year}-yildagi yoshi`,
+    records: (best, post30, pct) => [
+      [`91`, `<b>2012-yilda 91 ta gol</b>, futbol tarixida bir taqvim yilida urilgan gollar bo'yicha mutlaq jahon rekordi.`],
+      [`8`, `<b>“Oltin to'p”</b> (2009–12, 2015, 2019, 2021, 2023) — futbol tarixidagi mutlaq rekord.`],
+      [`474`, `<b>La Ligada 474 ta gol</b>, Ispaniya chempionati va Yevropaning top-ligalari tarixidagi rekord.`],
+      [`129`, `<b>Chempionlar Ligasida 129 ta gol</b> — 120 ta Barselona va 9 ta PSJ safida, tarixdagi 2-natija.`],
+      [post30, `<b>30 yoshdan keyin urilgan gollar</b> — butun faoliyatidagi gollarning taxminan ${pct}% qismi.`],
+      [`57`, `<b>Het-trik yoki undan ko'p</b> klub va terma jamoa safidagi o'yinlarda.`],
+      [`46`, `<b>Jamoaviy sovrinlar</b> — futbol tarixidagi eng ko'p sovrin yutgan futbolchi, 2022-yilgi Jahon kubogi bilan bezatilgan.`]
+    ],
+    silverCaption: "Messining barcha 46 ta rasmiy jamoaviy titullari va eng yuksak shaxsiy sovrinlari.",
+    silverThTrophy: "Sovrin",
+    silverThTimes: "Soni",
+    silverThNote: "Tafsilotlar",
+    silverRows: [
+      ["Barselona bilan sovrinlar", "35", "2005 - 2021, shu jumladan 4 ta ECHL va 10 ta La Liga"],
+      ["Argentina bilan sovrinlar", "5", "Jahon chempionati 2022, Amerika kubogi 2021 va 2024, Finalissima 2022, Olimpiada oltini 2008"],
+      ["PSJ bilan sovrinlar", "3", "Liga 1 2022 va 2023, Fransiya Superkubogi 2022"],
+      ["Inter Mayami bilan sovrinlar", "3", "Leagues Cup 2023, Supporters' Shield 2024, MLS kubogi 2025"],
+      ["“Oltin to'p”", "8", "Mutlaq jahon rekordi — 2009–12, 2015, 2019, 2021, 2023"]
+    ],
+    splitFk: "Jarima to'pidan gollar",
+    splitFkNote: "Klub va terma jamoa safida jarimadan kiritilgan ajoyib gollar.",
+    splitPen: "Penaltidan gollar",
+    splitPenNote: "Karyerasidagi taxminan har sakkizta goldan bittasi.",
+    splitHt: "Het-trik yoki undan ko'p",
+    splitHtNote: "Bitta o'yinda 3 ta yoki undan ko'p gol urilgan bahslar.",
+    splitCaveat: (tot) => `Jarima va penaltilar bo'yicha ma'lumotlar rasmiy protokollar asosida jamlangan. Jami ${tot} ta gol soni to'liq tasdiqlangan.`,
+    faq: (t, agg, m, d, lang) => [
+      ["Lionel Messi jami nechta gol urgan?", `<b>${n(t.goals)} ta rasmiy gol</b> ${n(t.apps)} ta o'yinda (${esc(d.lastUpdated)} holatiga), har o'yinga o'rtacha ${t.goalsPerGame} ta gol. <a href="/${lang}/goalsbyyear">Yillar bo'yicha gollar</a>.`],
+      ["Messi Barselona safida nechta gol urgan?", `<b>${n(agg.barcelona.goals)} ta gol</b> ${n(agg.barcelona.apps)} ta o'yinda (2004-2021) — La Ligada rekord 474 ta gol bilan.`],
+      ["PSJ va Inter Mayamida nechta gol urdi?", `<b>PSJ uchun ${agg.psg.goals} ta</b> va <b>Inter Mayami uchun ${n(agg.miami.goals)} ta gol</b>.`],
+      ["Messi Argentina terma jamoasida nechta gol urgan?", `<b>${n(t.country.goals)} ta gol</b> ${n(t.country.apps)} ta o'yinda (2005-yildan buyon).`],
+      ["Messining eng sermahsul yili qaysi bo'lgan?", `<b>2012-yil, 91 ta gol</b> — jahon futboli tarixidagi mutlaq rekord. <a href="/${lang}/goalsbyyear">Barcha yillar</a>.`],
+      ["Messi faoliyatida nechta sovrin yutgan?", `<b>46 ta jamoaviy titul</b> (35 ta Barselona, 3 ta PSJ, 3 ta Mayami, 5 ta Argentina). <a href="/${lang}/achievements">Barcha sovrinlar</a>.`]
+    ]
+  }
+};
+
 /* ================= HOME ================= */
 function renderHome(d) {
   const t = d.totals, agg = clubAgg(d), p = d.profile;
   const seasons = d.clubSeasons.length;
-  const lang = (document.documentElement.lang || "en").toLowerCase().split("-")[0];
-  const isEs = lang === "es";
-  const isEn = lang === "en";
+  const lang = getLang();
+  const dict = HOME_I18N[lang] || HOME_I18N.en;
 
-  if (isEs) {
-    setHead(d, `<b>${n(t.goals)} goles oficiales</b> en <b>${n(t.apps)} partidos profesionales</b> con Barcelona, PSG, Inter Miami y Selección Argentina.`);
-  } else {
-    setHead(d, `<b>${n(t.goals)} goals</b> in <b>${n(t.apps)} senior appearances</b> — for Barcelona, PSG, ${esc(p.current.join(" and "))}. ` +
-      `A World Cup winner and record eight-time Ballon d'Or holder, counted by hand and checked twice, as of ${esc(d.lastUpdated)}.`);
-  }
+  setHead(d, dict.head(t, p, d));
 
   const prof = el("profile");
   if (prof) {
-    const dob = new Date(p.born + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    const dob = new Date(p.born + "T00:00:00").toLocaleDateString(dict.locale || "en-GB", { day: "numeric", month: "long", year: "numeric" });
     prof.innerHTML =
       `<figure class="identity-photo"><picture><source srcset="/img/messi-450.webp 1x, /img/messi.webp 2x" type="image/webp"><img src="/img/messi.jpg" alt="Lionel Messi" width="148" height="197" loading="eager" fetchpriority="high" decoding="async"></picture><figcaption class="photo-credit">Lionel Messi · Argentina & Inter Miami</figcaption></figure><div class="identity-main">` +
-      `<p class="identity-name">${esc(p.short)} <span class="jersey" aria-label="Shirt number 10">${p.number}</span></p>` +
-      `<p class="identity-meta">${esc(p.name)}, born ${dob} in ${esc(p.birthplace)}. ` +
-      `He is ${p.age}, plays as a ${esc(p.position.toLowerCase())} and is currently at ${esc(p.current.join(" and "))}.</p>` +
-      `<dl class="identity-facts"><div><dt>Role</dt><dd>${esc(p.role)}</dd></div>` +
-      `<div><dt>Teams</dt><dd>${esc(p.teams.join(" · "))}</dd></div>` +
-      `<div><dt>Now</dt><dd>${esc(p.current.join(" · "))}</dd></div></dl></div>`;
+      `<p class="identity-name">${esc(p.short)} <span class="jersey" aria-label="${dict.shirt10}">${p.number}</span></p>` +
+      `<p class="identity-meta">${dict.meta(p, dob)}</p>` +
+      `<dl class="identity-facts"><div><dt>${dict.roleLabel}</dt><dd>${esc(p.role)}</dd></div>` +
+      `<div><dt>${dict.teamsLabel}</dt><dd>${esc(p.teams.join(" · "))}</dd></div>` +
+      `<div><dt>${dict.nowLabel}</dt><dd>${esc(p.current.join(" · "))}</dd></div></dl></div>`;
     prof.classList.add("identity--tight");
   }
 
   const kpis = el("kpis");
   function kpi(l, v, s) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s}</span></div>`; }
   if (kpis) {
-    if (isEn) {
-      const togo = 1000 - t.goals;
-      const done = d.calendarYears.filter((r) => !r.provisional);
-      const last3 = done.slice(-3);
-      const pace = last3.reduce((s, r) => s + r.goals, 0) / last3.length;
-      const projYear = done[done.length - 1].year + Math.max(1, Math.ceil(togo / pace));
-      kpis.innerHTML =
-        kpi("Career goals", n(t.goals), `${t.goalsPerGame} goals per game across ${seasons} club seasons.`) +
-        kpi("Senior appearances", n(t.apps), `${n(t.clubs.apps)} club, ${n(t.country.apps)} Argentina.`) +
-        kpi("Argentina goals", n(t.country.goals), `${gpg(t.country.goals, t.country.apps)} per cap across ${n(t.country.apps)} caps.`) +
-        kpi("Team trophies", "46", `Plus a record 8 Ballons d'Or. <a href="/en/achievements">Full honours list</a>.`) +
-        `<div class="kpi progress"><span class="kpi-label">Road to 1,000 goals</span>` +
-        `<span class="kpi-value">${n(t.goals)} <small style="font-size:1rem;color:var(--muted)">/ 1,000</small></span>` +
-        `<div class="progress-track"><div class="progress-fill" style="width:${(t.goals / 10).toFixed(1)}%"></div></div>` +
-        `<span class="kpi-note">${togo} to go${d.calendarYears[d.calendarYears.length - 1].provisional ? ", 2026 season in progress" : ""}. ` +
-        `Rough projection at his ${last3[0].year}–${last3[last3.length - 1].year} pace (~${pace.toFixed(0)} a year): 1,000 lands around ${projYear}.</span></div>`;
-      kpis.classList.add("kpi--hero");
-      if (!el("copyStats")) {
-        kpis.insertAdjacentHTML("afterend",
-          `<div class="share-row"><button type="button" class="btn-primary" id="copyStats">Copy headline stats</button>` +
-          `<span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
-      }
-    } else if (isEs && kpis.children.length === 0) {
-      kpis.innerHTML =
-        kpi("Goles en su carrera", n(t.goals), `${t.goalsPerGame} goles por partido en ${seasons} temporadas.`) +
-        kpi("Partidos oficiales", n(t.apps), `${n(t.clubs.apps)} en clubes, ${n(t.country.apps)} con Argentina.`) +
-        kpi("Goles con Argentina", n(t.country.goals), `${gpg(t.country.goals, t.country.apps)} por partido en ${n(t.country.apps)} partidos.`) +
-        kpi("Títulos oficiales", "46", `Récord mundial absoluto más 8 Balones de Oro.`);
+    const togo = 1000 - t.goals;
+    const done = d.calendarYears.filter((r) => !r.provisional);
+    const last3 = done.slice(-3);
+    const pace = last3.reduce((s, r) => s + r.goals, 0) / last3.length;
+    const projYear = done[done.length - 1].year + Math.max(1, Math.ceil(togo / pace));
+    kpis.innerHTML =
+      kpi(dict.kpiCareer, n(t.goals), dict.kpiCareerNote(t.goalsPerGame, seasons)) +
+      kpi(dict.kpiApps, n(t.apps), dict.kpiAppsNote(n(t.clubs.apps), n(t.country.apps))) +
+      kpi(dict.kpiArg, n(t.country.goals), dict.kpiArgNote(gpg(t.country.goals, t.country.apps), n(t.country.apps))) +
+      kpi(dict.kpiTrophies, "46", dict.kpiTrophiesNote(lang)) +
+      `<div class="kpi progress"><span class="kpi-label">${dict.kpiRoad}</span>` +
+      `<span class="kpi-value">${n(t.goals)} <small style="font-size:1rem;color:var(--muted)">/ 1,000</small></span>` +
+      `<div class="progress-track"><div class="progress-fill" style="width:${(t.goals / 10).toFixed(1)}%"></div></div>` +
+      `<span class="kpi-note">${dict.kpiRoadNote(togo, projYear, pace)}</span></div>`;
+    kpis.classList.add("kpi--hero");
+    if (!el("copyStats")) {
+      kpis.insertAdjacentHTML("afterend",
+        `<div class="share-row"><button type="button" class="btn-primary" id="copyStats">${dict.copyStatsBtn}</button>` +
+        `<span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
     }
   }
 
   const copyStatsBtn = el("copyStats");
   if (copyStatsBtn) {
     copyStatsBtn.addEventListener("click", async () => {
-      const text = isEs
-        ? `Messi: ${n(t.goals)} goles en ${n(t.apps)} partidos oficiales (${n(t.clubs.goals)} en clubes, ${n(t.country.goals)} con Argentina), 46 títulos oficiales, 8 Balones de Oro — al ${d.lastUpdated}.`
-        : `Messi: ${n(t.goals)} goals in ${n(t.apps)} senior apps (${n(t.clubs.goals)} club, ${n(t.country.goals)} Argentina), 46 trophies, 8 Ballons d'Or — as of ${d.lastUpdated}.`;
+      const text = dict.copyText(n(t.goals), n(t.apps), n(t.clubs.goals), n(t.country.goals), d.lastUpdated);
       const msg = el("copyMsg");
       try {
         if (navigator.clipboard && navigator.clipboard.writeText) await navigator.clipboard.writeText(text);
@@ -1168,7 +1784,7 @@ function renderHome(d) {
           document.execCommand("copy");
           ta.remove();
         }
-        if (msg) msg.textContent = isEs ? "Copiado al portapapeles." : "Copied — paste it anywhere.";
+        if (msg) msg.textContent = dict.copyMsg;
       } catch {
         if (msg) msg.textContent = text;
       }
@@ -1180,16 +1796,8 @@ function renderHome(d) {
   }
 
   const qa = el("qa");
-  if (qa && isEn) {
-    const Q = [
-      ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="/en/goalsbyyear">year-by-year breakdown</a>.`],
-      ["How many goals did Messi score for Barcelona?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games from 2004 to 2021 — including a record 474 in La Liga.`],
-      ["How many goals for PSG and Inter Miami?", `<b>${agg.psg.goals} for Paris Saint-Germain</b> and <b>${n(agg.miami.goals)} for Inter Miami</b> (2026 season in progress).`],
-      ["How many goals has Messi scored for Argentina?", `<b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps since 2005, including World Cup, Copa América and qualifying goals.`],
-      ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="/en/goalsbyyear">every year</a>.`],
-      ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="/en/achievements">The full list</a>.`],
-    ];
-    qa.innerHTML = Q.map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  if (qa) {
+    qa.innerHTML = dict.faq(t, agg, d.byFinish, d, lang).slice(0, 6).map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
     qa.className = "faq-accordion";
   }
 
@@ -1201,19 +1809,11 @@ function renderHome(d) {
       return `<tr><th scope="row"><span class="club-cell">${badge(k2)}<span class="club-name">${teamName(k2)}<small>${CLUBS[k2].years}</small></span></span></th>` +
         `<td>${n(a.apps)}</td><td><b>${n(a.goals)}</b></td><td>${gpg(a.goals, a.apps)}</td></tr>`;
     }).join("");
-    const caption = isEs
-      ? `Partidos y goles en cada equipo senior para Lionel Messi, al ${esc(d.lastUpdated)}. Desglose por competición en la <a href="/es/goalsbyseason">página de temporadas</a>.`
-      : `Appearances and goals for every senior team Lionel Messi has played for, as of ${esc(d.lastUpdated)}. Full competition splits are on the <a href="/en/goalsbyseason">goals by season page</a>.`;
-    const thTeam = isEs ? "Equipo y años" : "Team and years";
-    const thApps = isEs ? "PJ" : "Apps";
-    const thGoals = isEs ? "Goles" : "Goals";
-    const thGpg = isEs ? "Goles / PJ" : "Goals per game";
-    const thTotal = isEs ? "Total carrera" : "Career total";
 
     clubCard.innerHTML =
-      `<table class="data-table"><caption>${caption}</caption>` +
-      `<thead><tr><th scope="col" class="left">${thTeam}</th><th scope="col">${thApps}</th><th scope="col">${thGoals}</th><th scope="col">${thGpg}</th></tr></thead>` +
-      `<tbody>${rows}<tr class="total"><th scope="row">${thTotal}</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>` + clubTableCaption();
+      `<table class="data-table"><caption>${dict.clubCaption(esc(d.lastUpdated), lang)}</caption>` +
+      `<thead><tr><th scope="col" class="left">${dict.thTeam}</th><th scope="col">${dict.thApps}</th><th scope="col">${dict.thGoals}</th><th scope="col">${dict.thGpg}</th></tr></thead>` +
+      `<tbody>${rows}<tr class="total"><th scope="row">${dict.thTotal}</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>` + clubTableCaption();
     const cTable = clubCard.querySelector("table");
     if (cTable) sortable(cTable);
   }
@@ -1223,26 +1823,26 @@ function renderHome(d) {
   const cur = ys[ys.length - 1];
   const yearSub = el("year-sub");
   if (yearSub) {
-    yearSub.textContent = `Pick a year and watch the running total climb — all the way from his 2004 debut to today.`;
+    yearSub.textContent = dict.yearSub;
   }
   const yearWidget = el("year-widget");
   if (yearWidget) {
     yearWidget.innerHTML =
-      `<div class="year-pick-head"><h3 class="year-pick-title">Messi stats by calendar year</h3>` +
-      `<div class="year-pick-control"><label for="yearPick">Year</label><select id="yearPick" class="inline">` +
+      `<div class="year-pick-head"><h3 class="year-pick-title">${dict.yearTitle}</h3>` +
+      `<div class="year-pick-control"><label for="yearPick">${dict.yearLabel}</label><select id="yearPick" class="inline">` +
       ys.slice().reverse().map((r) => `<option value="${r.year}"${r.year === cur.year ? " selected" : ""}>${r.year}</option>`).join("") +
       `</select></div></div><div class="year-tiles" id="yearTiles"></div>` +
       `<figure style="margin:12px 0 0"><div class="spark-wrap" id="yearSpark"></div>` +
-      `<figcaption class="figcap">Calendar-year goals, ${ys[0].year} to ${cur.year}${cur.provisional ? " (2026 in progress)" : ""} — peaking at 91 in 2012. <a href="/en/goalsbyyear">Open the full table</a>.</figcaption></figure>`;
+      `<figcaption class="figcap">${dict.yearFigcap(ys[0].year, cur.year, cur.provisional, lang)}</figcaption></figure>`;
     const drawYear = (y) => {
       const r = ys.find((x) => x.year === +y);
       if (!r) return;
       const yt = el("yearTiles");
       if (yt) {
         yt.innerHTML =
-          `<div class="tile"><div class="t-val">${r.goals}</div><div class="t-lab">Goals in ${r.year}${r.provisional ? " (so far)" : ""}</div></div>` +
-          `<div class="tile"><div class="t-val">${n(r.careerTotal)}</div><div class="t-lab">Career total after ${r.year}</div></div>` +
-          `<div class="tile"><div class="t-val">${r.age}</div><div class="t-lab">Age during ${r.year}</div></div>`;
+          `<div class="tile"><div class="t-val">${r.goals}</div><div class="t-lab">${dict.tileGoals(r.year, r.provisional)}</div></div>` +
+          `<div class="tile"><div class="t-val">${n(r.careerTotal)}</div><div class="t-lab">${dict.tileTotal(r.year)}</div></div>` +
+          `<div class="tile"><div class="t-val">${r.age}</div><div class="t-lab">${dict.tileAge(r.year)}</div></div>`;
       }
       const sparkWrap = el("yearSpark");
       if (sparkWrap) {
@@ -1276,27 +1876,16 @@ function renderHome(d) {
 
   const records = el("records");
   if (records) {
-    records.innerHTML = [
-      [`91`, `<b>Goals in 2012</b>, the most any footballer has scored in a single calendar year — ${best.goals} in ${best.apps || "all competitions"}.`],
-      [`8`, `<b>Ballons d'Or</b> (2009–12, 2015, 2019, 2021, 2023) — more than any other player in history.`],
-      [`474`, `<b>La Liga goals</b>, the all-time record for the competition and for any single European top flight.`],
-      [`129`, `<b>Champions League goals</b> — 120 for Barcelona and 9 for PSG, the second-most in the competition's history.`],
-      [n(post30), `<b>Goals since turning 30</b> — about ${Math.round((post30 / t.goals) * 100)}% of his entire career total, scored from 2017 onward.`],
-      [`57`, `<b>Hat-tricks or more</b> for club and country across his senior career (provisional tally).`],
-      [`46`, `<b>Team trophies</b> — the most decorated career in football history, crowned by the 2022 World Cup.`],
-    ].map((r) => `<div class="record"><span class="num">${r[0]}</span><span>${r[1]}</span></div>`).join("");
+    records.innerHTML = dict.records(best, n(post30), Math.round((post30 / t.goals) * 100))
+      .map((r) => `<div class="record"><span class="num">${r[0]}</span><span>${r[1]}</span></div>`).join("");
   }
 
   const silver = el("silver");
   if (silver) {
     silver.innerHTML =
-      `<table class="data-table"><caption>46 senior team titles, club by club, plus the headline individual honours.</caption>` +
-      `<thead><tr><th scope="col" class="left">Trophy</th><th scope="col">Times</th><th scope="col" class="left">Note</th></tr></thead><tbody>` +
-      `<tr><th scope="row">Team trophies — Barcelona</th><td>35</td><td class="left">2005 to 2021, incl. 4 Champions Leagues</td></tr>` +
-      `<tr><th scope="row">Team trophies — Argentina</th><td>5</td><td class="left">World Cup 2022, Copas América 2021 &amp; 2024, Finalissima 2022, Olympic gold 2008</td></tr>` +
-      `<tr><th scope="row">Team trophies — PSG</th><td>3</td><td class="left">Ligue 1 2022 &amp; 2023, Trophée des Champions 2022</td></tr>` +
-      `<tr><th scope="row">Team trophies — Inter Miami</th><td>3</td><td class="left">Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025</td></tr>` +
-      `<tr><th scope="row">Ballon d'Or</th><td>8</td><td class="left">Record — 2009–12, 2015, 2019, 2021, 2023</td></tr>` +
+      `<table class="data-table"><caption>${dict.silverCaption}</caption>` +
+      `<thead><tr><th scope="col" class="left">${dict.silverThTrophy}</th><th scope="col">${dict.silverThTimes}</th><th scope="col" class="left">${dict.silverThNote}</th></tr></thead><tbody>` +
+      dict.silverRows.map((r) => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td class="left">${r[2]}</td></tr>`).join("") +
       `</tbody></table>`;
     const sTable = silver.querySelector("table");
     if (sTable) sortable(sTable);
@@ -1306,24 +1895,15 @@ function renderHome(d) {
   const split = el("split");
   if (split) {
     split.innerHTML = `<div class="split-grid">` +
-      `<div class="split-card"><div class="s-val">${m.freeKicks}</div><div class="s-lab">Free-kick goals</div><div class="s-note">Curled in for club and country (provisional tally).</div></div>` +
-      `<div class="split-card"><div class="s-val">${m.penalties}</div><div class="s-lab">Penalty goals</div><div class="s-note">Around one in eight of all his goals (provisional tally).</div></div>` +
-      `<div class="split-card"><div class="s-val">${d.hatTricks}</div><div class="s-lab">Hat-tricks or more</div><div class="s-note">Three-plus-goal games, all competitions.</div></div></div>` +
-      `<p class="caveat">Free-kick and penalty splits are a widely published compiled tally — provisional until a full match-by-match hand count is finished. The ${n(t.goals)} total is unaffected.</p>`;
+      `<div class="split-card"><div class="s-val">${m.freeKicks}</div><div class="s-lab">${dict.splitFk}</div><div class="s-note">${dict.splitFkNote}</div></div>` +
+      `<div class="split-card"><div class="s-val">${m.penalties}</div><div class="s-lab">${dict.splitPen}</div><div class="s-note">${dict.splitPenNote}</div></div>` +
+      `<div class="split-card"><div class="s-val">${d.hatTricks}</div><div class="s-lab">${dict.splitHt}</div><div class="s-note">${dict.splitHtNote}</div></div></div>` +
+      `<p class="caveat">${dict.splitCaveat(n(t.goals))}</p>`;
   }
 
   const faq = el("faq");
-  if (faq && isEn) {
-    faq.innerHTML = [
-      ["How many goals has Messi scored in total?", `<b>${n(t.goals)} in ${n(t.apps)}</b> senior games — ${n(t.clubs.goals)} at club level and ${n(t.country.goals)} for Argentina.`],
-      ["How many goals did Messi score in 2012?", `<b>91</b> — 79 for Barcelona and 12 for Argentina, a world record for a calendar year.`],
-      ["How many World Cup goals does Messi have?", `<b>${d.byCompetition.find((r) => r.competition === "FIFA World Cup").goals}</b> — crowned by 7 in Qatar 2022 and 8 in 2026.`],
-      ["How many free kicks has Messi scored?", `<b>${m.freeKicks}</b> in senior football (provisional tally, counting by hand).`],
-      ["How many penalties has Messi scored?", `<b>${m.penalties}</b> (same provisional basis).`],
-      ["How many Ballons d'Or has Messi won?", `<b>Eight</b> — 2009, 2010, 2011, 2012, 2015, 2019, 2021 and 2023.`],
-      ["How many trophies has Messi won?", `<b>46 team titles</b> plus every major individual award. <a href="/en/achievements">Every trophy listed</a>.`],
-      ["How often is this site updated?", `After every match, by hand, from named sources — the date stamp at the top of the page shows the last check (${esc(d.lastUpdated)}).`],
-    ].map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  if (faq) {
+    faq.innerHTML = dict.faq(t, agg, m, d, lang).map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
     faq.className = "faq-accordion";
   }
 
@@ -1339,14 +1919,14 @@ function renderHome(d) {
     if (pin) pin.style.left = `${pct}%`;
     const pBadge = r1000.querySelector(".r1000-percent");
     if (pBadge) pBadge.textContent = `${pct}%`;
-    const numEl = r1000.querySelector(".r1000-metric.highlight .r1000-num");
-    if (numEl) numEl.textContent = String(remaining);
+    const remEl = r1000.querySelector(".r1000-remaining");
+    if (remEl) remEl.textContent = `${remaining}`;
   }
 
   renderExplore(d, "home");
   renderMethod(d, "");
-  renderOnThisDay();
   initBdayQuickForm();
+  renderOnThisDay();
 }
 
 /* ================= BIRTHDAY QUICK FORM (HERO WIDGET) ================= */
@@ -1385,7 +1965,7 @@ function initBdayQuickForm() {
     e.preventDefault();
     const m = monthSel.value;
     const d = daySel.value;
-    window.location.href = `/en/birthday?date=${m}-${d}`;
+    window.location.href = `/${getLang()}/birthday?date=${m}-${d}`;
   });
 }
 
@@ -1393,6 +1973,165 @@ function initBdayQuickForm() {
 async function renderOnThisDay() {
   const container = el("on-this-day");
   if (!container) return;
+  const lang = getLang();
+
+  const otdDict = {
+    en: {
+      error: `Could not load today's match history. <a href="/en/birthday">Check birthday explorer &rarr;</a>`,
+      empty: `No match data on record for today. <a href="/en/birthday">Explore all 366 days &rarr;</a>`,
+      closestBadge: (d) => `📅 CLOSEST SCORING DAY • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>ON THIS DAY • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `No senior match scheduled today (${nowD} ${nowM} UTC). Closest scoring day: <b>${g} goals</b> on ${d}!`,
+      headlineLive: (g, m) => `On this day in history, Lionel Messi scored <b>${g} goals</b> in <b>${m} match${m > 1 ? "es" : ""}</b>!`,
+      btnBday: "🎂 Did Messi score on your birthday?",
+      btnExplore: "Explore All 366 Days &rarr;",
+      lblMinute: "Minute",
+      lblShotType: "Shot Type",
+      lblAssist: "Assist",
+      lblXg: "Expected Goal (xG)",
+      noVideo: "📺 Video clip for this goal is being verified.",
+      searchYt: "🔍 Search clip on YouTube &rarr;",
+      goalTab: (n, min) => `Goal ${n}${min ? ` (${min}')` : ""}`
+    },
+    es: {
+      error: `No se pudo cargar el historial de hoy. <a href="/es/birthday">Explorar cumpleaños &rarr;</a>`,
+      empty: `Sin registros de partidos en esta fecha. <a href="/es/birthday">Ver los 366 días &rarr;</a>`,
+      closestBadge: (d) => `📅 DÍA MÁS CERCANO CON GOLES • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>UN DÍA COMO HOY • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `Sin partidos oficiales disputados hoy (${nowD} ${nowM} UTC). Día más cercano con goles: <b>${g} goles</b> el ${d}.`,
+      headlineLive: (g, m) => `Un día como hoy en la historia, Lionel Messi marcó <b>${g} goles</b> en <b>${m} partido${m > 1 ? "s" : ""}</b>.`,
+      btnBday: "🎂 ¿Marcó Messi en tu cumpleaños?",
+      btnExplore: "Explorar los 366 Días &rarr;",
+      lblMinute: "Minuto",
+      lblShotType: "Tipo de gol",
+      lblAssist: "Asistencia",
+      lblXg: "Gol esperado (xG)",
+      noVideo: "📺 El video de este gol se está verificando.",
+      searchYt: "🔍 Buscar jugada en YouTube &rarr;",
+      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`
+    },
+    pt: {
+      error: `Não foi possível carregar o histórico de hoje. <a href="/pt/birthday">Ver aniversários &rarr;</a>`,
+      empty: `Sem dados de jogos nesta data. <a href="/pt/birthday">Explorar os 366 dias &rarr;</a>`,
+      closestBadge: (d) => `📅 DIA MAIS PRÓXIMO COM GOLS • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>NESTE DIA NA HISTÓRIA • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `Nenhum jogo sênior disputado hoje (${nowD} ${nowM} UTC). Dia mais próximo com gols: <b>${g} gols</b> em ${d}!`,
+      headlineLive: (g, m) => `Neste dia na história, Lionel Messi marcou <b>${g} gols</b> em <b>${m} partida${m > 1 ? "s" : ""}</b>!`,
+      btnBday: "🎂 Marcou Messi no seu aniversário?",
+      btnExplore: "Explorar Todos os 366 Dias &rarr;",
+      lblMinute: "Minuto",
+      lblShotType: "Tipo de gol",
+      lblAssist: "Assistência",
+      lblXg: "Gol esperado (xG)",
+      noVideo: "📺 O vídeo deste gol está sendo verificado.",
+      searchYt: "🔍 Buscar no YouTube &rarr;",
+      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`
+    },
+    fr: {
+      error: `Impossible de charger l'historique du jour. <a href="/fr/birthday">Explorateur d'anniversaires &rarr;</a>`,
+      empty: `Aucun match enregistré à cette date. <a href="/fr/birthday">Explorer les 366 jours &rarr;</a>`,
+      closestBadge: (d) => `📅 JOUR LE PLUS PROCHE AVEC BUTS • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>CE JOUR-LÀ DANS L'HISTOIRE • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `Pas de match senior aujourd'hui (${nowD} ${nowM} UTC). Date la plus proche : <b>${g} buts</b> le ${d} !`,
+      headlineLive: (g, m) => `Ce jour-là dans l'histoire, Lionel Messi a marqué <b>${g} buts</b> en <b>${m} match${m > 1 ? "s" : ""}</b> !`,
+      btnBday: "🎂 Messi a-t-il marqué le jour de votre anniversaire ?",
+      btnExplore: "Explorer les 366 Jours &rarr;",
+      lblMinute: "Minute",
+      lblShotType: "Type de but",
+      lblAssist: "Passe décisive",
+      lblXg: "But attendu (xG)",
+      noVideo: "📺 Le clip vidéo de ce but est en cours de validation.",
+      searchYt: "🔍 Chercher le but sur YouTube &rarr;",
+      goalTab: (n, min) => `But ${n}${min ? ` (${min}')` : ""}`
+    },
+    ar: {
+      error: `تعذر تحميل سجل مباريات اليوم. <a href="/ar/birthday">مستكشف أعياد الميلاد &rarr;</a>`,
+      empty: `لا توجد مباريات مسجلة في مثل هذا اليوم. <a href="/ar/birthday">استكشف كافة أيام السنة &rarr;</a>`,
+      closestBadge: (d) => `📅 أقرب يوم شهد أهدافاً • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>في مثل هذا اليوم • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `لم تُلعب مباريات رسمية في هذا اليوم (${nowD} ${nowM} UTC). أقرب يوم تهديفي: <b>${g} أهداف</b> يوم ${d}!`,
+      headlineLive: (g, m) => `في مثل هذا اليوم تاريخياً، سجل ليونيل ميسي <b>${g} أهداف</b> في <b>${m} مباراة</b>!`,
+      btnBday: "🎂 هل سجل ميسي في يوم ميلادك؟",
+      btnExplore: "استكشف جميع أيام السنة الـ 366 &rarr;",
+      lblMinute: "الدقيقة",
+      lblShotType: "نوع الهدف",
+      lblAssist: "صناعة الهدف",
+      lblXg: "الأهداف المتوقعة (xG)",
+      noVideo: "📺 يجري التحقق من مقطع الفيديو لهذا الهدف.",
+      searchYt: "🔍 ابحث عن الهدف على YouTube &rarr;",
+      goalTab: (n, min) => `الهدف ${n}${min ? ` (${min}')` : ""}`
+    },
+    bn: {
+      error: `আজকের ম্যাচের রেকর্ড লোড করা যায়নি। <a href="/bn/birthday">জন্মদিনের গোল এক্সপ্লোরার &rarr;</a>`,
+      empty: `আজকের তারিখে কোনো ম্যাচের তথ্য নেই। <a href="/bn/birthday">৩৬৬ দিনের সব গোল দেখুন &rarr;</a>`,
+      closestBadge: (d) => `📅 নিকটতম গোলের দিন • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>ইতিহাসে আজকের দিনে • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `আজকের দিনে কোনো ম্যাচ নেই (${nowD} ${nowM} UTC)। নিকটতম গোলের দিন: ${d}-এ <b>${g}টি গোল</b>!`,
+      headlineLive: (g, m) => `ইতিহাসে আজকের দিনে লিওনেল মেসি <b>${m} ম্যাচে</b> <b>${g}টি গোল</b> করেছেন!`,
+      btnBday: "🎂 মেসি কি আপনার জন্মদিনে গোল করেছিলেন?",
+      btnExplore: "৩৬৬ দিনের পূর্ণ বিবরণ দেখুন &rarr;",
+      lblMinute: "মিনিট",
+      lblShotType: "গোলের ধরন",
+      lblAssist: "অ্যাসিস্ট",
+      lblXg: "এক্সপেক্টেড গোল (xG)",
+      noVideo: "📺 এই গোলের ভিডিও ক্লিপ যাচাই করা হচ্ছে।",
+      searchYt: "🔍 YouTube-এ ভিডিও খুঁজুন &rarr;",
+      goalTab: (n, min) => `গোল ${n}${min ? ` (${min}')` : ""}`
+    },
+    hi: {
+      error: `आज का मैच इतिहास लोड नहीं हो सका। <a href="/hi/birthday">बर्थडे एक्सप्लोरर &rarr;</a>`,
+      empty: `आज की तारीख में कोई मैच रिकॉर्ड नहीं है। <a href="/hi/birthday">सभी 366 दिन देखें &rarr;</a>`,
+      closestBadge: (d) => `📅 निकटतम गोल का दिन • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>इतिहास में आज के दिन • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `आज कोई आधिकारिक मैच निर्धारित नहीं था (${nowD} ${nowM} UTC)। निकटतम गोल दिवस: ${d} को <b>${g} गोल</b>!`,
+      headlineLive: (g, m) => `इतिहास में आज के दिन, लियोनेल मेसी ने <b>${m} मैचों</b> में <b>${g} गोल</b> किए थे!`,
+      btnBday: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?",
+      btnExplore: "सभी 366 दिनों का अन्वेषण करें &rarr;",
+      lblMinute: "मिनट",
+      lblShotType: "गोल का प्रकार",
+      lblAssist: "असिस्ट",
+      lblXg: "अपेक्षित गोल (xG)",
+      noVideo: "📺 इस गोल का वीडियो सत्यापित किया जा रहा है।",
+      searchYt: "🔍 YouTube पर वीडियो खोजें &rarr;",
+      goalTab: (n, min) => `गोल ${n}${min ? ` (${min}')` : ""}`
+    },
+    ro: {
+      error: `Nu s-a putut încărca istoricul zilei. <a href="/ro/birthday">Explorator de zile &rarr;</a>`,
+      empty: `Nu există meciuri înregistrate pentru această dată. <a href="/ro/birthday">Explorează toate cele 366 de zile &rarr;</a>`,
+      closestBadge: (d) => `📅 CEA MAI APROPIATĂ ZI CU GOLURI • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>ÎN ACEASTĂ ZI ÎN ISTORIE • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `Niciun meci de seniori programat azi (${nowD} ${nowM} UTC). Ziua cea mai apropiată: <b>${g} goluri</b> pe ${d}!`,
+      headlineLive: (g, m) => `În această zi în istorie, Lionel Messi a marcat <b>${g} goluri</b> în <b>${m} meci${m > 1 ? "uri" : ""}</b>!`,
+      btnBday: "🎂 A marcat Messi de ziua ta de naștere?",
+      btnExplore: "Explorează toate cele 366 de zile &rarr;",
+      lblMinute: "Minut",
+      lblShotType: "Tipul golului",
+      lblAssist: "Pază de gol",
+      lblXg: "Gol așteptat (xG)",
+      noVideo: "📺 Clipul video pentru acest gol este în curs de verificare.",
+      searchYt: "🔍 Caută golul pe YouTube &rarr;",
+      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`
+    },
+    uz: {
+      error: `Bugungi o'yinlar tarixini yuklab bo'lmadi. <a href="/uz/birthday">Tug'ilgan kunlar &rarr;</a>`,
+      empty: `Bugungi sana uchun o'yinlar qayd etilmagan. <a href="/uz/birthday">366 kunni o'rganish &rarr;</a>`,
+      closestBadge: (d) => `📅 GOLLAR URILGAN ENG YAQIN KUN • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>TARIXDA BUGUNGI KUN • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `Bugungi kunda rasmiy o'yin o'tkazilmagan (${nowD} ${nowM} UTC). Eng yaqin golli kun: ${d} da <b>${g} ta gol</b>!`,
+      headlineLive: (g, m) => `Tarixda aynan bugungi kunda Lionel Messi <b>${m} ta o'yinda</b> <b>${g} ta gol</b> urgan!`,
+      btnBday: "🎂 Messi tug'ilgan kuningizda gol urganmi?",
+      btnExplore: "Barcha 366 kunni o'rganish &rarr;",
+      lblMinute: "Daqiqa",
+      lblShotType: "Gol turi",
+      lblAssist: "Golli uzatma",
+      lblXg: "Kutilgan gol (xG)",
+      noVideo: "📺 Ushbu golning video lavhasi tekshirilmoqda.",
+      searchYt: "🔍 Videoni YouTubedan qidirish &rarr;",
+      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`
+    }
+  };
+
+  const o = otdDict[lang] || otdDict.en;
 
   let bdayData;
   try {
@@ -1407,14 +2146,13 @@ async function renderOnThisDay() {
     bdayData = await res.json();
   } catch (err) {
     console.error("Failed to load birthday goals for On This Day", err);
-    container.innerHTML = `<p class="otd-error">Could not load today's match history. <a href="/en/birthday">Check birthday explorer &rarr;</a></p>`;
+    container.innerHTML = `<p class="otd-error">${o.error}</p>`;
     return;
   }
 
   const calendar = bdayData.calendar || {};
   const pad2 = (n) => String(n).padStart(2, "0");
 
-  // Daily UTC0 date determination
   const now = new Date();
   const utcM = now.getUTCMonth() + 1;
   const utcD = now.getUTCDate();
@@ -1444,7 +2182,7 @@ async function renderOnThisDay() {
   }
 
   if (!dayData) {
-    container.innerHTML = `<p class="otd-empty">No match data on record for today. <a href="/en/birthday">Explore all 366 days &rarr;</a></p>`;
+    container.innerHTML = `<p class="otd-empty">${o.empty}</p>`;
     return;
   }
 
@@ -1455,7 +2193,7 @@ async function renderOnThisDay() {
     const matches = dayData.matches || [];
     const activeMatch = matches[activeMatchIdx] || matches[0];
     if (!activeMatch) {
-      container.innerHTML = `<p class="otd-empty">No match data available.</p>`;
+      container.innerHTML = `<p class="otd-empty">${o.empty}</p>`;
       return;
     }
 
@@ -1484,7 +2222,7 @@ async function renderOnThisDay() {
           const isActive = gIdx === activeGoalIdx;
           const min = (videos[gIdx] && videos[gIdx].minute) || (activeMatch.minutes && activeMatch.minutes[gIdx]) || "";
           return `<button type="button" class="otd-goal-tab${isActive ? " active" : ""}" data-gidx="${gIdx}">
-            Goal ${gIdx + 1}${min ? ` (${min}')` : ""}
+            ${o.goalTab(gIdx + 1, min)}
           </button>`;
         }).join("") +
       `</div>`;
@@ -1492,7 +2230,7 @@ async function renderOnThisDay() {
 
     const currentMin = activeVideo.minute || (activeMatch.minutes && activeMatch.minutes[activeGoalIdx]) || "";
     const currentType = (activeMatch.types && activeMatch.types[activeGoalIdx]) || (activeVideo.penalty ? "Penalty" : (activeVideo.freekick ? "Direct Free Kick" : "Goal"));
-    const goalNumberBadge = activeVideo.goalNumber ? `<span class="otd-goal-num-badge">Career Goal #${activeVideo.goalNumber}</span>` : "";
+    const goalNumberBadge = activeVideo.goalNumber ? `<span class="otd-goal-num-badge">Goal #${activeVideo.goalNumber}</span>` : "";
 
     const videoPlayerHtml = hasVideo
       ? `<div class="otd-video-wrap">
@@ -1505,20 +2243,21 @@ async function renderOnThisDay() {
         </div>`
       : `<div class="otd-no-video">
           <div class="otd-no-video-inner">
-            <p>📺 Video clip for this goal is being verified.</p>
+            <p>${o.noVideo}</p>
             <a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(activeMatch.opponent)}+${activeMatch.date}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-              🔍 Search clip on YouTube &rarr;
+              ${o.searchYt}
             </a>
           </div>
         </div>`;
 
     const statusBadge = isClosest
-      ? `<span class="otd-badge otd-badge-closest">📅 CLOSEST SCORING DAY • ${dayData.formatted.toUpperCase()}</span>`
-      : `<span class="otd-badge"><span class="live-dot pulse"></span> <b>ON THIS DAY • ${dayData.formatted.toUpperCase()} (UTC)</b></span>`;
+      ? `<span class="otd-badge otd-badge-closest">${o.closestBadge(dayData.formatted.toUpperCase())}</span>`
+      : `<span class="otd-badge">${o.liveBadge(dayData.formatted.toUpperCase())}</span>`;
 
+    const mNames = ["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     const headlineText = isClosest
-      ? `No senior match scheduled today (${now.getUTCDate()} ${["","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][utcM]} UTC). Closest scoring day: <b>${dayData.goalsCount} goals</b> on ${dayData.formatted}!`
-      : `On this day in history, Lionel Messi scored <b>${dayData.goalsCount} goals</b> in <b>${matches.length} match${matches.length > 1 ? "es" : ""}</b>!`;
+      ? o.headlineClosest(dayData.formatted, dayData.goalsCount, now.getUTCDate(), mNames[utcM])
+      : o.headlineLive(dayData.goalsCount, matches.length);
 
     container.innerHTML = `
       <div class="otd-header">
@@ -1527,8 +2266,8 @@ async function renderOnThisDay() {
           <h3 class="otd-headline">${headlineText}</h3>
         </div>
         <div class="otd-header-right">
-          <a href="/en/birthday?date=${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
-            🎂 Did Messi score on your birthday?
+          <a href="/${lang}/birthday?date=${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
+            ${o.btnBday}
           </a>
         </div>
       </div>
@@ -1555,82 +2294,49 @@ async function renderOnThisDay() {
 
           <div class="otd-goal-details-card">
             <div class="otd-detail-item">
-              <span class="otd-dt-label">Minute</span>
+              <span class="otd-dt-label">${o.lblMinute}</span>
               <strong class="otd-dt-val">⚽ ${esc(currentMin ? `${currentMin}'` : "—")}</strong>
             </div>
             <div class="otd-detail-item">
-              <span class="otd-dt-label">Shot Type</span>
+              <span class="otd-dt-label">${o.lblShotType}</span>
               <strong class="otd-dt-val">${esc(currentType)}</strong>
             </div>
             ${activeVideo.assist ? `
             <div class="otd-detail-item">
-              <span class="otd-dt-label">Assist</span>
+              <span class="otd-dt-label">${o.lblAssist}</span>
               <strong class="otd-dt-val">👟 ${esc(activeVideo.assist)}</strong>
             </div>` : ""}
             ${activeVideo.xg ? `
             <div class="otd-detail-item">
-              <span class="otd-dt-label">Expected Goal (xG)</span>
+              <span class="otd-dt-label">${o.lblXg}</span>
               <strong class="otd-dt-val">📊 ${activeVideo.xg}</strong>
             </div>` : ""}
           </div>
 
           <div class="otd-cta-row">
-            <a href="/en/birthday?date=${todayKey}" class="btn btn-primary btn-sm">
-              Explore All 366 Days &rarr;
+            <a href="/${lang}/birthday?date=${todayKey}" class="btn btn-primary btn-sm">
+              ${o.btnExplore}
             </a>
-            <button type="button" class="btn btn-secondary btn-sm otd-share-btn">
-              🔗 Share Clip
-            </button>
           </div>
         </div>
       </div>
     `;
 
+    // Wire up tab events
     container.querySelectorAll(".otd-match-tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
+      tab.onclick = () => {
         activeMatchIdx = +tab.dataset.midx;
         activeGoalIdx = 0;
         renderContent();
-      });
+      };
     });
 
     container.querySelectorAll(".otd-goal-tab").forEach((tab) => {
-      tab.addEventListener("click", () => {
+      tab.onclick = () => {
         activeGoalIdx = +tab.dataset.gidx;
         renderContent();
-      });
+      };
     });
-
-    const videoEl = container.querySelector(".otd-video-element");
-    if (videoEl) {
-      videoEl.addEventListener("play", () => {
-        try {
-          trackVideoPlay("otd_card", activeVideo.goalNumber || activeMatch.opponent);
-        } catch (_) {}
-      });
-    }
-
-    const shareBtn = container.querySelector(".otd-share-btn");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", async () => {
-        const shareText = `On this day in history (${dayData.formatted}), Lionel Messi scored vs ${activeMatch.opponent}! Watch the goal:`;
-        const shareUrl = `${location.origin}/en/birthday?date=${todayKey}`;
-        try {
-          trackShare("otd_card", shareText);
-        } catch (_) {}
-        if (navigator.share) {
-          try {
-            await navigator.share({ title: "Messi Goal On This Day", text: shareText, url: shareUrl });
-            return;
-          } catch (_) {}
-        }
-        if (navigator.clipboard) {
-          await navigator.clipboard.writeText(`${shareText} ${shareUrl}`);
-          shareBtn.textContent = "✓ Copied Link!";
-          setTimeout(() => { shareBtn.textContent = "🔗 Share Clip"; }, 2500);
-        }
-      });
-    }
   };
 
   renderContent();
@@ -3645,7 +4351,226 @@ function setupEmbedModal() {
   }
 }
 
-/* ================= BIRTHDAY GOALS EXPLORER ================= */
+/* ================= 366-DAY BIRTHDAY GOALS EXPLORER ================= */
+const BDAY_I18N = {
+  en: {
+    months: ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    badgeSuccess: "🎉 Yes! Messi Scored On Your Birthday!",
+    badgeMessi: "🎂 Leo Messi's Own Birthday!",
+    badgeEmpty: "No Goals on this Date",
+    headlineSuccess: (g, m, d) => `Lionel Messi scored <b>${g} ${g === 1 ? "goal" : "goals"}</b> in <b>${m} ${m === 1 ? "match" : "matches"}</b> on ${d} throughout his senior career!`,
+    headlineMessi: `You share a birthday with <b>Lionel Andrés Messi</b> (born 24 June 1987 in Rosario)!`,
+    headlineEmpty: (d) => `Lionel Messi has not scored on <b>${d}</b> during his senior career.`,
+    whyZeroTitle: "Why 0 goals?",
+    whyZeroMessi: "Lionel Messi has never played a competitive senior match on 24 June because late June falls during the European club summer off-season or scheduled rest intervals between international tournament rounds.",
+    whyZeroMessiSub: "You share your special day with the greatest footballer in history!",
+    emptyExpl: "Messi did not have a match scheduled or did not score on this specific calendar day — but he has scored on <b>292 of 366 days (79.8%)</b> of the year!",
+    closestDay: (d, g) => `The closest calendar day Messi scored on is <b>${d}</b> (${g} career goals).`,
+    closestBtn: (d, g) => `Check ${d} (${g} goals) &rarr;`,
+    watchClip: (cnt) => `Watch ${cnt > 1 ? cnt + " Goal Clips" : "Goal Clip"}`,
+    searchYt: "🔍 Search Highlights",
+    playInline: "📺 Play Inline",
+    closeInline: "✕ Close Video",
+    ytHighlights: "YouTube Highlights",
+    goalSummary: (g) => `${g} ${g === 1 ? "goal" : "goals"} scored:`,
+    goalTab: (idx, min) => `Goal ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `Lionel Messi scored ${g} goals in ${m} matches on my birthday (${d})! Check your date:`,
+    shareEmpty: (d) => `Did Lionel Messi score on your birthday? He scored on 292 of 366 days of the year! Check yours:`,
+  },
+  es: {
+    months: ["", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    badgeSuccess: "🎉 ¡Sí! Messi marcó en tu cumpleaños",
+    badgeMessi: "🎂 ¡El propio cumpleaños de Leo Messi!",
+    badgeEmpty: "Sin goles en esta fecha",
+    headlineSuccess: (g, m, d) => `¡Lionel Messi marcó <b>${g} ${g === 1 ? "gol" : "goles"}</b> en <b>${m} ${m === 1 ? "partido" : "partidos"}</b> el ${d} a lo largo de su carrera senior!`,
+    headlineMessi: `¡Compartes cumpleaños con <b>Lionel Andrés Messi</b> (nacido el 24 de junio de 1987 en Rosario)!`,
+    headlineEmpty: (d) => `Lionel Messi no ha marcado el <b>${d}</b> durante su carrera senior.`,
+    whyZeroTitle: "¿Por qué 0 goles?",
+    whyZeroMessi: "Lionel Messi nunca ha jugado un partido oficial un 24 de junio porque finales de junio coincide con las vacaciones de verano de clubes o períodos de descanso entre fases de torneos de selecciones.",
+    whyZeroMessiSub: "¡Compartes tu día especial con el mejor futbolista de todos los tiempos!",
+    emptyExpl: "Messi no tuvo partido programado o no anotó en este día exacto — ¡pero ha marcado en <b>292 de los 366 días (79,8%)</b> del año!",
+    closestDay: (d, g) => `El día de calendario más cercano en el que Messi marcó es el <b>${d}</b> (${g} goles).`,
+    closestBtn: (d, g) => `Ver ${d} (${g} goles) &rarr;`,
+    watchClip: (cnt) => `Ver ${cnt > 1 ? cnt + " videos de goles" : "video del gol"}`,
+    searchYt: "🔍 Buscar resumen en YouTube",
+    playInline: "📺 Reproducir aquí",
+    closeInline: "✕ Cerrar video",
+    ytHighlights: "Resumen en YouTube",
+    goalSummary: (g) => `${g} ${g === 1 ? "gol anotado" : "goles anotados"}:`,
+    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `¡Lionel Messi marcó ${g} goles en ${m} partidos el día de mi cumpleaños (${d})! Comprueba el tuyo:`,
+    shareEmpty: (d) => `¿Marcó Lionel Messi en tu cumpleaños? ¡Marcó en 292 de los 366 días del año! Comprueba el tuyo:`,
+  },
+  pt: {
+    months: ["", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    badgeSuccess: "🎉 Sim! Messi marcou no seu aniversário!",
+    badgeMessi: "🎂 O próprio aniversário de Leo Messi!",
+    badgeEmpty: "Sem gols nesta data",
+    headlineSuccess: (g, m, d) => `Lionel Messi marcou <b>${g} ${g === 1 ? "gol" : "gols"}</b> em <b>${m} ${m === 1 ? "partida" : "partidas"}</b> em ${d} em sua carreira profissional!`,
+    headlineMessi: `Você faz aniversário no mesmo dia que <b>Lionel Andrés Messi</b> (nascido em 24 de junho de 1987 em Rosário)!`,
+    headlineEmpty: (d) => `Lionel Messi não marcou em <b>${d}</b> durante sua carreira profissional.`,
+    whyZeroTitle: "Por que 0 gols?",
+    whyZeroMessi: "Lionel Messi nunca disputou uma partida oficial em 24 de junho porque o fim de junho coincide com as férias de verão dos clubes europeus ou intervalos de descanso em torneios de seleções.",
+    whyZeroMessiSub: "Você divide seu dia especial com o maior jogador de futebol de todos os tempos!",
+    emptyExpl: "Messi não teve partida marcada ou não marcou neste dia — mas ele já marcou em <b>292 dos 366 dias (79,8%)</b> do ano!",
+    closestDay: (d, g) => `O dia mais próximo em que Messi marcou é <b>${d}</b> (${g} gols na carreira).`,
+    closestBtn: (d, g) => `Ver ${d} (${g} gols) &rarr;`,
+    watchClip: (cnt) => `Assistir ${cnt > 1 ? cnt + " gols" : "ao gol"}`,
+    searchYt: "🔍 Buscar no YouTube",
+    playInline: "📺 Assistir aqui",
+    closeInline: "✕ Fechar vídeo",
+    ytHighlights: "Melhores momentos no YouTube",
+    goalSummary: (g) => `${g} ${g === 1 ? "gol marcado" : "gols marcados"}:`,
+    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `Lionel Messi marcou ${g} gols em ${m} jogos no dia do meu aniversário (${d})! Confira o seu:`,
+    shareEmpty: (d) => `Marcou Messi no dia do seu aniversário? Ele marcou em 292 dos 366 dias do ano! Confira o seu:`,
+  },
+  fr: {
+    months: ["", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+    badgeSuccess: "🎉 Oui ! Messi a marqué le jour de votre anniversaire !",
+    badgeMessi: "🎂 L'anniversaire de Leo Messi lui-même !",
+    badgeEmpty: "Aucun but à cette date",
+    headlineSuccess: (g, m, d) => `Lionel Messi a marqué <b>${g} ${g === 1 ? "but" : "buts"}</b> en <b>${m} ${m === 1 ? "match" : "matchs"}</b> le ${d} au cours de sa carrière professionnelle !`,
+    headlineMessi: `Vous partagez votre anniversaire avec <b>Lionel Andrés Messi</b> (né le 24 juin 1987 à Rosario) !`,
+    headlineEmpty: (d) => `Lionel Messi n'a pas marqué le <b>${d}</b> au cours de sa carrière professionnelle.`,
+    whyZeroTitle: "Pourquoi 0 but ?",
+    whyZeroMessi: "Lionel Messi n'a jamais joué de match officiel un 24 juin car la fin juin correspond à la trêve estivale des clubs européens ou à des jours de repos lors des tournois internationaux.",
+    whyZeroMessiSub: "Vous partagez votre jour spécial avec le plus grand joueur de l'histoire !",
+    emptyExpl: "Messi n'avait pas de match ou n'a pas marqué ce jour précis — mais il a marqué lors de <b>292 des 366 jours (79,8%)</b> de l'année !",
+    closestDay: (d, g) => `Le jour le plus proche où Messi a marqué est le <b>${d}</b> (${g} buts en carrière).`,
+    closestBtn: (d, g) => `Voir le ${d} (${g} buts) &rarr;`,
+    watchClip: (cnt) => `Voir ${cnt > 1 ? "les " + cnt + " buts" : "le but"}`,
+    searchYt: "🔍 Chercher sur YouTube",
+    playInline: "📺 Lecture intégrée",
+    closeInline: "✕ Fermer la vidéo",
+    ytHighlights: "Moments forts sur YouTube",
+    goalSummary: (g) => `${g} ${g === 1 ? "but inscrit" : "buts inscrits"} :`,
+    goalTab: (idx, min) => `But ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `Lionel Messi a marqué ${g} buts en ${m} matchs le jour de mon anniversaire (${d}) ! Vérifiez le vôtre :`,
+    shareEmpty: (d) => `Messi a-t-il marqué le jour de votre anniversaire ? Il a marqué 292 des 366 jours de l'année ! Vérifiez le vôtre :`,
+  },
+  ar: {
+    months: ["", "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+    badgeSuccess: "🎉 نعم! سجل ميسي في يوم عيد ميلادك!",
+    badgeMessi: "🎂 عيد ميلاد ليو ميسي نفسه!",
+    badgeEmpty: "لا توجد أهداف في هذا التاريخ",
+    headlineSuccess: (g, m, d) => `سجل ليونيل ميسي <b>${g} ${g === 1 ? "هدف" : "أهداف"}</b> في <b>${m} ${m === 1 ? "مباراة" : "مباريات"}</b> يوم ${d} طوال مسيرته الاحترافية!`,
+    headlineMessi: `أنت تشارك يوم ميلادك مع الأسطورة <b>ليونيل أندريس ميسي</b> (وُلد في 24 يونيو 1987 في روساريو)!`,
+    headlineEmpty: (d) => `لم يسجل ليونيل ميسي في <b>${d}</b> خلال مسيرته الاحترافية.`,
+    whyZeroTitle: "لماذا 0 أهداف؟",
+    whyZeroMessi: "لم يلعب ليونيل ميسي أي مباراة رسمية في 24 يونيو لأن أواخر يونيو تتزامن مع العطلة الصيفية للأندية الأوروبية أو فترات الراحة بين أدوار البطولات الدولية.",
+    whyZeroMessiSub: "أنت تشارك يومك المميز مع أفضل لاعب كرة قدم في التاريخ!",
+    emptyExpl: "لم تكن لدى ميسي مباراة مجدولة أو لم يسجل في هذا اليوم المحدد — لكنه سجل في <b>292 يوماً من أصل 366 يوماً (79.8%)</b> في السنة!",
+    closestDay: (d, g) => `أقرب يوم سجل فيه ميسي هو <b>${d}</b> (${g} أهداف في مسيرته).`,
+    closestBtn: (d, g) => `تحقق من ${d} (${g} أهداف) &rarr;`,
+    watchClip: (cnt) => `شاهد ${cnt > 1 ? cnt + " أهداف" : "الهدف"}`,
+    searchYt: "🔍 بحث في YouTube",
+    playInline: "📺 تشغيل هنا",
+    closeInline: "✕ إغلاق الفيديو",
+    ytHighlights: "ملخصات YouTube",
+    goalSummary: (g) => `تم تسجيل ${g} ${g === 1 ? "هدف" : "أهداف"}:`,
+    goalTab: (idx, min) => `الهدف ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `سجل ليونيل ميسي ${g} أهداف في ${m} مباريات في يوم عيد ميلادي (${d})! تحقق من تاريخك:`,
+    shareEmpty: (d) => `هل سجل ليونيل ميسي في يوم ميلادك؟ لقد سجل في 292 يوماً من أيام السنة الـ 366! تحقق من تاريخك:`,
+  },
+  bn: {
+    months: ["", "জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"],
+    badgeSuccess: "🎉 হ্যাঁ! মেসি আপনার জন্মদিনে গোল করেছিলেন!",
+    badgeMessi: "🎂 স্বয়ং লিও মেসির নিজের জন্মদিন!",
+    badgeEmpty: "এই তারিখে কোনো গোল নেই",
+    headlineSuccess: (g, m, d) => `লিওনেল মেসি তার সিনিয়র ক্যারিয়ারে ${d}-এ <b>${m}টি ম্যাচে</b> <b>${g}টি গোল</b> করেছেন!`,
+    headlineMessi: `আপনি সর্বকালের সেরা ফুটবলার <b>লিওনেল আন্দ্রেস মেসি</b>-র সাথে জন্মদিন শেয়ার করছেন (জন্ম ২৪ জুন ১৯৮৭, রোজারিও)!`,
+    headlineEmpty: (d) => `লিওনেল মেসি তার সিনিয়র ক্যারিয়ারে <b>${d}</b> তারিখে কোনো গোল করেননি।`,
+    whyZeroTitle: "কেন ০ গোল?",
+    whyZeroMessi: "লিওনেল মেসি ২৪ জুন কোনো প্রতিযোগিতামূলক ম্যাচ খেলেননি কারণ জুনের শেষভাগ ইউরোপীয় ক্লাবগুলোর গ্রীষ্মকালীন বিরতি বা আন্তর্জাতিক টুর্নামেন্টের বিশ্রামের সময়।",
+    whyZeroMessiSub: "আপনি ফুটবল ইতিহাসের সর্বশ্রেষ্ঠ খেলোয়াড়ের সাথে আপনার বিশেষ দিনটি শেয়ার করছেন!",
+    emptyExpl: "মেসির এই দিনে কোনো ম্যাচ ছিল না অথবা গোল করেননি — তবে তিনি বছরের <b>৩৬৬ দিনের মধ্যে ২৯২ দিনেই (৭৯.৮%)</b> গোল করেছেন!",
+    closestDay: (d, g) => `মেসির গোল করা নিকটতম দিন হলো <b>${d}</b> (ক্যারিয়ারে ${g}টি গোল)।`,
+    closestBtn: (d, g) => `${d} (${g} গোল) দেখুন &rarr;`,
+    watchClip: (cnt) => `ভিডিও দেখুন (${cnt > 1 ? cnt + "টি গোল" : "গোল"})`,
+    searchYt: "🔍 YouTube-এ খুঁজুন",
+    playInline: "📺 এখানে চালান",
+    closeInline: "✕ ভিডিও বন্ধ করুন",
+    ytHighlights: "YouTube হাইলাইটস",
+    goalSummary: (g) => `${g}টি গোল:`,
+    goalTab: (idx, min) => `গোল ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `লিওনেল মেসি আমার জন্মদিনে (${d}) ${m} ম্যাচে ${g}টি গোল করেছিলেন! আপনার তারিখ দেখুন:`,
+    shareEmpty: (d) => `মেসি কি আপনার জন্মদিনে গোল করেছিলেন? তিনি বছরের ২৯২ দিনে গোল করেছেন! দেখুন:`,
+  },
+  hi: {
+    months: ["", "जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"],
+    badgeSuccess: "🎉 हाँ! मेसी ने आपके जन्मदिन पर गोल किया था!",
+    badgeMessi: "🎂 खुद लियो मेसी का अपना जन्मदिन!",
+    badgeEmpty: "इस तारीख को कोई गोल नहीं",
+    headlineSuccess: (g, m, d) => `लियोनेल मेसी ने अपने सीनियर करियर में ${d} को <b>${m} मैचों</b> में <b>${g} गोल</b> किए हैं!`,
+    headlineMessi: `आप <b>लियोनेल आंद्रेस मेसी</b> के साथ अपना जन्मदिन साझा करते हैं (जन्म 24 जून 1987, रोसारियो)!`,
+    headlineEmpty: (d) => `लियोनेल मेसी ने अपने सीनियर करियर में <b>${d}</b> को कोई गोल नहीं किया है।`,
+    whyZeroTitle: "0 गोल क्यों?",
+    whyZeroMessi: "लियोनेल मेसी ने 24 जून को कभी कोई आधिकारिक मैच नहीं खेला क्योंकि जून का अंत यूरोपीय क्लबों के ग्रीष्मकालीन अवकाश या अंतरराष्ट्रीय टूर्नामेंट के विश्राम के दिनों में आता है।",
+    whyZeroMessiSub: "आप अपना खास दिन इतिहास के सबसे महान फुटबॉलर के साथ साझा करते हैं!",
+    emptyExpl: "मेसी का इस दिन कोई मैच निर्धारित नहीं था या उन्होंने गोल नहीं किया — लेकिन उन्होंने साल के <b>366 में से 292 दिनों (79.8%)</b> में गोल किए हैं!",
+    closestDay: (d, g) => `मेसी द्वारा गोल किया गया सबसे नजदीकी दिन <b>${d}</b> (${g} करियर गोल) है।`,
+    closestBtn: (d, g) => `${d} (${g} गोल) चेक करें &rarr;`,
+    watchClip: (cnt) => `वीडियो क्लिप देखें (${cnt > 1 ? cnt + " गोल" : "गोल"})`,
+    searchYt: "🔍 YouTube पर खोजें",
+    playInline: "📺 यहीं चलाएं",
+    closeInline: "✕ वीडियो बंद करें",
+    ytHighlights: "YouTube हाइलाइट्स",
+    goalSummary: (g) => `${g} गोल किए:`,
+    goalTab: (idx, min) => `गोल ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `लियोनेल मेसी ने मेरे जन्मदिन (${d}) पर ${m} मैचों में ${g} गोल किए थे! अपना जन्मदिन चेक करें:`,
+    shareEmpty: (d) => `क्या मेसी ने आपके जन्मदिन पर गोल किया था? उन्होंने साल के 292 दिनों में गोल किए हैं! चेक करें:`,
+  },
+  ro: {
+    months: ["", "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"],
+    badgeSuccess: "🎉 Da! Messi a marcat de ziua ta de naștere!",
+    badgeMessi: "🎂 Ziua de naștere a lui Leo Messi însuși!",
+    badgeEmpty: "Niciun gol la această dată",
+    headlineSuccess: (g, m, d) => `Lionel Messi a marcat <b>${g} ${g === 1 ? "gol" : "goluri"}</b> în <b>${m} ${m === 1 ? "meci" : "meciuri"}</b> pe ${d} de-a lungul carierei sale de senior!`,
+    headlineMessi: `Îți împarți ziua de naștere cu <b>Lionel Andrés Messi</b> (născut pe 24 iunie 1987 la Rosario)!`,
+    headlineEmpty: (d) => `Lionel Messi nu a marcat pe <b>${d}</b> în timpul carierei sale de senior.`,
+    whyZeroTitle: "De ce 0 goluri?",
+    whyZeroMessi: "Lionel Messi nu a disputat niciun meci oficial pe 24 iunie, deoarece sfârșitul lunii iunie coincide cu vacanța de vară a cluburilor europene sau cu zile de pauză între meciurile turneelor internaționale.",
+    whyZeroMessiSub: "Îți împarți ziua specială cu cel mai mare fotbalist din istorie!",
+    emptyExpl: "Messi nu a avut meci programat sau nu a marcat în această zi — dar a marcat în <b>292 din cele 366 de zile (79,8%)</b> ale anului!",
+    closestDay: (d, g) => `Cea mai apropiată zi calendaristică în care Messi a marcat este <b>${d}</b> (${g} goluri în carieră).`,
+    closestBtn: (d, g) => `Vezi ${d} (${g} goluri) &rarr;`,
+    watchClip: (cnt) => `Vezi ${cnt > 1 ? cnt + " videoclipuri cu goluri" : "videoclipul golului"}`,
+    searchYt: "🔍 Caută pe YouTube",
+    playInline: "📺 Redă aici",
+    closeInline: "✕ Închide videoclipul",
+    ytHighlights: "Rezumat pe YouTube",
+    goalSummary: (g) => `${g} ${g === 1 ? "gol marcat" : "goluri marcate"}:`,
+    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `Lionel Messi a marcat ${g} goluri în ${m} meciuri de ziua mea (${d})! Verifică data ta:`,
+    shareEmpty: (d) => `A marcat Messi de ziua ta de naștere? A marcat în 292 din 366 de zile ale anului! Verifică:`,
+  },
+  uz: {
+    months: ["", "Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
+    badgeSuccess: "🎉 Ha! Messi tug'ilgan kuningizda gol urgan!",
+    badgeMessi: "🎂 Leo Messining o'z tug'ilgan kuni!",
+    badgeEmpty: "Ushbu sanada gol urilmagan",
+    headlineSuccess: (g, m, d) => `Lionel Messi butun faoliyati davomida ${d} sanasida <b>${m} ta o'yinda</b> <b>${g} ta gol</b> urgan!`,
+    headlineMessi: `Siz <b>Lionel Andres Messi</b> bilan bir kunda tug'ilgansiz (1987-yil 24-iyunda Rozarioda tug'ilgan)!`,
+    headlineEmpty: (d) => `Lionel Messi o'z faoliyatida <b>${d}</b> sanasida gol urmagan.`,
+    whyZeroTitle: "Nega 0 ta gol?",
+    whyZeroMessi: "Lionel Messi 24-iyunda hech qachon rasmiy o'yinda maydonga tushmagan, chunki iyun oyining oxiri Yevropa klublarining yozgi tanaffusiga yoki xalqaro turnirlar bosqichlari orasidagi dam olish kunlariga to'g'ri keladi.",
+    whyZeroMessiSub: "Siz o'z bayramingizni futbol tarixidagi eng buyuk o'yinchi bilan bir kunda nishonlaysiz!",
+    emptyExpl: "Messi bu kunda o'yin o'tkazmagan yoki gol urmagan — lekin u yilning <b>366 kunidan 292 tasida (79,8%)</b> gol urgan!",
+    closestDay: (d, g) => `Messining gol urgan eng yaqin taqvim kuni — <b>${d}</b> (karyerasida ${g} ta gol).`,
+    closestBtn: (d, g) => `${d} (${g} gol) ni tekshirish &rarr;`,
+    watchClip: (cnt) => `Videoni ko'rish (${cnt > 1 ? cnt + " ta gol" : "gol"})`,
+    searchYt: "🔍 YouTubedan qidirish",
+    playInline: "📺 Shu yerda ko'rish",
+    closeInline: "✕ Videoni yopish",
+    ytHighlights: "YouTubeda tomosha qilish",
+    goalSummary: (g) => `${g} ta gol urilgan:`,
+    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `Lionel Messi mening tug'ilgan kunimda (${d}) ${m} ta o'yinda ${g} ta gol urgan! O'z sanangizni tekshiring:`,
+    shareEmpty: (d) => `Messi sizning tug'ilgan kuningizda gol urganmi? U yilning 292 kunida gol urgan! Tekshiring:`,
+  }
+};
+
 async function renderBirthday(d) {
   let bdayData;
   try {
@@ -3663,16 +4588,16 @@ async function renderBirthday(d) {
     return;
   }
 
+  const lang = getLang();
+  const bDict = BDAY_I18N[lang] || BDAY_I18N.en;
+
   const meta = bdayData.meta || {};
   const calendar = bdayData.calendar || {};
 
   if (el("kpi-days-scored")) el("kpi-days-scored").textContent = meta.daysWithGoals || 292;
   if (el("kpi-days-empty")) el("kpi-days-empty").textContent = meta.daysWithoutGoals || 74;
 
-  const MONTH_NAMES = [
-    "", "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
+  const MONTH_NAMES = bDict.months;
   const DAYS_IN_MONTH = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   const pad2 = (num) => String(num).padStart(2, "0");
@@ -3695,10 +4620,18 @@ async function renderBirthday(d) {
     daySelect.innerHTML = html;
   };
 
+  if (monthSelect) {
+    let mOptions = "";
+    for (let m = 1; m <= 12; m++) {
+      mOptions += `<option value="${m}">${MONTH_NAMES[m]}</option>`;
+    }
+    monthSelect.innerHTML = mOptions;
+  }
+
   if (pillsWrap) {
     let pillsHtml = "";
     for (let m = 1; m <= 12; m++) {
-      const shortName = MONTH_NAMES[m].slice(0, 3);
+      const shortName = MONTH_NAMES[m].length > 4 ? MONTH_NAMES[m].slice(0, 3) : MONTH_NAMES[m];
       pillsHtml += `<button type="button" class="bday-month-pill" data-month="${m}">${shortName}</button>`;
     }
     pillsWrap.innerHTML = pillsHtml;
@@ -3885,7 +4818,7 @@ async function renderBirthday(d) {
         let tabsHtml = "";
         videos.forEach((v, i) => {
           const minLabel = v.minute ? ` (${v.minute}')` : "";
-          tabsHtml += `<button type="button" class="video-goal-tab${i === initialIndex ? " active" : ""}" data-gidx="${i}">Goal ${i + 1}${minLabel}</button>`;
+          tabsHtml += `<button type="button" class="video-goal-tab${i === initialIndex ? " active" : ""}" data-gidx="${i}">${bDict.goalTab(i + 1, v.minute)}</button>`;
         });
         videoGoalsNav.innerHTML = tabsHtml;
         videoGoalsNav.querySelectorAll(".video-goal-tab").forEach((tab) => {
@@ -3930,14 +4863,14 @@ async function renderBirthday(d) {
         });
         matchListEl.querySelectorAll(".bday-inline-toggle-btn").forEach((b) => {
           b.classList.remove("active");
-          b.textContent = "📺 Play Inline";
+          b.textContent = bDict.playInline;
         });
 
         if (!isCurrentlyOpen) {
           trackVideoPlay(match.opponent, match.date, match.competition);
           container.hidden = false;
           inlineBtn.classList.add("active");
-          inlineBtn.textContent = "✕ Close Video";
+          inlineBtn.textContent = bDict.closeInline;
 
           const videos = match.videos || [];
           const renderInline = (vIdx) => {
@@ -3946,7 +4879,7 @@ async function renderBirthday(d) {
             let navHtml = "";
             if (videos.length > 1) {
               navHtml = `<div class="bday-card-inline-nav">` +
-                videos.map((vid, i) => `<button type="button" class="video-goal-tab${i === vIdx ? " active" : ""}" data-inidx="${i}">Goal ${i + 1}${vid.minute ? ` (${vid.minute}')` : ""}</button>`).join("") +
+                videos.map((vid, i) => `<button type="button" class="video-goal-tab${i === vIdx ? " active" : ""}" data-inidx="${i}">${bDict.goalTab(i + 1, vid.minute)}</button>`).join("") +
               `</div>`;
             }
             container.innerHTML = `
@@ -3966,6 +4899,55 @@ async function renderBirthday(d) {
       }
     });
   }
+
+  const updateBirthdaySocialShare = (dayData, key) => {
+    const formatted = `${dayData.day} ${MONTH_NAMES[dayData.month]}`;
+    const shareUrl = `${location.origin}/${lang}/birthday?date=${key}`;
+    const shareText = dayData.goalsCount > 0
+      ? bDict.shareSuccess(formatted, dayData.goalsCount, dayData.matches?.length || 1)
+      : bDict.shareEmpty(formatted);
+
+    const fullShare = `${shareText} ${shareUrl}`;
+
+    if (shareBtn) {
+      shareBtn.onclick = async () => {
+        try {
+          if (navigator.share) {
+            await navigator.share({ title: `Messi Birthday Goals: ${formatted}`, text: shareText, url: shareUrl });
+          } else if (navigator.clipboard) {
+            await navigator.clipboard.writeText(fullShare);
+            if (shareMsg) {
+              shareMsg.textContent = "Copied!";
+              setTimeout(() => { shareMsg.textContent = ""; }, 3000);
+            }
+          }
+        } catch (_) {}
+      };
+    }
+
+    const copyBtn = el("bday-copy-btn");
+    if (copyBtn) {
+      copyBtn.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(shareUrl);
+          if (shareMsg) {
+            shareMsg.textContent = "URL Copied!";
+            setTimeout(() => { shareMsg.textContent = ""; }, 3000);
+          }
+        } catch (_) {}
+      };
+    }
+
+    const waBtn = el("bday-wa-share-btn");
+    if (waBtn) {
+      waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(fullShare)}`;
+    }
+
+    const xBtn = el("bday-x-share-btn");
+    if (xBtn) {
+      xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+    }
+  };
 
   const selectDate = (m, day, shouldScroll = false) => {
     m = +m;
@@ -3991,7 +4973,6 @@ async function renderBirthday(d) {
       else cell.removeAttribute("aria-current");
     });
 
-    // Sync active state on preset chips
     document.querySelectorAll(".bday-preset-chip").forEach((chip) => {
       const cm = +chip.dataset.month;
       const cd = +chip.dataset.day;
@@ -4009,6 +4990,8 @@ async function renderBirthday(d) {
       matches: []
     };
 
+    const formatted = `${day} ${MONTH_NAMES[m]}`;
+
     try {
       const url = new URL(location.href);
       url.searchParams.set("date", key);
@@ -4016,7 +4999,7 @@ async function renderBirthday(d) {
     } catch (_) {}
 
     try {
-      trackBirthdaySearch(key, dayData.formatted, dayData.goalsCount);
+      trackBirthdaySearch(key, formatted, dayData.goalsCount);
     } catch (_) {}
 
     const formatScore = (str) => {
@@ -4028,17 +5011,15 @@ async function renderBirthday(d) {
       return str;
     };
 
-    if (targetDateEl) targetDateEl.textContent = dayData.formatted;
+    if (targetDateEl) targetDateEl.textContent = formatted;
 
     if (dayData.goalsCount > 0) {
       currentMatches = dayData.matches || [];
       if (badgeEl) {
-        badgeEl.innerHTML = `<span class="bday-badge-success">🎉 Yes! Messi Scored On Your Birthday!</span>`;
+        badgeEl.innerHTML = `<span class="bday-badge-success">${bDict.badgeSuccess}</span>`;
       }
-      const matchWord = dayData.matches.length === 1 ? "match" : "matches";
-      const goalWord = dayData.goalsCount === 1 ? "goal" : "goals";
       if (headlineEl) {
-        headlineEl.innerHTML = `Lionel Messi scored <b>${dayData.goalsCount} ${goalWord}</b> in <b>${dayData.matches.length} ${matchWord}</b> on ${dayData.formatted} throughout his senior career!`;
+        headlineEl.innerHTML = bDict.headlineSuccess(dayData.goalsCount, dayData.matches.length, formatted);
       }
 
       if (matchListEl) {
@@ -4055,10 +5036,10 @@ async function renderBirthday(d) {
           const videoBtn = hasVideos
             ? `<button type="button" class="bday-watch-video-btn" data-idx="${matchIdx}">
                 <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                Watch ${match.videos.length > 1 ? match.videos.length + " Goal Clips" : "Goal Clip"}
+                ${bDict.watchClip(match.videos.length)}
                </button>`
             : `<a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(match.opponent)}+${match.date}" target="_blank" rel="noopener noreferrer" class="bday-yt-search-btn">
-                🔍 Search Highlights
+                ${bDict.searchYt}
                </a>`;
 
           matchesHtml += `
@@ -4073,14 +5054,14 @@ async function renderBirthday(d) {
                 <span>${esc(match.opponent)}</span>
               </div>
               <div class="bday-goals-summary">
-                <strong>${match.goalsCount} ${match.goalsCount === 1 ? "goal" : "goals"} scored:</strong>
+                <strong>${bDict.goalSummary(match.goalsCount)}</strong>
                 <div class="bday-minute-tags">${minTags}</div>
                 ${typeTags}
               </div>
               <div class="bday-match-actions">
                 ${videoBtn}
-                ${hasVideos ? `<button type="button" class="bday-inline-toggle-btn" data-idx="${matchIdx}">📺 Play Inline</button>` : ""}
-                ${hasVideos ? `<a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(match.opponent)}+${match.date}" target="_blank" rel="noopener noreferrer" class="bday-yt-search-btn">YouTube Highlights</a>` : ""}
+                ${hasVideos ? `<button type="button" class="bday-inline-toggle-btn" data-idx="${matchIdx}">${bDict.playInline}</button>` : ""}
+                ${hasVideos ? `<a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(match.opponent)}+${match.date}" target="_blank" rel="noopener noreferrer" class="bday-yt-search-btn">${bDict.ytHighlights}</a>` : ""}
               </div>
               <div class="bday-card-inline-player" id="bday-inline-player-${matchIdx}" hidden></div>
             </article>
@@ -4094,40 +5075,41 @@ async function renderBirthday(d) {
       const isMessiBday = (m === 6 && day === 24);
       if (isMessiBday) {
         if (badgeEl) {
-          badgeEl.innerHTML = `<span class="bday-badge-messi">🎂 Leo Messi's Own Birthday!</span>`;
+          badgeEl.innerHTML = `<span class="bday-badge-messi">${bDict.badgeMessi}</span>`;
         }
         if (headlineEl) {
-          headlineEl.innerHTML = `You share a birthday with <b>Lionel Andrés Messi</b> (born 24 June 1987 in Rosario)!`;
+          headlineEl.innerHTML = bDict.headlineMessi;
         }
         if (matchListEl) {
           matchListEl.innerHTML = `
             <div class="bday-empty-box">
-              <p><b>Why 0 goals?</b> Lionel Messi has never played a competitive senior match on 24 June because late June falls during the European club summer off-season or scheduled rest intervals between international tournament rounds.</p>
-              <p>You share your special day with the greatest footballer in history!</p>
+              <p><b>${bDict.whyZeroTitle}</b> ${bDict.whyZeroMessi}</p>
+              <p>${bDict.whyZeroMessiSub}</p>
             </div>
           `;
         }
       } else {
         if (badgeEl) {
-          badgeEl.innerHTML = `<span class="bday-badge-empty">No Goals on this Date</span>`;
+          badgeEl.innerHTML = `<span class="bday-badge-empty">${bDict.badgeEmpty}</span>`;
         }
         if (headlineEl) {
-          headlineEl.innerHTML = `Lionel Messi has not scored on <b>${dayData.formatted}</b> during his senior career.`;
+          headlineEl.innerHTML = bDict.headlineEmpty(formatted);
         }
         const closest = findClosestScoringDay(key);
         if (matchListEl) {
           let closestHtml = "";
           if (closest) {
+            const closestFormatted = `${closest.day} ${MONTH_NAMES[closest.month]}`;
             closestHtml = `
-              <p>The closest calendar day Messi scored on is <b>${closest.formatted}</b> (${closest.goalsCount} career goals).</p>
+              <p>${bDict.closestDay(closestFormatted, closest.goalsCount)}</p>
               <button type="button" class="bday-closest-btn" data-month="${closest.month}" data-day="${closest.day}">
-                Check ${closest.formatted} (${closest.goalsCount} goals) &rarr;
+                ${bDict.closestBtn(closestFormatted, closest.goalsCount)}
               </button>
             `;
           }
           matchListEl.innerHTML = `
             <div class="bday-empty-box">
-              <p>Messi did not have a match scheduled or did not score on this specific calendar day — but he has scored on <b>292 of 366 days (79.8%)</b> of the year!</p>
+              <p>${bDict.emptyExpl}</p>
               ${closestHtml}
             </div>
           `;
@@ -4149,26 +5131,27 @@ async function renderBirthday(d) {
     }
   };
 
+  if (checkBtn) {
+    checkBtn.addEventListener("click", () => {
+      const m = monthSelect ? +monthSelect.value : 5;
+      const day = daySelect ? +daySelect.value : 2;
+      selectDate(m, day, true);
+    });
+  }
+
   if (monthSelect) {
-    monthSelect.addEventListener("change", (e) => {
-      const m = +e.target.value;
+    monthSelect.addEventListener("change", () => {
+      const m = +monthSelect.value;
       const currentDay = daySelect ? +daySelect.value : 1;
       updateDaysDropdown(m, currentDay);
       selectDate(m, daySelect ? +daySelect.value : 1, false);
     });
   }
+
   if (daySelect) {
-    daySelect.addEventListener("change", (e) => {
-      const dVal = +e.target.value;
+    daySelect.addEventListener("change", () => {
       const m = monthSelect ? +monthSelect.value : 5;
-      selectDate(m, dVal, false);
-    });
-  }
-  if (checkBtn) {
-    checkBtn.addEventListener("click", () => {
-      const m = monthSelect ? +monthSelect.value : 5;
-      const dVal = daySelect ? +daySelect.value : 2;
-      selectDate(m, dVal, true);
+      selectDate(m, +daySelect.value, false);
     });
   }
 
@@ -4178,125 +5161,75 @@ async function renderBirthday(d) {
     });
   });
 
-  const todayBtn = el("bday-preset-today");
-  if (todayBtn) {
-    todayBtn.addEventListener("click", () => {
-      const now = new Date();
-      selectDate(now.getMonth() + 1, now.getDate(), true);
+  const todayChip = el("bday-preset-today");
+  if (todayChip) {
+    todayChip.addEventListener("click", () => {
+      const n = new Date();
+      selectDate(n.getUTCMonth() + 1, n.getUTCDate(), true);
     });
   }
 
-  const randomBtn = el("bday-preset-random");
-  if (randomBtn) {
-    randomBtn.addEventListener("click", () => {
-      const keys = Object.keys(calendar);
-      const randomKey = keys[Math.floor(Math.random() * keys.length)];
-      const [rm, rd] = randomKey.split("-").map(Number);
+  const randomChip = el("bday-preset-random");
+  if (randomChip) {
+    randomChip.addEventListener("click", () => {
+      const scoringKeys = Object.keys(calendar).filter((k) => calendar[k].goalsCount > 0);
+      const chosen = scoringKeys[Math.floor(Math.random() * scoringKeys.length)];
+      const [rm, rd] = chosen.split("-").map(Number);
       selectDate(rm, rd, true);
     });
   }
 
-  const heatmapNav = el("bday-heatmap-nav");
-  if (heatmapNav) {
-    let navHtml = `<button type="button" class="bday-heatmap-nav-btn active" data-m="all">All Months</button>`;
-    for (let m = 1; m <= 12; m++) {
-      navHtml += `<button type="button" class="bday-heatmap-nav-btn" data-m="${m}">${MONTH_NAMES[m].slice(0, 3)}</button>`;
-    }
-    heatmapNav.innerHTML = navHtml;
-    heatmapNav.addEventListener("click", (e) => {
-      const btn = e.target.closest(".bday-heatmap-nav-btn");
-      if (!btn) return;
-      heatmapNav.querySelectorAll(".bday-heatmap-nav-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const targetM = btn.dataset.m;
-      if (targetM === "all") {
-        heatmapGrid?.scrollIntoView({ behavior: "smooth", block: "start" });
-      } else {
-        const card = el(`bday-month-card-${targetM}`);
-        if (card) {
-          card.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
-    });
-  }
-
-  const heatmapGrid = el("bday-heatmap-grid");
+  // Calendar Heatmap Grid Matrix
+  const heatmapGrid = el("bday-calendar-grid");
   if (heatmapGrid) {
-    let heatmapHtml = "";
+    let gridHtml = "";
     for (let m = 1; m <= 12; m++) {
-      const mName = MONTH_NAMES[m];
-      const maxDays = DAYS_IN_MONTH[m];
-      const mMeta = (meta.months || []).find((x) => x.month === m) || { goals: 0, daysScored: 0 };
+      gridHtml += `<div class="bday-month-col"><div class="bday-month-header">${MONTH_NAMES[m].slice(0, 3)}</div><div class="bday-month-days">`;
+      const numDays = DAYS_IN_MONTH[m];
+      for (let d = 1; d <= numDays; d++) {
+        const k = makeKey(m, d);
+        const gc = calendar[k]?.goalsCount || 0;
+        let intensity = 0;
+        if (gc >= 5) intensity = 4;
+        else if (gc >= 3) intensity = 3;
+        else if (gc >= 2) intensity = 2;
+        else if (gc === 1) intensity = 1;
 
-      let daysHtml = "";
-      for (let day = 1; day <= maxDays; day++) {
-        const k = makeKey(m, day);
-        const gCount = calendar[k]?.goalsCount || 0;
-        let tier = "tier-0";
-        if (gCount >= 9) tier = "tier-4";
-        else if (gCount >= 6) tier = "tier-3";
-        else if (gCount >= 3) tier = "tier-2";
-        else if (gCount >= 1) tier = "tier-1";
+        const isMessi = (m === 6 && d === 24);
+        const cellClass = isMessi ? "bday-cell-messi" : `bday-heat-${intensity}`;
+        const titleText = isMessi
+          ? `${d} ${MONTH_NAMES[m]}: Leo Messi's Birthday!`
+          : `${d} ${MONTH_NAMES[m]}: ${gc} ${gc === 1 ? "goal" : "goals"}`;
 
-        const title = `${day} ${mName}: ${gCount} ${gCount === 1 ? "goal" : "goals"}`;
-        daysHtml += `<button type="button" class="bday-day-btn ${tier}" data-month="${m}" data-day="${day}" title="${esc(title)}" aria-label="${esc(title)}">${day}</button>`;
+        gridHtml += `<button type="button" class="bday-day-btn ${cellClass}" data-month="${m}" data-day="${d}" title="${esc(titleText)}">${d}</button>`;
       }
-
-      heatmapHtml += `
-        <div class="bday-month-card" id="bday-month-card-${m}" data-month="${m}">
-          <div class="bday-month-card-head">
-            <h3 class="bday-month-card-title">${mName}</h3>
-            <span class="bday-month-card-goals">${mMeta.goals} goals</span>
-          </div>
-          <div class="bday-days-grid">${daysHtml}</div>
-        </div>
-      `;
+      gridHtml += `</div></div>`;
     }
-    heatmapGrid.innerHTML = heatmapHtml;
+    heatmapGrid.innerHTML = gridHtml;
+
     heatmapGrid.addEventListener("click", (e) => {
-      const cell = e.target.closest(".bday-day-btn");
-      if (!cell) return;
-      selectDate(+cell.dataset.month, +cell.dataset.day, true);
+      const btn = e.target.closest(".bday-day-btn");
+      if (!btn) return;
+      selectDate(+btn.dataset.month, +btn.dataset.day, true);
     });
   }
 
   const topTbody = el("top-days-tbody");
   if (topTbody && meta.topDays) {
     let topHtml = "";
-    const highlights = {
-      "05-02": "El Clásico 6-2 at the Bernabéu (2009), Getafe brace (2015)",
-      "09-19": "Champions League hat-trick vs Ajax (2013), Eibar 4 goals (2017)",
-      "01-06": "Hat-trick vs Atlético Madrid in Copa del Rey (2009)",
-      "03-07": "Historic 5-goal Champions League night vs Bayer Leverkusen (2012)",
-      "03-17": "Hat-trick at Real Betis with iconic Camp Nou standing ovation (2019)",
-      "10-19": "Champions League hat-trick vs Manchester City (2016)",
-      "02-19": "4 goals vs Valencia in La Liga (2012)",
-      "12-07": "Hat-trick vs Mallorca (2019), Espanyol brace (2018)",
-      "02-01": "Two goals vs Racing Santander, 5,000th Barça league goal (2009)",
-      "03-14": "Chelsea UCL brace & 100th Champions League goal (2018)",
-      "04-06": "Famous 4 goals vs Arsenal in Champions League quarter-final (2010)",
-      "04-27": "Semi-final Bernabéu solo wondergoal vs Real Madrid (2011)",
-      "06-05": "Historic 5 goals for Argentina vs Estonia (2022)",
-      "09-09": "Hat-trick vs Bolivia in World Cup qualifying (2021)",
-      "09-18": "Champions League hat-trick vs PSV Eindhoven (2018)"
-    };
-
-    meta.topDays.forEach((td, idx) => {
-      const rate = td.matchCount ? (td.goalsCount / td.matchCount).toFixed(2) : "—";
-      const [m, day] = td.key.split("-").map(Number);
-      const note = highlights[td.key] || `${td.goalsCount} goals across ${td.matchCount} appearances`;
-
+    meta.topDays.forEach((row, idx) => {
+      const topFormatted = `${row.day} ${MONTH_NAMES[row.month]}`;
       topHtml += `
         <tr>
-          <td class="left"><b>#${idx + 1}</b></td>
-          <td class="left"><b>${esc(td.formatted)}</b></td>
-          <td><b>${td.goalsCount}</b></td>
-          <td>${td.matchCount}</td>
-          <td>${rate}</td>
-          <td class="left" style="font-size:0.86rem;color:var(--ink-soft)">${esc(note)}</td>
-          <td>
-            <button type="button" class="btn" style="padding:4px 12px;font-size:0.78rem" data-month="${m}" data-day="${day}">Check</button>
+          <td><b>#${idx + 1}</b></td>
+          <td class="left">
+            <button type="button" class="bday-top-day-link" data-month="${row.month}" data-day="${row.day}">
+              <b>${topFormatted}</b>
+            </button>
           </td>
+          <td><b style="color:var(--accent);">${row.goals}</b></td>
+          <td>${row.matches?.length || 0}</td>
+          <td class="left">${esc(row.topRival || "—")}</td>
         </tr>
       `;
     });
@@ -4323,11 +5256,12 @@ async function renderBirthday(d) {
           peakDay = d;
         }
       }
-      const peakStr = peakGoals > 0 ? `${peakDay} ${row.name} (${peakGoals} goals)` : "—";
+      const mName = MONTH_NAMES[row.month];
+      const peakStr = peakGoals > 0 ? `${peakDay} ${mName} (${peakGoals} goals)` : "—";
 
       mHtml += `
         <tr>
-          <td class="left"><b>${esc(row.name)}</b></td>
+          <td class="left"><b>${esc(mName)}</b></td>
           <td><b>${row.goals}</b></td>
           <td>${pct}%</td>
           <td>${row.daysScored} / ${row.totalDays}</td>
