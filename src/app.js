@@ -1,6 +1,7 @@
 /* MessiStats renderer — own code, own data, own copy.
    Layout structure mirrors the ronaldostats.app reference (rail, KPI cards,
    tables, charts, explore links); no reference code, images or text reused. */
+import "./ad-guard.js";
 import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
 import { initAnalytics, trackBirthdaySearch, trackVideoPlay, trackShare } from "./analytics.js";
@@ -248,6 +249,9 @@ function reveal() {
 }
 const EXPLORE = [
   { href: "/en/birthday", page: "birthday", t: "🎂 Did Messi score on your birthday?", d: (d) => `Search all 366 calendar days with video clips across Messi's ${n(d.totals.goals)} senior career goals.` },
+  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Head-to-head career stats: 929 vs 924 goals, 46 vs 35 trophies, 8 vs 5 Ballons d'Or." },
+  { href: "/en/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "All 26 El Clásico goals, 45 matches, 14 assists, hat-tricks, and video clips." },
+  { href: "/en/champions-league", page: "champions-league", t: "⭐ Champions League Record", d: () => "129 UEFA Champions League goals, 8 hat-tricks, and 4 European titles." },
   { href: "/en", page: "home", t: "Messi career stats", d: (d) => `The headline numbers: ${n(d.totals.goals)} goals in ${n(d.totals.apps)} senior games.` },
   { href: "/en/goalsbyyear", page: "byyear", t: "Messi goals by year", d: (d) => `Every calendar year from 2004 to 2026 and the climb to ${n(d.totals.goals)}.` },
   { href: "/en/goalsbyseason", page: "byseason", t: "Messi goals by season", d: () => "League, cup and continental splits for every club season." },
@@ -259,7 +263,7 @@ function renderExplore(d, page) {
   const e = el("explore");
   if (!e) return;
   e.innerHTML = EXPLORE.filter((x) => x.page !== page)
-    .slice(0, 6)
+    .slice(0, 9)
     .map((x) => `<a class="link-card" href="${x.href}"><strong>${esc(x.t)}</strong><span>${esc(x.d(d))}</span></a>`)
     .join("");
 }

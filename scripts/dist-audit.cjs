@@ -3,7 +3,8 @@ const fs = require("fs");
 const dist = "./dist";
 const must = ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html",
   "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html",
-  "es/index.html", "es/birthday.html", "404.html", "sitemap.xml", "robots.txt", "llms.txt",
+  "es/index.html", "es/birthday.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html",
+  "404.html", "sitemap.xml", "robots.txt", "llms.txt",
   "data/messi-data.json", "data/birthday-goals.json", "fonts/dm-sans-latin.woff2", "img/og-messi.jpg",
   "img/era-2008-olympic.jpg", "img/teams/barcelona.png", "favicon.svg", "favicon.ico", "favicon-48x48.png",
   "apple-touch-icon.png", "site.webmanifest", "img/logo.png", "img/messi.webp", "img/messi-450.webp"];
@@ -11,11 +12,11 @@ let ok = true;
 for (const f of must) {
   if (!fs.existsSync(dist + "/" + f)) { ok = false; console.log("MISSING " + f); }
 }
-for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html", "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html", "es/index.html", "es/birthday.html"]) {
+for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html", "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html", "es/index.html", "es/birthday.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html"]) {
   const s = fs.readFileSync(dist + "/" + p, "utf8");
   if (!s.includes('class="skip"') || !s.includes('id="main"')) { ok = false; console.log("NO SKIP in " + p); }
 }
-for (const p of ["index.html", "en/index.html", "es/index.html"]) {
+for (const p of ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html"]) {
   const s = fs.readFileSync(dist + "/" + p, "utf8");
   if (!s.includes('id="messi-total-goals"') || !s.includes('929')) {
     ok = false;

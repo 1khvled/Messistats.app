@@ -713,6 +713,8 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   margin: 1.5rem 0 1.75rem;
   width: 100%;
   clear: both;
+  position: relative;
+  contain: layout paint;
 }
 .ad-native-label {
   display: block;
@@ -733,11 +735,15 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   box-shadow: var(--shadow-sm);
   padding: 10px;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: hidden !important;
+  position: relative !important;
+  contain: layout paint !important;
 }
 .ad-native-slot > div {
   width: 100%;
   max-width: 100%;
+  overflow: hidden !important;
+  contain: layout paint !important;
 }
 .share-row {
   display: flex;
@@ -3947,5 +3953,60 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
 .gt-stat-pill strong {
   color: var(--ink);
 }
+
+/* ---------- Comprehensive Site Footer & Hubs ---------- */
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.footer-nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+.footer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.footer-heading {
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 0.86rem;
+}
+.footer-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.footer-links a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.footer-langs a {
+  padding: 3px 8px;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.footer-langs a:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
 
 

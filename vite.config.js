@@ -12,6 +12,9 @@ function cleanEnRouting() {
       req.url = '/' + query;
     } else if (url === '/es' || url === '/es/') {
       req.url = '/es/index.html' + query;
+    } else if (/^\/(pt|fr|ar|bn|hi|ro|uz)(\/)?$/.test(url)) {
+      const lang = url.split('/')[1];
+      req.url = `/${lang}/index.html` + query;
     } else if (url.startsWith('/en/')) {
       const slug = url.slice(4);
       req.url = '/' + slug + '.html' + query;
@@ -60,6 +63,13 @@ export default defineConfig({
         es_goalsbyseason: resolve(root, 'es/goalsbyseason.html'),
         es_dashboard: resolve(root, 'es/dashboard.html'),
         es_timeline: resolve(root, 'es/timeline.html'),
+        pt_index: resolve(root, 'pt/index.html'),
+        fr_index: resolve(root, 'fr/index.html'),
+        ar_index: resolve(root, 'ar/index.html'),
+        bn_index: resolve(root, 'bn/index.html'),
+        hi_index: resolve(root, 'hi/index.html'),
+        ro_index: resolve(root, 'ro/index.html'),
+        uz_index: resolve(root, 'uz/index.html'),
         admin: resolve(root, 'admin.html')
       }
     }
