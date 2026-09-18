@@ -63,6 +63,8 @@ export default defineConfig({
         es_goalsbyseason: resolve(root, 'es/goalsbyseason.html'),
         es_dashboard: resolve(root, 'es/dashboard.html'),
         es_timeline: resolve(root, 'es/timeline.html'),
+        es_messi_vs_ronaldo: resolve(root, 'es/messi-vs-ronaldo.html'),
+        es_vs_real_madrid: resolve(root, 'es/vs-real-madrid.html'),
         pt_index: resolve(root, 'pt/index.html'),
         fr_index: resolve(root, 'fr/index.html'),
         ar_index: resolve(root, 'ar/index.html'),

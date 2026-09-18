@@ -452,8 +452,8 @@ function renderHome(d) {
     ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="/en/goalsbyyear">every year</a>.`],
     ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="/en/achievements">The full list</a>.`],
   ];
-  el("qa").innerHTML = Q.map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
-  el("qa").classList.add("qa--dense");
+  el("qa").innerHTML = Q.map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  el("qa").className = "faq-accordion";
 
   const order = ["barcelona", "psg", "miami", "argentina"];
   const rows = order.map((k2) => {
@@ -544,13 +544,30 @@ function renderHome(d) {
   el("faq").innerHTML = [
     ["How many goals has Messi scored in total?", `<b>${n(t.goals)} in ${n(t.apps)}</b> senior games — ${n(t.clubs.goals)} at club level and ${n(t.country.goals)} for Argentina.`],
     ["How many goals did Messi score in 2012?", `<b>91</b> — 79 for Barcelona and 12 for Argentina, a world record for a calendar year.`],
-    ["How many World Cup goals does Messi have?", `<b>${d.byCompetition.find((r) => r.competition === "FIFA World Cup").goals}</b> — the all-time record until Kylian Mbappé overtook him at the 2026 finals — crowned by 7 in Qatar 2022 and 8 in 2026.`],
+    ["How many World Cup goals does Messi have?", `<b>${d.byCompetition.find((r) => r.competition === "FIFA World Cup").goals}</b> — crowned by 7 in Qatar 2022 and 8 in 2026.`],
     ["How many free kicks has Messi scored?", `<b>${m.freeKicks}</b> in senior football (provisional tally, counting by hand).`],
     ["How many penalties has Messi scored?", `<b>${m.penalties}</b> (same provisional basis).`],
     ["How many Ballons d'Or has Messi won?", `<b>Eight</b> — 2009, 2010, 2011, 2012, 2015, 2019, 2021 and 2023.`],
     ["How many trophies has Messi won?", `<b>46 team titles</b> plus every major individual award. <a href="/en/achievements">Every trophy listed</a>.`],
     ["How often is this site updated?", `After every match, by hand, from named sources — the date stamp at the top of the page shows the last check (${esc(d.lastUpdated)}).`],
-  ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
+  ].map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  el("faq").className = "faq-accordion";
+
+  // Dynamically sync Road to 1,000 widget if present
+  const r1000 = el("road-1000");
+  if (r1000) {
+    const goals = t.goals || 929;
+    const remaining = Math.max(0, 1000 - goals);
+    const pct = ((goals / 1000) * 100).toFixed(1);
+    const fill = r1000.querySelector(".road-1000-fill");
+    if (fill) fill.style.width = `${pct}%`;
+    const pin = r1000.querySelector(".road-1000-pin");
+    if (pin) pin.style.left = `${pct}%`;
+    const pBadge = r1000.querySelector(".r1000-percent");
+    if (pBadge) pBadge.textContent = `${pct}%`;
+    const numEl = r1000.querySelector(".r1000-metric.highlight .r1000-num");
+    if (numEl) numEl.textContent = String(remaining);
+  }
 
   renderExplore(d, "home");
   renderMethod(d, "");
@@ -1372,7 +1389,8 @@ function renderTimeline(d) {
     ["When did Messi win the World Cup?", "On <b>18 December 2022</b>, beating France on penalties in the Lusail final after a 3–3 draw."],
     ["When did Messi leave Barcelona?", "In <b>August 2021</b>, joining Paris Saint-Germain after 21 years at the club."],
     ["When did Messi join Inter Miami?", "In <b>July 2023</b>, winning the Leagues Cup within weeks of arriving."],
-  ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
+  ].map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  el("faq").className = "faq-accordion";
   renderExplore(d, "timeline");
   renderMethod(d, "Timeline entries are year- and date-granular milestones; era goal bars split calendar years into non-overlapping spans so they add back up to the career total.");
 }
@@ -1408,7 +1426,8 @@ function renderAch(d) {
     ["How many Ballons d'Or has Messi won?", "<b>Eight</b> — more than any player ever (2009–12, 2015, 2019, 2021, 2023)."],
     ["Has Messi won the World Cup?", "<b>Yes — 2022</b>, scoring twice in the final against France, plus Copas América 2021 and 2024."],
     ["How many Champions Leagues has Messi won?", "<b>Four</b>, all with Barcelona: 2006, 2009, 2011 and 2015."],
-  ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
+  ].map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  el("qa").className = "faq-accordion";
   el("cabinet").innerHTML = cabinetPhotos();
   const order = ["Barcelona", "Paris Saint-Germain", "Inter Miami", "Argentina"];
   const trow = (x) => `<div class="tpill"><span class="tp-name">${esc(x.title)}</span><span class="tp-count">×${x.count}</span>` +
@@ -1426,7 +1445,8 @@ function renderAch(d) {
     ["How many league titles has Messi won?", "<b>Twelve</b> — 10 La Ligas, 2 Ligue 1s — plus an MLS Cup (2025) and a Leagues Cup (2023) with Miami."],
     ["How many individual awards has Messi won?", "Eight Ballons d'Or, six European Golden Shoes and two World Cup Golden Balls — each a record."],
     ["Is Messi the most decorated player ever?", "By team titles plus individual records combined — <b>yes, by any reasonable count</b>."],
-  ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
+  ].map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+  el("faq").className = "faq-accordion";
   renderExplore(d, "achievements");
   renderMethod(d, "");
 }
@@ -2423,7 +2443,7 @@ function initLanguageAndMobileTopBar() {
     }
 
     if (isTargetEs) {
-      const validEsPages = ["birthday", "goalsbyyear", "goalsbyseason", "dashboard", "timeline", "achievements"];
+      const validEsPages = ["birthday", "goalsbyyear", "goalsbyseason", "dashboard", "timeline", "achievements", "messi-vs-ronaldo", "vs-real-madrid"];
       if (validEsPages.includes(subpage)) {
         return `/es/${subpage}${location.search}${location.hash}`;
       }

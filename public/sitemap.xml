@@ -223,6 +223,9 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs/real-madrid" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/vs/real-madrid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs/real-madrid" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
       <image:title>Lionel Messi vs Real Madrid El Clasico Goals</image:title>
@@ -234,6 +237,9 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs/ronaldo" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/vs/ronaldo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs/ronaldo" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
       <image:title>Lionel Messi vs Cristiano Ronaldo Career Comparison</image:title>
@@ -377,6 +383,34 @@
     <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/achievements" />
     <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/es/vs/real-madrid</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs/real-madrid" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/vs/real-madrid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs/real-madrid" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Goles de Lionel Messi vs Real Madrid El Clásico</image:title>
+      <image:caption>Todos los 26 goles y 14 asistencias de Lionel Messi frente al Real Madrid en El Clásico.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.messistat.com/es/vs/ronaldo</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs/ronaldo" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/vs/ronaldo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs/ronaldo" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Lionel Messi vs Cristiano Ronaldo Comparativa Histórica</image:title>
+      <image:caption>Comparativa estadística completa entre Lionel Messi y Cristiano Ronaldo: goles, títulos y Balones de Oro.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/pt</loc>
