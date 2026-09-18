@@ -34,6 +34,7 @@ const LANGS = {
       bday: "Aniversário",
       ronaldo: "vs Ronaldo",
       madrid: "vs Real Madrid",
+      ucl: "Champions League",
       byyear: "Gols por Ano",
       byseason: "Temporadas",
       dashboard: "Painel",
@@ -66,6 +67,7 @@ const LANGS = {
       bday: "Anniversaire",
       ronaldo: "vs Ronaldo",
       madrid: "vs Real Madrid",
+      ucl: "Ligue des Champions",
       byyear: "Buts par Année",
       byseason: "Saisons",
       dashboard: "Tableau de bord",
@@ -98,6 +100,7 @@ const LANGS = {
       bday: "عيد الميلاد",
       ronaldo: "ضد رونالدو",
       madrid: "ضد ريال مدريد",
+      ucl: "دوري الأبطال",
       byyear: "الأهداف بالسنة",
       byseason: "المواسم",
       dashboard: "لوحة البيانات",
@@ -130,6 +133,7 @@ const LANGS = {
       bday: "জন্মদিন",
       ronaldo: "বনাম রোনালদো",
       madrid: "বনাম রিয়াল মাদ্রিদ",
+      ucl: "চ্যাম্পিয়নস লিগ",
       byyear: "বছরভিত্তিক গোল",
       byseason: "মৌসুমভিত্তিক",
       dashboard: "ড্যাশবোর্ড",
@@ -162,6 +166,7 @@ const LANGS = {
       bday: "जन्मदिन",
       ronaldo: "बनाम रोनाल्डो",
       madrid: "बनाम रियल मैड्रिड",
+      ucl: "चैंपियंस लीग",
       byyear: "साल दर साल",
       byseason: "सीज़न",
       dashboard: "डैशबोर्ड",
@@ -194,6 +199,7 @@ const LANGS = {
       bday: "Zi de naștere",
       ronaldo: "vs Ronaldo",
       madrid: "vs Real Madrid",
+      ucl: "Champions League",
       byyear: "Goluri pe Ani",
       byseason: "Sezoane",
       dashboard: "Panou",
@@ -226,6 +232,7 @@ const LANGS = {
       bday: "Tug'ilgan kun",
       ronaldo: "vs Ronaldu",
       madrid: "vs Real Madrid",
+      ucl: "Chempionlar Ligasi",
       byyear: "Yillar bo'yicha",
       byseason: "Mavsumlar",
       dashboard: "Boshqaruv paneli",
@@ -293,6 +300,7 @@ function renderRailNav(lang, activeSlug) {
 <a${onBday("birthday")} href="/${lang}/birthday" aria-label="${L.nav.bday}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg><span>${L.nav.bday} <b class="nav-badge-hot">HOT 🔥</b></span></a>
 <a${onAria("messi-vs-ronaldo")} href="/${lang}/messi-vs-ronaldo" aria-label="${L.nav.ronaldo}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg><span>${L.nav.ronaldo}</span></a>
 <a${onAria("vs-real-madrid")} href="/${lang}/vs-real-madrid" aria-label="${L.nav.madrid}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg><span>${L.nav.madrid}</span></a>
+<a${onAria("champions-league")} href="/en/champions-league" aria-label="${L.nav.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${L.nav.ucl}</span></a>
 <a${onAria("byyear")} href="/${lang}/goalsbyyear" aria-label="${L.nav.byyear}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg><span>${L.nav.byyear}</span></a>
 <a${onAria("byseason")} href="/${lang}/goalsbyseason" aria-label="${L.nav.byseason}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg><span>${L.nav.byseason}</span></a>
 <a${onAria("dashboard")} href="/${lang}/dashboard" aria-label="${L.nav.dashboard}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg><span>${L.nav.dashboard}</span></a>

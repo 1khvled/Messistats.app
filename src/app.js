@@ -3943,30 +3943,43 @@ function initLanguageAndMobileTopBar() {
   const curLangObj = LANGUAGES.find((l) => l.code === curLangCode) || LANGUAGES[0];
 
   function getLangUrl(targetCode) {
-    const isTargetEn = targetCode === "en";
-    const isTargetEs = targetCode === "es";
+    const validSubpages = [
+      "birthday",
+      "goalsbyyear",
+      "goalsbyseason",
+      "dashboard",
+      "timeline",
+      "achievements",
+      "messi-vs-ronaldo",
+      "vs-real-madrid"
+    ];
 
     let subpage = "";
     if (pathParts.length > 1) {
-      subpage = pathParts[1];
+      subpage = pathParts[1].replace(/\.html$/, "");
     } else if (pathParts.length === 1 && !LANGUAGES.some((l) => l.code === pathParts[0])) {
       subpage = pathParts[0].replace(/\.html$/, "");
     }
 
-    if (isTargetEn) {
-      if (subpage) return `/en/${subpage}${location.search}${location.hash}`;
-      return `/en${location.search}${location.hash}`;
+    if (subpage === "champions-league") {
+      return `/en/champions-league${location.search}${location.hash}`;
     }
 
-    if (isTargetEs) {
-      const validEsPages = ["birthday", "goalsbyyear", "goalsbyseason", "dashboard", "timeline", "achievements", "messi-vs-ronaldo", "vs-real-madrid"];
-      if (validEsPages.includes(subpage)) {
-        return `/es/${subpage}${location.search}${location.hash}`;
-      }
-      return `/es${location.search}${location.hash}`;
+    if (subpage && validSubpages.includes(subpage)) {
+      return `/${targetCode}/${subpage}${location.search}${location.hash}`;
     }
 
     return `/${targetCode}${location.search}${location.hash}`;
+  }
+
+  function centerActiveNav() {
+    if (typeof window === "undefined" || window.innerWidth > 900) return;
+    const activeNav = document.querySelector(".rail nav a.on");
+    if (activeNav) {
+      setTimeout(() => {
+        activeNav.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }, 70);
+    }
   }
 
   // Remove any legacy inline .lang-switcher elements
@@ -4342,6 +4355,9 @@ function initLanguageAndMobileTopBar() {
       }
     }
   } catch (_) {}
+
+  centerActiveNav();
+  window.addEventListener("resize", centerActiveNav, { passive: true });
 }
 
 if (typeof window !== "undefined") {
