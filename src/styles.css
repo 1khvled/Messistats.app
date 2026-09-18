@@ -4624,6 +4624,193 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   }
 }
 
+/* ---------- Language Suggestion Banner & Auto-Route Notice ---------- */
+.lang-suggest-banner {
+  position: fixed;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: 680px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  animation: langBannerSlideDown 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.lang-suggest-banner[hidden] {
+  display: none !important;
+}
+@keyframes langBannerSlideDown {
+  from {
+    transform: translate(-50%, -24px);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+.lang-suggest-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+.lang-suggest-flag {
+  font-size: 1.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.lang-suggest-text {
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: var(--ink);
+}
+.lang-suggest-text b {
+  color: var(--brand);
+}
+.lang-suggest-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.lang-suggest-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  background: var(--brand);
+  color: #fff !important;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border-radius: 999px;
+  text-decoration: none !important;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.lang-suggest-btn-primary:hover {
+  background: var(--brand-ink);
+  transform: translateY(-1px);
+}
+.lang-suggest-btn-dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.lang-suggest-btn-dismiss:hover {
+  color: var(--ink);
+  background: var(--surface-solid);
+}
+@media (max-width: 680px) {
+  .lang-suggest-banner {
+    top: 60px; /* Positioned right below mobile topbar */
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px 14px;
+    gap: 10px;
+  }
+  .lang-suggest-actions {
+    justify-content: flex-end;
+  }
+  .lang-suggest-btn-primary, .lang-suggest-btn-dismiss {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+/* Auto-routed Notice Toast */
+.lang-auto-notice {
+  position: fixed;
+  bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+  right: 16px;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
+  font-size: 0.8rem;
+  color: var(--ink);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: langNoticeFade 0.3s ease-out forwards;
+}
+.lang-auto-notice[hidden] {
+  display: none !important;
+}
+@keyframes langNoticeFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.lang-auto-notice-flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.lang-auto-notice-text {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+.lang-auto-notice-link {
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+}
+.lang-auto-notice-close {
+  background: none;
+  border: none;
+  color: var(--faint);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+}
+.lang-auto-notice-close:hover {
+  color: var(--ink);
+}
+@media (max-width: 900px) {
+  .lang-auto-notice {
+    bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+    left: 16px;
+    right: 16px;
+    justify-content: space-between;
+    font-size: 0.76rem;
+  }
+}
+
 /* ---------- Ground Truth Section (AI Overviews & Search Snippets) ---------- */
 .ground-truth-card {
   margin: 1.5rem 0 2rem;

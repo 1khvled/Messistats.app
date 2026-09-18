@@ -2743,6 +2743,17 @@ function initLanguageAndMobileTopBar() {
         </div>
       </div>
     `;
+    langModal.querySelectorAll(".lang-card-option").forEach((card) => {
+      card.addEventListener("click", () => {
+        const code = card.getAttribute("data-code");
+        if (code) {
+          try {
+            localStorage.setItem("messistats_lang_choice", code);
+          } catch (_) {}
+        }
+      });
+    });
+
     document.body.appendChild(langModal);
   }
 
@@ -2772,6 +2783,220 @@ function initLanguageAndMobileTopBar() {
       closeLangModal();
     }
   });
+
+  // 4. Device & Location-Based Language View Detection
+  const LANG_MESSAGES = {
+    es: {
+      name: "Español",
+      flag: "🇪🇸",
+      detected: "Detectamos que tu dispositivo está en español.",
+      suggest: "¿Deseas ver MessiStats en español?",
+      switchBtn: "Ver en Español",
+      stayBtn: "Continuar en English",
+      autoNotice: "Mostrando en Español según tu dispositivo.",
+      changeBtn: "Cambiar"
+    },
+    pt: {
+      name: "Português",
+      flag: "🇧🇷",
+      detected: "Detectamos que seu dispositivo está em português.",
+      suggest: "Deseja ver o MessiStats em português?",
+      switchBtn: "Ver em Português",
+      stayBtn: "Continuar em English",
+      autoNotice: "Exibindo em Português conforme seu dispositivo.",
+      changeBtn: "Mudar"
+    },
+    fr: {
+      name: "Français",
+      flag: "🇫🇷",
+      detected: "Votre appareil est configuré en français.",
+      suggest: "Souhaitez-vous voir MessiStats en français ?",
+      switchBtn: "Voir en Français",
+      stayBtn: "Continuer en anglais",
+      autoNotice: "Affiché en français selon votre appareil.",
+      changeBtn: "Changer"
+    },
+    ar: {
+      name: "العربية",
+      flag: "🇪🇬",
+      detected: "تم اكتشاف أن لغة جهازك هي العربية.",
+      suggest: "هل ترغب في تصفح ميسي ستاتس باللغة العربية؟",
+      switchBtn: "التصفح بالعربية",
+      stayBtn: "المتابعة بالإنجليزية",
+      autoNotice: "يتم العرض بالعربية بناءً على إعدادات جهازك.",
+      changeBtn: "تغيير"
+    },
+    bn: {
+      name: "বাংলা",
+      flag: "🇧🇩",
+      detected: "আপনার ডিভাইসের ভাষা বাংলা হিসেবে শনাক্ত হয়েছে।",
+      suggest: "আপনি কি বাংলায় মেসি পরিসংখ্যান দেখতে চান?",
+      switchBtn: "বাংলায় দেখুন",
+      stayBtn: "English এ থাকুন",
+      autoNotice: "আপনার ডিভাইস অনুযায়ী বাংলায় দেখানো হচ্ছে।",
+      changeBtn: "পরিবর্তন"
+    },
+    hi: {
+      name: "हिन्दी",
+      flag: "🇮🇳",
+      detected: "आपकी डिवाइस की भाषा हिन्दी पहचानी गई है।",
+      suggest: "क्या आप मेस्सी के आंकड़े हिन्दी में देखना चाहते हैं?",
+      switchBtn: "हिन्दी में देखें",
+      stayBtn: "English में जारी रखें",
+      autoNotice: "आपके डिवाइस के अनुसार हिन्दी में प्रदर्शित।",
+      changeBtn: "बदलें"
+    },
+    ro: {
+      name: "Română",
+      flag: "🇷🇴",
+      detected: "Am detectat că limba dispozitivului tău este română.",
+      suggest: "Dorești să vezi MessiStats în limba română?",
+      switchBtn: "Vezi în Română",
+      stayBtn: "Rămâi pe English",
+      autoNotice: "Afișat în română conform dispozitivului tău.",
+      changeBtn: "Schimbă"
+    },
+    uz: {
+      name: "Oʻzbekcha",
+      flag: "🇺🇿",
+      detected: "Qurilmangiz tili oʻzbekcha ekanligi aniqlandi.",
+      suggest: "MessiStatsni oʻzbek tilida koʻrishni xohlaysizmi?",
+      switchBtn: "Oʻzbekcha koʻrish",
+      stayBtn: "Englishda davom etish",
+      autoNotice: "Qurilmangizga mos ravishda oʻzbek tilida koʻrsatilmoqda.",
+      changeBtn: "Oʻzgartirish"
+    },
+    en: {
+      name: "English",
+      flag: "🇺🇸",
+      detected: "Your device is set to English.",
+      suggest: "Would you like to view MessiStats in English?",
+      switchBtn: "Switch to English",
+      stayBtn: "Stay here",
+      autoNotice: "Viewing in English based on device settings.",
+      changeBtn: "Change"
+    }
+  };
+
+  function detectDeviceAndLocationLang() {
+    try {
+      const saved = localStorage.getItem("messistats_lang_choice");
+      if (saved && LANGUAGES.some((l) => l.code === saved)) return saved;
+    } catch (_) {}
+
+    const langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ""];
+    for (const l of langs) {
+      const lower = (l || "").toLowerCase();
+      if (lower.startsWith("es")) return "es";
+      if (lower.startsWith("pt")) return "pt";
+      if (lower.startsWith("fr")) return "fr";
+      if (lower.startsWith("ar")) return "ar";
+      if (lower.startsWith("bn")) return "bn";
+      if (lower.startsWith("hi")) return "hi";
+      if (lower.startsWith("ro")) return "ro";
+      if (lower.startsWith("uz")) return "uz";
+      if (lower.startsWith("en")) return "en";
+    }
+
+    let tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (_) {}
+
+    if (/Argentina|Buenos_Aires|Cordoba|Rosario|Mendoza|Catamarca|Jujuy|San_Juan|Tucuman|Ushuaia|Madrid|Canary|Santiago|Bogota|Lima|Caracas|Montevideo|Mexico|Cancun|Merida|Monterrey|Tijuana|Guatemala|Costa_Rica|Panama|Guayaquil|Asuncion|La_Paz|Santo_Domingo|Havana/i.test(tz)) {
+      return "es";
+    }
+    if (/Sao_Paulo|Lisbon|Madeira|Azores|Recife|Fortaleza|Belem|Manaus|Brasilia|Bahia|Cuiaba|Porto_Velho|Boa_Vista|Luanda|Maputo/i.test(tz)) {
+      return "pt";
+    }
+    if (/Paris|Niamey|Dakar|Abidjan|Douala|Kinshasa|Bamako|Ouagadougou|Brussels|Geneva/i.test(tz)) {
+      return "fr";
+    }
+    if (/Cairo|Riyadh|Dubai|Baghdad|Kuwait|Qatar|Casablanca|Algiers|Tunis|Amman|Beirut|Muscat|Bahrain|Tripoli|Khartoum/i.test(tz)) {
+      return "ar";
+    }
+    if (/Dhaka/i.test(tz)) {
+      return "bn";
+    }
+    if (/Bucharest|Chisinau/i.test(tz)) {
+      return "ro";
+    }
+    if (/Tashkent|Samarkand/i.test(tz)) {
+      return "uz";
+    }
+
+    return "en";
+  }
+
+  // 5. Show Auto-Routed Notice Toast (if user was just auto-routed to their native hub)
+  try {
+    const wasAutoRouted = sessionStorage.getItem("geo_routed");
+    if (wasAutoRouted) {
+      sessionStorage.removeItem("geo_routed");
+      const msgObj = LANG_MESSAGES[curLangCode] || LANG_MESSAGES.en;
+      const notice = document.createElement("div");
+      notice.className = "lang-auto-notice";
+      notice.setAttribute("role", "status");
+      notice.innerHTML = `
+        <span class="lang-auto-notice-flag">${msgObj.flag}</span>
+        <span class="lang-auto-notice-text">${msgObj.autoNotice}</span>
+        <button type="button" class="lang-auto-notice-link" id="lang-notice-change">${msgObj.changeBtn}</button>
+        <button type="button" class="lang-auto-notice-close" id="lang-notice-close" aria-label="Close">&times;</button>
+      `;
+      document.body.appendChild(notice);
+      document.getElementById("lang-notice-change")?.addEventListener("click", () => {
+        notice.remove();
+        openLangModal();
+      });
+      document.getElementById("lang-notice-close")?.addEventListener("click", () => {
+        notice.remove();
+      });
+      setTimeout(() => {
+        if (notice && notice.parentNode) notice.remove();
+      }, 7500);
+    }
+  } catch (_) {}
+
+  // 6. Show Smart Language Suggestion Banner (if viewing a language different from detected device/location)
+  try {
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
+    if (!isBot) {
+      const detectedLang = detectDeviceAndLocationLang();
+      const userChoice = localStorage.getItem("messistats_lang_choice");
+      const dismissed = sessionStorage.getItem("messistats_lang_dismissed");
+
+      if (detectedLang && detectedLang !== curLangCode && !userChoice && dismissed !== detectedLang) {
+        const targetMsg = LANG_MESSAGES[detectedLang] || LANG_MESSAGES.en;
+        const targetUrl = getLangUrl(detectedLang);
+
+        const banner = document.createElement("div");
+        banner.className = "lang-suggest-banner";
+        banner.id = "lang-suggest-banner";
+        banner.setAttribute("role", "region");
+        banner.setAttribute("aria-label", "Language recommendation");
+        banner.innerHTML = `
+          <div class="lang-suggest-content">
+            <span class="lang-suggest-flag">${targetMsg.flag}</span>
+            <span class="lang-suggest-text">${targetMsg.detected} <b>${targetMsg.suggest}</b></span>
+          </div>
+          <div class="lang-suggest-actions">
+            <a href="${targetUrl}" class="lang-suggest-btn-primary" id="lang-suggest-switch">${targetMsg.switchBtn}</a>
+            <button type="button" class="lang-suggest-btn-dismiss" id="lang-suggest-dismiss">${targetMsg.stayBtn}</button>
+          </div>
+        `;
+        document.body.prepend(banner);
+
+        document.getElementById("lang-suggest-switch")?.addEventListener("click", () => {
+          try { localStorage.setItem("messistats_lang_choice", detectedLang); } catch (_) {}
+        });
+        document.getElementById("lang-suggest-dismiss")?.addEventListener("click", () => {
+          try {
+            sessionStorage.setItem("messistats_lang_dismissed", detectedLang);
+            localStorage.setItem("messistats_lang_choice", curLangCode);
+          } catch (_) {}
+          banner.remove();
+        });
+      }
+    }
+  } catch (_) {}
 }
 
 if (typeof window !== "undefined") {

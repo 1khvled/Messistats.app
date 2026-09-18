@@ -101,6 +101,45 @@
       }
     } catch(e) {}
   })();
+  (function() {
+    try {
+      if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) return;
+      var saved = localStorage.getItem('messistats_lang_choice');
+      var isRoot = location.pathname === '/' || location.pathname === '/en' || location.pathname === '/en/';
+      if (saved && saved !== 'en' && isRoot) {
+        location.replace('/' + saved);
+        return;
+      }
+      if (!saved && isRoot && !sessionStorage.getItem('geo_routed')) {
+        var langs = navigator.languages || [navigator.language || ''];
+        var tz = '';
+        try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){}
+        var primary = (langs[0] || '').toLowerCase();
+        var target = null;
+        if (primary.startsWith('es') || /Argentina|Buenos_Aires|Cordoba|Rosario|Mendoza|Catamarca|Jujuy|San_Juan|Tucuman|Ushuaia|Madrid|Canary|Santiago|Bogota|Lima|Caracas|Montevideo|Mexico|Guatemala|Costa_Rica|Panama|Guayaquil|Asuncion|La_Paz/i.test(tz)) {
+          target = 'es';
+        } else if (primary.startsWith('pt') || /Sao_Paulo|Lisbon|Madeira|Azores|Recife|Fortaleza|Belem|Manaus|Brasilia|Luanda/i.test(tz)) {
+          target = 'pt';
+        } else if (primary.startsWith('fr') || /Paris|Niamey|Dakar|Abidjan|Douala|Kinshasa|Bamako|Ouagadougou|Brussels/i.test(tz)) {
+          target = 'fr';
+        } else if (primary.startsWith('ar') || /Cairo|Riyadh|Dubai|Baghdad|Kuwait|Qatar|Casablanca|Algiers|Tunis|Amman|Beirut|Muscat/i.test(tz)) {
+          target = 'ar';
+        } else if (primary.startsWith('bn') || /Dhaka/i.test(tz)) {
+          target = 'bn';
+        } else if (primary.startsWith('hi')) {
+          target = 'hi';
+        } else if (primary.startsWith('ro') || /Bucharest|Chisinau/i.test(tz)) {
+          target = 'ro';
+        } else if (primary.startsWith('uz') || /Tashkent|Samarkand/i.test(tz)) {
+          target = 'uz';
+        }
+        if (target && target !== 'en') {
+          sessionStorage.setItem('geo_routed', target);
+          location.replace('/' + target);
+        }
+      }
+    } catch(e) {}
+  })();
 </script>
 </head>
 <body data-page="home">
