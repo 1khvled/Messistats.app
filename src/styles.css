@@ -27,8 +27,8 @@
   --line-soft: #e8f1f7;
   --ink: #16243a;
   --ink-soft: #3c4a63;
-  --muted: #66748f;
-  --faint: #6b7691;
+  --muted: #52607c;
+  --faint: #596784;
   --brand: #0b6fa4;
   --brand-ink: #084e75;
   --brand-soft: #e0f1fa;
@@ -1082,6 +1082,40 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   padding: 12px 18px;
   background: var(--surface);
   border-bottom: 1px solid var(--line-soft);
+}
+.otd-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.otd-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #065f46;
+  background: rgba(16, 185, 129, 0.16);
+  padding: 4px 10px;
+  border-radius: 999px;
+  width: fit-content;
+}
+.otd-badge-closest {
+  color: #854d0e;
+  background: rgba(245, 158, 11, 0.16);
+}
+.otd-headline {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+.otd-bday-link {
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 .video-modal-eyebrow {
   display: block;
@@ -3018,15 +3052,15 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #10b981;
-  background: rgba(16, 185, 129, 0.12);
+  color: #065f46;
+  background: rgba(16, 185, 129, 0.16);
   padding: 4px 10px;
   border-radius: 999px;
   width: fit-content;
 }
 .otd-badge-closest {
-  color: #f59e0b;
-  background: rgba(245, 158, 11, 0.12);
+  color: #854d0e;
+  background: rgba(245, 158, 11, 0.16);
 }
 .otd-headline {
   margin: 0;
@@ -3108,9 +3142,9 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
   border-color: var(--brand);
 }
 .otd-goal-tab.active {
-  background: #0284c7;
+  background: #0369a1;
   color: #fff;
-  border-color: #0284c7;
+  border-color: #0369a1;
 }
 .otd-player-frame {
   width: 100%;
@@ -3174,7 +3208,7 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
 }
 .otd-comp-badge {
   background: rgba(56, 189, 248, 0.14);
-  color: #0284c7;
+  color: #0369a1;
   font-weight: 700;
   padding: 3px 8px;
   border-radius: 6px;
@@ -3191,7 +3225,7 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
 }
 .otd-goal-num-badge {
   background: rgba(245, 158, 11, 0.16);
-  color: #d97706;
+  color: #92400e;
   font-weight: 700;
   padding: 3px 8px;
   border-radius: 6px;
@@ -3441,3 +3475,18 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
   font-size: 0.74rem;
 }
 
+
+/* Accessibility: underline inline links in text blocks */
+p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
+  text-decoration: underline !important;
+  text-underline-offset: 2px !important;
+}
+.ad-native-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 4px;
+}

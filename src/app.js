@@ -386,7 +386,7 @@ function renderHome(d) {
     `A World Cup winner and record eight-time Ballon d'Or holder, counted by hand and checked twice, as of ${esc(d.lastUpdated)}.`);
   const dob = new Date(p.born + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   el("profile").innerHTML =
-    `<figure class="identity-photo"><img src="img/messi.jpg" alt="Lionel Messi" width="900" height="1600" loading="eager" fetchpriority="high"><figcaption class="photo-credit">Lionel Messi · Argentina & Inter Miami</figcaption></figure><div class="identity-main">` +
+    `<figure class="identity-photo"><picture><source srcset="/img/messi-450.webp 1x, /img/messi.webp 2x" type="image/webp"><img src="/img/messi.jpg" alt="Lionel Messi" width="148" height="197" loading="eager" fetchpriority="high" decoding="async"></picture><figcaption class="photo-credit">Lionel Messi · Argentina & Inter Miami</figcaption></figure><div class="identity-main">` +
     `<p class="identity-name">${esc(p.short)} <span class="jersey" aria-label="Shirt number 10">${p.number}</span></p>` +
     `<p class="identity-meta">${esc(p.name)}, born ${dob} in ${esc(p.birthplace)}. ` +
     `He is ${p.age}, plays as a ${esc(p.position.toLowerCase())} and is currently at ${esc(p.current.join(" and "))}.</p>` +
@@ -662,7 +662,7 @@ async function renderOnThisDay() {
       ? `<div class="otd-video-wrap">
           ${goalTabsHtml}
           <div class="otd-player-frame">
-            <video controls playsinline preload="metadata" poster="img/og-messi.jpg" src="${esc(activeVideo.videoUrl)}" class="otd-video-element">
+            <video controls playsinline preload="none" poster="/img/og-messi.jpg" src="${esc(activeVideo.videoUrl)}" class="otd-video-element">
               Your browser does not support the video tag.
             </video>
           </div>
@@ -1805,7 +1805,7 @@ async function renderBirthday(d) {
             }
             container.innerHTML = `
               ${navHtml}
-              <video controls playsinline webkit-playsinline preload="auto" poster="img/og-messi.jpg" src="${v.videoUrl}" style="width:100%;aspect-ratio:16/9;background:#000;display:block;">
+              <video controls playsinline webkit-playsinline preload="none" poster="/img/og-messi.jpg" src="${v.videoUrl}" style="width:100%;aspect-ratio:16/9;background:#000;display:block;">
                 Your browser does not support video.
               </video>
             `;
