@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.messistat.com/en</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
       <image:title>MessiStats Official Logo</image:title>
@@ -28,24 +55,60 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
     <loc>https://www.messistat.com/en/goalsbyseason</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
     <loc>https://www.messistat.com/en/dashboard</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
     <loc>https://www.messistat.com/en/timeline</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
     <image:image>
       <image:loc>https://www.messistat.com/img/era-2008-olympic.jpg</image:loc>
       <image:title>Lionel Messi Olympic Gold &amp; Barcelona Breakthrough (2004–2008)</image:title>
@@ -94,6 +157,15 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
     <image:image>
       <image:loc>https://www.messistat.com/img/cab-ballon.jpg</image:loc>
       <image:title>Lionel Messi Record 8 Ballons d'Or</image:title>
@@ -130,6 +202,15 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
       <image:title>Lionel Messi Birthday Goal Explorer: 929 Career Goals Across 366 Days</image:title>
@@ -175,84 +256,386 @@
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Goles de Messi: 929 Goles Oficiales en Vivo</image:title>
+      <image:caption>Estadísticas completas de la carrera de Lionel Messi: 929 goles en 1.175 partidos oficiales, 46 títulos colectivos y 8 Balones de Oro.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/es/birthday</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
     <loc>https://www.messistat.com/es/goalsbyyear</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
     <loc>https://www.messistat.com/es/goalsbyseason</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
     <loc>https://www.messistat.com/es/dashboard</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
     <loc>https://www.messistat.com/es/timeline</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
     <loc>https://www.messistat.com/es/achievements</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
     <loc>https://www.messistat.com/pt</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Gols de Messi: 929 Gols Oficiais ao Vivo</image:title>
+      <image:caption>Estatísticas completas da carreira de Lionel Messi: 929 gols em 1.175 jogos oficiais, 46 títulos coletivos e 8 Bolas de Ouro.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/fr</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Buts de Messi : 929 Buts Officiels en Direct</image:title>
+      <image:caption>Statistiques complètes de la carrière de Lionel Messi : 929 buts en 1 175 matchs officiels, 46 trophées collectifs et 8 Ballons d'Or.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/ar</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>أهداف ميسي: 929 هدفاً رسمياً مباشر</image:title>
+      <image:caption>إحصائيات مسيرة ليونيل ميسي الرسمية: 929 هدفاً في 1,175 مباراة، 46 بطولة و8 كرات ذهبية.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/bn</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>মেসির মোট গোল: ৯২৯ গোল লাইভ ট্র্যাকার</image:title>
+      <image:caption>লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ১,১৭৫ ম্যাচে ৯২৯ গোল, ৪৬টি শিরোপা এবং ৮টি ব্যালন ডি'অর।</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/hi</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>मेसी के कुल गोल: 929 आधिकारिक गोल लाइव</image:title>
+      <image:caption>लियोनेल मेसी के करियर के आधिकारिक आंकड़े: 1,175 मैचों में 929 गोल, 46 ट्रॉफियां और 8 बैलन डी'ऑर।</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/ro</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Goluri Messi: 929 Goluri Oficiale Live</image:title>
+      <image:caption>Statisticile complete ale carierei lui Lionel Messi: 929 goluri în 1.175 meciuri oficiale, 46 trofee și 8 Baloane de Aur.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/uz</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn" />
+    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Messi gollari: 929 ta rasmiy gol</image:title>
+      <image:caption>Lionel Messining toʻliq rasmiy statistikasi: 1 175 ta oʻyinda 929 ta gol, 46 ta sovrin va 8 ta Oltin toʻp.</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://www.messistat.com/en/birthday/01-01</loc>
