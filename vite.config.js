@@ -10,9 +10,14 @@ function cleanEnRouting() {
     const query = req.url.includes('?') ? '?' + req.url.split('?')[1] : '';
     if (url === '/en' || url === '/en/') {
       req.url = '/' + query;
+    } else if (url === '/es' || url === '/es/') {
+      req.url = '/es/index.html' + query;
     } else if (url.startsWith('/en/')) {
       const slug = url.slice(4);
       req.url = '/' + slug + '.html' + query;
+    } else if (url.startsWith('/es/')) {
+      const slug = url.slice(4);
+      req.url = '/es/' + slug + '.html' + query;
     } else if (!url.includes('.') && url !== '/') {
       req.url = url + '.html' + query;
     }
@@ -45,6 +50,16 @@ export default defineConfig({
         timeline: resolve(root, 'timeline.html'),
         achievements: resolve(root, 'achievements.html'),
         birthday: resolve(root, 'birthday.html'),
+        vs_real_madrid: resolve(root, 'vs-real-madrid.html'),
+        messi_vs_ronaldo: resolve(root, 'messi-vs-ronaldo.html'),
+        champions_league: resolve(root, 'champions-league.html'),
+        es_main: resolve(root, 'es/index.html'),
+        es_birthday: resolve(root, 'es/birthday.html'),
+        es_achievements: resolve(root, 'es/achievements.html'),
+        es_goalsbyyear: resolve(root, 'es/goalsbyyear.html'),
+        es_goalsbyseason: resolve(root, 'es/goalsbyseason.html'),
+        es_dashboard: resolve(root, 'es/dashboard.html'),
+        es_timeline: resolve(root, 'es/timeline.html'),
         admin: resolve(root, 'admin.html')
       }
     }

@@ -16,6 +16,9 @@ const htmlPages = [
   "dashboard.html",
   "timeline.html",
   "achievements.html",
+  "vs-real-madrid.html",
+  "messi-vs-ronaldo.html",
+  "champions-league.html",
   "admin.html",
 ];
 

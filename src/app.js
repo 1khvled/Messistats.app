@@ -1526,6 +1526,279 @@ async function copyToClipboard(text, msgEl, successMsg = "Copied to clipboard!")
   }
 }
 
+/* ================= BIRTHDAY VIRAL SOCIAL & CANVAS CARD ================= */
+function updateBirthdaySocialShare(dayData, key) {
+  const shareMsg = el("bday-share-msg");
+  const isMessiBday = (dayData.month === 6 && dayData.day === 24);
+  let shareText = "";
+  if (dayData.goalsCount > 0) {
+    const gWord = dayData.goalsCount === 1 ? "goal" : "goals";
+    shareText = `Lionel Messi scored ${dayData.goalsCount} ${gWord} on my birthday (${dayData.formatted})! ⚽🎂 Did he score on yours?`;
+  } else if (isMessiBday) {
+    shareText = `I share a birthday with Lionel Messi (24 June)! 🐐🎂 Did he score on your birthday?`;
+  } else {
+    shareText = `Did Lionel Messi score on your birthday? Check all 366 days across his 929 career goals:`;
+  }
+
+  const shareUrl = `${location.origin}/en/birthday?date=${key}`;
+
+  const shareBtn = el("bday-share-btn");
+  if (shareBtn) {
+    shareBtn.hidden = false;
+    shareBtn.onclick = async () => {
+      try { trackShare("web_share", shareText); } catch (_) {}
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
+          return;
+        } catch (_) {}
+      }
+      copyToClipboard(`${shareText} ${shareUrl}`, shareMsg);
+    };
+  }
+
+  const copyBtn = el("bday-copy-btn");
+  if (copyBtn) {
+    copyBtn.onclick = () => {
+      copyToClipboard(shareUrl, shareMsg);
+    };
+  }
+
+  const xBtn = el("bday-x-share-btn");
+  if (xBtn) {
+    xBtn.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+  }
+  const waBtn = el("bday-wa-share-btn");
+  if (waBtn) {
+    waBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " " + shareUrl)}`;
+  }
+
+  setupBirthdayCardGenerator(dayData, key, shareText, shareUrl);
+}
+
+function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
+  const cardBtn = el("bday-card-btn");
+  const modal = el("bday-card-modal");
+  const closeBtn = el("bday-card-modal-close");
+  const downloadBtn = el("bday-download-card-btn");
+  const nativeShareBtn = el("bday-native-share-card-btn");
+  const canvas = el("bday-card-canvas");
+
+  if (!cardBtn || !modal || !canvas) return;
+
+  function drawCanvas() {
+    canvas.width = 1200;
+    canvas.height = 630;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const bgGrad = ctx.createLinearGradient(0, 0, 1200, 630);
+    bgGrad.addColorStop(0, "#08101d");
+    bgGrad.addColorStop(0.5, "#101f38");
+    bgGrad.addColorStop(1, "#192c4f");
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 1200, 630);
+
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.04)";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.arc(600, 315, 220, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.strokeStyle = "rgba(227, 185, 62, 0.45)";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(24, 24, 1152, 582);
+
+    ctx.fillStyle = "#e3b93e";
+    ctx.font = "800 24px system-ui, sans-serif";
+    ctx.fillText("MESSI STATS", 56, 76);
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
+    ctx.font = "600 18px system-ui, sans-serif";
+    ctx.fillText("929 CAREER GOALS • OFFICIAL ARCHIVE", 56, 102);
+
+    ctx.fillStyle = "#38bdf8";
+    ctx.textAlign = "right";
+    ctx.font = "700 18px system-ui, sans-serif";
+    ctx.fillText("366-DAY VIDEO EXPLORER", 1144, 76);
+    ctx.textAlign = "left";
+
+    const isMessiBday = (dayData.month === 6 && dayData.day === 24);
+    if (dayData.goalsCount > 0) {
+      ctx.fillStyle = "rgba(16, 185, 129, 0.2)";
+      ctx.fillRect(56, 138, 480, 42);
+      ctx.strokeStyle = "rgba(16, 185, 129, 0.6)";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(56, 138, 480, 42);
+      ctx.fillStyle = "#34d399";
+      ctx.font = "800 18px system-ui, sans-serif";
+      ctx.fillText("🎉 YES! MESSI SCORED ON MY BIRTHDAY", 76, 166);
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 52px system-ui, sans-serif";
+      ctx.fillText(dayData.formatted.toUpperCase(), 56, 240);
+
+      const gWord = dayData.goalsCount === 1 ? "GOAL" : "GOALS";
+      const mWord = dayData.matches.length === 1 ? "MATCH" : "MATCHES";
+      ctx.fillStyle = "#e3b93e";
+      ctx.font = "800 36px system-ui, sans-serif";
+      ctx.fillText(`⚽ ${dayData.goalsCount} ${gWord} IN ${dayData.matches.length} ${mWord}`, 56, 296);
+
+      if (dayData.matches && dayData.matches[0]) {
+        const m = dayData.matches[0];
+        ctx.fillStyle = "rgba(255, 255, 255, 0.06)";
+        ctx.fillRect(56, 332, 1088, 140);
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+        ctx.lineWidth = 1;
+        ctx.strokeRect(56, 332, 1088, 140);
+
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = "700 16px system-ui, sans-serif";
+        ctx.fillText(`FEATURED FIXTURE • ${m.date} (${m.competition || "Official Match"})`, 80, 368);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = "800 28px system-ui, sans-serif";
+        ctx.fillText(`${m.team}  ${m.score}  ${m.opponent}`, 80, 410);
+
+        ctx.fillStyle = "#38bdf8";
+        ctx.font = "600 18px system-ui, sans-serif";
+        const mins = (m.minutes || []).map(min => `${min}'`).join(", ");
+        ctx.fillText(`Goals scored: ${m.goalsCount} (Minutes: ${mins})`, 80, 444);
+      }
+    } else if (isMessiBday) {
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 48px system-ui, sans-serif";
+      ctx.fillText("I SHARE A BIRTHDAY WITH", 56, 200);
+      ctx.fillStyle = "#e3b93e";
+      ctx.font = "900 58px system-ui, sans-serif";
+      ctx.fillText("LIONEL ANDRÉS MESSI! 🐐", 56, 268);
+
+      ctx.fillStyle = "#cbd5e1";
+      ctx.font = "600 24px system-ui, sans-serif";
+      ctx.fillText("Born 24 June 1987 in Rosario, Argentina", 56, 324);
+      ctx.fillText("8 Ballons d'Or • 46 Official Trophies • 929 Senior Goals", 56, 364);
+    } else {
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "900 48px system-ui, sans-serif";
+      ctx.fillText("DID MESSI SCORE ON YOUR BIRTHDAY?", 56, 210);
+
+      ctx.fillStyle = "#e3b93e";
+      ctx.font = "800 36px system-ui, sans-serif";
+      ctx.fillText(`Date checked: ${dayData.formatted}`, 56, 272);
+
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "600 22px system-ui, sans-serif";
+      ctx.fillText("Messi has scored on 292 of 366 days (79.8% of the year)!", 56, 324);
+      ctx.fillText("Find which of your friends shares a Messi goal date.", 56, 360);
+    }
+
+    ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+    ctx.fillRect(24, 520, 1152, 86);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "700 22px system-ui, sans-serif";
+    ctx.fillText("Check your birthday at: messistat.com/en/birthday", 56, 570);
+
+    ctx.fillStyle = "#94a3b8";
+    ctx.textAlign = "right";
+    ctx.font = "600 18px system-ui, sans-serif";
+    ctx.fillText("Watch Video Highlights & Stats", 1144, 570);
+    ctx.textAlign = "left";
+  }
+
+  cardBtn.onclick = () => {
+    drawCanvas();
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+  };
+
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+    };
+  }
+
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+    }
+  };
+
+  if (downloadBtn) {
+    downloadBtn.onclick = () => {
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `messi-birthday-${key}.png`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }, "image/png");
+    };
+  }
+
+  if (nativeShareBtn) {
+    nativeShareBtn.onclick = async () => {
+      canvas.toBlob(async (blob) => {
+        if (!blob) return;
+        const file = new File([blob], `messi-birthday-${key}.png`, { type: "image/png" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          try {
+            await navigator.share({
+              title: "My Messi Birthday Stats",
+              text: shareText,
+              files: [file]
+            });
+            return;
+          } catch (_) {}
+        }
+        if (navigator.share) {
+          try {
+            await navigator.share({ title: "My Messi Birthday Stats", text: shareText, url: shareUrl });
+            return;
+          } catch (_) {}
+        }
+        downloadBtn.click();
+      }, "image/png");
+    };
+  }
+}
+
+function setupEmbedModal() {
+  const triggerBtn = el("bday-embed-trigger-btn");
+  const modal = el("bday-embed-modal");
+  const closeBtn = el("bday-embed-modal-close");
+  const copyBtn = el("bday-copy-embed-btn");
+  const copyMsg = el("bday-embed-copy-msg");
+  const textarea = el("bday-embed-code");
+
+  if (!triggerBtn || !modal) return;
+
+  triggerBtn.onclick = () => {
+    modal.hidden = false;
+    modal.setAttribute("aria-hidden", "false");
+  };
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+    };
+  }
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      modal.hidden = true;
+      modal.setAttribute("aria-hidden", "true");
+    }
+  };
+  if (copyBtn && textarea) {
+    copyBtn.onclick = () => {
+      copyToClipboard(textarea.value, copyMsg);
+    };
+  }
+}
+
 /* ================= BIRTHDAY GOALS EXPLORER ================= */
 async function renderBirthday(d) {
   let bdayData;
@@ -1970,28 +2243,7 @@ async function renderBirthday(d) {
         matchListEl.innerHTML = matchesHtml;
       }
 
-      if (shareBtn) {
-        shareBtn.hidden = false;
-        shareBtn.onclick = async () => {
-          const shareText = `Lionel Messi scored ${dayData.goalsCount} goals on my birthday (${dayData.formatted})! Did he score on yours?`;
-          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
-          try { trackShare("web_share", shareText); } catch (_) {}
-          if (navigator.share) {
-            try {
-              await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
-              return;
-            } catch (_) {}
-          }
-          copyToClipboard(`${shareText} Check here: ${shareUrl}`, shareMsg);
-        };
-      }
-      const copyBtn = el("bday-copy-btn");
-      if (copyBtn) {
-        copyBtn.onclick = () => {
-          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
-          copyToClipboard(shareUrl, shareMsg);
-        };
-      }
+      updateBirthdaySocialShare(dayData, key);
     } else {
       const isMessiBday = (m === 6 && day === 24);
       if (isMessiBday) {
@@ -2042,28 +2294,7 @@ async function renderBirthday(d) {
         }
       }
 
-      if (shareBtn) {
-        shareBtn.hidden = false;
-        shareBtn.onclick = async () => {
-          const shareText = `Checking if Lionel Messi scored on my birthday (${dayData.formatted})! Did he score on yours?`;
-          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
-          try { trackShare("web_share", shareText); } catch (_) {}
-          if (navigator.share) {
-            try {
-              await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
-              return;
-            } catch (_) {}
-          }
-          copyToClipboard(`${shareText} Find out: ${shareUrl}`, shareMsg);
-        };
-      }
-      const copyBtn = el("bday-copy-btn");
-      if (copyBtn) {
-        copyBtn.onclick = () => {
-          const shareUrl = `${location.origin}${location.pathname}?date=${key}`;
-          copyToClipboard(shareUrl, shareMsg);
-        };
-      }
+      updateBirthdaySocialShare(dayData, key);
     }
 
     if (shouldScroll) {
@@ -2242,7 +2473,11 @@ async function renderBirthday(d) {
   let initMonth = 5;
   let initDay = 2;
 
-  if (params.get("date")) {
+  const pathMatch = location.pathname.match(/\/birthday\/(\d{1,2})-(\d{1,2})/);
+  if (pathMatch) {
+    initMonth = parseInt(pathMatch[1], 10);
+    initDay = parseInt(pathMatch[2], 10);
+  } else if (params.get("date")) {
     const parts = params.get("date").split("-");
     if (parts.length === 2) {
       initMonth = parseInt(parts[0], 10);
@@ -2255,6 +2490,7 @@ async function renderBirthday(d) {
 
   updateDaysDropdown(initMonth, initDay);
   selectDate(initMonth, initDay, false);
+  setupEmbedModal();
 
   renderExplore(d, "birthday");
   renderMethod(d, `Every single one of the ${n(d.totals.goals)} senior goals is cross-referenced with exact date, opponent, competition, minute, and scoreline.`);
