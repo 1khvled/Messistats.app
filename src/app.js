@@ -1594,15 +1594,27 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
   let currentFormat = typeof window !== "undefined" && window.innerWidth <= 640 ? "story" : "square";
   let currentTheme = "auto";
 
-  // Preload Messi celebration image
-  const messiImg = new Image();
-  messiImg.crossOrigin = "anonymous";
-  messiImg.src = "/img/og-messi.jpg";
-  let imgLoaded = false;
-  messiImg.onload = () => {
-    imgLoaded = true;
-    if (modal && !modal.hidden) drawCanvas();
+  // Preload high-res player imagery and official team crests
+  const images = {};
+  const assetSources = {
+    messiWc: "/img/era-2022.jpg",
+    messiHero: "/img/og-messi.jpg",
+    messiPortrait: "/img/messi.jpg",
+    barca: "/img/teams/barcelona.png",
+    argentina: "/img/teams/argentina.png",
+    miami: "/img/teams/miami.png",
+    psg: "/img/teams/psg.png"
   };
+
+  Object.entries(assetSources).forEach(([k, src]) => {
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = src;
+    img.onload = () => {
+      images[k] = img;
+      if (modal && !modal.hidden) drawCanvas();
+    };
+  });
 
   function roundRect(ctx, x, y, w, h, r) {
     if (w < 2 * r) r = w / 2;
@@ -1612,64 +1624,534 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
     ctx.arcTo(x + w, y, x + w, y + h, r);
     ctx.arcTo(x + w, y + h, x, y + h, r);
     ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
+    ctx.arcTo(x, y + w, x, y, r);
     ctx.closePath();
   }
 
-  function getThemeColors() {
+  // Draw authentic FIFA Ultimate Team card shield silhouette
+  function futShieldPath(ctx, x, y, w, h, chamfer, waistRatio) {
+    const c = chamfer !== undefined ? chamfer : w * 0.11;
+    const waist = y + h * (waistRatio !== undefined ? waistRatio : 0.81);
+    const tipX = x + w * 0.5;
+    const tipY = y + h;
+    const tipCurve = Math.max(8, w * 0.04);
+
+    ctx.beginPath();
+    ctx.moveTo(x + c, y);
+    ctx.lineTo(x + w - c, y);
+    ctx.lineTo(x + w, y + c);
+    ctx.lineTo(x + w, waist);
+    ctx.lineTo(tipX + tipCurve, tipY - tipCurve * 0.55);
+    ctx.quadraticCurveTo(tipX, tipY, tipX - tipCurve, tipY - tipCurve * 0.55);
+    ctx.lineTo(x, waist);
+    ctx.lineTo(x, y + c);
+    ctx.closePath();
+  }
+
+  function getTheme() {
     let t = currentTheme;
+    const firstMatch = dayData.matches && dayData.matches[0];
+    const teamName = firstMatch ? (firstMatch.team || "").toLowerCase() : "";
+
     if (t === "auto") {
-      if (dayData.matches && dayData.matches[0]) {
-        const team = (dayData.matches[0].team || "").toLowerCase();
-        if (team.includes("argentina")) t = "argentina";
-        else if (team.includes("barcelona")) t = "barca";
-        else if (team.includes("miami")) t = "miami";
-        else if (team.includes("paris")) t = "barca";
-        else t = "gold";
-      } else {
-        t = "gold";
-      }
+      if (teamName.includes("argentina")) t = "argentina";
+      else if (teamName.includes("barcelona")) t = "barca";
+      else if (teamName.includes("miami")) t = "miami";
+      else if (teamName.includes("paris")) t = "psg";
+      else t = "gold";
     }
 
     if (t === "barca") {
       return {
+        themeKey: "barca",
         primary: "#edbb00",
         secondary: "#a50044",
         accent: "#004d98",
-        glow: "rgba(165, 0, 68, 0.4)",
-        glow2: "rgba(0, 77, 152, 0.35)",
-        name: "FC Barcelona"
+        glow: "rgba(165, 0, 68, 0.55)",
+        aura: "rgba(0, 77, 152, 0.45)",
+        metallic1: "#fff0aa",
+        metallic2: "#edbb00",
+        metallic3: "#8c6200",
+        cardBgTop: "#140e1a",
+        cardBgBottom: "#060914",
+        crestKey: "barca",
+        edition: "BLAUGRANA ICON",
+        stars: "★★★★★"
       };
     }
     if (t === "argentina") {
       return {
+        themeKey: "argentina",
         primary: "#f6b40e",
         secondary: "#75aadb",
         accent: "#ffffff",
-        glow: "rgba(117, 170, 219, 0.45)",
-        glow2: "rgba(246, 180, 14, 0.3)",
-        name: "Argentina"
+        glow: "rgba(117, 170, 219, 0.55)",
+        aura: "rgba(246, 180, 14, 0.38)",
+        metallic1: "#ffffff",
+        metallic2: "#75aadb",
+        metallic3: "#f6b40e",
+        cardBgTop: "#0a1426",
+        cardBgBottom: "#040810",
+        crestKey: "argentina",
+        edition: "WORLD CHAMPION ICON",
+        stars: "★★★★★"
       };
     }
     if (t === "miami") {
       return {
+        themeKey: "miami",
         primary: "#f7b5cd",
         secondary: "#f0599a",
-        accent: "#231f20",
-        glow: "rgba(247, 181, 205, 0.4)",
-        glow2: "rgba(240, 89, 154, 0.3)",
-        name: "Inter Miami"
+        accent: "#00f0ff",
+        glow: "rgba(247, 181, 205, 0.55)",
+        aura: "rgba(240, 89, 154, 0.4)",
+        metallic1: "#ffffff",
+        metallic2: "#f7b5cd",
+        metallic3: "#f0599a",
+        cardBgTop: "#160e1a",
+        cardBgBottom: "#07070d",
+        crestKey: "miami",
+        edition: "VICE CITY RECORD BREAKER",
+        stars: "★★★★★"
       };
     }
-    // Gold / World Cup Champion default
+    if (t === "psg") {
+      return {
+        themeKey: "psg",
+        primary: "#d4af37",
+        secondary: "#002855",
+        accent: "#da291c",
+        glow: "rgba(0, 40, 85, 0.55)",
+        aura: "rgba(218, 41, 28, 0.35)",
+        metallic1: "#fff2a8",
+        metallic2: "#d4af37",
+        metallic3: "#8c671b",
+        cardBgTop: "#081022",
+        cardBgBottom: "#040810",
+        crestKey: "psg",
+        edition: "PARISIAN HERO",
+        stars: "★★★★★"
+      };
+    }
+    // Gold / TOTY Icon Default
     return {
-      primary: "#e3b93e",
-      secondary: "#f59e0b",
+      themeKey: "gold",
+      primary: "#facc15",
+      secondary: "#eab308",
       accent: "#38bdf8",
-      glow: "rgba(227, 185, 62, 0.4)",
-      glow2: "rgba(56, 189, 248, 0.25)",
-      name: "World Champion"
+      glow: "rgba(250, 204, 21, 0.45)",
+      aura: "rgba(234, 179, 8, 0.3)",
+      metallic1: "#fff8d6",
+      metallic2: "#eab308",
+      metallic3: "#854d0e",
+      cardBgTop: "#141724",
+      cardBgBottom: "#06080f",
+      crestKey: (teamName.includes("barcelona") ? "barca" : (teamName.includes("miami") ? "miami" : "argentina")),
+      edition: "TEAM OF THE YEAR • GOAT ICON",
+      stars: "★★★★★"
     };
+  }
+
+  function drawArgentinaFlag(ctx, x, y, w, h) {
+    const r = Math.max(2, Math.round(w * 0.08));
+    roundRect(ctx, x, y, w, h, r);
+    ctx.save();
+    ctx.clip();
+    const stripeH = h / 3;
+    ctx.fillStyle = "#75aadb";
+    ctx.fillRect(x, y, w, stripeH);
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(x, y + stripeH, w, stripeH);
+    ctx.fillStyle = "#75aadb";
+    ctx.fillRect(x, y + stripeH * 2, w, stripeH);
+
+    // Sun of May
+    const sunX = x + w / 2;
+    const sunY = y + h / 2;
+    ctx.fillStyle = "#f6b40e";
+    ctx.beginPath();
+    ctx.arc(sunX, sunY, stripeH * 0.36, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.35)";
+    ctx.lineWidth = 1;
+    roundRect(ctx, x, y, w, h, r);
+    ctx.stroke();
+  }
+
+  function drawCrest(ctx, x, y, size, crestKey) {
+    const crestImg = images[crestKey];
+    if (crestImg && crestImg.naturalWidth > 0) {
+      ctx.save();
+      ctx.shadowColor = "rgba(0, 0, 0, 0.65)";
+      ctx.shadowBlur = 8;
+      ctx.drawImage(crestImg, x, y, size, size);
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.fillStyle = "#f6b40e";
+      roundRect(ctx, x + 2, y + 2, size - 4, size - 4, 6);
+      ctx.fill();
+      ctx.fillStyle = "#000000";
+      ctx.font = `900 ${Math.round(size * 0.34)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText("M10", x + size / 2, y + size / 2);
+      ctx.restore();
+    }
+  }
+
+  // Draw the full, collectible FUT Card Component
+  function drawFutCard(ctx, cx, cy, cw, ch, colors) {
+    // 1. Ambient Drop Shadow
+    ctx.save();
+    ctx.shadowColor = colors.glow;
+    ctx.shadowBlur = Math.round(cw * 0.08);
+    ctx.shadowOffsetY = Math.round(cw * 0.02);
+    futShieldPath(ctx, cx, cy, cw, ch);
+    ctx.fillStyle = "#060912";
+    ctx.fill();
+    ctx.restore();
+
+    // 2. Card Interior (Clipped inside Shield)
+    ctx.save();
+    futShieldPath(ctx, cx, cy, cw, ch);
+    ctx.clip();
+
+    // Card Background Gradient
+    const cardBg = ctx.createLinearGradient(cx, cy, cx, cy + ch);
+    cardBg.addColorStop(0, colors.cardBgTop);
+    cardBg.addColorStop(0.55, "#0a0d16");
+    cardBg.addColorStop(1, colors.cardBgBottom);
+    ctx.fillStyle = cardBg;
+    ctx.fillRect(cx, cy, cw, ch);
+
+    // Carbon fiber / geometric angled facets
+    ctx.save();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.032)";
+    ctx.lineWidth = Math.max(2, Math.round(cw * 0.0035));
+    for (let i = -2; i < 10; i++) {
+      ctx.beginPath();
+      ctx.moveTo(cx + i * cw * 0.2, cy);
+      ctx.lineTo(cx + (i + 3) * cw * 0.2, cy + ch);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Player Backlight Glow Core
+    const playerGlow = ctx.createRadialGradient(
+      cx + cw * 0.62, cy + ch * 0.26, cw * 0.05,
+      cx + cw * 0.62, cy + ch * 0.26, cw * 0.52
+    );
+    playerGlow.addColorStop(0, colors.glow);
+    playerGlow.addColorStop(0.55, colors.aura);
+    playerGlow.addColorStop(1, "transparent");
+    ctx.fillStyle = playerGlow;
+    ctx.fillRect(cx, cy, cw, ch * 0.62);
+
+    // Player Photo (Full Contrast & High Resolution)
+    let chosenImg = images.messiWc || images.messiHero || images.messiPortrait;
+    if (colors.themeKey === "barca" || colors.themeKey === "miami") {
+      chosenImg = images.messiHero || images.messiPortrait || images.messiWc;
+    }
+    if (chosenImg && chosenImg.naturalWidth > 0) {
+      ctx.save();
+      const pW = cw * 0.86;
+      const pH = pW * (chosenImg.naturalHeight / chosenImg.naturalWidth);
+      const pX = cx + cw * 0.22;
+      const pY = cy + ch * 0.055;
+
+      ctx.globalAlpha = 0.98;
+      ctx.drawImage(chosenImg, pX, pY, pW, pH);
+
+      // Bottom fade mask to seamlessly blend torso into card plaque
+      const fadeH = ch * 0.16;
+      const fadeY = cy + ch * 0.38;
+      const fade = ctx.createLinearGradient(0, fadeY, 0, fadeY + fadeH);
+      fade.addColorStop(0, "rgba(8, 12, 20, 0)");
+      fade.addColorStop(0.65, "rgba(8, 12, 20, 0.85)");
+      fade.addColorStop(1, "rgba(8, 12, 20, 1)");
+      ctx.fillStyle = fade;
+      ctx.fillRect(cx, fadeY, cw, fadeH + 40);
+      ctx.restore();
+    }
+
+    // Holographic Foil Light Glint (Physical collector sheen)
+    const foil = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch * 0.7);
+    foil.addColorStop(0.00, "transparent");
+    foil.addColorStop(0.44, "transparent");
+    foil.addColorStop(0.50, "rgba(255, 255, 255, 0.14)");
+    foil.addColorStop(0.56, "transparent");
+    foil.addColorStop(1.00, "transparent");
+    ctx.fillStyle = foil;
+    ctx.fillRect(cx, cy, cw, ch);
+
+    // Top Card Ribbon / Edition Eyebrow
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.font = `800 ${Math.round(cw * 0.027)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillStyle = colors.primary;
+    ctx.fillText(`✦  ${colors.edition}  ✦`, cx + cw * 0.5, cy + ch * 0.042);
+    ctx.restore();
+
+    // Top-Left FUT Attributes Column (99, GOAT, Flag, Crest)
+    const lx = cx + cw * 0.135;
+    let curY = cy + ch * 0.065;
+
+    // 99 Rating
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.font = `900 ${Math.round(cw * 0.14)}px "Plus Jakarta Sans", impact, sans-serif`;
+    ctx.fillStyle = colors.metallic1;
+    ctx.shadowColor = "rgba(0,0,0,0.9)";
+    ctx.shadowBlur = 8;
+    ctx.fillText("99", lx, curY + cw * 0.11);
+    ctx.restore();
+
+    curY += cw * 0.13;
+    // GOAT Position
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.font = `900 ${Math.round(cw * 0.042)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText("GOAT", lx, curY + cw * 0.035);
+    ctx.restore();
+
+    curY += cw * 0.055;
+    // Hairline divider
+    ctx.strokeStyle = colors.primary;
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(lx - cw * 0.045, curY);
+    ctx.lineTo(lx + cw * 0.045, curY);
+    ctx.stroke();
+
+    curY += cw * 0.025;
+    // Argentina Flag Badge
+    const flagW = Math.round(cw * 0.095);
+    const flagH = Math.round(flagW * 0.62);
+    drawArgentinaFlag(ctx, lx - flagW / 2, curY, flagW, flagH);
+
+    curY += flagH + cw * 0.025;
+    // Club Crest
+    const crestSize = Math.round(cw * 0.11);
+    drawCrest(ctx, lx - crestSize / 2, curY, crestSize, colors.crestKey);
+
+    // Nameplate Plaque (Center of Card)
+    const nameY = cy + ch * 0.525;
+    const nameH = ch * 0.082;
+    const plateGrad = ctx.createLinearGradient(cx, nameY, cx + cw, nameY);
+    plateGrad.addColorStop(0, "rgba(255, 255, 255, 0.01)");
+    plateGrad.addColorStop(0.12, "rgba(18, 24, 36, 0.95)");
+    plateGrad.addColorStop(0.5, "rgba(28, 38, 58, 0.98)");
+    plateGrad.addColorStop(0.88, "rgba(18, 24, 36, 0.95)");
+    plateGrad.addColorStop(1, "rgba(255, 255, 255, 0.01)");
+    ctx.fillStyle = plateGrad;
+    ctx.fillRect(cx, nameY, cw, nameH);
+
+    // Beveled Gold Trims on Nameplate
+    const trimGrad = ctx.createLinearGradient(cx, 0, cx + cw, 0);
+    trimGrad.addColorStop(0, "transparent");
+    trimGrad.addColorStop(0.2, colors.metallic2);
+    trimGrad.addColorStop(0.5, colors.metallic1);
+    trimGrad.addColorStop(0.8, colors.metallic2);
+    trimGrad.addColorStop(1, "transparent");
+    ctx.fillStyle = trimGrad;
+    ctx.fillRect(cx + cw * 0.05, nameY, cw * 0.9, 2);
+    ctx.fillRect(cx + cw * 0.05, nameY + nameH - 2, cw * 0.9, 2);
+
+    // MESSI Text
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.font = `900 ${Math.round(cw * 0.088)}px "Plus Jakarta Sans", impact, sans-serif`;
+    const nameGrad = ctx.createLinearGradient(0, nameY, 0, nameY + nameH);
+    nameGrad.addColorStop(0, "#ffffff");
+    nameGrad.addColorStop(0.65, colors.metallic1);
+    nameGrad.addColorStop(1, colors.metallic2);
+    ctx.fillStyle = nameGrad;
+    ctx.shadowColor = "rgba(0, 0, 0, 0.9)";
+    ctx.shadowBlur = 10;
+    ctx.fillText("M E S S I", cx + cw * 0.5, nameY + nameH * 0.48);
+    ctx.restore();
+
+    // Sub-Pill: Birthday Verdict / Date
+    const pillY = nameY + nameH + ch * 0.012;
+    const pillH = ch * 0.034;
+    const isScored = dayData.goalsCount > 0;
+    const isMessiBday = (dayData.month === 6 && dayData.day === 24);
+    const pillText = isScored
+      ? `👑 SCORED ON THIS DAY • ${dayData.formatted.toUpperCase()}`
+      : isMessiBday
+      ? `🐐 GOAT BIRTHDAY • 24 JUNE 1987`
+      : `🎂 BIRTHDAY ARCHIVE • ${dayData.formatted.toUpperCase()}`;
+
+    ctx.save();
+    ctx.font = `800 ${Math.round(cw * 0.026)}px "Plus Jakarta Sans", sans-serif`;
+    const pillW = ctx.measureText(pillText).width + cw * 0.07;
+    const pillX = cx + (cw - pillW) / 2;
+
+    ctx.fillStyle = isScored ? "rgba(16, 185, 129, 0.24)" : "rgba(245, 158, 11, 0.22)";
+    roundRect(ctx, pillX, pillY, pillW, pillH, pillH / 2);
+    ctx.fill();
+    ctx.strokeStyle = isScored ? "#10b981" : colors.primary;
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    ctx.fillStyle = isScored ? "#34d399" : colors.primary;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(pillText, cx + cw * 0.5, pillY + pillH * 0.52);
+    ctx.restore();
+
+    // FIFA 6-Attribute Stats Grid (Authentic FUT Matrix)
+    const statsY = pillY + pillH + ch * 0.016;
+    const statsH = ch * 0.092;
+    const colW = cw * 0.38;
+    const leftColX = cx + cw * 0.12;
+    const rightColX = cx + cw * 0.54;
+
+    const statItems = [
+      { lNum: "99", lLab: "PAC", rNum: "99", rLab: "DRI" },
+      { lNum: "99", lLab: "SHO", rNum: "45", rLab: "DEF" },
+      { lNum: "98", lLab: "PAS", rNum: "88", rLab: "PHY" }
+    ];
+
+    const rowH = statsH / 3;
+    statItems.forEach((st, i) => {
+      const rY = statsY + i * rowH + rowH * 0.5;
+
+      ctx.save();
+      ctx.textBaseline = "middle";
+      // Left Column
+      ctx.font = `900 ${Math.round(cw * 0.046)}px "Plus Jakarta Sans", impact, sans-serif`;
+      ctx.fillStyle = colors.primary;
+      ctx.textAlign = "right";
+      ctx.fillText(st.lNum, leftColX + colW * 0.44, rY);
+
+      ctx.font = `800 ${Math.round(cw * 0.03)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = "#e2e8f0";
+      ctx.textAlign = "left";
+      ctx.fillText(st.lLab, leftColX + colW * 0.54, rY);
+
+      // Right Column
+      ctx.font = `900 ${Math.round(cw * 0.046)}px "Plus Jakarta Sans", impact, sans-serif`;
+      ctx.fillStyle = colors.primary;
+      ctx.textAlign = "right";
+      ctx.fillText(st.rNum, rightColX + colW * 0.44, rY);
+
+      ctx.font = `800 ${Math.round(cw * 0.03)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = "#e2e8f0";
+      ctx.textAlign = "left";
+      ctx.fillText(st.rLab, rightColX + colW * 0.54, rY);
+      ctx.restore();
+    });
+
+    // Vertical gold dividing hairline
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx + cw * 0.5, statsY + ch * 0.005);
+    ctx.lineTo(cx + cw * 0.5, statsY + statsH - ch * 0.005);
+    ctx.stroke();
+
+    // Match Performance Spotlight Box
+    const spotY = statsY + statsH + ch * 0.015;
+    const spotW = cw * 0.86;
+    const spotH = ch * 0.098;
+    const spotX = cx + (cw - spotW) / 2;
+
+    ctx.save();
+    ctx.fillStyle = "rgba(255, 255, 255, 0.045)";
+    roundRect(ctx, spotX, spotY, spotW, spotH, 12);
+    ctx.fill();
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    const m = dayData.matches && dayData.matches[0];
+    if (m) {
+      // Line 1: Competition & Date
+      ctx.font = `700 ${Math.round(cw * 0.024)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = "#94a3b8";
+      ctx.textAlign = "center";
+      const compStr = `🏆 ${m.competition || "Official Match"} • ${m.date}`;
+      ctx.fillText(compStr.toUpperCase(), cx + cw * 0.5, spotY + spotH * 0.3);
+
+      // Line 2: Big Fixture & Scoreline
+      ctx.font = `800 ${Math.round(cw * 0.036)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = "#ffffff";
+      const scoreStr = `${m.team}  ${m.score}  ${m.opponent}`;
+      ctx.fillText(scoreStr, cx + cw * 0.5, spotY + spotH * 0.62);
+
+      // Line 3: Goals Details
+      const mins = (m.minutes && m.minutes.length) ? m.minutes.map(mn => `${mn}'`).join(", ") : "";
+      ctx.font = `800 ${Math.round(cw * 0.026)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = colors.primary;
+      const gStr = `⚽ ${m.goalsCount} ${m.goalsCount === 1 ? "GOAL" : "GOALS"}${mins ? ` (${mins})` : ""}`;
+      ctx.fillText(gStr, cx + cw * 0.5, spotY + spotH * 0.88);
+    } else {
+      ctx.font = `800 ${Math.round(cw * 0.026)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = colors.primary;
+      ctx.textAlign = "center";
+      ctx.fillText("🐐 ALL-TIME SENIOR CAREER ARCHIVE", cx + cw * 0.5, spotY + spotH * 0.32);
+
+      ctx.font = `800 ${Math.round(cw * 0.034)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = "#ffffff";
+      ctx.fillText("929 GOALS • 404 ASSISTS • 46 TITLES", cx + cw * 0.5, spotY + spotH * 0.65);
+
+      ctx.font = `600 ${Math.round(cw * 0.022)}px "Plus Jakarta Sans", sans-serif`;
+      ctx.fillStyle = "#94a3b8";
+      ctx.fillText("Scored on 292 of 366 Calendar Days (79.8%)", cx + cw * 0.5, spotY + spotH * 0.88);
+    }
+    ctx.restore();
+
+    // M10 Official Certified Seal (Bottom Tip)
+    const sealX = cx + cw * 0.5;
+    const sealY = cy + ch * 0.952;
+    const sealR = Math.round(cw * 0.045);
+
+    ctx.save();
+    ctx.fillStyle = colors.metallic2;
+    ctx.beginPath();
+    ctx.arc(sealX, sealY, sealR, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = "#080c14";
+    ctx.beginPath();
+    ctx.arc(sealX, sealY, sealR - 2.5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = colors.primary;
+    ctx.font = `900 ${Math.round(sealR * 0.85)}px "Plus Jakarta Sans", sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("10", sealX, sealY);
+    ctx.restore();
+
+    ctx.restore(); // Restore shield clip
+
+    // 3. 3D Metallic Borders & Chamfer Outlines (Drawn above clipped contents)
+    ctx.save();
+    const borderGrad = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch);
+    borderGrad.addColorStop(0.00, colors.metallic1);
+    borderGrad.addColorStop(0.20, colors.metallic2);
+    borderGrad.addColorStop(0.50, colors.metallic3);
+    borderGrad.addColorStop(0.75, colors.metallic1);
+    borderGrad.addColorStop(1.00, colors.metallic2);
+
+    ctx.strokeStyle = borderGrad;
+    ctx.lineWidth = Math.max(4, Math.round(cw * 0.01));
+    futShieldPath(ctx, cx, cy, cw, ch);
+    ctx.stroke();
+
+    const inset = Math.max(5, Math.round(cw * 0.012));
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.22)";
+    ctx.lineWidth = 1.5;
+    futShieldPath(ctx, cx + inset, cy + inset, cw - inset * 2, ch - inset * 2, cw * 0.11 * 0.88);
+    ctx.stroke();
+    ctx.restore();
   }
 
   function drawCanvas() {
@@ -1688,390 +2170,271 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const colors = getThemeColors();
+    const colors = getTheme();
     const isStory = currentFormat === "story";
     const isSquare = currentFormat === "square";
     const isWide = currentFormat === "wide";
 
-    // 1. BASE BACKGROUND GRADIENT
-    const bg = ctx.createLinearGradient(0, 0, W, H);
-    bg.addColorStop(0, "#050a14");
-    bg.addColorStop(0.35, "#0a1324");
-    bg.addColorStop(0.7, "#0c1729");
-    bg.addColorStop(1, "#03060c");
-    ctx.fillStyle = bg;
+    // 1. Studio / Stadium Stage Backdrop
+    const stageBg = ctx.createLinearGradient(0, 0, W, H);
+    stageBg.addColorStop(0, "#04070e");
+    stageBg.addColorStop(0.5, "#080f1d");
+    stageBg.addColorStop(1, "#020408");
+    ctx.fillStyle = stageBg;
     ctx.fillRect(0, 0, W, H);
 
-    // 2. AMBIENT GLOWS
-    const glow1 = ctx.createRadialGradient(W * 0.75, H * 0.22, 40, W * 0.75, H * 0.22, W * 0.7);
-    glow1.addColorStop(0, colors.glow);
-    glow1.addColorStop(1, "transparent");
-    ctx.fillStyle = glow1;
-    ctx.fillRect(0, 0, W, H);
-
-    const glow2 = ctx.createRadialGradient(W * 0.2, H * 0.75, 50, W * 0.2, H * 0.75, W * 0.65);
-    glow2.addColorStop(0, colors.glow2);
-    glow2.addColorStop(1, "transparent");
-    ctx.fillStyle = glow2;
-    ctx.fillRect(0, 0, W, H);
-
-    // 3. SUBTLE FOOTBALL PITCH & STADIUM LIGHT LINES
+    // Stadium Floodlight Beams
     ctx.save();
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.035)";
-    ctx.lineWidth = 3;
+    ctx.fillStyle = "rgba(255, 255, 255, 0.015)";
     ctx.beginPath();
-    ctx.arc(W / 2, isStory ? H * 0.42 : H / 2, W * 0.36, 0, Math.PI * 2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(0, isStory ? H * 0.42 : H / 2);
-    ctx.lineTo(W, isStory ? H * 0.42 : H / 2);
-    ctx.stroke();
+    ctx.moveTo(W * 0.2, 0);
+    ctx.lineTo(W * 0.45, 0);
+    ctx.lineTo(W * 0.85, H);
+    ctx.lineTo(W * 0.6, H);
+    ctx.closePath();
+    ctx.fill();
 
-    // Stadium Floodlight Rays
-    ctx.fillStyle = "rgba(255, 255, 255, 0.012)";
     ctx.beginPath();
-    ctx.moveTo(W * 0.3, 0);
+    ctx.moveTo(W * 0.8, 0);
     ctx.lineTo(W * 0.55, 0);
-    ctx.lineTo(W * 0.9, H);
-    ctx.lineTo(W * 0.65, H);
+    ctx.lineTo(W * 0.15, H);
+    ctx.lineTo(W * 0.4, H);
     ctx.closePath();
     ctx.fill();
+
+    // Floating Dust Particles & Light Orbs
+    for (let i = 0; i < 28; i++) {
+      const px = (i * 137 + 43) % W;
+      const py = (i * 241 + 67) % H;
+      const pr = ((i % 5) + 2) * 0.7;
+      const pAlpha = (((i % 7) + 2) / 10) * 0.35;
+      ctx.fillStyle = i % 3 === 0 ? colors.glow : `rgba(255, 255, 255, ${pAlpha})`;
+      ctx.beginPath();
+      ctx.arc(px, py, pr, 0, Math.PI * 2);
+      ctx.fill();
+    }
     ctx.restore();
 
-    // 4. WATERMARK "10" IN BACKGROUND
-    ctx.save();
-    ctx.font = `900 ${isStory ? "420px" : isSquare ? "300px" : "240px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.035)";
-    ctx.lineWidth = 4;
-    ctx.strokeText("10", W * 0.5, isStory ? H * 0.32 : H * 0.38);
-    ctx.restore();
-
-    // 5. DRAW MESSI PHOTO WITH CINEMATIC BLEND
-    if (imgLoaded && messiImg.naturalWidth > 0) {
+    // 2. Render Tailored Layout Per Aspect Ratio
+    if (isStory) {
+      // Top Branding Header
       ctx.save();
-      const imgW = isStory ? W * 0.88 : isSquare ? W * 0.62 : W * 0.52;
-      const imgH = imgW * (messiImg.naturalHeight / messiImg.naturalWidth);
-      const imgX = isStory ? W * 0.06 : isSquare ? W * 0.42 : W * 0.5;
-      const imgY = isStory ? H * 0.12 : isSquare ? H * 0.08 : H * 0.06;
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+      ctx.font = '800 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("★  OFFICIAL LIONEL MESSI ARCHIVE  ★", W * 0.5, 74);
 
-      ctx.globalAlpha = isStory ? 0.46 : 0.5;
-      ctx.drawImage(messiImg, imgX, imgY, imgW, imgH);
-
-      // Bottom fade mask to seamlessly melt photo into dark card background
-      const fade = ctx.createLinearGradient(0, imgY + imgH * 0.3, 0, imgY + imgH);
-      fade.addColorStop(0, "rgba(6, 11, 22, 0)");
-      fade.addColorStop(0.65, "rgba(6, 11, 22, 0.75)");
-      fade.addColorStop(1, "rgba(6, 11, 22, 1)");
-      ctx.fillStyle = fade;
-      ctx.fillRect(imgX, imgY, imgW, imgH + 20);
-
-      // Side fade mask for square/wide layout
-      if (!isStory) {
-        const fadeSide = ctx.createLinearGradient(imgX, 0, imgX + imgW * 0.4, 0);
-        fadeSide.addColorStop(0, "rgba(6, 11, 22, 0.95)");
-        fadeSide.addColorStop(1, "rgba(6, 11, 22, 0)");
-        ctx.fillStyle = fadeSide;
-        ctx.fillRect(imgX, imgY, imgW * 0.4, imgH);
-      }
+      ctx.fillStyle = "#ffffff";
+      ctx.font = '900 28px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("COLLECTOR'S EDITION", W * 0.5, 110);
       ctx.restore();
-    }
 
-    // 6. CARD FRAME & METALLIC CORNER BRACKETS
-    ctx.save();
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.09)";
-    ctx.lineWidth = 2;
-    roundRect(ctx, 32, 32, W - 64, H - 64, 28);
-    ctx.stroke();
+      // Main FUT Card
+      const cw = 860;
+      const ch = 1380;
+      const cx = (W - cw) / 2;
+      const cy = 145;
+      drawFutCard(ctx, cx, cy, cw, ch, colors);
 
-    const cSize = 26;
-    ctx.strokeStyle = colors.primary;
-    ctx.lineWidth = 4;
-    // Top-left
-    ctx.beginPath(); ctx.moveTo(42, 42 + cSize); ctx.lineTo(42, 42); ctx.lineTo(42 + cSize, 42); ctx.stroke();
-    // Top-right
-    ctx.beginPath(); ctx.moveTo(W - 42 - cSize, 42); ctx.lineTo(W - 42, 42); ctx.lineTo(W - 42, 42 + cSize); ctx.stroke();
-    // Bottom-left
-    ctx.beginPath(); ctx.moveTo(42, H - 42 - cSize); ctx.lineTo(42, H - 42); ctx.lineTo(42 + cSize, H - 42); ctx.stroke();
-    // Bottom-right
-    ctx.beginPath(); ctx.moveTo(W - 42 - cSize, H - 42); ctx.lineTo(W - 42, H - 42); ctx.lineTo(W - 42, H - 42 - cSize); ctx.stroke();
-    ctx.restore();
+      // Bottom Viral CTA Card
+      ctx.save();
+      const footY = 1565;
+      const footW = 880;
+      const footH = 265;
+      const footX = (W - footW) / 2;
 
-    // 7. HEADER BRANDING & VERIFIED BADGE
-    ctx.save();
-    const sX = 64, sY = 64;
-    // Vector shield icon
-    ctx.fillStyle = colors.primary;
-    ctx.beginPath();
-    ctx.moveTo(sX + 16, sY);
-    ctx.lineTo(sX + 32, sY + 6);
-    ctx.lineTo(sX + 32, sY + 22);
-    ctx.bezierCurveTo(sX + 32, sY + 34, sX + 16, sY + 40, sX + 16, sY + 42);
-    ctx.bezierCurveTo(sX + 16, sY + 40, sX, sY + 34, sX, sY + 22);
-    ctx.lineTo(sX, sY + 6);
-    ctx.closePath();
-    ctx.fill();
-
-    ctx.fillStyle = "#ffffff";
-    ctx.font = '900 13px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.textAlign = "center";
-    ctx.fillText("M10", sX + 16, sY + 26);
-
-    ctx.textAlign = "left";
-    ctx.fillStyle = "#ffffff";
-    ctx.font = '800 24px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText("MESSI", sX + 44, sY + 20);
-    ctx.fillStyle = colors.primary;
-    ctx.fillText("STATS", sX + 124, sY + 20);
-
-    ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-    ctx.font = '600 14px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText("OFFICIAL ARCHIVE • 929 CAREER GOALS", sX + 44, sY + 39);
-
-    // Top-Right Verified Pill
-    const pW = 168, pH = 36;
-    const pX = W - 64 - pW, pY = 64;
-    ctx.fillStyle = "rgba(255, 255, 255, 0.08)";
-    roundRect(ctx, pX, pY, pW, pH, 18);
-    ctx.fill();
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.16)";
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    ctx.fillStyle = "#38bdf8";
-    ctx.font = '800 13px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.textAlign = "center";
-    ctx.fillText("✓ VERIFIED ARCHIVE", pX + pW / 2, pY + 23);
-    ctx.restore();
-
-    // 8. HERO BIRTHDAY VERDICT
-    const isMessiBday = (dayData.month === 6 && dayData.day === 24);
-    const contentY = isStory ? 170 : isSquare ? 144 : 126;
-
-    ctx.save();
-    if (dayData.goalsCount > 0) {
-      const rText = "👑 YES! MESSI SCORED ON MY BIRTHDAY";
-      ctx.font = '800 15px "Plus Jakarta Sans", system-ui, sans-serif';
-      const rW = ctx.measureText(rText).width + 36;
-      ctx.fillStyle = "rgba(16, 185, 129, 0.22)";
-      roundRect(ctx, 64, contentY, rW, 36, 18);
+      ctx.fillStyle = "rgba(10, 16, 28, 0.88)";
+      roundRect(ctx, footX, footY, footW, footH, 26);
       ctx.fill();
-      ctx.strokeStyle = "#10b981";
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      ctx.fillStyle = "#34d399";
-      ctx.fillText(rText, 82, contentY + 23);
-
-      // Date Header
       ctx.fillStyle = "#ffffff";
-      ctx.font = `900 ${isStory ? "78px" : isSquare ? "60px" : "50px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-      ctx.fillText(dayData.formatted.toUpperCase(), 64, contentY + (isStory ? 112 : 90));
-
-      // Golden KPI Bar
-      const gCount = dayData.goalsCount;
-      const mCount = dayData.matches.length;
-      const gWord = gCount === 1 ? "GOAL" : "GOALS";
-      const mWord = mCount === 1 ? "MATCH" : "MATCHES";
-      
-      const kpiGrad = ctx.createLinearGradient(64, 0, 600, 0);
-      kpiGrad.addColorStop(0, colors.primary);
-      kpiGrad.addColorStop(1, "#fbbf24");
-      ctx.fillStyle = kpiGrad;
-      ctx.font = `800 ${isStory ? "38px" : isSquare ? "30px" : "26px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-      ctx.fillText(`⚽ ${gCount} ${gWord} IN ${mCount} ${mWord}`, 64, contentY + (isStory ? 166 : 136));
-
-    } else if (isMessiBday) {
-      const rText = "🐐 I SHARE A BIRTHDAY WITH THE GOAT";
-      ctx.font = '800 15px "Plus Jakarta Sans", system-ui, sans-serif';
-      const rW = ctx.measureText(rText).width + 36;
-      ctx.fillStyle = "rgba(227, 185, 62, 0.22)";
-      roundRect(ctx, 64, contentY, rW, 36, 18);
-      ctx.fill();
-      ctx.strokeStyle = "#e3b93e";
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-
-      ctx.fillStyle = "#fbbf24";
-      ctx.fillText(rText, 82, contentY + 23);
-
-      ctx.fillStyle = "#ffffff";
-      ctx.font = `900 ${isStory ? "72px" : "54px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-      ctx.fillText("24 JUNE 1987", 64, contentY + (isStory ? 106 : 86));
+      ctx.font = '900 32px "Plus Jakarta Sans", sans-serif';
+      ctx.textAlign = "center";
+      ctx.fillText("What did Messi do on YOUR birthday? 🎂", W * 0.5, footY + 68);
 
       ctx.fillStyle = colors.primary;
-      ctx.font = '800 34px "Plus Jakarta Sans", system-ui, sans-serif';
-      ctx.fillText("LIONEL ANDRÉS MESSI 👑", 64, contentY + (isStory ? 160 : 132));
+      ctx.font = '900 38px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("messistat.com/birthday", W * 0.5, footY + 128);
 
-      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-      ctx.font = '600 19px "Plus Jakarta Sans", system-ui, sans-serif';
-      ctx.fillText("Born in Rosario, Argentina • 8 Ballons d'Or • 46 Titles", 64, contentY + (isStory ? 204 : 168));
-    } else {
-      const rText = "🎂 OFFICIAL MESSI BIRTHDAY ARCHIVE";
-      ctx.font = '800 15px "Plus Jakarta Sans", system-ui, sans-serif';
-      const rW = ctx.measureText(rText).width + 36;
-      ctx.fillStyle = "rgba(148, 163, 184, 0.18)";
-      roundRect(ctx, 64, contentY, rW, 36, 18);
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("Search all 366 days • Full match history & video goals", W * 0.5, footY + 178);
+
+      // Verified Badge Pill
+      ctx.fillStyle = "rgba(56, 189, 248, 0.18)";
+      roundRect(ctx, W * 0.5 - 150, footY + 206, 300, 36, 18);
       ctx.fill();
-      ctx.strokeStyle = "rgba(148, 163, 184, 0.4)";
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.4)";
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.fillStyle = "#38bdf8";
+      ctx.font = '800 14px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("✓ 100% OFFICIAL 929 GOALS ARCHIVE", W * 0.5, footY + 229);
+      ctx.restore();
+
+    } else if (isSquare) {
+      // Centered Hero Card for 1:1 Instagram / Twitter Feed
+      const cw = 740;
+      const ch = 990;
+      const cx = (W - cw) / 2;
+      const cy = 45;
+      drawFutCard(ctx, cx, cy, cw, ch, colors);
+
+      // Subtle Watermark at canvas base
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+      ctx.font = '700 14px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("messistat.com/birthday  •  #MessiStats Official Archive", W * 0.5, H - 16);
+      ctx.restore();
+
+    } else if (isWide) {
+      // 16:9 Broadcast Studio Package
+      // Left Column: Full Vertical FUT Card
+      const cw = 380;
+      const ch = 590;
+      const cx = 45;
+      const cy = 42;
+      drawFutCard(ctx, cx, cy, cw, ch, colors);
+
+      // Right Column: EA Sports Television Graphics Package
+      const rx = 465;
+      const ry = 42;
+      const rw = 690;
+      const rh = 590;
+
+      ctx.save();
+      // Glass container
+      ctx.fillStyle = "rgba(10, 16, 28, 0.85)";
+      roundRect(ctx, rx, ry, rw, rh, 22);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.12)";
       ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      ctx.fillStyle = "#cbd5e1";
-      ctx.fillText(rText, 82, contentY + 23);
-
-      ctx.fillStyle = "#ffffff";
-      ctx.font = `900 ${isStory ? "72px" : "54px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-      ctx.fillText(dayData.formatted.toUpperCase(), 64, contentY + (isStory ? 106 : 86));
-
+      // Eyebrow
       ctx.fillStyle = colors.primary;
-      ctx.font = '800 32px "Plus Jakarta Sans", system-ui, sans-serif';
-      ctx.fillText("REST DAY FOR THE GOAT 👑", 64, contentY + (isStory ? 158 : 130));
+      ctx.font = '800 14px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("★  OFFICIAL LIONEL MESSI ARCHIVE  ★", rx + 36, ry + 44);
 
-      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-      ctx.font = '600 19px "Plus Jakarta Sans", system-ui, sans-serif';
-      ctx.fillText("Messi scored on 292 of 366 calendar days (79.8% of the year)!", 64, contentY + (isStory ? 200 : 166));
-    }
-    ctx.restore();
+      // Date Headline
+      ctx.fillStyle = "#ffffff";
+      ctx.font = '900 42px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(dayData.formatted.toUpperCase(), rx + 36, ry + 94);
 
-    // 9. MATCH SPOTLIGHT CARDS
-    const matches = dayData.matches || [];
-    let startY = isStory ? contentY + 224 : isSquare ? contentY + 172 : contentY + 150;
-    const maxMatches = isStory ? 3 : isSquare ? 1 : 1;
+      // Verdict Pill
+      const isScored = dayData.goalsCount > 0;
+      const vText = isScored
+        ? "👑 MESSI SCORED ON THIS DATE"
+        : "🎂 OFFICIAL BIRTHDAY CALENDAR";
+      ctx.font = '800 13px "Plus Jakarta Sans", sans-serif';
+      const vW = ctx.measureText(vText).width + 30;
+      ctx.fillStyle = isScored ? "rgba(16, 185, 129, 0.22)" : "rgba(245, 158, 11, 0.22)";
+      roundRect(ctx, rx + 36, ry + 114, vW, 30, 15);
+      ctx.fill();
+      ctx.strokeStyle = isScored ? "#10b981" : colors.primary;
+      ctx.lineWidth = 1;
+      ctx.stroke();
 
-    if (matches.length > 0) {
-      const cardHeight = isStory ? 158 : isSquare ? 146 : 126;
-      const cardGap = 16;
-      const toShow = matches.slice(0, maxMatches);
+      ctx.fillStyle = isScored ? "#34d399" : colors.primary;
+      ctx.fillText(vText, rx + 51, ry + 134);
 
-      toShow.forEach((m, idx) => {
-        const curY = startY + idx * (cardHeight + cardGap);
-        const cardW = W - 128;
+      // Match Spotlight Card
+      const m = dayData.matches && dayData.matches[0];
+      const matchY = ry + 162;
+      const matchH = 175;
+      ctx.fillStyle = "rgba(255, 255, 255, 0.045)";
+      roundRect(ctx, rx + 36, matchY, rw - 72, matchH, 16);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.09)";
+      ctx.stroke();
 
-        ctx.save();
-        ctx.fillStyle = "rgba(255, 255, 255, 0.055)";
-        roundRect(ctx, 64, curY, cardW, cardHeight, 18);
+      if (m) {
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = '700 14px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(`🏆 ${m.competition || "Official Match"} • ${m.date}`.toUpperCase(), rx + 60, matchY + 36);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = '800 28px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(`${m.team}  ${m.score}  ${m.opponent}`, rx + 60, matchY + 76);
+
+        const mins = (m.minutes && m.minutes.length) ? m.minutes.map(mn => `${mn}'`).join(", ") : "";
+        ctx.fillStyle = colors.primary;
+        ctx.font = '800 18px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(`⚽ ${m.goalsCount} ${m.goalsCount === 1 ? "Goal" : "Goals"}${mins ? ` (Min: ${mins})` : ""}`, rx + 60, matchY + 114);
+
+        if (m.types && m.types[0]) {
+          ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+          ctx.font = '600 14px "Plus Jakarta Sans", sans-serif';
+          ctx.fillText(`🎯 Style: ${m.types.join(", ")}`, rx + 60, matchY + 146);
+        }
+      } else {
+        ctx.fillStyle = colors.primary;
+        ctx.font = '800 20px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText("🐐 THE GREATEST OF ALL TIME", rx + 60, matchY + 45);
+
+        ctx.fillStyle = "#ffffff";
+        ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText("Messi scored on 292 of 366 calendar days in history (79.8% of the year)!", rx + 60, matchY + 84);
+        ctx.fillText("Rest day fixture — explore his historic 929 senior goals archive.", rx + 60, matchY + 118);
+      }
+
+      // 3 KPI Milestone Boxes
+      const kpiY = matchY + matchH + 18;
+      const kpiW = (rw - 72 - 24) / 3;
+      const kpis = [
+        { val: "929", label: "CAREER GOALS", sub: "All-Time Record" },
+        { val: "404", label: "CAREER ASSISTS", sub: "World Record" },
+        { val: "46", label: "MAJOR TITLES", sub: "Most in History" }
+      ];
+
+      kpis.forEach((kp, idx) => {
+        const kx = rx + 36 + idx * (kpiW + 12);
+        ctx.fillStyle = "rgba(255, 255, 255, 0.035)";
+        roundRect(ctx, kx, kpiY, kpiW, 86, 12);
         ctx.fill();
-
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.11)";
-        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
         ctx.stroke();
 
         ctx.fillStyle = colors.primary;
-        roundRect(ctx, 64, curY, 6, cardHeight, 3);
-        ctx.fill();
+        ctx.font = '900 28px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(kp.val, kx + 16, kpiY + 36);
 
-        // Competition Tag
-        ctx.fillStyle = "#94a3b8";
-        ctx.font = '700 15px "Plus Jakarta Sans", system-ui, sans-serif';
-        const compStr = `🏆 ${m.competition || "Official Match"} • ${m.date}`;
-        ctx.fillText(compStr.toUpperCase(), 92, curY + 34);
-
-        // Scoreline
         ctx.fillStyle = "#ffffff";
-        ctx.font = `800 ${isStory ? "28px" : "24px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-        const scoreText = `${m.team}  ${m.score}  ${m.opponent}`;
-        ctx.fillText(scoreText, 92, curY + 74);
+        ctx.font = '800 12px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(kp.label, kx + 16, kpiY + 58);
 
-        // Goal Minutes & Types Pill
-        const mins = (m.minutes && m.minutes.length) ? m.minutes.map(mn => `${mn}'`).join(", ") : "";
-        const mInfo = `⚽ ${m.goalsCount} ${m.goalsCount === 1 ? "Goal" : "Goals"}${mins ? ` (Min: ${mins})` : ""}`;
-        
-        ctx.fillStyle = "rgba(56, 189, 248, 0.15)";
-        ctx.font = '700 15px "Plus Jakarta Sans", system-ui, sans-serif';
-        const pillW = ctx.measureText(mInfo).width + 24;
-        roundRect(ctx, 92, curY + 94, pillW, 30, 8);
-        ctx.fill();
-
-        ctx.fillStyle = "#38bdf8";
-        ctx.fillText(mInfo, 104, curY + 114);
-
-        if (m.types && m.types[0]) {
-          const typeText = `🎯 ${m.types.join(", ")}`;
-          ctx.fillStyle = "rgba(255, 255, 255, 0.6)";
-          ctx.font = '600 14px "Plus Jakarta Sans", system-ui, sans-serif';
-          ctx.fillText(typeText, 92 + pillW + 14, curY + 114);
-        }
-
-        ctx.restore();
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = '600 11px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(kp.sub, kx + 16, kpiY + 74);
       });
 
-      if (matches.length > maxMatches) {
-        const remY = startY + toShow.length * (cardHeight + cardGap);
-        ctx.save();
-        ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
-        ctx.font = '600 16px "Plus Jakarta Sans", system-ui, sans-serif';
-        ctx.fillText(`+ ${matches.length - maxMatches} more historic match${matches.length - maxMatches > 1 ? "es" : ""} on this date`, 64, remY + 10);
-        ctx.restore();
-      }
-    } else {
-      const curY = startY;
-      const cardW = W - 128;
-      const cardH = isStory ? 200 : 150;
-
-      ctx.save();
-      ctx.fillStyle = "rgba(255, 255, 255, 0.055)";
-      roundRect(ctx, 64, curY, cardW, cardH, 18);
-      ctx.fill();
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.11)";
-      ctx.stroke();
-
+      // Bottom Watermark
+      const botY = kpiY + 86 + 28;
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.font = '700 15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText("Discover what Messi did on your birthday at ", rx + 36, botY);
+      const textW = ctx.measureText("Discover what Messi did on your birthday at ").width;
       ctx.fillStyle = colors.primary;
-      roundRect(ctx, 64, curY, 6, cardH, 3);
-      ctx.fill();
+      ctx.fillText("messistat.com/birthday", rx + 36 + textW, botY);
 
-      ctx.fillStyle = "#ffffff";
-      ctx.font = '800 22px "Plus Jakarta Sans", system-ui, sans-serif';
-      ctx.fillText("🌟 LEO MESSI ALL-TIME CAREER STATS", 92, curY + 42);
-
-      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-      ctx.font = '600 17px "Plus Jakarta Sans", system-ui, sans-serif';
-      ctx.fillText("• 929 Official Senior Goals (All-Time Record South American Scorer)", 92, curY + 80);
-      ctx.fillText("• 404 Official Career Assists (World Record)", 92, curY + 114);
-      ctx.fillText("• 46 Major Trophies (Most decorated football player in history)", 92, curY + 148);
-      if (isStory) {
-        ctx.fillText("• 8 Ballon d'Or Trophies • 6 European Golden Shoes • 1 FIFA World Cup", 92, curY + 182);
-      }
       ctx.restore();
     }
-
-    // 10. CALL TO ACTION FOOTER BANNER
-    ctx.save();
-    const footH = isStory ? 128 : isSquare ? 106 : 94;
-    const footY = H - 42 - footH;
-
-    ctx.fillStyle = "rgba(0, 0, 0, 0.55)";
-    roundRect(ctx, 42, footY, W - 84, footH, 20);
-    ctx.fill();
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.09)";
-    ctx.lineWidth = 1;
-    ctx.stroke();
-
-    ctx.fillStyle = "#ffffff";
-    ctx.font = `800 ${isStory ? "24px" : "20px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-    ctx.fillText("Check what Messi did on your birthday 🎂", 72, footY + (isStory ? 44 : 38));
-
-    ctx.fillStyle = colors.primary;
-    ctx.font = `800 ${isStory ? "26px" : "22px"} "Plus Jakarta Sans", system-ui, sans-serif`;
-    ctx.fillText("messistat.com/birthday", 72, footY + (isStory ? 86 : 74));
-
-    ctx.textAlign = "right";
-    ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
-    ctx.font = '600 15px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText("Search all 366 days & watch video goals", W - 72, footY + (isStory ? 44 : 38));
-
-    ctx.fillStyle = "#38bdf8";
-    ctx.font = '700 16px "Plus Jakarta Sans", system-ui, sans-serif';
-    ctx.fillText("#MessiStats • Official Archive", W - 72, footY + (isStory ? 84 : 74));
-    ctx.restore();
   }
 
   // Wire Format Buttons
   modal.querySelectorAll(".card-format-btn").forEach((btn) => {
     btn.onclick = () => {
-      modal.querySelectorAll(".card-format-btn").forEach((b) => b.classList.remove("active"));
+      modal.querySelectorAll(".card-format-btn").forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
       btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
       currentFormat = btn.getAttribute("data-format") || "story";
       drawCanvas();
     };
@@ -2113,7 +2476,7 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
         if (!blob) return;
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `messi-birthday-${key}-${currentFormat}.png`;
+        a.download = `messi-fut-card-${key}-${currentFormat}.png`;
         a.click();
         URL.revokeObjectURL(a.href);
       }, "image/png");
@@ -2128,7 +2491,7 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
           if (navigator.clipboard && window.ClipboardItem) {
             await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
             const originalText = copyBtn.innerHTML;
-            copyBtn.innerHTML = "✓ Copied Image!";
+            copyBtn.innerHTML = "✓ Copied HD Card!";
             copyBtn.style.background = "var(--brand-soft)";
             copyBtn.style.borderColor = "var(--brand)";
             setTimeout(() => {
@@ -2150,7 +2513,7 @@ function setupBirthdayCardGenerator(dayData, key, shareText, shareUrl) {
     nativeShareBtn.onclick = async () => {
       canvas.toBlob(async (blob) => {
         if (!blob) return;
-        const file = new File([blob], `messi-birthday-${key}-${currentFormat}.png`, { type: "image/png" });
+        const file = new File([blob], `messi-fut-card-${key}-${currentFormat}.png`, { type: "image/png" });
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
           try {
             await navigator.share({
