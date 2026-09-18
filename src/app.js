@@ -247,13 +247,13 @@ function reveal() {
   });
 }
 const EXPLORE = [
-  { href: "index.html", page: "home", t: "Messi career stats", d: (d) => `The headline numbers: ${n(d.totals.goals)} goals in ${n(d.totals.apps)} senior games.` },
-  { href: "goalsbyyear.html", page: "byyear", t: "Messi goals by year", d: (d) => `Every calendar year from 2004 to 2026 and the climb to ${n(d.totals.goals)}.` },
-  { href: "goalsbyseason.html", page: "byseason", t: "Messi goals by season", d: () => "League, cup and continental splits for every club season." },
-  { href: "dashboard.html", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
-  { href: "timeline.html", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
-  { href: "achievements.html", page: "achievements", t: "Messi trophies and awards", d: () => "All 46 team titles plus a record 8 Ballons d'Or." },
-  { href: "birthday.html", page: "birthday", t: "Did Messi score on your birthday?", d: (d) => `Search all 365 calendar days across Messi's ${n(d.totals.goals)} senior career goals.` },
+  { href: "/en/birthday", page: "birthday", t: "🎂 Did Messi score on your birthday?", d: (d) => `Search all 366 calendar days with video clips across Messi's ${n(d.totals.goals)} senior career goals.` },
+  { href: "/en", page: "home", t: "Messi career stats", d: (d) => `The headline numbers: ${n(d.totals.goals)} goals in ${n(d.totals.apps)} senior games.` },
+  { href: "/en/goalsbyyear", page: "byyear", t: "Messi goals by year", d: (d) => `Every calendar year from 2004 to 2026 and the climb to ${n(d.totals.goals)}.` },
+  { href: "/en/goalsbyseason", page: "byseason", t: "Messi goals by season", d: () => "League, cup and continental splits for every club season." },
+  { href: "/en/dashboard", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
+  { href: "/en/timeline", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
+  { href: "/en/achievements", page: "achievements", t: "Messi trophies and awards", d: () => "All 46 team titles plus a record 8 Ballons d'Or." },
 ];
 function renderExplore(d, page) {
   const e = el("explore");
@@ -404,7 +404,7 @@ function renderHome(d) {
     kpi("Career goals", n(t.goals), `${t.goalsPerGame} goals per game across ${seasons} club seasons.`) +
     kpi("Senior appearances", n(t.apps), `${n(t.clubs.apps)} club, ${n(t.country.apps)} Argentina.`) +
     kpi("Argentina goals", n(t.country.goals), `${gpg(t.country.goals, t.country.apps)} per cap across ${n(t.country.apps)} caps.`) +
-    kpi("Team trophies", "46", `Plus a record 8 Ballons d'Or. <a href="achievements.html">Full honours list</a>.`) +
+    kpi("Team trophies", "46", `Plus a record 8 Ballons d'Or. <a href="/en/achievements">Full honours list</a>.`) +
     `<div class="kpi progress"><span class="kpi-label">Road to 1,000 goals</span>` +
     `<span class="kpi-value">${n(t.goals)} <small style="font-size:1rem;color:var(--muted)">/ 1,000</small></span>` +
     `<div class="progress-track"><div class="progress-fill" style="width:${(t.goals / 10).toFixed(1)}%"></div></div>` +
@@ -441,12 +441,12 @@ function renderHome(d) {
   }
 
   const Q = [
-    ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="goalsbyyear.html">year-by-year breakdown</a>.`],
+    ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="/en/goalsbyyear">year-by-year breakdown</a>.`],
     ["How many goals did Messi score for Barcelona?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games from 2004 to 2021 — including a record 474 in La Liga.`],
     ["How many goals for PSG and Inter Miami?", `<b>${agg.psg.goals} for Paris Saint-Germain</b> and <b>${n(agg.miami.goals)} for Inter Miami</b> (2026 season in progress).`],
     ["How many goals has Messi scored for Argentina?", `<b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps since 2005, including World Cup, Copa América and qualifying goals.`],
-    ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="goalsbyyear.html">every year</a>.`],
-    ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="achievements.html">The full list</a>.`],
+    ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="/en/goalsbyyear">every year</a>.`],
+    ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="/en/achievements">The full list</a>.`],
   ];
   el("qa").innerHTML = Q.map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
   el("qa").classList.add("qa--dense");
@@ -458,7 +458,7 @@ function renderHome(d) {
       `<td>${n(a.apps)}</td><td><b>${n(a.goals)}</b></td><td>${gpg(a.goals, a.apps)}</td></tr>`;
   }).join("");
   el("club-card").innerHTML =
-    `<table class="data-table"><caption>Appearances and goals for every senior team Lionel Messi has played for, as of ${esc(d.lastUpdated)}. Full competition splits are on the <a href="goalsbyseason.html">goals by season page</a>.</caption>` +
+    `<table class="data-table"><caption>Appearances and goals for every senior team Lionel Messi has played for, as of ${esc(d.lastUpdated)}. Full competition splits are on the <a href="/en/goalsbyseason">goals by season page</a>.</caption>` +
     `<thead><tr><th scope="col" class="left">Team and years</th><th scope="col">Apps</th><th scope="col">Goals</th><th scope="col">Goals per game</th></tr></thead>` +
     `<tbody>${rows}<tr class="total"><th scope="row">Career total</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>` + clubTableCaption();
   sortable(el("club-card").querySelector("table"));
@@ -473,7 +473,7 @@ function renderHome(d) {
     ys.slice().reverse().map((r) => `<option value="${r.year}"${r.year === cur.year ? " selected" : ""}>${r.year}</option>`).join("") +
     `</select></div></div><div class="year-tiles" id="yearTiles"></div>` +
     `<figure style="margin:12px 0 0"><div class="spark-wrap" id="yearSpark"></div>` +
-    `<figcaption class="figcap">Calendar-year goals, ${ys[0].year} to ${cur.year}${cur.provisional ? " (2026 in progress)" : ""} — peaking at 91 in 2012. <a href="goalsbyyear.html">Open the full table</a>.</figcaption></figure>`;
+    `<figcaption class="figcap">Calendar-year goals, ${ys[0].year} to ${cur.year}${cur.provisional ? " (2026 in progress)" : ""} — peaking at 91 in 2012. <a href="/en/goalsbyyear">Open the full table</a>.</figcaption></figure>`;
   const drawYear = (y) => {
     const r = ys.find((x) => x.year === +y);
     if (!r) return;
@@ -544,13 +544,54 @@ function renderHome(d) {
     ["How many free kicks has Messi scored?", `<b>${m.freeKicks}</b> in senior football (provisional tally, counting by hand).`],
     ["How many penalties has Messi scored?", `<b>${m.penalties}</b> (same provisional basis).`],
     ["How many Ballons d'Or has Messi won?", `<b>Eight</b> — 2009, 2010, 2011, 2012, 2015, 2019, 2021 and 2023.`],
-    ["How many trophies has Messi won?", `<b>46 team titles</b> plus every major individual award. <a href="achievements.html">Every trophy listed</a>.`],
+    ["How many trophies has Messi won?", `<b>46 team titles</b> plus every major individual award. <a href="/en/achievements">Every trophy listed</a>.`],
     ["How often is this site updated?", `After every match, by hand, from named sources — the date stamp at the top of the page shows the last check (${esc(d.lastUpdated)}).`],
   ].map((q) => `<article class="qa"><h3>${q[0]}</h3><p>${q[1]}</p></article>`).join("");
 
   renderExplore(d, "home");
   renderMethod(d, "");
   renderOnThisDay();
+  initBdayQuickForm();
+}
+
+/* ================= BIRTHDAY QUICK FORM (HERO WIDGET) ================= */
+function initBdayQuickForm() {
+  const form = el("bday-quick-form");
+  const monthSel = el("bday-quick-month");
+  const daySel = el("bday-quick-day");
+  if (!form || !monthSel || !daySel) return;
+
+  const daysInMonth = { "01": 31, "02": 29, "03": 31, "04": 30, "05": 31, "06": 30, "07": 31, "08": 31, "09": 30, "10": 31, "11": 30, "12": 31 };
+
+  const populateDays = (selectedDay) => {
+    const m = monthSel.value || "01";
+    const maxDays = daysInMonth[m] || 31;
+    const currentVal = selectedDay || parseInt(daySel.value || "1", 10);
+    daySel.innerHTML = "";
+    for (let i = 1; i <= maxDays; i++) {
+      const opt = document.createElement("option");
+      const val = String(i).padStart(2, "0");
+      opt.value = val;
+      opt.textContent = String(i);
+      if (i === Math.min(currentVal, maxDays)) opt.selected = true;
+      daySel.appendChild(opt);
+    }
+  };
+
+  const now = new Date();
+  const defM = String(now.getUTCMonth() + 1).padStart(2, "0");
+  const defD = now.getUTCDate();
+  monthSel.value = defM;
+  populateDays(defD);
+
+  monthSel.addEventListener("change", () => populateDays());
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const m = monthSel.value;
+    const d = daySel.value;
+    window.location.href = `/en/birthday?date=${m}-${d}`;
+  });
 }
 
 /* ================= ON THIS DAY (HOME PAGE WIDGET) ================= */
@@ -571,7 +612,7 @@ async function renderOnThisDay() {
     bdayData = await res.json();
   } catch (err) {
     console.error("Failed to load birthday goals for On This Day", err);
-    container.innerHTML = `<p class="otd-error">Could not load today's match history. <a href="birthday.html">Check birthday explorer &rarr;</a></p>`;
+    container.innerHTML = `<p class="otd-error">Could not load today's match history. <a href="/en/birthday">Check birthday explorer &rarr;</a></p>`;
     return;
   }
 
@@ -608,7 +649,7 @@ async function renderOnThisDay() {
   }
 
   if (!dayData) {
-    container.innerHTML = `<p class="otd-empty">No match data on record for today. <a href="birthday.html">Explore all 365 days &rarr;</a></p>`;
+    container.innerHTML = `<p class="otd-empty">No match data on record for today. <a href="/en/birthday">Explore all 366 days &rarr;</a></p>`;
     return;
   }
 
@@ -691,7 +732,7 @@ async function renderOnThisDay() {
           <h3 class="otd-headline">${headlineText}</h3>
         </div>
         <div class="otd-header-right">
-          <a href="birthday.html?date=${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
+          <a href="/en/birthday?date=${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
             🎂 Did Messi score on your birthday?
           </a>
         </div>
@@ -739,8 +780,8 @@ async function renderOnThisDay() {
           </div>
 
           <div class="otd-cta-row">
-            <a href="birthday.html?date=${todayKey}" class="btn btn-primary btn-sm">
-              Explore All 365 Days &rarr;
+            <a href="/en/birthday?date=${todayKey}" class="btn btn-primary btn-sm">
+              Explore All 366 Days &rarr;
             </a>
             <button type="button" class="btn btn-secondary btn-sm otd-share-btn">
               🔗 Share Clip
@@ -765,34 +806,20 @@ async function renderOnThisDay() {
       });
     });
 
-    const vid = container.querySelector("video");
-    if (vid) {
-      vid.addEventListener("error", () => {
-        const frame = container.querySelector(".otd-player-frame");
-        if (frame) {
-          frame.innerHTML = `
-            <div class="otd-no-video">
-              <div class="otd-no-video-inner">
-                <p>📺 Video clip direct stream unavailable.</p>
-                <a href="https://www.youtube.com/results?search_query=Lionel+Messi+goal+vs+${encodeURIComponent(activeMatch.opponent)}+${activeMatch.date}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
-                  🔍 Search clip on YouTube &rarr;
-                </a>
-              </div>
-            </div>`;
-        }
-      });
-      vid.addEventListener("play", () => {
+    const videoEl = container.querySelector(".otd-video-element");
+    if (videoEl) {
+      videoEl.addEventListener("play", () => {
         try {
-          trackVideoPlay(activeMatch.opponent, activeMatch.date, activeMatch.competition);
+          trackVideoPlay("otd_card", activeVideo.goalNumber || activeMatch.opponent);
         } catch (_) {}
-      }, { once: true });
+      });
     }
 
     const shareBtn = container.querySelector(".otd-share-btn");
     if (shareBtn) {
       shareBtn.addEventListener("click", async () => {
         const shareText = `On this day in history (${dayData.formatted}), Lionel Messi scored vs ${activeMatch.opponent}! Watch the goal:`;
-        const shareUrl = `${location.origin}/birthday.html?date=${todayKey}`;
+        const shareUrl = `${location.origin}/en/birthday?date=${todayKey}`;
         try {
           trackShare("otd_card", shareText);
         } catch (_) {}
@@ -867,7 +894,7 @@ function renderByYear(d) {
     `<p><b>${best.year} is the greatest goalscoring year football has seen: ${best.goals} goals</b> — 79 for Barcelona and 12 for Argentina — ` +
     `breaking Gerd Müller's 40-year-old record of 85. It included a run of 33 league games scored in consecutively and a five-goal Champions League night against Bayer Leverkusen.</p>` +
     `<p>The next-best years, 2011 (60) and 2010 (60), show how far ahead of normal — even his own normal — that season was. ` +
-    `<a href="dashboard.html">See how those goals break down by competition</a>.</p>`;
+    `<a href="/en/dashboard">See how those goals break down by competition</a>.</p>`;
   renderExplore(d, "byyear");
   renderMethod(d, "");
 }
@@ -914,7 +941,7 @@ function renderBySeason(d) {
     `<p><b>${best.season} — ${best.goals} goals in ${best.apps} games for Barcelona</b> — is the most prolific club season ever played: ` +
     `50 in La Liga (a record), 14 in the Champions League, 3 in the Copa del Rey and 6 in the super cups. He scored in every competition he entered.</p>` +
     `<p>It sits at the heart of a four-season stretch (2009/10–2012/13) in which he never dropped below 53 club goals. ` +
-    `<a href="goalsbyyear.html">The same goals counted by calendar year</a>.</p>`;
+    `<a href="/en/goalsbyyear">The same goals counted by calendar year</a>.</p>`;
   renderExplore(d, "byseason");
   renderMethod(d, "");
 }

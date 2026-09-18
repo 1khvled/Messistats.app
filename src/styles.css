@@ -3490,3 +3490,220 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   color: var(--faint);
   margin-bottom: 4px;
 }
+
+/* ---------- Birthday Main Driver / Hero Widget ---------- */
+.bday-hero-card {
+  background: linear-gradient(135deg, rgba(29, 63, 174, 0.08) 0%, rgba(227, 185, 62, 0.12) 100%);
+  border: 1px solid rgba(227, 185, 62, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin: 22px 0 16px;
+  box-shadow: 0 8px 24px rgba(22, 36, 58, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+[data-theme="dark"] .bday-hero-card {
+  background: linear-gradient(135deg, rgba(29, 63, 174, 0.2) 0%, rgba(227, 185, 62, 0.15) 100%);
+  border-color: rgba(227, 185, 62, 0.35);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+.bday-hero-inner {
+  position: relative;
+  z-index: 2;
+}
+.bday-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(90deg, #d97706, #b45309);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(180, 83, 9, 0.25);
+}
+.bday-hero-title {
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.bday-hero-desc {
+  font-size: 0.98rem;
+  color: var(--muted);
+  max-width: 65ch;
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.bday-quick-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.bday-quick-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.bday-select {
+  padding: 10px 14px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.bday-select:focus {
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--brand-soft);
+  outline: none;
+}
+.bday-quick-btn {
+  padding: 10px 22px;
+  font-weight: 700;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1d3fae, #0b6fa4);
+  color: #fff !important;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 12px rgba(29, 63, 174, 0.25);
+  transition: transform 0.12s ease, box-shadow 0.15s ease;
+}
+.bday-quick-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(29, 63, 174, 0.35);
+  text-decoration: none;
+}
+.bday-quick-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+.preset-label {
+  color: var(--faint);
+  font-weight: 600;
+}
+.preset-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.15s ease;
+}
+.preset-chip:hover {
+  border-color: var(--gold);
+  color: var(--brand-ink);
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* Nav Rail Highlight */
+.rail nav a.nav-bday-link {
+  position: relative;
+  background: linear-gradient(135deg, rgba(227, 185, 62, 0.12), rgba(29, 63, 174, 0.1));
+  border: 1px solid rgba(227, 185, 62, 0.4);
+}
+.rail nav a.nav-bday-link svg {
+  color: #d97706;
+}
+.nav-badge-hot {
+  font-size: 0.65rem;
+  font-weight: 800;
+  background: #ef4444;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 6px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .rail nav a.nav-bday-link {
+    background: rgba(227, 185, 62, 0.22);
+    border-color: rgba(227, 185, 62, 0.6);
+  }
+}
+
+/* Subpage Cross-Promotion Card */
+.bday-promo-card {
+  background: linear-gradient(135deg, rgba(29, 63, 174, 0.06), rgba(227, 185, 62, 0.1));
+  border: 1px solid rgba(227, 185, 62, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px;
+  margin: 32px 0 20px;
+  box-shadow: var(--shadow-sm);
+}
+[data-theme="dark"] .bday-promo-card {
+  background: linear-gradient(135deg, rgba(29, 63, 174, 0.16), rgba(227, 185, 62, 0.12));
+  border-color: rgba(227, 185, 62, 0.25);
+}
+.bday-promo-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #b45309;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+[data-theme="dark"] .bday-promo-badge {
+  color: #f3d27a;
+}
+.bday-promo-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.bday-promo-text {
+  flex: 1;
+  min-width: 240px;
+}
+.bday-promo-text h3 {
+  font-size: 1.12rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--ink);
+}
+.bday-promo-text p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.45;
+}
+.bday-promo-btn {
+  white-space: nowrap;
+  padding: 9px 18px;
+  font-weight: 700;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1d3fae, #0b6fa4);
+  color: #fff !important;
+  border: none;
+  box-shadow: 0 3px 10px rgba(29, 63, 174, 0.2);
+  transition: transform 0.12s ease, box-shadow 0.15s ease;
+}
+.bday-promo-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(29, 63, 174, 0.3);
+  text-decoration: none;
+}
