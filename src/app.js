@@ -3678,8 +3678,11 @@ const eraPhotos = (key, era) => {
   const pics = ERA_PHOTOS[key] || ERA_PHOTOS[era];
   if (!pics || !pics.length) return "";
   return `<div class="ch-photos${pics.length === 1 ? " solo" : ""}">` + pics.map((p) => {
-    return `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos}" />` +
-    `<figcaption class="photo-credit">${esc(p.cap)}</figcaption></figure>`;
+    const webpSrc = p.src.replace(/\.jpg$/, ".webp");
+    return `<figure class="ch-photo"><picture>` +
+      `<source srcset="${webpSrc}" type="image/webp" />` +
+      `<img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" decoding="async" style="object-position:${p.pos}" />` +
+      `</picture><figcaption class="photo-credit">${esc(p.cap)}</figcaption></figure>`;
   }).join("") + `</div>`;
 };
 const TIMELINE_I18N = {
