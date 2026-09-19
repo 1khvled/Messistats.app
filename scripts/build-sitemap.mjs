@@ -17,6 +17,7 @@ const SUBPAGES = [
   { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.9" },
   { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9" },
   { slug: "champions-league", changefreq: "monthly", priority: "0.9" },
+  { slug: "latest-goal", changefreq: "daily", priority: "0.95" },
   { slug: "timeline", changefreq: "monthly", priority: "0.85" },
   { slug: "achievements", changefreq: "monthly", priority: "0.85" }
 ];
@@ -173,6 +174,12 @@ const enImages = {
       <image:loc>https://www.messistat.com/img/era-2011-wembley.jpg</image:loc>
       <image:title>Lionel Messi Champions League Goals</image:title>
       <image:caption>Lionel Messi UEFA Champions League statistics: 129 goals in 163 matches and 4 European titles.</image:caption>
+    </image:image>`,
+  "latest-goal": `    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Lionel Messi Last Goal Video and Highlights (Goal #928 vs Nashville SC)</image:title>
+      <image:caption>Watch Lionel Messi's most recent official senior goal replay and match statistics.</image:caption>
+      <image:geo_location>Miami, Florida, United States</image:geo_location>
     </image:image>`
 };
 

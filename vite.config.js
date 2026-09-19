@@ -57,7 +57,8 @@ const subpages = [
   'birthday',
   'messi-vs-ronaldo',
   'vs-real-madrid',
-  'champions-league'
+  'champions-league',
+  'latest-goal'
 ];
 
 const rollupInput = {
@@ -71,6 +72,7 @@ const rollupInput = {
   vs_real_madrid: resolve(root, 'vs-real-madrid.html'),
   messi_vs_ronaldo: resolve(root, 'messi-vs-ronaldo.html'),
   champions_league: resolve(root, 'champions-league.html'),
+  latest_goal: resolve(root, 'latest-goal.html'),
   admin: resolve(root, 'admin.html')
 };
 

@@ -25,6 +25,12 @@
     { "source": "/vs-real-madrid.html", "destination": "/en/vs-real-madrid", "permanent": true },
     { "source": "/messi-vs-ronaldo", "destination": "/en/messi-vs-ronaldo", "permanent": true },
     { "source": "/messi-vs-ronaldo.html", "destination": "/en/messi-vs-ronaldo", "permanent": true },
+    { "source": "/latest-goal", "destination": "/en/latest-goal", "permanent": true },
+    { "source": "/latest-goal.html", "destination": "/en/latest-goal", "permanent": true },
+    { "source": "/last-goal", "destination": "/en/latest-goal", "permanent": true },
+    { "source": "/last-goal.html", "destination": "/en/latest-goal", "permanent": true },
+    { "source": "/messi-goal-today", "destination": "/en/latest-goal", "permanent": true },
+    { "source": "/did-messi-score-today", "destination": "/en/latest-goal", "permanent": true },
     { "source": "/en/:page.html", "destination": "/en/:page", "permanent": true }
   ],
   "rewrites": [
@@ -44,6 +50,10 @@
     { "source": "/en/vs/ronaldo", "destination": "/messi-vs-ronaldo.html" },
     { "source": "/en/messi-vs-ronaldo", "destination": "/messi-vs-ronaldo.html" },
     { "source": "/en/champions-league", "destination": "/champions-league.html" },
+    { "source": "/en/latest-goal", "destination": "/latest-goal.html" },
+    { "source": "/en/last-goal", "destination": "/latest-goal.html" },
+    { "source": "/en/messi-goal-today", "destination": "/latest-goal.html" },
+    { "source": "/en/did-messi-score-today", "destination": "/latest-goal.html" },
     { "source": "/embed/on-this-day", "destination": "/embed/on-this-day.html" },
     { "source": "/en/admin", "destination": "/admin.html" },
 
@@ -63,6 +73,7 @@
     { "source": "/es/vs/real-madrid", "destination": "/es/vs-real-madrid.html" },
     { "source": "/es/vs-real-madrid", "destination": "/es/vs-real-madrid.html" },
     { "source": "/es/champions-league", "destination": "/es/champions-league.html" },
+    { "source": "/es/latest-goal", "destination": "/es/latest-goal.html" },
 
     { "source": "/pt/data/:path*", "destination": "/data/:path*" },
     { "source": "/pt/img/:path*", "destination": "/img/:path*" },
@@ -80,6 +91,7 @@
     { "source": "/pt/vs/real-madrid", "destination": "/pt/vs-real-madrid.html" },
     { "source": "/pt/vs-real-madrid", "destination": "/pt/vs-real-madrid.html" },
     { "source": "/pt/champions-league", "destination": "/pt/champions-league.html" },
+    { "source": "/pt/latest-goal", "destination": "/pt/latest-goal.html" },
 
     { "source": "/fr/data/:path*", "destination": "/data/:path*" },
     { "source": "/fr/img/:path*", "destination": "/img/:path*" },
@@ -97,6 +109,7 @@
     { "source": "/fr/vs/real-madrid", "destination": "/fr/vs-real-madrid.html" },
     { "source": "/fr/vs-real-madrid", "destination": "/fr/vs-real-madrid.html" },
     { "source": "/fr/champions-league", "destination": "/fr/champions-league.html" },
+    { "source": "/fr/latest-goal", "destination": "/fr/latest-goal.html" },
 
     { "source": "/ar/data/:path*", "destination": "/data/:path*" },
     { "source": "/ar/img/:path*", "destination": "/img/:path*" },
@@ -114,6 +127,7 @@
     { "source": "/ar/vs/real-madrid", "destination": "/ar/vs-real-madrid.html" },
     { "source": "/ar/vs-real-madrid", "destination": "/ar/vs-real-madrid.html" },
     { "source": "/ar/champions-league", "destination": "/ar/champions-league.html" },
+    { "source": "/ar/latest-goal", "destination": "/ar/latest-goal.html" },
 
     { "source": "/bn/data/:path*", "destination": "/data/:path*" },
     { "source": "/bn/img/:path*", "destination": "/img/:path*" },
@@ -131,6 +145,7 @@
     { "source": "/bn/vs/real-madrid", "destination": "/bn/vs-real-madrid.html" },
     { "source": "/bn/vs-real-madrid", "destination": "/bn/vs-real-madrid.html" },
     { "source": "/bn/champions-league", "destination": "/bn/champions-league.html" },
+    { "source": "/bn/latest-goal", "destination": "/bn/latest-goal.html" },
 
     { "source": "/hi/data/:path*", "destination": "/data/:path*" },
     { "source": "/hi/img/:path*", "destination": "/img/:path*" },
@@ -148,6 +163,7 @@
     { "source": "/hi/vs/real-madrid", "destination": "/hi/vs-real-madrid.html" },
     { "source": "/hi/vs-real-madrid", "destination": "/hi/vs-real-madrid.html" },
     { "source": "/hi/champions-league", "destination": "/hi/champions-league.html" },
+    { "source": "/hi/latest-goal", "destination": "/hi/latest-goal.html" },
 
     { "source": "/ro/data/:path*", "destination": "/data/:path*" },
     { "source": "/ro/img/:path*", "destination": "/img/:path*" },
@@ -165,6 +181,7 @@
     { "source": "/ro/vs/real-madrid", "destination": "/ro/vs-real-madrid.html" },
     { "source": "/ro/vs-real-madrid", "destination": "/ro/vs-real-madrid.html" },
     { "source": "/ro/champions-league", "destination": "/ro/champions-league.html" },
+    { "source": "/ro/latest-goal", "destination": "/ro/latest-goal.html" },
 
     { "source": "/uz/data/:path*", "destination": "/data/:path*" },
     { "source": "/uz/img/:path*", "destination": "/img/:path*" },
@@ -181,7 +198,8 @@
     { "source": "/uz/messi-vs-ronaldo", "destination": "/uz/messi-vs-ronaldo.html" },
     { "source": "/uz/vs/real-madrid", "destination": "/uz/vs-real-madrid.html" },
     { "source": "/uz/vs-real-madrid", "destination": "/uz/vs-real-madrid.html" },
-    { "source": "/uz/champions-league", "destination": "/uz/champions-league.html" }
+    { "source": "/uz/champions-league", "destination": "/uz/champions-league.html" },
+    { "source": "/uz/latest-goal", "destination": "/uz/latest-goal.html" }
   ],
   "headers": [
     {
