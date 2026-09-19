@@ -143,5 +143,5 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-18 | antigravity (gemini-3.8-flash) | auto-sync match pipeline (ESPN multi-comp) & sync to 929 goals / 1,175 apps (Cruz Azul 100th Miami goal) | 7c2002a | scripts/auto-sync-matches.mjs, 8 HTML, public/data/*, public/sitemap.xml, public/llms*, package.json, workflows, CONTEXT.md |
 | 2026-09-19 | antigravity (gemini-3.8-flash) | add Latest Messi Goal video hub with 8 translations, live status & SEO schema | 5f7af30 | 9 HTML, src/styles.css, src/app.js, vite.config.js, scripts/*, vercel.json, index.html, CONTEXT.md |
 | 2026-09-19 | antigravity (gemini-3.8-flash) | sync Latest Goal hub to Goal #929 vs Cruz Azul (Goal929.mp4, Campeones Cup) | 879dafd | 9 HTML, src/app.js, scripts/build-sitemap.mjs, CONTEXT.md |
-| 2026-09-19 | antigravity (gemini-3.8-flash) | automated latest goal auto-pull pipeline (client auto-pull + /api/latest-goal + cron) | pending | api/latest-goal.js, public/data/latest-goal.json, src/app.js, scripts/*, package.json, workflows, CONTEXT.md |
+| 2026-09-19 | antigravity (gemini-3.8-flash) | automated latest goal auto-pull pipeline (client auto-pull + /api/latest-goal + cron) | 20d6e78 | api/latest-goal.js, public/data/latest-goal.json, src/app.js, scripts/*, package.json, workflows, CONTEXT.md |
 
