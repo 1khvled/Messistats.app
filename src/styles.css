@@ -2439,6 +2439,43 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   transition: transform 0.1s ease, outline 0.1s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.bday-day-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1.2rem;
+  padding: 10px 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.bday-nav-link {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--brand);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+.bday-nav-link:hover {
+  color: var(--brand-ink);
+  text-decoration: underline;
+}
+.bday-nav-all {
+  color: var(--ink-soft);
+}
+@media (max-width: 600px) {
+  .bday-day-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
 }
 @media (hover: hover) {
   .bday-day-btn:hover {

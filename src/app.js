@@ -5490,63 +5490,71 @@ async function renderBirthday(d) {
   }
 
   // Calendar Heatmap Grid Matrix
-  const heatmapGrid = el("bday-calendar-grid");
+  const heatmapGrid = el("bday-heatmap-grid") || el("bday-calendar-grid");
   if (heatmapGrid) {
-    let gridHtml = "";
-    for (let m = 1; m <= 12; m++) {
-      gridHtml += `<div class="bday-month-col"><div class="bday-month-header">${MONTH_NAMES[m].slice(0, 3)}</div><div class="bday-month-days">`;
-      const numDays = DAYS_IN_MONTH[m];
-      for (let d = 1; d <= numDays; d++) {
-        const k = makeKey(m, d);
-        const gc = calendar[k]?.goalsCount || 0;
-        let intensity = 0;
-        if (gc >= 5) intensity = 4;
-        else if (gc >= 3) intensity = 3;
-        else if (gc >= 2) intensity = 2;
-        else if (gc === 1) intensity = 1;
+    if (!heatmapGrid.firstElementChild) {
+      let gridHtml = "";
+      for (let m = 1; m <= 12; m++) {
+        gridHtml += `<div class="bday-month-col"><div class="bday-month-header">${MONTH_NAMES[m].slice(0, 3)}</div><div class="bday-month-days">`;
+        const numDays = DAYS_IN_MONTH[m];
+        for (let d = 1; d <= numDays; d++) {
+          const k = makeKey(m, d);
+          const gc = calendar[k]?.goalsCount || 0;
+          let intensity = 0;
+          if (gc >= 5) intensity = 4;
+          else if (gc >= 3) intensity = 3;
+          else if (gc >= 2) intensity = 2;
+          else if (gc === 1) intensity = 1;
 
-        const isMessi = (m === 6 && d === 24);
-        const cellClass = isMessi ? "bday-cell-messi" : `bday-heat-${intensity}`;
-        const titleText = isMessi
-          ? `${d} ${MONTH_NAMES[m]}: Leo Messi's Birthday!`
-          : `${d} ${MONTH_NAMES[m]}: ${gc} ${gc === 1 ? "goal" : "goals"}`;
+          const isMessi = (m === 6 && d === 24);
+          const cellClass = isMessi ? "bday-cell-messi" : `bday-heat-${intensity}`;
+          const titleText = isMessi
+            ? `${d} ${MONTH_NAMES[m]}: Leo Messi's Birthday!`
+            : `${d} ${MONTH_NAMES[m]}: ${gc} ${gc === 1 ? "goal" : "goals"}`;
 
-        gridHtml += `<button type="button" class="bday-day-btn ${cellClass}" data-month="${m}" data-day="${d}" title="${esc(titleText)}">${d}</button>`;
+          gridHtml += `<a href="/${lang}/birthday/${k}" class="bday-day-btn ${cellClass}" data-month="${m}" data-day="${d}" title="${esc(titleText)}">${d}</a>`;
+        }
+        gridHtml += `</div></div>`;
       }
-      gridHtml += `</div></div>`;
+      heatmapGrid.innerHTML = gridHtml;
     }
-    heatmapGrid.innerHTML = gridHtml;
 
     heatmapGrid.addEventListener("click", (e) => {
       const btn = e.target.closest(".bday-day-btn");
       if (!btn) return;
+      e.preventDefault();
       selectDate(+btn.dataset.month, +btn.dataset.day, true);
     });
   }
 
   const topTbody = el("top-days-tbody");
-  if (topTbody && meta.topDays) {
-    let topHtml = "";
-    meta.topDays.forEach((row, idx) => {
-      const topFormatted = `${row.day} ${MONTH_NAMES[row.month]}`;
-      topHtml += `
-        <tr>
-          <td><b>#${idx + 1}</b></td>
-          <td class="left">
-            <button type="button" class="bday-top-day-link" data-month="${row.month}" data-day="${row.day}">
-              <b>${topFormatted}</b>
-            </button>
-          </td>
-          <td><b style="color:var(--accent);">${row.goals}</b></td>
-          <td>${row.matches?.length || 0}</td>
-          <td class="left">${esc(row.topRival || "—")}</td>
-        </tr>
-      `;
-    });
-    topTbody.innerHTML = topHtml;
+  if (topTbody) {
+    if (!topTbody.firstElementChild && meta.topDays) {
+      let topHtml = "";
+      meta.topDays.forEach((row, idx) => {
+        const topFormatted = `${row.day} ${MONTH_NAMES[row.month]}`;
+        topHtml += `
+          <tr>
+            <td><b>#${idx + 1}</b></td>
+            <td class="left">
+              <a href="/${lang}/birthday/${row.key}" class="bday-top-day-link" data-month="${row.month}" data-day="${row.day}">
+                <b>${topFormatted}</b>
+              </a>
+            </td>
+            <td><b style="color:var(--accent);">${row.goals}</b></td>
+            <td>${row.matches?.length || 0}</td>
+            <td class="left">${esc(row.topRival || "—")}</td>
+          </tr>
+        `;
+      });
+      topTbody.innerHTML = topHtml;
+    }
     topTbody.addEventListener("click", (e) => {
-      const btn = e.target.closest("button[data-month]");
-      if (btn) selectDate(+btn.dataset.month, +btn.dataset.day, true);
+      const btn = e.target.closest("[data-month]");
+      if (btn) {
+        e.preventDefault();
+        selectDate(+btn.dataset.month, +btn.dataset.day, true);
+      }
     });
   }
 

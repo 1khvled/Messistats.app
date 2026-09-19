@@ -34,10 +34,18 @@ const escapeHtml = (str) =>
 
 let sitemapUrls = [];
 
-for (const key of keys) {
+for (let i = 0; i < keys.length; i++) {
+  const key = keys[i];
   const day = days[key];
   const { month, day: dayNum, formatted, goalsCount, matches } = day;
   const isMessiBday = month === 6 && dayNum === 24;
+
+  const prevIdx = (i - 1 + keys.length) % keys.length;
+  const nextIdx = (i + 1) % keys.length;
+  const prevKey = keys[prevIdx];
+  const nextKey = keys[nextIdx];
+  const prevDay = days[prevKey];
+  const nextDay = days[nextKey];
 
   let pageTitle = "";
   let metaDesc = "";
@@ -225,9 +233,16 @@ for (const key of keys) {
   );
 
   // Pre-fill static verdict HTML
+  const navHtml = `
+    <nav class="bday-day-nav" aria-label="Calendar day navigation">
+      <a href="/en/birthday/${prevKey}" class="bday-nav-link bday-nav-prev">← ${escapeHtml(prevDay.formatted)}</a>
+      <a href="/en/birthday" class="bday-nav-link bday-nav-all">📅 All 366 Days</a>
+      <a href="/en/birthday/${nextKey}" class="bday-nav-link bday-nav-next">${escapeHtml(nextDay.formatted)} →</a>
+    </nav>`;
+
   html = html.replace(
     /<h2 class="bday-target-date" id="bday-target-date">.*?<\/h2>/,
-    `<h2 class="bday-target-date" id="bday-target-date">${escapeHtml(formatted)}</h2>`
+    `${navHtml}\n      <h2 class="bday-target-date" id="bday-target-date">${escapeHtml(formatted)}</h2>`
   );
   html = html.replace(
     /<p class="bday-headline" id="bday-headline">.*?<\/p>/,
