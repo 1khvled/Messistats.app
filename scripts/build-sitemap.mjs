@@ -14,7 +14,7 @@ const SUBPAGES = [
   { slug: "birthday", changefreq: "daily", priority: "0.95" },
   { slug: "goalsbyseason", changefreq: "weekly", priority: "0.9" },
   { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9" },
-  { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.9" },
+  { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.95" },
   { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9" },
   { slug: "champions-league", changefreq: "monthly", priority: "0.9" },
   { slug: "latest-goal", changefreq: "daily", priority: "0.95" },
