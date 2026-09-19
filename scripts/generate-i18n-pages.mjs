@@ -9,6 +9,39 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
 const LANGS = {
+  es: {
+    code: "es",
+    name: "Español",
+    tag: "ES",
+    dir: "ltr",
+    ogLocale: "es_ES",
+    ogLocaleAlt: "es_AR",
+    dateStr: "18 de Septiembre de 2026",
+    skip: "Saltar al contenido",
+    backToStats: "← Volver a las estadísticas",
+    themeToggle: "Alternar tema",
+    darkMode: "Modo oscuro",
+    adLabel: "Publicidad",
+    bdayPromo: {
+      badge: "🎂 HERRAMIENTA VIRAL INTERACTIVA",
+      title: "¿Marcó Messi en tu cumpleaños?",
+      desc: "Busca entre los 366 días del año a lo largo de los 929 goles de Messi. Mira videos de cada gol marcado en tu día especial.",
+      btn: "Verificar Mi Cumpleaños ⚽",
+      link: "/es/birthday"
+    },
+    nav: {
+      home: "Inicio",
+      bday: "Cumpleaños",
+      ronaldo: "vs Ronaldo",
+      madrid: "vs Real Madrid",
+      ucl: "Champions League",
+      byyear: "Goles por Año",
+      byseason: "Temporadas",
+      dashboard: "Panel",
+      timeline: "Historia",
+      achievements: "Títulos"
+    }
+  },
   pt: {
     code: "pt",
     name: "Português",
@@ -300,7 +333,7 @@ function renderRailNav(lang, activeSlug) {
 <a${onBday("birthday")} href="/${lang}/birthday" aria-label="${L.nav.bday}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg><span>${L.nav.bday} <b class="nav-badge-hot">HOT 🔥</b></span></a>
 <a${onAria("messi-vs-ronaldo")} href="/${lang}/messi-vs-ronaldo" aria-label="${L.nav.ronaldo}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg><span>${L.nav.ronaldo}</span></a>
 <a${onAria("vs-real-madrid")} href="/${lang}/vs-real-madrid" aria-label="${L.nav.madrid}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg><span>${L.nav.madrid}</span></a>
-<a${onAria("champions-league")} href="/en/champions-league" aria-label="${L.nav.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${L.nav.ucl}</span></a>
+<a${onAria("champions-league")} href="/${lang}/champions-league" aria-label="${L.nav.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${L.nav.ucl}</span></a>
 <a${onAria("byyear")} href="/${lang}/goalsbyyear" aria-label="${L.nav.byyear}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg><span>${L.nav.byyear}</span></a>
 <a${onAria("byseason")} href="/${lang}/goalsbyseason" aria-label="${L.nav.byseason}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg><span>${L.nav.byseason}</span></a>
 <a${onAria("dashboard")} href="/${lang}/dashboard" aria-label="${L.nav.dashboard}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg><span>${L.nav.dashboard}</span></a>
@@ -1888,6 +1921,670 @@ ${renderBdayPromo(lang)}
 </html>`;
 }
 
+// -------------------------------------------------------------
+// CHAMPIONS LEAGUE PAGE GENERATOR
+// -------------------------------------------------------------
+function generateChampionsLeague(lang) {
+  const L = LANGS[lang];
+  const dict = {
+    es: {
+      title: "Goles de Lionel Messi en Champions League: 129 Goles y 4 Títulos",
+      desc: "Récord de Lionel Messi en UEFA Champions League: 129 goles en 163 partidos (0,79 por partido), 4 títulos, 8 hat-tricks y desglose completo por fases.",
+      eyebrow: "Dominio Europeo",
+      eyebrowSub: "Récord en UEFA Champions League",
+      h1: "Goles de Lionel Messi en Champions League",
+      lede: "Lionel Messi anotó 129 goles en 163 partidos de la UEFA Champions League a lo largo de 19 temporadas consecutivas con el Barcelona y el Paris Saint-Germain, ganando la Copa de Europa en 4 ocasiones.",
+      kpiGoals: "Goles UCL",
+      kpiGoalsNote: "120 Barcelona, 9 PSG",
+      kpiApps: "Partidos",
+      kpiAppsNote: "0,79 Goles por Partido",
+      kpiTrophies: "Títulos Ganados",
+      kpiTrophiesNote: "2006, 2009, 2011, 2015",
+      kpiHatTricks: "Hat-Tricks UCL",
+      kpiHatTricksNote: "Récord Histórico Compartido",
+      stageHead: "Goles por Fase del Torneo",
+      thStage: "Fase",
+      thGoals: "Goles",
+      thApps: "Partidos",
+      thRatio: "Promedio",
+      thHighlights: "Momentos Icónicos",
+      rowGroup: "Fase de Grupos",
+      rowGroupHl: "Hat-trick al Man City, 4 goles al PSV",
+      rowR16: "Octavos de Final",
+      rowR16Hl: "5 goles al Leverkusen (2012), 2 al Chelsea (2018)",
+      rowQf: "Cuartos de Final",
+      rowQfHl: "4 goles al Arsenal (2010), 2 al Man United (2019)",
+      rowSf: "Semifinales",
+      rowSfHl: "Gol antológico en el Bernabéu (2011), 2 al Bayern (2015)",
+      rowFinal: "Finales",
+      rowFinalHl: "Gol de cabeza en Roma (2009), Zurdazo en Wembley (2011)",
+      rowTotal: "Total en Champions League",
+      rowTotalHl: "4 Copas de Europa",
+      bdayBadge: "🎂 HERRAMIENTA VIRAL INTERACTIVA",
+      bdayTitle: "¿Marcó Lionel Messi en Champions League en tu cumpleaños?",
+      bdayDesc: "Busca entre los 366 días del calendario con videos de cada uno de los 129 goles de Messi en Champions League.",
+      bdayBtn: "Verificar Mi Cumpleaños ⚽",
+      faqHead: "Preguntas Frecuentes",
+      q1: "¿Cuántos goles marcó Messi en Champions League con el Barcelona?",
+      a1: "Lionel Messi marcó 120 goles en Champions League con el FC Barcelona, la mayor cantidad de goles anotados para un solo club en la historia del torneo.",
+      q2: "¿En qué finales de Champions League marcó gol Messi?",
+      a2: "Messi marcó en dos finales de Champions League, ambas contra el Manchester United: un histórico cabezazo en Roma 2009 (2-0) y un disparo desde fuera del área en Wembley 2011 (3-1).",
+      q3: "¿Cuál es el partido con más goles de Messi en Champions League?",
+      a3: "El 7 de marzo de 2012, Messi anotó 5 goles en un solo partido de Champions League contra el Bayer Leverkusen (7-1), siendo el primer jugador en la historia moderna del torneo en lograrlo.",
+      q4: "¿A cuántos clubes diferentes les marcó gol Messi en Champions League?",
+      a4: "Lionel Messi posee el récord histórico de la UEFA Champions League habiendo anotado contra 40 clubes rivales diferentes a lo largo de su carrera europea.",
+      videoName: "Gol de Lionel Messi en la Final de Champions 2011 contra Manchester United",
+      videoDesc: "Disparo lejano de Lionel Messi en el minuto 54 batiendo a Van der Sar en la victoria 3-1 del Barcelona en Wembley."
+    },
+    pt: {
+      title: "Gols de Lionel Messi na Champions League: 129 Gols e 4 Títulos",
+      desc: "Recorde de Lionel Messi na UEFA Champions League: 129 gols em 163 jogos (0,79 por jogo), 4 títulos da UCL, 8 hat-tricks e fases eliminatórias.",
+      eyebrow: "Domínio Europeu",
+      eyebrowSub: "Recorde na UEFA Champions League",
+      h1: "Gols de Lionel Messi na Champions League",
+      lede: "Lionel Messi marcou 129 gols em 163 jogos da UEFA Champions League ao longo de 19 temporadas consecutivas pelo Barcelona e Paris Saint-Germain, vencendo a Liga dos Campeões 4 vezes.",
+      kpiGoals: "Gols na UCL",
+      kpiGoalsNote: "120 Barcelona, 9 PSG",
+      kpiApps: "Jogos",
+      kpiAppsNote: "0,79 Gols por Jogo",
+      kpiTrophies: "Títulos Conquistados",
+      kpiTrophiesNote: "2006, 2009, 2011, 2015",
+      kpiHatTricks: "Hat-Tricks na UCL",
+      kpiHatTricksNote: "Recorde Histórico Compartilhado",
+      stageHead: "Gols por Fase do Torneio",
+      thStage: "Fase",
+      thGoals: "Gols",
+      thApps: "Jogos",
+      thRatio: "Média",
+      thHighlights: "Momentos Marcantes",
+      rowGroup: "Fase de Grupos",
+      rowGroupHl: "Hat-trick contra o Man City, 4 gols contra o PSV",
+      rowR16: "Oitavas de Final",
+      rowR16Hl: "5 gols contra o Leverkusen (2012), 2 contra o Chelsea (2018)",
+      rowQf: "Quartas de Final",
+      rowQfHl: "4 gols contra o Arsenal (2010), 2 contra o Man United (2019)",
+      rowSf: "Semifinais",
+      rowSfHl: "Gol antológico no Bernabéu (2011), 2 contra o Bayern (2015)",
+      rowFinal: "Finais",
+      rowFinalHl: "Gol de cabeça em Roma (2009), Chute em Wembley (2011)",
+      rowTotal: "Total na Champions League",
+      rowTotalHl: "4 Copas da Europa",
+      bdayBadge: "🎂 FERRAMENTA VIRAL INTERATIVA",
+      bdayTitle: "Lionel Messi marcou na Champions League no dia do seu aniversário?",
+      bdayDesc: "Pesquise os 366 dias do calendário com vídeos de cada um dos 129 gols de Messi na Champions League.",
+      bdayBtn: "Verificar Meu Aniversário ⚽",
+      faqHead: "Perguntas Frequentes",
+      q1: "Quantos gols Messi marcou na Champions League pelo Barcelona?",
+      a1: "Lionel Messi marcou 120 gols na Champions League pelo FC Barcelona — o maior número de gols por um único clube na história da competição.",
+      q2: "Em quais finais de Champions League Messi marcou gol?",
+      a2: "Messi marcou em duas finais de Champions League, ambas contra o Manchester United: de cabeça em Roma 2009 (2-0) e com um chute preciso em Wembley 2011 (3-1).",
+      q3: "Qual foi o jogo com mais gols de Messi na Champions League?",
+      a3: "Em 7 de março de 2012, Messi marcou 5 gols em uma única partida da Champions League contra o Bayer Leverkusen (7-1), tornando-se o primeiro jogador na era moderna da UCL a atingir esse feito.",
+      q4: "Contra quantos clubes diferentes Messi marcou na Champions League?",
+      a4: "Lionel Messi detém o recorde histórico da UEFA Champions League ao marcar contra 40 clubes adversários diferentes ao longo de sua carreira.",
+      videoName: "Gol de Lionel Messi na Final da Champions de 2011 contra o Manchester United",
+      videoDesc: "Veja o golaço de Messi de fora da área aos 54 minutos na vitória do Barcelona por 3 a 1 em Wembley."
+    },
+    fr: {
+      title: "Buts de Lionel Messi en Ligue des Champions : 129 Buts et 4 Titres",
+      desc: "Bilan de Lionel Messi en Ligue des Champions : 129 buts en 163 matchs (0,79 but/match), 4 trophées, 8 triplés et détails par tour.",
+      eyebrow: "Maîtrise Européenne",
+      eyebrowSub: "Bilan en Ligue des Champions de l'UEFA",
+      h1: "Buts de Lionel Messi en Ligue des Champions",
+      lede: "Lionel Messi a inscrit 129 buts en 163 matchs de Ligue des Champions de l'UEFA sur 19 campagnes consécutives avec Barcelone et le Paris Saint-Germain, remportant 4 Coupes d'Europe.",
+      kpiGoals: "Buts en LDC",
+      kpiGoalsNote: "120 Barcelone, 9 PSG",
+      kpiApps: "Matchs Joués",
+      kpiAppsNote: "0,79 But par Match",
+      kpiTrophies: "Trophées Remportés",
+      kpiTrophiesNote: "2006, 2009, 2011, 2015",
+      kpiHatTricks: "Triplés en LDC",
+      kpiHatTricksNote: "Record Historique Partagé",
+      stageHead: "Buts par Phase de la Compétition",
+      thStage: "Phase",
+      thGoals: "Buts",
+      thApps: "Matchs",
+      thRatio: "Ratio",
+      thHighlights: "Faits Marquants",
+      rowGroup: "Phase de Groupes",
+      rowGroupHl: "Triplé contre Manchester City, 4 buts contre le PSV",
+      rowR16: "Huitièmes de Finale",
+      rowR16Hl: "5 buts contre Leverkusen (2012), 2 contre Chelsea (2018)",
+      rowQf: "Quarts de Finale",
+      rowQfHl: "4 buts contre Arsenal (2010), 2 contre Man United (2019)",
+      rowSf: "Demi-Finales",
+      rowSfHl: "Slalom historique au Bernabéu (2011), 2 contre le Bayern (2015)",
+      rowFinal: "Finales",
+      rowFinalHl: "Tête mémorable à Rome (2009), Frappe limpide à Wembley (2011)",
+      rowTotal: "Total Ligue des Champions",
+      rowTotalHl: "4 Coupes d'Europe",
+      bdayBadge: "🎂 OUTIL VIRAL INTERACTIF",
+      bdayTitle: "Lionel Messi a-t-il marqué en Ligue des Champions le jour de votre anniversaire ?",
+      bdayDesc: "Recherchez parmi les 366 jours de l'année avec les vidéos de chacun des 129 buts de Messi en Ligue des Champions.",
+      bdayBtn: "Vérifier Mon Anniversaire ⚽",
+      faqHead: "Questions Fréquemment Posées",
+      q1: "Combien de buts Messi a-t-il marqués en Ligue des Champions pour Barcelone ?",
+      a1: "Lionel Messi a inscrit 120 buts en Ligue des Champions avec le FC Barcelone, le plus grand nombre de buts marqués pour un seul club dans l'histoire de la compétition.",
+      q2: "Dans quelles finales de Ligue des Champions Messi a-t-il marqué ?",
+      a2: "Messi a marqué dans deux finales de Ligue des Champions, toutes deux contre Manchester United : une tête lobée à Rome en 2009 (2-0) et une frappe limpide à Wembley en 2011 (3-1).",
+      q3: "Quel est le match où Messi a marqué le plus de buts en Ligue des Champions ?",
+      a3: "Le 7 mars 2012, Messi a inscrit 5 buts dans un seul match de Ligue des Champions face au Bayer Leverkusen (7-1), devenant le premier joueur de l'histoire moderne de la compétition à réussir un quintuplé.",
+      q4: "Contre combien de clubs différents Messi a-t-il marqué en C1 ?",
+      a4: "Lionel Messi détient le record absolu de la Ligue des Champions de l'UEFA en ayant marqué contre 40 clubs différents tout au long de sa carrière européenne.",
+      videoName: "But de Lionel Messi en Finale de Ligue des Champions 2011 contre Manchester United",
+      videoDesc: "Frappe puissante de Lionel Messi à la 54e minute trompant Edwin van der Sar lors de la victoire 3-1 du Barça à Wembley."
+    },
+    ar: {
+      title: "أهداف ليونيل ميسي في دوري أبطال أوروبا: 129 هدفاً و4 ألقاب",
+      desc: "سجل ليونيل ميسي في دوري أبطال أوروبا: 129 هدفاً في 163 مباراة (0.79 هدف/مباراة)، 4 ألقاب دوري أبطال، 8 هاتريك وتفصيل الأدوار الإقصائية.",
+      eyebrow: "السيادة الأوروبية",
+      eyebrowSub: "سجل دوري أبطال أوروبا",
+      h1: "أهداف ليونيل ميسي في دوري أبطال أوروبا",
+      lede: "سجل ليونيل ميسي 129 هدفاً في 163 مباراة بدوري أبطال أوروبا خلال 19 موسماً متتالياً مع برشلونة وباريس سان جيرمان، متوجاً باللقب الأوروبي 4 مرات.",
+      kpiGoals: "أهداف دوري الأبطال",
+      kpiGoalsNote: "120 مع برشلونة، 9 مع باريس",
+      kpiApps: "المباريات",
+      kpiAppsNote: "0.79 هدف لكل مباراة",
+      kpiTrophies: "الألقاب المحققة",
+      kpiTrophiesNote: "2006، 2009، 2011، 2015",
+      kpiHatTricks: "هاتريك دوري الأبطال",
+      kpiHatTricksNote: "رقم قياسي تاريخي مشترك",
+      stageHead: "الأهداف حسب أدوار البطولة",
+      thStage: "الدور",
+      thGoals: "الأهداف",
+      thApps: "المباريات",
+      thRatio: "المعدل",
+      thHighlights: "أبرز اللحظات التاريخية",
+      rowGroup: "دور المجموعات",
+      rowGroupHl: "هاتريك ضد مانشستر سيتي، 4 أهداف ضد آيندهوفن",
+      rowR16: "ثمن النهائي (دور الـ 16)",
+      rowR16Hl: "5 أهداف ضد باير ليفركوزن (2012)، هدفان ضد تشيلسي (2018)",
+      rowQf: "ربع النهائي",
+      rowQfHl: "4 أهداف ضد أرسنال (2010)، هدفان ضد مانشستر يونايتد (2019)",
+      rowSf: "نصف النهائي",
+      rowSfHl: "هدف تاريخي فردي في البرنابيو (2011)، هدفان ضد بايرن (2015)",
+      rowFinal: "المباريات النهائية",
+      rowFinalHl: "رأسية روما الشهيرة (2009)، تسديدة ويمبلي التاريخية (2011)",
+      rowTotal: "إجمالي دوري أبطال أوروبا",
+      rowTotalHl: "4 كؤوس أوروبية",
+      bdayBadge: "🎂 أداة تفاعلية شائعة",
+      bdayTitle: "هل سجل ليونيل ميسي في دوري أبطال أوروبا في يوم ميلادك؟",
+      bdayDesc: "ابحث في جميع أيام السنة الـ 366 مع مقاطع فيديو لجميع أهداف ميسي الـ 129 في دوري أبطال أوروبا.",
+      bdayBtn: "تحقق من يوم ميلادي ⚽",
+      faqHead: "الأسئلة الشائعة",
+      q1: "كم هدفاً سجله ميسي في دوري أبطال أوروبا مع برشلونة؟",
+      a1: "سجل ليونيل ميسي 120 هدفاً في دوري أبطال أوروبا لصالح نادي برشلونة، وهو أكبر عدد من الأهداف يسجله لاعب لنادٍ واحد في تاريخ البطولة.",
+      q2: "في أي نهائيات لدوري أبطال أوروبا سجل ميسي؟",
+      a2: "سجل ميسي في مباراتين نهائيتين بدوري أبطال أوروبا، كلاهما ضد مانشستر يونايتد: رأسية ساقطة في روما 2009 (2-0) وتسديدة قوية في ويمبلي 2011 (3-1).",
+      q3: "ما هي أكثر مباراة سجل فيها ميسي أهدافاً في دوري أبطال أوروبا؟",
+      a3: "في 7 مارس 2012، سجل ميسي 5 أهداف في مباراة واحدة ضد باير ليفركوزن (7-1)، ليصبح أول لاعب في تاريخ دوري أبطال أوروبا الحديث يحقق هذا الإنجاز.",
+      q4: "كم نادياً مختلفاً سجل ميسي في شباكه بدوري أبطال أوروبا؟",
+      a4: "يمتلك ليونيل ميسي الرقم القياسي التاريخي في دوري أبطال أوروبا بالتسجيل في شباك 40 نادياً مختلفاً طوال مسيرته الأوروبية.",
+      videoName: "هدف ميسي في نهائي دوري أبطال أوروبا 2011 ضد مانشستر يونايتد",
+      videoDesc: "شاهد تسديدة ميسي الصاروخية في شباك فان دير سار في فوز برشلونة 3-1 في ويمبلي."
+    },
+    bn: {
+      title: "চ্যাম্পিয়নস লিগে মেসির গোল: ১২৯ গোল ও ৪টি শিরোপা",
+      desc: "উয়েফা চ্যাম্পিয়নস লিগে লিওনেল মেসির রেকর্ড: ১৬৩ ম্যাচে ১২৯ গোল (ম্যাচ প্রতি ০.৭৯ গোল), ৪টি চ্যাম্পিয়নস লিগ ট্রফি, ৮টি হ্যাটট্রিক এবং নকআউট পর্বের পূর্ণাঙ্গ হিসাব।",
+      eyebrow: "ইউরোপীয় আধিপত্য",
+      eyebrowSub: "উয়েফা চ্যাম্পিয়নস লিগ রেকর্ড",
+      h1: "চ্যাম্পিয়নস লিগে লিওনেল মেসির গোল",
+      lede: "বার্সেলোনা ও প্যারিস সেন্ট জার্মেইর হয়ে টানা ১৯টি মৌসুমে উয়েফা চ্যাম্পিয়নস লিগে ১৬৩ ম্যাচে ১২৯ গোল করেছেন লিওনেল মেসি এবং ৪ বার ইউরোপ সেরার খেতাব জিতেছেন।",
+      kpiGoals: "চ্যাম্পিয়নস লিগ গোল",
+      kpiGoalsNote: "১২০ বার্সেলোনা, ৯ পিএসজি",
+      kpiApps: "ম্যাচ",
+      kpiAppsNote: "ম্যাচ প্রতি ০.৭৯ গোল",
+      kpiTrophies: "ট্রফি জয়",
+      kpiTrophiesNote: "২০০৬, ২০০৯, ২০১১, ২০১৫",
+      kpiHatTricks: "চ্যাম্পিয়নস লিগ হ্যাটট্রিক",
+      kpiHatTricksNote: "সর্বকালের যৌথ রেকর্ড",
+      stageHead: "টুর্নামেন্টের পর্বভিত্তিক গোল",
+      thStage: "পর্ব",
+      thGoals: "গোল",
+      thApps: "ম্যাচ",
+      thRatio: "অনুপাত",
+      thHighlights: "স্মরণীয় মুহূর্ত",
+      rowGroup: "গ্রুপ পর্ব",
+      rowGroupHl: "ম্যান সিটির বিরুদ্ধে হ্যাটট্রিক, পিএসভির বিপক্ষে ৪ গোল",
+      rowR16: "শেষ ১৬",
+      rowR16Hl: "লেভারকুসেনের বিপক্ষে ৫ গোল (২০১২), চেলসির বিরুদ্ধে ২ গোল (২০১৮)",
+      rowQf: "কোয়ার্টার-ফাইনাল",
+      rowQfHl: "আর্সেনালের বিপক্ষে ৪ গোল (২০১০), ম্যান ইউনাইটেডের বিরুদ্ধে ২ গোল (২০১৯)",
+      rowSf: "সেমিফাইনাল",
+      rowSfHl: "বার্নাব্যুতে ঐতিহাসিক একক গোল (২০১১), বায়ার্নের বিপক্ষে ২ গোল (২০১৫)",
+      rowFinal: "ফাইনাল",
+      rowFinalHl: "রোমে দুর্দান্ত হেডার (২০০৯), ওয়েম্বলিতে দুরপাল্লার গোল (২০১১)",
+      rowTotal: "সর্বমোট চ্যাম্পিয়নস লিগ",
+      rowTotalHl: "৪টি ইউরোপিয়ান ট্রফি",
+      bdayBadge: "🎂 ভাইরাল ইন্টারঅ্যাক্টিভ টুল",
+      bdayTitle: "লিওনেল মেসি কি আপনার জন্মদিনে চ্যাম্পিয়নস লিগে গোল করেছিলেন?",
+      bdayDesc: "চ্যাম্পিয়নস লিগে মেসির ১২৯টি গোলের প্রতিটি ভিডিও সহ বছরের ৩৬৬ দিনের ক্যালেন্ডার অনুসন্ধান করুন।",
+      bdayBtn: "আমার জন্মদিন দেখুন ⚽",
+      faqHead: "সচরাচর জিজ্ঞাস্য প্রশ্নসমূহ",
+      q1: "বার্সেলোনার হয়ে চ্যাম্পিয়নস লিগে মেসি কতটি গোল করেছেন?",
+      a1: "লিওনেল মেসি এফসি বার্সেলোনার হয়ে চ্যাম্পিয়নস লিগে ১২০টি গোল করেছেন — যা টুর্নামেন্টের ইতিহাসে একক ক্লাবের হয়ে সর্বোচ্চ গোলের বিশ্বরেকর্ড।",
+      q2: "মেসি কোন কোন চ্যাম্পিয়নস লিগ ফাইনালে গোল করেছেন?",
+      a2: "মেসি দুটি চ্যাম্পিয়নস লিগ ফাইনালে গোল করেছেন, দুটিই ম্যানচেস্টার ইউনাইটেডের বিরুদ্ধে: রোম ২০০৯ ফাইনালে দুর্দান্ত হেডার (২-০) এবং ওয়েম্বলি ২০১১ ফাইনালে জোরালো শটে গোল (৩-১)।",
+      q3: "চ্যাম্পিয়নস লিগে এক ম্যাচে মেসির সর্বোচ্চ গোল কত?",
+      a3: "২০১২ সালের ৭ মার্চ বায়ার লেভারকুসেনের বিপক্ষে ৭-১ গোলের জয়ে মেসি একাই ৫ গোল করেন, যা আধুনিক চ্যাম্পিয়নস লিগ যুগে প্রথম এমন অনন্য রেকর্ড।",
+      q4: "চ্যাম্পিয়নস লিগে মেসি কতটি ভিন্ন ক্লাবের বিপক্ষে গোল করেছেন?",
+      a4: "উয়েফা চ্যাম্পিয়নস লিগের ইতিহাসে রেকর্ড গড়ে লিওনেল মেসি ইউরোপীয় ক্যারিয়ারে মোট ৪০টি ভিন্ন ক্লাবের বিপক্ষে গোল করেছেন।",
+      videoName: "ম্যান ইউনাইটেডের বিপক্ষে ২০১১ সালের ফাইনালে মেসির গোল",
+      videoDesc: "ওয়েম্বলিতে বার্সেলোনার ৩-১ গোলের জয়ে ৫৪তম মিনিটে এডউইন ভ্যান ডার সারকে পরাস্ত করা মেসির জোরালো শট।"
+    },
+    hi: {
+      title: "चैंपियंस लीग में लियोनेल मेसी के गोल: 129 गोल और 4 ट्रॉफियां",
+      desc: "यूईएफए चैंपियंस लीग में लियोनेल मेसी का रिकॉर्ड: 163 मैचों में 129 गोल (0.79 गोल प्रति मैच), 4 यूसीएल ट्रॉफियां, 8 हैट्रिक और सभी दौरों का विवरण।",
+      eyebrow: "यूरोपीय महारत",
+      eyebrowSub: "यूईएफए चैंपियंस लीग रिकॉर्ड",
+      h1: "चैंपियंस लीग में लियोनेल मेसी के गोल",
+      lede: "लियोनेल मेसी ने बार्सिलोना और पेरिस सेंट-जर्मेन के लिए लगातार 19 सत्रों में 163 यूईएफए चैंपियंस लीग मैचों में 129 गोल किए और 4 बार यूरोपीय कप जीता।",
+      kpiGoals: "यूसीएल गोल",
+      kpiGoalsNote: "120 बार्सिलोना, 9 पीएसजी",
+      kpiApps: "मैच",
+      kpiAppsNote: "0.79 गोल प्रति मैच",
+      kpiTrophies: "जीते गए खिताब",
+      kpiTrophiesNote: "2006, 2009, 2011, 2015",
+      kpiHatTricks: "यूसीएल हैट्रिक",
+      kpiHatTricksNote: "सर्वकालिक संयुक्त रिकॉर्ड",
+      stageHead: "टूर्नामेंट के चरण अनुसार गोल",
+      thStage: "चरण",
+      thGoals: "गोल",
+      thApps: "मैच",
+      thRatio: "औसत",
+      thHighlights: "यादगार पल",
+      rowGroup: "ग्रुप चरण",
+      rowGroupHl: "मैन सिटी के खिलाफ हैट्रिक, पीएसवी के खिलाफ 4 गोल",
+      rowR16: "राउंड ऑफ 16",
+      rowR16Hl: "लीवरकुसेन के खिलाफ 5 गोल (2012), चेल्सी के खिलाफ 2 (2018)",
+      rowQf: "क्वार्टर-फाइनल",
+      rowQfHl: "आर्सेनल के खिलाफ 4 गोल (2010), मैन यूनाइटेड के खिलाफ 2 (2019)",
+      rowSf: "सेमीफाइनल",
+      rowSfHl: "बर्नाब्यू में जादुई गोल (2011), बायर्न के खिलाफ 2 गोल (2015)",
+      rowFinal: "फाइनल",
+      rowFinalHl: "रोम में प्रसिद्ध हेडर (2009), वेम्बली में जोरदार गोल (2011)",
+      rowTotal: "कुल चैंपियंस लीग",
+      rowTotalHl: "4 यूरोपीय कप",
+      bdayBadge: "🎂 वायरल इंटरएक्टिव टूल",
+      bdayTitle: "क्या लियोनेल मेसी ने आपके जन्मदिन पर चैंपियंस लीग में गोल किया था?",
+      bdayDesc: "चैंपियंस लीग में मेसी के 129 गोलों के सभी वीडियो के साथ साल के 366 दिन खोजें।",
+      bdayBtn: "अपना जन्मदिन चेक करें ⚽",
+      faqHead: "अक्सर पूछे जाने वाले सवाल",
+      q1: "बार्सिलोना के लिए मेसी ने चैंपियंस लीग में कितने गोल किए?",
+      a1: "लियोनेल मेसी ने एफसी बार्सिलोना के लिए 120 चैंपियंस लीग गोल किए — जो टूर्नामेंट के इतिहास में किसी एक क्लब के लिए सबसे अधिक गोल हैं।",
+      q2: "मेसी ने किन चैंपियंस लीग फाइनल में गोल किया था?",
+      a2: "मेसी ने दो चैंपियंस लीग फाइनल में गोल किया, दोनों मैनचेस्टर यूनाइटेड के खिलाफ: रोम 2009 (2-0) में हेडर से और वेम्बली 2011 (3-1) में 20 गज की दूरी से शानदार गोल।",
+      q3: "चैंपियंस लीग में एक मैच में मेसी का सर्वाधिक स्कोर क्या है?",
+      a3: "7 मार्च 2012 को मेसी ने बायर लीवरकुसेन के खिलाफ 7-1 की जीत में एक ही मैच में 5 गोल किए, और आधुनिक चैंपियंस लीग में ऐसा करने वाले पहले खिलाड़ी बने।",
+      q4: "मेसी ने यूसीएल में कितने अलग-अलग क्लबों के खिलाफ गोल किए?",
+      a4: "लियोनेल मेसी के नाम यूईएफए चैंपियंस लीग का सर्वकालिक रिकॉर्ड है, उन्होंने अपने यूरोपीय करियर में 40 विभिन्न क्लबों के खिलाफ गोल किए हैं।",
+      videoName: "मैनचेस्टर यूनाइटेड के खिलाफ 2011 चैंपियंस लीग फाइनल में मेसी का गोल",
+      videoDesc: "वेम्बली में बार्सिलोना की 3-1 की फाइनल जीत में एडविन वैन डेर सार को छकाते हुए मेसी का 54वें मिनट का गोल देखें।"
+    },
+    ro: {
+      title: "Golurile lui Lionel Messi în Champions League: 129 de Goluri și 4 Trofee",
+      desc: "Recordul lui Lionel Messi în UEFA Champions League: 129 de goluri în 163 de meciuri (0,79/meci), 4 trofee UCL, 8 hat-trick-uri și statistica pe faze.",
+      eyebrow: "Supremație Europeană",
+      eyebrowSub: "Recordul în UEFA Champions League",
+      h1: "Golurile lui Lionel Messi în Liga Campionilor",
+      lede: "Lionel Messi a marcat 129 de goluri în 163 de meciuri din UEFA Champions League de-a lungul a 19 sezoane consecutive pentru Barcelona și Paris Saint-Germain, cucerind Cupa Campionilor de 4 ori.",
+      kpiGoals: "Goluri UCL",
+      kpiGoalsNote: "120 Barcelona, 9 PSG",
+      kpiApps: "Meciuri",
+      kpiAppsNote: "0,79 Goluri pe Meci",
+      kpiTrophies: "Trofee Câștigate",
+      kpiTrophiesNote: "2006, 2009, 2011, 2015",
+      kpiHatTricks: "Hat-Trick-uri UCL",
+      kpiHatTricksNote: "Record Istoric Împărțit",
+      stageHead: "Goluri pe Etape ale Turneului",
+      thStage: "Etapă",
+      thGoals: "Goluri",
+      thApps: "Meciuri",
+      thRatio: "Medie",
+      thHighlights: "Momente Memorabile",
+      rowGroup: "Faza Grupelor",
+      rowGroupHl: "Hat-trick vs Man City, 4 goluri vs PSV",
+      rowR16: "Optimi de Finală",
+      rowR16Hl: "5 goluri vs Leverkusen (2012), 2 vs Chelsea (2018)",
+      rowQf: "Sferturi de Finală",
+      rowQfHl: "4 goluri vs Arsenal (2010), 2 vs Man United (2019)",
+      rowSf: "Semifinale",
+      rowSfHl: "Gol antologic pe Bernabéu (2011), 2 vs Bayern (2015)",
+      rowFinal: "Finale",
+      rowFinalHl: "Lovitură de cap la Roma (2009), Șut la Wembley (2011)",
+      rowTotal: "Total Liga Campionilor",
+      rowTotalHl: "4 Cupe ale Campionilor",
+      bdayBadge: "🎂 INSTRUMENT VIRAL INTERACTIV",
+      bdayTitle: "A marcat Lionel Messi în Champions League de ziua ta?",
+      bdayDesc: "Caută în toate cele 366 de zile din an cu videoclipuri pentru fiecare din cele 129 de goluri ale lui Messi în UCL.",
+      bdayBtn: "Verifică Ziua Mea ⚽",
+      faqHead: "Întrebări Frecvente",
+      q1: "Câte goluri a marcat Messi în Champions League pentru Barcelona?",
+      a1: "Lionel Messi a marcat 120 de goluri în Liga Campionilor pentru FC Barcelona — cele mai multe goluri înscrise pentru un singur club în istoria competiției.",
+      q2: "În ce finale de Champions League a marcat Messi?",
+      a2: "Messi a marcat în două finale de Champions League, ambele împotriva lui Manchester United: o lovitură de cap la Roma în 2009 (2-0) și un șut de la distanță pe Wembley în 2011 (3-1).",
+      q3: "Care este meciul cu cele mai multe goluri marcate de Messi în UCL?",
+      a3: "Pe 7 martie 2012, Messi a marcat 5 goluri într-un singur meci din Liga Campionilor împotriva lui Bayer Leverkusen (7-1), devenind primul jucător din era modernă a competiției care a reușit această performanță.",
+      q4: "Împotriva a câte cluburi diferite a marcat Messi în Liga Campionilor?",
+      a4: "Lionel Messi deține recordul absolut în UEFA Champions League, înscriind împotriva a 40 de cluburi adverse diferite de-a lungul carierei sale europene.",
+      videoName: "Golul lui Messi din finala Ligii Campionilor 2011 cu Manchester United",
+      videoDesc: "Șutul superb al lui Lionel Messi din minutul 54 pe Wembley împotriva lui Van der Sar în victoria 3-1."
+    },
+    uz: {
+      title: "Lionel Messining Chempionlar Ligasidagi gollari: 129 ta gol va 4 ta titul",
+      desc: "Lionel Messining UEFA Chempionlar Ligasidagi rekordi: 163 ta o'yinda 129 ta gol (0,79 gol/o'yin), 4 ta ECHL kubogi, 8 ta het-trik va pley-off bosqichlari statistikasi.",
+      eyebrow: "Yevropa Hukmronligi",
+      eyebrowSub: "UEFA Chempionlar Ligasi Rekordi",
+      h1: "Lionel Messining Chempionlar Ligasidagi Gollari",
+      lede: "Lionel Messi “Barselona” va “Pari Sen-Jermen” safida ketma-ket 19 mavsum davomida UEFA Chempionlar Ligasida 163 ta o'yinda 129 ta gol urdi va 4 marta Yevropa kubogini qo'lga kiritdi.",
+      kpiGoals: "ECHL Gollari",
+      kpiGoalsNote: "120 Barselona, 9 PSJ",
+      kpiApps: "O'yinlar",
+      kpiAppsNote: "0,79 Gol Har O'yinda",
+      kpiTrophies: "Qit'a Chempionliklari",
+      kpiTrophiesNote: "2006, 2009, 2011, 2015",
+      kpiHatTricks: "ECHL Het-triklari",
+      kpiHatTricksNote: "Mutlaq Umumiy Rekord",
+      stageHead: "Turnir Bosqichlari Bo'yicha Gollar",
+      thStage: "Bosqich",
+      thGoals: "Gollar",
+      thApps: "O'yinlar",
+      thRatio: "Nisbat",
+      thHighlights: "Tarixiy Muhim Lahzalar",
+      rowGroup: "Guruh Bosqichi",
+      rowGroupHl: "“Man Siti”ga qarshi het-trik, PSVga 4 ta gol",
+      rowR16: "Nimchorak Final",
+      rowR16Hl: "“Leverkuzen”ga 5 ta gol (2012), “Chelsi”ga 2 ta gol (2018)",
+      rowQf: "Chorak Final",
+      rowQfHl: "“Arsenal”ga 4 ta gol (2010), “MYu”ga 2 ta gol (2019)",
+      rowSf: "Yarim Final",
+      rowSfHl: "Bernabeudagi afsonaviy yakkaxon gol (2011), “Bavariya”ga 2 ta gol (2015)",
+      rowFinal: "Finallar",
+      rowFinalHl: "Rimda bosh bilan urilgan gol (2009), Uemblidagi zarba (2011)",
+      rowTotal: "Jami Chempionlar Ligasi",
+      rowTotalHl: "4 karra Yevropa Chempioni",
+      bdayBadge: "🎂 VIRAL INTERAKTIV VOSITA",
+      bdayTitle: "Lionel Messi sizning tug'ilgan kuningizda Chempionlar Ligasida gol urganmi?",
+      bdayDesc: "Messining Chempionlar Ligasidagi 129 ta golining har birini videolari bilan 366 kun ichidan izlang.",
+      bdayBtn: "Tug'ilgan Kunimni Tekshirish ⚽",
+      faqHead: "Ko'p Beriladigan Savollar",
+      q1: "Messi “Barselona” safida Chempionlar Ligasida nechta gol urgan?",
+      a1: "Lionel Messi “Barselona” klubi safida Chempionlar Ligasida 120 ta gol urgan — bu musobaqa tarixida bitta klub uchun urilgan eng ko'p gollardir.",
+      q2: "Messi Chempionlar Ligasining qaysi finallarida gol urgan?",
+      a2: "Messi ikkita Chempionlar Ligasi finalida gol urgan, ikkalasi ham “Manchester Yunayted”ga qarshi: Rimdagi finalda (2009, 2:0) bosh bilan va Uemblida (2011, 3:1) uzoqdan berilgan zarba bilan.",
+      q3: "Chempionlar Ligasida Messining bir o'yindagi eng ko'p goli qancha?",
+      a3: "2012 yil 7 martda Messi “Bayer Leverkuzen”ga qarshi o'yinda (7:1) bitta uchrashuvda 5 ta gol urib, zamonaviy Chempionlar Ligasi tarixida buni uddalagan birinchi futbolchiga aylandi.",
+      q4: "Messi ECHLda nechta turli klub darvozasiga gol urgan?",
+      a4: "Lionel Messi Chempionlar Ligasi tarixidagi mutlaq rekordga ega bo'lib, o'zining yevrokuboklardagi faoliyatida 40 ta turli xil klub darvozasiga gol kiritgan.",
+      videoName: "Messining 2011 yilgi Chempionlar Ligasi finalidagi “MYu”ga urgan goli",
+      videoDesc: "54-daqiqada Uemblida van der Sarni dog'da qoldirgan Messining zarbasi va “Barselona”ning 3:1 hisobidagi g'alabasi."
+    }
+  }[lang];
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `https://www.messistat.com/${lang}/champions-league#webpage`,
+        "url": `https://www.messistat.com/${lang}/champions-league`,
+        "name": `${dict.title} | MessiStats`,
+        "description": dict.desc,
+        "dateModified": "2026-09-18",
+        "inLanguage": lang
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": L.nav.home, "item": `https://www.messistat.com/${lang}` },
+          { "@type": "ListItem", "position": 2, "name": L.nav.ucl, "item": `https://www.messistat.com/${lang}/champions-league` }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `https://www.messistat.com/${lang}/champions-league#faq`,
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": dict.q1,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a1 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q2,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a2 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q3,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a3 }
+          },
+          {
+            "@type": "Question",
+            "name": dict.q4,
+            "acceptedAnswer": { "@type": "Answer", "text": dict.a4 }
+          }
+        ]
+      },
+      {
+        "@type": "VideoObject",
+        "name": dict.videoName,
+        "description": dict.videoDesc,
+        "thumbnailUrl": "https://www.messistat.com/img/era-2011-wembley.jpg",
+        "uploadDate": "2011-05-28T20:45:00Z",
+        "contentUrl": "https://cdn.messiallgoals.com/Goal180.mp4",
+        "embedUrl": `https://www.messistat.com/${lang}/birthday?date=05-28`
+      }
+    ]
+  };
+
+  const footerDirHead = {
+    es: "Registros y Rivalidades",
+    pt: "Registros e Rivalidades",
+    fr: "Statistiques et Rivalités",
+    ar: "الأرقام القياسية والمنافسات",
+    bn: "রেকর্ড ও প্রতিদ্বন্দ্বিতা",
+    hi: "रिकॉर्ड और प्रतिद्वंद्विता",
+    ro: "Recorduri și Rivalități",
+    uz: "Rekordlar va Raqobat"
+  }[lang] || "Career Records & Rivalries";
+
+  const footerLangsHead = {
+    es: "Idiomas / Languages",
+    pt: "Idiomas / Languages",
+    fr: "Éditions Internationales / Languages",
+    ar: "اللغات / Languages",
+    bn: "আন্তর্জাতিক সংস্করণ / Languages",
+    hi: "अंतर्राष्ट्रीय संस्करण / Languages",
+    ro: "Ediții Internaționale / Languages",
+    uz: "Xalqaro nashrlar / Languages"
+  }[lang] || "International Editions / Idiomas";
+
+  const exploreHead = {
+    es: "Explora todas las estadísticas",
+    pt: "Explore todas as estatísticas",
+    fr: "Explorer toutes les statistiques",
+    ar: "استكشف جميع الإحصائيات",
+    bn: "সব পরিসংখ্যান দেখুন",
+    hi: "सभी आंकड़े देखें",
+    ro: "Explorează toate statisticile",
+    uz: "Barcha statistikalarni o'rganing"
+  }[lang] || "Explore the full statistics";
+
+  return `${renderHeadBoilerplate(lang, "champions-league", dict.title, dict.desc)}
+<script type="application/ld+json">
+${JSON.stringify(jsonLd, null, 2)}
+</script>
+<body data-page="champions-league">
+<a class="skip" href="#main">${L.skip}</a>
+${renderRailNav(lang, "champions-league")}
+<div class="page">
+  <main class="wrap" id="main">
+    <p class="eyebrow">${dict.eyebrow} <i></i> <span>${dict.eyebrowSub}</span></p>
+    <h1>${dict.h1}</h1>
+    <p class="lede">${dict.lede}</p>
+
+    <div class="kpis kpis-4" style="margin-bottom: 24px;">
+      <div class="kpi">
+        <span class="kpi-label">${dict.kpiGoals}</span>
+        <span class="kpi-value tnum" style="color:var(--accent);">129</span>
+        <span class="kpi-note">${dict.kpiGoalsNote}</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">${dict.kpiApps}</span>
+        <span class="kpi-value tnum">163</span>
+        <span class="kpi-note">${dict.kpiAppsNote}</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">${dict.kpiTrophies}</span>
+        <span class="kpi-value tnum">4</span>
+        <span class="kpi-note">${dict.kpiTrophiesNote}</span>
+      </div>
+      <div class="kpi">
+        <span class="kpi-label">${dict.kpiHatTricks}</span>
+        <span class="kpi-value tnum">8</span>
+        <span class="kpi-note">${dict.kpiHatTricksNote}</span>
+      </div>
+    </div>
+
+    ${renderAdSlot(lang)}
+
+    <!-- Stage by Stage Breakdown -->
+    <div class="shead"><h2>${dict.stageHead}</h2></div>
+    <div class="table-wrap card">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th class="left">${dict.thStage}</th>
+            <th>${dict.thGoals}</th>
+            <th>${dict.thApps}</th>
+            <th>${dict.thRatio}</th>
+            <th class="left">${dict.thHighlights}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left"><b>${dict.rowGroup}</b></td>
+            <td><b>80</b></td>
+            <td>86</td>
+            <td>0.93</td>
+            <td class="left">${dict.rowGroupHl}</td>
+          </tr>
+          <tr>
+            <td class="left"><b>${dict.rowR16}</b></td>
+            <td><b>29</b></td>
+            <td>36</td>
+            <td>0.81</td>
+            <td class="left">${dict.rowR16Hl}</td>
+          </tr>
+          <tr>
+            <td class="left"><b>${dict.rowQf}</b></td>
+            <td><b>12</b></td>
+            <td>24</td>
+            <td>0.50</td>
+            <td class="left">${dict.rowQfHl}</td>
+          </tr>
+          <tr>
+            <td class="left"><b>${dict.rowSf}</b></td>
+            <td><b>6</b></td>
+            <td>15</td>
+            <td>0.40</td>
+            <td class="left">${dict.rowSfHl}</td>
+          </tr>
+          <tr>
+            <td class="left"><b>${dict.rowFinal}</b></td>
+            <td><b>2</b></td>
+            <td>3</td>
+            <td>0.67</td>
+            <td class="left">${dict.rowFinalHl}</td>
+          </tr>
+          <tr style="font-weight: 800; background: var(--surface);">
+            <td class="left">${dict.rowTotal}</td>
+            <td>129</td>
+            <td>163</td>
+            <td>0.79</td>
+            <td class="left">${dict.rowTotalHl}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- VIRAL MAIN ATTRACTION: Birthday Promo Card -->
+    <aside class="bday-promo-card" aria-label="${dict.bdayTitle}">
+      <div class="bday-promo-badge">${dict.bdayBadge}</div>
+      <div class="bday-promo-body">
+        <div class="bday-promo-text">
+          <h3>${dict.bdayTitle}</h3>
+          <p>${dict.bdayDesc}</p>
+        </div>
+        <a href="/${lang}/birthday" class="btn btn-primary bday-promo-btn">${dict.bdayBtn}</a>
+      </div>
+    </aside>
+
+    <!-- FAQ Section -->
+    <div class="shead"><h2>${dict.faqHead}</h2></div>
+    <div class="qa-grid">
+      <div class="card qa-card">
+        <h3>${dict.q1}</h3>
+        <p>${dict.a1}</p>
+      </div>
+      <div class="card qa-card">
+        <h3>${dict.q2}</h3>
+        <p>${dict.a2}</p>
+      </div>
+      <div class="card qa-card">
+        <h3>${dict.q3}</h3>
+        <p>${dict.a3}</p>
+      </div>
+      <div class="card qa-card">
+        <h3>${dict.q4}</h3>
+        <p>${dict.a4}</p>
+      </div>
+    </div>
+
+    <h2>${exploreHead}</h2>
+    <footer class="site-footer">
+      <nav class="footer-nav" aria-label="Site directory">
+        <div class="footer-group">
+          <span class="footer-heading">${footerDirHead}</span>
+          <div class="footer-links">
+            <a href="/${lang}">${L.nav.home}</a>
+            <a href="/${lang}/birthday">🎂 ${L.nav.bday}</a>
+            <a href="/${lang}/messi-vs-ronaldo">🐐 ${L.nav.ronaldo}</a>
+            <a href="/${lang}/vs-real-madrid">⚔️ ${L.nav.madrid}</a>
+            <a href="/${lang}/champions-league">⭐ ${L.nav.ucl}</a>
+            <a href="/${lang}/goalsbyyear">${L.nav.byyear}</a>
+            <a href="/${lang}/goalsbyseason">${L.nav.byseason}</a>
+            <a href="/${lang}/dashboard">${L.nav.dashboard}</a>
+            <a href="/${lang}/timeline">${L.nav.timeline}</a>
+            <a href="/${lang}/achievements">${L.nav.achievements}</a>
+          </div>
+        </div>
+        <div class="footer-group">
+          <span class="footer-heading">${footerLangsHead}</span>
+          <div class="footer-links footer-langs">
+            <a href="/en" hreflang="en">English</a>
+            <a href="/es" hreflang="es">Español</a>
+            <a href="/pt" hreflang="pt">Português</a>
+            <a href="/fr" hreflang="fr">Français</a>
+            <a href="/ar" hreflang="ar">العربية</a>
+            <a href="/bn" hreflang="bn">বাংলা</a>
+            <a href="/hi" hreflang="hi">हिन्दी</a>
+            <a href="/ro" hreflang="ro">Română</a>
+            <a href="/uz" hreflang="uz">Oʻzbekcha</a>
+          </div>
+        </div>
+      </nav>
+      <p id="foot-date"></p>
+    </footer>
+  </main>
+</div>
+
+<script src="/src/app.js" type="module"></script>
+</body>
+</html>`;
+}
+
 const generators = {
   "dashboard.html": generateDashboard,
   "goalsbyseason.html": generateGoalsBySeason,
@@ -1897,6 +2594,7 @@ const generators = {
   "birthday.html": generateBirthday,
   "messi-vs-ronaldo.html": generateMessiVsRonaldo,
   "vs-real-madrid.html": generateVsRealMadrid,
+  "champions-league.html": generateChampionsLeague,
 };
 
 let createdCount = 0;
@@ -1916,4 +2614,12 @@ for (const lang of targetLangs) {
   }
 }
 
-console.log(`Successfully generated ${createdCount} localized subpages across ${targetLangs.length} languages!`);
+// Generate Spanish Champions League
+const esDir = path.join(rootDir, "es");
+if (!fs.existsSync(esDir)) {
+  fs.mkdirSync(esDir, { recursive: true });
+}
+fs.writeFileSync(path.join(esDir, "champions-league.html"), generateChampionsLeague("es"), "utf8");
+createdCount++;
+
+console.log(`Successfully generated ${createdCount} localized subpages across all languages!`);

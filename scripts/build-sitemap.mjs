@@ -16,6 +16,7 @@ const SUBPAGES = [
   { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9" },
   { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.9" },
   { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9" },
+  { slug: "champions-league", changefreq: "monthly", priority: "0.9" },
   { slug: "timeline", changefreq: "monthly", priority: "0.85" },
   { slug: "achievements", changefreq: "monthly", priority: "0.85" }
 ];
@@ -167,6 +168,11 @@ const enImages = {
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
       <image:title>Lionel Messi vs Cristiano Ronaldo Career Comparison</image:title>
       <image:caption>Complete statistical head-to-head comparison between Lionel Messi and Cristiano Ronaldo.</image:caption>
+    </image:image>`,
+  "champions-league": `    <image:image>
+      <image:loc>https://www.messistat.com/img/era-2011-wembley.jpg</image:loc>
+      <image:title>Lionel Messi Champions League Goals</image:title>
+      <image:caption>Lionel Messi UEFA Champions League statistics: 129 goals in 163 matches and 4 European titles.</image:caption>
     </image:image>`
 };
 
@@ -181,20 +187,7 @@ ${getHreflangsXml("/" + sub.slug)}${imgXml}
   </url>`);
 }
 
-// 3. English Champions League
-urlBlocks.push(`  <url>
-    <loc>https://www.messistat.com/en/champions-league</loc>
-    <lastmod>2026-09-18</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-    <image:image>
-      <image:loc>https://www.messistat.com/img/era-2011-wembley.jpg</image:loc>
-      <image:title>Lionel Messi Champions League Goals</image:title>
-      <image:caption>Lionel Messi UEFA Champions League statistics: 129 goals in 163 matches and 4 European titles.</image:caption>
-    </image:image>
-  </url>`);
-
-// 4. Other languages: Homepage + 8 Subpages
+// 3. Other languages: Homepage + Subpages
 const langHomeMeta = {
   es: {
     priority: "1.0",

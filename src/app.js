@@ -117,7 +117,8 @@ function getLangUrl(targetCode) {
     "timeline",
     "achievements",
     "messi-vs-ronaldo",
-    "vs-real-madrid"
+    "vs-real-madrid",
+    "champions-league"
   ];
   const pathParts = location.pathname.split("/").filter(Boolean);
   let subpage = "";
@@ -125,10 +126,6 @@ function getLangUrl(targetCode) {
     subpage = pathParts[1].replace(/\.html$/, "");
   } else if (pathParts.length === 1 && !LANGUAGES.some((l) => l.code === pathParts[0])) {
     subpage = pathParts[0].replace(/\.html$/, "");
-  }
-
-  if (subpage === "champions-league") {
-    return `/en/champions-league${location.search}${location.hash}`;
   }
 
   if (subpage && validSubpages.includes(subpage)) {
@@ -793,6 +790,7 @@ const EXPLORE_LANGS = {
     { href: "/es/birthday", page: "birthday", t: "🎂 ¿Marcó Messi en tu cumpleaños?", d: (d) => `Busca entre los 366 días del año con clips de video de los ${n(d.totals.goals)} goles oficiales de Messi.` },
     { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estadísticas cara a cara: 929 vs 924 goles, 46 vs 35 títulos, 8 vs 5 Balones de Oro." },
     { href: "/es/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Los 26 goles en El Clásico, 45 partidos, 14 asistencias, hat-tricks y videos." },
+    { href: "/es/champions-league", page: "champions-league", t: "⭐ Récord en Champions League", d: () => "129 goles en UEFA Champions League, 8 hat-tricks y 4 títulos europeos." },
     { href: "/es", page: "home", t: "Estadísticas de Messi", d: (d) => `Las cifras clave: ${n(d.totals.goals)} goles en ${n(d.totals.apps)} partidos profesionales.` },
     { href: "/es/goalsbyyear", page: "byyear", t: "Goles de Messi por año", d: (d) => `Cada año natural de 2004 a 2026 y el camino hacia los ${n(d.totals.goals)}.` },
     { href: "/es/goalsbyseason", page: "byseason", t: "Goles de Messi por temporada", d: () => "Desglose de liga, copas y torneos continentales para cada temporada." },
@@ -804,6 +802,7 @@ const EXPLORE_LANGS = {
     { href: "/pt/birthday", page: "birthday", t: "🎂 ¿Marcou Messi no seu aniversário?", d: (d) => `Pesquise os 366 dias do ano com vídeos de todos os ${n(d.totals.goals)} gols de Messi.` },
     { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estatísticas cara a cara: 929 vs 924 gols, 46 vs 35 títulos, 8 vs 5 Bolas de Ouro." },
     { href: "/pt/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Os 26 gols no El Clásico, 45 partidas, 14 assistências e hat-tricks." },
+    { href: "/pt/champions-league", page: "champions-league", t: "⭐ Recorde na Champions League", d: () => "129 gols na UEFA Champions League, 8 hat-tricks e 4 títulos europeus." },
     { href: "/pt", page: "home", t: "Estatísticas de Lionel Messi", d: (d) => `Os números oficiais: ${n(d.totals.goals)} gols em ${n(d.totals.apps)} partidas profissionais.` },
     { href: "/pt/goalsbyyear", page: "byyear", t: "Gols de Messi por ano", d: (d) => `Todos os anos civis de 2004 a 2026 e o recorde de 91 gols.` },
     { href: "/pt/goalsbyseason", page: "byseason", t: "Gols de Messi por temporada", d: () => "Divisão de liga, copas e torneios continentais para cada temporada." },
@@ -815,6 +814,7 @@ const EXPLORE_LANGS = {
     { href: "/fr/birthday", page: "birthday", t: "🎂 Messi a-t-il marqué le jour de votre anniversaire ?", d: (d) => `Recherchez parmi les 366 jours de l'année avec vidéos des ${n(d.totals.goals)} buts.` },
     { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => "Statistiques historiques : 929 vs 924 buts, 46 vs 35 titres, 8 vs 5 Ballons d'Or." },
     { href: "/fr/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Tous les 26 buts dans le Clásico, 45 matchs, 14 passes décisives." },
+    { href: "/fr/champions-league", page: "champions-league", t: "⭐ Bilan en Ligue des Champions", d: () => "129 buts en UEFA Champions League, 8 triplés et 4 titres européens." },
     { href: "/fr", page: "home", t: "Statistiques de Lionel Messi", d: (d) => `Les chiffres clés : ${n(d.totals.goals)} buts en ${n(d.totals.apps)} matchs officiels.` },
     { href: "/fr/goalsbyyear", page: "byyear", t: "Buts de Messi par année", d: (d) => `Chaque année civile de 2004 à 2026 et le record de 91 buts.` },
     { href: "/fr/goalsbyseason", page: "byseason", t: "Buts de Messi par saison", d: () => "Répartition par championnat, coupes et Ligue des Champions." },
@@ -826,6 +826,7 @@ const EXPLORE_LANGS = {
     { href: "/ar/birthday", page: "birthday", t: "🎂 هل سجل ميسي في يوم ميلادك؟", d: (d) => `ابحث في جميع أيام السنة الـ 366 مع مقاطع الفيديو لـ ${n(d.totals.goals)} هدفاً.` },
     { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => "مقارنة المسيرة: 929 ضد 924 هدفاً، 46 ضد 35 بطولة، و8 كرات ذهبية." },
     { href: "/ar/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ ميسي ضد ريال مدريد", d: () => "26 هدفاً في الكلاسيكو، 45 مباراة و14 تمريرة حاسمة." },
+    { href: "/ar/champions-league", page: "champions-league", t: "⭐ سجل دوري أبطال أوروبا", d: () => "129 هدفاً في دوري أبطال أوروبا، 8 هاتريك و4 ألقاب أوروبية." },
     { href: "/ar", page: "home", t: "إحصائيات ليونيل ميسي", d: (d) => `الأرقام الرسمية: ${n(d.totals.goals)} هدفاً في ${n(d.totals.apps)} مباراة رسمية.` },
     { href: "/ar/goalsbyyear", page: "byyear", t: "أهداف ميسي بالسنة", d: (d) => `كل سنة ميلادية من 2004 إلى 2026 ورقم الـ 91 القياسي.` },
     { href: "/ar/goalsbyseason", page: "byseason", t: "أهداف ميسي بالموسم", d: () => "تقسيم الدوري، الكؤوس والبطولات القارية." },
@@ -837,6 +838,7 @@ const EXPLORE_LANGS = {
     { href: "/bn/birthday", page: "birthday", t: "🎂 মেসি কি আপনার জন্মদিনে গোল করেছিলেন?", d: (d) => `৩৬৬ দিনের প্রতিটি দিন ভিডিও সহ অনুসন্ধান করুন (${n(d.totals.goals)} ক্যারিয়ার গোল)।` },
     { href: "/bn/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 মেসি বনাম রোনালদো", d: () => "ক্যারিয়ার পরিসংখ্যান: ৯২৯ বনাম ৯২৪ গোল, ৪৬ বনাম ৩৫ ট্রফি, ৮টি ব্যালন ডি'অর।" },
     { href: "/bn/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ মেসি বনাম রিয়াল মাদ্রিদ", d: () => "ক্লাসিকোতে ২৬ গোল, ৪৫ ম্যাচ ও ১৪টি অ্যাসিস্ট।" },
+    { href: "/bn/champions-league", page: "champions-league", t: "⭐ চ্যাম্পিয়নস লিগ রেকর্ড", d: () => "উয়েফা চ্যাম্পিয়নস লিগে ১২৯টি গোল, ৮টি হ্যাটট্রিক এবং ৪টি ইউরোপীয় শিরোপা।" },
     { href: "/bn", page: "home", t: "লিওনেল মেসির পরিসংখ্যান", d: (d) => `অফিসিয়াল তথ্য: ${n(d.totals.apps)} ম্যাচে ${n(d.totals.goals)} গোল।` },
     { href: "/bn/goalsbyyear", page: "byyear", t: "বছরভিত্তিক গোল", d: (d) => `২০০৪ থেকে ২০২৬ এবং ২০১২ সালে ৯১ গোলের বিশ্বরেকর্ড।` },
     { href: "/bn/goalsbyseason", page: "byseason", t: "মৌসুমভিত্তিক গোল", d: () => "লীগ, কাপ ও চ্যাম্পিয়ন্স লীগের পরিসংখ্যান।" },
@@ -846,8 +848,9 @@ const EXPLORE_LANGS = {
   ],
   hi: [
     { href: "/hi/birthday", page: "birthday", t: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?", d: (d) => `साल के 366 दिनों में मेसी के ${n(d.totals.goals)} गोल वीडियो देखें।` },
-    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 929 बनाम 924 गोल, 46 बनाम 35 खिताब, 8 बैलन डी'ओर।" },
+    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 929 बनाम 924 गोल, 46 बनाम 35 खिताब, 8 बैलन डी'ओर." },
     { href: "/hi/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ मेसी बनाम रियल मैड्रिड", d: () => "एल क्लासिको में 26 गोल, 45 मैच और 14 असिस्ट।" },
+    { href: "/hi/champions-league", page: "champions-league", t: "⭐ चैंपियंस लीग रिकॉर्ड", d: () => "यूईएफए चैंपियंस लीग में 129 गोल, 8 हैट्रिक और 4 यूरोपीय खिताब।" },
     { href: "/hi", page: "home", t: "मेसी के आधिकारिक आंकड़े", d: (d) => `${n(d.totals.apps)} आधिकारिक मैचों में ${n(d.totals.goals)} गोल।` },
     { href: "/hi/goalsbyyear", page: "byyear", t: "साल दर साल गोल", d: (d) => `2004 से 2026 और 2012 में 91 गोलों का विश्व रिकॉर्ड।` },
     { href: "/hi/goalsbyseason", page: "byseason", t: "सीज़न अनुसार गोल", d: () => "लीग, कप और महाद्वीपीय प्रतियोगिताओं का विवरण।" },
@@ -859,6 +862,7 @@ const EXPLORE_LANGS = {
     { href: "/ro/birthday", page: "birthday", t: "🎂 A marcat Messi de ziua ta de naștere?", d: (d) => `Caută în toate cele 366 de zile din an cu cele ${n(d.totals.goals)} goluri ale lui Messi.` },
     { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Statistici cap la cap: 929 vs 924 goluri, 46 vs 35 trofee, 8 Baloane de Aur." },
     { href: "/ro/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Toate cele 26 de goluri din El Clásico, 45 de meciuri, 14 pase de gol." },
+    { href: "/ro/champions-league", page: "champions-league", t: "⭐ Recordul în Champions League", d: () => "129 de goluri în UEFA Champions League, 8 hat-trick-uri și 4 trofee europene." },
     { href: "/ro", page: "home", t: "Statisticile lui Lionel Messi", d: (d) => `Cifrele cheie: ${n(d.totals.goals)} goluri în ${n(d.totals.apps)} meciuri oficiale.` },
     { href: "/ro/goalsbyyear", page: "byyear", t: "Golurile lui Messi pe ani", d: (d) => `Fiecare an calendaristic din 2004 până în 2026 și recordul de 91.` },
     { href: "/ro/goalsbyseason", page: "byseason", t: "Golurile lui Messi pe sezoane", d: () => "Campionat, cupe interne și meciuri europene." },
@@ -870,6 +874,7 @@ const EXPLORE_LANGS = {
     { href: "/uz/birthday", page: "birthday", t: "🎂 Messi sizning tug'ilgan kuningizda gol urganmi?", d: (d) => `Yilning 366 kunidagi gollarni videolar bilan ko'ring (${n(d.totals.goals)} ta gol).` },
     { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => "O'zaro solishtirma: 929 ga 924 ta gol, 46 ga 35 ta titul, 8 ta “Oltin to'p”." },
     { href: "/uz/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "El-Klasikodagi 26 ta gol, 45 ta o'yin va 14 ta assist." },
+    { href: "/uz/champions-league", page: "champions-league", t: "⭐ Chempionlar Ligasi rekordi", d: () => "UEFA Chempionlar Ligasida 129 ta gol, 8 ta het-trik va 4 ta Yevropa chempionligi." },
     { href: "/uz", page: "home", t: "Lionel Messi statistikasi", d: (d) => `Asosiy raqamlar: ${n(d.totals.apps)} ta o'yinda ${n(d.totals.goals)} ta rasmiy gol.` },
     { href: "/uz/goalsbyyear", page: "byyear", t: "Yillar bo'yicha gollar", d: (d) => `2004 yildan 2026 yilgacha va 2012 yildagi 91 ta golli rekord.` },
     { href: "/uz/goalsbyseason", page: "byseason", t: "Mavsumlar bo'yicha gollar", d: () => "Liga, kubok va xalqaro turnirlar bo'yicha ajratilgan." },

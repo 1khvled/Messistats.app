@@ -14,6 +14,8 @@ function cleanEnRouting() {
       const rest = (langMatch[2] || '').replace(/^\/+/, '');
       if (!rest) {
         req.url = `/${lang}/index.html` + query;
+      } else if (rest.startsWith('src/') || rest.startsWith('assets/') || rest.startsWith('data/') || rest.startsWith('fonts/') || rest.startsWith('img/') || rest.includes('.')) {
+        req.url = `/${rest}` + query;
       } else {
         const slug = rest.replace(/\.html$/, '');
         req.url = `/${lang}/${slug}.html` + query;
@@ -21,8 +23,13 @@ function cleanEnRouting() {
     } else if (url === '/en' || url === '/en/') {
       req.url = '/' + query;
     } else if (url.startsWith('/en/')) {
-      const slug = url.slice(4).replace(/\.html$/, '');
-      req.url = '/' + slug + '.html' + query;
+      const rest = url.slice(4);
+      if (rest.startsWith('src/') || rest.startsWith('assets/') || rest.startsWith('data/') || rest.startsWith('fonts/') || rest.startsWith('img/') || rest.includes('.')) {
+        req.url = '/' + rest + query;
+      } else {
+        const slug = rest.replace(/\.html$/, '');
+        req.url = '/' + slug + '.html' + query;
+      }
     } else if (!url.includes('.') && url !== '/') {
       req.url = url + '.html' + query;
     }
@@ -49,7 +56,8 @@ const subpages = [
   'achievements',
   'birthday',
   'messi-vs-ronaldo',
-  'vs-real-madrid'
+  'vs-real-madrid',
+  'champions-league'
 ];
 
 const rollupInput = {

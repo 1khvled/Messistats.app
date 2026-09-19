@@ -185,7 +185,7 @@ function generateRailHtml(lang, activeSlug) {
   const onAria = (slug) => isAct(slug) ? ' aria-current="page" class="on"' : '';
   const onBday = (slug) => isAct(slug) ? ' aria-current="page" class="on nav-bday-link"' : ' class="nav-bday-link"';
 
-  const uclLink = lang === "en" ? "/en/champions-league" : "/en/champions-league";
+  const uclLink = lang === "en" ? "/en/champions-league" : `/${lang}/champions-league`;
   const uclItem = `\n<a${onAria("champions-league")} href="${uclLink}" aria-label="${L.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${L.ucl}</span></a>`;
 
   const adminLink = lang === "en" ? `\n    <a id="rail-admin-link" href="/en/admin" style="display:none;" aria-label="Admin">
@@ -264,7 +264,7 @@ for (const [file, slug] of Object.entries(PAGES_MAP)) {
 const ALL_LANGS = ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
 for (const lang of ALL_LANGS) {
   for (const [file, slug] of Object.entries(PAGES_MAP)) {
-    if (file === "champions-league.html" || file === "admin.html") continue;
+    if (file === "admin.html") continue;
     updateFileRail(path.join(rootDir, lang, file), lang, slug);
   }
 }
