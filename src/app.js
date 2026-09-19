@@ -740,22 +740,36 @@ function setHead(d, ledeHTML) {
     }
   }
   if (el("foot-date")) {
-    if (lang === "es") {
-      el("foot-date").textContent =
-        `Lionel Messi: ${n(d.totals.apps)} partidos oficiales senior, ${n(d.totals.goals)} goles ` +
+    const footDates = {
+      es: `Lionel Messi: ${n(d.totals.apps)} partidos oficiales senior, ${n(d.totals.goals)} goles ` +
         `(${n(d.totals.clubs.apps)} PJ / ${n(d.totals.clubs.goals)} goles en clubes, ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} con Argentina). Actualizado al ${d.lastUpdated}.`;
-    } else if (lang === "pt") {
-      el("foot-date").textContent =
-        `Lionel Messi: ${n(d.totals.apps)} partidas oficiais seniores, ${n(d.totals.goals)} gols ` +
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} con Argentina). Actualizado al ${d.lastUpdated}.`,
+      pt: `Lionel Messi: ${n(d.totals.apps)} partidas oficiais seniores, ${n(d.totals.goals)} gols ` +
         `(${n(d.totals.clubs.apps)} jogos / ${n(d.totals.clubs.goals)} gols por clubes, ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} pela Argentina). Atualizado em ${d.lastUpdated}.`;
-    } else {
-      el("foot-date").textContent =
-        `Lionel Messi: ${n(d.totals.apps)} senior appearances, ${n(d.totals.goals)} goals ` +
-        `(${n(d.totals.clubs.apps)} apps / ${n(d.totals.clubs.goals)} goals club, ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} Argentina). Last checked ${d.lastUpdated}.`;
-    }
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} pela Argentina). Atualizado em ${d.lastUpdated}.`,
+      fr: `Lionel Messi : ${n(d.totals.apps)} matchs officiels en senior, ${n(d.totals.goals)} buts ` +
+        `(${n(d.totals.clubs.apps)} matchs / ${n(d.totals.clubs.goals)} buts en club, ` +
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} avec l'Argentine). Mis à jour le ${d.lastUpdated}.`,
+      ar: `ليونيل ميسي: ${n(d.totals.apps)} مباراة رسمية مع الفريق الأول، ${n(d.totals.goals)} هدفاً ` +
+        `(${n(d.totals.clubs.apps)} مباراة / ${n(d.totals.clubs.goals)} هدفاً مع الأندية، ` +
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} مع الأرجنتين). آخر تحديث ${d.lastUpdated}.`,
+      bn: `লিওনেল মেসি: ${n(d.totals.apps)}টি সিনিয়র ম্যাচ, ${n(d.totals.goals)}টি গোল ` +
+        `(${n(d.totals.clubs.apps)} ম্যাচে ${n(d.totals.clubs.goals)} ক্লাব গোল, ` +
+        `আর্জেন্টিনার হয়ে ${n(d.totals.country.apps)} ম্যাচে ${n(d.totals.country.goals)} গোল)। সর্বশেষ আপডেট ${d.lastUpdated}।`,
+      hi: `लियोनेल मेस्सी: ${n(d.totals.apps)} सीनियर मैच, ${n(d.totals.goals)} गोल ` +
+        `(${n(d.totals.clubs.apps)} क्लब मैच / ${n(d.totals.clubs.goals)} क्लब गोल, ` +
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} अर्जेंटीना)। अंतिम अद्यतन ${d.lastUpdated}।`,
+      ro: `Lionel Messi: ${n(d.totals.apps)} meciuri oficiale la seniori, ${n(d.totals.goals)} goluri ` +
+        `(${n(d.totals.clubs.apps)} meciuri / ${n(d.totals.clubs.goals)} goluri la cluburi, ` +
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} cu Argentina). Actualizat la ${d.lastUpdated}.`,
+      uz: `Lionel Messi: ${n(d.totals.apps)} ta rasmiy o'yin, ${n(d.totals.goals)} ta gol ` +
+        `(${n(d.totals.clubs.apps)} ta klub o'yini / ${n(d.totals.clubs.goals)} ta gol, ` +
+        `Argentina bilan ${n(d.totals.country.apps)} / ${n(d.totals.country.goals)}). Oxirgi yangilanish: ${d.lastUpdated}.`
+    };
+    el("foot-date").textContent = footDates[lang] ||
+      `Lionel Messi: ${n(d.totals.apps)} senior appearances, ${n(d.totals.goals)} goals ` +
+      `(${n(d.totals.clubs.apps)} apps / ${n(d.totals.clubs.goals)} goals club, ` +
+      `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} Argentina). Last checked ${d.lastUpdated}.`;
   }
 }
 function reveal() {
@@ -997,8 +1011,12 @@ function sparkSVG(rows, opts) {
     `<linearGradient id="cumAreaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e7cc0" stop-opacity="0.22"/><stop offset="1" stop-color="#0e7cc0" stop-opacity="0.02"/></linearGradient>` +
     `</defs>`;
 
+  const lang = getLang();
+  const yrSuffix = {
+    es: " /año", pt: " /ano", fr: " /an", ar: " /سنة", bn: " /বছর", hi: " /वर्ष", ro: " /an", uz: " /yil"
+  }[lang] || " /yr";
   s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
-  s += `<text class="axis" x="4" y="${(base - maxH + 4).toFixed(1)}">${max}${opts.cumulative ? " /yr" : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
+  s += `<text class="axis" x="4" y="${(base - maxH + 4).toFixed(1)}">${max}${opts.cumulative ? yrSuffix : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
 
   // 1. Draw bars first so cumulative line and labels sit cleanly on top
   rows.forEach((r, i) => {
@@ -1039,16 +1057,28 @@ function sparkSVG(rows, opts) {
     const lastX = ((rows.length - 1) * step + step / 2).toFixed(1);
     const lastY = (base - (tot / target) * (base - targetY)).toFixed(1);
 
+    const chartI18n = {
+      es: { target: "Meta de 1.000 goles", now: `${n(tot)} actual`, tip: `Total en su carrera: ${n(tot)} goles` },
+      pt: { target: "Meta de 1.000 gols", now: `${n(tot)} atual`, tip: `Total na carreira: ${n(tot)} gols` },
+      fr: { target: "Objectif 1 000 buts", now: `${n(tot)} actuel`, tip: `Total en carrière : ${n(tot)} buts` },
+      ar: { target: "هدف الـ 1,000 هدف", now: `${n(tot)} الآن`, tip: `إجمالي المسيرة: ${n(tot)} هدفاً` },
+      bn: { target: "১,০০০ গোলের লক্ষ্য", now: `${n(tot)} বর্তমানে`, tip: `ক্যারিয়ার মোট: ${n(tot)} গোল` },
+      hi: { target: "1,000 गोल का लक्ष्य", now: `${n(tot)} वर्तमान`, tip: `करियर कुल: ${n(tot)} गोल` },
+      ro: { target: "Ținta de 1.000 de goluri", now: `${n(tot)} în prezent`, tip: `Total carieră: ${n(tot)} goluri` },
+      uz: { target: "1 000 ta gol maqsadi", now: `${n(tot)} hozir`, tip: `Faoliyatidagi jami: ${n(tot)} ta gol` }
+    };
+    const cLabels = chartI18n[lang] || { target: "1,000 goal target", now: `${n(tot)} now`, tip: `Current career total: ${n(tot)} goals` };
+
     // Subtle area under cumulative curve
     s += `<polygon class="cum-area" points="${firstX},${base} ${pts.join(" ")} ${lastX},${base}" fill="url(#cumAreaGrad)"/>`;
     // 1,000 goal target line
-    s += `<line class="thousand" x1="0" y1="${targetY}" x2="${W}" y2="${targetY}"/><text class="thousand-label" x="${W - 10}" y="${targetY - 6}">1,000 goal target</text>`;
+    s += `<line class="thousand" x1="0" y1="${targetY}" x2="${W}" y2="${targetY}"/><text class="thousand-label" x="${W - 10}" y="${targetY - 6}">${cLabels.target}</text>`;
     // Right axis for cumulative career total
-    s += `<text class="axis right" x="${W - 10}" y="${targetY + 16}" text-anchor="end">${n(tot)} now</text>`;
+    s += `<text class="axis right" x="${W - 10}" y="${targetY + 16}" text-anchor="end">${cLabels.now}</text>`;
     // Cumulative climb line
     s += `<polyline class="cum" points="${pts.join(" ")}"/>`;
     // Current total marker dot
-    s += `<circle class="cum-dot" cx="${lastX}" cy="${lastY}" r="5"><title>Current career total: ${n(tot)} goals</title></circle>`;
+    s += `<circle class="cum-dot" cx="${lastX}" cy="${lastY}" r="5"><title>${esc(cLabels.tip)}</title></circle>`;
   }
 
   return s + `</svg>`;
@@ -1088,10 +1118,33 @@ function clubTableCaption() {
   return `<p class="table-hint">${hint}</p>`;
 }
 function provisionalNote() {
-  return `<p class="caveat">Penalties (109), free kicks (66), hat-tricks (57) and assists (400) are widely published compiled tallies, shown as provisional until a true match-by-match hand count is finished.</p>`;
+  const lang = getLang();
+  const notes = {
+    es: `<p class="caveat">Penaltis (109), tiros libres (66), hat-tricks (57) y asistencias (400) son cifras recopiladas provisionales hasta completar el conteo manual partido a partido.</p>`,
+    pt: `<p class="caveat">Pênaltis (109), faltas (66), hat-tricks (57) e assistências (400) são números provisórios até a conclusão da contagem manual jogo a jogo.</p>`,
+    fr: `<p class="caveat">Penaltys (109), coups francs (66), triplés (57) et passes décisives (400) sont des totaux provisoires en attente de vérification match par match.</p>`,
+    ar: `<p class="caveat">ضربات الجزاء (109)، الركلات الحرة (66)، الهاتريك (57) والتمريرات الحاسمة (400) هي إحصائيات مجمعة مؤقتة حتى اكتمال التدقيق اليدوي لكل مباراة.</p>`,
+    bn: `<p class="caveat">পেনাল্টি (১০৯), ফ্রি-কিক (৬৬), হ্যাটট্রিক (৫৭) এবং অ্যাসিস্ট (৪০০) ম্যাচভিত্তিক সম্পূর্ণ যাচাইকরণ না হওয়া পর্যন্ত সাময়িক পরিসংখ্যান হিসেবে প্রদর্শিত।</p>`,
+    hi: `<p class="caveat">पेनाल्टी (109), फ्री किक (66), हैट्रिक (57) और असिस्ट (400) मैच-दर-मैच सत्यापन पूरा होने तक अनंतिम आंकड़े हैं।</p>`,
+    ro: `<p class="caveat">Penalty-uri (109), lovituri libere (66), hat-trick-uri (57) și pase decisive (400) sunt cifre provizorii până la finalizarea numărătorii manuale meci cu meci.</p>`,
+    uz: `<p class="caveat">Penaltilar (109), jarima to'plari (66), het-triklar (57) va assistlar (400) o'yinma-o'yin to'liq tekshiruv tugagunga qadar dastlabki hisob-kitoblar sifatida ko'rsatilgan.</p>`
+  };
+  return notes[lang] || `<p class="caveat">Penalties (109), free kicks (66), hat-tricks (57) and assists (400) are widely published compiled tallies, shown as provisional until a true match-by-match hand count is finished.</p>`;
 }
 function methodColophon(inner) {
-  return `<div class="colophon"><p>How I put these numbers together — counted by hand and checked twice against named sources.</p>${inner}${provisionalNote()}</div>`;
+  const lang = getLang();
+  const intros = {
+    es: "Cómo recopilamos estas cifras — verificadas manualmente y contrastadas dos veces con fuentes oficiales.",
+    pt: "Como reunimos esses números — verificados manualmente e conferidos com fontes oficiais.",
+    fr: "Comment nous compilons ces chiffres — vérifiés manuellement et recoupés avec les sources officielles.",
+    ar: "طريقة جمع هذه الأرقام — تم التحقق منها يدوياً ومطابقتها مرتين مع المصادر الرسمية.",
+    bn: "আমরা কীভাবে এই সংখ্যা সংগ্রহ করি — প্রতিটি ম্যাচ রিপোর্ট থেকে যাচাইকৃত এবং অফিসিয়াল সূত্রের সাথে পরীক্ষিত।",
+    hi: "हम ये आंकड़े कैसे तैयार करते हैं — आधिकारिक स्रोतों से दो बार सत्यापित और हाथ से गिने गए।",
+    ro: "Cum am adunat aceste cifre — numărate manual și verificate de două ori cu surse oficiale.",
+    uz: "Bu raqamlarni qanday to'plaganimiz — qo'lda tekshirilgan va rasmiy manbalar bilan ikki marta tasdiqlangan."
+  };
+  const intro = intros[lang] || "How I put these numbers together — counted by hand and checked twice against named sources.";
+  return `<div class="colophon"><p>${intro}</p>${inner}${provisionalNote()}</div>`;
 }
 // Localized HOME_I18N, renderHome, initBdayQuickForm, renderOnThisDay
 const HOME_I18N = {
@@ -3366,13 +3419,118 @@ function renderDashboard(d, team) {
 
 /* ================= TIMELINE ================= */
 function eraOf(y) {
-  if (y <= 2008) return { era: "The boy from Rosario", range: "2004–2008" };
-  if (y <= 2012) return { era: "The greatest peak football has seen", range: "2009–2012" };
-  if (y <= 2015) return { era: "MSN and the second treble", range: "2013–2015" };
-  if (y <= 2018) return { era: "Carrying Barcelona", range: "2016–2018" };
-  if (y <= 2021) return { era: "Farewell to Barcelona", range: "2019–2021" };
-  if (y <= 2023) return { era: "Paris and the World Cup", range: "2021–2023" };
-  return { era: "Miami and the road to 1,000", range: "2023–present" };
+  const lang = getLang();
+  const ranges = {
+    rosario: "2004–2008",
+    peak: "2009–2012",
+    msn: "2013–2015",
+    carry: "2016–2018",
+    farewell: "2019–2021",
+    paris: "2021–2023",
+    miami: {
+      es: "2023–presente",
+      pt: "2023–presente",
+      fr: "2023–présent",
+      ar: "2023–الآن",
+      bn: "২০২৩–বর্তমান",
+      hi: "2023–वर्तमान",
+      ro: "2023–prezent",
+      uz: "2023–hozir"
+    }[lang] || "2023–present"
+  };
+  const eraNames = {
+    es: {
+      rosario: "El chico de Rosario",
+      peak: "El mayor pico en la historia del fútbol",
+      msn: "La MSN y el segundo triplete",
+      carry: "Liderando al Barcelona",
+      farewell: "El adiós al Barcelona",
+      paris: "París y la Copa del Mundo",
+      miami: "Miami y el camino a los 1.000"
+    },
+    pt: {
+      rosario: "O garoto de Rosário",
+      peak: "O maior auge da história do futebol",
+      msn: "O trio MSN e a segunda tríplice coroa",
+      carry: "Carregando o Barcelona",
+      farewell: "A despedida do Barcelona",
+      paris: "Paris e a Copa do Mundo",
+      miami: "Miami e o caminho para os 1.000"
+    },
+    fr: {
+      rosario: "Le gamin de Rosario",
+      peak: "Le sommet absolu du football",
+      msn: "La MSN et le deuxième triplé",
+      carry: "Porter le FC Barcelone",
+      farewell: "L'adieu à Barcelone",
+      paris: "Paris et la Coupe du Monde",
+      miami: "Miami et la route vers les 1 000"
+    },
+    ar: {
+      rosario: "الفتى القادم من روساريو",
+      peak: "أعظم قمة شهدتها كرة القدم",
+      msn: "ثلاثي MSN والثلاثية التاريخية الثانية",
+      carry: "حمل برشلونة على الأكتاف",
+      farewell: "وداع نادي برشلونة",
+      paris: "باريس والتتويج بكأس العالم",
+      miami: "ميامي والطريق نحو الـ 1,000 هدف"
+    },
+    bn: {
+      rosario: "রোজারিও থেকে আসা বিস্ময় বালক",
+      peak: "ফুটবল ইতিহাসের সেরা সোনালী সময়",
+      msn: "এমএসএন ত্রয়ী এবং দ্বিতীয় ট্রেবল",
+      carry: "বার্সেলোনাকে একাই এগিয়ে নেওয়া",
+      farewell: "বার্সেলোনাকে বিদায়",
+      paris: "প্যারিস এবং বিশ্বকাপ জয়",
+      miami: "মায়ামি এবং ১,০০০ গোলের পথে"
+    },
+    hi: {
+      rosario: "रोसारियो का युवा सितारा",
+      peak: "फुटबॉल इतिहास का सर्वश्रेष्ठ शिखर",
+      msn: "MSN त्रिमूर्ति और दूसरा ट्रेबल",
+      carry: "बार्सिलोना को आगे बढ़ाना",
+      farewell: "बार्सिलोना को विदाई",
+      paris: "पेरिस और विश्व कप जीत",
+      miami: "मियामी और 1,000 गोल की राह"
+    },
+    ro: {
+      rosario: "Băiatul din Rosario",
+      peak: "Cel mai mare vârf din istoria fotbalului",
+      msn: "Trio-ul MSN și a doua triplă istorică",
+      carry: "Purtând Barcelona pe umeri",
+      farewell: "Adio, Barcelona",
+      paris: "Parisul și Cupa Mondială",
+      miami: "Miami și drumul spre 1.000 de goluri"
+    },
+    uz: {
+      rosario: "Rosariolik o'smir",
+      peak: "Futbol tarixidagi eng buyuk cho'qqi",
+      msn: "MSN va ikkinchi trebl",
+      carry: "Barselonani yetaklash",
+      farewell: "Barselona bilan xayrlashuv",
+      paris: "Parij va Jahon chempionati",
+      miami: "Mayami va 1 000 gol sari yo'l"
+    },
+    en: {
+      rosario: "The boy from Rosario",
+      peak: "The greatest peak football has seen",
+      msn: "MSN and the second treble",
+      carry: "Carrying Barcelona",
+      farewell: "Farewell to Barcelona",
+      paris: "Paris and the World Cup",
+      miami: "Miami and the road to 1,000"
+    }
+  };
+  let key = "miami";
+  if (y <= 2008) key = "rosario";
+  else if (y <= 2012) key = "peak";
+  else if (y <= 2015) key = "msn";
+  else if (y <= 2018) key = "carry";
+  else if (y <= 2021) key = "farewell";
+  else if (y <= 2023) key = "paris";
+
+  const langNames = eraNames[lang] || eraNames.en;
+  return { key, era: langNames[key] || eraNames.en[key], range: ranges[key] };
 }
 /* Real era photos: self-hosted high-res action and celebration photos.
    `pos` sets the CSS focal point so faces survive the banner crop.
@@ -3409,6 +3567,89 @@ const ERA_PHOTOS = {
     { src: "img/era-2024-copa.jpg", w: 562, h: 546, pos: "50% 25%", alt: "Messi in Argentina's shirt holding two Copa América trophies in 2024", cap: "Back-to-back Copa América titles, 2024" },
   ],
 };
+ERA_PHOTOS.rosario = ERA_PHOTOS["The boy from Rosario"];
+ERA_PHOTOS.peak = ERA_PHOTOS["The greatest peak football has seen"];
+ERA_PHOTOS.msn = ERA_PHOTOS["MSN and the second treble"];
+ERA_PHOTOS.carry = ERA_PHOTOS["Carrying Barcelona"];
+ERA_PHOTOS.farewell = ERA_PHOTOS["Farewell to Barcelona"];
+ERA_PHOTOS.paris = ERA_PHOTOS["Paris and the World Cup"];
+ERA_PHOTOS.miami = ERA_PHOTOS["Miami and the road to 1,000"];
+
+const ERA_INTROS = {
+  es: {
+    rosario: `Un joven de 17 años de Rosario debuta contra el Espanyol en octubre de 2004, y en pocos meses el Camp Nou corea su nombre. Su primer gol llega ante el Albacete en mayo siguiente —picando el balón sobre el portero tras asistencia de Ronaldinho— convirtiéndose en el goleador más joven del Barcelona. Para 2008 ya lucía el oro olímpico en su cuello.`,
+    peak: `Seis títulos en 2009. Cuatro Balones de Oro consecutivos. Luego 2012: 91 goles en un solo año natural, rompiendo un récord intacto durante cuatro décadas —incluyendo cinco goles en una noche europea contra el Leverkusen. La cima futbolística más deslumbrante de la historia.`,
+    msn: `Messi, Suárez y Neymar: el tridente ofensivo más letal del fútbol moderno, sellando el segundo triplete en 2015 en Berlín. Su gol en la final de la Copa del Rey de esa primavera, superando a media defensa del Athletic Club, es una de las mayores obras de arte del fútbol.`,
+    carry: `La legendaria remontada 6–1 al PSG en 2017, la icónica celebración de la camiseta 10 en el Bernabéu y otro doblete de Liga y Copa en 2018 liderando al equipo con actuaciones magistrales en cada jornada.`,
+    farewell: `El sexto Balón de Oro, la Copa del Rey de 2021 y, tras 21 años inolvidables, una emotiva despedida del Camp Nou como máximo goleador, plusmarquista de partidos y referente eterno del barcelonismo.`,
+    paris: `Dos títulos de liga en París, el séptimo Balón de Oro y la gloria suprema en Catar el 18 de diciembre de 2022: dos goles en la final y la Copa del Mundo en sus manos tras un épico 3–3. La carrera quedó consagrada para siempre.`,
+    miami: `Llegada triunfal a Estados Unidos con el título de Leagues Cup en su primer mes, el octavo Balón de Oro, una nueva Copa América con Argentina y la marcha histórica rumbo a los 1.000 goles en vivo.`
+  },
+  pt: {
+    rosario: `Um jovem de 17 anos de Rosário estreia contra o Espanyol em outubro de 2004 e, em poucos meses, o Camp Nou já canta seu nome. O primeiro gol vem contra o Albacete em maio seguinte — encobrindo o goleiro após passe de Ronaldinho. Em 2008, conquista o ouro olímpico em Pequim.`,
+    peak: `Seis títulos em 2009. Quatro Bolas de Ouro consecutivas. Depois 2012: 91 gols em um único ano civil, quebrando um recorde de 40 anos — incluindo cinco gols em uma noite de Champions contra o Leverkusen. O auge mais impressionante do futebol mundial.`,
+    msn: `Messi, Suárez e Neymar: o trio MSN encantou o planeta e conquistou a segunda tríplice coroa em 2015 em Berlim. Um ataque inesquecível e imparável.`,
+    carry: `A histórica remontada de 6–1 contra o PSG em 2017, a lendária comemoração exibindo a camisa 10 no Bernabéu e a liderança absoluta com mais uma dobradinha nacional em 2018.`,
+    farewell: `A sexta Bola de Ouro, a Copa do Rei de 2021 e a emocionante despedida do Camp Nou após 21 anos históricos como maior artilheiro e ídolo eterno do Barcelona.`,
+    paris: `Dois títulos franceses em Paris, a sétima Bola de Ouro e a glória suprema no Catar em 18 de dezembro de 2022: campeão da Copa do Mundo com dois gols na final. O topo absoluto da história.`,
+    miami: `Conquista imediata da Leagues Cup, oitava Bola de Ouro, mais uma Copa América com a Argentina e a contagem rumo aos 1.000 gols oficiais ao vivo.`
+  },
+  fr: {
+    rosario: `Un jeune de 17 ans de Rosario entre en jeu contre l'Espanyol en octobre 2004, et en quelques mois le Camp Nou scande son nom. Son premier but arrive face à Albacete en mai d'un lob subtil sur une passe de Ronaldinho. En 2008, il décroche la médaille d'or olympique.`,
+    peak: `Sextuplé historique en 2009. Quatre Ballons d'Or d'affilée. Puis 2012 : 91 buts sur une seule année civile, pulvérisant un record vieux de 40 ans — dont un quintuplé mémorable en Ligue des champions contre Leverkusen. Le plus grand sommet de l'histoire du jeu.`,
+    msn: `Messi, Suárez et Neymar : le trio magique MSN terrasse l'Europe et signe un deuxième triplé historique en 2015 à Berlin. Une efficacité offensive inégalée.`,
+    carry: `La légendaire remontada 6-1 contre le PSG en 2017, le maillot numéro 10 brandi au Santiago Bernabéu et un nouveau doublé Liga-Coupe en 2018, portant le club au sommet à chaque rencontre.`,
+    farewell: `Un sixième Ballon d'Or, une ultime Coupe du Roi en 2021 et un adieu bouleversant au Camp Nou après 21 années légendaires au FC Barcelone.`,
+    paris: `Deux titres de champion avec le PSG, un septième Ballon d'Or et la consécration suprême au Qatar le 18 décembre 2022 : champion du monde avec un doublé en finale. La carrière est complète.`,
+    miami: `Trophée de Leagues Cup dès son premier mois, un huitième Ballon d'Or, une nouvelle Copa América et la marche vers les 1 000 buts en direct.`
+  },
+  ar: {
+    rosario: `شاب في السابعة عشرة من عمره من روساريو يشارك أمام إسبانيول في أكتوبر 2004، وفي غضون أشهر أصبح الكامب نو يهتف باسمه. جاء هدفه الأول أمام ألباسيتي بلمسة ساقطة رائعة من تمريرة رونالدينيو، وبحلول عام 2008 تقلد الميدالية الذهبية الأولمبية.`,
+    peak: `سداسية تاريخية في 2009. أربع كرات ذهبية على التوالي. ثم عام 2012: 91 هدفاً في عام ميلادي واحد، محطماً رقماً صمد لأربعين عاماً — بما في ذلك خماسية تاريخية أمام ليفركوزن في دوري الأبطال.`,
+    msn: `ميسي، سواريز، نيمار — الثلاثي الأسطوري MSN يكتسح أوروبا ويحقق الثلاثية التاريخية الثانية عام 2015 في برلين. قوة هجومية غير مسبوقة.`,
+    carry: `الريمونتادا التاريخية 6–1 أمام باريس عام 2017، ورفع القميص رقم 10 في البرنابيو، وثنائية الدوري والكأس في 2018 بقيادة أسطورية ملهمة.`,
+    farewell: `الكرة الذهبية السادسة، ولقب كأس الملك 2021، ثم الوداع المؤثر لنادي برشلونة بعد 21 عاماً من المجد كهداف تاريخي وأعظم لاعب في تاريخ النادي.`,
+    paris: `لقبان في الدوري مع باريس، الكرة الذهبية السابعة، والمجد الأكبر في قطر يوم 18 ديسمبر 2022: بطل كأس العالم بهدفين في النهائي التاريخي بعد ملحمة 3–3.`,
+    miami: `التتويج بلقب كأس الدوريات في شهره الأول، الكرة الذهبية الثامنة، لقب كوبا أمريكا آخر مع الأرجنتين، ومواصلة الطريق نحو 1,000 هدف رسمي.`
+  },
+  bn: {
+    rosario: `১৭ বছর বয়সে ২০০৪ সালের অক্টোবরে এসপানিওলের বিপক্ষে মাঠে নামেন রোজারিওর এক তরুণ। কয়েকমাসের মধ্যেই ক্যাম্প ন্যু মুখরিত হয় তার নামে। মে মাসে আলবাসেতের বিপক্ষে প্রথম গোল এবং ২০০৮ সালে জেতেন অলিম্পিক স্বর্ণপদক।`,
+    peak: `২০০৯ সালে ছয়টি ট্রফি। টানা চারটি ব্যালন ডি'অর। এরপর ২০১২: এক পঞ্জিকাবর্ষে ৯১ গোল — যা ফুটবল ইতিহাসের সর্বকালের অবিসংবাদিত বিশ্বরেকর্ড।`,
+    msn: `মেসি, সুয়ারেজ এবং নেইমার — বিখ্যাত এমএসএন ত্রয়ী ২০১৫ সালে বার্লিনে দ্বিতীয় ঐতিহাসিক ট্রেবল নিশ্চিত করে। ফুটবলের সবচেয়ে দৃষ্টিনন্দন আক্রমণভাগ।`,
+    carry: `২০১৭ সালে পিএসজির বিপক্ষে ঐতিহাসিক ৬–১ প্রত্যাবর্তন, বার্নাব্যুতে ১০ নম্বর জার্সি উঁচিয়ে উদযাপন এবং ২০১৮ সালে ঘরোয়া ডাবল জয়।`,
+    farewell: `ষষ্ঠ ব্যালন ডি'অর, ২০২১ কোপা দেল রে ট্রফি এবং বার্সেলোনায় দীর্ঘ ২১ বছরের অবিস্মরণীয় যাত্রা শেষে আবেগঘন বিদায়।`,
+    paris: `প্যারিসে দুটি লিগ শিরোপা, সপ্তম ব্যালন ডি'অর এবং ১৮ ডিসেম্বর ২০২২ কাতারে পরম স্বপ্নপূরণ: ফাইনালে দুই গোল ও বিশ্বকাপ জয়।`,
+    miami: `যোগদানের প্রথম মাসেই লিগস কাপ জয়, অষ্টম ব্যালন ডি'অর, আর্জেন্টিনার হয়ে আরেকটি কোপা আমেরিকা এবং ১,০০০ গোলের দিকে এগিয়ে চলা।`
+  },
+  hi: {
+    rosario: `17 वर्ष की उम्र में अक्टूबर 2004 में एस्पेनयोल के खिलाफ पदार्पण किया। रोनाल्डिन्हो के पास पर अल्बासेटे के खिलाफ पहला सीनियर गोल दागा और 2008 में ओलंपिक स्वर्ण पदक जीता।`,
+    peak: `2009 में छह ट्रॉफियां। लगातार चार बैलन डी'ओर। फिर 2012 में एक ही वर्ष में 91 गोल का ऐतिहासिक विश्व रिकॉर्ड।`,
+    msn: `मेस्सी, सुआरेज़ और नेमार — ऐतिहासिक MSN तिकड़ी जिसने 2015 में बर्लिन में दूसरा ट्रेबल जीतकर इतिहास रचा।`,
+    carry: `2017 में पीएसजी के खिलाफ ऐतिहासिक 6-1 की वापसी, बर्नाब्यू में 10 नंबर जर्सी का ऐतिहासिक उत्सव और 2018 में शानदार प्रदर्शन।`,
+    farewell: `छठा बैलन डी'ओर, 2021 कोपा डेल रे और 21 वर्षों के ऐतिहासिक सफर के बाद बार्सिलोना को भावुक विदाई।`,
+    paris: `पेरिस में दो लीग खिताब, सातवां बैलन डी'ओर और 18 दिसंबर 2022 को कतर में विश्व कप का सपना पूरा, फाइनल में दो गोल किए।`,
+    miami: `आते ही लीग्स कप खिताब, आठवां बैलन डी'ओर, अर्जेंटीना के साथ एक और कोपा अमेरिका और 1,000 आधिकारिक गोलों की ओर अग्रसर।`
+  },
+  ro: {
+    rosario: `La doar 17 ani, tânărul din Rosario debutează contra lui Espanyol în octombrie 2004. Primul gol oficial vine în mai 2005 împotriva lui Albacete, dintr-o pasă a lui Ronaldinho, iar în 2008 cucerește aurul olimpic.`,
+    peak: `Șase trofee în 2009. Patru Baloane de Aur consecutive. Apoi anul 2012: 91 de goluri într-un singur an calendaristic, doborând un record vechi de 40 de ani.`,
+    msn: `Messi, Suárez și Neymar — tridentul legendar MSN cucerește a doua triplă istorică în 2015 la Berlin. O forță ofensivă de neoprit.`,
+    carry: `Remontada istorică 6–1 cu PSG în 2017, celebrarea legendară cu tricoul ridicat pe Bernabéu și o nouă dublă titlu-cupă în 2018.`,
+    farewell: `Al șaselea Balon de Aur, Cupa Regelui din 2021 și emoționanta despărțire de Camp Nou după 21 de ani legendari la Barcelona.`,
+    paris: `Două titluri de campion la Paris, al șaptelea Balon de Aur și gloria supremă în Qatar pe 18 decembrie 2022: Cupa Mondială ridicată deasupra capului cu o dublă în finală.`,
+    miami: `Câștigarea Leagues Cup chiar din prima lună, al optulea Balon de Aur, o nouă Copa América cu Argentina și marșul istoric spre 1.000 de goluri oficiale.`
+  },
+  uz: {
+    rosario: `2004 yil oktyabrida 17 yoshli bola Espanyolga qarshi maydonga tushadi. Keyingi yil may oyida Albacete darvozasiga Ronaldinyo pasidan so'ng ilk golini uradi va 2008 yilda Olimpiada oltin medalini qo'lga kiritadi.`,
+    peak: `2009 yilda oltita sovrin. Ketma-ket to'rtta Oltin to'p. Va 2012 yil: bir yilda 91 ta gol bilan tarixiy jahon rekordi.`,
+    msn: `Messi, Suares va Neymar — afsonaviy MSN triosi 2015 yilda Berlinda ikkinchi tarixiy treblni qo'lga kiritdi.`,
+    carry: `2017 yilda PSJ ustidan 6-1 hisobidagi g'alaba, Bernabeuda 10-raqamli futbolkani ko'rsatib nishonlash va 2018 yilgi oltin dubl.`,
+    farewell: `Oltinchi Oltin to'p, 2021 yilgi Ispaniya kubogi va 21 yillik afsonaviy davrdan so'ng Barselona bilan xayrlashuv.`,
+    paris: `PSJ bilan ikkita liga chempionligi, ettinchi Oltin to'p va 2022 yil 18 dekabrda Qatarda Jahon chempionligi: finalda ikkita gol.`,
+    miami: `Birinchi oydayoq Ligalar Kubogi, sakkizinchi Oltin to'p, Argentina bilan yana bir Amerika Kubogi va 1 000 ta rasmiy gol sari yurish.`
+  }
+};
+
 /* Era openers: short fan-editor intros, one per chapter. Plain prose about
    famous nights — no new numbers, every figure here already lives on this
    site or in the trophy list. */
@@ -3428,9 +3669,13 @@ const ERA_INTRO = {
   "Miami and the road to 1,000":
     `Nobody expected the pink shirt. Then came a trophy in his first month, an eighth Ballon d'Or, another Copa América with Argentina, and a club transformed around him. Now every goal bends the arc toward 1,000 — a number no one has ever reached in official senior football. Stick around; you are watching the last chapter live.`,
 };
-const eraIntro = (era) => ERA_INTRO[era] ? `<p class="chapter-intro">${ERA_INTRO[era]}</p>` : "";
-const eraPhotos = (era) => {
-  const pics = ERA_PHOTOS[era];
+const eraIntro = (key, era) => {
+  const lang = getLang();
+  const intro = (ERA_INTROS[lang] && ERA_INTROS[lang][key]) || ERA_INTRO[era] || ERA_INTRO[key];
+  return intro ? `<p class="chapter-intro">${intro}</p>` : "";
+};
+const eraPhotos = (key, era) => {
+  const pics = ERA_PHOTOS[key] || ERA_PHOTOS[era];
   if (!pics || !pics.length) return "";
   return `<div class="ch-photos${pics.length === 1 ? " solo" : ""}">` + pics.map((p) => {
     return `<figure class="ch-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos}" />` +
@@ -3677,10 +3922,10 @@ function renderTimeline(d) {
     `</ol>`;
   const groups = [];
   d.timeline.forEach((e) => {
-    const { era, range } = eraOf(e.year);
-    let g = groups.find((x) => x.era === era);
+    const { key, era, range } = eraOf(e.year);
+    let g = groups.find((x) => x.key === key);
     if (!g) {
-      g = { era, range, goalsInEra: 0, events: [] };
+      g = { key, era, range, goalsInEra: 0, events: [] };
       groups.push(g);
     }
     g.events.push(e);
@@ -3757,9 +4002,9 @@ function renderTimeline(d) {
       `<div class="ch-goalbar" role="img" aria-label="${esc(c.era)}: ${n(c.goalsInEra)} ${cfg.goals}, ${share} percent of a ${n(totalGoals)}-goal career">` +
       `<span class="ch-goalbar-fill" style="width:${width}%"></span></div>` +
       `<p class="ch-goalnote">${cfg.goalsInEra(c.goalsInEra, share, totalGoals)}</p>` +
-      eraIntro(c.era) +
+      eraIntro(c.key, c.era) +
       calloutFor(c) +
-      eraPhotos(c.era) +
+      eraPhotos(c.key, c.era) +
       `<ol class="tl-events">` + c.events.map((e) => {
         const tag = tagFor(e.event);
         return `<li class="tl-event${tag === (cfg.tagRecord || "Record") ? " rec" : ""}" data-text="${esc((e.year + " " + e.event).toLowerCase())}">` +
@@ -3814,7 +4059,21 @@ function renderTimeline(d) {
   const countEl = el("tl-count");
   const paintCount = (matched) => {
     if (!countEl) return;
-    countEl.textContent = matched === totalEvents ? "" : `${matched} of ${totalEvents} milestones`;
+    if (matched === totalEvents) {
+      countEl.textContent = "";
+      return;
+    }
+    const fmt = {
+      es: `${matched} de ${totalEvents} hitos`,
+      pt: `${matched} de ${totalEvents} marcos`,
+      fr: `${matched} sur ${totalEvents} jalons`,
+      ar: `${matched} من أصل ${totalEvents} محطة`,
+      bn: `${totalEvents}টির মধ্যে ${matched}টি মাইলফলক`,
+      hi: `${totalEvents} में से ${matched} मील के पत्थर`,
+      ro: `${matched} din ${totalEvents} repere`,
+      uz: `${totalEvents} tadan ${matched} ta muhim voqea`
+    };
+    countEl.textContent = fmt[lang] || `${matched} of ${totalEvents} milestones`;
   };
   inp.addEventListener("input", () => {
     const q = inp.value.trim().toLowerCase();
@@ -4175,7 +4434,19 @@ function armEntrance() {
 }
 
 /* Universal clipboard helper with textarea fallback */
-async function copyToClipboard(text, msgEl, successMsg = "Copied to clipboard!") {
+async function copyToClipboard(text, msgEl, successMsg) {
+  const lang = getLang();
+  const defaultMsgs = {
+    es: "¡Copiado al portapapeles!",
+    pt: "Copiado para a área de transferência!",
+    fr: "Copié dans le presse-papier !",
+    ar: "تم النسخ إلى الحافظة!",
+    bn: "ক্লিপবোর্ডে কপি করা হয়েছে!",
+    hi: "क्लिपबोर्ड पर कॉपी किया गया!",
+    ro: "Copiat în clipboard!",
+    uz: "Vaqtinchalik xotiraga nusxalandi!"
+  };
+  const finalMsg = successMsg || defaultMsgs[lang] || "Copied to clipboard!";
   let ok = false;
   try {
     if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -4197,7 +4468,7 @@ async function copyToClipboard(text, msgEl, successMsg = "Copied to clipboard!")
     } catch (_) {}
   }
   if (msgEl) {
-    msgEl.textContent = ok ? successMsg : text;
+    msgEl.textContent = ok ? finalMsg : text;
     clearTimeout(msgEl._timer);
     msgEl._timer = setTimeout(() => { msgEl.textContent = ""; }, 3500);
   }
@@ -4922,7 +5193,17 @@ async function renderBirthday(d) {
           } else if (navigator.clipboard) {
             await navigator.clipboard.writeText(fullShare);
             if (shareMsg) {
-              shareMsg.textContent = "Copied!";
+              const copiedMsgs = {
+                es: "¡Copiado!",
+                pt: "Copiado!",
+                fr: "Copié !",
+                ar: "تم النسخ!",
+                bn: "কপি করা হয়েছে!",
+                hi: "कॉपी किया गया!",
+                ro: "Copiat!",
+                uz: "Nusxalandi!"
+              };
+              shareMsg.textContent = copiedMsgs[lang] || "Copied!";
               setTimeout(() => { shareMsg.textContent = ""; }, 3000);
             }
           }
@@ -4936,7 +5217,17 @@ async function renderBirthday(d) {
         try {
           await navigator.clipboard.writeText(shareUrl);
           if (shareMsg) {
-            shareMsg.textContent = "URL Copied!";
+            const urlCopiedMsgs = {
+              es: "¡Enlace copiado!",
+              pt: "Link copiado!",
+              fr: "Lien copié !",
+              ar: "تم نسخ الرابط!",
+              bn: "লিংক কপি করা হয়েছে!",
+              hi: "लिंक कॉपी किया गया!",
+              ro: "Link copiat!",
+              uz: "Havola nusxalandi!"
+            };
+            shareMsg.textContent = urlCopiedMsgs[lang] || "URL Copied!";
             setTimeout(() => { shareMsg.textContent = ""; }, 3000);
           }
         } catch (_) {}
@@ -5328,10 +5619,22 @@ load().then((d) => {
      boot observer, same pattern as the timeline .tl-reveal wiring. */
   armEntrance();
 }).catch(() => {
+  const lang = getLang();
+  const errorMsgs = {
+    es: "Error al cargar las estadísticas. Comprueba tu conexión y recarga la página.",
+    pt: "Falha ao carregar as estatísticas. Verifique sua conexão e recarregue.",
+    fr: "Échec du chargement des statistiques. Vérifiez votre connexion et actualisez la page.",
+    ar: "فشل تحميل الإحصائيات. يرجى التحقق من اتصالك بالإنترنت وإعادة تحديث الصفحة.",
+    bn: "পরিসংখ্যান লোড করা যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করে পেজ রিফ্রেশ করুন।",
+    hi: "आंकड़े लोड करने में विफल। अपना इंटरनेट कनेक्शन जांचें और पेज रीफ्रेश करें।",
+    ro: "Eroare la încărcarea statisticilor. Verificați conexiunea și reîmprospătați pagina.",
+    uz: "Statistikalarni yuklab bo'lmadi. Internet aloqangizni tekshiring va sahifani yangilang."
+  };
+  const msgText = errorMsgs[lang] || "Stats failed to load. Check your connection and refresh.";
   document.querySelectorAll("main.wrap").forEach((m) => {
     const p = document.createElement("p");
     p.className = "caveat";
-    p.textContent = "Stats failed to load. Check your connection and refresh.";
+    p.textContent = msgText;
     m.prepend(p);
   });
 });
