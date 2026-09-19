@@ -2,8 +2,8 @@ name: Daily Messi Stats Scraper & Auto-Deploy
 
 on:
   schedule:
-    # Runs every 24 hours at 04:00 UTC (midnight EST / post-match evening Americas)
-    - cron: '0 4 * * *'
+    # Runs every 6 hours (00:00, 06:00, 12:00, 18:00 UTC) covering post-match windows
+    - cron: '0 */6 * * *'
   workflow_dispatch: # Allows manual one-click trigger anytime from GitHub Actions tab
 
 permissions:
@@ -36,6 +36,7 @@ jobs:
       - name: Run 24h Scrapers & Auto-Sync
         run: |
           node scripts/auto-sync-matches.mjs
+          node scripts/auto-sync-latest-goal.mjs
           node scripts/source-watch.mjs
 
       - name: Build & Run Verification Audits
@@ -47,9 +48,9 @@ jobs:
         run: |
           git config --global user.name "messistat-bot"
           git config --global user.email "bot@messistat.com"
-          git add public/data/ dist/
+          git add public/data/ dist/ latest-goal.html */latest-goal.html
           if git status --porcelain | grep -q .; then
-            git commit -m "chore(stats): daily 24h automated stat sync"
+            git commit -m "chore(stats): automated Messi stats and latest goal sync"
             git push
             echo "Successfully synced new match data and pushed to origin/main."
           else

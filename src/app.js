@@ -5628,9 +5628,319 @@ async function renderBirthday(d) {
   renderMethod(d, `Every single one of the ${n(d.totals.goals)} senior goals is cross-referenced with exact date, opponent, competition, minute, and scoreline.`);
 }
 
+const LATEST_GOAL_I18N = {
+  en: {
+    goalPrefix: "Goal #",
+    scoreline: "Score",
+    didScoreTodayYes: "YES! Lionel Messi scored today: Goal #{goalNum} in the {minute} against {opp} ({score})!",
+    didScoreTodayNo: "Did Messi score today? Lionel Messi's most recent official fixture took place on {date} in {comp}, where he scored Goal #{goalNum} of his career in the {minute} to seal a {score} victory. Stream the official goal video directly below.",
+    matchResult: "Latest Match Result: {title}",
+    goalBadge: "Goal #{goalNum} Scored ({minute})",
+    playHighlight: "Select any of Lionel Messi's latest goals below to instantly load and watch the video highlight in the player above:",
+    viewDateGoals: "View {formattedDate} Goals →",
+    tagHeader: "Header 🔥",
+    tagFreekick: "Direct Free Kick 🔥",
+    tagPenalty: "Penalty",
+    tagLeftFoot: "Left Foot Strike",
+    tagRightFoot: "Right Foot",
+    tagOpenPlay: "Open play",
+    assist: "Assist"
+  },
+  es: {
+    goalPrefix: "Gol #",
+    scoreline: "Resultado",
+    didScoreTodayYes: "¡SÍ! Lionel Messi anotó hoy: ¡Gol #{goalNum} en el minuto {minute} ante {opp} ({score})!",
+    didScoreTodayNo: "¿Marcó Messi hoy? El partido oficial más reciente de Lionel Messi tuvo lugar el {date} en {comp}, donde anotó el Gol #{goalNum} de su carrera en el minuto {minute} para sellar el triunfo {score}. Mira el vídeo oficial arriba.",
+    matchResult: "Resultado del partido más reciente: {title}",
+    goalBadge: "Gol #{goalNum} marcado ({minute})",
+    playHighlight: "Selecciona cualquiera de los goles recientes de Lionel Messi para reproducir el vídeo al instante:",
+    viewDateGoals: "Ver goles del {formattedDate} →",
+    tagHeader: "Cabezazo 🔥",
+    tagFreekick: "Tiro libre directo 🔥",
+    tagPenalty: "Penal",
+    tagLeftFoot: "Disparo con zurda",
+    tagRightFoot: "Pierna derecha",
+    tagOpenPlay: "Jugada colectiva",
+    assist: "Asistencia"
+  },
+  pt: {
+    goalPrefix: "Gol #",
+    scoreline: "Resultado",
+    didScoreTodayYes: "SIM! Lionel Messi marcou hoje: Gol #{goalNum} aos {minute} contra {opp} ({score})!",
+    didScoreTodayNo: "Messi marcou hoje? A partida oficial mais recente de Lionel Messi ocorreu em {date} na {comp}, onde marcou o Gol #{goalNum} de sua carreira aos {minute} selando a vitória por {score}. Assista ao vídeo oficial acima.",
+    matchResult: "Resultado da partida mais recente: {title}",
+    goalBadge: "Gol #{goalNum} marcado ({minute})",
+    playHighlight: "Selecione qualquer um dos gols recentes de Lionel Messi abaixo para assistir ao vídeo imediatamente:",
+    viewDateGoals: "Ver gols de {formattedDate} →",
+    tagHeader: "Cabeceio 🔥",
+    tagFreekick: "Falta direta 🔥",
+    tagPenalty: "Pênalti",
+    tagLeftFoot: "Chute de canhota",
+    tagRightFoot: "Pé direito",
+    tagOpenPlay: "Bola rolando",
+    assist: "Assistência"
+  },
+  fr: {
+    goalPrefix: "But n°",
+    scoreline: "Score",
+    didScoreTodayYes: "OUI ! Lionel Messi a marqué aujourd'hui : But n°{goalNum} à la {minute} contre {opp} ({score}) !",
+    didScoreTodayNo: "Messi a-t-il marqué aujourd'hui ? Le match officiel le plus récent de Lionel Messi a eu lieu le {date} en {comp}, où il a inscrit le But n°{goalNum} de sa carrière à la {minute} pour sceller la victoire {score}. Visionnez le replay vidéo officiel ci-dessus.",
+    matchResult: "Résultat du match le plus récent : {title}",
+    goalBadge: "But n°{goalNum} inscrit ({minute})",
+    playHighlight: "Sélectionnez l'un des buts récents de Lionel Messi ci-dessous pour lancer immédiatement la vidéo :",
+    viewDateGoals: "Voir les buts du {formattedDate} →",
+    tagHeader: "Tête 🔥",
+    tagFreekick: "Coup franc direct 🔥",
+    tagPenalty: "Penalty",
+    tagLeftFoot: "Frappe du gauche",
+    tagRightFoot: "Pied droit",
+    tagOpenPlay: "Jeu ouvert",
+    assist: "Passe décisive"
+  },
+  ar: {
+    goalPrefix: "الهدف رقم ",
+    scoreline: "النتيجة",
+    didScoreTodayYes: "نعم! ليونيل ميسي سجل اليوم: الهدف رقم {goalNum} في الدقيقة {minute} ضد {opp} ({score})!",
+    didScoreTodayNo: "هل سجل ميسي اليوم؟ أحدث مباراة رسمية خاضها ليونيل ميسي كانت في {date} في {comp}، حيث سجل الهدف رقم {goalNum} في مسيرته في الدقيقة {minute} ليحسم الفوز {score}. شاهد فيديو الهدف الرسمي أعلاه.",
+    matchResult: "أحدث نتيجة مباراة: {title}",
+    goalBadge: "الهدف #{goalNum} مسجل ({minute})",
+    playHighlight: "اختر أي هدف من أحدث أهداف ليونيل ميسي أدناه لتشغيل الفيديو فوراً في المشغل أعلاه:",
+    viewDateGoals: "عرض أهداف {formattedDate} ←",
+    tagHeader: "ضربة رأس 🔥",
+    tagFreekick: "ركلة حرة مباشرة 🔥",
+    tagPenalty: "ركلة جزاء",
+    tagLeftFoot: "تسديدة بالقدم اليسرى",
+    tagRightFoot: "القدم اليمنى",
+    tagOpenPlay: "لعب مفتوح",
+    assist: "صناعة"
+  },
+  bn: {
+    goalPrefix: "গোল #",
+    scoreline: "স্কোরলাইন",
+    didScoreTodayYes: "হ্যাঁ! লিওনেল মেসি আজ গোল করেছেন: {opp}-এর বিপক্ষে {minute} মিনিটে ক্যারিয়ারের {goalNum}তম গোল ({score})!",
+    didScoreTodayNo: "মেসি কি আজ গোল করেছেন? লিওনেল মেসির সাম্প্রতিকতম ম্যাচটি অনুষ্ঠিত হয়েছিল {date}-এ {comp}-এ, যেখানে তিনি {minute} মিনিটে তাঁর ক্যারিয়ারের {goalNum}তম গোল করে {score} ব্যবধানে জয় এনে দেন। নিচে অফিশিয়াল গোল ভিডিওটি উপভোগ করুন।",
+    matchResult: "সর্বশেষ ম্যাচের ফলাফল: {title}",
+    goalBadge: "{goalNum}তম গোল সম্পন্ন ({minute})",
+    playHighlight: "প্লেয়ারের ভিডিও দেখতে নিচে লিওনেল মেসির সাম্প্রতিক গোলগুলি থেকে বেছে নিন:",
+    viewDateGoals: "{formattedDate}-এর গোলগুলি দেখুন →",
+    tagHeader: "হেডার 🔥",
+    tagFreekick: "সরাসরি ফ্রি-কিক 🔥",
+    tagPenalty: "পেনাল্টি",
+    tagLeftFoot: "বাঁ-পায়ের শট",
+    tagRightFoot: "ডান পা",
+    tagOpenPlay: "ওপেন প্লে",
+    assist: "অ্যাসিস্ট"
+  },
+  hi: {
+    goalPrefix: "गोल #",
+    scoreline: "स्कोर",
+    didScoreTodayYes: "हाँ! लियोनेल मेस्सी ने आज गोल किया: {opp} के खिलाफ {minute} मिनट में करियर का {goalNum}वाँ गोल ({score})!",
+    didScoreTodayNo: "क्या मेस्सी ने आज गोल किया? लियोनेल मेस्सी का सबसे हालिया आधिकारिक मैच {date} को {comp} में हुआ था, जहाँ उन्होंने {minute} मिनट में अपने करियर का {goalNum}वाँ गोल दागकर {score} से जीत दर्ज की। नीचे सीधा आधिकारिक वीडियो रीप्ले देखें।",
+    matchResult: "नवीनतम मैच का परिणाम: {title}",
+    goalBadge: "गोल #{goalNum} दर्ज ({minute})",
+    playHighlight: "ऊपर प्लेयर में वीडियो देखने के लिए नीचे लियोनेल मेस्सी के हालिया गोल में से चुनें:",
+    viewDateGoals: "{formattedDate} के गोल देखें →",
+    tagHeader: "हेडर 🔥",
+    tagFreekick: "सीधा फ्री किक 🔥",
+    tagPenalty: "पेनल्टी",
+    tagLeftFoot: "बाएं पैर का शॉट",
+    tagRightFoot: "दायां पैर",
+    tagOpenPlay: "ओपन प्ले",
+    assist: "असिस्ट"
+  },
+  ro: {
+    goalPrefix: "Golul #",
+    scoreline: "Scor",
+    didScoreTodayYes: "DA! Lionel Messi a marcat astăzi: Golul #{goalNum} în minutul {minute} împotriva {opp} ({score})!",
+    didScoreTodayNo: "A marcat Messi azi? Cel mai recent meci oficial al lui Lionel Messi a avut loc pe {date} în {comp}, unde a marcat Golul #{goalNum} al carierei în minutul {minute} pentru victoria cu {score}. Urmăriți reluarea video oficială mai sus.",
+    matchResult: "Rezultatul celui mai recent meci: {title}",
+    goalBadge: "Golul #{goalNum} marcat ({minute})",
+    playHighlight: "Selectați oricare dintre golurile recente ale lui Lionel Messi de mai jos pentru a urmări clipul video în player:",
+    viewDateGoals: "Vezi golurile din {formattedDate} →",
+    tagHeader: "Lovitură de cap 🔥",
+    tagFreekick: "Lovitură liberă directă 🔥",
+    tagPenalty: "Penalty",
+    tagLeftFoot: "Șut cu piciorul stâng",
+    tagRightFoot: "Piciorul drept",
+    tagOpenPlay: "Acțiune de joc",
+    assist: "Pasă decisivă"
+  },
+  uz: {
+    goalPrefix: "-gol",
+    scoreline: "Hisob",
+    didScoreTodayYes: "HA! Lionel Messi bugun gol urdi: {opp}ga qarshi {minute}-daqiqada faoliyatidagi {goalNum}-golini kiritdi ({score})!",
+    didScoreTodayNo: "Messi bugun gol urdimi? Lionel Messining eng soʻnggi rasmiy oʻyini {date} kuni {comp} doirasida boʻlib oʻtdi va u {minute}-daqiqada faoliyatidagi {goalNum}-golini urib jamoasining {score} hisobidagi gʻalabasini taʼminladi. Rasmiy gol videosini yuqorida tomosha qiling.",
+    matchResult: "Eng soʻnggi oʻyin natijasi: {title}",
+    goalBadge: "{goalNum}-gol urildi ({minute})",
+    playHighlight: "Yuqoridagi pleyerda videoni tomosha qilish uchun Lionel Messining soʻnggi gollaridan birini tanlang:",
+    viewDateGoals: "{formattedDate} gollarini koʻrish →",
+    tagHeader: "Bosh bilan 🔥",
+    tagFreekick: "Jarima zarbasi 🔥",
+    tagPenalty: "Penalti",
+    tagLeftFoot: "Chap oyoq zarbasi",
+    tagRightFoot: "Oʻng oyoq",
+    tagOpenPlay: "Ochiq oʻyin",
+    assist: "Uzatma"
+  }
+};
+
+function bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, activeType, activeScore, activeComp, ytBtn, bdayLink) {
+  const goalCards = document.querySelectorAll(".recent-goal-card");
+  goalCards.forEach((card) => {
+    card.onclick = () => {
+      const gid = card.dataset.goalId;
+      const title = card.dataset.title;
+      const meta = card.dataset.meta;
+      const minute = card.dataset.minute;
+      const type = card.dataset.type;
+      const score = card.dataset.score;
+      const comp = card.dataset.comp;
+      const videoUrl = card.dataset.videoUrl;
+      const ytUrl = card.dataset.ytUrl;
+      const bdayUrl = card.dataset.bdayUrl;
+      const goalNum = card.dataset.goalNum;
+
+      goalCards.forEach((c) => c.classList.remove("active"));
+      card.classList.add("active");
+
+      if (video && videoUrl) {
+        video.src = videoUrl;
+        video.load();
+        video.play().catch(() => {});
+      }
+      if (activeNum && goalNum) activeNum.textContent = goalNum;
+      if (activeTitle && title) activeTitle.textContent = title;
+      if (activeMeta && meta) activeMeta.textContent = meta;
+      if (activeMin && minute) activeMin.textContent = minute;
+      if (activeType && type) activeType.textContent = type;
+      if (activeScore && score) activeScore.textContent = score;
+      if (activeComp && comp) activeComp.textContent = comp;
+      if (ytBtn && ytUrl) ytBtn.href = ytUrl;
+      if (bdayLink && bdayUrl) bdayLink.href = bdayUrl;
+
+      trackVideoPlay(gid, title);
+
+      if (window.innerWidth < 768 && video) {
+        video.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    };
+  });
+}
+
+async function autoPullLatestGoalLive(d) {
+  try {
+    let payload = null;
+    try {
+      const res = await fetch("/api/latest-goal", { cache: "no-cache" });
+      if (res.ok) payload = await res.json();
+    } catch (_) {}
+
+    if (!payload) {
+      try {
+        const fallbackRes = await fetch("/data/latest-goal.json", { cache: "no-cache" });
+        if (fallbackRes.ok) payload = await fallbackRes.json();
+      } catch (_) {}
+    }
+
+    if (!payload || !payload.latestGoal) return;
+
+    const lang = getLang();
+    const t = LATEST_GOAL_I18N[lang] || LATEST_GOAL_I18N.en;
+    const g = payload.latestGoal;
+    const ts = payload.todayStatus || {};
+
+    const activeNum = document.getElementById("active-goal-num");
+    const activeTitle = document.getElementById("active-goal-title");
+    const activeMeta = document.getElementById("active-goal-meta");
+    const activeMin = document.getElementById("stat-minute");
+    const activeType = document.getElementById("stat-type");
+    const activeScore = document.getElementById("stat-score");
+    const activeComp = document.getElementById("stat-comp");
+    const video = document.getElementById("latest-goal-video");
+    const ytBtn = document.getElementById("btn-yt-highlights");
+    const bdayLink = document.getElementById("link-bday-goal");
+    const todayCard = document.getElementById("today-status-section");
+
+    const currentNumStr = (activeNum ? activeNum.textContent : "").replace(/\D/g, "");
+    const currentNum = parseInt(currentNumStr, 10) || 929;
+
+    if (g.goalNumber > currentNum) {
+      if (activeNum) activeNum.textContent = lang === "uz" ? `${g.goalNumber}-gol` : `${t.goalPrefix}${g.goalNumber}`;
+      if (activeTitle && g.title) activeTitle.textContent = g.title;
+      if (activeMeta && g.venue) activeMeta.textContent = `${g.competition} • ${g.formattedDate} • ${g.venue}`;
+      if (activeMin && g.minute) activeMin.textContent = g.minute;
+      if (activeType && g.type) activeType.textContent = g.type;
+      if (activeScore && g.score) activeScore.textContent = g.score;
+      if (activeComp && g.competition) activeComp.textContent = g.competition;
+      if (video && g.videoUrl && video.src !== g.videoUrl) {
+        video.src = g.videoUrl;
+        video.load();
+      }
+      if (ytBtn && g.youtubeUrl) ytBtn.href = g.youtubeUrl;
+      if (bdayLink && g.bdayKey) {
+        bdayLink.href = lang === "en" ? `/en/birthday/${g.bdayKey}` : `/${lang}/birthday/${g.bdayKey}`;
+      }
+    }
+
+    if (todayCard && ts.didScoreToday) {
+      const verdictText = todayCard.querySelector(".today-status-verdict span");
+      const verdictBadge = todayCard.querySelector(".badge-video");
+      const descText = todayCard.querySelector(".today-status-desc");
+
+      if (verdictBadge) {
+        verdictBadge.textContent = t.goalBadge.replace("{goalNum}", ts.lastGoalNumber).replace("{minute}", ts.lastGoalMinute);
+      }
+      if (verdictText) {
+        verdictText.textContent = t.matchResult.replace("{title}", ts.lastMatchResult);
+      }
+      if (descText) {
+        descText.innerHTML = `<b>${t.didScoreTodayYes.replace("{goalNum}", ts.lastGoalNumber).replace("{minute}", ts.lastGoalMinute).replace("{opp}", ts.lastMatchOpponent).replace("{score}", ts.lastMatchResult)}</b>`;
+      }
+    }
+
+    if (payload.recentGoals && payload.recentGoals.length > 0) {
+      const grid = document.querySelector(".recent-goals-grid");
+      if (grid) {
+        const firstCardId = parseInt(grid.querySelector(".recent-goal-card")?.dataset?.goalId, 10) || 0;
+        if (payload.recentGoals[0].goalNumber > firstCardId) {
+          grid.innerHTML = payload.recentGoals.map((rg, idx) => {
+            const isActive = idx === 0 ? " active" : "";
+            const goalLabel = lang === "uz" ? `${rg.goalNumber}-gol` : `${t.goalPrefix}${rg.goalNumber}`;
+            const bdayPath = lang === "en" ? (rg.bdayUrl || `/en/birthday/${rg.bdayKey}`) : `/${lang}/birthday/${rg.bdayKey || "09-17"}`;
+            return `
+              <div class="recent-goal-card${isActive}" data-goal-id="${rg.goalNumber}"
+                   data-goal-num="${goalLabel}"
+                   data-title="${rg.title}"
+                   data-meta="${rg.meta}"
+                   data-minute="${rg.minute}"
+                   data-type="${rg.type}"
+                   data-score="${rg.score}"
+                   data-comp="${rg.comp}"
+                   data-video-url="${rg.videoUrl}"
+                   data-yt-url="${rg.ytUrl}"
+                   data-bday-url="${bdayPath}">
+                <div class="recent-goal-card-top">
+                  <span class="recent-goal-card-num">${goalLabel}</span>
+                  <svg class="recent-goal-play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <div class="recent-goal-card-match">${rg.match}</div>
+                <div class="recent-goal-card-date">${rg.date}</div>
+                <span class="recent-goal-card-tag">${rg.tag || "Goal 🔥"}</span>
+              </div>
+            `;
+          }).join("");
+
+          bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, activeType, activeScore, activeComp, ytBtn, bdayLink);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("autoPullLatestGoalLive warning:", err);
+  }
+}
+
 function renderLatestGoal(d) {
   const video = document.getElementById("latest-goal-video");
-  const goalCards = document.querySelectorAll(".recent-goal-card");
   const activeNum = document.getElementById("active-goal-num");
   const activeTitle = document.getElementById("active-goal-title");
   const activeMeta = document.getElementById("active-goal-meta");
@@ -5671,46 +5981,8 @@ function renderLatestGoal(d) {
     });
   }
 
-  goalCards.forEach((card) => {
-    card.addEventListener("click", () => {
-      const gid = card.dataset.goalId;
-      const title = card.dataset.title;
-      const meta = card.dataset.meta;
-      const minute = card.dataset.minute;
-      const type = card.dataset.type;
-      const score = card.dataset.score;
-      const comp = card.dataset.comp;
-      const videoUrl = card.dataset.videoUrl;
-      const ytUrl = card.dataset.ytUrl;
-      const bdayUrl = card.dataset.bdayUrl;
-      const goalNum = card.dataset.goalNum;
-
-      goalCards.forEach((c) => c.classList.remove("active"));
-      card.classList.add("active");
-
-      if (video && videoUrl) {
-        video.src = videoUrl;
-        video.load();
-        video.play().catch(() => {});
-      }
-      if (activeNum && goalNum) activeNum.textContent = goalNum;
-      if (activeTitle && title) activeTitle.textContent = title;
-      if (activeMeta && meta) activeMeta.textContent = meta;
-      if (activeMin && minute) activeMin.textContent = minute;
-      if (activeType && type) activeType.textContent = type;
-      if (activeScore && score) activeScore.textContent = score;
-      if (activeComp && comp) activeComp.textContent = comp;
-      if (ytBtn && ytUrl) ytBtn.href = ytUrl;
-      if (bdayLink && bdayUrl) bdayLink.href = bdayUrl;
-
-      trackVideoPlay(gid, title);
-
-      if (window.innerWidth < 768 && video) {
-        video.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    });
-  });
-
+  bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, activeType, activeScore, activeComp, ytBtn, bdayLink);
+  autoPullLatestGoalLive(d);
   renderExplore(d, "latest-goal");
 }
 

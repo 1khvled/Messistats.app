@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
+import { autoPullLatestGoal } from "./auto-sync-latest-goal.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = resolve(root, "public", "data", "messi-data.json");
@@ -330,6 +331,12 @@ export async function runAutoSync() {
     if (!isDryRun) {
       writeFileSync(lastCheckPath, JSON.stringify(lastCheck, null, 2), "utf8");
     }
+  }
+
+  try {
+    await autoPullLatestGoal();
+  } catch (err) {
+    console.warn("autoPullLatestGoal warning inside auto-sync-matches:", err.message);
   }
 
   return { newGoals: totalNewGoals, newApps: totalNewApps, finalGoals: d.totals.combined.goals };
