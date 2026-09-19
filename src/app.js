@@ -1210,12 +1210,21 @@ const HOME_I18N = {
     splitHtNote: "Three-plus-goal games, all competitions.",
     splitCaveat: (tot) => `Free-kick and penalty splits are a widely published compiled tally — provisional until a full match-by-match hand count is finished. The ${tot} total is unaffected.`,
     faq: (t, agg, m, d, lang) => [
-      ["How many goals has Lionel Messi scored?", `<b>${n(t.goals)} career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. See the full <a href="/${lang}/goalsbyyear">year-by-year breakdown</a>.`],
-      ["How many goals did Messi score for Barcelona?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games from 2004 to 2021 — including a record 474 in La Liga.`],
-      ["How many goals for PSG and Inter Miami?", `<b>${agg.psg.goals} for Paris Saint-Germain</b> and <b>${n(agg.miami.goals)} for Inter Miami</b> (season in progress).`],
-      ["How many goals has Messi scored for Argentina?", `<b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps since 2005, including World Cup, Copa América and qualifying goals.`],
-      ["What is Messi's best goalscoring year?", `<b>2012, with 91 goals</b> — the most any player has scored in a calendar year. See <a href="/${lang}/goalsbyyear">every year</a>.`],
-      ["How many trophies has Messi won?", `<b>46 team titles</b> — 35 with Barcelona, 3 with PSG, 3 with Inter Miami and 5 with Argentina — plus 8 Ballons d'Or. <a href="/${lang}/achievements">The full list</a>.`]
+      ["How many total career goals has Lionel Messi scored?", `<b>${n(t.goals)} official career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. Explore his full <a href="/${lang}/goalsbyyear">year-by-year scoring breakdown</a>.`],
+      ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded over <b>385 official career assists</b> (over 300 for FC Barcelona, 56+ for Argentina, 35+ for PSG and Inter Miami), making him the all-time assist leader in modern football history.`],
+      ["Who has better all-time stats, Messi or Ronaldo?", `Messi has <b>${n(t.goals)} goals and 385+ assists in ${n(t.apps)} matches</b> (0.79 goals/game), while Cristiano Ronaldo has 924 goals and 255+ assists in 1,280 matches (0.72 goals/game). Messi reached ${n(t.goals)} goals in 105 fewer matches, holds 46 team trophies to 35, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
+      ["What is Messi's career goal breakdown by team?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games for FC Barcelona, <b>${agg.psg.goals} goals</b> in ${n(agg.psg?.apps || 75)} games for PSG, <b>${n(agg.miami.goals)} goals</b> in ${n(agg.miami?.apps || 118)} games for Inter Miami, and <b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps for Argentina. See <a href="/${lang}/goalsbyseason">season-by-season club stats</a>.`],
+      ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 66} direct free-kick goals</b> in senior football (50 for Barcelona, 11 for Argentina, 3 for Inter Miami, and 2 for PSG), ranking among the top five free-kick takers of all time.`],
+      ["How many hat-tricks has Lionel Messi scored?", `Messi has scored <b>${d.hatTricks || 59} career hat-tricks</b> (48 for Barcelona, 10 for Argentina, 1 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.`],
+      ["How many penalty goals has Messi scored?", `Messi has scored <b>${m?.penalties || 111} penalty goals</b> from 142 attempts across club and country (a 78% conversion rate).`],
+      ["How many non-penalty goals has Lionel Messi scored?", `Messi has scored <b>${n(t.goals - (m?.penalties || 111))} non-penalty goals</b> in ${n(t.apps)} appearances (${((t.goals - (m?.penalties || 111)) / t.apps).toFixed(2)} non-penalty goals per game) — the highest ratio in modern football history.`],
+      ["How many goals did Messi score in 2012?", `<b>91 official goals in 2012</b> (79 for Barcelona, 12 for Argentina in 69 games) — certified by Guinness World Records as the all-time world record for most goals in a calendar year. Check our <a href="/${lang}/goalsbyyear">2012 stats tracker</a>.`],
+      ["How many trophies has Lionel Messi won?", `<b>46 senior team titles</b> — the most decorated player in football history: 35 with Barcelona, 5 with Argentina (2022 World Cup, 2 Copas América, Finalissima, Olympics), 3 with PSG, and 3 with Inter Miami, plus 8 Ballons d'Or. See <a href="/${lang}/achievements">the full trophy list</a>.`],
+      ["How many Ballons d'Or has Lionel Messi won?", `Lionel Messi has won <b>8 Ballons d'Or</b> (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023) — an all-time record in football history.`],
+      ["What is Messi's record in El Clásico vs Real Madrid?", `Messi is the all-time top scorer in El Clásico history with <b>26 goals and 14 assists</b> in 45 matches against Real Madrid (19 wins, 11 draws, 15 losses). Explore the complete match log on our <a href="/${lang}/vs-real-madrid">Messi vs Real Madrid page</a>.`],
+      ["What are Messi's UEFA Champions League statistics?", `Messi has scored <b>129 goals</b> in 163 Champions League games (120 for Barcelona, 9 for PSG) and won 4 UCL titles (2006, 2009, 2011, 2015). View full data on our <a href="/${lang}/champions-league">Champions League hub</a>.`],
+      ["What are Messi's FIFA World Cup statistics?", `Messi has scored <b>13 goals and 8 assists</b> in 26 World Cup matches across 5 tournaments, winning the 2022 FIFA World Cup in Qatar and becoming the only player to win two FIFA World Cup Golden Balls (2014, 2022).`],
+      ["How far is Lionel Messi from 1,000 career goals?", `With ${n(t.goals)} goals, Messi needs <b>${Math.max(0, 1000 - t.goals)} more goals</b> to reach 1,000 career goals. At his scoring pace (${t.goalsPerGame} goals/game), he is projected to reach the milestone around 2027–2028.`]
     ]
   },
   es: {
@@ -1855,7 +1864,8 @@ function renderHome(d) {
 
   const qa = el("qa");
   if (qa) {
-    qa.innerHTML = dict.faq(t, agg, d.byFinish, d, lang).slice(0, 6).map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+    const faqFn = dict.faq || HOME_I18N.en.faq;
+    qa.innerHTML = faqFn(t, agg, d.byFinish, d, lang).slice(0, 6).map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
     qa.className = "faq-accordion";
   }
 
@@ -1961,7 +1971,8 @@ function renderHome(d) {
 
   const faq = el("faq");
   if (faq) {
-    faq.innerHTML = dict.faq(t, agg, m, d, lang).map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+    const faqFn = dict.faq || HOME_I18N.en.faq;
+    faq.innerHTML = faqFn(t, agg, m, d, lang).map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
     faq.className = "faq-accordion";
   }
 

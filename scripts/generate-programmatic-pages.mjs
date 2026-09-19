@@ -43,13 +43,13 @@ for (const key of keys) {
   let metaDesc = "";
 
   if (goalsCount > 0) {
-    pageTitle = `Did Messi Score on ${formatted}? (${goalsCount} Goals & Video Clips) | MessiStats`;
+    pageTitle = `Did Messi Score on ${formatted}? (${goalsCount} Goals & Video Clips) | MessiStat`;
     metaDesc = `Did Lionel Messi score on ${formatted}? Lionel Messi scored ${goalsCount} goals on ${formatted} across his 929-goal career. Watch match highlights, goal videos, and stats.`;
   } else if (isMessiBday) {
-    pageTitle = `Did Messi Score on His Birthday (24 June)? | MessiStats`;
+    pageTitle = `Did Messi Score on His Birthday (24 June)? | MessiStat`;
     metaDesc = `Did Lionel Messi ever score on his own birthday (24 June)? Explore Leo Messi's 929 senior goals and why he never played on 24 June.`;
   } else {
-    pageTitle = `Did Messi Score on ${formatted}? 366-Day Goal Explorer | MessiStats`;
+    pageTitle = `Did Messi Score on ${formatted}? 366-Day Goal Explorer | MessiStat`;
     metaDesc = `Did Lionel Messi score on ${formatted}? Search all 366 calendar days across Messi's 929 career goals with video highlights and match reports.`;
   }
 
