@@ -183,14 +183,83 @@ const enImages = {
     </image:image>`
 };
 
+const videoMeta = {
+  en: {
+    title: "Lionel Messi Last Goal Video: Goal #929 vs Cruz Azul",
+    desc: "Watch Lionel Messi's Goal #929: clinical header for Inter Miami vs Cruz Azul in the 2026 Campeones Cup Final to lift his 46th career trophy.",
+    tags: ["Lionel Messi", "Inter Miami", "Goal 929", "Campeones Cup", "Messi Last Goal"]
+  },
+  es: {
+    title: "Último Gol de Lionel Messi: Gol #929 contra Cruz Azul",
+    desc: "Mira el gol #929 de Lionel Messi: cabezazo clínico con Inter Miami contra Cruz Azul en la final de la Campeones Cup 2026 para levantar su título número 46.",
+    tags: ["Lionel Messi", "Inter Miami", "Gol 929", "Campeones Cup", "Último gol de Messi"]
+  },
+  pt: {
+    title: "Último Gol de Lionel Messi: Gol #929 contra Cruz Azul",
+    desc: "Veja o gol #929 de Lionel Messi: cabeceio clínico pelo Inter Miami contra o Cruz Azul na final da Campeones Cup 2026 conquistando seu 46º troféu.",
+    tags: ["Lionel Messi", "Inter Miami", "Gol 929", "Campeones Cup", "Último gol do Messi"]
+  },
+  fr: {
+    title: "Dernier But de Lionel Messi : But #929 contre Cruz Azul",
+    desc: "Regardez le 929e but de Lionel Messi : tête clinique pour l'Inter Miami contre Cruz Azul en finale de la Campeones Cup 2026 pour soulever son 46e trophée.",
+    tags: ["Lionel Messi", "Inter Miami", "But 929", "Campeones Cup", "Dernier but de Messi"]
+  },
+  ar: {
+    title: "فيديو آخر هدف لليونيل ميسي: الهدف 929 ضد كروز أزول",
+    desc: "شاهد هدف ليونيل ميسي رقم 929: رأسية متقنة لإنتر ميامي ضد كروز أزول في نهائي كأس الأبطال 2026 ليتوج بلقبه الـ 46 في مسيرته.",
+    tags: ["ليونيل ميسي", "إنتر ميامي", "الهدف 929", "كأس الأبطال", "آخر هدف لميسي"]
+  },
+  bn: {
+    title: "লিওনেল মেসির সর্বশেষ গোল ভিডিও: ক্রুজ আজুলের বিরুদ্ধে ৯২৯তম গোল",
+    desc: "লিওনেল মেসির ক্যারিয়ারের ৯২৯তম গোল দেখুন: ২০২৬ ক্যাম্পিওনেস কাপ ফাইনালে ইন্টার মায়ামির হয়ে হেডে গোল করে ক্যারিয়ারের ৪৬তম ট্রফি জয়।",
+    tags: ["লিওনেল মেসি", "ইন্টার মায়ামি", "গোল ৯২৯", "ক্যাম্পিওনেস কাপ", "মেসির শেষ গোল"]
+  },
+  hi: {
+    title: "लियोनेल मेसी का आखिरी गोल वीडियो: क्रूज़ अज़ुल के खिलाफ 929वां गोल",
+    desc: "लियोनेल मेसी का 929वां करियर गोल देखें: 2026 कैंपियोनेस कप फाइनल में इंटर मियामी के लिए हेडर से शानदार गोल और 46वां करियर खिताब।",
+    tags: ["लियोनेल मेसी", "इंटर मियामी", "गोल 929", "कैंपियोनेस कप", "मेसी का आखिरी गोल"]
+  },
+  ro: {
+    title: "Ultimul Gol al lui Lionel Messi: Golul #929 împotriva Cruz Azul",
+    desc: "Urmărește golul #929 al lui Lionel Messi: lovitură de cap pentru Inter Miami împotriva Cruz Azul în finala Campeones Cup 2026, ridicând al 46-lea său trofeu.",
+    tags: ["Lionel Messi", "Inter Miami", "Gol 929", "Campeones Cup", "Ultimul gol Messi"]
+  },
+  uz: {
+    title: "Lionel Messining so'nggi goli: Cruz Azulga qarshi 929-gol",
+    desc: "Lionel Messining 929-golini tomosha qiling: 2026 Campeones Cup finalida Inter Mayami safida bosh bilan urilgan gol va 46-sovrin.",
+    tags: ["Lionel Messi", "Inter Mayami", "Gol 929", "Campeones Cup", "Messining oxirgi goli"]
+  }
+};
+
+function getVideoXml(lang) {
+  const v = videoMeta[lang];
+  if (!v) return "";
+  const tagLines = v.tags.map(t => `      <video:tag>${t}</video:tag>`).join("\n");
+  const playerUrl = lang === "en" ? "https://www.messistat.com/en/latest-goal" : `https://www.messistat.com/${lang}/latest-goal`;
+  return `    <video:video>
+      <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
+      <video:title>${v.title}</video:title>
+      <video:description>${v.desc}</video:description>
+      <video:content_loc>https://cdn.messiallgoals.com/Goal929.mp4</video:content_loc>
+      <video:player_loc>${playerUrl}</video:player_loc>
+      <video:duration>35</video:duration>
+      <video:publication_date>2026-09-17T21:15:00Z</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+${tagLines}
+      <video:category>Sports</video:category>
+      <video:uploader info="https://www.messistat.com">MessiStats Official</video:uploader>
+    </video:video>`;
+}
+
 for (const sub of SUBPAGES) {
   const imgXml = enImages[sub.slug] ? `\n${enImages[sub.slug]}` : "";
+  const vidXml = sub.slug === "latest-goal" ? `\n${getVideoXml("en")}` : "";
   urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/en/${sub.slug}</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>${sub.changefreq}</changefreq>
     <priority>${sub.priority}</priority>
-${getHreflangsXml("/" + sub.slug)}${imgXml}
+${getHreflangsXml("/" + sub.slug)}${imgXml}${vidXml}
   </url>`);
 }
 
@@ -256,12 +325,13 @@ ${getHreflangsXml("")}
 
   // 8 Subpages
   for (const sub of SUBPAGES) {
+    const vidXml = sub.slug === "latest-goal" ? `\n${getVideoXml(lang)}` : "";
     urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/${lang}/${sub.slug}</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>${sub.changefreq}</changefreq>
     <priority>${sub.priority}</priority>
-${getHreflangsXml("/" + sub.slug)}
+${getHreflangsXml("/" + sub.slug)}${vidXml}
   </url>`);
   }
 }
@@ -285,7 +355,8 @@ if (fs.existsSync(dataPath)) {
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 ${urlBlocks.join("\n")}
 </urlset>
 `;

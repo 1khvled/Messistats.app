@@ -5765,5 +5765,161 @@ html[dir="rtl"] .recent-goal-card-tag {
   align-self: flex-end;
 }
 
+/* Comparison Table & Milestones */
+.recent-goals-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+  margin: 20px 0 36px 0;
+  box-shadow: var(--shadow-sm);
+}
+.recent-goals-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+html[dir="rtl"] .recent-goals-table {
+  text-align: right;
+}
+.recent-goals-table th {
+  background: var(--surface-solid);
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+.recent-goals-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: middle;
+}
+.recent-goals-table tr:last-child td {
+  border-bottom: none;
+}
+.recent-goals-table tr:hover td {
+  background: var(--surface-hover, rgba(0,0,0,0.02));
+}
+.table-goal-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  background: rgba(11, 111, 164, 0.1);
+  color: var(--brand);
+}
+.table-play-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--brand);
+  font-weight: 600;
+  text-decoration: none;
+}
+.table-play-link:hover {
+  text-decoration: underline;
+}
+
+/* Milestone Records Grid */
+.milestones-section {
+  margin: 36px 0;
+}
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.milestone-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.milestone-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--brand);
+}
+.milestone-icon {
+  font-size: 1.8rem;
+  line-height: 1;
+}
+.milestone-val {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.milestone-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.milestone-desc {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Next Match Preview Box */
+.next-match-card {
+  background: linear-gradient(135deg, rgba(11, 111, 164, 0.06), rgba(227, 185, 62, 0.08));
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--brand);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 28px 0;
+}
+html[dir="rtl"] .next-match-card {
+  border-left: 1px solid var(--line);
+  border-right: 4px solid var(--brand);
+}
+.next-match-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.next-match-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+.next-match-countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+.next-match-desc {
+  font-size: 0.9rem;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.5;
+}
+
 
 
