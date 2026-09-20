@@ -336,19 +336,24 @@ ${getHreflangsXml("/" + sub.slug)}${vidXml}
   }
 }
 
-// 5. Programmatic Birthday Pages (366 days)
+// 5. Programmatic Birthday Pages (high-value only: days with goals + Messi's birthday)
 const dataPath = path.join(rootDir, "public", "data", "birthday-goals.json");
 if (fs.existsSync(dataPath)) {
   const bdayData = JSON.parse(fs.readFileSync(dataPath, "utf8"));
   const days = bdayData.calendar || bdayData.days || {};
   const keys = Object.keys(days);
   for (const key of keys) {
-    urlBlocks.push(`  <url>
+    const day = days[key];
+    const hasGoals = (day.goalsCount || 0) > 0;
+    const isMessiBday = day.month === 6 && day.day === 24;
+    if (hasGoals || isMessiBday) {
+      urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/en/birthday/${key}</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>`);
+    }
   }
 }
 

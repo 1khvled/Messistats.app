@@ -7,9 +7,9 @@ const rootDir = path.resolve(__dirname, "..");
 
 const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
 
-function getHreflangs(slug) {
+function getHreflangs(lang, slug) {
   return [
-    `  <link rel="canonical" href="https://www.messistat.com/en/${slug}"/>`,
+    `  <link rel="canonical" href="https://www.messistat.com/${lang}/${slug}"/>`,
     `  <link rel="alternate" hreflang="en" href="https://www.messistat.com/en/${slug}"/>`,
     `  <link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/${slug}"/>`,
     `  <link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/${slug}"/>`,
@@ -1661,7 +1661,7 @@ function generateHtml(lang) {
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <title>${t.title}</title>
 <meta name="description" content="${t.desc}"/>
-${getHreflangs("messi-vs-ronaldo")}
+${getHreflangs(lang, "messi-vs-ronaldo")}
 <meta name="keywords" content="${t.keywords}"/>
 <script src="/js/ad-guard.js"></script>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>

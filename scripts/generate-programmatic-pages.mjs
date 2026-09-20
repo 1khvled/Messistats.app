@@ -257,17 +257,22 @@ for (let i = 0; i < keys.length; i++) {
     `<div class="bday-match-list" id="bday-match-list">${matchesHtml}</div>`
   );
 
-  // Write to dist/en/birthday/[key]/index.html
-  const outDir = path.join(distDir, "en", "birthday", key);
-  fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, "index.html"), html, "utf8");
-
-  sitemapUrls.push(`  <url>
+  // For zero-goal dates (thin programmatic content), set noindex, follow and exclude from sitemap
+  if (goalsCount === 0 && !isMessiBday) {
+    html = html.replace(/<meta\s+name="robots"[^>]*>/i, `<meta name="robots" content="noindex, follow"/>`);
+  } else {
+    sitemapUrls.push(`  <url>
     <loc>https://www.messistat.com/en/birthday/${key}</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>`);
+  }
+
+  // Write to dist/en/birthday/[key]/index.html
+  const outDir = path.join(distDir, "en", "birthday", key);
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, "index.html"), html, "utf8");
 }
 
 console.log(`Generated ${keys.length} pages in dist/en/birthday/`);
