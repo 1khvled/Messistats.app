@@ -235,13 +235,11 @@ function getVideoXml(lang) {
   const v = videoMeta[lang];
   if (!v) return "";
   const tagLines = v.tags.map(t => `      <video:tag>${t}</video:tag>`).join("\n");
-  const playerUrl = lang === "en" ? "https://www.messistat.com/en/latest-goal" : `https://www.messistat.com/${lang}/latest-goal`;
   return `    <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
       <video:title>${v.title}</video:title>
       <video:description>${v.desc}</video:description>
       <video:content_loc>https://cdn.messiallgoals.com/Goal929.mp4</video:content_loc>
-      <video:player_loc>${playerUrl}</video:player_loc>
       <video:duration>35</video:duration>
       <video:publication_date>2026-09-17T21:15:00Z</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
