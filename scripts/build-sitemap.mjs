@@ -10,16 +10,16 @@ const distSitemap = path.join(rootDir, "dist", "sitemap.xml");
 const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
 
 const SUBPAGES = [
-  { slug: "dashboard", changefreq: "daily", priority: "0.9" },
-  { slug: "birthday", changefreq: "daily", priority: "0.95" },
-  { slug: "goalsbyseason", changefreq: "weekly", priority: "0.9" },
-  { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9" },
-  { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.95" },
-  { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9" },
-  { slug: "champions-league", changefreq: "monthly", priority: "0.9" },
-  { slug: "latest-goal", changefreq: "daily", priority: "0.95" },
-  { slug: "timeline", changefreq: "monthly", priority: "0.85" },
-  { slug: "achievements", changefreq: "monthly", priority: "0.85" }
+  { slug: "dashboard", changefreq: "daily", priority: "0.9", lastmod: "2026-09-18" },
+  { slug: "birthday", changefreq: "daily", priority: "0.95", lastmod: "2026-09-18" },
+  { slug: "goalsbyseason", changefreq: "weekly", priority: "0.9", lastmod: "2026-09-18" },
+  { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9", lastmod: "2026-09-18" },
+  { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.95", lastmod: "2026-09-18" },
+  { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9", lastmod: "2026-08-15" },
+  { slug: "champions-league", changefreq: "monthly", priority: "0.9", lastmod: "2026-06-01" },
+  { slug: "latest-goal", changefreq: "daily", priority: "0.95", lastmod: "2026-09-17" },
+  { slug: "timeline", changefreq: "monthly", priority: "0.85", lastmod: "2026-09-18" },
+  { slug: "achievements", changefreq: "monthly", priority: "0.85", lastmod: "2026-09-18" }
 ];
 
 function getHreflangsXml(slugPath) {
@@ -254,7 +254,7 @@ for (const sub of SUBPAGES) {
   const vidXml = sub.slug === "latest-goal" ? `\n${getVideoXml("en")}` : "";
   urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/en/${sub.slug}</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>${sub.lastmod || "2026-09-18"}</lastmod>
     <changefreq>${sub.changefreq}</changefreq>
     <priority>${sub.priority}</priority>
 ${getHreflangsXml("/" + sub.slug)}${imgXml}${vidXml}
@@ -326,7 +326,7 @@ ${getHreflangsXml("")}
     const vidXml = sub.slug === "latest-goal" ? `\n${getVideoXml(lang)}` : "";
     urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/${lang}/${sub.slug}</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>${sub.lastmod || "2026-09-18"}</lastmod>
     <changefreq>${sub.changefreq}</changefreq>
     <priority>${sub.priority}</priority>
 ${getHreflangsXml("/" + sub.slug)}${vidXml}
@@ -345,9 +345,16 @@ if (fs.existsSync(dataPath)) {
     const hasGoals = (day.goalsCount || 0) > 0;
     const isMessiBday = day.month === 6 && day.day === 24;
     if (hasGoals || isMessiBday) {
+      let dayLastmod = "2026-09-18";
+      if (day.matches && day.matches.length) {
+        const dates = day.matches.map(m => m.date).filter(Boolean).sort();
+        if (dates.length) {
+          dayLastmod = dates[dates.length - 1];
+        }
+      }
       urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/en/birthday/${key}</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>${dayLastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>`);

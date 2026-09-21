@@ -261,9 +261,16 @@ for (let i = 0; i < keys.length; i++) {
   if (goalsCount === 0 && !isMessiBday) {
     html = html.replace(/<meta\s+name="robots"[^>]*>/i, `<meta name="robots" content="noindex, follow"/>`);
   } else {
+    let dayLastmod = "2026-09-18";
+    if (matches && matches.length) {
+      const dates = matches.map(m => m.date).filter(Boolean).sort();
+      if (dates.length) {
+        dayLastmod = dates[dates.length - 1];
+      }
+    }
     sitemapUrls.push(`  <url>
     <loc>https://www.messistat.com/en/birthday/${key}</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>${dayLastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>`);
