@@ -210,8 +210,14 @@ for (let i = 0; i < keys.length; i++) {
   // In project template, replace meta and title
   let html = template;
 
-  // Title
+  // Title & H1
   html = html.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(pageTitle)}</title>`);
+  const bdayH1 = goalsCount > 0
+    ? `Did Lionel Messi Score on ${formatted}? (${goalsCount} Career ${goalsCount === 1 ? "Goal" : "Goals"})`
+    : isMessiBday
+    ? `Did Lionel Messi Score on His Birthday (24 June)?`
+    : `Did Lionel Messi Score on ${formatted}?`;
+  html = html.replace(/<h1[^>]*>.*?<\/h1>/i, `<h1 class="page-title">${escapeHtml(bdayH1)}</h1>`);
 
   // Canonical & Alternates
   html = html.replace(/<link[^>]*rel="canonical"[^>]*>/i, `<link rel="canonical" href="https://www.messistat.com/en/birthday/${key}"/>`);

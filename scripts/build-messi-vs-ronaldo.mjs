@@ -59,7 +59,7 @@ const I18N = {
     achievementsName: "Achievements",
     skipText: "Skip to content",
     eyebrow: "The Ultimate Rivalry <i></i> <span>Head-to-Head & Complete Career Comparison</span>",
-    h1: "Lionel Messi vs Cristiano Ronaldo",
+    h1: "Lionel Messi vs Cristiano Ronaldo: All-Time Career Head-to-Head Stats",
     lead: "The definitive statistical comparison between the two greatest icons of modern football. All-time goals, non-penalty goals, free kicks, penalties, assists, trophies, individual accolades, and all 36 direct matches.",
     verdictBadge: "THE GOAT VERDICT • COMPLETE OFFICIAL TOTALS",
     verdictTitle: "Who has better all-time career statistics: Messi or Ronaldo?",

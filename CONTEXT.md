@@ -18,6 +18,25 @@
   Verify: npm run build (296 unique lastmod dates, 392 URLs, 929x4 checksums invariant), dist/en/index.html verified with preconnect, sameAs and EEAT links.
 
 
+- 2026-09-21 — antigravity (gemini-3.8-flash) — overhaul H1, H2 and heading hierarchy across all pages (user: fix our H1n H2 and others):
+  1) Keyword-Targeted H1 Optimization: Replaced generic lowercase H1s with authoritative, high-intent title headings across all 11 core page templates:
+     - index.html: "Lionel Messi Career Statistics: All-Time Goals, Assists & Records"
+     - dashboard.html: "Lionel Messi Statistics Dashboard: Career Visualizations & Records"
+     - birthday.html: "Did Lionel Messi Score on Your Birthday? 366-Day Career Goal Explorer"
+     - goalsbyseason.html: "Lionel Messi Goals by Season: Complete Club & International Record"
+     - goalsbyyear.html: "Lionel Messi Goals by Calendar Year: From 2004 to 2026 (91 in 2012)"
+     - timeline.html: "Lionel Messi Career Timeline: Through the Years (2004–2026)"
+     - achievements.html: "Lionel Messi Trophies & Honours: 46 Titles & 8 Ballons d'Or"
+     - messi-vs-ronaldo.html & scripts/build-messi-vs-ronaldo.mjs: "Lionel Messi vs Cristiano Ronaldo: All-Time Career Head-to-Head Stats"
+     - vs-real-madrid.html: "Lionel Messi vs Real Madrid: 26 Goals & 14 Assists in El Clásico"
+     - champions-league.html: "Lionel Messi UEFA Champions League Goals: 129 Goals & 4 Titles"
+     - latest-goal.html: "Lionel Messi Last Goal Video: Goal #929 & Live Match Tracker"
+  2) Programmatic Birthday Pages Query-Specific H1s: Updated scripts/generate-programmatic-pages.mjs to dynamically generate date-specific H1s (e.g. "Did Lionel Messi Score on 2 May? (10 Career Goals)") across all 366 pages instead of static boilerplate.
+  3) Semantic H2 Hierarchy & Entity Disambiguation: Upgraded generic H2s ("Quick answers", "Free kicks, penalties and hat tricks", "Goals for every team") into descriptive, intent-matched headings with proper title capitalization and zero level skipping.
+  Files: index.html, dashboard.html, birthday.html, goalsbyseason.html, goalsbyyear.html, timeline.html, achievements.html, messi-vs-ronaldo.html, vs-real-madrid.html, champions-league.html, latest-goal.html, scripts/build-messi-vs-ronaldo.mjs, scripts/generate-programmatic-pages.mjs, CONTEXT.md.
+  Verify: npm run build (366 pages, 392 sitemap URLs), npm run audit (all dist checks pass).
+
+
 ## Agent Log` with the same data.
 4. **File edits**: use Node `fs.readFileSync`/`writeFileSync utf8` (never PowerShell `Set-Content` — it writes BOM and mangles UTF-8 em dash to mojibake). Always verify with Node: `t.includes('—') && t.charCodeAt(0) !== 0xFEFF`.
 5. **Build gate**: `npm run build` must pass (`prebuild-check` asserts 928x3 sums vs `totals.combined.goals`). `npm run verify` / `npm run audit` when touching data or assets.
@@ -174,3 +193,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-20 | antigravity (gemini-3.8-flash) | fix Google Search indexation, canonicals in 8 languages, exclude 73 zero-goal days from sitemap with noindex | 2420762 | scripts/build-messi-vs-ronaldo.mjs, scripts/build-sitemap.mjs, scripts/generate-programmatic-pages.mjs, public/sitemap.xml, 8 HTML, CONTEXT.md |
 | 2026-09-20 | antigravity (gemini-3.8-flash) | fix GSC video sitemap error (remove redundant player_loc matching loc across 9 languages) | 14842a9 | scripts/build-sitemap.mjs, public/sitemap.xml, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | apply full claude-seo audit fixes (preconnect, E-E-A-T sources, sameAs, sitemap lastmod variance) | 5495be6 | index.html, latest-goal.html, public/sitemap.xml, scripts/build-sitemap.mjs, scripts/generate-programmatic-pages.mjs, CONTEXT.md |
+| 2026-09-21 | antigravity (gemini-3.8-flash) | overhaul H1, H2 & heading hierarchy across all core pages and programmatic generator | 5b7a0e6 | 11 HTML, scripts/build-messi-vs-ronaldo.mjs, scripts/generate-programmatic-pages.mjs, CONTEXT.md |
