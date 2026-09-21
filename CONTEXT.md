@@ -164,6 +164,8 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-21 — antigravity (gemini-3.8-flash) — clean admin heading hierarchy to enforce strict H1->H2->H3 outline across all routes (user: other H numbers? hierchy?): Replaced <h2>Mission Control Access</h2> on admin.html with <div class="admin-login-title"> and updated src/styles.css, ensuring every single page in the application starts its document heading outline with exactly one H1 before any subheadings. Verified site-wide heading hierarchy across all templates: zero skipped heading levels, all pages follow strictly H1 -> H2 -> H3, and exactly 1 H1 per page. Files: admin.html, src/styles.css, CONTEXT.md. Verify: npm run build, npm run audit.
 
+- 2026-09-21 — antigravity (gemini-3.8-flash) — 09b5709 — fix bday-select background chevron repeat bug in dark mode (user: fix this bug): Fixed CSS bug where shorthand `background: var(--card)` in dark theme and `.bday-select` re-declaration reset `background-repeat` to `repeat` and `background-size` to `auto`, causing the 16x16 down-chevron SVG to tile horizontally and vertically across the entire select input in dark mode. Removed `.bday-select` from shorthand dark inputs list, scoped quick select styles to `.bday-quick-inputs .bday-select` without wiping background properties, enforced `background-repeat: no-repeat !important`, `background-position: right 14px center !important`, `background-size: 16px 16px !important`, added `-webkit-appearance` and `-moz-appearance`, added RTL support (`background-position: left 14px center`), and normalized `.bday-quick-inputs` in `es/index.html`. Files: src/styles.css, es/index.html, CONTEXT.md. Verify: npm run build, npm run audit.
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -195,3 +197,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-21 | antigravity (gemini-3.8-flash) | apply full claude-seo audit fixes (preconnect, E-E-A-T sources, sameAs, sitemap lastmod variance) | 5ba3476 | index.html, latest-goal.html, public/sitemap.xml, scripts/build-sitemap.mjs, scripts/generate-programmatic-pages.mjs, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | overhaul H1, H2 & heading hierarchy across all core pages and programmatic generator | eb4d4e0 | 11 HTML, scripts/build-messi-vs-ronaldo.mjs, scripts/generate-programmatic-pages.mjs, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | clean admin heading hierarchy to enforce strict H1->H2->H3 outline | ccb425c | admin.html, src/styles.css, CONTEXT.md |
+| 2026-09-21 | antigravity (gemini-3.8-flash) | fix bday-select background chevron repeat bug in dark mode | 09b5709 | src/styles.css, es/index.html, CONTEXT.md |
