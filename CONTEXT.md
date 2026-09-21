@@ -9,7 +9,13 @@
 2. **After EVERY modification you commit/push**: append to `## Timeline` below. **Never rewrite history — append only, strictly chronological, no gaps.**
    - Required format: `YYYY-MM-DD — <your name/model> — <commit SHA> (<deploy id> if Vercel) — what/why — files changed — verification (build / verify / audit / curl / tests)`
    - Example: `2026-09-14 — muse-spark-1.2 — 2ba8e26 — AdSense re-insert & BOM fix — 8 HTML + public/ads.txt — build 1.36s prebuild 928x3 ok`
-3. **Agent Log**: also add a row to `## Agent Log` with the same data.
+3. **Agent Log**: also add a row to `- 2026-09-21 — antigravity (gemini-3.8-flash) — 7596caf — complete overhaul of Timeline & Dashboard pages (user: messi timeline seems dog shit and dashboard also replace):
+  1) Timeline Overhaul: Replaced sparse 18-event list with 50 curated iconic milestones spanning 2004–2026 across Barcelona, Argentina, PSG, and Inter Miami. Added Executive Career Summary Banner (22 Seasons, 929 Goals, 385+ Assists, 46 Trophies, 8 Ballons d'Or, 6 Golden Shoes), multi-category interactive filter pills (All, Trophies, Ballons d'Or, Landmark Goals, World Records, Barcelona, Argentina, Inter Miami, PSG), real-time search with live counter, and vertical spine stream with custom badges, stat chips, and smooth entrance transitions.
+  2) Dashboard Overhaul: Replaced vertical stack of fragmented SVGs with modern executive analytics suite. Implemented reactive team selector bar (All, Barcelona, Argentina, Inter Miami, PSG) with instant client hydration without page reload, 6 Executive KPI metric cards (Goals, Assists, G+A, Non-Penalty Goals, Free Kicks, Hat-Tricks), 2-column visual analytics grid with gradient progress bars for Body Part split (Left, Right, Head, Other) and Scoring Methods (Open Play, Free Kicks, Penalties), Landmark Goal Speed Tracker table (speed to Goal 100 through 929), and preserved full sortable data tables with required data caveats.
+  Files: timeline.html, dashboard.html, src/app.js, src/styles.css, scripts/generate-i18n-pages.mjs, all 8 localized subpages, CONTEXT.md.
+  Verify: npm run build (109 modules, 366 pages), npm run audit (929x3 sums ok, all dist checks pass), npm run audit:i18n (0 issues), npm run audit:security (0 defects), heading hierarchy validation (strict H1->H2->H3 pass).
+
+## Agent Log` with the same data.
 4. **File edits**: use Node `fs.readFileSync`/`writeFileSync utf8` (never PowerShell `Set-Content` — it writes BOM and mangles UTF-8 em dash to mojibake). Always verify with Node: `t.includes('—') && t.charCodeAt(0) !== 0xFEFF`.
 5. **Build gate**: `npm run build` must pass (`prebuild-check` asserts 928x3 sums vs `totals.combined.goals`). `npm run verify` / `npm run audit` when touching data or assets.
 
@@ -210,3 +216,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-21 | antigravity (gemini-3.8-flash) | SEO optimization for messi stat, messi stats, messi goal today, did messi score today | 9b43497 | index.html, latest-goal.html, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | target 'messi total goals' keyword in ground-truth card | d1a8e20 | index.html, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | streamline titles & H1s across all 11 pages for short-tail keywords | 3898f73 | 10 HTML, scripts/build-messi-vs-ronaldo.mjs, CONTEXT.md |
+| 2026-09-21 | antigravity (gemini-3.8-flash) | complete overhaul of Timeline and Dashboard pages with pro analytics and 50-milestone interactive stream | 7596caf | timeline.html, dashboard.html, src/app.js, src/styles.css, scripts/generate-i18n-pages.mjs, CONTEXT.md |

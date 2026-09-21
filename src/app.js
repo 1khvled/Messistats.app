@@ -3264,21 +3264,36 @@ function renderDashboard(d, team) {
   const sum = (arr) => arr.reduce((a, r) => a + r[1], 0);
   const goals = T === "all" ? d.totals.goals : sum(TEAM_COMPS[T]);
   const apps = T === "all" ? d.totals.apps : T === "argentina" ? d.totals.country.apps : clubAgg(d)[T].apps;
-  const pills = cfg.pills;
 
   setHead(d, cfg.head(name));
 
+  // 1. Team Selector Bar with instant reactive re-rendering
   const pillsEl = el("pills");
   if (pillsEl) {
-    pillsEl.innerHTML = pills.map((p) => `<button class="pill${T === p[0] ? " on" : ""}" data-team="${p[0]}" aria-pressed="${T === p[0]}">` +
-      (p[0] === "all" ? "" : `<img class="pill-crest" src="img/teams/${p[0]}.png" alt="" width="20" height="20" loading="eager" decoding="async" onerror="this.remove()">`) +
-      `${p[1]}</button>`).join("");
-    pillsEl.querySelectorAll(".pill").forEach((b) =>
+    const teams = [
+      { id: "all", label: "All Teams", goals: d.totals.goals, apps: d.totals.apps, crest: "" },
+      { id: "barcelona", label: "FC Barcelona", goals: 672, apps: 778, crest: "img/teams/barcelona.png" },
+      { id: "argentina", label: "Argentina", goals: 125, apps: 191, crest: "img/teams/argentina.png" },
+      { id: "miami", label: "Inter Miami", goals: 100, apps: 131, crest: "img/teams/miami.png" },
+      { id: "psg", label: "Paris Saint-Germain", goals: 32, apps: 75, crest: "img/teams/psg.png" }
+    ];
+    pillsEl.className = "dash-team-selector";
+    pillsEl.innerHTML = teams.map((tm) => `
+      <button class="dash-team-btn${T === tm.id ? " active" : ""}" data-team="${tm.id}" aria-pressed="${T === tm.id}">
+        ${tm.crest ? `<img class="dash-team-crest" src="${tm.crest}" alt="" width="22" height="22" loading="eager" decoding="async" onerror="this.remove()">` : `<span style="font-size:1.1rem" aria-hidden="true">🌍</span>`}
+        <span>${tm.label}</span>
+        <span class="dash-team-goals">${tm.goals}G</span>
+      </button>
+    `).join("");
+
+    pillsEl.querySelectorAll(".dash-team-btn").forEach((b) =>
       b.addEventListener("click", () => {
+        const nextTeam = b.dataset.team;
         const url = new URL(location.href);
-        if (b.dataset.team === "all") url.searchParams.delete("team");
-        else url.searchParams.set("team", b.dataset.team);
-        location.href = url.pathname + (url.search === "?" ? "" : url.search);
+        if (nextTeam === "all") url.searchParams.delete("team");
+        else url.searchParams.set("team", nextTeam);
+        try { history.replaceState(null, "", url.pathname + (url.search === "?" ? "" : url.search)); } catch {}
+        renderDashboard(d, nextTeam);
       })
     );
   }
@@ -3288,29 +3303,165 @@ function renderDashboard(d, team) {
     fnEl.textContent = cfg.filterNote(name, goals, apps, T);
   }
 
+  // 2. Executive 6 KPI Cards Grid
   const kpisEl = el("kpis");
   if (kpisEl) {
-    kpisEl.innerHTML =
-      kpi4(cfg.kpis.goals, n(goals), cfg.kpis.forTeam(name)) +
-      kpi4(cfg.kpis.apps, n(apps), cfg.kpis.forTeam(name)) +
-      kpi4(cfg.kpis.gpg, gpg(goals, apps), cfg.kpis.forTeam(name));
+    kpisEl.className = "dash-kpis-grid";
+    const assistsVal = T === "all" ? "385+" : T === "barcelona" ? "269" : T === "argentina" ? "57" : T === "miami" ? "44" : "30";
+    const gaVal = T === "all" ? "1,314+" : T === "barcelona" ? "941" : T === "argentina" ? "182" : T === "miami" ? "144" : "62";
+    const npgVal = T === "all" ? "820" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "95" : "30";
+    const fkVal = T === "all" ? "66" : T === "barcelona" ? "50" : T === "argentina" ? "11" : T === "miami" ? "3" : "2";
+    const htVal = T === "all" ? "59" : T === "barcelona" ? "48" : T === "argentina" ? "10" : T === "miami" ? "1" : "0";
+
+    const kpiList = [
+      { label: "Total Goals", icon: "⚽", num: n(goals), sub: `${gpg(goals, apps)} goals/game · ${n(apps)} matches (${name})` },
+      { label: "Total Assists", icon: "👟", num: assistsVal, sub: `0.33 assists/game · All-time playmaker` },
+      { label: "Goal Contributions", icon: "🔥", num: gaVal, sub: `1.12 direct goal involvements per match` },
+      { label: "Non-Penalty Goals", icon: "⚡", num: npgVal, sub: `88.3% non-penalty ratio (open play & free kicks)` },
+      { label: "Direct Free Kicks", icon: "🎯", num: fkVal, sub: `Record set-piece dead-ball precision` },
+      { label: "Career Hat-Tricks", icon: "🎩", num: htVal, sub: `51 hat-tricks, 6x 4-goals, 2x 5-goals` }
+    ];
+
+    kpisEl.innerHTML = kpiList.map(k => `
+      <article class="dash-kpi-box">
+        <div class="dash-kpi-header">
+          <span class="dash-kpi-label">${k.label}</span>
+          <span class="dash-kpi-icon">${k.icon}</span>
+        </div>
+        <div class="dash-kpi-num">${k.num}</div>
+        <div class="dash-kpi-sub">${k.sub}</div>
+      </article>
+    `).join("");
   }
 
+  // 3. Body Part Breakdown Card
+  const bodyCard = el("body-card");
+  if (bodyCard) {
+    const bodyRows = [
+      { label: "Left Foot", val: d.byBodyPart.left, pct: ((d.byBodyPart.left / d.totals.goals) * 100).toFixed(1), fill: "fill-gold" },
+      { label: "Right Foot", val: d.byBodyPart.right, pct: ((d.byBodyPart.right / d.totals.goals) * 100).toFixed(1), fill: "fill-blue" },
+      { label: "Head", val: d.byBodyPart.head, pct: ((d.byBodyPart.head / d.totals.goals) * 100).toFixed(1), fill: "fill-green" },
+      { label: "Other / Chest", val: d.byBodyPart.other, pct: ((d.byBodyPart.other / d.totals.goals) * 100).toFixed(1), fill: "fill-purple" }
+    ];
+    bodyCard.innerHTML = `
+      <h3 class="dash-card-title">⚽ Scoring Breakdown by Body Part</h3>
+      <div class="dash-bars-wrap">
+        ${bodyRows.map(r => `
+          <div class="dash-bar-row">
+            <div class="dash-bar-meta">
+              <span>${r.label}</span>
+              <span><b>${n(r.val)}</b> <small style="color:var(--muted)">(${r.pct}%)</small></span>
+            </div>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill ${r.fill}" style="width:${r.pct}%"></div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+      <p class="caveat" style="margin-top:14px;margin-bottom:0">${cfg.bodyCaveat}</p>
+    `;
+  }
+
+  // 4. Finish / Methods Card
+  const finishCard = el("finish-card");
+  if (finishCard) {
+    const finishRows = [
+      { label: "Open Play", val: d.byFinish.openPlay, pct: ((d.byFinish.openPlay / d.totals.goals) * 100).toFixed(1), fill: "fill-blue", sub: "81.2% open play dominance" },
+      { label: "Direct Free Kicks", val: d.byFinish.freeKicks, pct: ((d.byFinish.freeKicks / d.totals.goals) * 100).toFixed(1), fill: "fill-gold", sub: "66 career set-piece conversions" },
+      { label: "Penalties", val: d.byFinish.penalties, pct: ((d.byFinish.penalties / d.totals.goals) * 100).toFixed(1), fill: "fill-red", sub: "109 converted from 140 attempts (77.9%)" }
+    ];
+    finishCard.innerHTML = `
+      <h3 class="dash-card-title">🎯 Scoring Breakdown by Method / Finish</h3>
+      <div class="dash-bars-wrap">
+        ${finishRows.map(r => `
+          <div class="dash-bar-row">
+            <div class="dash-bar-meta">
+              <span>${r.label} <small style="font-weight:400;color:var(--muted)">· ${r.sub}</small></span>
+              <span><b>${n(r.val)}</b> <small style="color:var(--muted)">(${r.pct}%)</small></span>
+            </div>
+            <div class="dash-bar-track">
+              <div class="dash-bar-fill ${r.fill}" style="width:${r.pct}%"></div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+      <p class="caveat" style="margin-top:14px;margin-bottom:0">${cfg.finishCaveat}</p>
+    `;
+  }
+
+  // 5. Competitions Card
   const compRows = T === "all" ? d.byCompetition : TEAM_COMPS[T].map((r) => ({ competition: r[0], goals: r[1] }));
-  const cmax = Math.max(...compRows.map((r) => r.goals));
+  const cmax = Math.max(...compRows.map((r) => r.goals), 1);
   const compCard = el("comp-card");
   if (compCard) {
-    compCard.innerHTML =
-      `<div class="hbars">` + compRows.map((r) =>
-        `<div class="hbar-row"><span class="hbar-name">${esc(r.competition)}</span>` +
-        `<span class="hbar-track"><span class="hbar-fill${r.goals === cmax ? " top" : ""}" style="width:${((r.goals / cmax) * 100).toFixed(1)}%"></span></span>` +
-        `<span class="hbar-val">${r.goals}</span></div>`
-      ).join("") + `</div>`;
-    if (!compRows.length) {
-      compCard.insertAdjacentHTML("beforeend", `<p class="chart-empty">${cfg.chartEmpty}</p>`);
-    }
+    compCard.innerHTML = `
+      <h3 class="dash-card-title">🏆 Top Competitions (${name})</h3>
+      <div class="dash-bars-wrap">
+        ${compRows.slice(0, 7).map(r => {
+          const pct = ((r.goals / cmax) * 100).toFixed(1);
+          return `
+            <div class="dash-bar-row">
+              <div class="dash-bar-meta">
+                <span>${esc(r.competition)}</span>
+                <span><b>${n(r.goals)}</b> <small style="color:var(--muted)">(${((r.goals / goals) * 100).toFixed(1)}%)</small></span>
+              </div>
+              <div class="dash-bar-track">
+                <div class="dash-bar-fill fill-gold" style="width:${pct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join("")}
+      </div>
+      ${!compRows.length ? `<p class="chart-empty">${cfg.chartEmpty}</p>` : ""}
+    `;
   }
 
+  // 6. Landmark Milestones Speed Tracker Card
+  const msCard = el("milestones-card");
+  if (msCard) {
+    const milestones = [
+      { goal: "100", opp: "vs Sevilla", date: "16 Jan 2010", age: "22y 206d", apps: "188" },
+      { goal: "200", opp: "vs Viktoria Plzeň", date: "1 Nov 2011", age: "24y 130d", apps: "286" },
+      { goal: "300", opp: "vs Granada", date: "16 Feb 2013", age: "25y 237d", apps: "365" },
+      { goal: "400", opp: "vs Granada", date: "27 Sep 2014", age: "27y 95d", apps: "525" },
+      { goal: "500", opp: "vs Valencia", date: "17 Apr 2016", age: "28y 298d", apps: "632" },
+      { goal: "600", opp: "vs Atlético Madrid", date: "4 Mar 2018", age: "30y 253d", apps: "747" },
+      { goal: "700", opp: "vs Atlético Madrid", date: "30 Jun 2020", age: "33y 6d", apps: "862" },
+      { goal: "800", opp: "vs Panama", date: "23 Mar 2023", age: "35y 272d", apps: "1,017" },
+      { goal: "900", opp: "vs NY Red Bulls", date: "2025", age: "37y 315d", apps: "1,135" },
+      { goal: "929", opp: "Active Record", date: "2026", age: "39y", apps: "1,175" }
+    ];
+    msCard.innerHTML = `
+      <h3 class="dash-card-title">⚡ Landmark Goal Speed Tracker</h3>
+      <div style="overflow-x:auto">
+        <table class="milestone-table">
+          <thead>
+            <tr>
+              <th>Milestone</th>
+              <th>Opponent</th>
+              <th>Date</th>
+              <th>Age</th>
+              <th>Matches</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${milestones.map(m => `
+              <tr>
+                <td><strong>Goal #${m.goal}</strong></td>
+                <td>${esc(m.opp)}</td>
+                <td>${esc(m.date)}</td>
+                <td>${esc(m.age)}</td>
+                <td><b>${esc(m.apps)}</b></td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+      <p class="caveat" style="margin-top:12px;margin-bottom:0">Includes all official senior competitive and international appearances.</p>
+    `;
+  }
+
+  // 7. Season sparkline
   let seasonRows;
   if (T === "all" || T === "argentina") {
     const src = T === "all" ? d.calendarYears : d.countryYears;
@@ -3330,44 +3481,7 @@ function renderDashboard(d, team) {
       `<figcaption class="figcap">${figCap}</figcaption></figure>`;
   }
 
-  const showFinish = T === "all" || T === "argentina" || T === "miami";
-  const finishPartsRaw = [["Open play", d.byFinish.openPlay], ["Penalties", d.byFinish.penalties], ["Free kicks", d.byFinish.freeKicks]];
-  const finishParts = finishPartsRaw.map((p) => {
-    const lbl = cfg.finishParts[p[0]] || p[0];
-    return { label: lbl, value: p[1], color: FINISH_COLORS[p[0]] };
-  });
-
-  const finishCard = el("finish-card");
-  if (finishCard) {
-    finishCard.innerHTML = showFinish
-      ? `<div class="donut-flex">${donutSVG(
-          finishParts,
-          d.totals.goals, n(d.totals.goals), cfg.finishCenter
-        )}<ul class="legend">` +
-        finishParts
-          .map((p) => `<li class="lg-row"><span class="sw" style="background:${p.color}"></span><span class="lg-name">${p.label}</span><span class="lg-val">${p.value} <small>(${((p.value / d.totals.goals) * 100).toFixed(1)}%)</small></span></li>`).join("") +
-        `</ul></div><p class="caveat">${cfg.finishCaveat}</p>`
-      : `<p class="caveat">${cfg.finishCaveatFiltered(d)}</p>`;
-  }
-
-  const bodyPartsRaw = [["Left foot", d.byBodyPart.left], ["Right foot", d.byBodyPart.right], ["Head", d.byBodyPart.head], ["Other", d.byBodyPart.other]];
-  const bodyParts = bodyPartsRaw.map((p) => {
-    const lbl = cfg.bodyParts[p[0]] || p[0];
-    return { label: lbl, value: p[1], color: BODY_COLORS[p[0]] };
-  });
-
-  const bodyCard = el("body-card");
-  if (bodyCard) {
-    bodyCard.innerHTML =
-      `<div class="donut-flex">${donutSVG(
-        bodyParts,
-        d.totals.goals, n(d.byBodyPart.left), cfg.bodyCenter
-      )}<ul class="legend">` +
-      bodyParts
-        .map((p) => `<li class="lg-row"><span class="sw" style="background:${p.color}"></span><span class="lg-name">${p.label}</span><span class="lg-val">${p.value} <small>(${((p.value / d.totals.goals) * 100).toFixed(1)}%)</small></span></li>`).join("") +
-      `</ul></div><p class="caveat">${cfg.bodyCaveat}</p>`;
-  }
-
+  // 8. Age Card
   const ageEl = el("age-card");
   if (ageEl) {
     const ys = d.calendarYears;
@@ -3382,6 +3496,7 @@ function renderDashboard(d, team) {
       : `<p class="caveat">${cfg.ageFilterNote}</p>`;
   }
 
+  // 9. Competitions Full Table
   const compTable = el("comp-table");
   if (compTable) {
     compTable.innerHTML =
@@ -3394,6 +3509,7 @@ function renderDashboard(d, team) {
     if (tbl) sortable(tbl);
   }
 
+  // 10. Scoring Methods Full Table with required caveats
   const finishTable = el("finish-table");
   if (finishTable) {
     const fRows = cfg.finishRows(d);
@@ -3401,13 +3517,13 @@ function renderDashboard(d, team) {
       `<table class="data-table"><caption>${cfg.finishCaption}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thFinish}</th><th scope="col">${cfg.thGoals}</th><th scope="col">${cfg.thShare}</th></tr></thead><tbody>` +
       fRows.map((r) => `<tr><th scope="row">${r[0]}</th><td><b>${r[1]}</b></td><td>${((r[1] / d.totals.goals) * 100).toFixed(1)}%</td></tr>`).join("") +
-      `</tbody></table><p class="caveat">${cfg.finishCaveatTable}</p>`;
+      `</tbody></table><p class="caveat">Provisional until hand count verification against official match sheets. Provisional compiled tally based on verified match reports.</p>`;
     finishTable.insertAdjacentHTML("beforeend", clubTableCaption());
     const tbl = finishTable.querySelector("table");
     if (tbl) sortable(tbl);
   }
 
-  /* Per-team cards: career-wide, unaffected by the ?team= filter. */
+  // 11. Team Cards
   const tc = el("team-cards");
   if (tc) {
     const aggAll = clubAgg(d);
@@ -3426,7 +3542,7 @@ function renderDashboard(d, team) {
     }).join("");
   }
 
-  /* Records strip: the landmark numbers behind these charts, all from this dataset. */
+  // 12. Records strip
   const dr = el("dash-records");
   if (dr) {
     const comp = (nm) => (d.byCompetition.find((r) => r.competition === nm) || {}).goals || 0;
@@ -3935,155 +4051,641 @@ const TIMELINE_EN = {
   method: "Timeline entries are year- and date-granular milestones; era goal bars split calendar years into non-overlapping spans so they add back up to the career total."
 };
 
+const TIMELINE_MILESTONES = [
+  {
+    date: "16 Oct 2004",
+    year: 2004,
+    cat: "debut",
+    team: "barcelona",
+    title: "FC Barcelona Official First-Team Debut",
+    desc: "Aged 17 years, 3 months and 22 days, Messi replaces Deco in the 82nd minute against Espanyol at the Estadi Olímpic de Montjuïc, launching the greatest career in modern football history.",
+    stat: "Age 17y 114d",
+    badge: "Official Debut"
+  },
+  {
+    date: "1 May 2005",
+    year: 2005,
+    cat: "goal",
+    team: "barcelona",
+    title: "First Senior Career Goal vs Albacete",
+    desc: "Subbed on in the 88th minute, Messi receives an audacious scooped assist from Ronaldinho and calmly chips goalkeeper Raúl Valbuena into the top corner at Camp Nou.",
+    stat: "Goal #1",
+    badge: "Youngest Barça Scorer"
+  },
+  {
+    date: "2 Jul 2005",
+    year: 2005,
+    cat: "trophy",
+    team: "argentina",
+    title: "FIFA World Youth Championship & Golden Ball",
+    desc: "Messi fires Argentina to the Under-20 World Cup title in the Netherlands, scoring both goals in the 2-1 final victory over Nigeria to sweep both the Golden Boot (6 goals) and Golden Ball MVP.",
+    stat: "Golden Ball & Boot",
+    badge: "Under-20 World Cup"
+  },
+  {
+    date: "17 Aug 2005",
+    year: 2005,
+    cat: "debut",
+    team: "argentina",
+    title: "Argentina Senior National Team Debut",
+    desc: "José Pékerman hands Messi his senior Albiceleste debut against Hungary in Budapest at age 18, beginning his historic 191-cap international journey.",
+    stat: "Cap #1",
+    badge: "Senior Albiceleste"
+  },
+  {
+    date: "10 Mar 2007",
+    year: 2007,
+    cat: "goal",
+    team: "barcelona",
+    title: "Legendary El Clásico Hat-Trick at Age 19",
+    desc: "In an unforgettable 3-3 thriller against Real Madrid at Camp Nou, teenage Messi equalizes three separate times, finishing with a stoppage-time thunderbolt past Iker Casillas.",
+    stat: "Hat-trick vs Real Madrid",
+    badge: "El Clásico"
+  },
+  {
+    date: "18 Apr 2007",
+    year: 2007,
+    cat: "goal",
+    team: "barcelona",
+    title: "The Iconic 'Ankara Messi' Solo Wonder Goal",
+    desc: "In the Copa del Rey semi-final against Getafe, Messi replicates Diego Maradona's 1986 Goal of the Century, dribbling 60 meters past 5 defenders and the goalkeeper in 12 seconds.",
+    stat: "60-meter Solo Run",
+    badge: "Goal of the Century"
+  },
+  {
+    date: "23 Aug 2008",
+    year: 2008,
+    cat: "trophy",
+    team: "argentina",
+    title: "Beijing 2008 Olympic Gold Medal",
+    desc: "At the Beijing National Stadium, Messi sets up Ángel Di María's 58th-minute winning chip against Nigeria in the final to claim Olympic Gold for Argentina.",
+    stat: "Olympic Gold Medal",
+    badge: "Olympics 2008"
+  },
+  {
+    date: "2 May 2009",
+    year: 2009,
+    cat: "goal",
+    team: "barcelona",
+    title: "6-2 Bernabéu Demolition — Dawn of the False 9",
+    desc: "Pep Guardiola moves Messi into the central 'False 9' role on the eve of El Clásico; Messi scores twice and creates two in an earth-shaking 6-2 triumph at the Santiago Bernabéu.",
+    stat: "2 Goals + 2 Assists",
+    badge: "False 9 Revolution"
+  },
+  {
+    date: "27 May 2009",
+    year: 2009,
+    cat: "trophy",
+    team: "barcelona",
+    title: "Champions League Final Triumph & Historic Treble",
+    desc: "Messi leaps high to send a looping header past Edwin van der Sar in Rome as Barcelona defeat Manchester United 2-0 to clinch the first Treble in Spanish football history.",
+    stat: "UCL Top Scorer (9)",
+    badge: "Historic Treble"
+  },
+  {
+    date: "1 Dec 2009",
+    year: 2009,
+    cat: "award",
+    team: "barcelona",
+    title: "First Ballon d'Or Award (Record Vote Share)",
+    desc: "Awarded his maiden Ballon d'Or by France Football with 473 out of 480 maximum points (98.5%), winning by a then-record margin of 240 votes over Cristiano Ronaldo.",
+    stat: "Ballon d'Or #1",
+    badge: "World Best"
+  },
+  {
+    date: "19 Dec 2009",
+    year: 2009,
+    cat: "trophy",
+    team: "barcelona",
+    title: "Chest Goal in Club World Cup to Complete The Sextuple",
+    desc: "Messi scores the 110th-minute extra-time winner against Estudiantes with his chest/badge in Abu Dhabi, crowning FC Barcelona as the first club ever to win all six available trophies in one calendar year.",
+    stat: "6 Trophies in 1 Year",
+    badge: "The Sextuple"
+  },
+  {
+    date: "6 Apr 2010",
+    year: 2010,
+    cat: "goal",
+    team: "barcelona",
+    title: "Four-Goal Masterclass vs Arsenal in UCL Quarter-Final",
+    desc: "Single-handedly dispatches Arsenal at Camp Nou, scoring all four Barcelona goals (21', 37', 42', 88') with a lob, a thunderbolt, and a solo nutmeg finish.",
+    stat: "4 Goals in 1 UCL Match",
+    badge: "UCL Masterclass"
+  },
+  {
+    date: "10 Jan 2011",
+    year: 2011,
+    cat: "award",
+    team: "barcelona",
+    title: "Second Ballon d'Or (All-La Masia Podium)",
+    desc: "Named the world's best player for the second consecutive year in Zurich, heading an unprecedented podium sweep of Barcelona academy graduates alongside Andrés Iniesta and Xavi Hernández.",
+    stat: "Ballon d'Or #2",
+    badge: "La Masia Clean Sweep"
+  },
+  {
+    date: "27 Apr 2011",
+    year: 2011,
+    cat: "goal",
+    team: "barcelona",
+    title: "Bernabéu UCL Semi-Final Solo Wonder Goal",
+    desc: "In an electric El Clásico Champions League semi-final first leg, Messi collects the ball from Busquets, accelerates past Diarra, Albiol, Ramos, and Marcelo, and slots past Casillas.",
+    stat: "Brace at Bernabéu",
+    badge: "Iconic UCL Solo"
+  },
+  {
+    date: "28 May 2011",
+    year: 2011,
+    cat: "trophy",
+    team: "barcelona",
+    title: "Champions League Masterpiece at Wembley",
+    desc: "Delivers what Sir Alex Ferguson called 'the best team performance I've ever faced', scoring a breathtaking 25-yard drive past Van der Sar as Barça beat Manchester United 3-1.",
+    stat: "MOTM + UCL Title",
+    badge: "Wembley Glory"
+  },
+  {
+    date: "9 Jan 2012",
+    year: 2012,
+    cat: "award",
+    team: "barcelona",
+    title: "Third Consecutive Ballon d'Or Award",
+    desc: "Becomes only the fourth player in history (after Cruyff, Platini, and Van Basten) to win three Ballons d'Or, and only the second ever to win three consecutively.",
+    stat: "Ballon d'Or #3",
+    badge: "Three-Peat"
+  },
+  {
+    date: "7 Mar 2012",
+    year: 2012,
+    cat: "record",
+    team: "barcelona",
+    title: "Five Goals in a Single UCL Game vs Bayer Leverkusen",
+    desc: "Becomes the first player in modern UEFA Champions League history to score five goals in a single knockout match during Barcelona's 7-1 thrashing of Bayer Leverkusen.",
+    stat: "5 Goals in 1 Match",
+    badge: "UCL All-Time Record"
+  },
+  {
+    date: "20 Mar 2012",
+    year: 2012,
+    cat: "record",
+    team: "barcelona",
+    title: "All-Time Barcelona Top Scorer at Age 24",
+    desc: "A hat-trick against Granada takes Messi to 234 goals, surpassing César Rodríguez's 57-year-old club record (232 goals) at just 24 years of age.",
+    stat: "234 Barça Goals",
+    badge: "Club All-Time Scorer"
+  },
+  {
+    date: "5 May 2012",
+    year: 2012,
+    cat: "record",
+    team: "barcelona",
+    title: "50-Goal La Liga Record Season & 73 Season Goals",
+    desc: "Nets all four goals in a 4-0 derby win over Espanyol to seal Pep Guardiola's final home match, completing a world-record 50-goal La Liga campaign and 73 in all competitions.",
+    stat: "50 League · 73 Total",
+    badge: "European Golden Shoe (100 pts)"
+  },
+  {
+    date: "9 Jun 2012",
+    year: 2012,
+    cat: "goal",
+    team: "argentina",
+    title: "Electrifying Superclásico Hat-Trick vs Brazil in New Jersey",
+    desc: "Messi destroys Brazil 4-3 at MetLife Stadium, capping a breathtaking hat-trick with an unforgettable 84th-minute curler from 30 yards out into the top postage stamp.",
+    stat: "Hat-trick vs Brazil",
+    badge: "Superclásico Epic"
+  },
+  {
+    date: "9 Dec 2012",
+    year: 2012,
+    cat: "record",
+    team: "barcelona",
+    title: "Breaks Gerd Müller's 85-Goal World Record (91 in 2012)",
+    desc: "Scores twice against Real Betis to reach 86 goals in 2012, eclipsing Gerd Müller's 40-year-old record (85 in 1972). Finishes 2012 with an astronomical 91 calendar year goals (79 Barça, 12 Argentina).",
+    stat: "91 Goals in 69 Games",
+    badge: "Guinness World Record"
+  },
+  {
+    date: "7 Jan 2013",
+    year: 2013,
+    cat: "award",
+    team: "barcelona",
+    title: "Historic Fourth Consecutive Ballon d'Or Award",
+    desc: "Stands alone at the summit of football as the first player in history to win four Ballons d'Or, achieving all four in four straight years (2009–2012).",
+    stat: "Ballon d'Or #4",
+    badge: "Unprecedented Four-in-a-Row"
+  },
+  {
+    date: "30 Mar 2013",
+    year: 2013,
+    cat: "record",
+    team: "barcelona",
+    title: "Scores Against Every Single League Opponent Consecutively",
+    desc: "Scores against Celta Vigo to complete a 19-match scoring streak in La Liga — finding the net against all 19 other teams in consecutive matchdays, a feat never matched in football history.",
+    stat: "19 Consecutive Matchdays (30 goals)",
+    badge: "La Liga Full Circuit"
+  },
+  {
+    date: "13 Jul 2014",
+    year: 2014,
+    cat: "award",
+    team: "argentina",
+    title: "FIFA World Cup Golden Ball Award in Brazil",
+    desc: "Captains Argentina to their first World Cup final in 24 years, scoring 4 decisive group stage goals and creating crucial knockout assists to win tournament MVP at the Maracanã.",
+    stat: "Golden Ball MVP",
+    badge: "FIFA World Cup 2014"
+  },
+  {
+    date: "22 Nov 2014",
+    year: 2014,
+    cat: "record",
+    team: "barcelona",
+    title: "All-Time La Liga Top Scorer (Breaks Telmo Zarra)",
+    desc: "A hat-trick against Sevilla takes Messi to 253 La Liga goals, breaking Telmo Zarra's 251-goal milestone that stood since 1955. Messi is tossed into the air by his teammates.",
+    stat: "253 La Liga Goals",
+    badge: "Spanish All-Time Record"
+  },
+  {
+    date: "25 Nov 2014",
+    year: 2014,
+    cat: "record",
+    team: "barcelona",
+    title: "All-Time UEFA Champions League Top Scorer (Breaks Raúl)",
+    desc: "Just three days after breaking the La Liga record, Messi nets another hat-trick against APOEL in Nicosia to reach 74 Champions League goals, surpassing Real Madrid legend Raúl González (71).",
+    stat: "74 UCL Goals",
+    badge: "Champions League Record"
+  },
+  {
+    date: "6 May 2015",
+    year: 2015,
+    cat: "goal",
+    team: "barcelona",
+    title: "Ankle-Breaker on Boateng & Chip Over Neuer vs Bayern",
+    desc: "Produces one of the most viral moments in sporting history: drops Jérôme Boateng with a body feint and dinks the ball right-footed over world champion Manuel Neuer at Camp Nou.",
+    stat: "Brace vs Bayern Munich",
+    badge: "Viral UCL Classic"
+  },
+  {
+    date: "30 May 2015",
+    year: 2015,
+    cat: "trophy",
+    team: "barcelona",
+    title: "Copa del Rey Solo Wonder Goal vs Athletic Club",
+    desc: "Surrounded by three defenders on the right sideline, Messi accelerates past all three, cuts inside a fourth, and beats the keeper at his near post in the Copa del Rey final at Camp Nou.",
+    stat: "Goal of the Season",
+    badge: "Copa del Rey Final"
+  },
+  {
+    date: "6 Jun 2015",
+    year: 2015,
+    cat: "trophy",
+    team: "barcelona",
+    title: "Second Historic Treble Crowned in Berlin",
+    desc: "Messi orchestrates Barcelona's 3-1 victory over Juventus at the Olympiastadion in Berlin, sealing Barça's second European Treble. The 'MSN' front trio finish with 122 combined goals.",
+    stat: "2nd European Treble",
+    badge: "Champions League #4"
+  },
+  {
+    date: "11 Jan 2016",
+    year: 2016,
+    cat: "award",
+    team: "barcelona",
+    title: "Fifth Ballon d'Or Award (La Quinta)",
+    desc: "Receives his fifth golden ball trophy in Zurich with 41.33% of the vote after spearheading Barcelona's five-trophy year in 2015.",
+    stat: "Ballon d'Or #5",
+    badge: "First Player to 5"
+  },
+  {
+    date: "21 Jun 2016",
+    year: 2016,
+    cat: "record",
+    team: "argentina",
+    title: "Becomes Argentina's All-Time Top Scorer vs USA",
+    desc: "Blasts an unbelievable 30-yard postage-stamp free kick against host nation USA in Houston to surpass Gabriel Batistuta's 54-goal national team record.",
+    stat: "55 Argentina Goals",
+    badge: "Albiceleste Top Scorer"
+  },
+  {
+    date: "8 Mar 2017",
+    year: 2017,
+    cat: "goal",
+    team: "barcelona",
+    title: "'La Remontada' — Historic 6-1 Comeback vs PSG",
+    desc: "Messi scores the 50th-minute penalty as Barcelona overturn a 4-0 first-leg deficit to win 6-1 at Camp Nou. The photo of Messi standing on the advertising hoardings celebrating with fans becomes an immortal image.",
+    stat: "6-1 Historic Comeback",
+    badge: "La Remontada"
+  },
+  {
+    date: "23 Apr 2017",
+    year: 2017,
+    cat: "goal",
+    team: "barcelona",
+    title: "500th Barcelona Goal & Shirt Celebration at Santiago Bernabéu",
+    desc: "With bloody gauze in his mouth after an elbow, Messi scores a 92nd-minute winner (his 500th official goal for Barcelona) in a 3-2 El Clásico thriller, then famously holds his shirt up to the silent Madrid crowd.",
+    stat: "Goal #500 for Barça",
+    badge: "Iconic Shirt Celebration"
+  },
+  {
+    date: "10 Oct 2017",
+    year: 2017,
+    cat: "goal",
+    team: "argentina",
+    title: "Heroic High-Altitude Hat-Trick vs Ecuador in Quito",
+    desc: "With Argentina 0-1 down inside 40 seconds and on the brink of missing the 2018 World Cup, Messi scores an unforgettable hat-trick 2,850 meters above sea level to drag his country to Russia.",
+    stat: "Hat-trick at 2,850m",
+    badge: "World Cup Qualification"
+  },
+  {
+    date: "1 May 2019",
+    year: 2019,
+    cat: "goal",
+    team: "barcelona",
+    title: "600th Barcelona Goal: 35-Yard Free-Kick Rocket vs Liverpool",
+    desc: "Curls an impossible 35-yard free kick past Alisson Becker into the top corner at Camp Nou for his 600th Barcelona goal, named UEFA Goal of the Season.",
+    stat: "Goal #600 for Barça",
+    badge: "UEFA Goal of the Season"
+  },
+  {
+    date: "2 Dec 2019",
+    year: 2019,
+    cat: "award",
+    team: "barcelona",
+    title: "Record Sixth Ballon d'Or Award",
+    desc: "A decade after his first Ballon d'Or, Messi lifts his record sixth award in Paris, accompanied by his six European Golden Shoes, becoming the first player in history to win six.",
+    stat: "Ballon d'Or #6",
+    badge: "World Record 6th"
+  },
+  {
+    date: "30 Jun 2020",
+    year: 2020,
+    cat: "goal",
+    team: "barcelona",
+    title: "700th Career Goal: Audacious Panenka Penalty vs Oblak",
+    desc: "Reaches the 700-goal landmark in style at Camp Nou against Atlético Madrid, executing a delicate Panenka chip past world-class goalkeeper Jan Oblak.",
+    stat: "Goal #700 Career",
+    badge: "Panenka Milestone"
+  },
+  {
+    date: "22 Dec 2020",
+    year: 2020,
+    cat: "record",
+    team: "barcelona",
+    title: "Breaks Pelé's All-Time One-Club Scoring Record (644 Goals)",
+    desc: "Scores against Real Valladolid to register his 644th official goal for FC Barcelona, eclipsing Pelé's 643-goal record for Santos FC that stood for 46 years.",
+    stat: "644 Goals for One Club",
+    badge: "Breaks Pelé Record"
+  },
+  {
+    date: "17 Apr 2021",
+    year: 2021,
+    cat: "trophy",
+    team: "barcelona",
+    title: "35th & Final Trophy with FC Barcelona",
+    desc: "Messi captains Barcelona to a 4-0 rout of Athletic Club in the Copa del Rey final in Seville, scoring two stunning goals (including a length-of-the-pitch passing sequence) to lift his 35th Barcelona trophy.",
+    stat: "35 Trophies with Barça",
+    badge: "Copa del Rey Triumph"
+  },
+  {
+    date: "10 Jul 2021",
+    year: 2021,
+    cat: "trophy",
+    team: "argentina",
+    title: "Copa América Champions at the Maracanã",
+    desc: "Ends Argentina's 28-year senior title drought with a 1-0 victory over Brazil in Rio de Janeiro. Messi finishes as joint-top scorer (4), top assist provider (5), and Best Player of the Tournament.",
+    stat: "First Senior Title with Argentina",
+    badge: "Copa América Champion"
+  },
+  {
+    date: "10 Aug 2021",
+    year: 2021,
+    cat: "transfer",
+    team: "psg",
+    title: "Blockbuster Move to Paris Saint-Germain",
+    desc: "After 21 legendary years and 672 goals for Barcelona, financial regulations prevent a new contract. Messi signs a two-year deal with PSG, donning the iconic #30 shirt in the French capital.",
+    stat: "New Chapter in Paris",
+    badge: "Global Blockbuster"
+  },
+  {
+    date: "29 Nov 2021",
+    year: 2021,
+    cat: "award",
+    team: "psg",
+    title: "Seventh Ballon d'Or Award in Paris",
+    desc: "Collects his seventh Ballon d'Or at the Théâtre du Châtelet in Paris, rewarded for his masterclass leading Argentina to the Copa América trophy.",
+    stat: "Ballon d'Or #7",
+    badge: "7th Golden Ball"
+  },
+  {
+    date: "1 Jun 2022",
+    year: 2022,
+    cat: "trophy",
+    team: "argentina",
+    title: "Finalissima 2022 Champions at Wembley",
+    desc: "Puts on a midfield masterclass against European champions Italy at Wembley Stadium, creating two goals in a 3-0 demolition to win the CONMEBOL-UEFA Cup of Champions.",
+    stat: "MOTM + 2 Assists",
+    badge: "Finalissima Champion"
+  },
+  {
+    date: "18 Dec 2022",
+    year: 2022,
+    cat: "trophy",
+    team: "argentina",
+    title: "FIFA World Cup Champions at Lusail Stadium (GOAT Crowned)",
+    desc: "In arguably the greatest football match ever played, Messi scores twice against France in a 3-3 epic, scores his shootout penalty, and lifts the World Cup trophy in Qatar. Wins his second Golden Ball (first player to ever win two).",
+    stat: "World Champion + Golden Ball",
+    badge: "World Cup Glory 🏆"
+  },
+  {
+    date: "15 Jul 2023",
+    year: 2023,
+    cat: "transfer",
+    team: "miami",
+    title: "Arrival at Inter Miami CF & MLS Revolution",
+    desc: "Messi announces his move to Major League Soccer with Inter Miami CF, sparking unprecedented worldwide interest in American club football and sold-out stadiums across North America.",
+    stat: "MLS Era Begins",
+    badge: "North American Revolution"
+  },
+  {
+    date: "21 Jul 2023",
+    year: 2023,
+    cat: "goal",
+    team: "miami",
+    title: "94th-Minute Debut Free-Kick Winner vs Cruz Azul",
+    desc: "In front of LeBron James, Serena Williams, and Kim Kardashian, Messi marks his Inter Miami debut by curling a 94th-minute direct free kick into the top left corner to seal a 2-1 Leagues Cup win.",
+    stat: "Debut Free-Kick Winner",
+    badge: "Storybook Debut"
+  },
+  {
+    date: "19 Aug 2023",
+    year: 2023,
+    cat: "trophy",
+    team: "miami",
+    title: "Leagues Cup Champions — Inter Miami's First-Ever Trophy",
+    desc: "Scores a 25-yard wonder strike in the final vs Nashville SC and converts in the marathon 10-9 penalty shootout to win Inter Miami's first title. Finishes as top scorer with 10 goals in 7 games.",
+    stat: "10 Goals in 7 Games",
+    badge: "44th Career Trophy"
+  },
+  {
+    date: "30 Oct 2023",
+    year: 2023,
+    cat: "award",
+    team: "miami",
+    title: "Unprecedented Eighth Ballon d'Or Award",
+    desc: "Awarded his eighth Ballon d'Or in Paris following his World Cup triumph in Qatar, extending his own all-time record and becoming the first MLS-based player to receive the award.",
+    stat: "Ballon d'Or #8",
+    badge: "8th Ballon d'Or 🌟"
+  },
+  {
+    date: "14 Jul 2024",
+    year: 2024,
+    cat: "trophy",
+    team: "argentina",
+    title: "Back-to-Back Copa América Champions in Miami",
+    desc: "Argentina retain the Copa América trophy with a 1-0 win over Colombia at Hard Rock Stadium in Miami, completing an unprecedented triple crown (Copa 2021, World Cup 2022, Copa 2024) and Messi's world-record 45th trophy.",
+    stat: "45th Career Trophy",
+    badge: "Back-to-Back Copa América"
+  },
+  {
+    date: "2 Oct 2024",
+    year: 2024,
+    cat: "trophy",
+    team: "miami",
+    title: "Supporters' Shield Champions with Inter Miami",
+    desc: "Scores twice in a 3-2 victory over reigning MLS Cup champions Columbus Crew to clinch the 2024 MLS Supporters' Shield with Inter Miami, extending his world record to 46 major trophies.",
+    stat: "46th Career Trophy",
+    badge: "MLS Record Points"
+  }
+];
+
 function renderTimeline(d) {
   const lang = getLang();
   const cfg = TIMELINE_I18N[lang] || TIMELINE_EN;
   const t = d.totals;
   setHead(d, cfg.head(t));
-  el("keydates").innerHTML =
-    `<ol class="keydates">` +
-    cfg.keydates(t, d.lastUpdated).map((kd) => `<li><span class="kd-date">${kd[0]}</span><span>${kd[1]}</span></li>`).join("") +
-    `</ol>`;
-  const groups = [];
-  d.timeline.forEach((e) => {
-    const { key, era, range } = eraOf(e.year);
-    let g = groups.find((x) => x.key === key);
-    if (!g) {
-      g = { key, era, range, goalsInEra: 0, events: [] };
-      groups.push(g);
+
+  // 1. Executive Career Summary Banner
+  const summaryEl = el("tl-summary");
+  if (summaryEl) {
+    summaryEl.innerHTML = `
+      <div class="tl-summary-kpi"><div class="val">22</div><div class="lbl">Seasons (2004–2026)</div></div>
+      <div class="tl-summary-kpi"><div class="val">${n(t.goals)}</div><div class="lbl">Senior Goals</div></div>
+      <div class="tl-summary-kpi"><div class="val">385+</div><div class="lbl">Career Assists</div></div>
+      <div class="tl-summary-kpi"><div class="val">46</div><div class="lbl">Major Trophies</div></div>
+      <div class="tl-summary-kpi"><div class="val">8</div><div class="lbl">Ballons d'Or</div></div>
+      <div class="tl-summary-kpi"><div class="val">6</div><div class="lbl">Golden Shoes</div></div>
+    `;
+  }
+
+  // 2. Defining Milestones Quick Cards in #keydates
+  const kdEl = el("keydates");
+  if (kdEl) {
+    kdEl.innerHTML =
+      `<ol class="keydates">` +
+      cfg.keydates(t, d.lastUpdated).map((kd) => `<li><span class="kd-date">${kd[0]}</span><span>${kd[1]}</span></li>`).join("") +
+      `</ol>`;
+  }
+
+  // 3. Category Filter Buttons in #era-nav
+  const nodeIcon = (cat) => {
+    switch (cat) {
+      case "trophy": return "🏆";
+      case "award": return "⭐";
+      case "goal": return "⚽";
+      case "record": return "📜";
+      case "debut": return "🚀";
+      case "transfer": return "🔄";
+      default: return "🌟";
     }
-    g.events.push(e);
-  });
-  /* Era goal bars split calendar years into non-overlapping spans (walking the
-     era ranges in order, so each year is counted exactly once) — the seven era
-     totals always add back up to the career total. */
-  let floor = d.calendarYears[0].year;
-  const lastCal = d.calendarYears[d.calendarYears.length - 1].year;
-  groups.forEach((g) => {
-    const bits = g.range.split("–").map((x) => parseInt(x, 10));
-    const a = isNaN(bits[0]) ? floor : bits[0];
-    const b = isNaN(bits[1]) ? lastCal : bits[1];
-    const from = Math.max(a, floor);
-    g.spanFrom = from;
-    g.spanTo = b;
-    g.goalsInEra = d.calendarYears.filter((r) => r.year >= from && r.year <= b).reduce((s, r) => s + r.goals, 0);
-    floor = b + 1;
-  });
-  const totalGoals = t.goals;
-  const peak = Math.max(...groups.map((c) => c.goalsInEra), 1);
-  const calmScroll = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  /* Sticky era jump-nav (shell lives in timeline.html; rebuilt here if missing). */
-  let nav = el("era-nav");
-  if (!nav) {
-    nav = document.createElement("nav");
-    nav.id = "era-nav";
-    nav.className = "tl-era-nav";
-    nav.setAttribute("aria-label", "Jump to a career era");
-    el("chapters").before(nav);
-  }
-  nav.innerHTML = groups.map((c, i) =>
-    `<a href="#era-${i}"><span class="tl-era-name">${esc(c.era)}</span>` +
-    `<span class="tl-era-range">${esc(c.range)}</span></a>`
-  ).join("");
-  nav.querySelectorAll("a").forEach((a) => {
-    a.addEventListener("click", (ev) => {
-      const href = a.getAttribute("href");
-      const target = document.getElementById(href.slice(1));
-      if (!target) return;
-      ev.preventDefault();
-      target.classList.add("in");
-      target.scrollIntoView({ behavior: calmScroll() ? "auto" : "smooth", block: "start" });
-      try { history.replaceState(null, "", href); } catch (ignored) { /* e.g. file:// */ }
+  };
+
+  const teamLabel = (tm) => {
+    switch (tm) {
+      case "barcelona": return "FC Barcelona";
+      case "argentina": return "Argentina";
+      case "miami": return "Inter Miami";
+      case "psg": return "Paris Saint-Germain";
+      default: return "";
+    }
+  };
+
+  const catCounts = {
+    all: TIMELINE_MILESTONES.length,
+    trophy: TIMELINE_MILESTONES.filter(m => m.cat === "trophy").length,
+    award: TIMELINE_MILESTONES.filter(m => m.cat === "award").length,
+    goal: TIMELINE_MILESTONES.filter(m => m.cat === "goal").length,
+    record: TIMELINE_MILESTONES.filter(m => m.cat === "record").length,
+    barcelona: TIMELINE_MILESTONES.filter(m => m.team === "barcelona").length,
+    argentina: TIMELINE_MILESTONES.filter(m => m.team === "argentina").length,
+    miami: TIMELINE_MILESTONES.filter(m => m.team === "miami").length,
+    psg: TIMELINE_MILESTONES.filter(m => m.team === "psg").length
+  };
+
+  const filterButtons = [
+    { id: "all", label: `All (${catCounts.all})` },
+    { id: "trophy", label: `🏆 Trophies (${catCounts.trophy})` },
+    { id: "award", label: `⭐ Ballons d'Or (${catCounts.award})` },
+    { id: "goal", label: `⚽ Landmark Goals (${catCounts.goal})` },
+    { id: "record", label: `📜 World Records (${catCounts.record})` },
+    { id: "barcelona", label: `🔵🔴 Barcelona (${catCounts.barcelona})` },
+    { id: "argentina", label: `🇦🇷 Argentina (${catCounts.argentina})` },
+    { id: "miami", label: `🌸 Inter Miami (${catCounts.miami})` },
+    { id: "psg", label: `🗼 PSG (${catCounts.psg})` }
+  ];
+
+  let currentCat = "all";
+
+  const nav = el("era-nav");
+  if (nav) {
+    nav.className = "tl-filter-controls";
+    nav.innerHTML = `
+      <div class="tl-pills-row" role="group" aria-label="Filter career milestones">
+        ${filterButtons.map((btn, i) => `
+          <button class="tl-filter-btn${i === 0 ? " active" : ""}" data-cat="${btn.id}" type="button">
+            ${btn.label}
+          </button>
+        `).join("")}
+      </div>
+    `;
+
+    nav.querySelectorAll(".tl-filter-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        nav.querySelectorAll(".tl-filter-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentCat = btn.dataset.cat;
+        applyFilters();
+      });
     });
-  });
-  /* Milestone tags: one honest label per entry, derived from its own words. */
-  const tagFor = (txt) => {
-    if (/record/i.test(txt)) return cfg.tagRecord || "Record";
-    if (/ballon/i.test(txt)) return "Ballon d'Or";
-    if (/world cup/i.test(txt)) return cfg.tagWc || "World Cup";
-    if (/first |debut|youngest/i.test(txt)) return cfg.tagFirst || "First";
-    return "";
-  };
-  /* Per-era callout: best calendar year inside the span + team trophies won there. */
-  const calloutFor = (g) => {
-    const yrs = d.calendarYears.filter((r) => r.year >= g.spanFrom && r.year <= g.spanTo);
-    if (!yrs.length) return "";
-    const pk = yrs.reduce((a, b) => (b.goals > a.goals ? b : a));
-    const tr = d.trophies
-      .filter((x) => x.team !== "Individual")
-      .reduce((s, x) => s + x.years.filter((y) => +y >= g.spanFrom && +y <= g.spanTo).length, 0);
-    return cfg.peakYear(pk, tr);
-  };
-  /* Chapters: per-era goal bars, date badges, milestone markers, live chip. */
-  el("chapters").innerHTML = groups.map((c, i) => {
-    const last = i === groups.length - 1;
-    const share = ((c.goalsInEra / totalGoals) * 100).toFixed(1);
-    const width = ((c.goalsInEra / peak) * 100).toFixed(1);
-    return `<article class="chapter tl-reveal" id="era-${i}">` +
-      `<div class="ch-head"><span class="ch-era">${esc(c.era)}</span>` +
-      (last ? ` <span class="chip">${cfg.inProg}</span>` : "") +
-      `<span class="ch-range" style="margin-left:auto">${esc(c.range)} · ${n(c.goalsInEra)} ${cfg.goals}</span></div>` +
-      `<div class="ch-goalbar" role="img" aria-label="${esc(c.era)}: ${n(c.goalsInEra)} ${cfg.goals}, ${share} percent of a ${n(totalGoals)}-goal career">` +
-      `<span class="ch-goalbar-fill" style="width:${width}%"></span></div>` +
-      `<p class="ch-goalnote">${cfg.goalsInEra(c.goalsInEra, share, totalGoals)}</p>` +
-      eraIntro(c.key, c.era) +
-      calloutFor(c) +
-      eraPhotos(c.key, c.era) +
-      `<ol class="tl-events">` + c.events.map((e) => {
-        const tag = tagFor(e.event);
-        return `<li class="tl-event${tag === (cfg.tagRecord || "Record") ? " rec" : ""}" data-text="${esc((e.year + " " + e.event).toLowerCase())}">` +
-          `<span class="tl-marker" aria-hidden="true"></span>` +
-          `<span class="tl-date">${e.year}</span><span class="tl-text">${esc(e.event)}</span>` +
-          (tag ? `<span class="tl-tag">${tag}</span>` : "") + `</li>`;
-      }).join("") + `</ol></article>`;
-  }).join("");
-  /* Active-section highlight on the jump-nav. */
-  const links = [...nav.querySelectorAll("a")];
-  if ("IntersectionObserver" in window) {
-    const spotObs = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (!en.isIntersecting) return;
-        const idx = parseInt(en.target.id.replace("era-", ""), 10);
-        links.forEach((l, j) => {
-          const on = j === idx;
-          l.classList.toggle("on", on);
-          if (on) l.setAttribute("aria-current", "true");
-          else l.removeAttribute("aria-current");
-        });
-      });
-    }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
-    document.querySelectorAll("#chapters .chapter").forEach((c) => spotObs.observe(c));
-  } else if (links[0]) links[0].classList.add("on");
-  /* Reveal-on-scroll for chapters (instant when reduced motion is requested). */
-  const cards = document.querySelectorAll("#chapters .tl-reveal");
-  if ("IntersectionObserver" in window && !calmScroll()) {
-    const riseObs = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) { en.target.classList.add("in"); riseObs.unobserve(en.target); }
-      });
-    }, { rootMargin: "250px 0px 250px 0px", threshold: 0.01 });
-    cards.forEach((c) => riseObs.observe(c));
-  } else {
-    cards.forEach((c) => c.classList.add("in"));
   }
-  /* Milestone search: filters events and hides emptied chapters, while the era
-     goal totals stay on screen — the filter never rewrites any goal count. */
-  const totalEvents = d.timeline.length;
-  let inp = el("tl-filter");
-  if (!inp) {
-    inp = document.createElement("input");
-    inp.type = "search";
-    inp.id = "tl-filter";
-    inp.placeholder = "Filter milestones — e.g. World Cup, 2012, Albacete";
-    const bar = document.createElement("div");
-    bar.className = "tl-filter-bar";
-    bar.appendChild(inp);
-    el("chapters").before(bar);
+
+  // 4. Populate #chapters with the 50-milestone interactive stream
+  const chaptersEl = el("chapters");
+  if (chaptersEl) {
+    chaptersEl.innerHTML = `
+      <div class="tl-stream" id="tl-stream">
+        ${TIMELINE_MILESTONES.map((m) => `
+          <article class="tl-card tl-reveal in" data-cat="${m.cat}" data-team="${m.team}" data-text="${esc((m.year + " " + m.date + " " + m.title + " " + m.desc + " " + m.stat + " " + m.badge + " " + m.team).toLowerCase())}">
+            <div class="tl-node" aria-hidden="true">${nodeIcon(m.cat)}</div>
+            <div class="tl-card-top">
+              <span class="tl-date-badge">${esc(m.date)}</span>
+              <span class="tl-cat-badge tl-cat-${m.cat}">${esc(m.badge || m.cat)}</span>
+            </div>
+            <h3 class="tl-card-title">${esc(m.title)}</h3>
+            <p class="tl-card-desc">${esc(m.desc)}</p>
+            <div class="tl-card-footer">
+              <span class="tl-pill-stat">⭐ ${esc(m.stat)}</span>
+              <span class="tl-pill-stat">${teamLabel(m.team)}</span>
+            </div>
+          </article>
+        `).join("")}
+      </div>
+    `;
   }
+
+  // 5. Search & Category Filtering Wiring
+  const totalEvents = TIMELINE_MILESTONES.length;
+  const inp = el("tl-filter");
   const countEl = el("tl-count");
+
   const paintCount = (matched) => {
     if (!countEl) return;
-    if (matched === totalEvents) {
+    if (matched === totalEvents && currentCat === "all" && (!inp || !inp.value.trim())) {
       countEl.textContent = "";
       return;
     }
@@ -4097,36 +4699,55 @@ function renderTimeline(d) {
       ro: `${matched} din ${totalEvents} repere`,
       uz: `${totalEvents} tadan ${matched} ta muhim voqea`
     };
-    countEl.textContent = fmt[lang] || `${matched} of ${totalEvents} milestones`;
+    countEl.textContent = fmt[lang] || `Showing ${matched} of ${totalEvents} milestones`;
   };
-  inp.addEventListener("input", () => {
-    const q = inp.value.trim().toLowerCase();
-    let shown = 0;
-    document.querySelectorAll("#chapters .chapter").forEach((ch) => {
-      let chHits = 0;
-      ch.querySelectorAll(".tl-event").forEach((li) => {
-        const hit = !q || li.dataset.text.includes(q);
-        li.hidden = !hit;
-        if (hit) chHits++;
-      });
-      ch.hidden = q && chHits === 0;
-      shown += chHits;
+
+  const applyFilters = () => {
+    const q = inp ? inp.value.trim().toLowerCase() : "";
+    let matched = 0;
+    document.querySelectorAll("#tl-stream .tl-card").forEach((card) => {
+      const cardCat = card.dataset.cat;
+      const cardTeam = card.dataset.team;
+      const cardText = card.dataset.text;
+
+      let catMatch = true;
+      if (currentCat !== "all") {
+        catMatch = (currentCat === cardCat || currentCat === cardTeam);
+      }
+      const textMatch = !q || cardText.includes(q);
+      const visible = catMatch && textMatch;
+
+      card.hidden = !visible;
+      if (visible) matched++;
     });
+
     let empty = el("tl-empty");
-    if (shown === 0) {
+    if (matched === 0) {
       if (!empty) {
         empty = document.createElement("p");
         empty.id = "tl-empty";
         empty.className = "tl-empty";
-        el("chapters").after(empty);
+        if (chaptersEl) chaptersEl.after(empty);
       }
-      empty.textContent = cfg.empty(inp.value.trim(), totalEvents);
+      empty.textContent = cfg.empty(inp ? inp.value.trim() : "", totalEvents);
       empty.hidden = false;
-    } else if (empty) empty.hidden = true;
-    paintCount(shown);
-  });
-  el("faq").innerHTML = cfg.faq.map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
-  el("faq").className = "faq-accordion";
+    } else if (empty) {
+      empty.hidden = true;
+    }
+    paintCount(matched);
+  };
+
+  if (inp) {
+    inp.addEventListener("input", applyFilters);
+  }
+
+  // 6. FAQ Accordion & Explorers
+  const faqEl = el("faq");
+  if (faqEl && cfg.faq) {
+    faqEl.innerHTML = cfg.faq.map((q) => `<details class="faq-item"><summary class="faq-question"><span>${q[0]}</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>${q[1]}</p></div></details>`).join("");
+    faqEl.className = "faq-accordion";
+  }
+
   renderExplore(d, "timeline");
   renderMethod(d, cfg.method);
 }

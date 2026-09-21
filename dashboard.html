@@ -137,11 +137,19 @@
 <h1>Messi Stats Dashboard</h1>
 <p class="lede" id="lede">Interactive analytics of Lionel Messi's 929 career goals across competitions, seasons, finish types, and body parts — filterable by Barcelona, PSG, Inter Miami, and Argentina.</p>
 <p><a class="btn" href="/en">← Back to stats</a></p>
-<div aria-label="Filter charts by team" class="pills" id="pills" role="group"></div>
+<div aria-label="Filter charts by team" class="dash-team-selector" id="pills" role="group"></div>
 <p class="section-sub" id="filter-note"></p>
-<section aria-label="Filtered totals" class="kpis kpis-3" id="kpis"></section>
-<div class="shead"><h2>Goals by Competition: La Liga, Champions League &amp; World Cup</h2></div>
-<section class="card chart-card" id="comp-card"></section>
+
+<section aria-label="Filtered totals" class="dash-kpis-grid" id="kpis"></section>
+
+<div class="shead"><h2>Visual Analytics: Competitions, Methods &amp; Body Parts</h2></div>
+<div class="dash-sections-grid">
+  <section class="dash-card" id="body-card"></section>
+  <section class="dash-card" id="finish-card"></section>
+  <section class="dash-card" id="comp-card"></section>
+  <section class="dash-card" id="milestones-card"></section>
+</div>
+
 <aside aria-label="Advertisement" class="ad-native-wrap">
 <span class="ad-native-label">Advertisement</span>
 <div class="ad-native-slot">
@@ -149,26 +157,22 @@
 <div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
 </div>
 </aside>
+
 <div class="shead"><h2>Scoring Evolution: Season-by-Season Club &amp; Country Record</h2></div>
 <section class="card chart-card" id="season-card"></section>
-<div class="shead"><h2>Career Goals for Every Team: Barcelona, PSG, Inter Miami &amp; Argentina</h2></div>
-<section aria-label="Appearances and goals for every team" class="team-grid" id="team-cards">Loading…</section>
-<div class="shead"><h2>Scoring Methods: Open Play, Penalties and Direct Free Kicks</h2></div>
-<section class="card chart-card" id="finish-card"></section><aside aria-label="Advertisement" class="ad-native-wrap">
-<span class="ad-native-label">Advertisement</span>
-<div class="ad-native-slot">
-<script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
-<div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
-</div>
-</aside>
-<div class="shead"><h2>Scoring Breakdown by Body Part: Left Foot, Right Foot and Headed Goals</h2></div>
-<section class="card chart-card" id="body-card"></section>
+
 <div class="shead"><h2>Goals at Every Age: From Age 17 Debut to Present Day</h2></div>
 <section class="card chart-card" id="age-card"></section>
+
+<div class="shead"><h2>Career Goals for Every Team: Barcelona, PSG, Inter Miami &amp; Argentina</h2></div>
+<section aria-label="Appearances and goals for every team" class="team-grid" id="team-cards">Loading…</section>
+
 <div class="shead"><h2>Career Totals &amp; Advanced Statistical Invariants</h2></div>
 <section class="card" id="comp-table">Loading…</section>
+
 <div class="shead"><h2>How Does Lionel Messi Score His Goals?</h2></div>
 <section class="card" id="finish-table">Loading…</section>
+
 <div class="shead"><h2>All-Time World Records Inside These Numbers</h2></div>
 <section aria-label="Records behind the dashboard numbers" class="records" id="dash-records"></section>
 

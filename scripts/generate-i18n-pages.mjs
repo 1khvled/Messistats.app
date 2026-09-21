@@ -558,23 +558,23 @@ ${renderRailNav(lang, "dashboard")}
 <h1>${dict.h1}</h1>
 <p class="lede" id="lede">${dict.lede}</p>
 <p><a class="btn" href="/${lang}">${L.backToStats}</a></p>
-<div aria-label="Filter" class="pills" id="pills" role="group"></div>
+<div aria-label="Filter" class="dash-team-selector" id="pills" role="group"></div>
 <p class="section-sub" id="filter-note"></p>
-<section aria-label="KPIs" class="kpis kpis-3" id="kpis"></section>
+<section aria-label="KPIs" class="dash-kpis-grid" id="kpis"></section>
 <div class="shead"><h2>${dict.compTitle}</h2></div>
-<section class="card chart-card" id="comp-card"></section>
+<div class="dash-sections-grid">
+  <section class="dash-card" id="body-card"></section>
+  <section class="dash-card" id="finish-card"></section>
+  <section class="dash-card" id="comp-card"></section>
+  <section class="dash-card" id="milestones-card"></section>
+</div>
 ${renderAdSlot(lang)}
 <div class="shead"><h2>${dict.seasonTitle}</h2></div>
 <section class="card chart-card" id="season-card"></section>
-<div class="shead"><h2>${dict.teamTitle}</h2></div>
-<section aria-label="Team cards" class="team-grid" id="team-cards">...</section>
-<div class="shead"><h2>${dict.finishTitle}</h2></div>
-<section class="card chart-card" id="finish-card"></section>
-${renderAdSlot(lang)}
-<div class="shead"><h2>${dict.bodyTitle}</h2></div>
-<section class="card chart-card" id="body-card"></section>
 <div class="shead"><h2>${dict.ageTitle}</h2></div>
 <section class="card chart-card" id="age-card"></section>
+<div class="shead"><h2>${dict.teamTitle}</h2></div>
+<section aria-label="Team cards" class="team-grid" id="team-cards">...</section>
 <div class="shead"><h2>${dict.compTableTitle}</h2></div>
 <section class="card" id="comp-table">...</section>
 <div class="shead"><h2>${dict.finishTableTitle}</h2></div>
@@ -918,6 +918,14 @@ ${renderRailNav(lang, "timeline")}
 <h1>${dict.h1}</h1>
 <p class="lede" id="lede">${dict.lede}</p>
 <p><a class="btn" href="/${lang}">${L.backToStats}</a></p>
+<section class="tl-summary-banner" id="tl-summary" aria-label="Career overview numbers">
+  <div class="tl-summary-kpi"><div class="val">22</div><div class="lbl">Seasons (2004–2026)</div></div>
+  <div class="tl-summary-kpi"><div class="val">929</div><div class="lbl">Senior Goals</div></div>
+  <div class="tl-summary-kpi"><div class="val">385+</div><div class="lbl">Career Assists</div></div>
+  <div class="tl-summary-kpi"><div class="val">46</div><div class="lbl">Major Trophies</div></div>
+  <div class="tl-summary-kpi"><div class="val">8</div><div class="lbl">Ballons d'Or</div></div>
+  <div class="tl-summary-kpi"><div class="val">6</div><div class="lbl">Golden Shoes</div></div>
+</section>
 <div class="shead"><h2>${dict.keyHead}</h2></div>
 <section class="card" id="keydates">...</section>
 ${renderAdSlot(lang)}
