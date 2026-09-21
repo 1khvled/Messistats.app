@@ -170,6 +170,8 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-21 — antigravity (gemini-3.8-flash) — 9b43497 — optimize index.html & latest-goal.html for high-intent keywords: messi stat, messi stats, messi goal today, did messi score today. Front-loaded exact match queries in Title, H1, meta descriptions, lede paragraph, OpenGraph/Twitter tags, Dataset/WebSite keywords, and FAQPage schemas. Added Ground Truth Live Matchday Tracker card to homepage with direct link to /en/latest-goal, added 'What are Lionel Messi's career stats?' and 'Did Messi score today?' to FAQs in both JSON-LD and UI accordion while maintaining strict H1->H2->H3 heading hierarchy. Verified: npm run build, npm run audit (929x3 PASS).
 
+- 2026-09-21 — antigravity (gemini-3.8-flash) — d1a8e20 — optimize index.html ground-truth title and lede for 'messi total goals' query (front-load exact search match in H2 and lead paragraph). Verified: npm run build, npm run audit (929x3 PASS).
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -204,3 +206,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-21 | antigravity (gemini-3.8-flash) | fix bday-select background chevron repeat bug in dark mode | 09b5709 | src/styles.css, es/index.html, CONTEXT.md |
 | 2026-09-21 | antigravity (claude-sonnet) | fix Google Search no-logo: regenerate solid filled favicons | bb81949 | public/favicon*.png, public/apple-touch-icon.png, public/favicon.ico, scripts/gen-favicons.py |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | SEO optimization for messi stat, messi stats, messi goal today, did messi score today | 9b43497 | index.html, latest-goal.html, CONTEXT.md |
+| 2026-09-21 | antigravity (gemini-3.8-flash) | target 'messi total goals' keyword in ground-truth card | d1a8e20 | index.html, CONTEXT.md |
