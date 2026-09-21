@@ -3878,7 +3878,8 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
 }
-.admin-login-header h2 {
+.admin-login-header h2,
+.admin-login-header .admin-login-title {
   font-family: var(--font-head);
   font-size: 1.35rem;
   font-weight: 800;
