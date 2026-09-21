@@ -42,7 +42,7 @@ function getHreflangs(lang, slug) {
 const I18N = {
   en: {
     dir: "ltr",
-    title: "Messi vs Ronaldo: All-Time Stats, Free Kicks, Penalties & Head-to-Head | MessiStat",
+    title: "Messi vs Ronaldo | MessiStat",
     desc: "Lionel Messi vs Cristiano Ronaldo: 929 goals vs 924, 385+ assists vs 255+, 818 non-penalty goals vs 756, 66 free kicks each, 46 trophies vs 35, 8 Ballons d'Or vs 5. The definitive comparison.",
     keywords: "messi vs ronaldo, messi vs ronaldo stats, messi vs ronaldo free kicks, messi vs ronaldo penalties, messi vs ronaldo non penalty goals, messi vs ronaldo assists, messi vs ronaldo hat tricks, messi vs ronaldo all time goals, who is the goat messi or ronaldo, who has more goals messi or ronaldo, messi vs ronaldo head to head, messi vs ronaldo world cup, messi ronaldo trophies, messi ronaldo ballons d or",
     brand: "MessiStat",
@@ -59,7 +59,7 @@ const I18N = {
     achievementsName: "Achievements",
     skipText: "Skip to content",
     eyebrow: "The Ultimate Rivalry <i></i> <span>Head-to-Head & Complete Career Comparison</span>",
-    h1: "Lionel Messi vs Cristiano Ronaldo: All-Time Career Head-to-Head Stats",
+    h1: "Messi vs Ronaldo",
     lead: "The definitive statistical comparison between the two greatest icons of modern football. All-time goals, non-penalty goals, free kicks, penalties, assists, trophies, individual accolades, and all 36 direct matches.",
     verdictBadge: "THE GOAT VERDICT • COMPLETE OFFICIAL TOTALS",
     verdictTitle: "Who has better all-time career statistics: Messi or Ronaldo?",

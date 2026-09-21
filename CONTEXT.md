@@ -172,6 +172,8 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-21 — antigravity (gemini-3.8-flash) — d1a8e20 — optimize index.html ground-truth title and lede for 'messi total goals' query (front-load exact search match in H2 and lead paragraph). Verified: npm run build, npm run audit (929x3 PASS).
 
+- 2026-09-21 — antigravity (gemini-3.8-flash) — 3898f73 — streamline site-wide SEO to target short-tail queries ('Messi Stats', 'Messi Goal Today', 'Messi Total Goals', 'Messi vs Ronaldo', 'Messi Trophies', 'Messi Goals by Year', 'Messi Goals by Season', 'Messi Champions League', 'Messi vs Real Madrid', 'Messi Birthday Goals', 'Messi Career Timeline'). Eliminated long verbose titles and H1s across all 11 core templates and build-messi-vs-ronaldo.mjs. Verified: npm run build, npm run audit (929x3 PASS), heading hierarchy check (all 11 pages pass).
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -207,3 +209,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-21 | antigravity (claude-sonnet) | fix Google Search no-logo: regenerate solid filled favicons | bb81949 | public/favicon*.png, public/apple-touch-icon.png, public/favicon.ico, scripts/gen-favicons.py |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | SEO optimization for messi stat, messi stats, messi goal today, did messi score today | 9b43497 | index.html, latest-goal.html, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | target 'messi total goals' keyword in ground-truth card | d1a8e20 | index.html, CONTEXT.md |
+| 2026-09-21 | antigravity (gemini-3.8-flash) | streamline titles & H1s across all 11 pages for short-tail keywords | 3898f73 | 10 HTML, scripts/build-messi-vs-ronaldo.mjs, CONTEXT.md |
