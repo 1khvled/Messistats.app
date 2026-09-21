@@ -168,6 +168,8 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-09-21 — antigravity — fix Google Search Console favicon: no logo showing in search results (user: mate no logo on google): Root cause diagnosed — the previous favicon-48x48.png was a near-empty outline (only 8% pixel fill, ~171/2304 opaque pixels) that Google's favicon picker rejected as too sparse/low-contrast. Regenerated all favicon assets as a solid filled shield using Pillow drawing primitives: gradient-filled shield (maroon→navy→blue), gold border, gold star, white "M10" bold text centered. New 48x48 has 51% fill (1187/2304 opaque pixels). Files regenerated: public/favicon-48x48.png, public/favicon-96x96.png, public/favicon-192x192.png, public/favicon-512x512.png, public/favicon.png, public/apple-touch-icon.png, public/favicon.ico. Added scripts/gen-favicons.py for future regeneration. Verify: npm run build, npm run audit (929x3 PASS). Next: request re-crawl of homepage in Google Search Console.
 
+- 2026-09-21 — antigravity (gemini-3.8-flash) — 9b43497 — optimize index.html & latest-goal.html for high-intent keywords: messi stat, messi stats, messi goal today, did messi score today. Front-loaded exact match queries in Title, H1, meta descriptions, lede paragraph, OpenGraph/Twitter tags, Dataset/WebSite keywords, and FAQPage schemas. Added Ground Truth Live Matchday Tracker card to homepage with direct link to /en/latest-goal, added 'What are Lionel Messi's career stats?' and 'Did Messi score today?' to FAQs in both JSON-LD and UI accordion while maintaining strict H1->H2->H3 heading hierarchy. Verified: npm run build, npm run audit (929x3 PASS).
+
 ## Agent Log
 
 | Date | Agent (model) | Task | Commit | Files |
@@ -201,3 +203,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-21 | antigravity (gemini-3.8-flash) | clean admin heading hierarchy to enforce strict H1->H2->H3 outline | ccb425c | admin.html, src/styles.css, CONTEXT.md |
 | 2026-09-21 | antigravity (gemini-3.8-flash) | fix bday-select background chevron repeat bug in dark mode | 09b5709 | src/styles.css, es/index.html, CONTEXT.md |
 | 2026-09-21 | antigravity (claude-sonnet) | fix Google Search no-logo: regenerate solid filled favicons | bb81949 | public/favicon*.png, public/apple-touch-icon.png, public/favicon.ico, scripts/gen-favicons.py |
+| 2026-09-21 | antigravity (gemini-3.8-flash) | SEO optimization for messi stat, messi stats, messi goal today, did messi score today | 9b43497 | index.html, latest-goal.html, CONTEXT.md |
