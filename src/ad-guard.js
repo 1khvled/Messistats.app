@@ -41,7 +41,7 @@
   HTMLAnchorElement.prototype.click = function() {
     const href = this.href || '';
     if (href && !isAllowedUrl(href)) {
-      const isInsideAd = this.closest('.ad-native-slot, .ad-native-wrap, [id^="container-"]');
+      const isInsideAd = this.closest('.ad-native-slot, .ad-native-wrap, .ad-banner-slot, .ad-banner-wrap, [id^="container-"]');
       if (!isInsideAd || this.style.opacity === '0' || this.style.display === 'none' || this.getAttribute('target') === '_blank') {
         const isUserTrusted = typeof event !== 'undefined' && event && event.isTrusted;
         if (!isUserTrusted && !isInsideAd) {
@@ -61,7 +61,7 @@
       const vh = window.innerHeight || document.documentElement.clientHeight;
 
       elements.forEach(el => {
-        if (el.id === 'video-modal' || el.id === 'bday-embed-modal' || el.id === 'banner' || el.classList.contains('page') || el.classList.contains('rail')) {
+        if (el.id === 'video-modal' || el.id === 'bday-embed-modal' || el.id === 'banner' || el.classList.contains('page') || el.classList.contains('rail') || el.closest('.ad-banner-wrap') || el.closest('.ad-native-wrap')) {
           return;
         }
         const style = window.getComputedStyle(el);

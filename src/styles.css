@@ -6144,7 +6144,7 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
 
 /* ================= CLEAN SIMPLE AD BANNERS ================= */
 .ad-native-wrap {
-  margin: 2rem 0;
+  margin: 2.5rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6152,10 +6152,13 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   background: var(--surface-soft, rgba(0, 0, 0, 0.02));
   border: 1px dashed var(--line-soft);
   border-radius: 12px;
-  padding: 0.75rem 0.5rem;
-  min-height: 100px;
+  padding: 0.85rem 0.5rem;
+  max-width: 728px;
+  width: 100%;
+  min-height: 110px;
   overflow: hidden;
   text-align: center;
+  box-sizing: border-box;
 }
 [data-theme="dark"] .ad-native-wrap {
   background: rgba(255, 255, 255, 0.015);
@@ -6177,6 +6180,42 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   justify-content: center;
   align-items: center;
   min-height: 50px;
+}
+
+/* 300x250 Medium Rectangle Banner - Mobile Optimized & Zero CLS */
+.ad-banner-wrap {
+  margin: 2.5rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-soft, rgba(0, 0, 0, 0.02));
+  border: 1px dashed var(--line-soft);
+  border-radius: 12px;
+  padding: 0.85rem 0.5rem;
+  max-width: 340px;
+  width: 100%;
+  min-height: 285px;
+  overflow: hidden;
+  text-align: center;
+  box-sizing: border-box;
+}
+[data-theme="dark"] .ad-banner-wrap {
+  background: rgba(255, 255, 255, 0.015);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.ad-banner-slot {
+  width: 300px;
+  height: 250px;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.ad-banner-slot iframe {
+  max-width: 100%;
+  border: none;
 }
 
 /* ================= RTL & ARABIC INTEGRITY ================= */
