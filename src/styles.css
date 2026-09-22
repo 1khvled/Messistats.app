@@ -4469,6 +4469,32 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   flex-direction: column;
   gap: 12px;
 }
+.bday-embed-mode-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 0;
+  flex-wrap: wrap;
+}
+.bday-embed-mode-btn {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.80rem;
+  font-weight: 700;
+  padding: 6px 13px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.bday-embed-mode-btn:hover {
+  color: var(--text);
+  border-color: var(--muted);
+}
+.bday-embed-mode-btn.active {
+  background: var(--blue);
+  color: #fff;
+  border-color: var(--blue);
+}
 .bday-embed-preview {
   background: var(--surface);
   border: 1px solid var(--line);

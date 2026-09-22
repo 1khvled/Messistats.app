@@ -1402,11 +1402,15 @@
     </div>
     <div class="bday-embed-body">
       <p style="font-size: 0.9rem; color: var(--muted); margin: 0;">Add a live, daily-updating "On This Day in Messi History" video widget to your football blog, forum, or website:</p>
+      <div class="bday-embed-mode-tabs">
+        <button type="button" class="bday-embed-mode-btn active" id="bday-embed-tab-dynamic">⚡ Auto-Updating (Today)</button>
+        <button type="button" class="bday-embed-mode-btn" id="bday-embed-tab-fixed">📅 Selected Date (<span id="bday-embed-tab-date">22 September</span>)</button>
+      </div>
       <div class="bday-embed-preview">
-        <iframe src="/embed/on-this-day.html" style="width:100%;height:320px;border:none;overflow:hidden;" loading="lazy"></iframe>
+        <iframe id="bday-embed-iframe" src="/embed/on-this-day.html" style="width:100%;height:380px;border:none;overflow:hidden;" loading="lazy"></iframe>
       </div>
       <label for="bday-embed-code" class="bday-embed-label">Copy &amp; Paste this HTML snippet into your site:</label>
-      <textarea id="bday-embed-code" readonly class="bday-embed-textarea" rows="3">&lt;iframe src="https://www.messistat.com/embed/on-this-day" width="100%" height="340" frameborder="0" style="border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);max-width:520px;"&gt;&lt;/iframe&gt;</textarea>
+      <textarea id="bday-embed-code" readonly class="bday-embed-textarea" rows="3">&lt;iframe src="https://www.messistat.com/embed/on-this-day" width="100%" height="380" frameborder="0" style="border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);max-width:520px;"&gt;&lt;/iframe&gt;</textarea>
       <button type="button" class="btn-primary" id="bday-copy-embed-btn">Copy Embed Code</button>
       <span class="bday-share-msg" id="bday-embed-copy-msg" aria-live="polite"></span>
     </div>

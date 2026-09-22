@@ -5454,13 +5454,65 @@ function setupEmbedModal() {
   const copyBtn = el("bday-copy-embed-btn");
   const copyMsg = el("bday-embed-copy-msg");
   const textarea = el("bday-embed-code");
+  const iframe = el("bday-embed-iframe");
+  const tabDynamic = el("bday-embed-tab-dynamic");
+  const tabFixed = el("bday-embed-tab-fixed");
+  const tabDateSpan = el("bday-embed-tab-date");
 
   if (!triggerBtn || !modal) return;
+
+  let mode = "dynamic"; // "dynamic" or "fixed"
+
+  function updateEmbedSnippet() {
+    const key = window.__currentBdayKey || "09-22";
+    const formatted = window.__currentBdayFormatted || key;
+    if (tabDateSpan) tabDateSpan.textContent = formatted;
+
+    if (mode === "fixed") {
+      const srcUrl = `https://www.messistat.com/embed/on-this-day?date=${key}`;
+      if (textarea) {
+        textarea.value = `<iframe src="${srcUrl}" width="100%" height="380" frameborder="0" style="border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);max-width:520px;"></iframe>`;
+      }
+      if (iframe) {
+        iframe.src = `/embed/on-this-day.html?date=${key}`;
+      }
+    } else {
+      const srcUrl = `https://www.messistat.com/embed/on-this-day`;
+      if (textarea) {
+        textarea.value = `<iframe src="${srcUrl}" width="100%" height="380" frameborder="0" style="border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);max-width:520px;"></iframe>`;
+      }
+      if (iframe) {
+        iframe.src = `/embed/on-this-day.html`;
+      }
+    }
+  }
+
+  window.__updateEmbedModal = updateEmbedSnippet;
 
   triggerBtn.onclick = () => {
     modal.hidden = false;
     modal.setAttribute("aria-hidden", "false");
+    updateEmbedSnippet();
   };
+
+  if (tabDynamic) {
+    tabDynamic.onclick = () => {
+      mode = "dynamic";
+      tabDynamic.classList.add("active");
+      if (tabFixed) tabFixed.classList.remove("active");
+      updateEmbedSnippet();
+    };
+  }
+
+  if (tabFixed) {
+    tabFixed.onclick = () => {
+      mode = "fixed";
+      tabFixed.classList.add("active");
+      if (tabDynamic) tabDynamic.classList.remove("active");
+      updateEmbedSnippet();
+    };
+  }
+
   if (closeBtn) {
     closeBtn.onclick = () => {
       modal.hidden = true;
@@ -6151,6 +6203,9 @@ async function renderBirthday(d) {
     };
 
     const formatted = `${day} ${MONTH_NAMES[m]}`;
+    window.__currentBdayKey = key;
+    window.__currentBdayFormatted = formatted;
+    if (window.__updateEmbedModal) window.__updateEmbedModal();
 
     try {
       const url = new URL(location.href);

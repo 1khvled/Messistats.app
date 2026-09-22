@@ -3,18 +3,21 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Lionel Messi: On This Day in History — MessiStats Widget</title>
+<title>Lionel Messi: On This Day in History — MessiStat Widget</title>
 <meta name="robots" content="noindex, follow"/>
 <style>
   :root {
     --bg: #0d1726;
     --card: #152238;
     --card-inner: #1c2d4a;
+    --card-hover: #22375a;
     --line: rgba(255, 255, 255, 0.12);
     --text: #f0f4f8;
     --muted: #94a3b8;
     --gold: #e3b93e;
+    --gold-glow: rgba(227, 185, 62, 0.2);
     --blue: #0e7cc0;
+    --blue-glow: rgba(14, 124, 192, 0.2);
     --accent: #22d3ee;
   }
   @media (prefers-color-scheme: light) {
@@ -22,24 +25,55 @@
       --bg: #f8fafc;
       --card: #ffffff;
       --card-inner: #f1f5f9;
+      --card-hover: #e2e8f0;
       --line: #e2e8f0;
       --text: #0f172a;
       --muted: #64748b;
       --gold: #b45309;
+      --gold-glow: rgba(180, 83, 9, 0.15);
       --blue: #0284c7;
+      --blue-glow: rgba(2, 132, 199, 0.15);
       --accent: #0891b2;
     }
+  }
+  body.theme-light {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --card-inner: #f1f5f9;
+    --card-hover: #e2e8f0;
+    --line: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --gold: #b45309;
+    --gold-glow: rgba(180, 83, 9, 0.15);
+    --blue: #0284c7;
+    --blue-glow: rgba(2, 132, 199, 0.15);
+    --accent: #0891b2;
+  }
+  body.theme-dark {
+    --bg: #0d1726;
+    --card: #152238;
+    --card-inner: #1c2d4a;
+    --card-hover: #22375a;
+    --line: rgba(255, 255, 255, 0.12);
+    --text: #f0f4f8;
+    --muted: #94a3b8;
+    --gold: #e3b93e;
+    --gold-glow: rgba(227, 185, 62, 0.2);
+    --blue: #0e7cc0;
+    --blue-glow: rgba(14, 124, 192, 0.2);
+    --accent: #22d3ee;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: var(--bg);
     color: var(--text);
-    padding: 12px;
+    padding: 8px;
+    margin: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    align-items: flex-start;
   }
   .widget {
     width: 100%;
@@ -47,11 +81,11 @@
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 14px 16px;
+    padding: 12px 14px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 9px;
   }
   .w-header {
     display: flex;
@@ -59,6 +93,7 @@
     justify-content: space-between;
     border-bottom: 1px solid var(--line);
     padding-bottom: 8px;
+    gap: 8px;
   }
   .w-badge {
     display: inline-flex;
@@ -69,14 +104,91 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--gold);
+    white-space: nowrap;
+  }
+  .w-header-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
   .w-date {
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--text);
+    background: var(--card-inner);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+  }
+  .w-rand-btn {
+    background: var(--card-inner);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 6px;
+    padding: 2px 7px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    line-height: 1.4;
+    transition: all 0.15s ease;
+  }
+  .w-rand-btn:hover {
+    background: var(--card-hover);
+    border-color: var(--gold);
+    transform: scale(1.05);
+  }
+  .w-summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .w-goals-badge {
+    background: var(--gold-glow);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .w-summary-meta {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .w-match-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .w-match-tabs::-webkit-scrollbar { display: none; }
+  .w-match-tab {
+    background: var(--card-inner);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+  .w-match-tab:hover {
+    color: var(--text);
+    background: var(--card-hover);
+  }
+  .w-match-tab.active {
+    background: var(--blue);
+    color: #fff;
+    border-color: var(--blue);
   }
   .w-fixture {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 700;
     color: var(--text);
     display: flex;
@@ -84,52 +196,107 @@
     justify-content: space-between;
     gap: 8px;
     background: var(--card-inner);
-    padding: 8px 12px;
+    padding: 7px 11px;
     border-radius: 8px;
+  }
+  .w-teams {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .w-vs {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 500;
   }
   .w-score {
     background: var(--blue);
     color: #fff;
     padding: 2px 8px;
     border-radius: 999px;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 800;
+    white-space: nowrap;
   }
-  .w-stats {
+  .w-match-meta {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.82rem;
+    justify-content: space-between;
+    font-size: 0.75rem;
     color: var(--muted);
+    gap: 8px;
+    flex-wrap: wrap;
   }
-  .w-pill {
-    background: rgba(14, 124, 192, 0.15);
-    color: var(--blue);
+  .w-mins {
+    color: var(--accent);
     font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 4px;
   }
   .w-video-box {
     width: 100%;
     border-radius: 8px;
     overflow: hidden;
     background: #000;
-    display: none;
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .w-video-box video {
     width: 100%;
-    max-height: 180px;
+    max-height: 170px;
     display: block;
   }
-  .w-actions {
+  .w-goal-pills {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 6px;
+    gap: 5px;
+    padding: 6px 8px;
+    background: var(--card-inner);
     border-top: 1px solid var(--line);
+    flex-wrap: wrap;
   }
-  .w-btn {
+  .w-goal-pill {
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.70rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .w-goal-pill:hover {
+    color: var(--text);
+    border-color: var(--text);
+  }
+  .w-goal-pill.active {
+    background: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+  }
+  .w-empty {
+    text-align: center;
+    padding: 18px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .w-empty-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .w-empty-desc {
+    font-size: 0.80rem;
+    color: var(--muted);
+    line-height: 1.4;
+    max-width: 380px;
+  }
+  .w-empty-desc strong {
+    color: var(--gold);
+  }
+  .w-empty-btn {
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -137,11 +304,42 @@
     font-weight: 700;
     padding: 5px 12px;
     border-radius: 999px;
+    background: var(--card-inner);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    margin-top: 4px;
+    transition: all 0.15s ease;
+  }
+  .w-empty-btn:hover {
+    background: var(--gold);
+    color: #000;
+  }
+  .w-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 7px;
+    border-top: 1px solid var(--line);
+    margin-top: 2px;
+  }
+  .w-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: 999px;
     background: var(--blue);
     color: #fff;
     border: none;
     cursor: pointer;
     text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .w-btn:hover {
+    opacity: 0.9;
   }
   .w-link {
     font-size: 0.72rem;
@@ -161,7 +359,22 @@
     font-size: 0.82rem;
     color: var(--muted);
     text-align: center;
-    padding: 12px;
+    padding: 24px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .w-spinner {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--line);
+    border-top-color: var(--blue);
+    border-radius: 50%;
+    animation: w-spin 0.8s linear infinite;
+  }
+  @keyframes w-spin {
+    to { transform: rotate(360deg); }
   }
 </style>
 </head>
@@ -169,17 +382,26 @@
 
 <div class="widget" id="widget">
   <div class="w-header">
-    <span class="w-badge">⚽ On This Day in Messi History</span>
-    <span class="w-date" id="w-date">Loading…</span>
+    <div class="w-badge">
+      <span>⚽</span>
+      <span>On This Day</span>
+    </div>
+    <div class="w-header-right">
+      <span class="w-date" id="w-date">...</span>
+      <button type="button" class="w-rand-btn" id="w-rand-btn" title="Show random classic matchday" aria-label="Random classic matchday">🎲</button>
+    </div>
   </div>
 
   <div id="w-content">
-    <div class="w-loading">Checking Messi's 930-goal match archive…</div>
+    <div class="w-loading">
+      <div class="w-spinner"></div>
+      <span>Checking Messi's 930-goal match archive…</span>
+    </div>
   </div>
 
   <div class="w-actions">
     <a href="https://www.messistat.com/en/birthday" target="_blank" rel="noopener" class="w-link" id="w-powered-link">
-      Powered by <strong>MessiStats.com</strong>
+      Powered by <strong>MessiStat.com</strong>
     </a>
     <a href="https://www.messistat.com/en/birthday" target="_blank" rel="noopener" class="w-btn" id="w-cta-btn">
       Search 366 Days &rarr;
@@ -193,62 +415,187 @@
   const contentEl = document.getElementById("w-content");
   const ctaBtn = document.getElementById("w-cta-btn");
   const poweredLink = document.getElementById("w-powered-link");
+  const randBtn = document.getElementById("w-rand-btn");
 
   const urlParams = new URLSearchParams(window.location.search);
-  let dateKey = urlParams.get("date");
-  
-  if (!dateKey) {
+  const themeParam = urlParams.get("theme");
+  if (themeParam === "light") document.body.classList.add("theme-light");
+  if (themeParam === "dark") document.body.classList.add("theme-dark");
+
+  function getTodayKey() {
     const now = new Date();
-    const m = String(now.getUTCMonth() + 1).padStart(2, "0");
-    const d = String(now.getUTCDate()).padStart(2, "0");
-    dateKey = `${m}-${d}`;
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+    return `${m}-${d}`;
   }
 
-  try {
-    const res = await fetch("/data/birthday-goals.json");
-    if (!res.ok) throw new Error("Data fetch error");
-    const data = await res.json();
-    const day = data.days && data.days[dateKey];
+  function normalizeDate(raw) {
+    if (!raw) return null;
+    const parts = raw.trim().split(/[-/]/);
+    if (parts.length === 3) {
+      return `${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
+    }
+    if (parts.length === 2) {
+      return `${parts[0].padStart(2, "0")}-${parts[1].padStart(2, "0")}`;
+    }
+    return null;
+  }
+
+  let dateKey = normalizeDate(urlParams.get("date")) || getTodayKey();
+  let fullData = null;
+
+  async function loadData() {
+    try {
+      const res = await fetch("/data/birthday-goals.json");
+      if (!res.ok) throw new Error("Local fetch failed: " + res.status);
+      return await res.json();
+    } catch(e) {
+      const res2 = await fetch("https://www.messistat.com/data/birthday-goals.json");
+      if (!res2.ok) throw new Error("Fallback fetch failed: " + res2.status);
+      return await res2.json();
+    }
+  }
+
+  function renderDay(key) {
+    if (!fullData) return;
+    const calendar = fullData.calendar || fullData.days || {};
+    const day = calendar[key];
 
     if (!day) {
-      contentEl.innerHTML = `<div class="w-loading">No match data on record for ${dateKey}.</div>`;
+      dateEl.textContent = key;
+      contentEl.innerHTML = `<div class="w-empty"><div class="w-empty-title">No records found for ${key}</div></div>`;
       return;
     }
 
-    dateEl.textContent = day.formatted;
-    ctaBtn.href = `https://www.messistat.com/en/birthday?date=${dateKey}`;
-    poweredLink.href = `https://www.messistat.com/en/birthday?date=${dateKey}`;
+    dateKey = key;
+    dateEl.textContent = day.formatted || key;
+    const targetUrl = `https://www.messistat.com/en/birthday?date=${key}`;
+    ctaBtn.href = targetUrl;
+    poweredLink.href = targetUrl;
 
-    if (day.goalsCount > 0 && day.matches && day.matches.length > 0) {
-      const match = day.matches[0];
-      const hasVideo = match.videos && match.videos.length > 0;
-      const videoUrl = hasVideo ? match.videos[0].videoUrl : null;
-
+    if (!day.goalsCount || !day.matches || day.matches.length === 0) {
       contentEl.innerHTML = `
-        <div class="w-fixture">
-          <span>${match.team}</span>
-          <span class="w-score">${match.score || "Won"}</span>
-          <span>${match.opponent}</span>
-        </div>
-        <div class="w-stats">
-          <span class="w-pill">⚽ ${match.goalsCount} ${match.goalsCount === 1 ? "Goal" : "Goals"}</span>
-          <span>${match.competition || "Official Match"} (${match.year})</span>
-        </div>
-        ${videoUrl ? `
-          <div class="w-video-box" id="w-video-box" style="display:block;">
-            <video controls playsinline preload="metadata" src="${videoUrl}" style="background:#000;"></video>
-          </div>
-        ` : ""}
-      `;
-    } else {
-      contentEl.innerHTML = `
-        <div style="font-size: 0.85rem; color: var(--muted); padding: 6px 0;">
-          Lionel Messi had no competitive match on ${day.formatted}. Messi has scored on 292 of 366 calendar days!
+        <div class="w-empty">
+          <div class="w-empty-title">No Competitive Goals on ${day.formatted}</div>
+          <p class="w-empty-desc">Lionel Messi had no official match on this calendar day. Messi has scored on <strong>292 of 366</strong> days across his 930 career goals!</p>
+          <button type="button" class="w-empty-btn" id="w-empty-rand">🎲 Explore a Legendary Matchday</button>
         </div>
       `;
+      const btn = document.getElementById("w-empty-rand");
+      if (btn) btn.onclick = () => renderRandomDay();
+      return;
     }
+
+    function renderMatch(mIdx) {
+      const match = day.matches[mIdx] || day.matches[0];
+      const videos = match.videos || [];
+      let activeVideoIdx = 0;
+
+      let tabsHtml = "";
+      if (day.matches.length > 1) {
+        tabsHtml = `
+          <div class="w-match-tabs" role="tablist">
+            ${day.matches.map((m, i) => `
+              <button type="button" class="w-match-tab ${i === mIdx ? "active" : ""}" data-idx="${i}">
+                ${m.year} vs ${m.opponent} (${m.goalsCount}⚽)
+              </button>
+            `).join("")}
+          </div>
+        `;
+      }
+
+      function getVideoSectionHtml() {
+        if (!videos.length) return "";
+        const vid = videos[activeVideoIdx] || videos[0];
+        let pillsHtml = "";
+        if (videos.length > 1) {
+          pillsHtml = `
+            <div class="w-goal-pills">
+              ${videos.map((v, vi) => `
+                <button type="button" class="w-goal-pill ${vi === activeVideoIdx ? "active" : ""}" data-vidx="${vi}">
+                  Goal #${v.goalNumber || (vi + 1)} ${v.minute ? `(${v.minute}')` : ""}
+                </button>
+              `).join("")}
+            </div>
+          `;
+        }
+        return `
+          <div class="w-video-box">
+            <video id="w-video" controls playsinline preload="metadata" src="${vid.videoUrl}"></video>
+            ${pillsHtml}
+          </div>
+        `;
+      }
+
+      contentEl.innerHTML = `
+        <div class="w-summary-bar">
+          <span class="w-goals-badge">🔥 ${day.goalsCount} ${day.goalsCount === 1 ? "Career Goal" : "Career Goals"}</span>
+          <span class="w-summary-meta">${day.matches.length} ${day.matches.length === 1 ? "Match" : "Matches"} on this Day</span>
+        </div>
+        ${tabsHtml}
+        <div class="w-fixture">
+          <div class="w-teams">
+            <span class="w-team">${match.team}</span>
+            <span class="w-vs">vs</span>
+            <span class="w-opponent">${match.opponent}</span>
+          </div>
+          <span class="w-score">${match.score || "Won"}</span>
+        </div>
+        <div class="w-match-meta">
+          <span>🏆 ${match.competition || "Official Match"} (${match.year})</span>
+          ${match.minutes && match.minutes.length ? `<span class="w-mins">⚽ ${match.minutes.map(m => m + "'").join(", ")}</span>` : ""}
+        </div>
+        ${getVideoSectionHtml()}
+      `;
+
+      // Match tab handlers
+      const tabBtns = contentEl.querySelectorAll(".w-match-tab");
+      tabBtns.forEach(btn => {
+        btn.onclick = () => renderMatch(parseInt(btn.getAttribute("data-idx"), 10));
+      });
+
+      // Video pill handlers
+      const vPills = contentEl.querySelectorAll(".w-goal-pill");
+      vPills.forEach(pill => {
+        pill.onclick = () => {
+          activeVideoIdx = parseInt(pill.getAttribute("data-vidx"), 10);
+          vPills.forEach(p => p.classList.remove("active"));
+          pill.classList.add("active");
+          const vEl = document.getElementById("w-video");
+          if (vEl && videos[activeVideoIdx]) {
+            vEl.src = videos[activeVideoIdx].videoUrl;
+            vEl.play().catch(() => {});
+          }
+        };
+      });
+    }
+
+    renderMatch(0);
+  }
+
+  function renderRandomDay() {
+    if (!fullData) return;
+    const calendar = fullData.calendar || fullData.days || {};
+    const goalDays = Object.values(calendar).filter(d => d.goalsCount > 0);
+    if (!goalDays.length) return;
+    const picked = goalDays[Math.floor(Math.random() * goalDays.length)];
+    renderDay(picked.key);
+  }
+
+  if (randBtn) {
+    randBtn.onclick = () => renderRandomDay();
+  }
+
+  try {
+    fullData = await loadData();
+    renderDay(dateKey);
   } catch(err) {
-    contentEl.innerHTML = `<div class="w-loading">Explore all 930 Lionel Messi goals at messistat.com</div>`;
+    contentEl.innerHTML = `
+      <div class="w-empty">
+        <p class="w-empty-desc">Could not load match data archive.</p>
+        <a href="https://www.messistat.com/en/birthday" target="_blank" class="w-btn">View on MessiStat.com</a>
+      </div>
+    `;
   }
 })();
 </script>
