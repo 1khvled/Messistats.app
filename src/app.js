@@ -447,24 +447,6 @@ if (typeof document !== "undefined") {
   });
 }
 
-function initTableScrollHints() {
-  if (typeof document === "undefined" || window.innerWidth > 900) return;
-  const wraps = document.querySelectorAll(".table-wrap, .table-card, .ground-truth-table-wrap, .seo-stat-table-wrap");
-  wraps.forEach((wrap) => {
-    if (!wrap.querySelector(".table-scroll-hint") && wrap.scrollWidth > wrap.clientWidth + 12) {
-      const hint = document.createElement("div");
-      hint.className = "table-scroll-hint";
-      hint.innerHTML = `<span>Swipe table ↔</span>`;
-      wrap.insertBefore(hint, wrap.firstChild);
-      wrap.addEventListener("scroll", () => {
-        hint.style.opacity = "0";
-        hint.style.transition = "opacity 0.25s ease";
-        setTimeout(() => hint.remove(), 250);
-      }, { once: true, passive: true });
-    }
-  });
-}
-
 function initLanguageAndMobileTopBar() {
   if (typeof document === "undefined") return;
 
@@ -551,7 +533,6 @@ function initLanguageAndMobileTopBar() {
   try {
     ensureLangModal();
     ensureMobileMenuDrawer();
-    initTableScrollHints();
   } catch (_) {}
 
   // 4. Device & Location-Based Language View Detection
@@ -853,7 +834,8 @@ function tableSearch(table, placeholder, param) {
   const box = document.createElement("div");
   box.className = "table-search";
   box.innerHTML = `<input type="search" placeholder="${placeholder}" aria-label="${placeholder}">`;
-  table.before(box);
+  const mountTarget = table.closest(".table-wrap") || table;
+  mountTarget.before(box);
   const inp = box.querySelector("input");
   const apply = (q) => {
     q = q.trim().toLowerCase();
@@ -2095,9 +2077,9 @@ function renderHome(d) {
     }).join("");
 
     clubCard.innerHTML =
-      `<table class="data-table"><caption>${dict.clubCaption(esc(d.lastUpdated), lang)}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${dict.clubCaption(esc(d.lastUpdated), lang)}</caption>` +
       `<thead><tr><th scope="col" class="left">${dict.thTeam}</th><th scope="col">${dict.thApps}</th><th scope="col">${dict.thGoals}</th><th scope="col">${dict.thGpg}</th></tr></thead>` +
-      `<tbody>${rows}<tr class="total"><th scope="row">${dict.thTotal}</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table>` + clubTableCaption();
+      `<tbody>${rows}<tr class="total"><th scope="row">${dict.thTotal}</th><td>${n(t.apps)}</td><td>${n(t.goals)}</td><td>${t.goalsPerGame}</td></tr></tbody></table></div>` + clubTableCaption();
     const cTable = clubCard.querySelector("table");
     if (cTable) sortable(cTable);
   }
@@ -2167,10 +2149,10 @@ function renderHome(d) {
   const silver = el("silver");
   if (silver) {
     silver.innerHTML =
-      `<table class="data-table"><caption>${dict.silverCaption}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${dict.silverCaption}</caption>` +
       `<thead><tr><th scope="col" class="left">${dict.silverThTrophy}</th><th scope="col">${dict.silverThTimes}</th><th scope="col" class="left">${dict.silverThNote}</th></tr></thead><tbody>` +
       dict.silverRows.map((r) => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td class="left">${r[2]}</td></tr>`).join("") +
-      `</tbody></table>`;
+      `</tbody></table></div>`;
     const sTable = silver.querySelector("table");
     if (sTable) sortable(sTable);
   }
@@ -2837,11 +2819,11 @@ function renderByYear(d) {
   const yearTable = el("year-table");
   if (yearTable) {
     yearTable.innerHTML =
-      `<table class="data-table"><caption>${cfg.caption}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${cfg.caption}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thYear}</th><th scope="col">${cfg.thGoals}</th><th scope="col">${cfg.thTotal}</th><th scope="col">${cfg.thAge}</th></tr></thead><tbody>` +
       ys.slice().reverse().map((r) =>
         `<tr id="y${r.year}"${r.provisional ? ' class="total"' : ""}><th scope="row">${r.year}${r.provisional ? " *" : ""}</th><td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`
-      ).join("") + `</tbody></table>` +
+      ).join("") + `</tbody></table></div>` +
       (last.provisional ? `<p class="caveat">${cfg.inProgNote}</p>` : "");
 
     const tbl = yearTable.querySelector("table");
@@ -3004,14 +2986,14 @@ function renderBySeason(d) {
   const clubTable = el("club-table");
   if (clubTable) {
     clubTable.innerHTML =
-      `<table class="data-table"><caption>${cfg.caption(ss.length)}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${cfg.caption(ss.length)}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thSeason}</th><th scope="col" class="left">${cfg.thClub}</th><th scope="col">${cfg.thApps}</th><th scope="col">${cfg.thGoals}</th><th scope="col">${cfg.thLeague}</th><th scope="col">${cfg.thCup}</th><th scope="col">${cfg.thCont}</th><th scope="col">${cfg.thOther}</th></tr></thead><tbody>` +
       ss.map((s) => `<tr id="s${s.season.slice(0, 4)}"${s.provisional ? ' class="total"' : ""}><th scope="row">${esc(s.season)}${s.provisional ? " *" : ""}` + (s.season === best.season ? `<span class="yr-note">${cfg.bestBadge}</span>` : "") + `</th>` +
         `<td class="left">${dispClub(s.club)}</td><td>${n(s.apps)}</td><td><b>${n(s.goals)}</b></td>` +
         `<td>${pg(s.league.apps, s.league.goals)}</td><td>${pg(s.cup.apps, s.cup.goals)}</td>` +
         `<td>${pg(s.continental.apps, s.continental.goals)}</td><td>${pg(s.other.apps, s.other.goals)}</td></tr>`).join("") +
       `<tr class="total"><th scope="row" colspan="2">${cfg.totalLabel}</th><td>${n(g.apps)}</td><td>${n(g.goals)}</td>` +
-      `<td>${pg(g.la, g.lg)}</td><td>${pg(g.ca, g.cg)}</td><td>${pg(g.ua, g.ug)}</td><td>${pg(g.oa, g.og)}</td></tr></tbody></table>`;
+      `<td>${pg(g.la, g.lg)}</td><td>${pg(g.ca, g.cg)}</td><td>${pg(g.ua, g.ug)}</td><td>${pg(g.oa, g.og)}</td></tr></tbody></table></div>`;
 
     const tbl = clubTable.querySelector("table");
     if (tbl) {
@@ -3029,13 +3011,13 @@ function renderBySeason(d) {
   const countryTable = el("country-table");
   if (countryTable) {
     countryTable.innerHTML =
-      `<table class="data-table"><caption>${cfg.countryCaption}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${cfg.countryCaption}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thYear}</th><th scope="col">${cfg.thApps}</th><th scope="col">${cfg.thGoals}</th><th scope="col" class="left">${cfg.thNote}</th></tr></thead><tbody>` +
       cy.slice().reverse().map((s) => {
         const note = s.note || `${s.competitive[0]} apps, ${s.competitive[1]} goals · ${s.friendly[0]} apps, ${s.friendly[1]} goals`;
         return `<tr${s.provisional ? ' class="total"' : ""}><th scope="row">${s.year}${s.provisional ? " *" : ""}</th><td>${s.apps}</td><td><b>${s.goals}</b></td><td class="left">${esc(note)}</td></tr>`;
       }).join("") +
-      `<tr class="total"><th scope="row">${cfg.totalArgLabel}</th><td>${t.country.apps}</td><td>${t.country.goals}</td><td class="left"></td></tr></tbody></table>`;
+      `<tr class="total"><th scope="row">${cfg.totalArgLabel}</th><td>${t.country.apps}</td><td>${t.country.goals}</td><td class="left"></td></tr></tbody></table></div>`;
 
     const tbl = countryTable.querySelector("table");
     if (tbl) {
@@ -3639,7 +3621,7 @@ function renderDashboard(d, team) {
     ];
     msCard.innerHTML = `
       <h3 class="dash-card-title">⚡ Landmark Goal Speed Tracker</h3>
-      <div style="overflow-x:auto">
+      <div class="table-wrap">
         <table class="milestone-table">
           <thead>
             <tr>
@@ -3706,10 +3688,10 @@ function renderDashboard(d, team) {
   const compTable = el("comp-table");
   if (compTable) {
     compTable.innerHTML =
-      `<table class="data-table"><caption>${cfg.compCaption(name)}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${cfg.compCaption(name)}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thComp}</th><th scope="col">${cfg.thGoals}</th><th scope="col">${cfg.thShare}</th></tr></thead><tbody>` +
       compRows.map((r) => `<tr><th scope="row">${esc(r.competition)}${r.team ? `<small class="comp-team">${esc(r.team)}</small>` : ""}` + (T === "all" && r.competition === "La Liga" ? `<span class="yr-note">${cfg.recAllTime}</span>` : "") + (T === "all" && r.competition === "UEFA Champions League" ? `<span class="yr-note">120 Barcelona · 9 PSG</span>` : "") + `</th><td><b>${r.goals}</b></td><td>${((r.goals / goals) * 100).toFixed(1)}%</td></tr>`).join("") +
-      `</tbody></table>`;
+      `</tbody></table></div>`;
     compTable.insertAdjacentHTML("beforeend", clubTableCaption());
     const tbl = compTable.querySelector("table");
     if (tbl) sortable(tbl);
@@ -3720,10 +3702,10 @@ function renderDashboard(d, team) {
   if (finishTable) {
     const fRows = cfg.finishRows(d);
     finishTable.innerHTML =
-      `<table class="data-table"><caption>${cfg.finishCaption}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${cfg.finishCaption}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thFinish}</th><th scope="col">${cfg.thGoals}</th><th scope="col">${cfg.thShare}</th></tr></thead><tbody>` +
       fRows.map((r) => `<tr><th scope="row">${r[0]}</th><td><b>${r[1]}</b></td><td>${((r[1] / d.totals.goals) * 100).toFixed(1)}%</td></tr>`).join("") +
-      `</tbody></table><p class="caveat">Provisional until hand count verification against official match sheets. Provisional compiled tally based on verified match reports.</p>`;
+      `</tbody></table></div><p class="caveat">Provisional until hand count verification against official match sheets. Provisional compiled tally based on verified match reports.</p>`;
     finishTable.insertAdjacentHTML("beforeend", clubTableCaption());
     const tbl = finishTable.querySelector("table");
     if (tbl) sortable(tbl);

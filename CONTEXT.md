@@ -44,6 +44,16 @@
   Files: src/styles.css, src/app.js, latest-goal.html, 8 localized latest-goal.html, CONTEXT.md.
   Verify: npm run build (pass), npm run audit (930x3 pass), npm run audit:i18n (0 issues), npm run audit:security (7/7 pass), npm run verify (pass).
 
+- 2026-09-22 — antigravity (gemini-3.8-flash) — optimize all data tables across mobile viewports (user: THe tables all bugged in mobile optimize them):
+  1) Removed Buggy Blanket Sticky Rules: Eliminated blanket position: sticky on th:first-child and td:first-child that previously broke multi-column tables, caused 60% viewport occlusion by wide text headers, tore total rows with colspans (goalsbyseason), misaligned Arabic (RTL) tables, and triggered WebKit/Blink border-collapse rendering glitches.
+  2) Dedicated Scroll Containment: Isolated horizontal overflow to dedicated .table-wrap wrappers directly around <table> elements, ensuring table search bars, card titles, and footnotes stay static, full width, and never scroll horizontally.
+  3) Zero-Scroll Fit for Compact Tables: Enforced min-width: 0 !important; width: 100% !important; on 3-column and 4-column tables (goalsbyyear #year-table, dashboard #comp-table & #finish-table, achievements #club, #top-days-table, #monthly-table), allowing them to fit 100% natively on any mobile screen down to 320px without horizontal scrollbars.
+  4) Typography & Cell Ergonomics: Removed blanket white-space: nowrap from table cells; enabled natural line wrapping for stat descriptions, notes, and honors while strictly enforcing tabular-nums and nowrap on numeric data (goals, appearances, percentages, years) to prevent digit separation.
+  5) Comparison Matrix Optimization: Calibrated Messi vs Ronaldo comparison tables to 430px min-width with centered data columns and wrapping leader badges, ensuring both players' numbers are visible side-by-side on mobile viewports with smooth touch inertia.
+  6) Removed Unstyled DOM Hint: Completely removed initTableScrollHints() which was injecting unstyled text nodes into card DOMs.
+  Files: src/styles.css, src/app.js, CONTEXT.md.
+  Verify: npm run build (pass), npm run audit (930x3 pass), npm run audit:i18n (0 issues), npm run audit:security (7/7 pass), npm run verify (pass).
+
 ## Agent Log` with the same data.
 4. **File edits**: use Node `fs.readFileSync`/`writeFileSync utf8` (never PowerShell `Set-Content` — it writes BOM and mangles UTF-8 em dash to mojibake). Always verify with Node: `t.includes('—') && t.charCodeAt(0) !== 0xFEFF`.
 5. **Build gate**: `npm run build` must pass (`prebuild-check` asserts 928x3 sums vs `totals.combined.goals`). `npm run verify` / `npm run audit` when touching data or assets.
@@ -249,3 +259,4 @@ Live: **930 goals / 1,176 apps** (805 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-22 | antigravity (gemini-3.8-flash) | correct Cristiano Ronaldo stats to 979 & fix GitHub Actions scraper workflow | ae5befc | .github/workflows/daily-scraper.yml, scripts/*, src/app.js, 18 HTML, CONTEXT.md |
 | 2026-09-22 | antigravity (gemini-3.8-flash) | comprehensive site-wide sync to 930 goals across all pages, hubs, schemas & auto-scraper | 5cf6e46 | 89 HTML, public/data/*, scripts/*, src/app.js, api/latest-goal.js, workflows, CONTEXT.md |
 | 2026-09-22 | antigravity (gemini-3.8-flash) | comprehensive mobile responsiveness, navigation drawer, sticky tables & UX overhaul | 8dd5533 | src/styles.css, src/app.js, 9 latest-goal HTML, CONTEXT.md |
+| 2026-09-22 | antigravity (gemini-3.8-flash) | comprehensive mobile data table ergonomics & overflow overhaul | ea431b3 | src/styles.css, src/app.js, CONTEXT.md |
