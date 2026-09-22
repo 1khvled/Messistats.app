@@ -222,9 +222,177 @@ function closeLangModal() {
   if (document.body) document.body.style.overflow = "";
 }
 
-// Global click and keydown delegation for language switcher, close buttons, theme toggles, and modal backdrop
+function ensureMobileMenuDrawer() {
+  let drawer = document.getElementById("mobile-nav-drawer");
+  if (drawer) return drawer;
+
+  const curLangCode = getCurrentLangCode();
+  const curLangObj = LANGUAGES.find((l) => l.code === curLangCode) || LANGUAGES[0];
+  const curPath = (typeof location !== "undefined" ? location.pathname : "");
+
+  const navCategories = [
+    {
+      title: "Live & Trending ⚡",
+      items: [
+        { href: getLangUrl(curLangCode), label: "Career Home & Stats", badge: "930 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>` },
+        { href: `/${curLangCode}/latest-goal`, label: "Latest Goal Replay", badge: "LIVE ⚡", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
+        { href: `/${curLangCode}/birthday`, label: "Birthday Goals Explorer", badge: "HOT 🔥", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` }
+      ]
+    },
+    {
+      title: "Rivalries & Clashes ⚔️",
+      items: [
+        { href: `/${curLangCode}/messi-vs-ronaldo`, label: "Messi vs Ronaldo", badge: "GOAT", icon: `<svg viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg>` },
+        { href: `/${curLangCode}/vs-real-madrid`, label: "vs Real Madrid (El Clásico)", badge: "26 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
+        { href: `/${curLangCode}/champions-league`, label: "Champions League Hub", badge: "129 Goals", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
+      ]
+    },
+    {
+      title: "Career Analytics 📊",
+      items: [
+        { href: `/${curLangCode}/goalsbyyear`, label: "Goals by Year", badge: "91 in 2012", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyseason`, label: "Goals by Season", badge: "All Clubs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` },
+        { href: `/${curLangCode}/dashboard`, label: "Interactive Dashboard", badge: "Filters", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
+        { href: `/${curLangCode}/timeline`, label: "Through the Years (Timeline)", badge: "Chapters", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
+        { href: `/${curLangCode}/achievements`, label: "Achievements & Trophies", badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` }
+      ]
+    }
+  ];
+
+  let catHtml = "";
+  for (const cat of navCategories) {
+    catHtml += `<div class="mobile-drawer-section-title">${cat.title}</div><div class="mobile-drawer-nav-group">`;
+    for (const itm of cat.items) {
+      const isCurrent = curPath === itm.href || (itm.href.endsWith(`/${curLangCode}`) && (curPath === "/" || curPath === `/${curLangCode}/` || curPath === `/${curLangCode}`));
+      catHtml += `
+        <a href="${itm.href}" class="mobile-drawer-link ${isCurrent ? "on" : ""}">
+          ${itm.icon}
+          <span>${itm.label}</span>
+          ${itm.badge ? `<span class="drawer-badge">${itm.badge}</span>` : ""}
+        </a>
+      `;
+    }
+    catHtml += `</div>`;
+  }
+
+  drawer = document.createElement("div");
+  drawer.id = "mobile-nav-drawer";
+  drawer.className = "mobile-drawer-backdrop";
+  drawer.hidden = true;
+  drawer.setAttribute("aria-hidden", "true");
+  drawer.innerHTML = `
+    <div class="mobile-drawer-sheet" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+      <div class="mobile-drawer-header">
+        <a href="${getLangUrl(curLangCode)}" class="mobile-drawer-brand">
+          <svg class="mobile-topbar-mark" viewBox="0 0 64 64" aria-hidden="true" width="28" height="28"><defs><linearGradient id="msg-drw" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-drw)" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg>
+          <span>Messi<b>Stats</b> Menu</span>
+        </a>
+        <button type="button" class="mobile-drawer-close" id="mobile-drawer-close-btn" aria-label="Close menu">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="mobile-drawer-body">
+        <div class="mobile-drawer-stats-card">
+          <div class="mobile-drawer-stat"><span class="num">930</span><span class="lbl">Total Goals</span></div>
+          <div class="mobile-drawer-stat"><span class="num">1,176</span><span class="lbl">Senior Apps</span></div>
+          <div class="mobile-drawer-stat"><span class="num">46</span><span class="lbl">Trophies</span></div>
+          <div class="mobile-drawer-stat"><span class="num">8</span><span class="lbl">Ballons d'Or</span></div>
+        </div>
+        ${catHtml}
+        <div class="mobile-drawer-footer">
+          <button type="button" class="mobile-drawer-btn" id="drawer-lang-btn">
+            <span>${curLangObj.flag}</span>
+            <span>${curLangObj.name}</span>
+          </button>
+          <button type="button" class="mobile-drawer-btn" id="drawer-theme-btn">
+            <span>🌓 Toggle Dark Mode</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(drawer);
+  return drawer;
+}
+
+function openMobileMenuDrawer() {
+  const drawer = ensureMobileMenuDrawer();
+  if (!drawer) return;
+  drawer.hidden = false;
+  drawer.setAttribute("aria-hidden", "false");
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  if (menuBtn) {
+    menuBtn.classList.add("active");
+    menuBtn.setAttribute("aria-expanded", "true");
+  }
+  if (document.body) document.body.style.overflow = "hidden";
+}
+
+function closeMobileMenuDrawer() {
+  const drawer = document.getElementById("mobile-nav-drawer");
+  if (!drawer) return;
+  drawer.hidden = true;
+  drawer.setAttribute("aria-hidden", "true");
+  const menuBtn = document.getElementById("mobile-menu-btn");
+  if (menuBtn) {
+    menuBtn.classList.remove("active");
+    menuBtn.setAttribute("aria-expanded", "false");
+  }
+  if (document.body) document.body.style.overflow = "";
+}
+
+// Global click and keydown delegation for language switcher, mobile menu drawer, theme toggles, and modal backdrops
 if (typeof document !== "undefined") {
   document.addEventListener("click", (e) => {
+    const menuTrigger = e.target.closest("#mobile-menu-btn, .mobile-menu-btn");
+    if (menuTrigger) {
+      e.preventDefault();
+      const drawer = document.getElementById("mobile-nav-drawer");
+      if (drawer && !drawer.hidden) {
+        closeMobileMenuDrawer();
+      } else {
+        openMobileMenuDrawer();
+      }
+      return;
+    }
+    const drawerClose = e.target.closest("#mobile-drawer-close-btn, .mobile-drawer-close");
+    if (drawerClose) {
+      e.preventDefault();
+      closeMobileMenuDrawer();
+      return;
+    }
+    const drawerEl = document.getElementById("mobile-nav-drawer");
+    if (drawerEl && e.target === drawerEl) {
+      closeMobileMenuDrawer();
+      return;
+    }
+    const drawerLink = e.target.closest(".mobile-drawer-link");
+    if (drawerLink) {
+      closeMobileMenuDrawer();
+      return;
+    }
+    const drawerLang = e.target.closest("#drawer-lang-btn");
+    if (drawerLang) {
+      e.preventDefault();
+      closeMobileMenuDrawer();
+      openLangModal();
+      return;
+    }
+    const drawerTheme = e.target.closest("#drawer-theme-btn");
+    if (drawerTheme) {
+      e.preventDefault();
+      const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      if (next === "dark") {
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+      }
+      try { localStorage.setItem("theme", next); } catch (_) {}
+      return;
+    }
+
     const langTrigger = e.target.closest("#rail-lang-btn, .rail-lang-btn, #mobile-lang-btn, .mobile-lang-btn");
     if (langTrigger) {
       e.preventDefault();
@@ -267,10 +435,32 @@ if (typeof document !== "undefined") {
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
+      const drawer = document.getElementById("mobile-nav-drawer");
+      if (drawer && !drawer.hidden) {
+        closeMobileMenuDrawer();
+      }
       const modal = document.getElementById("lang-modal");
       if (modal && !modal.hidden) {
         closeLangModal();
       }
+    }
+  });
+}
+
+function initTableScrollHints() {
+  if (typeof document === "undefined" || window.innerWidth > 900) return;
+  const wraps = document.querySelectorAll(".table-wrap, .table-card, .ground-truth-table-wrap, .seo-stat-table-wrap");
+  wraps.forEach((wrap) => {
+    if (!wrap.querySelector(".table-scroll-hint") && wrap.scrollWidth > wrap.clientWidth + 12) {
+      const hint = document.createElement("div");
+      hint.className = "table-scroll-hint";
+      hint.innerHTML = `<span>Swipe table ↔</span>`;
+      wrap.insertBefore(hint, wrap.firstChild);
+      wrap.addEventListener("scroll", () => {
+        hint.style.opacity = "0";
+        hint.style.transition = "opacity 0.25s ease";
+        setTimeout(() => hint.remove(), 250);
+      }, { once: true, passive: true });
     }
   });
 }
@@ -337,15 +527,31 @@ function initLanguageAndMobileTopBar() {
             <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
             <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           </button>
+          <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Navigation Menu" aria-expanded="false" title="Menu">
+            <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
       `;
       document.body.prepend(mobileTopBar);
     }
   } catch (_) {}
 
-  // 3. Ensure language modal is created
+  // Auto-center active navigation rail tab on mobile
+  try {
+    const activeTab = document.querySelector(".rail nav a.on, .rail nav a[aria-current='page']");
+    if (activeTab && window.innerWidth <= 900) {
+      setTimeout(() => {
+        activeTab.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+      }, 120);
+    }
+  } catch (_) {}
+
+  // 3. Ensure language modal & mobile menu drawer are created
   try {
     ensureLangModal();
+    ensureMobileMenuDrawer();
+    initTableScrollHints();
   } catch (_) {}
 
   // 4. Device & Location-Based Language View Detection

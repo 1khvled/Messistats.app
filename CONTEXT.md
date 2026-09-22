@@ -34,6 +34,16 @@
   Files: 89 HTML files, public/data/birthday-goals.json, public/data/latest-goal.json, public/embed/on-this-day.html, public/sitemap.xml, scripts/auto-sync-latest-goal.mjs, scripts/auto-sync-matches.mjs, scripts/build-sitemap.mjs, scripts/generate-i18n-pages.mjs, scripts/generate-programmatic-pages.mjs, src/app.js, api/latest-goal.js, .github/workflows/daily-scraper.yml, CONTEXT.md.
   Verify: npm run build (pass), npm run audit (930x3 pass), npm run audit:i18n (0 issues), npm run audit:security (7/7 pass), npm run verify (pass).
 
+- 2026-09-22 — antigravity (gemini-3.8-flash) — comprehensive mobile optimization, slide-up navigation drawer, sticky table ergonomics & touch responsiveness overhaul (user: the mobiles is not supert optimized):
+  1) Mobile Rail & Touch Navigation: Replaced icon-only rail tabs with compact touch pills displaying micro-labels (Home, Latest, Birthday, vs CR7, Clásico, UCL, By Year, By Season, Stats, Timeline, Trophies) to eliminate user guesswork. Added subtle left and right scroll overflow fade gradients, safe-area-inset padding (env(safe-area-inset-bottom)), active tab auto-centering on hydration, and eliminated the 300ms mobile touch delay with touch-action: manipulation.
+  2) Mobile Navigation Drawer: Implemented a responsive slide-up bottom drawer accessible via a dedicated menu trigger in the mobile header. Features brand header, close trigger, live quick stats banner (930 Goals · 1,176 Apps · 46 Trophies · 8 Ballons d'Or), grouped links (Core Hubs, Matchups & Tournaments, Historical Analysis) with badges, quick language switch, and theme switcher.
+  3) Sticky Table Navigation & Scroll Hints: On screens <= 900px, pinned th:first-child and td:first-child with position: sticky, left: 0, and elevation boundary drop-shadows across all data tables (.data-table, .ground-truth-table, .seo-stat-table, .milestone-table) so row labels remain visible during horizontal scrolling. Added dynamic 'Swipe table ↔' scroll hints that fade out after user interaction.
+  4) iOS Auto-Zoom Mitigation: Enforced font-size: 16px !important on all form inputs, selects, and textareas on screens <= 900px, stopping Safari from automatically zooming into the viewport on tap.
+  5) Spacing, Layout & Profile Card Ergonomics: Reduced outer card and wrap margins/padding on screens < 640px and < 440px to maximize content width on 360px–390px viewports. Refactored Road to 1,000 metrics and Latest Goal action pills into ergonomic 2x2 touch grids, tightened timeline spine markers, centered profile card layouts on narrow viewports, and ensured overflow-x: hidden prevents viewport jitter.
+  6) Residual Data Synchronization: Synchronized residual text references across English and 8 localized latest-goal.html pages to Goal #930 vs San Diego FC (24' FK) and Goal #929 vs Cruz Azul (12' header).
+  Files: src/styles.css, src/app.js, latest-goal.html, 8 localized latest-goal.html, CONTEXT.md.
+  Verify: npm run build (pass), npm run audit (930x3 pass), npm run audit:i18n (0 issues), npm run audit:security (7/7 pass), npm run verify (pass).
+
 ## Agent Log` with the same data.
 4. **File edits**: use Node `fs.readFileSync`/`writeFileSync utf8` (never PowerShell `Set-Content` — it writes BOM and mangles UTF-8 em dash to mojibake). Always verify with Node: `t.includes('—') && t.charCodeAt(0) !== 0xFEFF`.
 5. **Build gate**: `npm run build` must pass (`prebuild-check` asserts 928x3 sums vs `totals.combined.goals`). `npm run verify` / `npm run audit` when touching data or assets.
@@ -44,7 +54,7 @@ This file is the A-to-Z. If you skip updating it, you violate the project rule a
 
 Static Lionel Messi career-statistics site, modeled on https://ronaldostats.app structure/depth (not code or visual identity). One JSON source of truth, no backend, no API keys, no third-party requests by default (exception: user-ordered AdSense + Vercel Analytics).
 
-Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8 Ballons d'Or. Data as of 2026 in `public/data/messi-data.json`.
+Live: **930 goals / 1,176 apps** (805 club + 125 Argentina), 46 team trophies, 8 Ballons d'Or. Data as of 2026 in `public/data/messi-data.json`.
 
 ## Stack & commands
 
@@ -238,3 +248,4 @@ Live: **929 goals / 1,175 apps** (804 club + 125 Argentina), 46 team trophies, 8
 | 2026-09-21 | antigravity (gemini-3.8-flash) | complete overhaul of Timeline and Dashboard pages with pro analytics and 50-milestone interactive stream | 7596caf | timeline.html, dashboard.html, src/app.js, src/styles.css, scripts/generate-i18n-pages.mjs, CONTEXT.md |
 | 2026-09-22 | antigravity (gemini-3.8-flash) | correct Cristiano Ronaldo stats to 979 & fix GitHub Actions scraper workflow | ae5befc | .github/workflows/daily-scraper.yml, scripts/*, src/app.js, 18 HTML, CONTEXT.md |
 | 2026-09-22 | antigravity (gemini-3.8-flash) | comprehensive site-wide sync to 930 goals across all pages, hubs, schemas & auto-scraper | 5cf6e46 | 89 HTML, public/data/*, scripts/*, src/app.js, api/latest-goal.js, workflows, CONTEXT.md |
+| 2026-09-22 | antigravity (gemini-3.8-flash) | comprehensive mobile responsiveness, navigation drawer, sticky tables & UX overhaul | 8dd5533 | src/styles.css, src/app.js, 9 latest-goal HTML, CONTEXT.md |
