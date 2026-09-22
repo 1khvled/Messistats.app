@@ -702,16 +702,22 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 .pill:active { transform: scale(0.96); }
 
 /* ---------- Explore links ---------- */
-.link-grid, .explore {
+#explore, .explore, .link-grid, .grid-3 {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 1.1rem;
 }
 .link-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
   padding: 18px 20px;
   color: var(--ink);
+  text-decoration: none;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .link-card:hover { text-decoration: none; transform: translateY(-2px); box-shadow: var(--shadow); }
@@ -1288,7 +1294,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 @media (max-width: 1080px) {
   .kpi-grid, .kpis { grid-template-columns: repeat(2, 1fr); }
   .kpis-4 { grid-template-columns: repeat(2, 1fr); }
-  .qa-grid, .faq-grid, .link-grid, .explore { grid-template-columns: repeat(2, 1fr); }
+  .qa-grid, .faq-grid, .link-grid, .explore, #explore, .grid-3 { grid-template-columns: repeat(2, 1fr); }
   .record-list, .records { grid-template-columns: 1fr; }
   .trophy-grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -1465,7 +1471,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 @media (max-width: 640px) {
   .kpi-grid, .kpis, .kpis-3, .kpis-4 { grid-template-columns: 1fr 1fr; gap: 10px; }
   .kpi-value { font-size: clamp(1.5rem, 6vw, 1.85rem); }
-  .qa-grid, .faq-grid, .link-grid, .explore { grid-template-columns: 1fr; gap: 12px; }
+  .qa-grid, .faq-grid, .link-grid, .explore, #explore, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
   .trophy-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
   .split-grid { grid-template-columns: 1fr; }
   .split-card + .split-card { border-left: 0; border-top: 1px solid var(--line-soft); }
