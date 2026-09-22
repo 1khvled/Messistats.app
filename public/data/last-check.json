@@ -1,17 +1,10 @@
 {
-  "checkedAt": "2026-09-20T22:10:22.525Z",
+  "checkedAt": "2026-09-22T01:00:16.776Z",
   "espnMls": {
     "ok": true,
     "status": 200,
     "error": null,
-    "miamiEvents": [
-      {
-        "id": "761829",
-        "date": "2026-09-20T23:00Z",
-        "name": "San Diego FC at Inter Miami CF",
-        "status": "Scheduled"
-      }
-    ]
+    "miamiEvents": []
   },
   "worldcup2026": {
     "ok": true,

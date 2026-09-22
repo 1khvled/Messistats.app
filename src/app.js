@@ -781,7 +781,7 @@ function reveal() {
 }
 const EXPLORE = [
   { href: "/en/birthday", page: "birthday", t: "🎂 Did Messi score on your birthday?", d: (d) => `Search all 366 calendar days with video clips across Messi's ${n(d.totals.goals)} senior career goals.` },
-  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Head-to-head career stats: 929 vs 924 goals, 46 vs 35 trophies, 8 vs 5 Ballons d'Or." },
+  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Head-to-head career stats: 930 vs 979 goals, 46 vs 35 trophies, 8 vs 5 Ballons d'Or." },
   { href: "/en/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "All 26 El Clásico goals, 45 matches, 14 assists, hat-tricks, and video clips." },
   { href: "/en/champions-league", page: "champions-league", t: "⭐ Champions League Record", d: () => "129 UEFA Champions League goals, 8 hat-tricks, and 4 European titles." },
   { href: "/en/latest-goal", page: "latest-goal", t: "⚽ Latest Messi Goal Video", d: () => "Watch Goal #929 vs Cruz Azul, see if Messi scored today, and view recent goal clips." },
@@ -804,7 +804,7 @@ function getLang() {
 const EXPLORE_LANGS = {
   es: [
     { href: "/es/birthday", page: "birthday", t: "🎂 ¿Marcó Messi en tu cumpleaños?", d: (d) => `Busca entre los 366 días del año con clips de video de los ${n(d.totals.goals)} goles oficiales de Messi.` },
-    { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estadísticas cara a cara: 929 vs 924 goles, 46 vs 35 títulos, 8 vs 5 Balones de Oro." },
+    { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estadísticas cara a cara: 930 vs 979 goles, 46 vs 35 títulos, 8 vs 5 Balones de Oro." },
     { href: "/es/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Los 26 goles en El Clásico, 45 partidos, 14 asistencias, hat-tricks y videos." },
     { href: "/es/champions-league", page: "champions-league", t: "⭐ Récord en Champions League", d: () => "129 goles en UEFA Champions League, 8 hat-tricks y 4 títulos europeos." },
     { href: "/es/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi en video", d: () => "Mira el gol 929 vs Cruz Azul, consulta si Messi marcó hoy y reproduce sus últimos goles." },
@@ -817,7 +817,7 @@ const EXPLORE_LANGS = {
   ],
   pt: [
     { href: "/pt/birthday", page: "birthday", t: "🎂 ¿Marcou Messi no seu aniversário?", d: (d) => `Pesquise os 366 dias do ano com vídeos de todos os ${n(d.totals.goals)} gols de Messi.` },
-    { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estatísticas cara a cara: 929 vs 924 gols, 46 vs 35 títulos, 8 vs 5 Bolas de Ouro." },
+    { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estatísticas cara a cara: 930 vs 979 gols, 46 vs 35 títulos, 8 vs 5 Bolas de Ouro." },
     { href: "/pt/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Os 26 gols no El Clásico, 45 partidas, 14 assistências e hat-tricks." },
     { href: "/pt/champions-league", page: "champions-league", t: "⭐ Recorde na Champions League", d: () => "129 gols na UEFA Champions League, 8 hat-tricks e 4 títulos europeus." },
     { href: "/pt/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi em vídeo", d: () => "Assista ao gol 929 vs Cruz Azul, veja se Messi marcou hoje e confira vídeos recentes." },
@@ -830,7 +830,7 @@ const EXPLORE_LANGS = {
   ],
   fr: [
     { href: "/fr/birthday", page: "birthday", t: "🎂 Messi a-t-il marqué le jour de votre anniversaire ?", d: (d) => `Recherchez parmi les 366 jours de l'année avec vidéos des ${n(d.totals.goals)} buts.` },
-    { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => "Statistiques historiques : 929 vs 924 buts, 46 vs 35 titres, 8 vs 5 Ballons d'Or." },
+    { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => "Statistiques historiques : 930 vs 979 buts, 46 vs 35 titres, 8 vs 5 Ballons d'Or." },
     { href: "/fr/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Tous les 26 buts dans le Clásico, 45 matchs, 14 passes décisives." },
     { href: "/fr/champions-league", page: "champions-league", t: "⭐ Bilan en Ligue des Champions", d: () => "129 buts en UEFA Champions League, 8 triplés et 4 titres européens." },
     { href: "/fr/latest-goal", page: "latest-goal", t: "⚽ Dernier but de Messi en vidéo", d: () => "Regardez le but 929 contre Cruz Azul, vérifiez s'il a marqué aujourd'hui et ses derniers buts." },
@@ -843,7 +843,7 @@ const EXPLORE_LANGS = {
   ],
   ar: [
     { href: "/ar/birthday", page: "birthday", t: "🎂 هل سجل ميسي في يوم ميلادك؟", d: (d) => `ابحث في جميع أيام السنة الـ 366 مع مقاطع الفيديو لـ ${n(d.totals.goals)} هدفاً.` },
-    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => "مقارنة المسيرة: 929 ضد 924 هدفاً، 46 ضد 35 بطولة، و8 كرات ذهبية." },
+    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => "مقارنة المسيرة: 930 ضد 979 هدفاً، 46 ضد 35 بطولة، و8 كرات ذهبية." },
     { href: "/ar/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ ميسي ضد ريال مدريد", d: () => "26 هدفاً في الكلاسيكو، 45 مباراة و14 تمريرة حاسمة." },
     { href: "/ar/champions-league", page: "champions-league", t: "⭐ سجل دوري أبطال أوروبا", d: () => "129 هدفاً في دوري أبطال أوروبا، 8 هاتريك و4 ألقاب أوروبية." },
     { href: "/ar/latest-goal", page: "latest-goal", t: "⚽ فيديو آخر هدف لميسي", d: () => "شاهد الهدف 929 ضد كروز أزول، واعرف هل سجل ميسي اليوم وتصفح أحدث أهدافه بالفيديو." },
@@ -869,7 +869,7 @@ const EXPLORE_LANGS = {
   ],
   hi: [
     { href: "/hi/birthday", page: "birthday", t: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?", d: (d) => `साल के 366 दिनों में मेसी के ${n(d.totals.goals)} गोल वीडियो देखें।` },
-    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 929 बनाम 924 गोल, 46 बनाम 35 खिताब, 8 बैलन डी'ओर." },
+    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 930 बनाम 979 गोल, 46 बनाम 35 खिताब, 8 बैलन डी'ओर." },
     { href: "/hi/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ मेसी बनाम रियल मैड्रिड", d: () => "एल क्लासिको में 26 गोल, 45 मैच और 14 असिस्ट।" },
     { href: "/hi/champions-league", page: "champions-league", t: "⭐ चैंपियंस लीग रिकॉर्ड", d: () => "यूईएफए चैंपियंस लीग में 129 गोल, 8 हैट्रिक और 4 यूरोपीय खिताब।" },
     { href: "/hi/latest-goal", page: "latest-goal", t: "⚽ मेसी का पिछला गोल वीडियो", d: () => "क्रूज़ अज़ूल के खिलाफ 929वां गोल देखें, जानें क्या मेसी ने आज गोल किया और हालिया गोल।" },
@@ -882,7 +882,7 @@ const EXPLORE_LANGS = {
   ],
   ro: [
     { href: "/ro/birthday", page: "birthday", t: "🎂 A marcat Messi de ziua ta de naștere?", d: (d) => `Caută în toate cele 366 de zile din an cu cele ${n(d.totals.goals)} goluri ale lui Messi.` },
-    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Statistici cap la cap: 929 vs 924 goluri, 46 vs 35 trofee, 8 Baloane de Aur." },
+    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Statistici cap la cap: 930 vs 979 goluri, 46 vs 35 trofee, 8 Baloane de Aur." },
     { href: "/ro/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Toate cele 26 de goluri din El Clásico, 45 de meciuri, 14 pase de gol." },
     { href: "/ro/champions-league", page: "champions-league", t: "⭐ Recordul în Champions League", d: () => "129 de goluri în UEFA Champions League, 8 hat-trick-uri și 4 trofee europene." },
     { href: "/ro/latest-goal", page: "latest-goal", t: "⚽ Ultimul gol al lui Messi video", d: () => "Urmărește golul 929 contra lui Cruz Azul, vezi dacă a marcat azi și cele mai recente goluri." },
@@ -895,7 +895,7 @@ const EXPLORE_LANGS = {
   ],
   uz: [
     { href: "/uz/birthday", page: "birthday", t: "🎂 Messi sizning tug'ilgan kuningizda gol urganmi?", d: (d) => `Yilning 366 kunidagi gollarni videolar bilan ko'ring (${n(d.totals.goals)} ta gol).` },
-    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => "O'zaro solishtirma: 929 ga 924 ta gol, 46 ga 35 ta titul, 8 ta “Oltin to'p”." },
+    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => "O'zaro solishtirma: 930 ga 979 ta gol, 46 ga 35 ta titul, 8 ta “Oltin to'p”." },
     { href: "/uz/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "El-Klasikodagi 26 ta gol, 45 ta o'yin va 14 ta assist." },
     { href: "/uz/champions-league", page: "champions-league", t: "⭐ Chempionlar Ligasi rekordi", d: () => "UEFA Chempionlar Ligasida 129 ta gol, 8 ta het-trik va 4 ta Yevropa chempionligi." },
     { href: "/uz/latest-goal", page: "latest-goal", t: "⚽ Messining soʻnggi goli video", d: () => "Kruz Asulga qarshi 929-golni tomosha qiling, Messi bugun gol urdimi va soʻnggi gollari." },
@@ -1222,9 +1222,9 @@ const HOME_I18N = {
     faq: (t, agg, m, d, lang) => [
       ["How many total career goals has Lionel Messi scored?", `<b>${n(t.goals)} official career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. Explore his full <a href="/${lang}/goalsbyyear">year-by-year scoring breakdown</a>.`],
       ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded over <b>385 official career assists</b> (over 300 for FC Barcelona, 56+ for Argentina, 35+ for PSG and Inter Miami), making him the all-time assist leader in modern football history.`],
-      ["Who has better all-time stats, Messi or Ronaldo?", `Messi has <b>${n(t.goals)} goals and 385+ assists in ${n(t.apps)} matches</b> (0.79 goals/game), while Cristiano Ronaldo has 924 goals and 255+ assists in 1,280 matches (0.72 goals/game). Messi reached ${n(t.goals)} goals in 105 fewer matches, holds 46 team trophies to 35, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
+      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with 979 goals and 261 assists in 1,337 matches (0.73 goals/game), while Messi has <b>${n(t.goals)} goals and 385+ assists in ${n(t.apps)} matches</b> (0.79 goals/game). Messi reached ${n(t.goals)} goals in 161 fewer matches, holds 46 team trophies to 35, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
       ["What is Messi's career goal breakdown by team?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games for FC Barcelona, <b>${agg.psg.goals} goals</b> in ${n(agg.psg?.apps || 75)} games for PSG, <b>${n(agg.miami.goals)} goals</b> in ${n(agg.miami?.apps || 118)} games for Inter Miami, and <b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps for Argentina. See <a href="/${lang}/goalsbyseason">season-by-season club stats</a>.`],
-      ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 66} direct free-kick goals</b> in senior football (50 for Barcelona, 11 for Argentina, 3 for Inter Miami, and 2 for PSG), ranking among the top five free-kick takers of all time.`],
+      ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 67} direct free-kick goals</b> in senior football (50 for Barcelona, 11 for Argentina, 3 for Inter Miami, and 2 for PSG), ranking among the top five free-kick takers of all time.`],
       ["How many hat-tricks has Lionel Messi scored?", `Messi has scored <b>${d.hatTricks || 59} career hat-tricks</b> (48 for Barcelona, 10 for Argentina, 1 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.`],
       ["How many penalty goals has Messi scored?", `Messi has scored <b>${m?.penalties || 111} penalty goals</b> from 142 attempts across club and country (a 78% conversion rate).`],
       ["How many non-penalty goals has Lionel Messi scored?", `Messi has scored <b>${n(t.goals - (m?.penalties || 111))} non-penalty goals</b> in ${n(t.apps)} appearances (${((t.goals - (m?.penalties || 111)) / t.apps).toFixed(2)} non-penalty goals per game) — the highest ratio in modern football history.`],

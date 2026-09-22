@@ -306,6 +306,7 @@ export async function runAutoSync() {
     if (!isDryRun) {
       writeFileSync(dataPath, JSON.stringify(d, null, 2), "utf8");
       console.log(`\nSUCCESS: messi-data.json updated to ${finalTotal} goals!`);
+      syncIndexHtmlFiles(finalTotal, d.totals.combined.appearances);
 
       const lastCheck = {
         checkedAt: new Date().toISOString(),
@@ -340,6 +341,35 @@ export async function runAutoSync() {
   }
 
   return { newGoals: totalNewGoals, newApps: totalNewApps, finalGoals: d.totals.combined.goals };
+}
+
+function syncIndexHtmlFiles(newTotalGoals, newTotalApps) {
+  const bnDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+  const bnGoals = String(newTotalGoals).split("").map((c) => bnDigits[c] || c).join("");
+  const indexFiles = [
+    resolve(root, "index.html"),
+    resolve(root, "es", "index.html"),
+    resolve(root, "pt", "index.html"),
+    resolve(root, "fr", "index.html"),
+    resolve(root, "ar", "index.html"),
+    resolve(root, "bn", "index.html"),
+    resolve(root, "hi", "index.html"),
+    resolve(root, "ro", "index.html"),
+    resolve(root, "uz", "index.html"),
+  ];
+  for (const f of indexFiles) {
+    if (!existsSync(f)) continue;
+    let html = readFileSync(f, "utf8");
+    const gtCardRegex = /(<section[^>]*id="messi-total-goals"[^>]*>[\s\S]*?<\/section>)/;
+    html = html.replace(gtCardRegex, (match) => {
+      let updated = match.replace(/\b9\d{2}\b/g, String(newTotalGoals));
+      if (f.includes("bn")) {
+        updated = updated.replace(/৯\d{2}/g, bnGoals);
+      }
+      return updated;
+    });
+    writeFileSync(f, html, "utf8");
+  }
 }
 
 if (process.argv[1] && process.argv[1].endsWith("auto-sync-matches.mjs")) {

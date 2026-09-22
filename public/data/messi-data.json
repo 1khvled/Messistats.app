@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "CROSS_CHECKED",
-    "updated": "2026-09-18",
+    "updated": "2026-09-22",
     "methodology": "Senior first-team matches only (league, national cup, continental, other). Youth/reserve excluded (Barcelona C/B rows dropped from totals). Each row cross-checked across 2+ free sources; splits must reconcile to the row total.",
     "verification": [
       "Club season splits: Wikipedia Lionel Messi career table (cites BDFutbol match logs), fetched 2026-09-09. Corrected 6 AS.com rows that disagreed (2009/10, 2010/11, 2011/12, 2012/13, 2013/14, 2015/16).",
@@ -12,7 +12,8 @@
       "Competition split is derived arithmetic from the season rows (e.g. Barca continental = UCL 120; other = 14 Supercopa + 3 UEFA Super Cup + 5 Club World Cup), so it reconciles to 927 by construction.",
       "Calendar-year table reconciles to 927 and to the Argentina years in this file; 2012 = 91 (record). 2026 is provisional (season ongoing).",
       "PROVISIONAL: byFinish/byBodyPart show widely published compiled tallies (penalties 109, free kicks 66, hat-tricks 57) and must be treated as provisional until hand-counted match by match like ronaldostats.app does.",
-      "Auto-synced on 2026-09-18: Inter Miami vs Cruz Azul (+1G)."
+      "Auto-synced on 2026-09-18: Inter Miami vs Cruz Azul (+1G).",
+      "Auto-synced on 2026-09-22: Inter Miami vs San Diego FC (+1G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -24,7 +25,8 @@
     "syncedMatches": [
       "761792",
       "761800",
-      "401901377"
+      "401901377",
+      "761829"
     ]
   },
   "profile": {
@@ -50,8 +52,8 @@
   },
   "totals": {
     "club": {
-      "appearances": 968,
-      "goals": 804,
+      "appearances": 969,
+      "goals": 805,
       "goalsPerGame": 0.83
     },
     "country": {
@@ -60,8 +62,8 @@
       "goalsPerGame": 0.6
     },
     "combined": {
-      "appearances": 1175,
-      "goals": 929
+      "appearances": 1176,
+      "goals": 930
     },
     "assists": null,
     "note": "Apps/goals are cross-checked sums of the rows below. Assists pending hand compilation.",
@@ -557,8 +559,8 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        21,
-        19
+        22,
+        20
       ],
       "cup": [
         0,
@@ -572,8 +574,8 @@
         3,
         3
       ],
-      "apps": 27,
-      "goals": 23
+      "apps": 28,
+      "goals": 24
     }
   ],
   "countryYears": [
@@ -906,7 +908,7 @@
     {
       "competition": "MLS (regular season)",
       "team": "Inter Miami",
-      "goals": 69
+      "goals": 70
     },
     {
       "competition": "Copa del Rey",
@@ -961,13 +963,13 @@
     },
     {
       "finish": "Free kicks",
-      "goals": 66
+      "goals": 67
     }
   ],
   "byBodyPart": [
     {
       "part": "Left foot",
-      "goals": 741
+      "goals": 742
     },
     {
       "part": "Right foot",
@@ -1431,8 +1433,8 @@
     },
     {
       "year": 2026,
-      "goals": 33,
-      "careerTotal": 929,
+      "goals": 34,
+      "careerTotal": 930,
       "age": 39,
       "status": "provisional-ongoing"
     }

@@ -16,11 +16,16 @@ for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashbo
   const s = fs.readFileSync(dist + "/" + p, "utf8");
   if (!s.includes('class="skip"') || !s.includes('id="main"')) { ok = false; console.log("NO SKIP in " + p); }
 }
+const d = JSON.parse(fs.readFileSync(dist + "/data/messi-data.json", "utf8"));
+const totalGoalsStr = String(d.totals?.combined?.goals || 930);
+const bnDigits = ["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
+const bnGoalsStr = totalGoalsStr.split("").map((c) => bnDigits[c] || c).join("");
 for (const p of ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html"]) {
   const s = fs.readFileSync(dist + "/" + p, "utf8");
-  if (!s.includes('id="messi-total-goals"') || !s.includes('929')) {
+  const hasGoals = s.includes(totalGoalsStr) || (p.startsWith("bn/") && s.includes(bnGoalsStr));
+  if (!s.includes('id="messi-total-goals"') || !hasGoals) {
     ok = false;
-    console.log("MISSING ground-truth 929 goals in " + p);
+    console.log("MISSING ground-truth " + totalGoalsStr + " goals in " + p);
   }
 }
 const jsFiles = fs.readdirSync(dist + "/assets").filter((f) => f.endsWith(".js"));
@@ -36,7 +41,6 @@ for (const needle of [".skip", "@media print", ".btn-primary"]) {
 // 404 must be self-contained (no src/ link, which never exists in dist)
 const nf = fs.readFileSync(dist + "/404.html", "utf8");
 if (nf.includes('href="src/styles.css"')) { ok = false; console.log("404 still links src/styles.css"); }
-const d = JSON.parse(fs.readFileSync(dist + "/data/messi-data.json", "utf8"));
 const sum = (a) => a.reduce((x, r) => x + r.goals, 0);
 console.log("dist sums:", sum(d.calendarYears), sum(d.byCompetition), sum(d.byBodyPart));
 console.log(ok ? "ALL DIST CHECKS PASS" : "DIST CHECKS FAILED");

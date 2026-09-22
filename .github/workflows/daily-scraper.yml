@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
@@ -46,13 +48,13 @@ jobs:
 
       - name: Commit & Push New Match Stats
         run: |
-          git config --global user.name "messistat-bot"
-          git config --global user.email "bot@messistat.com"
-          git add public/data/ dist/ latest-goal.html */latest-goal.html
-          if git status --porcelain | grep -q .; then
-            git commit -m "chore(stats): automated Messi stats and latest goal sync"
-            git push
-            echo "Successfully synced new match data and pushed to origin/main."
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/data/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(stats): automated Messi stats sync [skip ci]"
+            git push origin HEAD:${{ github.ref }}
+            echo "Successfully synced new match data and pushed to remote."
           else
             echo "All stats up to date. No new match changes to commit."
           fi

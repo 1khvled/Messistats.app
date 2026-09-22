@@ -204,12 +204,12 @@ console.log('[7/7] Testing Data Integrity Checksums...');
   const ySum = sum(data.calendarYears);
   const cSum = sum(data.byCompetition);
   const bSum = sum(data.byBodyPart);
-  const totalGoals = data.totals?.combined?.goals || 928;
+  const totalGoals = data.totals?.combined?.goals;
 
   assert.equal(ySum, totalGoals);
   assert.equal(cSum, totalGoals);
   assert.equal(bSum, totalGoals);
-  assert.equal(totalGoals, 929);
+  assert.ok(typeof totalGoals === 'number' && totalGoals >= 929, 'totalGoals must be >= 929');
   console.log(`  -> Data checksums invariant verified: ${totalGoals} goals across all slices!`);
 }
 

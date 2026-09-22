@@ -1,36 +1,51 @@
 {
-  "syncedAt": "2026-09-19T17:55:36.442Z",
+  "syncedAt": "2026-09-22T00:47:07.723Z",
   "latestGoal": {
-    "goalNumber": 929,
+    "goalNumber": 930,
     "team": "Inter Miami CF",
-    "opponent": "Cruz Azul",
-    "competition": "Campeones Cup Final",
-    "competitionSlug": "campeones-cup",
-    "date": "2026-09-17",
-    "formattedDate": "17 September 2026",
-    "bdayKey": "09-17",
-    "minute": "12'",
-    "clock": "12'",
-    "type": "Header (Assist: Luis Suárez)",
-    "finish": "Header",
-    "assist": "Luis Suárez",
-    "score": "2 – 0",
+    "opponent": "San Diego FC",
+    "competition": "MLS",
+    "competitionSlug": "mls",
+    "date": "2026-09-20",
+    "formattedDate": "21 September 2026",
+    "bdayKey": "09-21",
+    "minute": "24'",
+    "clock": "24'",
+    "type": "Direct Free Kick",
+    "finish": "Direct Free Kick",
+    "assist": "",
+    "score": "2-2",
     "venue": "Chase Stadium (Fort Lauderdale, FL)",
-    "title": "Inter Miami 2 – 0 Cruz Azul",
-    "videoUrl": "https://cdn.messiallgoals.com/Goal929.mp4",
-    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Cruz+Azul+Campeones+Cup+September+2026+Inter+Miami",
-    "bdayUrl": "/en/birthday/09-17"
+    "title": "Inter Miami 2-2 San Diego FC",
+    "videoUrl": "https://cdn.messiallgoals.com/Goal930.mp4",
+    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+San%20Diego%20FC+MLS",
+    "bdayUrl": "/en/birthday/09-21"
   },
   "todayStatus": {
     "didScoreToday": false,
     "hasMatchToday": false,
-    "lastMatchDate": "2026-09-17",
-    "lastMatchOpponent": "Cruz Azul",
-    "lastMatchResult": "Inter Miami 2 – 0 Cruz Azul",
-    "lastGoalNumber": 929,
-    "lastGoalMinute": "12'"
+    "lastMatchDate": "2026-09-20",
+    "lastMatchOpponent": "San Diego FC",
+    "lastMatchResult": "Inter Miami 2-2 San Diego FC",
+    "lastGoalNumber": 930,
+    "lastGoalMinute": "24'"
   },
   "recentGoals": [
+    {
+      "goalNumber": 930,
+      "title": "Inter Miami 2-2 San Diego FC",
+      "meta": "MLS • 21 September 2026",
+      "match": "vs San Diego FC (2-2)",
+      "date": "21 September 2026 • 24'",
+      "minute": "24'",
+      "type": "Direct Free Kick",
+      "tag": "Direct Free Kick 🔥",
+      "score": "2-2",
+      "comp": "MLS",
+      "videoUrl": "https://cdn.messiallgoals.com/Goal930.mp4",
+      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+San%20Diego%20FC+MLS",
+      "bdayUrl": "/en/birthday/09-21"
+    },
     {
       "goalNumber": 929,
       "title": "Inter Miami 2 – 0 Cruz Azul",
@@ -90,28 +105,13 @@
       "videoUrl": "https://cdn.messiallgoals.com/Goal926.mp4",
       "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Montreal+August+2026+Inter+Miami",
       "bdayUrl": "/en/birthday/08-29"
-    },
-    {
-      "goalNumber": 925,
-      "title": "Inter Miami 7 – 1 CF Montréal",
-      "meta": "MLS Regular Season • 29 August 2026 • Chase Stadium (Fort Lauderdale, FL)",
-      "match": "vs Montreal (7-1)",
-      "date": "29 August 2026 • 49'",
-      "minute": "49'",
-      "type": "Right Foot Inside Box",
-      "tag": "Right Foot",
-      "score": "7 – 1",
-      "comp": "MLS",
-      "videoUrl": "https://cdn.messiallgoals.com/Goal925.mp4",
-      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Montreal+August+2026+Inter+Miami",
-      "bdayUrl": "/en/birthday/08-29"
     }
   ],
   "totals": {
-    "seniorGoals": 929,
-    "appearances": 1175,
-    "miamiGoals": 100,
-    "season2026Goals": 23,
-    "freeKicks": 67
+    "seniorGoals": 930,
+    "appearances": 1176,
+    "miamiGoals": 101,
+    "season2026Goals": 24,
+    "freeKicks": 68
   }
 }
