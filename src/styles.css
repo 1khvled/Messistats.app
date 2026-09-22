@@ -363,6 +363,7 @@ a:focus-visible, button:focus-visible, select:focus-visible { outline: 2px solid
 }
 .kpis-3 { grid-template-columns: repeat(3, 1fr); }
 .kpis-4 { grid-template-columns: repeat(4, 1fr); }
+.kpis-6 { grid-template-columns: repeat(6, 1fr); }
 .kpi-card, .kpi {
   background: var(--card);
   border: 1px solid var(--line);
@@ -1294,6 +1295,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
 @media (max-width: 1080px) {
   .kpi-grid, .kpis { grid-template-columns: repeat(2, 1fr); }
   .kpis-4 { grid-template-columns: repeat(2, 1fr); }
+  .kpis-6 { grid-template-columns: repeat(3, 1fr); }
   .qa-grid, .faq-grid, .link-grid, .explore, #explore, .grid-3 { grid-template-columns: repeat(2, 1fr); }
   .record-list, .records { grid-template-columns: 1fr; }
   .trophy-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1469,7 +1471,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   }
 }
 @media (max-width: 640px) {
-  .kpi-grid, .kpis, .kpis-3, .kpis-4 { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi-grid, .kpis, .kpis-3, .kpis-4, .kpis-6 { grid-template-columns: 1fr 1fr; gap: 10px; }
   .kpi-value { font-size: clamp(1.5rem, 6vw, 1.85rem); }
   .qa-grid, .faq-grid, .link-grid, .explore, #explore, .grid-3 { grid-template-columns: 1fr; gap: 12px; }
   .trophy-grid { grid-template-columns: 1fr 1fr; gap: 10px; }

@@ -65,8 +65,30 @@
       "appearances": 1176,
       "goals": 930
     },
-    "assists": null,
-    "note": "Apps/goals are cross-checked sums of the rows below. Assists pending hand compilation.",
+    "assists": {
+      "official": 405,
+      "transfermarkt": 447,
+      "byTeam": {
+        "barcelona": { "official": 269, "transfermarkt": 303, "appearances": 778 },
+        "argentina": { "official": 56, "transfermarkt": 58, "appearances": 207 },
+        "inter_miami": { "official": 46, "transfermarkt": 51, "appearances": 116 },
+        "psg": { "official": 34, "transfermarkt": 35, "appearances": 75 }
+      },
+      "records": {
+        "world_cup": 8,
+        "copa_america": 18,
+        "la_liga": 192,
+        "champions_league": 40,
+        "calendar_year_2011": 36,
+        "single_season_2019_20": 21
+      }
+    },
+    "goalContributions": {
+      "official": 1335,
+      "transfermarkt": 1377,
+      "perGameOfficial": 1.14
+    },
+    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (405 assists); Transfermarkt criteria includes penalties won and rebounds (447 assists).",
     "goalsPerGame": 0.79
   },
   "clubSeasons": [
