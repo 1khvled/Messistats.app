@@ -6128,6 +6128,17 @@ async function renderBirthday(d) {
       chip.classList.toggle("active", cm === m && cd === day);
     });
 
+    const topTbodyEl = el("top-days-tbody");
+    if (topTbodyEl) {
+      topTbodyEl.querySelectorAll("tr").forEach((row) => {
+        const link = row.querySelector("[data-month]");
+        if (link) {
+          const isMatch = +link.dataset.month === m && +link.dataset.day === day;
+          row.classList.toggle("active-row", isMatch);
+        }
+      });
+    }
+
     const key = makeKey(m, day);
     const dayData = calendar[key] || {
       key,
@@ -6304,23 +6315,58 @@ async function renderBirthday(d) {
     });
   }
 
+  const modeCustomBtn = el("bday-mode-custom");
+  const modeFamousBtn = el("bday-mode-famous");
+  const panelCustom = el("bday-panel-custom");
+  const panelFamous = el("bday-panel-famous");
+
+  const switchMode = (mode) => {
+    if (mode === "famous") {
+      if (modeFamousBtn) {
+        modeFamousBtn.classList.add("active");
+        modeFamousBtn.setAttribute("aria-selected", "true");
+      }
+      if (modeCustomBtn) {
+        modeCustomBtn.classList.remove("active");
+        modeCustomBtn.setAttribute("aria-selected", "false");
+      }
+      if (panelFamous) panelFamous.hidden = false;
+      if (panelCustom) panelCustom.hidden = true;
+    } else {
+      if (modeCustomBtn) {
+        modeCustomBtn.classList.add("active");
+        modeCustomBtn.setAttribute("aria-selected", "true");
+      }
+      if (modeFamousBtn) {
+        modeFamousBtn.classList.remove("active");
+        modeFamousBtn.setAttribute("aria-selected", "false");
+      }
+      if (panelCustom) panelCustom.hidden = false;
+      if (panelFamous) panelFamous.hidden = true;
+    }
+  };
+
+  if (modeCustomBtn) modeCustomBtn.addEventListener("click", () => switchMode("custom"));
+  if (modeFamousBtn) modeFamousBtn.addEventListener("click", () => switchMode("famous"));
+
   document.querySelectorAll(".bday-preset-chip[data-month]").forEach((chip) => {
-    chip.addEventListener("click", () => {
+    chip.addEventListener("click", (e) => {
+      e.preventDefault();
       selectDate(+chip.dataset.month, +chip.dataset.day, true);
     });
   });
 
-  const todayChip = el("bday-preset-today");
-  if (todayChip) {
-    todayChip.addEventListener("click", () => {
+  const todayBtn = el("bday-preset-today");
+  if (todayBtn) {
+    todayBtn.addEventListener("click", () => {
       const n = new Date();
       selectDate(n.getUTCMonth() + 1, n.getUTCDate(), true);
     });
   }
 
-  const randomChip = el("bday-preset-random");
-  if (randomChip) {
-    randomChip.addEventListener("click", () => {
+  const randomBtn = el("bday-preset-random");
+  if (randomBtn) {
+    randomBtn.addEventListener("click", () => {
       const scoringKeys = Object.keys(calendar).filter((k) => calendar[k].goalsCount > 0);
       const chosen = scoringKeys[Math.floor(Math.random() * scoringKeys.length)];
       const [rm, rd] = chosen.split("-").map(Number);
@@ -6328,36 +6374,36 @@ async function renderBirthday(d) {
     });
   }
 
-  // Calendar Heatmap Grid Matrix
+  // Calendar Heatmap Month Filter Navigation
+  const heatmapNav = el("bday-heatmap-nav");
+  if (heatmapNav) {
+    let navHtml = `<button type="button" class="bday-heatmap-nav-btn active" data-month="all">All (366 Days)</button>`;
+    for (let m = 1; m <= 12; m++) {
+      const shortName = MONTH_NAMES[m].length > 4 ? MONTH_NAMES[m].slice(0, 3) : MONTH_NAMES[m];
+      navHtml += `<button type="button" class="bday-heatmap-nav-btn" data-month="${m}">${shortName}</button>`;
+    }
+    heatmapNav.innerHTML = navHtml;
+
+    heatmapNav.addEventListener("click", (e) => {
+      const btn = e.target.closest(".bday-heatmap-nav-btn");
+      if (!btn) return;
+      const mTarget = btn.dataset.month;
+      heatmapNav.querySelectorAll(".bday-heatmap-nav-btn").forEach((b) => b.classList.toggle("active", b === btn));
+
+      const monthCards = document.querySelectorAll(".bday-month-card");
+      if (mTarget === "all") {
+        monthCards.forEach((c) => { c.hidden = false; });
+      } else {
+        monthCards.forEach((c) => {
+          c.hidden = +c.dataset.month !== +mTarget;
+        });
+      }
+    });
+  }
+
+  // Calendar Heatmap Grid Matrix Click Delegation
   const heatmapGrid = el("bday-heatmap-grid") || el("bday-calendar-grid");
   if (heatmapGrid) {
-    if (!heatmapGrid.firstElementChild) {
-      let gridHtml = "";
-      for (let m = 1; m <= 12; m++) {
-        gridHtml += `<div class="bday-month-col"><div class="bday-month-header">${MONTH_NAMES[m].slice(0, 3)}</div><div class="bday-month-days">`;
-        const numDays = DAYS_IN_MONTH[m];
-        for (let d = 1; d <= numDays; d++) {
-          const k = makeKey(m, d);
-          const gc = calendar[k]?.goalsCount || 0;
-          let intensity = 0;
-          if (gc >= 5) intensity = 4;
-          else if (gc >= 3) intensity = 3;
-          else if (gc >= 2) intensity = 2;
-          else if (gc === 1) intensity = 1;
-
-          const isMessi = (m === 6 && d === 24);
-          const cellClass = isMessi ? "bday-cell-messi" : `bday-heat-${intensity}`;
-          const titleText = isMessi
-            ? `${d} ${MONTH_NAMES[m]}: Leo Messi's Birthday!`
-            : `${d} ${MONTH_NAMES[m]}: ${gc} ${gc === 1 ? "goal" : "goals"}`;
-
-          gridHtml += `<a href="/${lang}/birthday/${k}" class="bday-day-btn ${cellClass}" data-month="${m}" data-day="${d}" title="${esc(titleText)}">${d}</a>`;
-        }
-        gridHtml += `</div></div>`;
-      }
-      heatmapGrid.innerHTML = gridHtml;
-    }
-
     heatmapGrid.addEventListener("click", (e) => {
       const btn = e.target.closest(".bday-day-btn");
       if (!btn) return;
@@ -6366,28 +6412,9 @@ async function renderBirthday(d) {
     });
   }
 
+  // Top 15 Prolific Days Table Click Delegation
   const topTbody = el("top-days-tbody");
   if (topTbody) {
-    if (!topTbody.firstElementChild && meta.topDays) {
-      let topHtml = "";
-      meta.topDays.forEach((row, idx) => {
-        const topFormatted = `${row.day} ${MONTH_NAMES[row.month]}`;
-        topHtml += `
-          <tr>
-            <td><b>#${idx + 1}</b></td>
-            <td class="left">
-              <a href="/${lang}/birthday/${row.key}" class="bday-top-day-link" data-month="${row.month}" data-day="${row.day}">
-                <b>${topFormatted}</b>
-              </a>
-            </td>
-            <td><b style="color:var(--accent);">${row.goals}</b></td>
-            <td>${row.matches?.length || 0}</td>
-            <td class="left">${esc(row.topRival || "—")}</td>
-          </tr>
-        `;
-      });
-      topTbody.innerHTML = topHtml;
-    }
     topTbody.addEventListener("click", (e) => {
       const btn = e.target.closest("[data-month]");
       if (btn) {
@@ -6398,36 +6425,49 @@ async function renderBirthday(d) {
   }
 
   const monthlyTbody = el("monthly-tbody");
-  if (monthlyTbody && meta.months) {
-    let mHtml = "";
-    meta.months.forEach((row) => {
-      const pct = ((row.goals / meta.totalGoals) * 100).toFixed(1);
-      const dayPct = ((row.daysScored / row.totalDays) * 100).toFixed(1);
+  if (monthlyTbody) {
+    if (!monthlyTbody.firstElementChild && meta.months) {
+      let mHtml = "";
+      meta.months.forEach((row) => {
+        const pct = ((row.goals / meta.totalGoals) * 100).toFixed(1);
+        const dayPct = ((row.daysScored / row.totalDays) * 100).toFixed(1);
 
-      let peakDay = 1, peakGoals = 0;
-      for (let d = 1; d <= row.totalDays; d++) {
-        const k = makeKey(row.month, d);
-        const gc = calendar[k]?.goalsCount || 0;
-        if (gc > peakGoals) {
-          peakGoals = gc;
-          peakDay = d;
+        let peakDay = 1, peakGoals = 0;
+        for (let d = 1; d <= row.totalDays; d++) {
+          const k = makeKey(row.month, d);
+          const gc = calendar[k]?.goalsCount || 0;
+          if (gc > peakGoals) {
+            peakGoals = gc;
+            peakDay = d;
+          }
         }
-      }
-      const mName = MONTH_NAMES[row.month];
-      const peakStr = peakGoals > 0 ? `${peakDay} ${mName} (${peakGoals} goals)` : "—";
+        const mName = MONTH_NAMES[row.month];
+        const peakStr = peakGoals > 0 ? `${peakDay} ${mName} (${peakGoals} goals)` : "—";
 
-      mHtml += `
-        <tr>
-          <td class="left"><b>${esc(mName)}</b></td>
-          <td><b>${row.goals}</b></td>
-          <td>${pct}%</td>
-          <td>${row.daysScored} / ${row.totalDays}</td>
-          <td>${dayPct}%</td>
-          <td class="left">${esc(peakStr)}</td>
-        </tr>
-      `;
+        mHtml += `
+          <tr>
+            <td class="left"><b>${esc(mName)}</b></td>
+            <td><b>${row.goals}</b></td>
+            <td>${pct}%</td>
+            <td>${row.daysScored} / ${row.totalDays}</td>
+            <td>${dayPct}%</td>
+            <td class="left">${esc(peakStr)}</td>
+          </tr>
+        `;
+      });
+      monthlyTbody.innerHTML = mHtml;
+    }
+    monthlyTbody.addEventListener("click", (e) => {
+      const tr = e.target.closest("tr");
+      if (!tr) return;
+      const mIdx = Array.from(monthlyTbody.children).indexOf(tr) + 1;
+      if (mIdx >= 1 && mIdx <= 12 && heatmapNav) {
+        const targetBtn = heatmapNav.querySelector(`[data-month="${mIdx}"]`);
+        if (targetBtn) targetBtn.click();
+        const hm = el("bday-heatmap");
+        if (hm) hm.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     });
-    monthlyTbody.innerHTML = mHtml;
   }
 
   const params = new URLSearchParams(location.search);

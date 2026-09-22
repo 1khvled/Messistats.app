@@ -1,6 +1,6 @@
 {
   "meta": {
-    "totalGoals": 928,
+    "totalGoals": 930,
     "totalDaysInYear": 366,
     "daysWithGoals": 292,
     "daysWithoutGoals": 74,
@@ -163,7 +163,7 @@
       {
         "month": 9,
         "name": "September",
-        "goals": 100,
+        "goals": 102,
         "daysScored": 25,
         "totalDays": 30
       },

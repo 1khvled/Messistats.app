@@ -1947,17 +1947,80 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  padding: 24px 26px;
+  padding: 20px 22px;
   margin-top: 1.4rem;
 }
+
+/* Date Explorer Mode Navigation */
+.bday-mode-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-solid);
+  padding: 5px;
+  border-radius: 14px;
+  border: 1px solid var(--line-soft);
+}
+.bday-mode-btn {
+  flex: 1 1 0;
+  min-height: 40px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.bday-mode-btn svg {
+  flex-shrink: 0;
+}
+.bday-mode-btn:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+.bday-mode-btn.active {
+  background: var(--card);
+  color: var(--ink);
+  font-weight: 800;
+  box-shadow: var(--shadow-sm);
+  border-color: var(--line);
+}
+[data-theme="dark"] .bday-mode-btn.active {
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--brand);
+  border-color: rgba(56, 189, 248, 0.3);
+}
+
+.bday-panel {
+  margin-top: 16px;
+}
+.bday-panel[hidden] {
+  display: none !important;
+}
+
+.bday-ribbon-wrap {
+  margin-bottom: 12px;
+}
+
 .bday-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
-.bday-form-row {
+.bday-inputs-row {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -1969,22 +2032,22 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   min-width: 0;
 }
 .bday-field label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
 }
 .bday-select {
-  height: 48px;
-  padding: 10px 36px 10px 14px;
+  height: 46px;
+  padding: 8px 36px 8px 14px;
   border-radius: 12px;
   border: 1px solid var(--line);
   background-color: var(--card);
   color: var(--ink);
   font: inherit;
   font-weight: 700;
-  font-size: 16px; /* 16px prevents iOS Safari auto-zoom on input focus */
+  font-size: 16px;
   width: 100%;
   cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -2002,21 +2065,17 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   border-color: var(--line);
   color: var(--ink);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat !important;
-  background-position: right 14px center !important;
-  background-size: 16px 16px !important;
 }
 .bday-check-btn {
-  height: 48px;
-  padding: 0 24px;
-  font-size: 0.98rem;
+  height: 46px;
+  padding: 0 22px;
+  font-size: 0.94rem;
   font-weight: 800;
   border-radius: 12px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  align-self: flex-end;
   cursor: pointer;
   touch-action: manipulation;
   box-shadow: 0 4px 14px rgba(14, 124, 192, 0.28);
@@ -2025,34 +2084,22 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
 .bday-check-btn:active {
   transform: scale(0.97);
 }
-.bday-pills-wrap {
-  margin-top: 6px;
-  position: relative;
-}
-.bday-pills-label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--faint);
-  margin-bottom: 8px;
-}
+
 .bday-month-pills {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x proximity;
-  padding: 4px 2px 8px;
+  padding: 2px 2px 6px;
   scrollbar-width: thin;
 }
 .bday-month-pill {
   flex: 0 0 auto;
   scroll-snap-align: start;
-  min-height: 38px;
-  padding: 7px 16px;
-  font-size: 0.85rem;
+  min-height: 36px;
+  padding: 6px 14px;
+  font-size: 0.82rem;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--surface-solid);
@@ -2082,59 +2129,79 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   color: #090d16;
   border-color: var(--brand);
 }
-.bday-presets {
+
+/* Historic Classics Grid */
+.bday-famous-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.bday-famous-card {
+  background: var(--surface-solid);
+  border: 1px solid var(--line-soft);
+  border-radius: 14px;
+  padding: 14px 16px;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--line);
-}
-.bday-presets-title {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--faint);
-  margin-right: 4px;
-}
-.bday-preset-chip {
-  font-size: 0.82rem;
-  font-weight: 700;
-  min-height: 36px;
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink-soft);
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  color: var(--ink);
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.1s ease, border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
-.bday-preset-chip:hover {
+.bday-famous-card:hover {
+  transform: translateY(-2px);
   border-color: var(--brand);
-  color: var(--brand-ink);
+  box-shadow: var(--shadow-sm);
   text-decoration: none;
 }
-.bday-preset-chip:active {
-  transform: scale(0.95);
+.bday-famous-card:active {
+  transform: scale(0.98);
 }
-.bday-preset-chip.active {
-  background: var(--navy);
-  color: #ffffff;
-  border-color: var(--navy);
-  font-weight: 800;
+.bday-famous-card.active {
+  border-color: var(--gold);
+  background: rgba(250, 204, 21, 0.08);
+  box-shadow: 0 0 0 1px var(--gold);
 }
-[data-theme="dark"] .bday-preset-chip.active {
-  background: var(--brand);
-  color: #090d16;
-  border-color: var(--brand);
+.bday-famous-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  font-size: 0.72rem;
   font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-bottom: 2px;
+}
+.bday-famous-badge.gold { color: #d97706; background: rgba(245, 158, 11, 0.12); }
+.bday-famous-badge.red { color: #dc2626; background: rgba(239, 68, 68, 0.12); }
+.bday-famous-badge.blue { color: #0284c7; background: rgba(14, 165, 233, 0.12); }
+.bday-famous-badge.purple { color: #9333ea; background: rgba(168, 85, 247, 0.12); }
+.bday-famous-badge.green { color: #16a34a; background: rgba(34, 197, 94, 0.12); }
+[data-theme="dark"] .bday-famous-badge.gold { color: #fbbf24; background: rgba(251, 191, 36, 0.16); }
+[data-theme="dark"] .bday-famous-badge.red { color: #f87171; background: rgba(248, 113, 113, 0.16); }
+[data-theme="dark"] .bday-famous-badge.blue { color: #38bdf8; background: rgba(56, 189, 248, 0.16); }
+[data-theme="dark"] .bday-famous-badge.purple { color: #c084fc; background: rgba(192, 132, 252, 0.16); }
+[data-theme="dark"] .bday-famous-badge.green { color: #4ade80; background: rgba(74, 222, 128, 0.16); }
+
+.bday-famous-date {
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.bday-famous-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.bday-famous-sub {
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.35;
 }
 
 /* ---------- Birthday Verdict Card ---------- */
@@ -2235,16 +2302,82 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
   flex-wrap: wrap;
   width: 100%;
 }
-.bday-actions button,
-.bday-actions a {
+.bday-action-share {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.bday-action-copy {
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.bday-social-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.bday-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--surface-solid);
+  color: var(--ink-soft);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  min-height: 42px;
+  transition: all 0.15s ease;
+}
+.bday-icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+  text-decoration: none;
+}
+.bday-icon-btn.wa:hover {
+  color: #25d366;
+  border-color: #25d366;
+  background: rgba(37, 211, 102, 0.1);
+}
+.bday-icon-btn.x:hover {
+  color: var(--ink);
+  border-color: var(--brand);
+  background: var(--brand-soft);
+}
+.bday-icon-btn.embed:hover {
+  color: var(--brand);
+  border-color: var(--brand);
+  background: var(--brand-soft);
 }
 .bday-share-msg {
-  font-size: 0.85rem;
-  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--brand);
+  min-height: 20px;
+  margin-top: 6px;
   width: 100%;
+}
+
+#top-days-table tbody tr.active-row {
+  background: var(--brand-soft) !important;
+  font-weight: 800;
+}
+#top-days-table tbody tr.active-row td:first-child {
+  border-left: 3px solid var(--brand);
 }
 
 /* Match Cards */
@@ -2645,94 +2778,70 @@ body[data-page="timeline"] .tl-event.rec .tl-marker { border-color: var(--gold);
     line-height: 1.2;
   }
 
-  /* 3. Birthday Picker Form Card */
+  /* 3. Date Explorer Terminal on Mobile */
   .bday-picker-card {
-    padding: 18px 14px;
-    border-radius: 18px;
+    padding: 16px 12px;
+    border-radius: 16px;
     margin-top: 1rem;
   }
-  .bday-form {
-    gap: 14px;
-  }
-  .bday-form-row {
+  .bday-mode-nav {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    gap: 10px;
-    align-items: stretch;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    padding: 4px;
   }
-  .bday-field {
-    flex: unset;
-    width: 100%;
+  .bday-mode-btn {
+    min-height: 38px;
+    font-size: 0.82rem;
+    padding: 4px 8px;
+  }
+  .bday-famous-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .bday-inputs-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 10px;
   }
   .bday-check-btn {
     grid-column: 1 / -1;
     width: 100%;
-    height: 48px;
-    font-size: 1rem;
-    align-self: stretch;
-    margin-top: 2px;
-  }
-  .bday-pills-wrap {
-    margin-top: 2px;
-  }
-  .bday-month-pills {
-    gap: 6px;
-    padding-bottom: 6px;
-  }
-  .bday-month-pill {
-    min-height: 38px;
-    padding: 6px 14px;
-    font-size: 0.82rem;
-  }
-  .bday-presets {
-    gap: 6px;
-    padding-top: 10px;
-  }
-  .bday-preset-chip {
-    min-height: 36px;
-    padding: 6px 12px;
-    font-size: 0.8rem;
+    height: 46px;
+    margin-top: 4px;
   }
 
-  /* 4. Verdict Card & Actions (Fixing horizontal overflow) */
+  /* 4. Verdict Card & Actions */
   .bday-verdict-card {
-    padding: 20px 14px;
-    border-radius: 18px;
+    padding: 18px 14px;
+    border-radius: 16px;
     margin-top: 1.2rem;
   }
-  .bday-target-date {
-    font-size: clamp(1.65rem, 6.8vw, 2.2rem);
-  }
-  .bday-headline {
-    font-size: 1rem;
-    line-height: 1.45;
-    margin-bottom: 12px;
-  }
   .bday-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     width: 100%;
   }
-  #bday-share-btn {
-    grid-column: span 2;
-    min-height: 48px;
-    font-size: 0.94rem;
-    font-weight: 800;
-    padding: 0 12px;
+  .bday-action-share {
+    flex: 1 1 100%;
     justify-content: center;
-    border-radius: 12px;
-    text-align: center;
+    min-height: 46px;
   }
-  #bday-copy-btn,
-  #bday-x-share-btn,
-  #bday-wa-share-btn,
-  #bday-embed-trigger-btn {
-    min-height: 42px;
-    font-size: 0.84rem;
-    padding: 0 8px;
+  .bday-action-copy {
+    flex: 1 1 calc(50% - 4px);
     justify-content: center;
-    border-radius: 10px;
+    min-height: 44px;
+  }
+  .bday-social-icons {
+    flex: 1 1 calc(50% - 4px);
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+  }
+  .bday-icon-btn {
+    flex: 1 1 0;
+    min-height: 44px;
   }
 
   /* 5. Match Cards on Mobile */
