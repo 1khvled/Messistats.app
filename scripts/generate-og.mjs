@@ -17,6 +17,12 @@ import { fileURLToPath } from "node:url";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = join(root, "public", "data", "messi-data.json");
 
+// Vercel build containers do not include Python Pillow. Use pre-rendered assets.
+if (process.env.VERCEL) {
+  console.log("[generate-og] Vercel environment detected; using pre-rendered public/img/og-messi.jpg");
+  process.exit(0);
+}
+
 if (!existsSync(dataPath)) {
   console.error("Missing messi-data.json at:", dataPath);
   process.exit(1);
@@ -192,8 +198,14 @@ print(f"[generate-og] Successfully rendered {out_webp} ({os.path.getsize(out_web
 
 const tmp = join(tmpdir(), "generate-og-dynamic.py");
 writeFileSync(tmp, pyScript, "utf8");
-const r = spawnSync("python", [tmp], { stdio: "inherit" });
-if (r.status !== 0) process.exit(r.status);
+let r = spawnSync("python", [tmp], { stdio: "inherit" });
+if (r.status !== 0) {
+  r = spawnSync("python3", [tmp], { stdio: "inherit" });
+}
+if (r.status !== 0) {
+  console.warn("[generate-og] Python or Pillow not found; continuing with committed public/img/og-messi.jpg.");
+  process.exit(0);
+}
 
 // Mirror to dist/img if dist exists
 const distImgDir = join(root, "dist", "img");

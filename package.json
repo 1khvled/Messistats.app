@@ -6,7 +6,8 @@
   "description": "Messi career stats clone (ronaldostats.app structure) - static, free data only",
   "scripts": {
     "dev": "vite --port 5173 --host",
-    "prebuild": "node scripts/prebuild-check.mjs && node scripts/build-messi-vs-ronaldo.mjs && node scripts/generate-og.mjs",
+    "prebuild": "node scripts/prebuild-check.mjs && node scripts/build-messi-vs-ronaldo.mjs",
+    "build:og": "node scripts/generate-og.mjs",
     "build:rivalry": "node scripts/build-messi-vs-ronaldo.mjs",
     "build": "node scripts/build-sitemap.mjs && vite build && node scripts/copy-en.mjs && node scripts/generate-programmatic-pages.mjs",
     "preview": "vite preview --port 4173",
