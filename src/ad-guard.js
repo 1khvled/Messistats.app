@@ -26,13 +26,18 @@
     return ALLOWED_POPUP_HOSTS.some(host => str.includes(host));
   }
 
-  // 2. Intercept window.open to block rogue popunders and tab spam
+  // 2. Intercept window.open to block rogue background popunders and tab spam
   const originalWindowOpen = window.open;
   window.open = function(url, target, features) {
     if (isAllowedUrl(url)) {
       return originalWindowOpen.call(window, url, target, features);
     }
-    console.warn('[AdGuard] Blocked unauthorized pop-up / tab spam:', url);
+    // Allow legitimate user clicks on ads to open in new tab
+    const isUserClick = typeof event !== 'undefined' && event && event.isTrusted;
+    if (isUserClick) {
+      return originalWindowOpen.call(window, url, target || '_blank', features);
+    }
+    console.warn('[AdGuard] Blocked unauthorized background popunder / tab spam:', url);
     return null;
   };
 
@@ -42,12 +47,10 @@
     const href = this.href || '';
     if (href && !isAllowedUrl(href)) {
       const isInsideAd = this.closest('.ad-native-slot, .ad-native-wrap, .ad-banner-slot, .ad-banner-wrap, [id^="container-"]');
-      if (!isInsideAd || this.style.opacity === '0' || this.style.display === 'none' || this.getAttribute('target') === '_blank') {
-        const isUserTrusted = typeof event !== 'undefined' && event && event.isTrusted;
-        if (!isUserTrusted && !isInsideAd) {
-          console.warn('[AdGuard] Blocked programmatic anchor click hijack:', href);
-          return;
-        }
+      const isUserTrusted = typeof event !== 'undefined' && event && event.isTrusted;
+      if (!isInsideAd && !isUserTrusted) {
+        console.warn('[AdGuard] Blocked programmatic anchor click hijack:', href);
+        return;
       }
     }
     return originalAnchorClick.apply(this, arguments);

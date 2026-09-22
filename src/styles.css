@@ -6218,10 +6218,18 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border-radius: 8px;
+  background: var(--surface-soft, rgba(0, 0, 0, 0.02));
 }
-.ad-banner-slot iframe {
+[data-theme="dark"] .ad-banner-slot {
+  background: rgba(255, 255, 255, 0.02);
+}
+.ad-banner-slot iframe,
+.ad-native-slot iframe {
   max-width: 100%;
   border: none;
+  background: transparent;
+  color-scheme: normal;
 }
 
 /* ================= RTL & ARABIC INTEGRITY ================= */
