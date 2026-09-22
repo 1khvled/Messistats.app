@@ -340,6 +340,13 @@ export async function runAutoSync() {
     console.warn("autoPullLatestGoal warning inside auto-sync-matches:", err.message);
   }
 
+  try {
+    const { execSync } = await import("node:child_process");
+    execSync("node scripts/generate-og.mjs", { cwd: root, stdio: "inherit" });
+  } catch (err) {
+    console.warn("generate-og warning inside auto-sync-matches:", err.message);
+  }
+
   return { newGoals: totalNewGoals, newApps: totalNewApps, finalGoals: d.totals.combined.goals };
 }
 

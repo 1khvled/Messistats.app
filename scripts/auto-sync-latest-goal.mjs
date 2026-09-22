@@ -234,6 +234,12 @@ export async function autoPullLatestGoal() {
           writeFileSync(distLatestGoalPath, JSON.stringify(latestData, null, 2), "utf8");
         }
         console.log(`[SUCCESS] Written new goal #${newGoalNum} to public/data/latest-goal.json!`);
+        try {
+          const { execSync } = await import("node:child_process");
+          execSync("node scripts/generate-og.mjs", { cwd: root, stdio: "inherit" });
+        } catch (err) {
+          console.warn("generate-og warning inside auto-sync-latest-goal:", err.message);
+        }
       }
     } else {
       console.log(`Database is already synchronized with latest match (${newlyFoundGoal.opponent} on ${newlyFoundGoal.date}).`);
