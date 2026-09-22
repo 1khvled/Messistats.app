@@ -191,7 +191,7 @@
     ],
     "totalVideosAvailable": 921,
     "matchesWithVideoCount": 604,
-    "videoCoveragePercent": 99.0
+    "videoCoveragePercent": 99
   },
   "calendar": {
     "01-01": {
@@ -16364,7 +16364,7 @@
       "day": 17,
       "monthName": "September",
       "formatted": "17 September",
-      "goalsCount": 5,
+      "goalsCount": 6,
       "matches": [
         {
           "date": "2011-09-17",
@@ -16453,6 +16453,33 @@
               "xg": 0.7835,
               "freekick": false,
               "penalty": true
+            }
+          ]
+        },
+        {
+          "date": "2026-09-17",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "Cruz Azul",
+          "competition": "Campeones Cup Final",
+          "score": "2 – 0",
+          "goalsCount": 1,
+          "minutes": [
+            "12"
+          ],
+          "types": [
+            "Header"
+          ],
+          "videos": [
+            {
+              "goalNumber": 929,
+              "videoUrl": "https://cdn.messiallgoals.com/Goal929.mp4",
+              "minute": "12'",
+              "opponent": "Cruz Azul",
+              "assist": "Luis Suárez",
+              "xg": 0.54,
+              "freekick": false,
+              "penalty": false
             }
           ]
         }
@@ -16808,7 +16835,7 @@
       "day": 20,
       "monthName": "September",
       "formatted": "20 September",
-      "goalsCount": 4,
+      "goalsCount": 5,
       "matches": [
         {
           "date": "2015-09-20",
@@ -16884,6 +16911,33 @@
               "assist": "Sergio Busquets",
               "xg": 0.08,
               "freekick": false,
+              "penalty": false
+            }
+          ]
+        },
+        {
+          "date": "2026-09-20",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "San Diego FC",
+          "competition": "MLS",
+          "score": "2 – 2",
+          "goalsCount": 1,
+          "minutes": [
+            "24"
+          ],
+          "types": [
+            "Direct free kick"
+          ],
+          "videos": [
+            {
+              "goalNumber": 930,
+              "videoUrl": "https://cdn.messiallgoals.com/Goal930.mp4",
+              "minute": "24'",
+              "opponent": "San Diego FC",
+              "assist": "",
+              "xg": 0.12,
+              "freekick": true,
               "penalty": false
             }
           ]

@@ -55,7 +55,7 @@ export async function autoPullLatestGoal() {
   const latestData = JSON.parse(readFileSync(latestGoalJsonPath, "utf8"));
   const messiData = existsSync(messiDataJsonPath) ? JSON.parse(readFileSync(messiDataJsonPath, "utf8")) : null;
 
-  const currentGoalNum = latestData.latestGoal?.goalNumber || 929;
+  const currentGoalNum = latestData.latestGoal?.goalNumber || 930;
   console.log(`Current registered latest goal: Goal #${currentGoalNum} (${latestData.latestGoal?.opponent || "Unknown"})`);
 
   // Fetch overview from ESPN
@@ -220,9 +220,9 @@ export async function autoPullLatestGoal() {
 
       if (latestData.totals) {
         latestData.totals.seniorGoals = newGoalNum;
-        latestData.totals.appearances = (latestData.totals.appearances || 1175) + 1;
-        latestData.totals.miamiGoals = (latestData.totals.miamiGoals || 100) + 1;
-        latestData.totals.season2026Goals = (latestData.totals.season2026Goals || 23) + 1;
+        latestData.totals.appearances = (latestData.totals.appearances || 1176) + 1;
+        latestData.totals.miamiGoals = (latestData.totals.miamiGoals || 101) + 1;
+        latestData.totals.season2026Goals = (latestData.totals.season2026Goals || 24) + 1;
         if (newlyFoundGoal.finish.includes("Free Kick")) {
           latestData.totals.freeKicks = (latestData.totals.freeKicks || 67) + 1;
         }
@@ -244,7 +244,7 @@ export async function autoPullLatestGoal() {
     }
   }
 
-  console.log(`[AUTO-PULL COMPLETED] Status: UP_TO_DATE (Goal #${latestData.latestGoal?.goalNumber || 929})`);
+  console.log(`[AUTO-PULL COMPLETED] Status: UP_TO_DATE (Goal #${latestData.latestGoal?.goalNumber || 930})`);
   return latestData;
 }
 

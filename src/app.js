@@ -1989,7 +1989,7 @@ function renderHome(d) {
   // Dynamically sync Road to 1,000 widget if present
   const r1000 = el("road-1000");
   if (r1000) {
-    const goals = t.goals || 929;
+    const goals = t.goals || 930;
     const remaining = Math.max(0, 1000 - goals);
     const pct = ((goals / 1000) * 100).toFixed(1);
     const fill = r1000.querySelector(".road-1000-fill");
@@ -2850,7 +2850,7 @@ function renderBySeason(d) {
 const TEAM_COMPS = {
   barcelona: [["La Liga", 474], ["UEFA Champions League", 120], ["Copa del Rey", 56], ["Spanish / UEFA / World super cups", 22]],
   psg: [["Ligue 1", 22], ["UEFA Champions League", 9], ["Trophée des Champions", 1]],
-  miami: [["Major League Soccer", 68], ["Concacaf Champions Cup", 8], ["Leagues Cup and playoffs", 22]],
+  miami: [["Major League Soccer", 70], ["Concacaf Champions Cup", 8], ["Leagues Cup and playoffs", 23]],
   argentina: [["World Cup qualifiers and friendlies", 90], ["FIFA World Cup", 21], ["Copa América", 14]],
 };
 const FINISH_COLORS = { "Open play": "#0e7cc0", Penalties: "#7cc4ea", "Free kicks": "#132c52" };
@@ -2860,7 +2860,7 @@ const DASH_I18N = {
   es: {
     teamNames: { all: "todos los equipos", barcelona: "Barcelona", psg: "PSG", miami: "Inter Miami", argentina: "Argentina" },
     pills: [["all", "Todos"], ["barcelona", "Barcelona"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentina"]],
-    head: (name) => `Los 929 goles de Lionel Messi analizados de cuatro formas — por competición, por temporada, por definición y por parte del cuerpo — filtrados para <b>${esc(name)}</b>. Toca un equipo para actualizar todos los gráficos.`,
+    head: (name) => `Los 930 goles de Lionel Messi analizados de cuatro formas — por competición, por temporada, por definición y por parte del cuerpo — filtrados para <b>${esc(name)}</b>. Toca un equipo para actualizar todos los gráficos.`,
     filterNote: (name, goals, apps, T) => `Mostrando ${name}: ${n(goals)} goles en ${n(apps)} partidos` + (T === "barcelona" || T === "psg" ? " (Desglose en Champions League: Barcelona 120, PSG 9 — fuentes oficiales de los clubes)." : "."),
     kpis: { goals: "Goles", apps: "Partidos", gpg: "Promedio de gol", forTeam: (name) => `Con ${name}.` },
     chartEmpty: "No hay filas para este filtro de equipo.",
@@ -2904,7 +2904,7 @@ const DASH_I18N = {
   pt: {
     teamNames: { all: "todos os times", barcelona: "Barcelona", psg: "PSG", miami: "Inter Miami", argentina: "Argentina" },
     pills: [["all", "Todos os times"], ["barcelona", "Barcelona"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentina"]],
-    head: (name) => `Todos os 929 gols de Lionel Messi analisados de quatro formas — por competição, por temporada, por finalização e por parte do corpo — filtrados para <b>${esc(name)}</b>. Toque em um time para atualizar os gráficos.`,
+    head: (name) => `Todos os 930 gols de Lionel Messi analisados de quatro formas — por competição, por temporada, por finalização e por parte do corpo — filtrados para <b>${esc(name)}</b>. Toque em um time para atualizar os gráficos.`,
     filterNote: (name, goals, apps, T) => `Exibindo ${name}: ${n(goals)} gols em ${n(apps)} jogos` + (T === "barcelona" || T === "psg" ? " (Divisão na Champions League: Barcelona 120, PSG 9 — fontes oficiais dos clubes)." : "."),
     kpis: { goals: "Gols", apps: "Jogos", gpg: "Média de gols", forTeam: (name) => `Pelo ${name}.` },
     chartEmpty: "Nenhuma linha para este filtro de time.",
@@ -2948,7 +2948,7 @@ const DASH_I18N = {
   fr: {
     teamNames: { all: "toutes les équipes", barcelona: "FC Barcelone", psg: "PSG", miami: "Inter Miami", argentina: "Argentine" },
     pills: [["all", "Toutes les équipes"], ["barcelona", "FC Barcelone"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentine"]],
-    head: (name) => `Tous les 929 buts de Lionel Messi analysés de 4 manières — par compétition, par saison, par finition et par partie du corps — filtrés pour <b>${esc(name)}</b>. Touchez une équipe pour actualiser.`,
+    head: (name) => `Tous les 930 buts de Lionel Messi analysés de 4 manières — par compétition, par saison, par finition et par partie du corps — filtrés pour <b>${esc(name)}</b>. Touchez une équipe pour actualiser.`,
     filterNote: (name, goals, apps, T) => `Affichage pour ${name} : ${n(goals)} buts en ${n(apps)} matchs` + (T === "barcelona" || T === "psg" ? " (Répartition Ligue des Champions : Barcelone 120, PSG 9 — sources officielles des clubs)." : "."),
     kpis: { goals: "Buts", apps: "Matchs", gpg: "Buts par match", forTeam: (name) => `Pour ${name}.` },
     chartEmpty: "Aucune ligne pour ce filtre d'équipe.",
@@ -2992,7 +2992,7 @@ const DASH_I18N = {
   ar: {
     teamNames: { all: "جميع الفرق", barcelona: "برشلونة", psg: "باريس سان جيرمان", miami: "إنتر ميامي", argentina: "الأرجنتين" },
     pills: [["all", "جميع الفرق"], ["barcelona", "برشلونة"], ["psg", "باريس سان جيرمان"], ["miami", "إنتر ميامي"], ["argentina", "الأرجنتين"]],
-    head: (name) => `جميع أهداف ليونيل ميسي الـ 929 مقسمة بأربع طرق — حسب البطولة، الموسم، طريقة التسجيل، وجزء الجسم — مصفاة حسب <b>${esc(name)}</b>. اضغط على أي فريق لتحديث المخططات.`,
+    head: (name) => `جميع أهداف ليونيل ميسي الـ 930 مقسمة بأربع طرق — حسب البطولة، الموسم، طريقة التسجيل، وجزء الجسم — مصفاة حسب <b>${esc(name)}</b>. اضغط على أي فريق لتحديث المخططات.`,
     filterNote: (name, goals, apps, T) => `عرض ${name}: ${n(goals)} هدفاً في ${n(apps)} مباراة` + (T === "barcelona" || T === "psg" ? " (توزيع دوري أبطال أوروبا: برشلونة 120، باريس 9 — مصادر الأندية الرسمية)." : "."),
     kpis: { goals: "الأهداف", apps: "المباريات", gpg: "معدل الأهداف / مباراة", forTeam: (name) => `مع ${name}.` },
     chartEmpty: "لا توجد صفوف لعامل التصفية هذا.",
@@ -3080,7 +3080,7 @@ const DASH_I18N = {
   hi: {
     teamNames: { all: "सभी टीमें", barcelona: "बार्सिलोना", psg: "पीएसजी", miami: "इंटर मियामी", argentina: "अर्जेंटीना" },
     pills: [["all", "सभी टीमें"], ["barcelona", "बार्सिलोना"], ["psg", "पीएसजी"], ["miami", "इंटर मियामी"], ["argentina", "अर्जेंटीना"]],
-    head: (name) => `लियोनेल मेस्सी के सभी 929 गोलों का चार प्रकार से विश्लेषण — प्रतियोगिता, सीज़न, फ़िनिश और शरीर के अंग द्वारा — <b>${esc(name)}</b> के अनुसार। चार्ट बदलने के लिए किसी टीम पर टैप करें।`,
+    head: (name) => `लियोनेल मेस्सी के सभी 930 गोलों का चार प्रकार से विश्लेषण — प्रतियोगिता, सीज़न, फ़िनिश और शरीर के अंग द्वारा — <b>${esc(name)}</b> के अनुसार। चार्ट बदलने के लिए किसी टीम पर टैप करें।`,
     filterNote: (name, goals, apps, T) => `${name} दिखाया जा रहा है: ${n(apps)} मैचों में ${n(goals)} गोल` + (T === "barcelona" || T === "psg" ? " (चैंपियंस लीग विभाजन: बार्सिलोना 120, पीएसजी 9 — क्लब स्रोतों से)।" : "।"),
     kpis: { goals: "गोल", apps: "मैच", gpg: "प्रति मैच गोल", forTeam: (name) => `${name} के लिए।` },
     chartEmpty: "इस टीम फ़िल्टर के लिए कोई डेटा नहीं है।",
@@ -3124,7 +3124,7 @@ const DASH_I18N = {
   ro: {
     teamNames: { all: "toate echipele", barcelona: "Barcelona", psg: "PSG", miami: "Inter Miami", argentina: "Argentina" },
     pills: [["all", "Toate echipele"], ["barcelona", "Barcelona"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentina"]],
-    head: (name) => `Toate cele 929 de goluri ale lui Lionel Messi analizate în 4 moduri — după competiție, sezon, tip de finalizare și parte a corpului — filtrate pentru <b>${esc(name)}</b>. Atinge o echipă pentru a actualiza graficele.`,
+    head: (name) => `Toate cele 930 de goluri ale lui Lionel Messi analizate în 4 moduri — după competiție, sezon, tip de finalizare și parte a corpului — filtrate pentru <b>${esc(name)}</b>. Atinge o echipă pentru a actualiza graficele.`,
     filterNote: (name, goals, apps, T) => `Se afișează ${name}: ${n(goals)} goluri în ${n(apps)} meciuri` + (T === "barcelona" || T === "psg" ? " (Defalcare Champions League: Barcelona 120, PSG 9 — din surse oficiale ale cluburilor)." : "."),
     kpis: { goals: "Goluri", apps: "Meciuri", gpg: "Goluri pe meci", forTeam: (name) => `Pentru ${name}.` },
     chartEmpty: "Niciun rând pentru acest filtru de echipă.",
@@ -3168,7 +3168,7 @@ const DASH_I18N = {
   uz: {
     teamNames: { all: "barcha jamoalar", barcelona: "Barselona", psg: "PSJ", miami: "Inter Mayami", argentina: "Argentina" },
     pills: [["all", "Barcha jamoalar"], ["barcelona", "Barselona"], ["psg", "PSJ"], ["miami", "Inter Mayami"], ["argentina", "Argentina"]],
-    head: (name) => `Lionel Messining barcha 929 goli 4 usulda tahlil qilingan — musobaqa, mavsum, yakunlash usuli va tana a'zosi bo'yicha — <b>${esc(name)}</b> uchun filtrlangan. Diagrammalarni yangilash uchun jamoani bosing.`,
+    head: (name) => `Lionel Messining barcha 930 goli 4 usulda tahlil qilingan — musobaqa, mavsum, yakunlash usuli va tana a'zosi bo'yicha — <b>${esc(name)}</b> uchun filtrlangan. Diagrammalarni yangilash uchun jamoani bosing.`,
     filterNote: (name, goals, apps, T) => `${name} ko'rsatilmoqda: ${n(apps)} o'yinda ${n(goals)} gol` + (T === "barcelona" || T === "psg" ? " (Chempionlar Ligasidagi taqsimot: Barselona 120, PSJ 9 — rasmiy klub manbalari asosida)." : "."),
     kpis: { goals: "Gollar", apps: "O'yinlar", gpg: "O'yin boshiga gol", forTeam: (name) => `${name} safida.` },
     chartEmpty: "Ushbu jamoa filtri uchun qatorlar mavjud emas.",
@@ -3273,8 +3273,8 @@ function renderDashboard(d, team) {
     const teams = [
       { id: "all", label: "All Teams", goals: d.totals.goals, apps: d.totals.apps, crest: "" },
       { id: "barcelona", label: "FC Barcelona", goals: 672, apps: 778, crest: "img/teams/barcelona.png" },
-      { id: "argentina", label: "Argentina", goals: 125, apps: 191, crest: "img/teams/argentina.png" },
-      { id: "miami", label: "Inter Miami", goals: 100, apps: 131, crest: "img/teams/miami.png" },
+      { id: "argentina", label: "Argentina", goals: 125, apps: 207, crest: "img/teams/argentina.png" },
+      { id: "miami", label: "Inter Miami", goals: 101, apps: 116, crest: "img/teams/miami.png" },
       { id: "psg", label: "Paris Saint-Germain", goals: 32, apps: 75, crest: "img/teams/psg.png" }
     ];
     pillsEl.className = "dash-team-selector";
@@ -3308,9 +3308,9 @@ function renderDashboard(d, team) {
   if (kpisEl) {
     kpisEl.className = "dash-kpis-grid";
     const assistsVal = T === "all" ? "385+" : T === "barcelona" ? "269" : T === "argentina" ? "57" : T === "miami" ? "44" : "30";
-    const gaVal = T === "all" ? "1,314+" : T === "barcelona" ? "941" : T === "argentina" ? "182" : T === "miami" ? "144" : "62";
-    const npgVal = T === "all" ? "820" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "95" : "30";
-    const fkVal = T === "all" ? "66" : T === "barcelona" ? "50" : T === "argentina" ? "11" : T === "miami" ? "3" : "2";
+    const gaVal = T === "all" ? "1,315+" : T === "barcelona" ? "941" : T === "argentina" ? "182" : T === "miami" ? "144" : "62";
+    const npgVal = T === "all" ? "821" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "95" : "30";
+    const fkVal = T === "all" ? "67" : T === "barcelona" ? "50" : T === "argentina" ? "11" : T === "miami" ? "3" : "2";
     const htVal = T === "all" ? "59" : T === "barcelona" ? "48" : T === "argentina" ? "10" : T === "miami" ? "1" : "0";
 
     const kpiList = [
@@ -3367,7 +3367,7 @@ function renderDashboard(d, team) {
   if (finishCard) {
     const finishRows = [
       { label: "Open Play", val: d.byFinish.openPlay, pct: ((d.byFinish.openPlay / d.totals.goals) * 100).toFixed(1), fill: "fill-blue", sub: "81.2% open play dominance" },
-      { label: "Direct Free Kicks", val: d.byFinish.freeKicks, pct: ((d.byFinish.freeKicks / d.totals.goals) * 100).toFixed(1), fill: "fill-gold", sub: "66 career set-piece conversions" },
+      { label: "Direct Free Kicks", val: d.byFinish.freeKicks, pct: ((d.byFinish.freeKicks / d.totals.goals) * 100).toFixed(1), fill: "fill-gold", sub: "67 career set-piece conversions" },
       { label: "Penalties", val: d.byFinish.penalties, pct: ((d.byFinish.penalties / d.totals.goals) * 100).toFixed(1), fill: "fill-red", sub: "109 converted from 140 attempts (77.9%)" }
     ];
     finishCard.innerHTML = `
@@ -3429,7 +3429,7 @@ function renderDashboard(d, team) {
       { goal: "700", opp: "vs Atlético Madrid", date: "30 Jun 2020", age: "33y 6d", apps: "862" },
       { goal: "800", opp: "vs Panama", date: "23 Mar 2023", age: "35y 272d", apps: "1,017" },
       { goal: "900", opp: "vs NY Red Bulls", date: "2025", age: "37y 315d", apps: "1,135" },
-      { goal: "929", opp: "Active Record", date: "2026", age: "39y", apps: "1,175" }
+      { goal: "930", opp: "Active Record", date: "2026", age: "39y", apps: "1,176" }
     ];
     msCard.innerHTML = `
       <h3 class="dash-card-title">⚡ Landmark Goal Speed Tracker</h3>
@@ -4551,6 +4551,26 @@ const TIMELINE_MILESTONES = [
     desc: "Scores twice in a 3-2 victory over reigning MLS Cup champions Columbus Crew to clinch the 2024 MLS Supporters' Shield with Inter Miami, extending his world record to 46 major trophies.",
     stat: "46th Career Trophy",
     badge: "MLS Record Points"
+  },
+  {
+    date: "17 Sep 2026",
+    year: 2026,
+    cat: "trophy",
+    team: "miami",
+    title: "Goal #929 & 46th Career Trophy (Campeones Cup)",
+    desc: "Clinical 12th-minute header vs Cruz Azul seals a 2-0 victory for Inter Miami, marking his 100th goal for the club and 46th career trophy.",
+    stat: "Goal #929 • 100th Miami Goal",
+    badge: "46th Title 🏆"
+  },
+  {
+    date: "20 Sep 2026",
+    year: 2026,
+    cat: "goal",
+    team: "miami",
+    title: "Goal #930: Direct Free Kick vs San Diego FC",
+    desc: "Curling 24th-minute direct free kick at Chase Stadium vs San Diego FC marks the 930th senior career goal and 67th direct free kick of Messi's iconic career.",
+    stat: "Goal #930 • 67th FK",
+    badge: "930 Career Goals ⚽"
   }
 ];
 
@@ -5132,7 +5152,7 @@ function updateBirthdaySocialShare(dayData, key) {
     } else if (isMessiBday) {
       shareText = `¡Cumplo años el mismo día que Lionel Messi (24 de junio)! 🐐🎂 ¿Marcó en tu cumpleaños?`;
     } else {
-      shareText = `¿Marcó Lionel Messi en tu cumpleaños? Revisa los 366 días a lo largo de sus 929 goles:`;
+      shareText = `¿Marcó Lionel Messi en tu cumpleaños? Revisa los 366 días a lo largo de sus 930 goles:`;
     }
   } else if (lang === "pt") {
     if (dayData.goalsCount > 0) {
@@ -5200,7 +5220,7 @@ function updateBirthdaySocialShare(dayData, key) {
     } else if (isMessiBday) {
       shareText = `I share a birthday with Lionel Messi (24 June)! 🐐🎂 Did he score on your birthday?`;
     } else {
-      shareText = `Did Lionel Messi score on your birthday? Check all 366 days across his 929 career goals:`;
+      shareText = `Did Lionel Messi score on your birthday? Check all 366 days across his 930 career goals:`;
     }
   }
 
@@ -6483,7 +6503,7 @@ async function autoPullLatestGoalLive(d) {
     const todayCard = document.getElementById("today-status-section");
 
     const currentNumStr = (activeNum ? activeNum.textContent : "").replace(/\D/g, "");
-    const currentNum = parseInt(currentNumStr, 10) || 929;
+    const currentNum = parseInt(currentNumStr, 10) || 930;
 
     if (g.goalNumber > currentNum) {
       if (activeNum) activeNum.textContent = lang === "uz" ? `${g.goalNumber}-gol` : `${t.goalPrefix}${g.goalNumber}`;

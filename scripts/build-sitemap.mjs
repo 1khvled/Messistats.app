@@ -75,8 +75,8 @@ ${getHreflangsXml("")}
     </image:image>
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>Lionel Messi 929 Career Goals Official Stats</image:title>
-      <image:caption>Lionel Messi career overview: 929 goals in 1,175 senior appearances, 46 trophies, 8 Ballons d'Or.</image:caption>
+      <image:title>Lionel Messi 930 Career Goals Official Stats</image:title>
+      <image:caption>Lionel Messi career overview: 930 goals in 1,176 senior appearances, 46 trophies, 8 Ballons d'Or.</image:caption>
     </image:image>
   </url>`);
 
@@ -156,7 +156,7 @@ const enImages = {
     </image:image>`,
   birthday: `    <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>Lionel Messi Birthday Goal Explorer: 929 Career Goals Across 366 Days</image:title>
+      <image:title>Lionel Messi Birthday Goal Explorer: 930 Career Goals Across 366 Days</image:title>
       <image:caption>Interactive visual map and video player showing all goals Lionel Messi scored across 366 calendar days.</image:caption>
       <image:geo_location>Miami, Florida, United States / Barcelona, Spain / Buenos Aires, Argentina</image:geo_location>
     </image:image>`,
@@ -177,37 +177,37 @@ const enImages = {
     </image:image>`,
   "latest-goal": `    <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>Lionel Messi Last Goal Video and Highlights (Goal #929 vs Cruz Azul)</image:title>
-      <image:caption>Watch Lionel Messi score Goal #929 of his career for Inter Miami against Cruz Azul in the Campeones Cup Final on 17 September 2026.</image:caption>
+      <image:title>Lionel Messi Last Goal Video and Highlights (Goal #930 vs San Diego FC)</image:title>
+      <image:caption>Watch Lionel Messi score Goal #930 of his career for Inter Miami against San Diego FC in MLS on 20 September 2026.</image:caption>
       <image:geo_location>Miami, Florida, United States</image:geo_location>
     </image:image>`
 };
 
 const videoMeta = {
   en: {
-    title: "Lionel Messi Last Goal Video: Goal #929 vs Cruz Azul",
-    desc: "Watch Lionel Messi's Goal #929: clinical header for Inter Miami vs Cruz Azul in the 2026 Campeones Cup Final to lift his 46th career trophy.",
-    tags: ["Lionel Messi", "Inter Miami", "Goal 929", "Campeones Cup", "Messi Last Goal"]
+    title: "Lionel Messi Last Goal Video: Goal #930 vs Cruz Azul",
+    desc: "Watch Lionel Messi's Goal #930: clinical header for Inter Miami vs Cruz Azul in the 2026 Campeones Cup Final to lift his 46th career trophy.",
+    tags: ["Lionel Messi", "Inter Miami", "Goal 930", "Campeones Cup", "Messi Last Goal"]
   },
   es: {
-    title: "Último Gol de Lionel Messi: Gol #929 contra Cruz Azul",
-    desc: "Mira el gol #929 de Lionel Messi: cabezazo clínico con Inter Miami contra Cruz Azul en la final de la Campeones Cup 2026 para levantar su título número 46.",
-    tags: ["Lionel Messi", "Inter Miami", "Gol 929", "Campeones Cup", "Último gol de Messi"]
+    title: "Último Gol de Lionel Messi: Gol #930 contra Cruz Azul",
+    desc: "Mira el gol #930 de Lionel Messi: cabezazo clínico con Inter Miami contra Cruz Azul en la final de la Campeones Cup 2026 para levantar su título número 46.",
+    tags: ["Lionel Messi", "Inter Miami", "Gol 930", "Campeones Cup", "Último gol de Messi"]
   },
   pt: {
-    title: "Último Gol de Lionel Messi: Gol #929 contra Cruz Azul",
-    desc: "Veja o gol #929 de Lionel Messi: cabeceio clínico pelo Inter Miami contra o Cruz Azul na final da Campeones Cup 2026 conquistando seu 46º troféu.",
-    tags: ["Lionel Messi", "Inter Miami", "Gol 929", "Campeones Cup", "Último gol do Messi"]
+    title: "Último Gol de Lionel Messi: Gol #930 contra Cruz Azul",
+    desc: "Veja o gol #930 de Lionel Messi: cabeceio clínico pelo Inter Miami contra o Cruz Azul na final da Campeones Cup 2026 conquistando seu 46º troféu.",
+    tags: ["Lionel Messi", "Inter Miami", "Gol 930", "Campeones Cup", "Último gol do Messi"]
   },
   fr: {
-    title: "Dernier But de Lionel Messi : But #929 contre Cruz Azul",
+    title: "Dernier But de Lionel Messi : But #930 contre Cruz Azul",
     desc: "Regardez le 929e but de Lionel Messi : tête clinique pour l'Inter Miami contre Cruz Azul en finale de la Campeones Cup 2026 pour soulever son 46e trophée.",
-    tags: ["Lionel Messi", "Inter Miami", "But 929", "Campeones Cup", "Dernier but de Messi"]
+    tags: ["Lionel Messi", "Inter Miami", "But 930", "Campeones Cup", "Dernier but de Messi"]
   },
   ar: {
-    title: "فيديو آخر هدف لليونيل ميسي: الهدف 929 ضد كروز أزول",
-    desc: "شاهد هدف ليونيل ميسي رقم 929: رأسية متقنة لإنتر ميامي ضد كروز أزول في نهائي كأس الأبطال 2026 ليتوج بلقبه الـ 46 في مسيرته.",
-    tags: ["ليونيل ميسي", "إنتر ميامي", "الهدف 929", "كأس الأبطال", "آخر هدف لميسي"]
+    title: "فيديو آخر هدف لليونيل ميسي: الهدف 930 ضد كروز أزول",
+    desc: "شاهد هدف ليونيل ميسي رقم 930: رأسية متقنة لإنتر ميامي ضد كروز أزول في نهائي كأس الأبطال 2026 ليتوج بلقبه الـ 46 في مسيرته.",
+    tags: ["ليونيل ميسي", "إنتر ميامي", "الهدف 930", "كأس الأبطال", "آخر هدف لميسي"]
   },
   bn: {
     title: "লিওনেল মেসির সর্বশেষ গোল ভিডিও: ক্রুজ আজুলের বিরুদ্ধে ৯২৯তম গোল",
@@ -215,19 +215,19 @@ const videoMeta = {
     tags: ["লিওনেল মেসি", "ইন্টার মায়ামি", "গোল ৯২৯", "ক্যাম্পিওনেস কাপ", "মেসির শেষ গোল"]
   },
   hi: {
-    title: "लियोनेल मेसी का आखिरी गोल वीडियो: क्रूज़ अज़ुल के खिलाफ 929वां गोल",
-    desc: "लियोनेल मेसी का 929वां करियर गोल देखें: 2026 कैंपियोनेस कप फाइनल में इंटर मियामी के लिए हेडर से शानदार गोल और 46वां करियर खिताब।",
-    tags: ["लियोनेल मेसी", "इंटर मियामी", "गोल 929", "कैंपियोनेस कप", "मेसी का आखिरी गोल"]
+    title: "लियोनेल मेसी का आखिरी गोल वीडियो: क्रूज़ अज़ुल के खिलाफ 930वां गोल",
+    desc: "लियोनेल मेसी का 930वां करियर गोल देखें: 2026 कैंपियोनेस कप फाइनल में इंटर मियामी के लिए हेडर से शानदार गोल और 46वां करियर खिताब।",
+    tags: ["लियोनेल मेसी", "इंटर मियामी", "गोल 930", "कैंपियोनेस कप", "मेसी का आखिरी गोल"]
   },
   ro: {
-    title: "Ultimul Gol al lui Lionel Messi: Golul #929 împotriva Cruz Azul",
-    desc: "Urmărește golul #929 al lui Lionel Messi: lovitură de cap pentru Inter Miami împotriva Cruz Azul în finala Campeones Cup 2026, ridicând al 46-lea său trofeu.",
-    tags: ["Lionel Messi", "Inter Miami", "Gol 929", "Campeones Cup", "Ultimul gol Messi"]
+    title: "Ultimul Gol al lui Lionel Messi: Golul #930 împotriva Cruz Azul",
+    desc: "Urmărește golul #930 al lui Lionel Messi: lovitură de cap pentru Inter Miami împotriva Cruz Azul în finala Campeones Cup 2026, ridicând al 46-lea său trofeu.",
+    tags: ["Lionel Messi", "Inter Miami", "Gol 930", "Campeones Cup", "Ultimul gol Messi"]
   },
   uz: {
-    title: "Lionel Messining so'nggi goli: Cruz Azulga qarshi 929-gol",
-    desc: "Lionel Messining 929-golini tomosha qiling: 2026 Campeones Cup finalida Inter Mayami safida bosh bilan urilgan gol va 46-sovrin.",
-    tags: ["Lionel Messi", "Inter Mayami", "Gol 929", "Campeones Cup", "Messining oxirgi goli"]
+    title: "Lionel Messining so'nggi goli: Cruz Azulga qarshi 930-gol",
+    desc: "Lionel Messining 930-golini tomosha qiling: 2026 Campeones Cup finalida Inter Mayami safida bosh bilan urilgan gol va 46-sovrin.",
+    tags: ["Lionel Messi", "Inter Mayami", "Gol 930", "Campeones Cup", "Messining oxirgi goli"]
   }
 };
 
@@ -239,7 +239,7 @@ function getVideoXml(lang) {
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
       <video:title>${v.title}</video:title>
       <video:description>${v.desc}</video:description>
-      <video:content_loc>https://cdn.messiallgoals.com/Goal929.mp4</video:content_loc>
+      <video:content_loc>https://cdn.messiallgoals.com/Goal930.mp4</video:content_loc>
       <video:duration>35</video:duration>
       <video:publication_date>2026-09-17T21:15:00Z</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
@@ -265,23 +265,23 @@ ${getHreflangsXml("/" + sub.slug)}${imgXml}${vidXml}
 const langHomeMeta = {
   es: {
     priority: "1.0",
-    title: "Goles de Messi: 929 Goles Oficiales en Vivo",
-    caption: "Estadísticas completas de la carrera de Lionel Messi: 929 goles en 1.175 partidos oficiales, 46 títulos colectivos y 8 Balones de Oro."
+    title: "Goles de Messi: 930 Goles Oficiales en Vivo",
+    caption: "Estadísticas completas de la carrera de Lionel Messi: 930 goles en 1.176 partidos oficiales, 46 títulos colectivos y 8 Balones de Oro."
   },
   pt: {
     priority: "0.95",
-    title: "Gols de Messi: 929 Gols Oficiais ao Vivo",
-    caption: "Estatísticas completas da carreira de Lionel Messi: 929 gols em 1.175 jogos oficiais, 46 títulos coletivos e 8 Bolas de Ouro."
+    title: "Gols de Messi: 930 Gols Oficiais ao Vivo",
+    caption: "Estatísticas completas da carreira de Lionel Messi: 930 gols em 1.176 jogos oficiais, 46 títulos coletivos e 8 Bolas de Ouro."
   },
   fr: {
     priority: "0.95",
-    title: "Buts de Messi : 929 Buts Officiels en Direct",
-    caption: "Statistiques complètes de la carrière de Lionel Messi : 929 buts en 1 175 matchs officiels, 46 trophées collectifs et 8 Ballons d'Or."
+    title: "Buts de Messi : 930 Buts Officiels en Direct",
+    caption: "Statistiques complètes de la carrière de Lionel Messi : 930 buts en 1 176 matchs officiels, 46 trophées collectifs et 8 Ballons d'Or."
   },
   ar: {
     priority: "0.95",
-    title: "أهداف ميسي: 929 هدفاً رسمياً مباشر",
-    caption: "إحصائيات مسيرة ليونيل ميسي الرسمية: 929 هدفاً في 1,175 مباراة، 46 بطولة و8 كرات ذهبية."
+    title: "أهداف ميسي: 930 هدفاً رسمياً مباشر",
+    caption: "إحصائيات مسيرة ليونيل ميسي الرسمية: 930 هدفاً في 1,176 مباراة، 46 بطولة و8 كرات ذهبية."
   },
   bn: {
     priority: "0.95",
@@ -290,18 +290,18 @@ const langHomeMeta = {
   },
   hi: {
     priority: "0.95",
-    title: "मेसी के कुल गोल: 929 आधिकारिक गोल लाइव",
-    caption: "लियोनेल मेसी के करियर के आधिकारिक आंकड़े: 1,175 मैचों में 929 गोल, 46 ट्रॉफियां और 8 बैलन डी'ऑर।"
+    title: "मेसी के कुल गोल: 930 आधिकारिक गोल लाइव",
+    caption: "लियोनेल मेसी के करियर के आधिकारिक आंकड़े: 1,176 मैचों में 930 गोल, 46 ट्रॉफियां और 8 बैलन डी'ऑर।"
   },
   ro: {
     priority: "0.95",
-    title: "Goluri Messi: 929 Goluri Oficiale Live",
-    caption: "Statisticile complete ale carierei lui Lionel Messi: 929 goluri în 1.175 meciuri oficiale, 46 trofee și 8 Baloane de Aur."
+    title: "Goluri Messi: 930 Goluri Oficiale Live",
+    caption: "Statisticile complete ale carierei lui Lionel Messi: 930 goluri în 1.176 meciuri oficiale, 46 trofee și 8 Baloane de Aur."
   },
   uz: {
     priority: "0.95",
-    title: "Messi gollari: 929 ta rasmiy gol",
-    caption: "Lionel Messining toʻliq rasmiy statistikasi: 1 175 ta oʻyinda 929 ta gol, 46 ta sovrin va 8 ta Oltin toʻp."
+    title: "Messi gollari: 930 ta rasmiy gol",
+    caption: "Lionel Messining toʻliq rasmiy statistikasi: 1 176 ta oʻyinda 930 ta gol, 46 ta sovrin va 8 ta Oltin toʻp."
   }
 };
 

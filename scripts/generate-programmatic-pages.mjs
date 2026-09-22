@@ -52,13 +52,13 @@ for (let i = 0; i < keys.length; i++) {
 
   if (goalsCount > 0) {
     pageTitle = `Did Messi Score on ${formatted}? (${goalsCount} Goals & Video Clips) | MessiStat`;
-    metaDesc = `Did Lionel Messi score on ${formatted}? Lionel Messi scored ${goalsCount} goals on ${formatted} across his 929-goal career. Watch match highlights, goal videos, and stats.`;
+    metaDesc = `Did Lionel Messi score on ${formatted}? Lionel Messi scored ${goalsCount} goals on ${formatted} across his 930-goal career. Watch match highlights, goal videos, and stats.`;
   } else if (isMessiBday) {
     pageTitle = `Did Messi Score on His Birthday (24 June)? | MessiStat`;
-    metaDesc = `Did Lionel Messi ever score on his own birthday (24 June)? Explore Leo Messi's 929 senior goals and why he never played on 24 June.`;
+    metaDesc = `Did Lionel Messi ever score on his own birthday (24 June)? Explore Leo Messi's 930 senior goals and why he never played on 24 June.`;
   } else {
     pageTitle = `Did Messi Score on ${formatted}? 366-Day Goal Explorer | MessiStat`;
-    metaDesc = `Did Lionel Messi score on ${formatted}? Search all 366 calendar days across Messi's 929 career goals with video highlights and match reports.`;
+    metaDesc = `Did Lionel Messi score on ${formatted}? Search all 366 calendar days across Messi's 930 career goals with video highlights and match reports.`;
   }
 
   // Generate VideoObject schemas if videos exist
@@ -70,7 +70,7 @@ for (let i = 0; i < keys.length; i++) {
           videoObjects.push({
             "@type": "VideoObject",
             name: `Lionel Messi Goal vs ${m.opponent} (${formatted} ${m.year})`,
-            description: `Watch Lionel Messi score vs ${m.opponent} in the ${m.competition || "official match"} on ${formatted} ${m.year}. Part of Messi's 929 career goals.`,
+            description: `Watch Lionel Messi score vs ${m.opponent} in the ${m.competition || "official match"} on ${formatted} ${m.year}. Part of Messi's 930 career goals.`,
             thumbnailUrl: "https://www.messistat.com/img/og-messi.jpg",
             uploadDate: `${m.date}T20:00:00Z`,
             contentUrl: v.videoUrl,

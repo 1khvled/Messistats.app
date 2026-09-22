@@ -28,37 +28,37 @@ function getLocalFallback() {
     return {
       syncedAt: new Date().toISOString(),
       latestGoal: {
-        goalNumber: 929,
+        goalNumber: 930,
         team: "Inter Miami CF",
-        opponent: "Cruz Azul",
-        competition: "Campeones Cup Final",
-        date: "2026-09-17",
-        formattedDate: "17 September 2026",
-        minute: "12'",
-        type: "Header (Assist: Luis Suárez)",
-        finish: "Header",
-        score: "2 – 0",
-        videoUrl: "https://cdn.messiallgoals.com/Goal929.mp4",
-        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+Cruz+Azul+Campeones+Cup+September+2026+Inter+Miami",
-        bdayUrl: "/en/birthday/09-17"
+        opponent: "San Diego FC",
+        competition: "MLS",
+        date: "2026-09-20",
+        formattedDate: "21 September 2026",
+        minute: "24'",
+        type: "Direct Free Kick",
+        finish: "Direct Free Kick",
+        score: "2 – 2",
+        videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4",
+        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+San%20Diego%20FC+MLS",
+        bdayUrl: "/en/birthday/09-21"
       },
       todayStatus: {
         didScoreToday: false,
         hasMatchToday: false,
-        lastMatchDate: "2026-09-17",
-        lastMatchOpponent: "Cruz Azul",
-        lastMatchResult: "Inter Miami 2 – 0 Cruz Azul",
-        lastGoalNumber: 929,
-        lastGoalMinute: "12'"
+        lastMatchDate: "2026-09-20",
+        lastMatchOpponent: "San Diego FC",
+        lastMatchResult: "Inter Miami 2 – 2 San Diego FC",
+        lastGoalNumber: 930,
+        lastGoalMinute: "24'"
       },
       recentGoals: [
+        { goalNumber: 930, match: "vs San Diego FC (2-2)", date: "21 September 2026 • 24'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4" },
         { goalNumber: 929, match: "vs Cruz Azul (2-0)", date: "17 September 2026 • 12'", type: "Header", videoUrl: "https://cdn.messiallgoals.com/Goal929.mp4" },
         { goalNumber: 928, match: "vs Nashville SC (2-2)", date: "12 September 2026 • 67'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal928.mp4" },
         { goalNumber: 927, match: "vs Montreal (7-1)", date: "29 August 2026 • 83'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal927.mp4" },
-        { goalNumber: 926, match: "vs Montreal (7-1)", date: "29 August 2026 • 65'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal926.mp4" },
-        { goalNumber: 925, match: "vs Montreal (7-1)", date: "29 August 2026 • 49'", type: "Right Foot", videoUrl: "https://cdn.messiallgoals.com/Goal925.mp4" }
+        { goalNumber: 926, match: "vs Montreal (7-1)", date: "29 August 2026 • 65'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal926.mp4" }
       ],
-      totals: { seniorGoals: 929, appearances: 1175, miamiGoals: 100, season2026Goals: 23, freeKicks: 67 }
+      totals: { seniorGoals: 930, appearances: 1176, miamiGoals: 101, season2026Goals: 24, freeKicks: 67 }
     };
   }
 }
@@ -178,7 +178,7 @@ export default async function handler(req, res) {
       const oppName = latestEvent.opponent?.displayName || "Opponent";
       const compName = latestEvent.leagueName || "Major League Soccer";
       const scoreLine = latestEvent.score || "Final";
-      const newGoalNumber = (baseline.latestGoal.goalNumber || 929) + 1;
+      const newGoalNumber = (baseline.latestGoal.goalNumber || 930) + 1;
       const formattedDate = matchDateObj.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
       const bdayKey = `${String(matchDateObj.getMonth() + 1).padStart(2, '0')}-${String(matchDateObj.getDate()).padStart(2, '0')}`;
 

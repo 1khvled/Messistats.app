@@ -25,7 +25,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 HERRAMIENTA VIRAL INTERACTIVA",
       title: "¿Marcó Messi en tu cumpleaños?",
-      desc: "Busca entre los 366 días del año a lo largo de los 929 goles de Messi. Mira videos de cada gol marcado en tu día especial.",
+      desc: "Busca entre los 366 días del año a lo largo de los 930 goles de Messi. Mira videos de cada gol marcado en tu día especial.",
       btn: "Verificar Mi Cumpleaños ⚽",
       link: "/es/birthday"
     },
@@ -58,7 +58,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 FERRAMENTA VIRAL INTERACTIVA",
       title: "¿Marcou Messi no dia do seu aniversário?",
-      desc: "Pesquise todos os 366 dias do ano ao longo dos 929 gols da carreira de Messi. Veja vídeos de cada gol marcado no seu dia especial.",
+      desc: "Pesquise todos os 366 dias do ano ao longo dos 930 gols da carreira de Messi. Veja vídeos de cada gol marcado no seu dia especial.",
       btn: "Verificar Meu Aniversário ⚽",
       link: "/pt/birthday"
     },
@@ -91,7 +91,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 OUTIL VIRAL INTERACTIF",
       title: "Messi a-t-il marqué le jour de votre anniversaire ?",
-      desc: "Recherchez parmi les 366 jours du calendrier à travers les 929 buts de Messi. Regardez les vidéos de chaque but marqué lors de votre jour spécial.",
+      desc: "Recherchez parmi les 366 jours du calendrier à travers les 930 buts de Messi. Regardez les vidéos de chaque but marqué lors de votre jour spécial.",
       btn: "Vérifier Mon Anniversaire ⚽",
       link: "/fr/birthday"
     },
@@ -124,7 +124,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 أداة تفاعلية شائعة",
       title: "هل سجل ميسي في يوم عيد ميلادك؟",
-      desc: "ابحث في جميع أيام السنة الـ 366 عبر أهداف ميسي الـ 929. شاهد مقاطع فيديو لكل هدف سُجل في يومك المميز.",
+      desc: "ابحث في جميع أيام السنة الـ 366 عبر أهداف ميسي الـ 930. شاهد مقاطع فيديو لكل هدف سُجل في يومك المميز.",
       btn: "تحقق من عيد ميلادي ⚽",
       link: "/ar/birthday"
     },
@@ -157,7 +157,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 ভাইরাল ইন্টারঅ্যাক্টিভ টুল",
       title: "মেসি কি আপনার জন্মদিনে গোল করেছিলেন?",
-      desc: "মেসির ৯২৯টি ক্যারিয়ার গোলের মধ্য থেকে বছরের ৩৬৬ দিনের প্রতিটি দিন অনুসন্ধান করুন এবং ভিডিও দেখুন।",
+      desc: "মেসির ৯৩০টি ক্যারিয়ার গোলের মধ্য থেকে বছরের ৩৬৬ দিনের প্রতিটি দিন অনুসন্ধান করুন এবং ভিডিও দেখুন।",
       btn: "আমার জন্মদিন দেখুন ⚽",
       link: "/bn/birthday"
     },
@@ -190,7 +190,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 वायरल इंटरएक्टिव टूल",
       title: "क्या मेसी ने आपके जन्मदिन पर गोल किया था?",
-      desc: "मेसी के 929 करियर गोलों में से साल के सभी 366 दिनों को खोजें और अपने खास दिन के गोल वीडियो देखें।",
+      desc: "मेसी के 930 करियर गोलों में से साल के सभी 366 दिनों को खोजें और अपने खास दिन के गोल वीडियो देखें।",
       btn: "अपना जन्मदिन चेक करें ⚽",
       link: "/hi/birthday"
     },
@@ -223,7 +223,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 INSTRUMENT VIRAL INTERACTIV",
       title: "A marcat Messi de ziua ta de naștere?",
-      desc: "Caută în toate cele 366 de zile din an de-a lungul celor 929 de goluri din cariera lui Messi. Urmărește videoclipuri pentru fiecare gol.",
+      desc: "Caută în toate cele 366 de zile din an de-a lungul celor 930 de goluri din cariera lui Messi. Urmărește videoclipuri pentru fiecare gol.",
       btn: "Verifică Ziua Mea ⚽",
       link: "/ro/birthday"
     },
@@ -256,7 +256,7 @@ const LANGS = {
     bdayPromo: {
       badge: "🎂 VIRAL INTERAKTIV VOSITA",
       title: "Messi sizning tug'ilgan kuningizda gol urganmi?",
-      desc: "Messining 929 ta goli orqali yilning barcha 366 kunini qidiring va o'sha kun urilgan gollarning videolarini tomosha qiling.",
+      desc: "Messining 930 ta goli orqali yilning barcha 366 kunini qidiring va o'sha kun urilgan gollarning videolarini tomosha qiling.",
       btn: "Tug'ilgan Kunimni Tekshirish ⚽",
       link: "/uz/birthday"
     },
@@ -383,7 +383,7 @@ function renderHeadBoilerplate(lang, pageSlug, title, desc, keywords) {
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>${title} | MessiStats</title>
 <meta content="${desc}" name="description"/>
-<meta content="${keywords || 'messi, messi stats, lionel messi, 929 goals, messi goals'}" name="keywords"/>
+<meta content="${keywords || 'messi, messi stats, lionel messi, 930 goals, messi goals'}" name="keywords"/>
 ${hreflangs}
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
 <meta content="#16243a" name="theme-color"/>
@@ -435,9 +435,9 @@ function generateDashboard(lang) {
   const dict = {
     pt: {
       title: "Painel Interativo de Estatísticas de Lionel Messi",
-      desc: "Painel interativo da carreira de Lionel Messi: 929 gols filtráveis por Barcelona, PSG, Inter Miami e Seleção Argentina.",
+      desc: "Painel interativo da carreira de Lionel Messi: 930 gols filtráveis por Barcelona, PSG, Inter Miami e Seleção Argentina.",
       h1: "Painel de Estatísticas de Lionel Messi",
-      lede: "Análise interativa dos 929 gols na carreira de Lionel Messi em todas as competições, temporadas, tipos de finalização e partes do corpo — filtrável por equipe.",
+      lede: "Análise interativa dos 930 gols na carreira de Lionel Messi em todas as competições, temporadas, tipos de finalização e partes do corpo — filtrável por equipe.",
       compTitle: "¿Em quais competições Messi marcou mais gols?",
       seasonTitle: "¿Como mudou seu ritmo de gols temporada após temporada?",
       teamTitle: "Gols por equipe",
@@ -451,9 +451,9 @@ function generateDashboard(lang) {
     },
     fr: {
       title: "Tableau de Bord Interactif de Lionel Messi",
-      desc: "Tableau de bord interactif de la carrière de Lionel Messi : 929 buts filtrables par Barcelone, PSG, Inter Miami et Argentine.",
+      desc: "Tableau de bord interactif de la carrière de Lionel Messi : 930 buts filtrables par Barcelone, PSG, Inter Miami et Argentine.",
       h1: "Tableau de Bord des Statistiques de Lionel Messi",
-      lede: "Analyse interactive des 929 buts en carrière de Lionel Messi à travers toutes les compétitions, saisons, types de tirs et surfaces du corps.",
+      lede: "Analyse interactive des 930 buts en carrière de Lionel Messi à travers toutes les compétitions, saisons, types de tirs et surfaces du corps.",
       compTitle: "Dans quelles compétitions Messi a-t-il marqué le plus de buts ?",
       seasonTitle: "Comment son rythme de buts a-t-il évolué saison après saison ?",
       teamTitle: "Buts par équipe",
@@ -467,9 +467,9 @@ function generateDashboard(lang) {
     },
     ar: {
       title: "لوحة البيانات التفاعلية لإحصائيات ليونيل ميسي",
-      desc: "لوحة إحصائيات تفاعلية لمسيرة ليونيل ميسي: 929 هدفاً قابلة للتصفية حسب برشلونة، باريس سان جيرمان، إنتر ميامي ومنتخب الأرجنتين.",
+      desc: "لوحة إحصائيات تفاعلية لمسيرة ليونيل ميسي: 930 هدفاً قابلة للتصفية حسب برشلونة، باريس سان جيرمان، إنتر ميامي ومنتخب الأرجنتين.",
       h1: "لوحة إحصائيات ليونيل ميسي",
-      lede: "تحليل تفاعلي لـ 929 هدفاً في مسيرة ليونيل ميسي عبر جميع البطولات، المواسم، طرق التسجيل وأجزاء الجسم.",
+      lede: "تحليل تفاعلي لـ 930 هدفاً في مسيرة ليونيل ميسي عبر جميع البطولات، المواسم، طرق التسجيل وأجزاء الجسم.",
       compTitle: "في أي بطولات سجل ميسي أكبر عدد من الأهداف؟",
       seasonTitle: "كيف تغير معدله التهديفي موسماً بعد موسم؟",
       teamTitle: "الأهداف مع كل فريق",
@@ -483,9 +483,9 @@ function generateDashboard(lang) {
     },
     bn: {
       title: "লিওনেল মেসির ইন্টারেক্টিভ পরিসংখ্যান ড্যাশবোর্ড",
-      desc: "লিওনেল মেসির ক্যারিয়ারের ৯২৯টি অফিসিয়াল গোলের বিশদ ইন্টারেক্টিভ ড্যাশবোর্ড। দল, প্রতিযোগিতা এবং শারীরিক অংশ অনুযায়ী ফিল্টার করুন।",
+      desc: "লিওনেল মেসির ক্যারিয়ারের ৯৩০টি অফিসিয়াল গোলের বিশদ ইন্টারেক্টিভ ড্যাশবোর্ড। দল, প্রতিযোগিতা এবং শারীরিক অংশ অনুযায়ী ফিল্টার করুন।",
       h1: "লিওনেল মেসি পরিসংখ্যান ড্যাশবোর্ড",
-      lede: "লিওনেল মেসির ক্যারিয়ারের ৯২৯টি গোলের ইন্টারেক্টিভ বিশ্লেষণ — বার্সেলোনা, পিএসজি, ইন্টার মায়ামি এবং আর্জেন্টিনার জন্য ফিল্টারযোগ্য।",
+      lede: "লিওনেল মেসির ক্যারিয়ারের ৯৩০টি গোলের ইন্টারেক্টিভ বিশ্লেষণ — বার্সেলোনা, পিএসজি, ইন্টার মায়ামি এবং আর্জেন্টিনার জন্য ফিল্টারযোগ্য।",
       compTitle: "মেসি কোন প্রতিযোগিতায় সবচেয়ে বেশি গোল করেছেন?",
       seasonTitle: "মৌসুমের পর মৌসুম তার গোল করার হার কেমন ছিল?",
       teamTitle: "প্রতিটি দলের হয়ে গোল",
@@ -499,9 +499,9 @@ function generateDashboard(lang) {
     },
     hi: {
       title: "लियोनेल मेसी इंटरएक्टिव आँकड़े डैशबोर्ड",
-      desc: "लियोनेल मेसी के 929 गोलों का विस्तृत इंटरएक्टिव डैशबोर्ड। बार्सिलोना, पीएसजी, इंटर मियामी और अर्जेंटीना के अनुसार फ़िल्टर करें।",
+      desc: "लियोनेल मेसी के 930 गोलों का विस्तृत इंटरएक्टिव डैशबोर्ड। बार्सिलोना, पीएसजी, इंटर मियामी और अर्जेंटीना के अनुसार फ़िल्टर करें।",
       h1: "लियोनेल मेसी आँकड़े डैशबोर्ड",
-      lede: "लियोनेल मेसी के करियर के 929 गोलों का इंटरएक्टिव विश्लेषण — हर प्रतियोगिता, सीज़न और बॉडी पार्ट के अनुसार।",
+      lede: "लियोनेल मेसी के करियर के 930 गोलों का इंटरएक्टिव विश्लेषण — हर प्रतियोगिता, सीज़न और बॉडी पार्ट के अनुसार।",
       compTitle: "मेसी ने किस प्रतियोगिता में सर्वाधिक गोल किए हैं?",
       seasonTitle: "सीज़न दर सीज़न उनकी गोल करने की गति कैसे बदली?",
       teamTitle: "प्रत्येक टीम के लिए गोल",
@@ -515,9 +515,9 @@ function generateDashboard(lang) {
     },
     ro: {
       title: "Panou Interactiv de Statistici Lionel Messi",
-      desc: "Panou interactiv al carierei lui Lionel Messi: 929 de goluri filtrabile pe Barcelona, PSG, Inter Miami și Argentina.",
+      desc: "Panou interactiv al carierei lui Lionel Messi: 930 de goluri filtrabile pe Barcelona, PSG, Inter Miami și Argentina.",
       h1: "Panoul de Statistici Lionel Messi",
-      lede: "Analiză interactivă a celor 929 de goluri din cariera lui Lionel Messi pe toate competițiile, sezoanele, tipurile de șut și părțile corpului.",
+      lede: "Analiză interactivă a celor 930 de goluri din cariera lui Lionel Messi pe toate competițiile, sezoanele, tipurile de șut și părțile corpului.",
       compTitle: "În ce competiții a marcat Messi cele mai multe goluri?",
       seasonTitle: "Cum a evoluat ritmul său de goluri sezon după sezon?",
       teamTitle: "Goluri cu fiecare echipă",
@@ -531,9 +531,9 @@ function generateDashboard(lang) {
     },
     uz: {
       title: "Lionel Messi Interaktiv Statistika Paneli",
-      desc: "Lionel Messining 929 ta rasmiy goli bo'yicha interaktiv boshqaruv paneli: Barselona, PSJ, Inter Mayami va Argentina bo'yicha saralang.",
+      desc: "Lionel Messining 930 ta rasmiy goli bo'yicha interaktiv boshqaruv paneli: Barselona, PSJ, Inter Mayami va Argentina bo'yicha saralang.",
       h1: "Lionel Messi Statistika Paneli",
-      lede: "Lionel Messining faoliyatidagi 929 ta golining musobaqalar, mavsumlar, zarba turlari va tana a'zolari bo'yicha interaktiv tahlili.",
+      lede: "Lionel Messining faoliyatidagi 930 ta golining musobaqalar, mavsumlar, zarba turlari va tana a'zolari bo'yicha interaktiv tahlili.",
       compTitle: "Messi qaysi musobaqalarda eng ko'p gol urgan?",
       seasonTitle: "Mavsumdan-mavsumga uning gol urish sur'ati qanday o'zgargan?",
       teamTitle: "Har bir jamoadagi gollar",
@@ -705,10 +705,10 @@ function generateGoalsByYear(lang) {
   const L = LANGS[lang];
   const dict = {
     pt: {
-      title: "Gols de Messi por Ano (2004–2026): Todos os 929 Gols e Recorde de 91",
-      desc: "Gols de Lionel Messi ano a ano (2004–2026): divisão de seus 929 gols oficiais e o recorde mundial de 91 gols em 2012.",
+      title: "Gols de Messi por Ano (2004–2026): Todos os 930 Gols e Recorde de 91",
+      desc: "Gols de Lionel Messi ano a ano (2004–2026): divisão de seus 930 gols oficiais e o recorde mundial de 91 gols em 2012.",
       h1: "Gols de Lionel Messi por Ano (2004–2026)",
-      lede: "Todos os 929 gols de Lionel Messi divididos por ano civil de 2004 a 2026, incluindo o recorde mundial do Guinness de 91 gols em 2012.",
+      lede: "Todos os 930 gols de Lionel Messi divididos por ano civil de 2004 a 2026, incluindo o recorde mundial do Guinness de 91 gols em 2012.",
       chartHead: "¿Quantos gols Messi marca a cada ano?",
       decadesHead: "Gols por década",
       tableHead: "Gols de Messi ano a ano, 2004 a 2026",
@@ -716,10 +716,10 @@ function generateGoalsByYear(lang) {
       exploreTitle: "Explore todas as estatísticas"
     },
     fr: {
-      title: "Buts de Messi par Année (2004–2026) : Les 929 Buts et Record de 91",
-      desc: "Buts de Lionel Messi année par année (2004–2026) : répartition de ses 929 buts officiels et record du monde de 91 buts en 2012.",
+      title: "Buts de Messi par Année (2004–2026) : Les 930 Buts et Record de 91",
+      desc: "Buts de Lionel Messi année par année (2004–2026) : répartition de ses 930 buts officiels et record du monde de 91 buts en 2012.",
       h1: "Buts de Lionel Messi par Année (2004–2026)",
-      lede: "Tous les 929 buts de Lionel Messi répartis par année civile de 2004 à 2026, avec le record mondial Guinness de 91 buts en 2012.",
+      lede: "Tous les 930 buts de Lionel Messi répartis par année civile de 2004 à 2026, avec le record mondial Guinness de 91 buts en 2012.",
       chartHead: "Combien de buts Messi marque-t-il chaque année ?",
       decadesHead: "Buts par décennie",
       tableHead: "Buts de Messi année par année, de 2004 à 2026",
@@ -727,10 +727,10 @@ function generateGoalsByYear(lang) {
       exploreTitle: "Explorer toutes les statistiques"
     },
     ar: {
-      title: "أهداف ميسي حسب السنة (2004–2026): 929 هدفاً ورقم الـ 91 التاريخي",
-      desc: "أهداف ليونيل ميسي سنة بسنة (2004–2026): تفاصيل الـ 929 هدفاً ورقم جينيس القياسي العالمي بـ 91 هدفاً في عام 2012.",
+      title: "أهداف ميسي حسب السنة (2004–2026): 930 هدفاً ورقم الـ 91 التاريخي",
+      desc: "أهداف ليونيل ميسي سنة بسنة (2004–2026): تفاصيل الـ 930 هدفاً ورقم جينيس القياسي العالمي بـ 91 هدفاً في عام 2012.",
       h1: "أهداف ليونيل ميسي حسب السنة (2004–2026)",
-      lede: "جميع أهداف ليونيل ميسي الـ 929 مقسمة حسب السنوات الميلادية من 2004 إلى 2026، بما فيها 91 هدفاً في عام 2012 الأسطوري.",
+      lede: "جميع أهداف ليونيل ميسي الـ 930 مقسمة حسب السنوات الميلادية من 2004 إلى 2026، بما فيها 91 هدفاً في عام 2012 الأسطوري.",
       chartHead: "كم هدفاً يسجل ميسي في كل عام؟",
       decadesHead: "الأهداف حسب العقود",
       tableHead: "أهداف ميسي سنة بعد سنة من 2004 إلى 2026",
@@ -738,10 +738,10 @@ function generateGoalsByYear(lang) {
       exploreTitle: "استكشف جميع الإحصائيات"
     },
     bn: {
-      title: "বছর অনুযায়ী মেসির গোল (২০০৪–২০২৬): ৯২৯ গোল ও ৯১ গোলের বিশ্বরেকর্ড",
-      desc: "২০০৪ থেকে ২০২৬ সাল পর্যন্ত লিওনেল মেসির ৯২৯টি অফিসিয়াল গোলের বছরভিত্তিক তালিকা এবং ২০১২ সালে ৯১ গোলের বিশ্বরেকর্ড।",
+      title: "বছর অনুযায়ী মেসির গোল (২০০৪–২০২৬): ৯৩০ গোল ও ৯১ গোলের বিশ্বরেকর্ড",
+      desc: "২০০৪ থেকে ২০২৬ সাল পর্যন্ত লিওনেল মেসির ৯৩০টি অফিসিয়াল গোলের বছরভিত্তিক তালিকা এবং ২০১২ সালে ৯১ গোলের বিশ্বরেকর্ড।",
       h1: "বছর অনুযায়ী লিওনেল মেসির গোল (২০০৪–২০২৬)",
-      lede: "২০০৪ থেকে ২০২৬ সাল পর্যন্ত লিওনেল মেসির মোট ৯২৯টি ক্যারিয়ার গোলের ক্যালেন্ডার বছরভিত্তিক পূর্ণাঙ্গ পরিসংখ্যান।",
+      lede: "২০০৪ থেকে ২০২৬ সাল পর্যন্ত লিওনেল মেসির মোট ৯৩০টি ক্যারিয়ার গোলের ক্যালেন্ডার বছরভিত্তিক পূর্ণাঙ্গ পরিসংখ্যান।",
       chartHead: "মেসি প্রতি বছর কতটি গোল করেন?",
       decadesHead: "দশক অনুযায়ী গোল",
       tableHead: "বছরভিত্তিক মেসির গোলের সম্পূর্ণ তালিকা (২০০৪–২০২৬)",
@@ -749,10 +749,10 @@ function generateGoalsByYear(lang) {
       exploreTitle: "সব পরিসংখ্যান দেখুন"
     },
     hi: {
-      title: "साल दर साल मेसी के गोल (2004–2026): 929 गोल और 91 गोलों का विश्व रिकॉर्ड",
-      desc: "2004 से 2026 तक लियोनेल मेसी के 929 आधिकारिक गोलों की साल दर साल सूची और 2012 में 91 गोलों का ऐतिहासिक रिकॉर्ड।",
+      title: "साल दर साल मेसी के गोल (2004–2026): 930 गोल और 91 गोलों का विश्व रिकॉर्ड",
+      desc: "2004 से 2026 तक लियोनेल मेसी के 930 आधिकारिक गोलों की साल दर साल सूची और 2012 में 91 गोलों का ऐतिहासिक रिकॉर्ड।",
       h1: "साल दर साल लियोनेल मेसी के गोल (2004–2026)",
-      lede: "2004 से 2026 तक लियोनेल मेसी के सभी 929 आधिकारिक गोल, जिसमें 2012 में 91 गोलों का गिनीज वर्ल्ड रिकॉर्ड शामिल है।",
+      lede: "2004 से 2026 तक लियोनेल मेसी के सभी 930 आधिकारिक गोल, जिसमें 2012 में 91 गोलों का गिनीज वर्ल्ड रिकॉर्ड शामिल है।",
       chartHead: "मेसी हर साल कितने गोल करते हैं?",
       decadesHead: "दशक अनुसार गोल",
       tableHead: "2004 से 2026 तक साल दर साल मेसी के गोल",
@@ -760,10 +760,10 @@ function generateGoalsByYear(lang) {
       exploreTitle: "सभी आंकड़े देखें"
     },
     ro: {
-      title: "Golurile lui Messi pe Ani (2004–2026): Toate cele 929 de Goluri și Recordul de 91",
-      desc: "Golurile lui Lionel Messi an de an (2004–2026): împărțirea celor 929 de goluri oficiale și recordul mondial de 91 de goluri în 2012.",
+      title: "Golurile lui Messi pe Ani (2004–2026): Toate cele 930 de Goluri și Recordul de 91",
+      desc: "Golurile lui Lionel Messi an de an (2004–2026): împărțirea celor 930 de goluri oficiale și recordul mondial de 91 de goluri în 2012.",
       h1: "Golurile lui Lionel Messi pe Ani (2004–2026)",
-      lede: "Toate cele 929 de goluri ale lui Lionel Messi împărțite pe ani calendaristici din 2004 până în 2026, inclusiv recordul de 91 de goluri în 2012.",
+      lede: "Toate cele 930 de goluri ale lui Lionel Messi împărțite pe ani calendaristici din 2004 până în 2026, inclusiv recordul de 91 de goluri în 2012.",
       chartHead: "Câte goluri marchează Messi în fiecare an?",
       decadesHead: "Goluri pe decenii",
       tableHead: "Golurile lui Messi an de an, din 2004 până în 2026",
@@ -771,10 +771,10 @@ function generateGoalsByYear(lang) {
       exploreTitle: "Explorează toate statisticile"
     },
     uz: {
-      title: "Messining Yillar Bo'yicha Gollari (2004–2026): 929 ta Gol va 91 ta Golli Rekord",
-      desc: "Lionel Messining 2004–2026 yillardagi barcha 929 ta rasmiy gollari va 2012 yildagi 91 ta golli Ginnes jahon rekordi.",
+      title: "Messining Yillar Bo'yicha Gollari (2004–2026): 930 ta Gol va 91 ta Golli Rekord",
+      desc: "Lionel Messining 2004–2026 yillardagi barcha 930 ta rasmiy gollari va 2012 yildagi 91 ta golli Ginnes jahon rekordi.",
       h1: "Lionel Messining Yillar Bo'yicha Gollari (2004–2026)",
-      lede: "Lionel Messining 2004 yildan 2026 yilgacha bo'lgan barcha 929 ta goli, jumladan 2012 yildagi 91 ta golli afsonaviy rekord.",
+      lede: "Lionel Messining 2004 yildan 2026 yilgacha bo'lgan barcha 930 ta goli, jumladan 2012 yildagi 91 ta golli afsonaviy rekord.",
       chartHead: "Messi har yili nechta gol uradi?",
       decadesHead: "O'n yilliklar bo'yicha gollar",
       tableHead: "Messining 2004 yildan 2026 yilgacha bo'lgan gollari",
@@ -920,7 +920,7 @@ ${renderRailNav(lang, "timeline")}
 <p><a class="btn" href="/${lang}">${L.backToStats}</a></p>
 <section class="tl-summary-banner" id="tl-summary" aria-label="Career overview numbers">
   <div class="tl-summary-kpi"><div class="val">22</div><div class="lbl">Seasons (2004–2026)</div></div>
-  <div class="tl-summary-kpi"><div class="val">929</div><div class="lbl">Senior Goals</div></div>
+  <div class="tl-summary-kpi"><div class="val">930</div><div class="lbl">Senior Goals</div></div>
   <div class="tl-summary-kpi"><div class="val">385+</div><div class="lbl">Career Assists</div></div>
   <div class="tl-summary-kpi"><div class="val">46</div><div class="lbl">Major Trophies</div></div>
   <div class="tl-summary-kpi"><div class="val">8</div><div class="lbl">Ballons d'Or</div></div>
@@ -1085,7 +1085,7 @@ function generateBirthday(lang) {
       title: "Gols de Messi no seu Aniversário: Explorador dos 366 Dias do Ano",
       desc: "Descubra se Lionel Messi marcou no dia do seu aniversário: explore todos os 366 dias do ano com vídeos de cada gol marcado.",
       h1: "¿Marcou Messi no dia do seu aniversário?",
-      lede: "Descubra se Lionel Messi marcou gols no dia do seu aniversário. Messi marcou em 292 dos 366 dias do ano (79,8%) ao longo dos seus 929 gols.",
+      lede: "Descubra se Lionel Messi marcou gols no dia do seu aniversário. Messi marcou em 292 dos 366 dias do ano (79,8%) ao longo dos seus 930 gols.",
       selectMonth: "Selecione o mês",
       selectDay: "Selecione o dia",
       checkBtn: "Verificar gols ⚽",
@@ -1098,7 +1098,7 @@ function generateBirthday(lang) {
       title: "Messi a-t-il marqué le jour de votre anniversaire ? Explorateur des 366 Jours",
       desc: "Découvrez si Lionel Messi a marqué le jour de votre anniversaire : explorez les 366 jours de l'année avec vidéos et statistiques.",
       h1: "Messi a-t-il marqué le jour de votre anniversaire ?",
-      lede: "Vérifiez si Lionel Messi a marqué lors de votre jour de naissance. Messi a marqué lors de 292 des 366 jours du calendrier (79,8%) sur ses 929 buts.",
+      lede: "Vérifiez si Lionel Messi a marqué lors de votre jour de naissance. Messi a marqué lors de 292 des 366 jours du calendrier (79,8%) sur ses 930 buts.",
       selectMonth: "Sélectionnez le mois",
       selectDay: "Sélectionnez le jour",
       checkBtn: "Vérifier les buts ⚽",
@@ -1111,7 +1111,7 @@ function generateBirthday(lang) {
       title: "هل سجل ميسي في يوم ميلادك؟ مستكشف أهداف الـ 366 يوماً",
       desc: "اكتشف ما إذا كان الأسطورة ليونيل ميسي قد سجل في يوم ميلادك: ابحث في جميع أيام السنة الـ 366 مع مقاطع فيديو لكل هدف.",
       h1: "هل سجل ميسي في يوم عيد ميلادك؟",
-      lede: "تحقق مما إذا كان ميسي قد سجل أهدافاً في يوم ميلادك. سجل ميسي في 292 يوماً من أصل 366 يوماً في السنة (79.8%) خلال مسيرته بـ 929 هدفاً.",
+      lede: "تحقق مما إذا كان ميسي قد سجل أهدافاً في يوم ميلادك. سجل ميسي في 292 يوماً من أصل 366 يوماً في السنة (79.8%) خلال مسيرته بـ 930 هدفاً.",
       selectMonth: "اختر الشهر",
       selectDay: "اختر اليوم",
       checkBtn: "تحقق من الأهداف ⚽",
@@ -1122,9 +1122,9 @@ function generateBirthday(lang) {
     },
     bn: {
       title: "মেসি কি আপনার জন্মদিনে গোল করেছিলেন? ৩৬৬ দিনের গোল এক্সপ্লোরার",
-      desc: "মেসি আপনার জন্মদিনে গোল করেছিলেন কিনা তা দেখুন: ৯২৯টি গোলের মধ্য থেকে বছরের ৩৬৬ দিনের প্রতিটি দিনের ভিডিও ও বিবরণ।",
+      desc: "মেসি আপনার জন্মদিনে গোল করেছিলেন কিনা তা দেখুন: ৯৩০টি গোলের মধ্য থেকে বছরের ৩৬৬ দিনের প্রতিটি দিনের ভিডিও ও বিবরণ।",
       h1: "মেসি কি আপনার জন্মদিনে গোল করেছিলেন?",
-      lede: "আপনার জন্মদিনে লিওনেল মেসি গোল করেছিলেন কিনা তা যাচাই করুন। মেসি তার ৯২৯ গোলের ক্যারিয়ারে বছরের ৩৬৬ দিনের মধ্যে ২৯২ দিনেই গোল করেছেন (৭৯.৮%)।",
+      lede: "আপনার জন্মদিনে লিওনেল মেসি গোল করেছিলেন কিনা তা যাচাই করুন। মেসি তার ৯৩০ গোলের ক্যারিয়ারে বছরের ৩৬৬ দিনের মধ্যে ২৯২ দিনেই গোল করেছেন (৭৯.৮%)।",
       selectMonth: "মাস নির্বাচন করুন",
       selectDay: "দিন নির্বাচন করুন",
       checkBtn: "গোল অনুসন্ধান করুন ⚽",
@@ -1135,7 +1135,7 @@ function generateBirthday(lang) {
     },
     hi: {
       title: "क्या मेसी ने आपके जन्मदिन पर गोल किया था? 366 दिनों का गोल एक्सप्लोरर",
-      desc: "जानिए क्या लियोनेल मेसी ने आपके जन्मदिन पर गोल किया था: 366 दिनों में मेसी के 929 गोलों का वीडियो और मैच डेटा।",
+      desc: "जानिए क्या लियोनेल मेसी ने आपके जन्मदिन पर गोल किया था: 366 दिनों में मेसी के 930 गोलों का वीडियो और मैच डेटा।",
       h1: "क्या मेसी ने आपके जन्मदिन पर गोल किया था?",
       lede: "अपने जन्मदिन की तारीख चुनकर देखें कि क्या उस दिन लियोनेल मेसी ने गोल किया था। मेसी ने साल के 366 में से 292 दिनों (79.8%) में गोल किए हैं।",
       selectMonth: "महीना चुनें",
@@ -1150,7 +1150,7 @@ function generateBirthday(lang) {
       title: "A marcat Messi de ziua ta de naștere? Explorator în cele 366 de Zile",
       desc: "Află dacă Lionel Messi a marcat de ziua ta: explorează toate cele 366 de zile din an cu videoclipuri pentru fiecare gol.",
       h1: "A marcat Messi de ziua ta de naștere?",
-      lede: "Verifică dacă Lionel Messi a înscris de ziua ta de naștere. Messi a marcat în 292 din cele 366 de zile ale anului (79,8%) de-a lungul celor 929 de goluri.",
+      lede: "Verifică dacă Lionel Messi a înscris de ziua ta de naștere. Messi a marcat în 292 din cele 366 de zile ale anului (79,8%) de-a lungul celor 930 de goluri.",
       selectMonth: "Selectează luna",
       selectDay: "Selectează ziua",
       checkBtn: "Verifică golurile ⚽",
@@ -1234,10 +1234,10 @@ function generateMessiVsRonaldo(lang) {
   const dict = {
     pt: {
       title: "Messi vs Ronaldo: Gols, Títulos e Confrontos Diretos",
-      desc: "Lionel Messi vs Cristiano Ronaldo: 929 gols vs 979, 46 títulos vs 35, 8 Bolas de Ouro vs 5. Estatísticas completas e os 36 confrontos diretos.",
+      desc: "Lionel Messi vs Cristiano Ronaldo: 930 gols vs 979, 46 títulos vs 35, 8 Bolas de Ouro vs 5. Estatísticas completas e os 36 confrontos diretos.",
       h1: "Messi vs Cristiano Ronaldo: A Comparação Definitiva",
-      lede: "A comparação estatística definitiva entre Lionel Messi e Cristiano Ronaldo: 929 vs 979 gols, 46 vs 35 títulos e 8 vs 5 Bolas de Ouro.",
-      kpiMessiNote: "1.175 jogos (0,79 g/j)",
+      lede: "A comparação estatística definitiva entre Lionel Messi e Cristiano Ronaldo: 930 vs 979 gols, 46 vs 35 títulos e 8 vs 5 Bolas de Ouro.",
+      kpiMessiNote: "1.176 jogos (0,79 g/j)",
       kpiRonaldoNote: "1.337 jogos (0,72 g/j)",
       kpiDiff: "Diferença",
       kpiDiffNote: "Messi em 161 jogos a menos",
@@ -1271,10 +1271,10 @@ function generateMessiVsRonaldo(lang) {
     },
     fr: {
       title: "Messi vs Ronaldo : Buts, Titres et Face-à-Face Historique",
-      desc: "Lionel Messi vs Cristiano Ronaldo : 929 buts vs 979, 46 trophées vs 35, 8 Ballons d'Or vs 5. Statistiques complètes et les 36 confrontations directes.",
+      desc: "Lionel Messi vs Cristiano Ronaldo : 930 buts vs 979, 46 trophées vs 35, 8 Ballons d'Or vs 5. Statistiques complètes et les 36 confrontations directes.",
       h1: "Messi vs Cristiano Ronaldo : La Comparaison Ultime",
-      lede: "Le comparatif statistique absolu entre Lionel Messi et Cristiano Ronaldo : 929 contre 979 buts, 46 contre 35 titres et 8 contre 5 Ballons d'Or.",
-      kpiMessiNote: "1 175 matchs (0,79 b/m)",
+      lede: "Le comparatif statistique absolu entre Lionel Messi et Cristiano Ronaldo : 930 contre 979 buts, 46 contre 35 titres et 8 contre 5 Ballons d'Or.",
+      kpiMessiNote: "1 176 matchs (0,79 b/m)",
       kpiRonaldoNote: "1 280+ matchs (0,72 b/m)",
       kpiDiff: "Différence",
       kpiDiffNote: "Messi en 161 matchs de moins",
@@ -1308,10 +1308,10 @@ function generateMessiVsRonaldo(lang) {
     },
     ar: {
       title: "ميسي ضد رونالدو: مقارنة الأهداف، البطولات والمواجهات المباشرة",
-      desc: "ليونيل ميسي ضد كريستيانو رونالدو: 929 هدفاً مقابل 979، 46 بطولة مقابل 35، و8 كرات ذهبية مقابل 5. تفاصيل الـ 36 مباراة المباشرة.",
+      desc: "ليونيل ميسي ضد كريستيانو رونالدو: 930 هدفاً مقابل 979، 46 بطولة مقابل 35، و8 كرات ذهبية مقابل 5. تفاصيل الـ 36 مباراة المباشرة.",
       h1: "ميسي ضد كريستيانو رونالدو: المقارنة التاريخية",
-      lede: "المقارنة الإحصائية الشاملة بين ليونيل ميسي وكريستيانو رونالدو: 929 مقابل 979 هدفاً، 46 مقابل 35 لقباً، و8 كرات ذهبية مقابل 5.",
-      kpiMessiNote: "1,175 مباراة (0.79 هدف/مباراة)",
+      lede: "المقارنة الإحصائية الشاملة بين ليونيل ميسي وكريستيانو رونالدو: 930 مقابل 979 هدفاً، 46 مقابل 35 لقباً، و8 كرات ذهبية مقابل 5.",
+      kpiMessiNote: "1,176 مباراة (0.79 هدف/مباراة)",
       kpiRonaldoNote: "+1,337 مباراة (0.72 هدف/مباراة)",
       kpiDiff: "الفارق",
       kpiDiffNote: "ميسي في 161 مباراة أقل",
@@ -1345,10 +1345,10 @@ function generateMessiVsRonaldo(lang) {
     },
     bn: {
       title: "মেসি বনাম রোনালদো: গোল, ট্রফি এবং মুখোমুখি লড়াইয়ের পূর্ণাঙ্গ হিসাব",
-      desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯২৯ গোল বনাম ৯৭৯+, ৪৬ ট্রফি বনাম ৩৫, এবং ৮টি ব্যালন ডি'অর বনাম ৫। মুখোমুখি ৩৬টি ম্যাচের রেকর্ড।",
+      desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯৩০ গোল বনাম ৯৭৯+, ৪৬ ট্রফি বনাম ৩৫, এবং ৮টি ব্যালন ডি'অর বনাম ৫। মুখোমুখি ৩৬টি ম্যাচের রেকর্ড।",
       h1: "মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: সর্বকালের সেরা তুলনা",
-      lede: "মেসি ও রোনালদোর ক্যারিয়ারের পুঙ্খানুপুঙ্খ পরিসংখ্যান: ৯২৯ বনাম ৯৭৯ গোল, ৪৬ বনাম ৩৫টি শিরোপা এবং ৮ বনাম ৫টি ব্যালন ডি'অর।",
-      kpiMessiNote: "১,১৭৫ ম্যাচ (০.৭৯ গোল/ম্যাচ)",
+      lede: "মেসি ও রোনালদোর ক্যারিয়ারের পুঙ্খানুপুঙ্খ পরিসংখ্যান: ৯৩০ বনাম ৯৭৯ গোল, ৪৬ বনাম ৩৫টি শিরোপা এবং ৮ বনাম ৫টি ব্যালন ডি'অর।",
+      kpiMessiNote: "১,১৭৬ ম্যাচ (০.৭৯ গোল/ম্যাচ)",
       kpiRonaldoNote: "১,৩৩৭+ ম্যাচ (০.৭২ গোল/ম্যাচ)",
       kpiDiff: "পার্থক্য",
       kpiDiffNote: "১৬১ ম্যাচ কম খেলে মেসি",
@@ -1382,10 +1382,10 @@ function generateMessiVsRonaldo(lang) {
     },
     hi: {
       title: "मेसी बनाम रोनाल्डो: गोल, ट्रॉफियां और आमने-सामने के मुकाबले",
-      desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 929 गोल बनाम 979, 46 खिताब बनाम 35, और 8 बैलन डी'ओर बनाम 5। दोनों के बीच 36 सीधे मैचों का विवरण।",
+      desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 930 गोल बनाम 979, 46 खिताब बनाम 35, और 8 बैलन डी'ओर बनाम 5। दोनों के बीच 36 सीधे मैचों का विवरण।",
       h1: "मेसी बनाम क्रिस्टियानो रोनाल्डो: अंतिम तुलना",
-      lede: "लियोनेल मेसी और क्रिस्टियानो रोनाल्डो के आंकड़ों का पूर्ण तुलनात्मक विश्लेषण: 929 बनाम 979 गोल, 46 बनाम 35 ट्रॉफियां और 8 बनाम 5 बैलन डी'ओर।",
-      kpiMessiNote: "1,175 मैच (0.79 गोल/मैच)",
+      lede: "लियोनेल मेसी और क्रिस्टियानो रोनाल्डो के आंकड़ों का पूर्ण तुलनात्मक विश्लेषण: 930 बनाम 979 गोल, 46 बनाम 35 ट्रॉफियां और 8 बनाम 5 बैलन डी'ओर।",
+      kpiMessiNote: "1,176 मैच (0.79 गोल/मैच)",
       kpiRonaldoNote: "1,337 मैच (0.72 गोल/मैच)",
       kpiDiff: "अंतर",
       kpiDiffNote: "मेसी ने 161 कम मैचों में",
@@ -1419,10 +1419,10 @@ function generateMessiVsRonaldo(lang) {
     },
     ro: {
       title: "Messi vs Ronaldo: Goluri, Trofee și Meciuri Directe",
-      desc: "Lionel Messi vs Cristiano Ronaldo: 929 goluri vs 979, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparație completă și cele 36 de meciuri directe.",
+      desc: "Lionel Messi vs Cristiano Ronaldo: 930 goluri vs 979, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparație completă și cele 36 de meciuri directe.",
       h1: "Messi vs Cristiano Ronaldo: Comparația Supremă",
-      lede: "Comparația statistică definitivă între Lionel Messi și Cristiano Ronaldo: 929 vs 979 goluri, 46 vs 35 trofee și 8 vs 5 Baloane de Aur.",
-      kpiMessiNote: "1.175 meciuri (0,79 g/m)",
+      lede: "Comparația statistică definitivă între Lionel Messi și Cristiano Ronaldo: 930 vs 979 goluri, 46 vs 35 trofee și 8 vs 5 Baloane de Aur.",
+      kpiMessiNote: "1.176 meciuri (0,79 g/m)",
       kpiRonaldoNote: "1.337 meciuri (0,72 g/m)",
       kpiDiff: "Diferență",
       kpiDiffNote: "Messi în 161 meciuri mai puține",
@@ -1456,10 +1456,10 @@ function generateMessiVsRonaldo(lang) {
     },
     uz: {
       title: "Messi vs Ronaldu: Gollar, Sovrinlar va O'zaro To'qnashuvlar",
-      desc: "Lionel Messi va Krishtianu Ronaldu: 929 ta gol vs 979, 46 ta titul vs 35, 8 ta “Oltin to'p” vs 5. O'zaro 36 ta o'yin natijalari.",
+      desc: "Lionel Messi va Krishtianu Ronaldu: 930 ta gol vs 979, 46 ta titul vs 35, 8 ta “Oltin to'p” vs 5. O'zaro 36 ta o'yin natijalari.",
       h1: "Messi vs Krishtianu Ronaldu: Karyeralar Qiyosi",
-      lede: "Lionel Messi va Krishtianu Ronaldu o'rtasidagi to'liq statistik taqqoslash: 929 ga 979 ta gol, 46 ga 35 ta sovrin va 8 ga 5 ta “Oltin to'p”.",
-      kpiMessiNote: "1 175 o'yin (0,79 g/o')",
+      lede: "Lionel Messi va Krishtianu Ronaldu o'rtasidagi to'liq statistik taqqoslash: 930 ga 979 ta gol, 46 ga 35 ta sovrin va 8 ga 5 ta “Oltin to'p”.",
+      kpiMessiNote: "1 176 o'yin (0,79 g/o')",
       kpiRonaldoNote: "1 280+ o'yin (0,72 g/o')",
       kpiDiff: "Farq",
       kpiDiffNote: "Messi 105 ta kam o'yinda",
@@ -1507,7 +1507,7 @@ ${renderRailNav(lang, "messi-vs-ronaldo")}
 
 <!-- HEAD TO HEAD KPIS -->
 <section class="kpis kpis-3" aria-label="Head to Head">
-  <div class="kpi"><span class="kpi-label">Lionel Messi</span><span class="kpi-value">929</span><span class="kpi-note">${dict.kpiMessiNote}</span></div>
+  <div class="kpi"><span class="kpi-label">Lionel Messi</span><span class="kpi-value">930</span><span class="kpi-note">${dict.kpiMessiNote}</span></div>
   <div class="kpi"><span class="kpi-label">Cristiano Ronaldo</span><span class="kpi-value">979</span><span class="kpi-note">${dict.kpiRonaldoNote}</span></div>
   <div class="kpi"><span class="kpi-label">${dict.kpiDiff}</span><span class="kpi-value">+5</span><span class="kpi-note">${dict.kpiDiffNote}</span></div>
 </section>
