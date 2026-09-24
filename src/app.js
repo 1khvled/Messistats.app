@@ -283,8 +283,7 @@ function ensureMobileMenuDrawer() {
   drawer.innerHTML = `
     <div class="mobile-drawer-sheet" role="dialog" aria-modal="true" aria-label="Navigation Menu">
       <div class="mobile-drawer-header">
-        <a href="${getLangUrl(curLangCode)}" class="mobile-drawer-brand">
-          <svg class="mobile-topbar-mark" viewBox="0 0 64 64" aria-hidden="true" width="28" height="28"><defs><linearGradient id="msg-drw" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-drw)" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg>
+          <img src="/img/logo.png" alt="MessiStats Logo" width="28" height="28" style="object-fit:contain;border-radius:4px;flex:0 0 28px;"/>
           <span>Messi<b>Stats</b> Menu</span>
         </a>
         <button type="button" class="mobile-drawer-close" id="mobile-drawer-close-btn" aria-label="Close menu">
@@ -340,6 +339,156 @@ function closeMobileMenuDrawer() {
     menuBtn.setAttribute("aria-expanded", "false");
   }
   if (document.body) document.body.style.overflow = "";
+}
+
+function ensureDesktopBrandHeader() {
+  if (typeof document === "undefined") return;
+  const wrap = document.querySelector("#main.wrap") || document.querySelector(".wrap");
+  if (!wrap || wrap.querySelector(".desktop-brand-header")) return;
+
+  const curLang = getCurrentLangCode();
+  const brandHeader = document.createElement("div");
+  brandHeader.className = "desktop-brand-header";
+  brandHeader.innerHTML = `
+    <a href="${getLangUrl(curLang)}" class="desktop-brand-logo-link" aria-label="MessiStat Home">
+      <img src="/img/logo.png" alt="MessiStat Logo" class="desktop-brand-logo" width="48" height="48" />
+    </a>
+    <div class="desktop-brand-titles">
+      <div class="desktop-brand-name">Messi<span>Stat</span></div>
+      <div class="desktop-brand-sub">The Verified Lionel Messi Statistics &amp; Video Database</div>
+    </div>
+  `;
+  wrap.prepend(brandHeader);
+}
+
+function init2MinDonationPopup() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  const DISMISS_KEY = "messistat_donation_dismissed";
+  const START_KEY = "messistat_session_start";
+  const TWO_MINUTES_MS = 120000; // 2 minutes = 120,000 ms
+
+  try {
+    const dismissedTime = localStorage.getItem(DISMISS_KEY);
+    if (dismissedTime && (Date.now() - parseInt(dismissedTime, 10) < 24 * 60 * 60 * 1000)) {
+      return;
+    }
+  } catch (_) {}
+
+  let sessionStart = Date.now();
+  try {
+    const savedStart = sessionStorage.getItem(START_KEY);
+    if (savedStart) {
+      sessionStart = parseInt(savedStart, 10);
+    } else {
+      sessionStorage.setItem(START_KEY, String(sessionStart));
+    }
+  } catch (_) {}
+
+  const elapsed = Date.now() - sessionStart;
+  const remaining = Math.max(1000, TWO_MINUTES_MS - elapsed);
+
+  setTimeout(() => {
+    try {
+      const dismissed = localStorage.getItem(DISMISS_KEY);
+      if (dismissed && (Date.now() - parseInt(dismissed, 10) < 24 * 60 * 60 * 1000)) return;
+      showDonationPopup();
+    } catch (_) {}
+  }, remaining);
+}
+
+function showDonationPopup() {
+  if (typeof document === "undefined" || document.getElementById("donation-modal")) return;
+
+  const backdrop = document.createElement("div");
+  backdrop.id = "donation-modal";
+  backdrop.className = "donation-modal-backdrop";
+  backdrop.setAttribute("role", "dialog");
+  backdrop.setAttribute("aria-modal", "true");
+  backdrop.setAttribute("aria-labelledby", "donation-modal-title");
+
+  backdrop.innerHTML = `
+    <div class="donation-modal-sheet">
+      <div class="donation-modal-header">
+        <div class="donation-modal-title-row">
+          <span class="donation-modal-badge">❤️ Support MessiStat</span>
+        </div>
+        <button type="button" class="donation-modal-close" id="donation-modal-close-x" aria-label="Close">✕</button>
+      </div>
+      <div class="donation-modal-body">
+        <h3 id="donation-modal-title">Thank you for visiting MessiStat!</h3>
+        
+        <div class="donation-apology-box">
+          <p><strong>🙏 Sincere Apology for the Advertisements:</strong></p>
+          <p>We know ads can sometimes be distracting, and we sincerely apologize for displaying them on the site. To keep <b>MessiStat completely free</b>, blazing fast, and updated after every match with high-definition goal video streaming and zero paywalls, ads are currently necessary to cover our high monthly hosting and video CDN servers.</p>
+        </div>
+
+        <p class="donation-plea-text">
+          If you enjoy using MessiStat and want to help keep the servers running (and help us show fewer ads in the future!), please consider supporting us with a small donation on Ko-fi or via crypto:
+        </p>
+
+        <div class="donation-modal-actions">
+          <a href="https://ko-fi.com/messistat" target="_blank" rel="noopener noreferrer" class="btn-popup-kofi">
+            <span>💖 Support on Ko-fi</span>
+          </a>
+
+          <div class="popup-crypto-card">
+            <span class="popup-crypto-header">🪙 Direct Crypto Wallet (BEP-20 / BNB Chain - USDT / BNB / ETH)</span>
+            <div class="popup-crypto-row">
+              <code class="popup-crypto-address" id="popup-crypto-val">0xe78ee7a6ce01978562c90df0fa3f775215457390</code>
+              <button type="button" class="btn-popup-copy" id="btn-popup-copy-action" aria-label="Copy Crypto Wallet Address">Copy 📋</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="donation-modal-footer">
+        <button type="button" class="btn-popup-dismiss" id="donation-modal-dismiss-btn">
+          Continue Browsing
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(backdrop);
+
+  const close = () => {
+    try {
+      localStorage.setItem("messistat_donation_dismissed", String(Date.now()));
+    } catch (_) {}
+    backdrop.style.animation = "donationFadeOut 0.2s ease-out forwards";
+    setTimeout(() => {
+      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+    }, 200);
+  };
+
+  const closeX = backdrop.querySelector("#donation-modal-close-x");
+  const dismissBtn = backdrop.querySelector("#donation-modal-dismiss-btn");
+  if (closeX) closeX.addEventListener("click", close);
+  if (dismissBtn) dismissBtn.addEventListener("click", close);
+
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) close();
+  });
+
+  const handleKeydown = (e) => {
+    if (e.key === "Escape") {
+      close();
+      window.removeEventListener("keydown", handleKeydown);
+    }
+  };
+  window.addEventListener("keydown", handleKeydown);
+
+  const copyBtn = backdrop.querySelector("#btn-popup-copy-action");
+  if (copyBtn) {
+    copyBtn.addEventListener("click", () => {
+      navigator.clipboard.writeText("0xe78ee7a6ce01978562c90df0fa3f775215457390").then(() => {
+        copyBtn.textContent = "✓ Copied!";
+        setTimeout(() => {
+          copyBtn.textContent = "Copy 📋";
+        }, 2500);
+      }).catch(() => {});
+    });
+  }
 }
 
 // Global click and keydown delegation for language switcher, mobile menu drawer, theme toggles, and modal backdrops
@@ -478,10 +627,22 @@ function initLanguageAndMobileTopBar() {
           </button>
         `;
         const railBadge = rail.querySelector(".rail-badge");
-        if (railBadge && railBadge.nextSibling) {
-          rail.insertBefore(railLangWrap, railBadge.nextSibling);
-        } else {
-          rail.prepend(railLangWrap);
+        if (railBadge) {
+          const mark = railBadge.querySelector(".rail-mark");
+          if (mark) {
+            const logoImg = document.createElement("img");
+            logoImg.src = "/img/logo.png";
+            logoImg.alt = "MessiStat";
+            logoImg.className = "rail-mark-logo";
+            logoImg.width = 36;
+            logoImg.height = 36;
+            mark.replaceWith(logoImg);
+          }
+          if (railBadge.nextSibling) {
+            rail.insertBefore(railLangWrap, railBadge.nextSibling);
+          } else {
+            rail.prepend(railLangWrap);
+          }
         }
       }
     }
@@ -496,7 +657,7 @@ function initLanguageAndMobileTopBar() {
       mobileTopBar.setAttribute("aria-label", "Mobile navigation header");
       mobileTopBar.innerHTML = `
         <a href="${getLangUrl(curLangCode)}" class="mobile-topbar-brand" aria-label="MessiStats">
-          <svg class="mobile-topbar-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="msg-mtb" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></linearGradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-mtb)" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg>
+          <img src="/img/logo.png" alt="MessiStats Logo" width="28" height="28" style="object-fit:contain;border-radius:4px;flex:0 0 28px;"/>
           <span class="mobile-topbar-title">Messi<b>Stats</b></span>
         </a>
         <div class="mobile-topbar-actions">
@@ -533,6 +694,8 @@ function initLanguageAndMobileTopBar() {
   try {
     ensureLangModal();
     ensureMobileMenuDrawer();
+    ensureDesktopBrandHeader();
+    init2MinDonationPopup();
   } catch (_) {}
 
   // 4. Device & Location-Based Language View Detection
