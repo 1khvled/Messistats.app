@@ -440,7 +440,7 @@ function initDonationPopup() {
 }
 
 function showDonationPopup() {
-  if (typeof document === "undefined" || document.getElementById("donation-modal")) return;
+  if (typeof document === "undefined" || document.getElementById("donation-modal") || document.getElementById("stream-promo-modal")) return;
 
   const backdrop = document.createElement("div");
   backdrop.id = "donation-modal";
@@ -531,6 +531,157 @@ function showDonationPopup() {
       }).catch(() => {});
     });
   }
+}
+
+function initStreamPromoPopup() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  const DISMISS_KEY = "koora_stream_promo_dismissed";
+  const SHOWN_KEY = "koora_stream_promo_shown";
+  const SESSION_START_KEY = "messistat_session_start";
+  const DWELL_TARGET_MS = 150000; // 2.5 minutes (150 seconds)
+
+  try {
+    const dismissedTime = localStorage.getItem(DISMISS_KEY);
+    if (dismissedTime && (Date.now() - parseInt(dismissedTime, 10) < 24 * 60 * 60 * 1000)) {
+      return;
+    }
+    if (sessionStorage.getItem(SHOWN_KEY) === "true") {
+      return;
+    }
+  } catch (_) {}
+
+  // Session dwell time tracking across pageviews
+  let sessionStart = Date.now();
+  try {
+    const storedStart = sessionStorage.getItem(SESSION_START_KEY);
+    if (storedStart) {
+      sessionStart = parseInt(storedStart, 10);
+    } else {
+      sessionStorage.setItem(SESSION_START_KEY, String(sessionStart));
+    }
+  } catch (_) {}
+
+  const elapsed = Date.now() - sessionStart;
+  const remainingTime = Math.max(1000, DWELL_TARGET_MS - elapsed);
+
+  let triggered = false;
+  const triggerPromo = () => {
+    if (triggered) return;
+    try {
+      if (sessionStorage.getItem(SHOWN_KEY) === "true") return;
+      const dismissed = localStorage.getItem(DISMISS_KEY);
+      if (dismissed && (Date.now() - parseInt(dismissed, 10) < 24 * 60 * 60 * 1000)) return;
+      triggered = true;
+      sessionStorage.setItem(SHOWN_KEY, "true");
+      showStreamPromoPopup();
+    } catch (_) {}
+  };
+
+  setTimeout(triggerPromo, remainingTime);
+}
+
+function showStreamPromoPopup() {
+  if (typeof document === "undefined" || document.getElementById("stream-promo-modal")) return;
+
+  // If donation modal is currently displayed, wait 12s before trying again
+  if (document.getElementById("donation-modal")) {
+    setTimeout(showStreamPromoPopup, 12000);
+    return;
+  }
+
+  const backdrop = document.createElement("div");
+  backdrop.id = "stream-promo-modal";
+  backdrop.className = "stream-promo-backdrop";
+  backdrop.setAttribute("role", "dialog");
+  backdrop.setAttribute("aria-modal", "true");
+  backdrop.setAttribute("aria-labelledby", "stream-promo-title");
+
+  backdrop.innerHTML = `
+    <div class="stream-promo-sheet">
+      <div class="stream-promo-header">
+        <div class="stream-promo-badge">
+          <span class="stream-live-dot"></span> LIVE FOOTBALL
+        </div>
+        <button type="button" class="stream-promo-close" id="stream-promo-close-x" aria-label="Close">✕</button>
+      </div>
+
+      <div class="stream-promo-body">
+        <div class="stream-promo-graphic">
+          <div class="stream-icon-badge">⚽</div>
+          <span class="stream-hd-pill">1080p HD</span>
+        </div>
+
+        <h3 id="stream-promo-title">Watch Live Football Matches Free</h3>
+        <p class="stream-promo-desc">
+          Enjoying MessiStat? Catch live football matches, real-time match scores & kickoff schedules today on <strong>Koora Live</strong> — 100% free streaming with no intrusive popups.
+        </p>
+
+        <div class="stream-promo-features">
+          <div class="stream-feature-tag">🔥 Free HD Streams</div>
+          <div class="stream-feature-tag">🏆 UCL, La Liga & EPL</div>
+          <div class="stream-feature-tag">⚡ Live Score Tracking</div>
+        </div>
+
+        <div class="stream-promo-actions">
+          <a href="https://kooraadz.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-watch-stream" id="stream-promo-watch-btn">
+            <span>Watch Live Matches Free</span>
+            <svg class="stream-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="stream-promo-footer">
+        <button type="button" class="btn-stream-dismiss" id="stream-promo-dismiss-btn">
+          Maybe Later
+        </button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(backdrop);
+
+  const DISMISS_KEY = "koora_stream_promo_dismissed";
+  const close = () => {
+    try {
+      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    } catch (_) {}
+    backdrop.style.animation = "streamFadeOut 0.2s ease-out forwards";
+    setTimeout(() => {
+      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
+    }, 200);
+  };
+
+  const closeX = backdrop.querySelector("#stream-promo-close-x");
+  const dismissBtn = backdrop.querySelector("#stream-promo-dismiss-btn");
+  const watchBtn = backdrop.querySelector("#stream-promo-watch-btn");
+
+  if (closeX) closeX.addEventListener("click", close);
+  if (dismissBtn) dismissBtn.addEventListener("click", close);
+  if (watchBtn) {
+    watchBtn.addEventListener("click", () => {
+      try {
+        localStorage.setItem(DISMISS_KEY, String(Date.now()));
+      } catch (_) {}
+      setTimeout(close, 400);
+    });
+  }
+
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) close();
+  });
+
+  const handleKeydown = (e) => {
+    if (e.key === "Escape") {
+      close();
+      window.removeEventListener("keydown", handleKeydown);
+    }
+  };
+  window.addEventListener("keydown", handleKeydown);
 }
 
 function initFanArcade() {
@@ -1482,6 +1633,7 @@ function initLanguageAndMobileTopBar() {
     ensureMobileMenuDrawer();
     ensureDesktopBrandHeader();
     initDonationPopup();
+    initStreamPromoPopup();
     initFanArcade();
     initGlobalGoatPoll();
   } catch (_) {}
