@@ -9,17 +9,19 @@ const distSitemap = path.join(rootDir, "dist", "sitemap.xml");
 
 const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
 
+const todayIso = new Date().toISOString().split("T")[0];
+
 const SUBPAGES = [
-  { slug: "dashboard", changefreq: "daily", priority: "0.9", lastmod: "2026-09-18" },
-  { slug: "birthday", changefreq: "daily", priority: "0.95", lastmod: "2026-09-18" },
-  { slug: "goalsbyseason", changefreq: "weekly", priority: "0.9", lastmod: "2026-09-18" },
-  { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9", lastmod: "2026-09-18" },
-  { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.95", lastmod: "2026-09-18" },
-  { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9", lastmod: "2026-08-15" },
-  { slug: "champions-league", changefreq: "monthly", priority: "0.9", lastmod: "2026-06-01" },
-  { slug: "latest-goal", changefreq: "daily", priority: "0.95", lastmod: "2026-09-17" },
-  { slug: "timeline", changefreq: "monthly", priority: "0.85", lastmod: "2026-09-18" },
-  { slug: "achievements", changefreq: "monthly", priority: "0.85", lastmod: "2026-09-18" }
+  { slug: "dashboard", changefreq: "daily", priority: "0.9", lastmod: todayIso },
+  { slug: "birthday", changefreq: "daily", priority: "0.95", lastmod: todayIso },
+  { slug: "goalsbyseason", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
+  { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
+  { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.95", lastmod: todayIso },
+  { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
+  { slug: "champions-league", changefreq: "monthly", priority: "0.9", lastmod: todayIso },
+  { slug: "latest-goal", changefreq: "daily", priority: "0.95", lastmod: todayIso },
+  { slug: "timeline", changefreq: "monthly", priority: "0.85", lastmod: todayIso },
+  { slug: "achievements", changefreq: "monthly", priority: "0.85", lastmod: todayIso }
 ];
 
 function getHreflangsXml(slugPath) {
@@ -58,7 +60,7 @@ const urlBlocks = [];
 // 1. English Homepage
 urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/en</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>${todayIso}</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
 ${getHreflangsXml("")}
@@ -310,7 +312,7 @@ for (const lang of ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"]) {
   // Homepage
   urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/${lang}</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>${todayIso}</lastmod>
     <changefreq>daily</changefreq>
     <priority>${meta.priority}</priority>
 ${getHreflangsXml("")}
@@ -326,7 +328,7 @@ ${getHreflangsXml("")}
     const vidXml = sub.slug === "latest-goal" ? `\n${getVideoXml(lang)}` : "";
     urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/${lang}/${sub.slug}</loc>
-    <lastmod>${sub.lastmod || "2026-09-18"}</lastmod>
+    <lastmod>${sub.lastmod || todayIso}</lastmod>
     <changefreq>${sub.changefreq}</changefreq>
     <priority>${sub.priority}</priority>
 ${getHreflangsXml("/" + sub.slug)}${vidXml}

@@ -32,6 +32,7 @@ const escapeHtml = (str) =>
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 
+const todayIso = new Date().toISOString().split("T")[0];
 let sitemapUrls = [];
 
 for (let i = 0; i < keys.length; i++) {
@@ -112,7 +113,7 @@ for (let i = 0; i < keys.length; i++) {
       url: `https://www.messistat.com/en/birthday/${key}`,
       name: pageTitle,
       description: metaDesc,
-      dateModified: "2026-09-18",
+      dateModified: todayIso,
       inLanguage: "en",
       mainEntityOfPage: `https://www.messistat.com/en/birthday/${key}`
     },
