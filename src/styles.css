@@ -9335,3 +9335,103 @@ html[dir="rtl"] .goat-verdict-box {
   from { opacity: 0; transform: scale(0.96); }
   to { opacity: 1; transform: scale(1); }
 }
+
+/* ================= USER-FRIENDLY UI ENHANCEMENTS ================= */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Card micro-elevation & delightful interactive feel */
+.kpi, .cab-card, .tl-card, .recent-goal-card, .trophy-card, .fan-arcade-card {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.kpi:hover, .cab-card:hover, .recent-goal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+[data-theme="dark"] .kpi:hover,
+[data-theme="dark"] .cab-card:hover,
+[data-theme="dark"] .recent-goal-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Touch feedback for buttons & interactive elements */
+button, .btn, .arcade-tab, a.pill, .chip {
+  -webkit-tap-highlight-color: transparent;
+}
+button:active:not(:disabled), .btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+/* Keyboard focus rings for accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2.5px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* ---------- Back to Top Floating Button ---------- */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface-solid, #ffffff);
+  border: 1.5px solid var(--line);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.9);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 990;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.back-to-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+.back-to-top-btn:hover {
+  background: var(--brand);
+  color: #090d16;
+  border-color: var(--brand);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(234, 179, 8, 0.35);
+}
+.back-to-top-btn:active {
+  transform: scale(0.95);
+}
+[data-theme="dark"] .back-to-top-btn {
+  background: rgba(22, 36, 58, 0.88);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+}
+html[dir="rtl"] .back-to-top-btn {
+  right: auto;
+  left: 24px;
+}
+@media (max-width: 768px) {
+  .back-to-top-btn {
+    bottom: calc(75px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+  html[dir="rtl"] .back-to-top-btn {
+    right: auto;
+    left: 16px;
+  }
+}
+

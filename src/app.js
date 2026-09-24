@@ -218,9 +218,17 @@ function ensureMobileMenuDrawer() {
       ]
     },
     {
-      title: "History & Analytics 📊",
+      title: "History & Trophies 🏆",
       items: [
-        { href: `/${curLangCode}/timeline`, label: "Timeline & Trophies", badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
+        { href: `/${curLangCode}/achievements`, label: "All 46 Trophies & Awards", badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` },
+        { href: `/${curLangCode}/timeline`, label: "Career Timeline & Photos", badge: "2004-2026", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyyear`, label: "Goals by Calendar Year", badge: "91 in 2012", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyseason`, label: "Goals by Season", badge: "22 Yrs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` }
+      ]
+    },
+    {
+      title: "Big Matches & Stats 📊",
+      items: [
         { href: `/${curLangCode}/dashboard`, label: "Deep Stats & Analytics", badge: "Hub", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
         { href: `/${curLangCode}/vs-real-madrid`, label: "vs Real Madrid (El Clásico)", badge: "26 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
         { href: `/${curLangCode}/champions-league`, label: "Champions League Hub", badge: "129 Goals", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
@@ -7677,6 +7685,38 @@ function renderLatestGoal(d) {
   renderExplore(d, "latest-goal");
 }
 
+
+// ---------- Back to Top Floating Button ----------
+function initBackToTop() {
+  if (typeof document === 'undefined' || document.getElementById('back-to-top-btn')) return;
+  const btn = document.createElement('button');
+  btn.id = 'back-to-top-btn';
+  btn.className = 'back-to-top-btn';
+  btn.type = 'button';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.title = 'Back to top';
+  btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>';
+  btn.onclick = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  document.body.appendChild(btn);
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 380) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+}
+
 /* ================= BOOT ================= */
 load().then((d) => {
   normalize(d);
@@ -7700,6 +7740,7 @@ load().then((d) => {
   /* Chart entrance: bars grow, donuts sweep, KPIs tick on visibility — one shared
      boot observer, same pattern as the timeline .tl-reveal wiring. */
   armEntrance();
+  initBackToTop();
 }).catch(() => {
   const lang = getLang();
   const errorMsgs = {
