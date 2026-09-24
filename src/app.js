@@ -361,40 +361,82 @@ function ensureDesktopBrandHeader() {
   wrap.prepend(brandHeader);
 }
 
-function init2MinDonationPopup() {
+function initDonationPopup() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
   const DISMISS_KEY = "messistat_donation_dismissed";
-  const START_KEY = "messistat_session_start";
-  const TWO_MINUTES_MS = 120000; // 2 minutes = 120,000 ms
+  const SHOWN_KEY = "messistat_donation_shown";
+  const PAGEVIEWS_KEY = "messistat_pv_count";
+  const TARGET_TIME_MS = 25000; // 25s (optimized for actual visitor dwell time)
 
   try {
     const dismissedTime = localStorage.getItem(DISMISS_KEY);
     if (dismissedTime && (Date.now() - parseInt(dismissedTime, 10) < 24 * 60 * 60 * 1000)) {
       return;
     }
-  } catch (_) {}
-
-  let sessionStart = Date.now();
-  try {
-    const savedStart = sessionStorage.getItem(START_KEY);
-    if (savedStart) {
-      sessionStart = parseInt(savedStart, 10);
-    } else {
-      sessionStorage.setItem(START_KEY, String(sessionStart));
+    if (sessionStorage.getItem(SHOWN_KEY) === "true") {
+      return;
     }
   } catch (_) {}
 
-  const elapsed = Date.now() - sessionStart;
-  const remaining = Math.max(1000, TWO_MINUTES_MS - elapsed);
+  // Track session pageview depth
+  let pvs = 1;
+  try {
+    pvs = parseInt(sessionStorage.getItem(PAGEVIEWS_KEY) || "0", 10) + 1;
+    sessionStorage.setItem(PAGEVIEWS_KEY, String(pvs));
+  } catch (_) {}
 
-  setTimeout(() => {
+  let triggered = false;
+  const triggerPopup = () => {
+    if (triggered) return;
     try {
+      if (sessionStorage.getItem(SHOWN_KEY) === "true") return;
       const dismissed = localStorage.getItem(DISMISS_KEY);
       if (dismissed && (Date.now() - parseInt(dismissed, 10) < 24 * 60 * 60 * 1000)) return;
+      triggered = true;
+      sessionStorage.setItem(SHOWN_KEY, "true");
       showDonationPopup();
     } catch (_) {}
-  }, remaining);
+  };
+
+  // 1. Dwell-time trigger: 25s for first landing, 10s if already browsing 2nd+ page
+  const timerDelay = pvs > 1 ? 10000 : TARGET_TIME_MS;
+  const timer = setTimeout(triggerPopup, timerDelay);
+
+  // 2. Scroll-depth engagement trigger: user scrolled >= 45% down the stats page after at least 8s
+  const pageLoadTime = Date.now();
+  const onScroll = () => {
+    if (triggered) {
+      window.removeEventListener("scroll", onScroll);
+      return;
+    }
+    if (Date.now() - pageLoadTime < 8000) return; // ignore instant flick scrolls
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (docHeight > 400) {
+      const scrollPercent = (window.scrollY / docHeight) * 100;
+      if (scrollPercent >= 45) {
+        window.removeEventListener("scroll", onScroll);
+        clearTimeout(timer);
+        triggerPopup();
+      }
+    }
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // 3. Desktop exit-intent trigger: mouse moving towards tab/close bar after at least 6s
+  const onMouseLeave = (e) => {
+    if (triggered) {
+      document.removeEventListener("mouseleave", onMouseLeave);
+      return;
+    }
+    if (Date.now() - pageLoadTime < 6000) return;
+    if (e.clientY <= 12) {
+      document.removeEventListener("mouseleave", onMouseLeave);
+      clearTimeout(timer);
+      triggerPopup();
+    }
+  };
+  document.addEventListener("mouseleave", onMouseLeave);
 }
 
 function showDonationPopup() {
@@ -695,7 +737,7 @@ function initLanguageAndMobileTopBar() {
     ensureLangModal();
     ensureMobileMenuDrawer();
     ensureDesktopBrandHeader();
-    init2MinDonationPopup();
+    initDonationPopup();
   } catch (_) {}
 
   // 4. Device & Location-Based Language View Detection
