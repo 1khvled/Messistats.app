@@ -594,18 +594,19 @@ svg.donut circle:hover { stroke-width: 30; }
 
 /* ---------- Trophy cabinet (achievements only) ----------
    Real celebration photos. Grid on desktop, stacked on mobile. */
-body[data-page="achievements"] .cabinet { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 12px 0 4px; }
-body[data-page="achievements"] .cab-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 14px 14px 12px; margin: 0; min-width: 0; }
-body[data-page="achievements"] .cab-card h3 { font-size: 1.02rem; margin: 0 0 2px; }
-body[data-page="achievements"] .cab-sub { color: var(--muted); font-size: 0.86rem; margin: 0 0 10px; }
-body[data-page="achievements"] .cab-photo { margin: 0; min-width: 0; }
-body[data-page="achievements"] .cab-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 10px; background: var(--surface-solid); }
-body[data-page="achievements"] .cab-note { color: var(--muted); font-size: 0.86rem; margin: 10px 2px 0; grid-column: 1 / -1; }
+.cabinet { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 16px 0 24px; }
+.cab-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 14px 14px 12px; margin: 0; min-width: 0; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.cab-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.cab-card h3 { font-size: 1.02rem; margin: 0 0 2px; }
+.cab-sub { color: var(--muted); font-size: 0.86rem; margin: 0 0 10px; }
+.cab-photo { margin: 0; min-width: 0; }
+.cab-photo img { display: block; width: 100%; aspect-ratio: 4 / 3; height: auto; object-fit: cover; border-radius: 10px; background: var(--surface-solid); }
+.cab-note { color: var(--muted); font-size: 0.86rem; margin: 10px 2px 0; grid-column: 1 / -1; }
 @media (max-width: 1024px) {
-  body[data-page="achievements"] .cabinet { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cabinet { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 @media (max-width: 600px) {
-  body[data-page="achievements"] .cabinet { grid-template-columns: 1fr; }
+  .cabinet { grid-template-columns: 1fr; }
 }
 
 /* ---------- Split cards (FK / pens / hat-tricks) ---------- */
@@ -7104,6 +7105,71 @@ html[dir="rtl"] .goat-verdict-box {
   padding: 2px 8px;
   border-radius: 4px;
   border: 1px solid var(--line);
+}
+
+.tl-card-media {
+  margin: 0 0 14px 0;
+  border-radius: 10px;
+  overflow: hidden;
+  max-height: 240px;
+  border: 1px solid var(--line-soft);
+  background: var(--surface-solid);
+}
+.tl-card-media img {
+  display: block;
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  object-position: 50% 20%;
+  transition: transform 0.3s ease;
+}
+.tl-card:hover .tl-card-media img {
+  transform: scale(1.03);
+}
+
+/* Compact Trophy Groups on Timeline */
+.trophy-groups-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 1rem 0 2rem;
+}
+.trophy-groups-compact .trophy-group {
+  margin-top: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+}
+.trophy-groups-compact .trophy-group .shead {
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 8px;
+}
+.trophy-groups-compact .trophy-group h3 {
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 800;
+  color: var(--ink);
+}
+.trophy-groups-compact .tpills-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.trophy-groups-compact .tpill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 0.88rem;
+}
+.trophy-groups-compact .tpill:last-child {
+  border-bottom: 0;
 }
 
 /* ================= REIMAGINED PRO DASHBOARD ================= */

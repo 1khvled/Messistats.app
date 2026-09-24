@@ -8,30 +8,7 @@ import { initAnalytics, trackBirthdaySearch, trackVideoPlay, trackShare } from "
 inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 injectSpeedInsights(); // Core Web Vitals; same deal — production only, silent locally
 initAnalytics();
-// — Hide admin nav for users, show for admins (server-issued token auth)
-function hasAdminToken() {
-  try {
-    const tok = sessionStorage.getItem("messi_admin_token");
-    const exp = parseInt(sessionStorage.getItem("messi_admin_token_exp") || "0", 10);
-    if (tok && !isNaN(exp) && Date.now() < exp) return true;
-    const pv = localStorage.getItem("messi_admin_token");
-    const uv = localStorage.getItem("messi_admin_token_exp");
-    if (pv && uv) {
-      const le = parseInt(uv, 10);
-      if (!isNaN(le) && Date.now() < le) return true;
-    }
-  } catch {}
-  return false;
-}
-function isAdminAuthed() {
-  return hasAdminToken();
-}
-function revealAdminNav() {
-  const el = document.getElementById("rail-admin-link");
-  if (el && isAdminAuthed()) el.style.display = "flex";
-}
-
- // lightweight Supabase live telemetry
+// lightweight Supabase live telemetry
 
 /* Theme manager (Dark / Light mode) with localStorage persistence and OS sync */
 function initTheme() {
@@ -232,29 +209,21 @@ function ensureMobileMenuDrawer() {
 
   const navCategories = [
     {
-      title: "Live & Trending ⚡",
+      title: "Featured ⚡",
       items: [
         { href: getLangUrl(curLangCode), label: "Career Home & Stats", badge: "930 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>` },
+        { href: `/${curLangCode}/messi-vs-ronaldo`, label: "Messi vs Ronaldo", badge: "GOAT", icon: `<svg viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg>` },
         { href: `/${curLangCode}/latest-goal`, label: "Latest Goal Replay", badge: "LIVE ⚡", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
         { href: `/${curLangCode}/birthday`, label: "Birthday Goals Explorer", badge: "HOT 🔥", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` }
       ]
     },
     {
-      title: "Rivalries & Clashes ⚔️",
+      title: "History & Analytics 📊",
       items: [
-        { href: `/${curLangCode}/messi-vs-ronaldo`, label: "Messi vs Ronaldo", badge: "GOAT", icon: `<svg viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg>` },
+        { href: `/${curLangCode}/timeline`, label: "Timeline & Trophies", badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
+        { href: `/${curLangCode}/dashboard`, label: "Deep Stats & Analytics", badge: "Hub", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
         { href: `/${curLangCode}/vs-real-madrid`, label: "vs Real Madrid (El Clásico)", badge: "26 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
         { href: `/${curLangCode}/champions-league`, label: "Champions League Hub", badge: "129 Goals", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
-      ]
-    },
-    {
-      title: "Career Analytics 📊",
-      items: [
-        { href: `/${curLangCode}/goalsbyyear`, label: "Goals by Year", badge: "91 in 2012", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
-        { href: `/${curLangCode}/goalsbyseason`, label: "Goals by Season", badge: "All Clubs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` },
-        { href: `/${curLangCode}/dashboard`, label: "Interactive Dashboard", badge: "Filters", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
-        { href: `/${curLangCode}/timeline`, label: "Through the Years (Timeline)", badge: "Chapters", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
-        { href: `/${curLangCode}/achievements`, label: "Achievements & Trophies", badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` }
       ]
     }
   ];
@@ -283,9 +252,10 @@ function ensureMobileMenuDrawer() {
   drawer.innerHTML = `
     <div class="mobile-drawer-sheet" role="dialog" aria-modal="true" aria-label="Navigation Menu">
       <div class="mobile-drawer-header">
+        <div class="mobile-drawer-brand">
           <img src="/img/logo.png" alt="MessiStats Logo" width="28" height="28" style="object-fit:contain;border-radius:4px;flex:0 0 28px;"/>
           <span>Messi<b>Stats</b> Menu</span>
-        </a>
+        </div>
         <button type="button" class="mobile-drawer-close" id="mobile-drawer-close-btn" aria-label="Close menu">
           <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
@@ -1944,11 +1914,8 @@ const EXPLORE = [
   { href: "/en/champions-league", page: "champions-league", t: "⭐ Champions League Record", d: () => "129 UEFA Champions League goals, 8 hat-tricks, and 4 European titles." },
   { href: "/en/latest-goal", page: "latest-goal", t: "⚽ Latest Messi Goal Video", d: () => "Watch Goal #930 vs San Diego FC, see if Messi scored today, and view recent goal clips." },
   { href: "/en", page: "home", t: "Messi career stats", d: (d) => `The headline numbers: ${n(d.totals.goals)} goals in ${n(d.totals.apps)} senior games.` },
-  { href: "/en/goalsbyyear", page: "byyear", t: "Messi goals by year", d: (d) => `Every calendar year from 2004 to 2026 and the climb to ${n(d.totals.goals)}.` },
-  { href: "/en/goalsbyseason", page: "byseason", t: "Messi goals by season", d: () => "League, cup and continental splits for every club season." },
   { href: "/en/dashboard", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
   { href: "/en/timeline", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
-  { href: "/en/achievements", page: "achievements", t: "Messi trophies and awards", d: () => "All 46 team titles plus a record 8 Ballons d'Or." },
 ];
 
 function getLang() {
@@ -1967,11 +1934,8 @@ const EXPLORE_LANGS = {
     { href: "/es/champions-league", page: "champions-league", t: "⭐ Récord en Champions League", d: () => "129 goles en UEFA Champions League, 8 hat-tricks y 4 títulos europeos." },
     { href: "/es/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi en video", d: () => "Mira el gol 929 vs Cruz Azul, consulta si Messi marcó hoy y reproduce sus últimos goles." },
     { href: "/es", page: "home", t: "Estadísticas de Messi", d: (d) => `Las cifras clave: ${n(d.totals.goals)} goles en ${n(d.totals.apps)} partidos profesionales.` },
-    { href: "/es/goalsbyyear", page: "byyear", t: "Goles de Messi por año", d: (d) => `Cada año natural de 2004 a 2026 y el camino hacia los ${n(d.totals.goals)}.` },
-    { href: "/es/goalsbyseason", page: "byseason", t: "Goles de Messi por temporada", d: () => "Desglose de liga, copas y torneos continentales para cada temporada." },
     { href: "/es/dashboard", page: "dashboard", t: "Panel interactivo de Messi", d: () => "Filtra todos los gráficos por Barcelona, PSG, Inter Miami o Argentina." },
     { href: "/es/timeline", page: "timeline", t: "Lionel Messi en el tiempo", d: () => "Cada hito histórico de su carrera, fechado y en orden, de 2004 a hoy." },
-    { href: "/es/achievements", page: "achievements", t: "Títulos y premios de Messi", d: () => "Los 46 títulos de equipo más el récord de 8 Balones de Oro." }
   ],
   pt: [
     { href: "/pt/birthday", page: "birthday", t: "🎂 ¿Marcou Messi no seu aniversário?", d: (d) => `Pesquise os 366 dias do ano com vídeos de todos os ${n(d.totals.goals)} gols de Messi.` },
@@ -1980,11 +1944,8 @@ const EXPLORE_LANGS = {
     { href: "/pt/champions-league", page: "champions-league", t: "⭐ Recorde na Champions League", d: () => "129 gols na UEFA Champions League, 8 hat-tricks e 4 títulos europeus." },
     { href: "/pt/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi em vídeo", d: () => "Assista ao gol 929 vs Cruz Azul, veja se Messi marcou hoje e confira vídeos recentes." },
     { href: "/pt", page: "home", t: "Estatísticas de Lionel Messi", d: (d) => `Os números oficiais: ${n(d.totals.goals)} gols em ${n(d.totals.apps)} partidas profissionais.` },
-    { href: "/pt/goalsbyyear", page: "byyear", t: "Gols de Messi por ano", d: (d) => `Todos os anos civis de 2004 a 2026 e o recorde de 91 gols.` },
-    { href: "/pt/goalsbyseason", page: "byseason", t: "Gols de Messi por temporada", d: () => "Divisão de liga, copas e torneios continentais para cada temporada." },
     { href: "/pt/dashboard", page: "dashboard", t: "Painel de estatísticas", d: () => "Filtre todos os gráficos por Barcelona, PSG, Inter Miami ou Argentina." },
     { href: "/pt/timeline", page: "timeline", t: "História e Linha do tempo", d: () => "Cada momento da carreira em ordem cronológica de 2004 até hoje." },
-    { href: "/pt/achievements", page: "achievements", t: "Títulos e troféus", d: () => "Todos os 46 títulos oficiais mais o recorde de 8 Bolas de Ouro." }
   ],
   fr: [
     { href: "/fr/birthday", page: "birthday", t: "🎂 Messi a-t-il marqué le jour de votre anniversaire ?", d: (d) => `Recherchez parmi les 366 jours de l'année avec vidéos des ${n(d.totals.goals)} buts.` },
@@ -1993,11 +1954,8 @@ const EXPLORE_LANGS = {
     { href: "/fr/champions-league", page: "champions-league", t: "⭐ Bilan en Ligue des Champions", d: () => "129 buts en UEFA Champions League, 8 triplés et 4 titres européens." },
     { href: "/fr/latest-goal", page: "latest-goal", t: "⚽ Dernier but de Messi en vidéo", d: () => "Regardez le but 929 contre Cruz Azul, vérifiez s'il a marqué aujourd'hui et ses derniers buts." },
     { href: "/fr", page: "home", t: "Statistiques de Lionel Messi", d: (d) => `Les chiffres clés : ${n(d.totals.goals)} buts en ${n(d.totals.apps)} matchs officiels.` },
-    { href: "/fr/goalsbyyear", page: "byyear", t: "Buts de Messi par année", d: (d) => `Chaque année civile de 2004 à 2026 et le record de 91 buts.` },
-    { href: "/fr/goalsbyseason", page: "byseason", t: "Buts de Messi par saison", d: () => "Répartition par championnat, coupes et Ligue des Champions." },
     { href: "/fr/dashboard", page: "dashboard", t: "Tableau de bord interactif", d: () => "Filtrez par Barcelone, PSG, Inter Miami ou Argentine." },
     { href: "/fr/timeline", page: "timeline", t: "Chronologie de sa carrière", d: () => "Chaque événement historique daté dans l'ordre chronologique." },
-    { href: "/fr/achievements", page: "achievements", t: "Palmarès et trophées", d: () => "Les 46 trophées collectifs et le record de 8 Ballons d'Or." }
   ],
   ar: [
     { href: "/ar/birthday", page: "birthday", t: "🎂 هل سجل ميسي في يوم ميلادك؟", d: (d) => `ابحث في جميع أيام السنة الـ 366 مع مقاطع الفيديو لـ ${n(d.totals.goals)} هدفاً.` },
@@ -2006,11 +1964,8 @@ const EXPLORE_LANGS = {
     { href: "/ar/champions-league", page: "champions-league", t: "⭐ سجل دوري أبطال أوروبا", d: () => "129 هدفاً في دوري أبطال أوروبا، 8 هاتريك و4 ألقاب أوروبية." },
     { href: "/ar/latest-goal", page: "latest-goal", t: "⚽ فيديو آخر هدف لميسي", d: () => "شاهد الهدف 929 ضد كروز أزول، واعرف هل سجل ميسي اليوم وتصفح أحدث أهدافه بالفيديو." },
     { href: "/ar", page: "home", t: "إحصائيات ليونيل ميسي", d: (d) => `الأرقام الرسمية: ${n(d.totals.goals)} هدفاً في ${n(d.totals.apps)} مباراة رسمية.` },
-    { href: "/ar/goalsbyyear", page: "byyear", t: "أهداف ميسي بالسنة", d: (d) => `كل سنة ميلادية من 2004 إلى 2026 ورقم الـ 91 القياسي.` },
-    { href: "/ar/goalsbyseason", page: "byseason", t: "أهداف ميسي بالموسم", d: () => "تقسيم الدوري، الكؤوس والبطولات القارية." },
     { href: "/ar/dashboard", page: "dashboard", t: "لوحة البيانات التفاعلية", d: () => "تصفية حسب برشلونة، باريس، إنتر ميامي والأرجنتين." },
     { href: "/ar/timeline", page: "timeline", t: "المسار الزمني التاريخي", d: () => "كل محطة في مسيرته بالترتيب الزمني من 2004 حتى اليوم." },
-    { href: "/ar/achievements", page: "achievements", t: "البطولات والجوائز", d: () => "46 بطولة رسمية ورقم قياسي بـ 8 كرات ذهبية." }
   ],
   bn: [
     { href: "/bn/birthday", page: "birthday", t: "🎂 মেসি কি আপনার জন্মদিনে গোল করেছিলেন?", d: (d) => `৩৬৬ দিনের প্রতিটি দিন ভিডিও সহ অনুসন্ধান করুন (${n(d.totals.goals)} ক্যারিয়ার গোল)।` },
@@ -2019,11 +1974,8 @@ const EXPLORE_LANGS = {
     { href: "/bn/champions-league", page: "champions-league", t: "⭐ চ্যাম্পিয়নস লিগ রেকর্ড", d: () => "উয়েফা চ্যাম্পিয়নস লিগে ১২৯টি গোল, ৮টি হ্যাটট্রিক এবং ৪টি ইউরোপীয় শিরোপা।" },
     { href: "/bn/latest-goal", page: "latest-goal", t: "⚽ মেসির শেষ গোলের ভিডিও", d: () => "ক্রুজ আজুলের বিরুদ্ধে মেসির ৯২৯তম গোল দেখুন, আজ কি গোল করেছেন এবং সাম্প্রতিক গোলগুলো।" },
     { href: "/bn", page: "home", t: "লিওনেল মেসির পরিসংখ্যান", d: (d) => `অফিসিয়াল তথ্য: ${n(d.totals.apps)} ম্যাচে ${n(d.totals.goals)} গোল।` },
-    { href: "/bn/goalsbyyear", page: "byyear", t: "বছরভিত্তিক গোল", d: (d) => `২০০৪ থেকে ২০২৬ এবং ২০১২ সালে ৯১ গোলের বিশ্বরেকর্ড।` },
-    { href: "/bn/goalsbyseason", page: "byseason", t: "মৌসুমভিত্তিক গোল", d: () => "লীগ, কাপ ও চ্যাম্পিয়ন্স লীগের পরিসংখ্যান।" },
     { href: "/bn/dashboard", page: "dashboard", t: "ইন্টারেক্টিভ ড্যাশবোর্ড", d: () => "বার্সেলোনা, পিএসজি, ইন্টার মায়ামি ও আর্জেন্টিনার পরিসংখ্যান।" },
     { href: "/bn/timeline", page: "timeline", t: "ক্যারিয়ার টাইমলাইন", d: () => "২০০৪ থেকে আজ পর্যন্ত প্রতিটি ঐতিহাসিক মুহূর্ত।" },
-    { href: "/bn/achievements", page: "achievements", t: "ট্রফি ও খেতাব", d: () => "সর্বকালের রেকর্ড ৪৬টি অফিশিয়াল খেতাব ও ৮টি ব্যালন ডি'অর।" }
   ],
   hi: [
     { href: "/hi/birthday", page: "birthday", t: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?", d: (d) => `साल के 366 दिनों में मेसी के ${n(d.totals.goals)} गोल वीडियो देखें।` },
@@ -2032,11 +1984,8 @@ const EXPLORE_LANGS = {
     { href: "/hi/champions-league", page: "champions-league", t: "⭐ चैंपियंस लीग रिकॉर्ड", d: () => "यूईएफए चैंपियंस लीग में 129 गोल, 8 हैट्रिक और 4 यूरोपीय खिताब।" },
     { href: "/hi/latest-goal", page: "latest-goal", t: "⚽ मेसी का पिछला गोल वीडियो", d: () => "क्रूज़ अज़ूल के खिलाफ 929वां गोल देखें, जानें क्या मेसी ने आज गोल किया और हालिया गोल।" },
     { href: "/hi", page: "home", t: "मेसी के आधिकारिक आंकड़े", d: (d) => `${n(d.totals.apps)} आधिकारिक मैचों में ${n(d.totals.goals)} गोल।` },
-    { href: "/hi/goalsbyyear", page: "byyear", t: "साल दर साल गोल", d: (d) => `2004 से 2026 और 2012 में 91 गोलों का विश्व रिकॉर्ड।` },
-    { href: "/hi/goalsbyseason", page: "byseason", t: "सीज़न अनुसार गोल", d: () => "लीग, कप और महाद्वीपीय प्रतियोगिताओं का विवरण।" },
     { href: "/hi/dashboard", page: "dashboard", t: "इंटरएक्टिव डैशबोर्ड", d: () => "बार्सिलोना, पीएसजी, मियामी और अर्जेंटीना अनुसार फ़िल्टर।" },
     { href: "/hi/timeline", page: "timeline", t: "करियर टाइमलाइन", d: () => "2004 से आज तक का हर ऐतिहासिक पड़ाव।" },
-    { href: "/hi/achievements", page: "achievements", t: "खिताब और अवॉर्ड", d: () => "रिकॉर्ड 46 खिताब और 8 बैलन डी'ओर।" }
   ],
   ro: [
     { href: "/ro/birthday", page: "birthday", t: "🎂 A marcat Messi de ziua ta de naștere?", d: (d) => `Caută în toate cele 366 de zile din an cu cele ${n(d.totals.goals)} goluri ale lui Messi.` },
@@ -2045,11 +1994,8 @@ const EXPLORE_LANGS = {
     { href: "/ro/champions-league", page: "champions-league", t: "⭐ Recordul în Champions League", d: () => "129 de goluri în UEFA Champions League, 8 hat-trick-uri și 4 trofee europene." },
     { href: "/ro/latest-goal", page: "latest-goal", t: "⚽ Ultimul gol al lui Messi video", d: () => "Urmărește golul 929 contra lui Cruz Azul, vezi dacă a marcat azi și cele mai recente goluri." },
     { href: "/ro", page: "home", t: "Statisticile lui Lionel Messi", d: (d) => `Cifrele cheie: ${n(d.totals.goals)} goluri în ${n(d.totals.apps)} meciuri oficiale.` },
-    { href: "/ro/goalsbyyear", page: "byyear", t: "Golurile lui Messi pe ani", d: (d) => `Fiecare an calendaristic din 2004 până în 2026 și recordul de 91.` },
-    { href: "/ro/goalsbyseason", page: "byseason", t: "Golurile lui Messi pe sezoane", d: () => "Campionat, cupe interne și meciuri europene." },
     { href: "/ro/dashboard", page: "dashboard", t: "Panoul interactiv de statistici", d: () => "Filtrează pe Barcelona, PSG, Inter Miami sau Argentina." },
     { href: "/ro/timeline", page: "timeline", t: "Cronologia carierei", d: () => "Fiecare moment istoric datat din 2004 până azi." },
-    { href: "/ro/achievements", page: "achievements", t: "Trofeele și premiile lui Messi", d: () => "Toate cele 46 de trofee colective plus 8 Baloane de Aur." }
   ],
   uz: [
     { href: "/uz/birthday", page: "birthday", t: "🎂 Messi sizning tug'ilgan kuningizda gol urganmi?", d: (d) => `Yilning 366 kunidagi gollarni videolar bilan ko'ring (${n(d.totals.goals)} ta gol).` },
@@ -2058,11 +2004,8 @@ const EXPLORE_LANGS = {
     { href: "/uz/champions-league", page: "champions-league", t: "⭐ Chempionlar Ligasi rekordi", d: () => "UEFA Chempionlar Ligasida 129 ta gol, 8 ta het-trik va 4 ta Yevropa chempionligi." },
     { href: "/uz/latest-goal", page: "latest-goal", t: "⚽ Messining soʻnggi goli video", d: () => "Kruz Asulga qarshi 929-golni tomosha qiling, Messi bugun gol urdimi va soʻnggi gollari." },
     { href: "/uz", page: "home", t: "Lionel Messi statistikasi", d: (d) => `Asosiy raqamlar: ${n(d.totals.apps)} ta o'yinda ${n(d.totals.goals)} ta rasmiy gol.` },
-    { href: "/uz/goalsbyyear", page: "byyear", t: "Yillar bo'yicha gollar", d: (d) => `2004 yildan 2026 yilgacha va 2012 yildagi 91 ta golli rekord.` },
-    { href: "/uz/goalsbyseason", page: "byseason", t: "Mavsumlar bo'yicha gollar", d: () => "Liga, kubok va xalqaro turnirlar bo'yicha ajratilgan." },
     { href: "/uz/dashboard", page: "dashboard", t: "Interaktiv statistika paneli", d: () => "Barselona, PSJ, Inter Mayami yoki Argentina bo'yicha saralang." },
     { href: "/uz/timeline", page: "timeline", t: "Karyera xronologiyasi", d: () => "2004 yildan to hozirgi kungacha bo'lgan tarixiy sanalar." },
-    { href: "/uz/achievements", page: "achievements", t: "Sovrinlar va yutuqlar", d: () => "46 ta jamoaviy sovrin va rekord 8 ta “Oltin to'p”." }
   ]
 };
 
@@ -3759,7 +3702,7 @@ function renderByYear(d) {
     comboCard.innerHTML =
       `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
         ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === best.year, tip: `${x.year}: ${x.goals} (${x.careerTotal})` })),
-        { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "goalsbyyear.html#y", label: cfg.chartLabel(best) }
+        { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "dashboard#y", label: cfg.chartLabel(best) }
       )}</div><figcaption class="figcap">${cfg.cap(best, t)}</figcaption></figure>`;
   }
 
@@ -4710,6 +4653,46 @@ function renderDashboard(d, team) {
     dr.innerHTML = recordsList.map((r) => `<div class="record"><span class="num">${r[0]}</span><span>${r[1]}</span></div>`).join("");
   }
 
+  // 13. Integrated Season Table (from merged goalsbyseason)
+  const sTable = el("season-table");
+  if (sTable) {
+    const ss = d.clubSeasons;
+    const bestS = ss.reduce((a, b) => (b.goals > a.goals ? b : a));
+    sTable.innerHTML = `<div class="table-wrap"><table class="data-table"><caption>All ${ss.length} club seasons: Barcelona, PSG, and Inter Miami.</caption>` +
+      `<thead><tr><th scope="col" class="left">Season</th><th scope="col" class="left">Club</th><th scope="col">Apps</th><th scope="col">Goals</th><th scope="col">League</th><th scope="col">Cup</th><th scope="col">Continental</th><th scope="col">Other</th></tr></thead><tbody>` +
+      ss.map((s) => `<tr><th scope="row">${esc(s.season)}${s.provisional ? " *" : ""}${s.season === bestS.season ? ` <span class="yr-note">Record 73G</span>` : ""}</th>` +
+        `<td class="left">${dispClub(s.club)}</td><td>${n(s.apps)}</td><td><b>${n(s.goals)}</b></td>` +
+        `<td>${s.league.apps}/${s.league.goals}</td><td>${s.cup.apps}/${s.cup.goals}</td>` +
+        `<td>${s.continental.apps}/${s.continental.goals}</td><td>${s.other.apps}/${s.other.goals}</td></tr>`).join("") +
+      `</tbody></table></div>`;
+    const tbl = sTable.querySelector("table");
+    if (tbl) sortable(tbl);
+  }
+
+  // 14. Integrated Calendar Year Chart & Table (from merged goalsbyyear)
+  const comboCard = el("combo-card");
+  if (comboCard) {
+    const ys = d.calendarYears;
+    const bestY = ys.reduce((a, b) => (b.goals > a.goals ? b : a));
+    comboCard.innerHTML = `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
+      ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === bestY.year, tip: `${x.year}: ${x.goals} (${x.careerTotal})` })),
+      { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "#y", label: `Goals by year peaking at ${bestY.goals} in ${bestY.year}` }
+    )}</div><figcaption class="figcap">Bars: goals that year (peak ${bestY.goals}, ${bestY.year}). Line: cumulative career climb to ${n(d.totals.goals)}.</figcaption></figure>`;
+  }
+
+  const yrTable = el("year-table");
+  if (yrTable) {
+    const ys = d.calendarYears;
+    yrTable.innerHTML = `<div class="table-wrap"><table class="data-table"><caption>Goals, running career total and age for every calendar year since Messi's 2004 debut.</caption>` +
+      `<thead><tr><th scope="col" class="left">Year</th><th scope="col">Goals</th><th scope="col">Career Total</th><th scope="col">Age</th></tr></thead><tbody>` +
+      ys.slice().reverse().map((r) => `<tr id="y${r.year}">` +
+        `<th scope="row">${r.year}${r.provisional ? " *" : ""}${r.year === 2012 ? ` <span class="yr-note">World Record 91G</span>` : ""}</th>` +
+        `<td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`).join("") +
+      `</tbody></table></div>`;
+    const tbl = yrTable.querySelector("table");
+    if (tbl) sortable(tbl);
+  }
+
   renderExplore(d, "dashboard");
   renderMethod(d, cfg.method);
 }
@@ -5233,334 +5216,72 @@ const TIMELINE_MILESTONES = [
     badge: "Youngest Barça Scorer"
   },
   {
-    date: "2 Jul 2005",
-    year: 2005,
-    cat: "trophy",
-    team: "argentina",
-    title: "FIFA World Youth Championship & Golden Ball",
-    desc: "Messi fires Argentina to the Under-20 World Cup title in the Netherlands, scoring both goals in the 2-1 final victory over Nigeria to sweep both the Golden Boot (6 goals) and Golden Ball MVP.",
-    stat: "Golden Ball & Boot",
-    badge: "Under-20 World Cup"
-  },
-  {
-    date: "17 Aug 2005",
-    year: 2005,
-    cat: "debut",
-    team: "argentina",
-    title: "Argentina Senior National Team Debut",
-    desc: "José Pékerman hands Messi his senior Albiceleste debut against Hungary in Budapest at age 18, beginning his historic 191-cap international journey.",
-    stat: "Cap #1",
-    badge: "Senior Albiceleste"
-  },
-  {
-    date: "10 Mar 2007",
-    year: 2007,
-    cat: "goal",
-    team: "barcelona",
-    title: "Legendary El Clásico Hat-Trick at Age 19",
-    desc: "In an unforgettable 3-3 thriller against Real Madrid at Camp Nou, teenage Messi equalizes three separate times, finishing with a stoppage-time thunderbolt past Iker Casillas.",
-    stat: "Hat-trick vs Real Madrid",
-    badge: "El Clásico"
-  },
-  {
-    date: "18 Apr 2007",
-    year: 2007,
-    cat: "goal",
-    team: "barcelona",
-    title: "The Iconic 'Ankara Messi' Solo Wonder Goal",
-    desc: "In the Copa del Rey semi-final against Getafe, Messi replicates Diego Maradona's 1986 Goal of the Century, dribbling 60 meters past 5 defenders and the goalkeeper in 12 seconds.",
-    stat: "60-meter Solo Run",
-    badge: "Goal of the Century"
-  },
-  {
     date: "23 Aug 2008",
     year: 2008,
     cat: "trophy",
     team: "argentina",
-    title: "Beijing 2008 Olympic Gold Medal",
-    desc: "At the Beijing National Stadium, Messi sets up Ángel Di María's 58th-minute winning chip against Nigeria in the final to claim Olympic Gold for Argentina.",
-    stat: "Olympic Gold Medal",
-    badge: "Olympics 2008"
-  },
-  {
-    date: "2 May 2009",
-    year: 2009,
-    cat: "goal",
-    team: "barcelona",
-    title: "6-2 Bernabéu Demolition — Dawn of the False 9",
-    desc: "Pep Guardiola moves Messi into the central 'False 9' role on the eve of El Clásico; Messi scores twice and creates two in an earth-shaking 6-2 triumph at the Santiago Bernabéu.",
-    stat: "2 Goals + 2 Assists",
-    badge: "False 9 Revolution"
+    title: "Olympic Gold Medal in Beijing",
+    desc: "Messi assists Ángel Di María for the winning chip in the 1-0 final over Nigeria at the Bird's Nest stadium, securing Argentina's Olympic Gold.",
+    stat: "Olympic Gold",
+    badge: "Olympic Champion",
+    img: "/img/era-2008-olympic.webp",
+    alt: "Messi celebrating Olympic Gold Medal in Beijing 2008"
   },
   {
     date: "27 May 2009",
     year: 2009,
     cat: "trophy",
     team: "barcelona",
-    title: "Champions League Final Triumph & Historic Treble",
-    desc: "Messi leaps high to send a looping header past Edwin van der Sar in Rome as Barcelona defeat Manchester United 2-0 to clinch the first Treble in Spanish football history.",
-    stat: "UCL Top Scorer (9)",
-    badge: "Historic Treble"
-  },
-  {
-    date: "1 Dec 2009",
-    year: 2009,
-    cat: "award",
-    team: "barcelona",
-    title: "First Ballon d'Or Award (Record Vote Share)",
-    desc: "Awarded his maiden Ballon d'Or by France Football with 473 out of 480 maximum points (98.5%), winning by a then-record margin of 240 votes over Cristiano Ronaldo.",
-    stat: "Ballon d'Or #1",
-    badge: "World Best"
-  },
-  {
-    date: "19 Dec 2009",
-    year: 2009,
-    cat: "trophy",
-    team: "barcelona",
-    title: "Chest Goal in Club World Cup to Complete The Sextuple",
-    desc: "Messi scores the 110th-minute extra-time winner against Estudiantes with his chest/badge in Abu Dhabi, crowning FC Barcelona as the first club ever to win all six available trophies in one calendar year.",
-    stat: "6 Trophies in 1 Year",
-    badge: "The Sextuple"
-  },
-  {
-    date: "6 Apr 2010",
-    year: 2010,
-    cat: "goal",
-    team: "barcelona",
-    title: "Four-Goal Masterclass vs Arsenal in UCL Quarter-Final",
-    desc: "Single-handedly dispatches Arsenal at Camp Nou, scoring all four Barcelona goals (21', 37', 42', 88') with a lob, a thunderbolt, and a solo nutmeg finish.",
-    stat: "4 Goals in 1 UCL Match",
-    badge: "UCL Masterclass"
-  },
-  {
-    date: "10 Jan 2011",
-    year: 2011,
-    cat: "award",
-    team: "barcelona",
-    title: "Second Ballon d'Or (All-La Masia Podium)",
-    desc: "Named the world's best player for the second consecutive year in Zurich, heading an unprecedented podium sweep of Barcelona academy graduates alongside Andrés Iniesta and Xavi Hernández.",
-    stat: "Ballon d'Or #2",
-    badge: "La Masia Clean Sweep"
-  },
-  {
-    date: "27 Apr 2011",
-    year: 2011,
-    cat: "goal",
-    team: "barcelona",
-    title: "Bernabéu UCL Semi-Final Solo Wonder Goal",
-    desc: "In an electric El Clásico Champions League semi-final first leg, Messi collects the ball from Busquets, accelerates past Diarra, Albiol, Ramos, and Marcelo, and slots past Casillas.",
-    stat: "Brace at Bernabéu",
-    badge: "Iconic UCL Solo"
+    title: "Historic Treble & Rome UCL Final Header",
+    desc: "In Rome's Stadio Olimpico, Messi rises into the air to head home Xavi's cross past Edwin van der Sar, securing a 2-0 win over Manchester United and Barcelona's first historic Treble.",
+    stat: "UCL Final Goal",
+    badge: "First Treble 🏆"
   },
   {
     date: "28 May 2011",
     year: 2011,
     cat: "trophy",
     team: "barcelona",
-    title: "Champions League Masterpiece at Wembley",
-    desc: "Delivers what Sir Alex Ferguson called 'the best team performance I've ever faced', scoring a breathtaking 25-yard drive past Van der Sar as Barça beat Manchester United 3-1.",
-    stat: "MOTM + UCL Title",
-    badge: "Wembley Glory"
+    title: "Wembley Masterclass vs Manchester United",
+    desc: "A virtuoso performance at Wembley: Messi fires a laser past Edwin van der Sar in a 3-1 victory that Pep Guardiola called the best game of his coaching career.",
+    stat: "Man of the Match",
+    badge: "UCL Masterclass",
+    img: "/img/era-2011-wembley.webp",
+    alt: "Messi celebrating Champions League victory at Wembley 2011"
   },
   {
-    date: "9 Jan 2012",
-    year: 2012,
-    cat: "award",
-    team: "barcelona",
-    title: "Third Consecutive Ballon d'Or Award",
-    desc: "Becomes only the fourth player in history (after Cruyff, Platini, and Van Basten) to win three Ballons d'Or, and only the second ever to win three consecutively.",
-    stat: "Ballon d'Or #3",
-    badge: "Three-Peat"
-  },
-  {
-    date: "7 Mar 2012",
+    date: "22 Dec 2012",
     year: 2012,
     cat: "record",
     team: "barcelona",
-    title: "Five Goals in a Single UCL Game vs Bayer Leverkusen",
-    desc: "Becomes the first player in modern UEFA Champions League history to score five goals in a single knockout match during Barcelona's 7-1 thrashing of Bayer Leverkusen.",
-    stat: "5 Goals in 1 Match",
-    badge: "UCL All-Time Record"
-  },
-  {
-    date: "20 Mar 2012",
-    year: 2012,
-    cat: "record",
-    team: "barcelona",
-    title: "All-Time Barcelona Top Scorer at Age 24",
-    desc: "A hat-trick against Granada takes Messi to 234 goals, surpassing César Rodríguez's 57-year-old club record (232 goals) at just 24 years of age.",
-    stat: "234 Barça Goals",
-    badge: "Club All-Time Scorer"
-  },
-  {
-    date: "5 May 2012",
-    year: 2012,
-    cat: "record",
-    team: "barcelona",
-    title: "50-Goal La Liga Record Season & 73 Season Goals",
-    desc: "Nets all four goals in a 4-0 derby win over Espanyol to seal Pep Guardiola's final home match, completing a world-record 50-goal La Liga campaign and 73 in all competitions.",
-    stat: "50 League · 73 Total",
-    badge: "European Golden Shoe (100 pts)"
-  },
-  {
-    date: "9 Jun 2012",
-    year: 2012,
-    cat: "goal",
-    team: "argentina",
-    title: "Electrifying Superclásico Hat-Trick vs Brazil in New Jersey",
-    desc: "Messi destroys Brazil 4-3 at MetLife Stadium, capping a breathtaking hat-trick with an unforgettable 84th-minute curler from 30 yards out into the top postage stamp.",
-    stat: "Hat-trick vs Brazil",
-    badge: "Superclásico Epic"
-  },
-  {
-    date: "9 Dec 2012",
-    year: 2012,
-    cat: "record",
-    team: "barcelona",
-    title: "Breaks Gerd Müller's 85-Goal World Record (91 in 2012)",
-    desc: "Scores twice against Real Betis to reach 86 goals in 2012, eclipsing Gerd Müller's 40-year-old record (85 in 1972). Finishes 2012 with an astronomical 91 calendar year goals (79 Barça, 12 Argentina).",
-    stat: "91 Goals in 69 Games",
-    badge: "Guinness World Record"
-  },
-  {
-    date: "7 Jan 2013",
-    year: 2013,
-    cat: "award",
-    team: "barcelona",
-    title: "Historic Fourth Consecutive Ballon d'Or Award",
-    desc: "Stands alone at the summit of football as the first player in history to win four Ballons d'Or, achieving all four in four straight years (2009–2012).",
-    stat: "Ballon d'Or #4",
-    badge: "Unprecedented Four-in-a-Row"
-  },
-  {
-    date: "30 Mar 2013",
-    year: 2013,
-    cat: "record",
-    team: "barcelona",
-    title: "Scores Against Every Single League Opponent Consecutively",
-    desc: "Scores against Celta Vigo to complete a 19-match scoring streak in La Liga — finding the net against all 19 other teams in consecutive matchdays, a feat never matched in football history.",
-    stat: "19 Consecutive Matchdays (30 goals)",
-    badge: "La Liga Full Circuit"
-  },
-  {
-    date: "13 Jul 2014",
-    year: 2014,
-    cat: "award",
-    team: "argentina",
-    title: "FIFA World Cup Golden Ball Award in Brazil",
-    desc: "Captains Argentina to their first World Cup final in 24 years, scoring 4 decisive group stage goals and creating crucial knockout assists to win tournament MVP at the Maracanã.",
-    stat: "Golden Ball MVP",
-    badge: "FIFA World Cup 2014"
-  },
-  {
-    date: "22 Nov 2014",
-    year: 2014,
-    cat: "record",
-    team: "barcelona",
-    title: "All-Time La Liga Top Scorer (Breaks Telmo Zarra)",
-    desc: "A hat-trick against Sevilla takes Messi to 253 La Liga goals, breaking Telmo Zarra's 251-goal milestone that stood since 1955. Messi is tossed into the air by his teammates.",
-    stat: "253 La Liga Goals",
-    badge: "Spanish All-Time Record"
-  },
-  {
-    date: "25 Nov 2014",
-    year: 2014,
-    cat: "record",
-    team: "barcelona",
-    title: "All-Time UEFA Champions League Top Scorer (Breaks Raúl)",
-    desc: "Just three days after breaking the La Liga record, Messi nets another hat-trick against APOEL in Nicosia to reach 74 Champions League goals, surpassing Real Madrid legend Raúl González (71).",
-    stat: "74 UCL Goals",
-    badge: "Champions League Record"
-  },
-  {
-    date: "6 May 2015",
-    year: 2015,
-    cat: "goal",
-    team: "barcelona",
-    title: "Ankle-Breaker on Boateng & Chip Over Neuer vs Bayern",
-    desc: "Produces one of the most viral moments in sporting history: drops Jérôme Boateng with a body feint and dinks the ball right-footed over world champion Manuel Neuer at Camp Nou.",
-    stat: "Brace vs Bayern Munich",
-    badge: "Viral UCL Classic"
-  },
-  {
-    date: "30 May 2015",
-    year: 2015,
-    cat: "trophy",
-    team: "barcelona",
-    title: "Copa del Rey Solo Wonder Goal vs Athletic Club",
-    desc: "Surrounded by three defenders on the right sideline, Messi accelerates past all three, cuts inside a fourth, and beats the keeper at his near post in the Copa del Rey final at Camp Nou.",
-    stat: "Goal of the Season",
-    badge: "Copa del Rey Final"
+    title: "The 91-Goal World Record Year",
+    desc: "Messi finishes 2012 with an astronomical 91 official goals (79 for Barcelona, 12 for Argentina), shattering Gerd Müller's 40-year-old calendar-year world record of 85 goals.",
+    stat: "91 Goals in 2012",
+    badge: "All-Time World Record",
+    img: "/img/era-2012-ballon.webp",
+    alt: "Messi with his Ballon d'Or celebrating the 91-goal calendar year record"
   },
   {
     date: "6 Jun 2015",
     year: 2015,
     cat: "trophy",
     team: "barcelona",
-    title: "Second Historic Treble Crowned in Berlin",
-    desc: "Messi orchestrates Barcelona's 3-1 victory over Juventus at the Olympiastadion in Berlin, sealing Barça's second European Treble. The 'MSN' front trio finish with 122 combined goals.",
-    stat: "2nd European Treble",
-    badge: "Champions League #4"
-  },
-  {
-    date: "11 Jan 2016",
-    year: 2016,
-    cat: "award",
-    team: "barcelona",
-    title: "Fifth Ballon d'Or Award (La Quinta)",
-    desc: "Receives his fifth golden ball trophy in Zurich with 41.33% of the vote after spearheading Barcelona's five-trophy year in 2015.",
-    stat: "Ballon d'Or #5",
-    badge: "First Player to 5"
-  },
-  {
-    date: "21 Jun 2016",
-    year: 2016,
-    cat: "record",
-    team: "argentina",
-    title: "Becomes Argentina's All-Time Top Scorer vs USA",
-    desc: "Blasts an unbelievable 30-yard postage-stamp free kick against host nation USA in Houston to surpass Gabriel Batistuta's 54-goal national team record.",
-    stat: "55 Argentina Goals",
-    badge: "Albiceleste Top Scorer"
-  },
-  {
-    date: "8 Mar 2017",
-    year: 2017,
-    cat: "goal",
-    team: "barcelona",
-    title: "'La Remontada' — Historic 6-1 Comeback vs PSG",
-    desc: "Messi scores the 50th-minute penalty as Barcelona overturn a 4-0 first-leg deficit to win 6-1 at Camp Nou. The photo of Messi standing on the advertising hoardings celebrating with fans becomes an immortal image.",
-    stat: "6-1 Historic Comeback",
-    badge: "La Remontada"
+    title: "Second Historic Treble in Berlin",
+    desc: "Barcelona defeat Juventus 3-1 in Berlin to complete Messi's second continental Treble — the MSN trio (Messi, Suárez, Neymar) shatter world records with 122 goals in the season.",
+    stat: "4th Champions League",
+    badge: "Second Treble 🏆",
+    img: "/img/era-2015-supercup.webp",
+    alt: "Messi celebrating the 2015 Treble and European championship"
   },
   {
     date: "23 Apr 2017",
     year: 2017,
     cat: "goal",
     team: "barcelona",
-    title: "500th Barcelona Goal & Shirt Celebration at Santiago Bernabéu",
-    desc: "With bloody gauze in his mouth after an elbow, Messi scores a 92nd-minute winner (his 500th official goal for Barcelona) in a 3-2 El Clásico thriller, then famously holds his shirt up to the silent Madrid crowd.",
+    title: "500th Barcelona Goal & Bernabéu Shirt Celebration",
+    desc: "With bleeding gauze in his mouth, Messi fires a 92nd-minute laser into the corner to win El Clásico 3-2 at the Santiago Bernabéu, famously holding his shirt up to the silent crowd.",
     stat: "Goal #500 for Barça",
-    badge: "Iconic Shirt Celebration"
-  },
-  {
-    date: "10 Oct 2017",
-    year: 2017,
-    cat: "goal",
-    team: "argentina",
-    title: "Heroic High-Altitude Hat-Trick vs Ecuador in Quito",
-    desc: "With Argentina 0-1 down inside 40 seconds and on the brink of missing the 2018 World Cup, Messi scores an unforgettable hat-trick 2,850 meters above sea level to drag his country to Russia.",
-    stat: "Hat-trick at 2,850m",
-    badge: "World Cup Qualification"
-  },
-  {
-    date: "1 May 2019",
-    year: 2019,
-    cat: "goal",
-    team: "barcelona",
-    title: "600th Barcelona Goal: 35-Yard Free-Kick Rocket vs Liverpool",
-    desc: "Curls an impossible 35-yard free kick past Alisson Becker into the top corner at Camp Nou for his 600th Barcelona goal, named UEFA Goal of the Season.",
-    stat: "Goal #600 for Barça",
-    badge: "UEFA Goal of the Season"
+    badge: "Iconic Clásico Winner"
   },
   {
     date: "2 Dec 2019",
@@ -5568,39 +5289,11 @@ const TIMELINE_MILESTONES = [
     cat: "award",
     team: "barcelona",
     title: "Record Sixth Ballon d'Or Award",
-    desc: "A decade after his first Ballon d'Or, Messi lifts his record sixth award in Paris, accompanied by his six European Golden Shoes, becoming the first player in history to win six.",
+    desc: "A decade after his first Ballon d'Or in 2009, Messi claims his sixth golden ball at the Théâtre du Châtelet in Paris, breaking clear of Cristiano Ronaldo to stand alone in football history.",
     stat: "Ballon d'Or #6",
-    badge: "World Record 6th"
-  },
-  {
-    date: "30 Jun 2020",
-    year: 2020,
-    cat: "goal",
-    team: "barcelona",
-    title: "700th Career Goal: Audacious Panenka Penalty vs Oblak",
-    desc: "Reaches the 700-goal landmark in style at Camp Nou against Atlético Madrid, executing a delicate Panenka chip past world-class goalkeeper Jan Oblak.",
-    stat: "Goal #700 Career",
-    badge: "Panenka Milestone"
-  },
-  {
-    date: "22 Dec 2020",
-    year: 2020,
-    cat: "record",
-    team: "barcelona",
-    title: "Breaks Pelé's All-Time One-Club Scoring Record (644 Goals)",
-    desc: "Scores against Real Valladolid to register his 644th official goal for FC Barcelona, eclipsing Pelé's 643-goal record for Santos FC that stood for 46 years.",
-    stat: "644 Goals for One Club",
-    badge: "Breaks Pelé Record"
-  },
-  {
-    date: "17 Apr 2021",
-    year: 2021,
-    cat: "trophy",
-    team: "barcelona",
-    title: "35th & Final Trophy with FC Barcelona",
-    desc: "Messi captains Barcelona to a 4-0 rout of Athletic Club in the Copa del Rey final in Seville, scoring two stunning goals (including a length-of-the-pitch passing sequence) to lift his 35th Barcelona trophy.",
-    stat: "35 Trophies with Barça",
-    badge: "Copa del Rey Triumph"
+    badge: "6th Ballon d'Or 🌟",
+    img: "/img/era-2019-ballon.webp",
+    alt: "Messi with his record-breaking sixth Ballon d'Or trophy in 2019"
   },
   {
     date: "10 Jul 2021",
@@ -5608,119 +5301,93 @@ const TIMELINE_MILESTONES = [
     cat: "trophy",
     team: "argentina",
     title: "Copa América Champions at the Maracanã",
-    desc: "Ends Argentina's 28-year senior title drought with a 1-0 victory over Brazil in Rio de Janeiro. Messi finishes as joint-top scorer (4), top assist provider (5), and Best Player of the Tournament.",
-    stat: "First Senior Title with Argentina",
-    badge: "Copa América Champion"
+    desc: "Argentina defeat Brazil 1-0 at the iconic Maracanã in Rio de Janeiro to end a 28-year senior trophy drought. Messi finishes as top scorer (4 goals), top assist provider (5 assists), and Best Player.",
+    stat: "MVP & Top Scorer",
+    badge: "Continental Champions 🏆",
+    img: "/img/era-2021-copa.webp",
+    alt: "Messi lifting the Copa América trophy at the Maracanã in 2021"
   },
   {
-    date: "10 Aug 2021",
+    date: "8 Aug 2021",
     year: 2021,
     cat: "transfer",
-    team: "psg",
-    title: "Blockbuster Move to Paris Saint-Germain",
-    desc: "After 21 legendary years and 672 goals for Barcelona, financial regulations prevent a new contract. Messi signs a two-year deal with PSG, donning the iconic #30 shirt in the French capital.",
-    stat: "New Chapter in Paris",
-    badge: "Global Blockbuster"
+    team: "barcelona",
+    title: "Emotional Barcelona Farewell & Move to PSG",
+    desc: "After 21 unforgettable years, 778 appearances, and 672 goals, Messi bids a tearful goodbye to FC Barcelona and begins a new chapter with Paris Saint-Germain.",
+    stat: "672 Barça Goals",
+    badge: "End of an Era",
+    img: "/img/era-2021-tears.webp",
+    alt: "Messi emotional during his farewell press conference at Camp Nou"
   },
   {
     date: "29 Nov 2021",
     year: 2021,
     cat: "award",
     team: "psg",
-    title: "Seventh Ballon d'Or Award in Paris",
-    desc: "Collects his seventh Ballon d'Or at the Théâtre du Châtelet in Paris, rewarded for his masterclass leading Argentina to the Copa América trophy.",
+    title: "Seventh Ballon d'Or in Paris",
+    desc: "Following his Copa América triumph with Argentina, Messi collects an unprecedented seventh Ballon d'Or in front of the Parisian crowd.",
     stat: "Ballon d'Or #7",
-    badge: "7th Golden Ball"
-  },
-  {
-    date: "1 Jun 2022",
-    year: 2022,
-    cat: "trophy",
-    team: "argentina",
-    title: "Finalissima 2022 Champions at Wembley",
-    desc: "Puts on a midfield masterclass against European champions Italy at Wembley Stadium, creating two goals in a 3-0 demolition to win the CONMEBOL-UEFA Cup of Champions.",
-    stat: "MOTM + 2 Assists",
-    badge: "Finalissima Champion"
+    badge: "7th Ballon d'Or 🌟",
+    img: "/img/era-2021-ballon7.webp",
+    alt: "Messi receiving his seventh Ballon d'Or in Paris 2021"
   },
   {
     date: "18 Dec 2022",
     year: 2022,
     cat: "trophy",
     team: "argentina",
-    title: "FIFA World Cup Champions at Lusail Stadium (GOAT Crowned)",
-    desc: "In arguably the greatest football match ever played, Messi scores twice against France in a 3-3 epic, scores his shootout penalty, and lifts the World Cup trophy in Qatar. Wins his second Golden Ball (first player to ever win two).",
-    stat: "World Champion + Golden Ball",
-    badge: "World Cup Glory 🏆"
-  },
-  {
-    date: "15 Jul 2023",
-    year: 2023,
-    cat: "transfer",
-    team: "miami",
-    title: "Arrival at Inter Miami CF & MLS Revolution",
-    desc: "Messi announces his move to Major League Soccer with Inter Miami CF, sparking unprecedented worldwide interest in American club football and sold-out stadiums across North America.",
-    stat: "MLS Era Begins",
-    badge: "North American Revolution"
-  },
-  {
-    date: "21 Jul 2023",
-    year: 2023,
-    cat: "goal",
-    team: "miami",
-    title: "94th-Minute Debut Free-Kick Winner vs Cruz Azul",
-    desc: "In front of LeBron James, Serena Williams, and Kim Kardashian, Messi marks his Inter Miami debut by curling a 94th-minute direct free kick into the top left corner to seal a 2-1 Leagues Cup win.",
-    stat: "Debut Free-Kick Winner",
-    badge: "Storybook Debut"
+    title: "FIFA World Cup Champion in Lusail, Qatar",
+    desc: "In the greatest World Cup final ever played, Messi scores twice against France and converts his penalty in the shootout. Crowned tournament Golden Ball MVP and lifted on Agüero's shoulders.",
+    stat: "World Cup & Golden Ball",
+    badge: "World Champion 🌟🌟🌟",
+    img: "/img/cab-wc.webp",
+    alt: "Messi lifted high celebrating Argentina's 2022 World Cup triumph in Lusail"
   },
   {
     date: "19 Aug 2023",
     year: 2023,
     cat: "trophy",
     team: "miami",
-    title: "Leagues Cup Champions — Inter Miami's First-Ever Trophy",
-    desc: "Scores a 25-yard wonder strike in the final vs Nashville SC and converts in the marathon 10-9 penalty shootout to win Inter Miami's first title. Finishes as top scorer with 10 goals in 7 games.",
+    title: "Inter Miami Leagues Cup Champions",
+    desc: "Just weeks after arriving in the United States, Messi scores 10 goals in 7 games and guides Inter Miami from last place in MLS to their first-ever trophy in franchise history.",
     stat: "10 Goals in 7 Games",
-    badge: "44th Career Trophy"
+    badge: "First Miami Trophy 🏆",
+    img: "/img/era-2023-miami.webp",
+    alt: "Messi celebrating Leagues Cup title with Inter Miami in 2023"
   },
   {
     date: "30 Oct 2023",
     year: 2023,
     cat: "award",
     team: "miami",
-    title: "Unprecedented Eighth Ballon d'Or Award",
-    desc: "Awarded his eighth Ballon d'Or in Paris following his World Cup triumph in Qatar, extending his own all-time record and becoming the first MLS-based player to receive the award.",
+    title: "Unprecedented Eighth Ballon d'Or",
+    desc: "Awarded his eighth Ballon d'Or in Paris following his World Cup triumph in Qatar, extending his all-time record and becoming the first active MLS player to win the award.",
     stat: "Ballon d'Or #8",
-    badge: "8th Ballon d'Or 🌟"
+    badge: "8th Ballon d'Or 🌟",
+    img: "/img/era-2023-ballon8.webp",
+    alt: "Messi holding his eighth Ballon d'Or trophy in Paris 2023"
   },
   {
     date: "14 Jul 2024",
     year: 2024,
     cat: "trophy",
     team: "argentina",
-    title: "Back-to-Back Copa América Champions in Miami",
-    desc: "Argentina retain the Copa América trophy with a 1-0 win over Colombia at Hard Rock Stadium in Miami, completing an unprecedented triple crown (Copa 2021, World Cup 2022, Copa 2024) and Messi's world-record 45th trophy.",
+    title: "Back-to-Back Copa América & Record 45th Trophy",
+    desc: "Argentina retain the Copa América trophy with a 1-0 win over Colombia in Miami, completing a historic triple crown (Copa 2021, World Cup 2022, Copa 2024) and Messi's 45th career title.",
     stat: "45th Career Trophy",
-    badge: "Back-to-Back Copa América"
+    badge: "Back-to-Back Copa",
+    img: "/img/era-2024-copa.webp",
+    alt: "Messi celebrating Copa América 2024 championship"
   },
   {
     date: "2 Oct 2024",
     year: 2024,
     cat: "trophy",
     team: "miami",
-    title: "Supporters' Shield Champions with Inter Miami",
-    desc: "Scores twice in a 3-2 victory over reigning MLS Cup champions Columbus Crew to clinch the 2024 MLS Supporters' Shield with Inter Miami, extending his world record to 46 major trophies.",
+    title: "MLS Supporters' Shield & Record 46th Major Trophy",
+    desc: "Scores twice in a 3-2 victory over Columbus Crew to clinch the 2024 MLS Supporters' Shield with Inter Miami with record points, extending his world record to 46 major trophies.",
     stat: "46th Career Trophy",
     badge: "MLS Record Points"
-  },
-  {
-    date: "17 Sep 2026",
-    year: 2026,
-    cat: "trophy",
-    team: "miami",
-    title: "Goal #929 & 46th Career Trophy (Campeones Cup)",
-    desc: "Clinical 12th-minute header vs Cruz Azul seals a 2-0 victory for Inter Miami, marking his 100th goal for the club and 46th career trophy.",
-    stat: "Goal #929 • 100th Miami Goal",
-    badge: "46th Title 🏆"
   },
   {
     date: "20 Sep 2026",
@@ -5728,7 +5395,7 @@ const TIMELINE_MILESTONES = [
     cat: "goal",
     team: "miami",
     title: "Goal #930: Direct Free Kick vs San Diego FC",
-    desc: "Curling 24th-minute direct free kick at Chase Stadium vs San Diego FC marks the 930th senior career goal and 67th direct free kick of Messi's iconic career.",
+    desc: "Curling 24th-minute direct free kick at Chase Stadium vs San Diego FC marks the 930th senior career goal and 67th direct free kick of Messi's legendary career.",
     stat: "Goal #930 • 67th FK",
     badge: "930 Career Goals ⚽"
   }
@@ -5842,6 +5509,10 @@ function renderTimeline(d) {
         ${TIMELINE_MILESTONES.map((m) => `
           <article class="tl-card tl-reveal in" data-cat="${m.cat}" data-team="${m.team}" data-text="${esc((m.year + " " + m.date + " " + m.title + " " + m.desc + " " + m.stat + " " + m.badge + " " + m.team).toLowerCase())}">
             <div class="tl-node" aria-hidden="true">${nodeIcon(m.cat)}</div>
+            ${m.img ? `
+            <figure class="tl-card-media">
+              <img src="${m.img}" alt="${esc(m.alt || m.title)}" loading="lazy" />
+            </figure>` : ""}
             <div class="tl-card-top">
               <span class="tl-date-badge">${esc(m.date)}</span>
               <span class="tl-cat-badge tl-cat-${m.cat}">${esc(m.badge || m.cat)}</span>
@@ -5928,6 +5599,30 @@ function renderTimeline(d) {
     faqEl.className = "faq-accordion";
   }
 
+  // Visual Trophy Cabinet
+  if (el("cabinet")) {
+    el("cabinet").innerHTML = cabinetPhotos();
+  }
+
+  // 46 Trophies breakdown by club and country
+  const groupsEl = el("groups");
+  if (groupsEl && d.trophies) {
+    const teamRows = d.trophies.filter((x) => x.team !== "Individual");
+    const indRows = d.trophies.filter((x) => x.team === "Individual");
+    const indTotal = indRows.reduce((a, x) => a + x.count, 0);
+    const order = ["Barcelona", "Paris Saint-Germain", "Inter Miami", "Argentina"];
+    const trow = (x) => `<div class="tpill"><span class="tp-name">${esc(x.title)}</span><span class="tp-count">×${x.count}</span>` +
+      `<span class="tp-years">${esc(x.years.join(", "))}</span></div>`;
+    groupsEl.innerHTML = order.map((team) => {
+      const rows = teamRows.filter((x) => x.team === team);
+      const sub = rows.reduce((a, x) => a + x.count, 0);
+      return `<div class="trophy-group"><div class="shead"><h3>${esc(team)} — ${sub} titles</h3></div><div class="tpills-wrap">` +
+        rows.map(trow).join("") + `</div></div>`;
+    }).join("") + (indRows.length ?
+      `<div class="trophy-group"><div class="shead"><h3>Individual Honours — ${indTotal} awards</h3></div><div class="tpills-wrap">` +
+      indRows.map(trow).join("") + `</div></div>` : "");
+  }
+
   renderExplore(d, "timeline");
   renderMethod(d, cfg.method);
 }
@@ -5935,10 +5630,11 @@ function renderTimeline(d) {
 /* ================= ACHIEVEMENTS ================= */
 /* Trophy cabinet: self-hosted celebration photos. Mounted as #cabinet. */
 const CABINET = [
-  { title: "FIFA World Cup — 2022", sub: "The ultimate crowning glory, Lusail 18 Dec 2022.", src: "img/cab-wc.jpg", w: 800, h: 600, pos: "50% 30%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "World Cup champions, Lusail 2022" },
-  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "img/cab-ballon.jpg", w: 800, h: 600, pos: "50% 30%", alt: "Messi holding his record eighth Ballon d'Or trophy aloft", cap: "Record eighth Ballon d'Or award" },
-  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "img/cab-ucl.jpg", w: 800, h: 600, pos: "50% 25%", alt: "Messi celebrating with the Champions League trophy holding four fingers up", cap: "Four-time European champion with Barcelona" },
-  { title: "Copa América — 2", sub: "Back-to-back continental champion, 2021 & 2024.", src: "img/cab-copa.jpg", w: 800, h: 600, pos: "50% 25%", alt: "Messi kissing the Copa América trophy after winning at the Maracanã", cap: "Copa América champions, Maracanã 2021" },
+  { title: "FIFA World Cup — 2022", sub: "The ultimate crowning glory, Lusail 18 Dec 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "World Cup champions, Lusail 2022" },
+  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi holding his record eighth Ballon d'Or trophy aloft", cap: "Record eighth Ballon d'Or award" },
+  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi celebrating with the Champions League trophy holding four fingers up", cap: "Four-time European champion with Barcelona" },
+  { title: "Copa América — 2", sub: "Back-to-back continental champion, 2021 & 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi kissing the Copa América trophy after winning at the Maracanã", cap: "Copa América champions, Maracanã 2021" },
+  { title: "La Liga Titles — 10", sub: "Domestic dominance with FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi with the La Liga championship trophy", cap: "10-time Spanish champion with Barcelona" },
 ];
 const cabinetPhotos = () => CABINET.map((p) =>
   `<article class="cab-card"><h3>${esc(p.title)}</h3><p class="cab-sub">${esc(p.sub)}</p>` +
@@ -7909,14 +7605,11 @@ load().then((d) => {
   const page = document.body.dataset.page;
   try {
     if (page === "home") renderHome(d);
-    else if (page === "byyear") renderByYear(d);
-    else if (page === "byseason") renderBySeason(d);
-    else if (page === "dashboard") {
+    else if (page === "dashboard" || page === "byyear" || page === "byseason") {
       const team = new URLSearchParams(location.search).get("team") || "all";
       renderDashboard(d, team);
     }
-    else if (page === "timeline") renderTimeline(d);
-    else if (page === "achievements") renderAch(d);
+    else if (page === "timeline" || page === "achievements") renderTimeline(d);
     else if (page === "birthday") renderBirthday(d);
     else if (page === "latest-goal") renderLatestGoal(d);
   } catch (e) {
@@ -7946,17 +7639,3 @@ load().then((d) => {
     m.prepend(p);
   });
 });
-
-// Reveal admin nav for authenticated admins only (server-issued token)
-if (typeof window !== 'undefined') {
-  const syncRailAdmin = () => {
-    const el = document.getElementById("rail-admin-link");
-    if (!el) return;
-    try {
-      el.style.display = hasAdminToken() ? "flex" : "none";
-    } catch {}
-  };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', syncRailAdmin);
-  else syncRailAdmin();
-  window.addEventListener('storage', syncRailAdmin);
-}

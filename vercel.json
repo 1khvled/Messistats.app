@@ -7,16 +7,19 @@
   "redirects": [
     { "source": "/", "destination": "/en", "permanent": true },
     { "source": "/index.html", "destination": "/en", "permanent": true },
-    { "source": "/goalsbyyear", "destination": "/en/goalsbyyear", "permanent": true },
-    { "source": "/goalsbyyear.html", "destination": "/en/goalsbyyear", "permanent": true },
-    { "source": "/goalsbyseason", "destination": "/en/goalsbyseason", "permanent": true },
-    { "source": "/goalsbyseason.html", "destination": "/en/goalsbyseason", "permanent": true },
+    { "source": "/goalsbyyear", "destination": "/en/dashboard", "permanent": true },
+    { "source": "/goalsbyyear.html", "destination": "/en/dashboard", "permanent": true },
+    { "source": "/goalsbyseason", "destination": "/en/dashboard", "permanent": true },
+    { "source": "/goalsbyseason.html", "destination": "/en/dashboard", "permanent": true },
+    { "source": "/en/goalsbyyear", "destination": "/en/dashboard", "permanent": true },
+    { "source": "/en/goalsbyseason", "destination": "/en/dashboard", "permanent": true },
     { "source": "/dashboard", "destination": "/en/dashboard", "permanent": true },
     { "source": "/dashboard.html", "destination": "/en/dashboard", "permanent": true },
     { "source": "/timeline", "destination": "/en/timeline", "permanent": true },
     { "source": "/timeline.html", "destination": "/en/timeline", "permanent": true },
-    { "source": "/achievements", "destination": "/en/achievements", "permanent": true },
-    { "source": "/achievements.html", "destination": "/en/achievements", "permanent": true },
+    { "source": "/achievements", "destination": "/en/timeline", "permanent": true },
+    { "source": "/achievements.html", "destination": "/en/timeline", "permanent": true },
+    { "source": "/en/achievements", "destination": "/en/timeline", "permanent": true },
     { "source": "/birthday", "destination": "/en/birthday", "permanent": true },
     { "source": "/birthday.html", "destination": "/en/birthday", "permanent": true },
     { "source": "/champions-league", "destination": "/en/champions-league", "permanent": true },
@@ -39,11 +42,8 @@
     { "source": "/en/fonts/:path*", "destination": "/fonts/:path*" },
     { "source": "/en/assets/:path*", "destination": "/assets/:path*" },
     { "source": "/en", "destination": "/index.html" },
-    { "source": "/en/goalsbyyear", "destination": "/goalsbyyear.html" },
-    { "source": "/en/goalsbyseason", "destination": "/goalsbyseason.html" },
     { "source": "/en/dashboard", "destination": "/dashboard.html" },
     { "source": "/en/timeline", "destination": "/timeline.html" },
-    { "source": "/en/achievements", "destination": "/achievements.html" },
     { "source": "/en/birthday", "destination": "/birthday.html" },
     { "source": "/en/vs/real-madrid", "destination": "/vs-real-madrid.html" },
     { "source": "/en/vs-real-madrid", "destination": "/vs-real-madrid.html" },
@@ -55,7 +55,6 @@
     { "source": "/en/messi-goal-today", "destination": "/latest-goal.html" },
     { "source": "/en/did-messi-score-today", "destination": "/latest-goal.html" },
     { "source": "/embed/on-this-day", "destination": "/embed/on-this-day.html" },
-    { "source": "/en/admin", "destination": "/admin.html" },
 
     { "source": "/es/data/:path*", "destination": "/data/:path*" },
     { "source": "/es/img/:path*", "destination": "/img/:path*" },
@@ -232,13 +231,6 @@
         { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Cache-Control", "value": "public, max-age=86400" }
-      ]
-    },
-    {
-      "source": "/admin",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-        { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, max-age=0" }
       ]
     },
     {

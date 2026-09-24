@@ -50,10 +50,7 @@ const langs = ['es', 'pt', 'fr', 'ar', 'bn', 'hi', 'ro', 'uz'];
 const subpages = [
   'index',
   'dashboard',
-  'goalsbyseason',
-  'goalsbyyear',
   'timeline',
-  'achievements',
   'birthday',
   'messi-vs-ronaldo',
   'vs-real-madrid',
@@ -63,17 +60,13 @@ const subpages = [
 
 const rollupInput = {
   main: resolve(root, 'index.html'),
-  goalsbyyear: resolve(root, 'goalsbyyear.html'),
-  goalsbyseason: resolve(root, 'goalsbyseason.html'),
   dashboard: resolve(root, 'dashboard.html'),
   timeline: resolve(root, 'timeline.html'),
-  achievements: resolve(root, 'achievements.html'),
   birthday: resolve(root, 'birthday.html'),
   vs_real_madrid: resolve(root, 'vs-real-madrid.html'),
   messi_vs_ronaldo: resolve(root, 'messi-vs-ronaldo.html'),
   champions_league: resolve(root, 'champions-league.html'),
-  latest_goal: resolve(root, 'latest-goal.html'),
-  admin: resolve(root, 'admin.html')
+  latest_goal: resolve(root, 'latest-goal.html')
 };
 
 for (const l of langs) {
