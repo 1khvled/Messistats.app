@@ -48,6 +48,12 @@ const urls = [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)]
 
 console.log(`Found ${urls.length} URLs to submit via IndexNow.`);
 
+// Prime key verification via GET ping before batch POST
+try {
+  await fetch(`https://www.bing.com/indexnow?url=${encodeURIComponent(SITE + '/')}&key=${KEY}&keyLocation=${encodeURIComponent(KEY_LOCATION)}`);
+  await fetch(`https://api.indexnow.org/indexnow?url=${encodeURIComponent(SITE + '/')}&key=${KEY}&keyLocation=${encodeURIComponent(KEY_LOCATION)}`);
+} catch (_) {}
+
 const payload = JSON.stringify({
   host: HOST,
   key: KEY,
