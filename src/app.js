@@ -2929,6 +2929,31 @@ function renderHome(d) {
       `<div><dt>${dict.teamsLabel}</dt><dd>${esc(p.teams.join(" · "))}</dd></div>` +
       `<div><dt>${dict.nowLabel}</dt><dd>${esc(p.current.join(" · "))}</dd></div></dl></div>`;
     prof.classList.add("identity--tight");
+    if (!document.getElementById("quick-jump-nav")) {
+      const quickJumpI18n = {
+        en: { goals: "Career Record", kpis: "KPIs & 1k Road", fan: "Fan Arcade", clubs: "Club Breakdown", faq: "FAQ" },
+        es: { goals: "Registro Oficial", kpis: "Métricas Clave", fan: "Zona de Fans", clubs: "Por Clubes", faq: "Preguntas" },
+        pt: { goals: "Registro Oficial", kpis: "Métricas", fan: "Zona de Fãs", clubs: "Por Clubes", faq: "Perguntas" },
+        fr: { goals: "Bilan Officiel", kpis: "Chiffres Clés", fan: "Zone Fans", clubs: "Par Clubs", faq: "FAQ" },
+        ar: { goals: "السجل الرسمي", kpis: "المؤشرات الكبرى", fan: "صالة الألعاب", clubs: "حسب النادي", faq: "الأسئلة الشائعة" },
+        bn: { goals: "অফিশিয়াল রেকর্ড", kpis: "মূল পরিসংখ্যান", fan: "ফ্যান জোন", clubs: "ক্লাব অনুযায়ী", faq: "প্রশ্নোত্তর" },
+        hi: { goals: "आधिकारिक रिकॉर्ड", kpis: "मुख्य आंकड़े", fan: "फैन ज़ोन", clubs: "क्लब अनुसार", faq: "सवाल-जवाब" },
+        ro: { goals: "Bilanț Oficial", kpis: "Indicatori", fan: "Zona Fanilor", clubs: "Pe Cluburi", faq: "Întrebări" },
+        uz: { goals: "Rasmiy Rekord", kpis: "Asosiy Ko'rsatkich", fan: "Muxlislar Zonasi", clubs: "Klublar", faq: "Savol-Javob" }
+      };
+      const qj = quickJumpI18n[lang] || quickJumpI18n.en;
+      const qjBar = document.createElement("nav");
+      qjBar.id = "quick-jump-nav";
+      qjBar.className = "quick-jump-bar";
+      qjBar.setAttribute("aria-label", "Section quick jump");
+      qjBar.innerHTML =
+        `<a href="#messi-total-goals" class="qj-pill">⚽ <span>${qj.goals}</span></a>` +
+        `<a href="#kpis" class="qj-pill">📊 <span>${qj.kpis}</span></a>` +
+        `<a href="#fan-zone" class="qj-pill">🎯 <span>${qj.fan}</span></a>` +
+        `<a href="#byclub" class="qj-pill">👕 <span>${qj.clubs}</span></a>` +
+        `<a href="#faq" class="qj-pill">❓ <span>${qj.faq}</span></a>`;
+      prof.after(qjBar);
+    }
   }
 
   const kpis = el("kpis");
@@ -7687,6 +7712,48 @@ function renderLatestGoal(d) {
 
 
 // ---------- Back to Top Floating Button ----------
+function initUXEnhancements() {
+  if (typeof document === 'undefined') return;
+
+  // 1. Top Reading Scroll Progress Bar
+  if (!document.getElementById("scroll-progress")) {
+    const prog = document.createElement("div");
+    prog.id = "scroll-progress";
+    prog.setAttribute("aria-hidden", "true");
+    document.body.prepend(prog);
+
+    let progTicking = false;
+    window.addEventListener("scroll", () => {
+      if (!progTicking) {
+        window.requestAnimationFrame(() => {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            const pct = Math.min(100, Math.max(0, (window.scrollY / totalHeight) * 100));
+            prog.style.width = pct + "%";
+          }
+          progTicking = false;
+        });
+        progTicking = true;
+      }
+    }, { passive: true });
+  }
+
+  // 2. Back to Top Floating Button
+  initUXEnhancements();
+
+  // 3. Press '/' to Search keyboard shortcut
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) {
+      const searchInput = document.querySelector('input[type="search"]') || document.getElementById("search") || document.getElementById("tl-filter");
+      if (searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+        searchInput.select();
+      }
+    }
+  });
+}
+
 function initBackToTop() {
   if (typeof document === 'undefined' || document.getElementById('back-to-top-btn')) return;
   const btn = document.createElement('button');

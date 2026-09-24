@@ -9435,3 +9435,92 @@ html[dir="rtl"] .back-to-top-btn {
   }
 }
 
+/* ---------- Top Scroll Progress Bar ---------- */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3.5px;
+  width: 0%;
+  background: linear-gradient(90deg, #d97706 0%, #eab308 50%, #e11d48 100%);
+  z-index: 10000;
+  pointer-events: none;
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.6);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.08s ease-out;
+}
+
+/* ---------- Quick Jump Section Navigation ---------- */
+.quick-jump-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 1.25rem 0 1.5rem;
+  padding: 8px 12px;
+  background: var(--surface-solid, #ffffff);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.quick-jump-bar::-webkit-scrollbar {
+  display: none;
+}
+.qj-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--surface-soft, rgba(0, 0, 0, 0.03));
+  border: 1px solid var(--line-soft, transparent);
+  color: var(--ink);
+  font-size: 0.84rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+}
+.qj-pill:hover {
+  background: var(--brand-soft, rgba(234, 179, 8, 0.15));
+  border-color: var(--brand);
+  color: var(--brand-text, #090d16);
+  transform: translateY(-1px);
+}
+.qj-pill:active {
+  transform: scale(0.96);
+}
+[data-theme="dark"] .quick-jump-bar {
+  background: rgba(22, 36, 58, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+[data-theme="dark"] .qj-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+}
+[data-theme="dark"] .qj-pill:hover {
+  background: rgba(234, 179, 8, 0.2);
+  border-color: #fbbf24;
+  color: #fef08a;
+}
+@media (max-width: 768px) {
+  .table-wrap::after {
+    content: "⇄ Scroll for more stats";
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-align: right;
+    color: var(--muted);
+    padding: 4px 6px 0;
+    opacity: 0.85;
+    letter-spacing: 0.02em;
+  }
+}
+
+
