@@ -585,47 +585,110 @@ function initFanArcade() {
     setInterval(updateCountdown, 1000);
   }
 
-  // 3. Quiz Controller
+  // 3. Quiz Controller (Authentic Mind-Blowing Messi Lore)
   const quizBox = document.getElementById("quiz-box");
   if (quizBox) {
-    const questions = [
+    const ALL_LORE_QUESTIONS = [
       {
-        q: "In what year did Messi score his world-record 91 goals?",
-        opts: ["2011", "2012", "2015"],
-        ans: 1,
-        exp: "Correct! Messi scored 91 official goals in 2012 (79 for Barcelona + 12 for Argentina)."
+        q: "In El Clásico at the Bernabéu (Dec 2017), what crazy feat did Messi accomplish for Vidal's 93' goal?",
+        opts: [
+          "Assisted with only ONE boot on (lost his right shoe)",
+          "Scored a bicycle kick from outside the penalty box",
+          "Dribbled past 7 defenders without touching the ground",
+          "Completed 100% of his passes with his right heel"
+        ],
+        ans: 0,
+        exp: "🔥 TRUE FOOTBALL LORE! Marcelo stepped on Messi's foot and tore off his right boot. Barefoot on his right foot, Messi still dribbled past Marcelo and delivered the 93' assist to Aleix Vidal to seal a 3–0 win at the Bernabéu!"
       },
       {
-        q: "Which team has conceded the most goals to Lionel Messi in his career?",
-        opts: ["Real Madrid (26)", "Sevilla (38)", "Atlético Madrid (32)"],
+        q: "What shocking event happened on Lionel Messi's senior international debut for Argentina in 2005?",
+        opts: [
+          "He scored a hat-trick in 10 minutes",
+          "He was red-carded after just 43 seconds on the pitch",
+          "He scored an own goal against Hungary",
+          "He broke his shinbone during warmups"
+        ],
         ans: 1,
-        exp: "Correct! Messi scored 38 goals in 43 games against Sevilla FC!"
+        exp: "🤯 TRUE! Subbed on in the 63rd minute vs Hungary, Messi was controversially shown a red card after only 43 seconds for brushing off Vilmos Vanczák who was holding his shirt. Teammates found 18-year-old Messi crying in the dressing room!"
       },
       {
-        q: "How many direct free-kick goals has Lionel Messi scored?",
-        opts: ["58", "67", "74"],
-        ans: 1,
-        exp: "Correct! Messi has scored 67 senior free kicks (50 Barça, 11 Argentina, 3 Miami, 2 PSG)."
+        q: "In his historic 2012/13 La Liga season, what unprecedented scoring world record did Messi shatter?",
+        opts: [
+          "Scored in 21 CONSECUTIVE league games against every single team",
+          "Scored 15 penalties in a row without a goalkeeper touching the ball",
+          "Scored 10 consecutive hat-tricks across 3 months",
+          "Scored every single goal with his weaker right foot"
+        ],
+        ans: 0,
+        exp: "🐐 UNTOUCHABLE RECORD! Messi scored 33 goals across 21 consecutive league matches, scoring against all 19 other teams in La Liga consecutively — the only player in world history to complete a full 'round' of scoring against every club in a league in a row!"
+      },
+      {
+        q: "How did Lionel Messi score the 110th-minute extra-time winner in the 2009 Club World Cup Final?",
+        opts: [
+          "With his CHEST (diving with the Barça crest over his heart)",
+          "A 40-yard direct free-kick knuckleball",
+          "A bicycle kick while falling backward",
+          "A direct corner kick that curved into the net"
+        ],
+        ans: 0,
+        exp: "❤️ THE HEART GOAL! Against Estudiantes in extra time, Dani Alves crossed into the box and Messi dove forward to chest the ball into the net with the Barcelona badge over his heart, completing the first-ever 6-trophy Sextuple in European history!"
+      },
+      {
+        q: "Against which club did Messi become the first player in modern Champions League history to score 5 GOALS in a single match?",
+        opts: [
+          "Bayer Leverkusen (7–1 in 2012)",
+          "Arsenal (4–1 in 2010)",
+          "Bayern Munich (3–0 in 2015)",
+          "Paris Saint-Germain (6–1 in 2017)"
+        ],
+        ans: 0,
+        exp: "⚡ MASTERCLASS! On 7 March 2012, Messi scored 5 goals past Bernd Leno in a 7–1 dismantling of Bayer Leverkusen at Camp Nou, prompting Wayne Rooney to tweet: 'Messi is a joke. For me the best ever.'"
+      },
+      {
+        q: "Where was Lionel Messi's first contract agreement with FC Barcelona written and signed in December 2000?",
+        opts: [
+          "On a paper cafeteria napkin at a tennis club",
+          "On the back of a Camp Nou matchday ticket",
+          "On a restaurant tablecloth in Rosario, Argentina",
+          "In a legal leather-bound notary ledger"
+        ],
+        ans: 0,
+        exp: "📜 ICONIC HISTORY! Barça sporting director Charly Rexach was having lunch at the Pompeia Tennis Club with Messi's agent and was so desperate to secure 13-year-old Lionel that he famously drew up the contract on a paper cafeteria napkin right at the table!"
       }
     ];
 
     let currentQ = 0;
     let score = 0;
+    let questions = ALL_LORE_QUESTIONS.slice(0, 3);
 
     const renderQuestion = () => {
       if (currentQ >= questions.length) {
+        const pct = Math.round((score / questions.length) * 100);
+        let badge = "🏆 GOAT Scholar!";
+        if (score === questions.length) badge = "👑 Certified 100% Messi Lore Master!";
+        else if (score >= 2) badge = "🐐 Elite Football Fan!";
+
         quizBox.innerHTML = `
-          <div class="arcade-panel-head">
-            <h4>🏆 Quiz Complete!</h4>
-            <p>You scored <b>${score}/${questions.length}</b> — ${score === 3 ? "Certified GOAT Genius! 🐐" : "Great football knowledge! ⚽"}</p>
+          <div class="arcade-quiz-finish animate-pop">
+            <div class="quiz-finish-badge">${badge}</div>
+            <h4 class="quiz-finish-title">You Scored ${score} / ${questions.length} (${pct}%)</h4>
+            <p class="quiz-finish-desc">Think your friends know Messi's legendary career lore as well as you? Share your score or test yourself with another 3 questions!</p>
+            <div class="quiz-finish-actions">
+              <button type="button" class="btn-arcade-action" id="btn-quiz-retry">
+                <span>🔄 Spin 3 New Questions</span>
+              </button>
+              <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just scored ${score}/${questions.length} on the Lionel Messi Career Lore Quiz on MessiStat.com! Can you beat my score?`)}&url=${encodeURIComponent(window.location.origin)}" target="_blank" rel="noopener noreferrer" class="btn-quiz-share">
+                <span>🐦 Share Score</span>
+              </a>
+            </div>
           </div>
-          <button type="button" class="btn-arcade-action" id="btn-quiz-retry">Play Again 🔄</button>
         `;
         const retryBtn = document.getElementById("btn-quiz-retry");
         if (retryBtn) {
           retryBtn.addEventListener("click", () => {
             currentQ = 0;
             score = 0;
+            questions = ALL_LORE_QUESTIONS.sort(() => Math.random() - 0.5).slice(0, 3);
             renderQuestion();
           });
         }
@@ -635,12 +698,17 @@ function initFanArcade() {
       const qObj = questions[currentQ];
       quizBox.innerHTML = `
         <div class="quiz-header">
-          <span class="quiz-badge">Question ${currentQ + 1} of ${questions.length}</span>
-          <span>Score: ${score}</span>
+          <span class="quiz-badge">Question ${currentQ + 1} of ${questions.length} • Real Messi Lore</span>
+          <span class="quiz-score-indicator">Score: <b>${score}</b></span>
         </div>
         <div class="quiz-question-text">${qObj.q}</div>
         <div class="quiz-options">
-          ${qObj.opts.map((opt, i) => `<button type="button" class="btn-quiz-opt" data-opt="${i}">${opt}</button>`).join("")}
+          ${qObj.opts.map((opt, i) => `
+            <button type="button" class="btn-quiz-opt" data-opt="${i}">
+              <span class="opt-key-badge">${String.fromCharCode(65 + i)}</span>
+              <span class="opt-label-text">${opt}</span>
+            </button>
+          `).join("")}
         </div>
         <div class="quiz-feedback" id="quiz-feedback" style="display:none;"></div>
       `;
@@ -652,21 +720,22 @@ function initFanArcade() {
         btn.addEventListener("click", () => {
           optBtns.forEach((b) => (b.disabled = true));
           const chosen = parseInt(btn.getAttribute("data-opt"), 10);
-          if (chosen === qObj.ans) {
+          const isRight = chosen === qObj.ans;
+          if (isRight) {
             btn.classList.add("correct");
             score++;
-            feedback.innerHTML = `
-              <span style="color:#16a34a;">✓ ${qObj.exp}</span>
-              <button type="button" class="btn-quiz-next" id="btn-next-q">Next →</button>
-            `;
           } else {
             btn.classList.add("wrong");
             if (optBtns[qObj.ans]) optBtns[qObj.ans].classList.add("correct");
-            feedback.innerHTML = `
-              <span style="color:#dc2626;">✗ ${qObj.exp}</span>
-              <button type="button" class="btn-quiz-next" id="btn-next-q">Next →</button>
-            `;
           }
+
+          feedback.innerHTML = `
+            <div class="fb-message-wrap">
+              <span class="fb-badge-result ${isRight ? "correct" : "wrong"}">${isRight ? "✓ Spot On!" : "✗ Missed It!"}</span>
+              <p class="fb-explanation-text">${qObj.exp}</p>
+            </div>
+            <button type="button" class="btn-quiz-next" id="btn-next-q">Next Question →</button>
+          `;
           feedback.style.display = "flex";
           const nextBtn = document.getElementById("btn-next-q");
           if (nextBtn) {
