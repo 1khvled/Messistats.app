@@ -5464,16 +5464,28 @@ function renderTimeline(d) {
     psg: TIMELINE_MILESTONES.filter(m => m.team === "psg").length
   };
 
+  const filterLabels = {
+    es: { all: "Todos", trophy: "🏆 Títulos", award: "⭐ Balones de Oro", goal: "⚽ Goles Hito", record: "📜 Récords Mundiales", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
+    pt: { all: "Todos", trophy: "🏆 Títulos", award: "⭐ Bolas de Ouro", goal: "⚽ Gols Históricos", record: "📜 Recordes Mundiais", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
+    fr: { all: "Tous", trophy: "🏆 Trophées", award: "⭐ Ballons d'Or", goal: "⚽ Buts Marquants", record: "📜 Records Mondiaux", barcelona: "🔵🔴 Barcelone", argentina: "🇦🇷 Argentine", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
+    ar: { all: "الكل", trophy: "🏆 البطولات", award: "⭐ الكرات الذهبية", goal: "⚽ أهداف تاريخية", record: "📜 أرقام قياسية", barcelona: "🔵🔴 برشلونة", argentina: "🇦🇷 الأرجنتين", miami: "🌸 إنتر ميامي", psg: "🗼 باريس" },
+    bn: { all: "সব", trophy: "🏆 ট্রফি", award: "⭐ ব্যালন ডি'অর", goal: "⚽ স্মরণীয় গোল", record: "📜 বিশ্বরেকর্ড", barcelona: "🔵🔴 বার্সেলোনা", argentina: "🇦🇷 আর্জেন্টিনা", miami: "🌸 ইন্টার মায়ামি", psg: "🗼 পিএসজি" },
+    hi: { all: "सभी", trophy: "🏆 ट्रॉफियां", award: "⭐ बैलन डी'ओर", goal: "⚽ ऐतिहासिक गोल", record: "📜 विश्व रिकॉर्ड", barcelona: "🔵🔴 बार्सिलोना", argentina: "🇦🇷 अर्जेंटीना", miami: "🌸 इंटर मियामी", psg: "🗼 पीएसजी" },
+    ro: { all: "Toate", trophy: "🏆 Trofee", award: "⭐ Baloane de Aur", goal: "⚽ Goluri Reper", record: "📜 Recorduri Mondiale", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
+    uz: { all: "Barchasi", trophy: "🏆 Sovrinlar", award: "⭐ Oltin to'p", goal: "⚽ Tarixiy gollar", record: "📜 Jahon rekordlari", barcelona: "🔵🔴 Barselona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Mayami", psg: "🗼 PSJ" }
+  };
+  const fl = filterLabels[lang] || { all: "All", trophy: "🏆 Trophies", award: "⭐ Ballons d'Or", goal: "⚽ Landmark Goals", record: "📜 World Records", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" };
+
   const filterButtons = [
-    { id: "all", label: `All (${catCounts.all})` },
-    { id: "trophy", label: `🏆 Trophies (${catCounts.trophy})` },
-    { id: "award", label: `⭐ Ballons d'Or (${catCounts.award})` },
-    { id: "goal", label: `⚽ Landmark Goals (${catCounts.goal})` },
-    { id: "record", label: `📜 World Records (${catCounts.record})` },
-    { id: "barcelona", label: `🔵🔴 Barcelona (${catCounts.barcelona})` },
-    { id: "argentina", label: `🇦🇷 Argentina (${catCounts.argentina})` },
-    { id: "miami", label: `🌸 Inter Miami (${catCounts.miami})` },
-    { id: "psg", label: `🗼 PSG (${catCounts.psg})` }
+    { id: "all", label: `${fl.all} (${catCounts.all})` },
+    { id: "trophy", label: `${fl.trophy} (${catCounts.trophy})` },
+    { id: "award", label: `${fl.award} (${catCounts.award})` },
+    { id: "goal", label: `${fl.goal} (${catCounts.goal})` },
+    { id: "record", label: `${fl.record} (${catCounts.record})` },
+    { id: "barcelona", label: `${fl.barcelona} (${catCounts.barcelona})` },
+    { id: "argentina", label: `${fl.argentina} (${catCounts.argentina})` },
+    { id: "miami", label: `${fl.miami} (${catCounts.miami})` },
+    { id: "psg", label: `${fl.psg} (${catCounts.psg})` }
   ];
 
   let currentCat = "all";
@@ -5613,13 +5625,14 @@ function renderTimeline(d) {
     const order = ["Barcelona", "Paris Saint-Germain", "Inter Miami", "Argentina"];
     const trow = (x) => `<div class="tpill"><span class="tp-name">${esc(x.title)}</span><span class="tp-count">×${x.count}</span>` +
       `<span class="tp-years">${esc(x.years.join(", "))}</span></div>`;
+    const achCfg = ACH_I18N[lang] || ACH_EN;
     groupsEl.innerHTML = order.map((team) => {
       const rows = teamRows.filter((x) => x.team === team);
       const sub = rows.reduce((a, x) => a + x.count, 0);
-      return `<div class="trophy-group"><div class="shead"><h3>${esc(team)} — ${sub} titles</h3></div><div class="tpills-wrap">` +
+      return `<div class="trophy-group"><div class="shead"><h3>${achCfg.teamHeader(team, sub)}</h3></div><div class="tpills-wrap">` +
         rows.map(trow).join("") + `</div></div>`;
     }).join("") + (indRows.length ?
-      `<div class="trophy-group"><div class="shead"><h3>Individual Honours — ${indTotal} awards</h3></div><div class="tpills-wrap">` +
+      `<div class="trophy-group"><div class="shead"><h3>${achCfg.indHeader(indTotal)}</h3></div><div class="tpills-wrap">` +
       indRows.map(trow).join("") + `</div></div>` : "");
   }
 
@@ -5629,18 +5642,83 @@ function renderTimeline(d) {
 
 /* ================= ACHIEVEMENTS ================= */
 /* Trophy cabinet: self-hosted celebration photos. Mounted as #cabinet. */
-const CABINET = [
-  { title: "FIFA World Cup — 2022", sub: "The ultimate crowning glory, Lusail 18 Dec 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "World Cup champions, Lusail 2022" },
-  { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi holding his record eighth Ballon d'Or trophy aloft", cap: "Record eighth Ballon d'Or award" },
-  { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi celebrating with the Champions League trophy holding four fingers up", cap: "Four-time European champion with Barcelona" },
-  { title: "Copa América — 2", sub: "Back-to-back continental champion, 2021 & 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi kissing the Copa América trophy after winning at the Maracanã", cap: "Copa América champions, Maracanã 2021" },
-  { title: "La Liga Titles — 10", sub: "Domestic dominance with FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi with the La Liga championship trophy", cap: "10-time Spanish champion with Barcelona" },
-];
-const cabinetPhotos = () => CABINET.map((p) =>
-  `<article class="cab-card"><h3>${esc(p.title)}</h3><p class="cab-sub">${esc(p.sub)}</p>` +
-  `<figure class="cab-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos || "50% 25%"}" />` +
-  `<figcaption class="photo-credit">${esc(p.cap)}</figcaption></figure></article>`
-).join("");
+const CABINET_I18N = {
+  en: [
+    { title: "FIFA World Cup — 2022", sub: "The ultimate crowning glory, Lusail 18 Dec 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail", cap: "World Cup champions, Lusail 2022" },
+    { title: "Ballon d'Or — 8", sub: "The record eight: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi holding his record eighth Ballon d'Or trophy aloft", cap: "Record eighth Ballon d'Or award" },
+    { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — all with Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi celebrating with the Champions League trophy holding four fingers up", cap: "Four-time European champion with Barcelona" },
+    { title: "Copa América — 2", sub: "Back-to-back continental champion, 2021 & 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi kissing the Copa América trophy after winning at the Maracanã", cap: "Copa América champions, Maracanã 2021" },
+    { title: "La Liga Titles — 10", sub: "Domestic dominance with FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi with the La Liga championship trophy", cap: "10-time Spanish champion with Barcelona" }
+  ],
+  es: [
+    { title: "Copa del Mundo — 2022", sub: "La máxima gloria futbolística, Lusail 18 de diciembre de 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi en hombros celebrando la Copa del Mundo 2022 en Lusail", cap: "Campeones del Mundo, Lusail 2022" },
+    { title: "Balón de Oro — 8", sub: "El récord de ocho: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi levantando su histórico octavo Balón de Oro", cap: "Récord histórico de 8 Balones de Oro" },
+    { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — todas con el FC Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi celebrando con la Champions League", cap: "Cuatro veces campeón de Europa con el Barcelona" },
+    { title: "Copa América — 2", sub: "Bicampeón continental consecutivo, 2021 y 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi besando el trofeo de la Copa América en el Maracaná", cap: "Campeones de América, Maracaná 2021" },
+    { title: "Títulos de La Liga — 10", sub: "Dominio absoluto con el FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi con el trofeo de La Liga española", cap: "10 veces campeón de España con el Barcelona" }
+  ],
+  pt: [
+    { title: "Copa do Mundo — 2022", sub: "A coroação máxima da história do futebol, Lusail 18 dez 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi carregado nos ombros celebrando a Copa do Mundo 2022", cap: "Campeões Mundiais, Lusail 2022" },
+    { title: "Bola de Ouro — 8", sub: "O recorde de oito troféus: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi erguendo a sua oitava Bola de Ouro", cap: "Recorde histórico de 8 Bolas de Ouro" },
+    { title: "Champions League — 4", sub: "2006, 2009, 2011, 2015 — todas com o Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi com o troféu da Liga dos Campeões", cap: "Tetracampeão europeu pelo Barcelona" },
+    { title: "Copa América — 2", sub: "Bicampeão continental consecutivo, 2021 e 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi beijando a Copa América no Maracanã", cap: "Campeões da Copa América, Maracanã 2021" },
+    { title: "Títulos de La Liga — 10", sub: "Hegemonia nacional pelo FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi com o troféu da La Liga", cap: "10 vezes campeão espanhol pelo Barcelona" }
+  ],
+  fr: [
+    { title: "Coupe du Monde — 2022", sub: "Le couronnement suprême, Lusail 18 décembre 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi porté en triomphe lors de la victoire en Coupe du Monde 2022", cap: "Champions du Monde, Lusail 2022" },
+    { title: "Ballon d'Or — 8", sub: "Le record absolu de huit : 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi brandissant son huitième Ballon d'Or", cap: "Record de 8 Ballons d'Or" },
+    { title: "Ligue des Champions — 4", sub: "2006, 2009, 2011, 2015 — toutes avec le Barça.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi célébrant la victoire en Ligue des Champions", cap: "Quadruple vainqueur de la C1 avec Barcelone" },
+    { title: "Copa América — 2", sub: "Double champion continental consécutif, 2021 & 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi embrassant le trophée de la Copa América au Maracanã", cap: "Champions de la Copa América, Maracanã 2021" },
+    { title: "Championnats d'Espagne — 10", sub: "Domination totale avec le FC Barcelone 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi avec le trophée de La Liga", cap: "10 fois champion d'Espagne avec Barcelone" }
+  ],
+  ar: [
+    { title: "كأس العالم — 2022", sub: "التتويج الأغلى والأعظم، لوسيل 18 ديسمبر 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "ميسي محمولاً على الأكتاف محتفلاً بكأس العالم 2022", cap: "أبطال كأس العالم، لوسيل 2022" },
+    { title: "الكرة الذهبية — 8", sub: "الرقم القياسي الخارق: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "ميسي يحمل كرته الذهبية الثامنة", cap: "رقم قياسي تاريخي بـ 8 كرات ذهبية" },
+    { title: "دوري أبطال أوروبا — 4", sub: "2006، 2009، 2011، 2015 — كلها مع برشلونة.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي يحتفل بلقب دوري أبطال أوروبا", cap: "بطل أوروبا 4 مرات مع برشلونة" },
+    { title: "كوبا أمريكا — 2", sub: "بطل القارة مرتين متتاليتين، 2021 و2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي يقبل كأس كوبا أمريكا في الماراكانا", cap: "أبطال كوبا أمريكا، الماراكانا 2021" },
+    { title: "الدوري الإسباني — 10", sub: "السيطرة المحلية المطلقة مع برشلونة 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي مع درع الدوري الإسباني", cap: "بطل الدوري الإسباني 10 مرات مع برشلونة" }
+  ],
+  bn: [
+    { title: "ফিফা বিশ্বকাপ — ২০২২", sub: "সর্বোচ্চ শ্রেষ্ঠত্বের গৌরব, লুসাইল ১৮ ডিসেম্বর ২০২২।", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "লুসাইলে ২০২২ বিশ্বকাপ জয়ের উৎসবে কাঁধে মেসি", cap: "বিশ্বকাপ চ্যাম্পিয়ন, লুসাইল ২০২২" },
+    { title: "ব্যালন ডি'অর — ৮", sub: "রেকর্ড আটটি: ২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩।", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "মেসি তার রেকর্ড অষ্টম ব্যালন ডি'অর হাতে", cap: "রেকর্ড অষ্টম ব্যালন ডি'অর ট্রফি" },
+    { title: "চ্যাম্পিয়ন্স লিগ — ৪", sub: "২০০৬, ২০০৯, ২০১১, ২০১৫ — সবগুলো বার্সেলোনার সাথে।", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "চ্যাম্পিয়ন্স লিগ ট্রফি হাতে মেসি", cap: "বার্সেলোনার সাথে ৪ বার ইউরোপিয়ান চ্যাম্পিয়ন" },
+    { title: "কোপা আমেরিকা — ২", sub: "টানা দুইবারের মহাদেশীয় চ্যাম্পিয়ন, ২০২১ ও ২০২৪।", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "মারাকানায় কোপা আমেরিকা ট্রফিতে চুমু দিচ্ছেন মেসি", cap: "কোপা আমেরিকা চ্যাম্পিয়ন, মারাকানা ২০২১" },
+    { title: "লা লিগা শিরোপা — ১০", sub: "এফসি বার্সেলোনায় একচ্ছত্র আধিপত্য ২০০৪–২০১৯।", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "লা লিগা ট্রফি হাতে মেসি", cap: "বার্সার সাথে ১০ বারের স্প্যানিশ চ্যাম্পিয়ন" }
+  ],
+  hi: [
+    { title: "फीफा विश्व कप — 2022", sub: "फुटबॉल का सर्वोच्च गौरव, लुसैल 18 दिसंबर 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "लुसैल में 2022 विश्व कप जीत का जश्न मनाते मेसी", cap: "विश्व कप चैंपियन, लुसैल 2022" },
+    { title: "बैलन डी'ओर — 8", sub: "ऐतिहासिक आठ का रिकॉर्ड: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "आठवां बैलन डी'ओर हाथ में लिए मेसी", cap: "रिकॉर्ड 8वां बैलन डी'ओर पुरस्कार" },
+    { title: "चैंपियंस लीग — 4", sub: "2006, 2009, 2011, 2015 — सभी बार्सिलोना के साथ।", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "चैंपियंस लीग ट्रॉफी के साथ मेसी", cap: "बार्सिलोना के साथ 4 बार के यूरोपीय चैंपियन" },
+    { title: "कोपा अमेरिका — 2", sub: "लगातार दो बार के महाद्वीपीय चैंपियन, 2021 और 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "माराकाना में कोपा अमेरिका ट्रॉफी को चूमते मेसी", cap: "कोपा अमेरिका चैंपियन, माराकाना 2021" },
+    { title: "ला लीगा खिताब — 10", sub: "बार्सिलोना के साथ घरेलू दबदबा 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "ला लीगा ट्रॉफी के साथ मेसी", cap: "बार्सिलोना के साथ 10 बार के स्पैनिश चैंपियन" }
+  ],
+  ro: [
+    { title: "Cupa Mondială — 2022", sub: "Gloria supremă a fotbalului, Lusail 18 dec 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi purtat pe brațe sărbătorind Cupa Mondială 2022 la Lusail", cap: "Campioni mondiali, Lusail 2022" },
+    { title: "Balonul de Aur — 8", sub: "Recordul de opt: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi ridicând al optulea Balon de Aur", cap: "Record istoric de 8 Baloane de Aur" },
+    { title: "Liga Campionilor — 4", sub: "2006, 2009, 2011, 2015 — toate cu Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi sărbătorind câștigarea Ligii Campionilor", cap: "De patru ori campion al Europei cu Barcelona" },
+    { title: "Copa América — 2", sub: "Dublu campion continental consecutiv, 2021 și 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi sărutând trofeul Copa América pe Maracanã", cap: "Campioni Copa América, Maracanã 2021" },
+    { title: "Titluri La Liga — 10", sub: "Dominație internă cu FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi cu trofeul La Liga", cap: "De 10 ori campion al Spaniei cu Barcelona" }
+  ],
+  uz: [
+    { title: "Jahon chempionati — 2022", sub: "Futbol tarixidagi eng oliy cho'qqi, Lusail 18 dekabr 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi Lusailda 2022 yilgi Jahon chempionligini nishonlamoqda", cap: "Jahon chempionlari, Lusail 2022" },
+    { title: "Oltin to'p — 8", sub: "Mutlaq rekord bo'lgan 8 ta: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi sakkizinchi Oltin to'pni ko'tarmoqda", cap: "Tarixiy rekord 8 ta Oltin to'p" },
+    { title: "Chempionlar Ligasi — 4", sub: "2006, 2009, 2011, 2015 — barchasi Barselona bilan.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi Chempionlar Ligasi kubogi bilan", cap: "Barselona bilan 4 karra Yevropa chempioni" },
+    { title: "Amerika Kubogi — 2", sub: "Ketma-ket ikki karra qit'a chempioni, 2021 va 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi Marakanada Amerika Kubogini o'pmoqda", cap: "Amerika Kubogi chempionlari, Marakana 2021" },
+    { title: "La Liga chempionligi — 10", sub: "Barselona safidagi mutlaq yetakchilik 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi La Liga kubogi bilan", cap: "Barselona bilan 10 karra Ispaniya chempioni" }
+  ]
+};
+
+const CABINET = CABINET_I18N.en;
+
+const cabinetPhotos = () => {
+  const lang = getLang();
+  const list = CABINET_I18N[lang] || CABINET_I18N.en;
+  return list.map((p) =>
+    `<article class="cab-card"><h3>${esc(p.title)}</h3><p class="cab-sub">${esc(p.sub)}</p>` +
+    `<figure class="cab-photo"><img src="${p.src}" width="${p.w}" height="${p.h}" alt="${esc(p.alt)}" loading="lazy" style="object-position:${p.pos || "50% 25%"}" />` +
+    `<figcaption class="photo-credit">${esc(p.cap)}</figcaption></figure></article>`
+  ).join("");
+};
 
 const ACH_I18N = {
   es: {
@@ -7605,11 +7683,14 @@ load().then((d) => {
   const page = document.body.dataset.page;
   try {
     if (page === "home") renderHome(d);
-    else if (page === "dashboard" || page === "byyear" || page === "byseason") {
+    else if (page === "byyear") renderByYear(d);
+    else if (page === "byseason") renderBySeason(d);
+    else if (page === "dashboard") {
       const team = new URLSearchParams(location.search).get("team") || "all";
       renderDashboard(d, team);
     }
-    else if (page === "timeline" || page === "achievements") renderTimeline(d);
+    else if (page === "timeline") renderTimeline(d);
+    else if (page === "achievements") renderAch(d);
     else if (page === "birthday") renderBirthday(d);
     else if (page === "latest-goal") renderLatestGoal(d);
   } catch (e) {

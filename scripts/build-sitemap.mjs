@@ -14,11 +14,14 @@ const todayIso = new Date().toISOString().split("T")[0];
 const SUBPAGES = [
   { slug: "dashboard", changefreq: "daily", priority: "0.9", lastmod: todayIso },
   { slug: "birthday", changefreq: "daily", priority: "0.95", lastmod: todayIso },
+  { slug: "goalsbyseason", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
+  { slug: "goalsbyyear", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
   { slug: "messi-vs-ronaldo", changefreq: "weekly", priority: "0.95", lastmod: todayIso },
   { slug: "vs-real-madrid", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
   { slug: "champions-league", changefreq: "monthly", priority: "0.9", lastmod: todayIso },
   { slug: "latest-goal", changefreq: "daily", priority: "0.95", lastmod: todayIso },
-  { slug: "timeline", changefreq: "weekly", priority: "0.9", lastmod: todayIso }
+  { slug: "timeline", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
+  { slug: "achievements", changefreq: "monthly", priority: "0.85", lastmod: todayIso }
 ];
 
 function getHreflangsXml(slugPath) {
