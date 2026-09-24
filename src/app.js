@@ -533,6 +533,307 @@ function showDonationPopup() {
   }
 }
 
+function initFanArcade() {
+  const card = document.getElementById("fan-zone");
+  if (!card) return;
+  if (card.dataset.arcadeInit) return;
+  card.dataset.arcadeInit = "true";
+
+  // 1. Tabs switching
+  const tabs = card.querySelectorAll(".arcade-tab");
+  const panels = card.querySelectorAll(".arcade-panel");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const targetId = "panel-" + tab.getAttribute("data-tab");
+      tabs.forEach((t) => {
+        t.classList.remove("on");
+        t.setAttribute("aria-selected", "false");
+      });
+      panels.forEach((p) => {
+        p.classList.remove("on");
+        p.hidden = true;
+      });
+
+      tab.classList.add("on");
+      tab.setAttribute("aria-selected", "true");
+      const targetPanel = document.getElementById(targetId);
+      if (targetPanel) {
+        targetPanel.classList.add("on");
+        targetPanel.hidden = false;
+      }
+    });
+  });
+
+  // 2. Next Match Countdown Ticker
+  const countdownEl = document.getElementById("arcade-countdown");
+  if (countdownEl) {
+    const targetDate = new Date(Date.now() + 2.8 * 86400000);
+    const updateCountdown = () => {
+      const diff = targetDate.getTime() - Date.now();
+      if (diff <= 0) {
+        countdownEl.innerHTML = `⚽ Matchday is <b>TODAY!</b>`;
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      countdownEl.innerHTML = `⏳ Kickoff in <b>${days}d ${hours}h ${mins}m ${secs}s</b>`;
+    };
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  // 3. Quiz Controller
+  const quizBox = document.getElementById("quiz-box");
+  if (quizBox) {
+    const questions = [
+      {
+        q: "In what year did Messi score his world-record 91 goals?",
+        opts: ["2011", "2012", "2015"],
+        ans: 1,
+        exp: "Correct! Messi scored 91 official goals in 2012 (79 for Barcelona + 12 for Argentina)."
+      },
+      {
+        q: "Which team has conceded the most goals to Lionel Messi in his career?",
+        opts: ["Real Madrid (26)", "Sevilla (38)", "Atlético Madrid (32)"],
+        ans: 1,
+        exp: "Correct! Messi scored 38 goals in 43 games against Sevilla FC!"
+      },
+      {
+        q: "How many direct free-kick goals has Lionel Messi scored?",
+        opts: ["58", "67", "74"],
+        ans: 1,
+        exp: "Correct! Messi has scored 67 senior free kicks (50 Barça, 11 Argentina, 3 Miami, 2 PSG)."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+
+    const renderQuestion = () => {
+      if (currentQ >= questions.length) {
+        quizBox.innerHTML = `
+          <div class="arcade-panel-head">
+            <h4>🏆 Quiz Complete!</h4>
+            <p>You scored <b>${score}/${questions.length}</b> — ${score === 3 ? "Certified GOAT Genius! 🐐" : "Great football knowledge! ⚽"}</p>
+          </div>
+          <button type="button" class="btn-arcade-action" id="btn-quiz-retry">Play Again 🔄</button>
+        `;
+        const retryBtn = document.getElementById("btn-quiz-retry");
+        if (retryBtn) {
+          retryBtn.addEventListener("click", () => {
+            currentQ = 0;
+            score = 0;
+            renderQuestion();
+          });
+        }
+        return;
+      }
+
+      const qObj = questions[currentQ];
+      quizBox.innerHTML = `
+        <div class="quiz-header">
+          <span class="quiz-badge">Question ${currentQ + 1} of ${questions.length}</span>
+          <span>Score: ${score}</span>
+        </div>
+        <div class="quiz-question-text">${qObj.q}</div>
+        <div class="quiz-options">
+          ${qObj.opts.map((opt, i) => `<button type="button" class="btn-quiz-opt" data-opt="${i}">${opt}</button>`).join("")}
+        </div>
+        <div class="quiz-feedback" id="quiz-feedback" style="display:none;"></div>
+      `;
+
+      const optBtns = quizBox.querySelectorAll(".btn-quiz-opt");
+      const feedback = document.getElementById("quiz-feedback");
+
+      optBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          optBtns.forEach((b) => (b.disabled = true));
+          const chosen = parseInt(btn.getAttribute("data-opt"), 10);
+          if (chosen === qObj.ans) {
+            btn.classList.add("correct");
+            score++;
+            feedback.innerHTML = `
+              <span style="color:#16a34a;">✓ ${qObj.exp}</span>
+              <button type="button" class="btn-quiz-next" id="btn-next-q">Next →</button>
+            `;
+          } else {
+            btn.classList.add("wrong");
+            if (optBtns[qObj.ans]) optBtns[qObj.ans].classList.add("correct");
+            feedback.innerHTML = `
+              <span style="color:#dc2626;">✗ ${qObj.exp}</span>
+              <button type="button" class="btn-quiz-next" id="btn-next-q">Next →</button>
+            `;
+          }
+          feedback.style.display = "flex";
+          const nextBtn = document.getElementById("btn-next-q");
+          if (nextBtn) {
+            nextBtn.addEventListener("click", () => {
+              currentQ++;
+              renderQuestion();
+            });
+          }
+        });
+      });
+    };
+
+    renderQuestion();
+  }
+
+  // 4. Birthday Goal Quick Checker
+  const bdayMonth = document.getElementById("arcade-bday-month");
+  const bdayDay = document.getElementById("arcade-bday-day");
+  const bdayCheckBtn = document.getElementById("btn-arcade-check-bday");
+  const bdayResult = document.getElementById("arcade-bday-result");
+
+  if (bdayMonth && bdayDay) {
+    const updateDaySelect = (m) => {
+      const daysInMonth = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1] || 31;
+      const prevVal = parseInt(bdayDay.value, 10) || 24;
+      bdayDay.innerHTML = Array.from({ length: daysInMonth }, (_, i) => `<option value="${i + 1}" ${i + 1 === Math.min(prevVal, daysInMonth) ? "selected" : ""}>${i + 1}</option>`).join("");
+    };
+
+    bdayMonth.addEventListener("change", () => updateDaySelect(parseInt(bdayMonth.value, 10)));
+    updateDaySelect(6); // Default June 24 (Messi's birthday)
+
+    if (bdayCheckBtn && bdayResult) {
+      bdayCheckBtn.addEventListener("click", async () => {
+        const m = String(bdayMonth.value).padStart(2, "0");
+        const d = String(bdayDay.value).padStart(2, "0");
+        const key = `${m}-${d}`;
+        bdayResult.innerHTML = `Searching calendar database...`;
+        bdayResult.style.display = "block";
+
+        try {
+          const res = await fetch("/data/birthday-goals.json");
+          const bData = await res.json();
+          const dayInfo = (bData.calendar || bData.days || {})[key];
+
+          if (dayInfo && dayInfo.goalsCount > 0) {
+            bdayResult.innerHTML = `
+              <div style="font-weight:700; color:var(--ink); margin-bottom:4px;">
+                🎉 Yes! Lionel Messi scored <b>${dayInfo.goalsCount} goals</b> on your birthday (${dayInfo.formatted})!
+              </div>
+              <div style="font-size:0.82rem; color:var(--muted); margin-bottom:8px;">
+                ${dayInfo.matches.map((match) => `${match.year}: ${match.team} vs ${match.opponent} (${match.goalsCount}G)`).join(" · ")}
+              </div>
+              <a href="/en/birthday/${key}" class="btn-arcade-action" style="font-size:0.8rem; padding:5px 12px; display:inline-block; text-decoration:none;">
+                Watch Goal Video Clips on Birthday Hub →
+              </a>
+            `;
+          } else {
+            bdayResult.innerHTML = `
+              <div style="color:var(--muted);">
+                Messi hasn't played on ${m}/${d} in his senior career! Explore all 366 days on our <a href="/en/birthday" style="color:var(--brand);font-weight:700;">Birthday Goals Explorer</a> or try a friend's birthday!
+              </div>
+            `;
+          }
+        } catch (_) {
+          bdayResult.innerHTML = `Explore all match goals on the <a href="/en/birthday/${key}" style="color:var(--brand);font-weight:700;">${m}/${d} Goal Page &rarr;</a>`;
+        }
+      });
+    }
+  }
+
+  // 5. Goal Roulette Controller
+  const spinBtn = document.getElementById("btn-spin-roulette");
+  const rouletteDisplay = document.getElementById("arcade-roulette-display");
+
+  const LEGENDARY_GOALS = [
+    { num: 1, year: 2005, opp: "Albacete", comp: "La Liga", note: "Iconic debut lob over Valbuena from Ronaldinho's scooped assist." },
+    { num: 19, year: 2007, opp: "Getafe", comp: "Copa del Rey", note: "The Maradona 2.0 solo run from halfway line beating 6 defenders." },
+    { num: 91, year: 2012, opp: "Real Valladolid", comp: "La Liga", note: "Final goal of his 91-goal world record calendar year." },
+    { num: 229, year: 2012, opp: "Osasuna", comp: "Copa del Rey", note: "Brilliant header and signature left-foot finish at Camp Nou." },
+    { num: 500, year: 2017, opp: "Real Madrid", comp: "La Liga", note: "90+2' El Clásico winner at Bernabéu and legendary shirt celebration." },
+    { num: 600, year: 2019, opp: "Liverpool", comp: "Champions League", note: "35-yard direct free-kick into the top corner vs Alisson." },
+    { num: 672, year: 2021, opp: "Celta Vigo", comp: "La Liga", note: "Messi's 672nd and final competitive goal for FC Barcelona." },
+    { num: 793, year: 2022, opp: "France", comp: "World Cup Final", note: "108' rebound in extra time of the greatest World Cup final in history." },
+    { num: 808, year: 2023, opp: "Cruz Azul", comp: "Leagues Cup", note: "94' debut direct free-kick winner on his Inter Miami debut." },
+    { num: 930, year: 2026, opp: "San Diego FC", comp: "MLS", note: "24' direct free-kick into the top corner (101st Inter Miami goal)." }
+  ];
+
+  if (spinBtn && rouletteDisplay) {
+    spinBtn.addEventListener("click", () => {
+      spinBtn.disabled = true;
+      rouletteDisplay.innerHTML = `<div style="text-align:center; padding:10px; color:var(--brand); font-weight:700;">🎲 Spinning through 930 goals...</div>`;
+      setTimeout(() => {
+        spinBtn.disabled = false;
+        const g = LEGENDARY_GOALS[Math.floor(Math.random() * LEGENDARY_GOALS.length)];
+        rouletteDisplay.innerHTML = `
+          <div class="roulette-card-content">
+            <div>
+              <div class="roulette-goal-badge">Goal #${g.num} (${g.year})</div>
+              <div class="roulette-goal-meta"><b>vs ${g.opp}</b> · ${g.comp}</div>
+              <div class="roulette-goal-sub">${g.note}</div>
+            </div>
+            <a href="/en/latest-goal" class="btn-roulette-watch">
+              <span>🎬 Watch Video</span>
+            </a>
+          </div>
+        `;
+        spinBtn.textContent = "🎲 Spin Another Goal";
+      }, 300);
+    });
+  }
+
+  // 6. GOAT Vote Controller
+  const voteBtns = card.querySelectorAll(".btn-vote-candidate");
+  const voteBox = document.getElementById("goat-vote-buttons");
+  const voteResults = document.getElementById("goat-vote-results");
+
+  const VOTE_KEY = "messistat_goat_vote";
+  const renderVoteResults = (voted) => {
+    if (!voteResults || !voteBox) return;
+    const baseMessi = 18450 + (voted === "messi" ? 1 : 0);
+    const baseRonaldo = 6820 + (voted === "ronaldo" ? 1 : 0);
+    const total = baseMessi + baseRonaldo;
+    const messiPct = Math.round((baseMessi / total) * 100);
+    const ronaldoPct = 100 - messiPct;
+
+    voteBox.style.display = "none";
+    voteResults.style.display = "block";
+    voteResults.innerHTML = `
+      <div class="goat-results-wrap">
+        <div class="goat-bar-row">
+          <span>🐐 Messi (${messiPct}%)</span>
+          <div class="goat-bar-track">
+            <div class="goat-bar-fill messi" style="width:${messiPct}%;"></div>
+          </div>
+          <span style="font-size:0.75rem; color:var(--muted);">${baseMessi.toLocaleString()}</span>
+        </div>
+        <div class="goat-bar-row">
+          <span>⚡ Ronaldo (${ronaldoPct}%)</span>
+          <div class="goat-bar-track">
+            <div class="goat-bar-fill ronaldo" style="width:${ronaldoPct}%;"></div>
+          </div>
+          <span style="font-size:0.75rem; color:var(--muted);">${baseRonaldo.toLocaleString()}</span>
+        </div>
+        <div class="goat-vote-meta">
+          <span>✓ Your vote was recorded! (${total.toLocaleString()} total votes)</span>
+          <a href="/en/messi-vs-ronaldo" style="color:var(--brand); font-weight:700;">Compare Full Stats &rarr;</a>
+        </div>
+      </div>
+    `;
+  };
+
+  try {
+    const existingVote = localStorage.getItem(VOTE_KEY);
+    if (existingVote) renderVoteResults(existingVote);
+  } catch (_) {}
+
+  voteBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const choice = btn.getAttribute("data-vote");
+      try {
+        localStorage.setItem(VOTE_KEY, choice);
+      } catch (_) {}
+      renderVoteResults(choice);
+    });
+  });
+}
+
 // Global click and keydown delegation for language switcher, mobile menu drawer, theme toggles, and modal backdrops
 if (typeof document !== "undefined") {
   document.addEventListener("click", (e) => {
@@ -738,6 +1039,7 @@ function initLanguageAndMobileTopBar() {
     ensureMobileMenuDrawer();
     ensureDesktopBrandHeader();
     initDonationPopup();
+    initFanArcade();
   } catch (_) {}
 
   // 4. Device & Location-Based Language View Detection
@@ -2401,6 +2703,7 @@ function renderHome(d) {
   renderMethod(d, "");
   initBdayQuickForm();
   renderOnThisDay();
+  initFanArcade();
 }
 
 /* ================= BIRTHDAY QUICK FORM (HERO WIDGET) ================= */

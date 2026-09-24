@@ -238,6 +238,109 @@
   </div>
 </section>
 
+<!-- Interactive Gamified Fan Arcade -->
+<section class="fan-arcade-card" id="fan-zone" aria-label="MessiStat Interactive Fan Arcade">
+  <!-- Top Match Fixture Ticker -->
+  <div class="arcade-fixture-bar">
+    <div class="fixture-live-pill"><span class="fixture-live-dot"></span>NEXT MATCH</div>
+    <div class="fixture-info">
+      <span class="fixture-teams"><b>Inter Miami CF</b> vs <b>Charlotte FC</b> (MLS)</span>
+      <span class="fixture-countdown" id="arcade-countdown">⏳ Kickoff in <b>2d 18h 42m</b></span>
+    </div>
+  </div>
+
+  <!-- Tab Buttons -->
+  <div class="arcade-tabs" role="tablist">
+    <button type="button" class="arcade-tab on" data-tab="quiz" role="tab" aria-selected="true">
+      <span>🎯 Messi IQ Quiz</span>
+    </button>
+    <button type="button" class="arcade-tab" data-tab="birthday" role="tab" aria-selected="false">
+      <span>🎂 Birthday Goal</span>
+    </button>
+    <button type="button" class="arcade-tab" data-tab="roulette" role="tab" aria-selected="false">
+      <span>🎲 Goal Roulette</span>
+    </button>
+    <button type="button" class="arcade-tab" data-tab="goat" role="tab" aria-selected="false">
+      <span>⚔️ GOAT Vote</span>
+    </button>
+  </div>
+
+  <!-- Tab 1: Quiz -->
+  <div class="arcade-panel on" id="panel-quiz" role="tabpanel">
+    <div class="quiz-container" id="quiz-box"></div>
+  </div>
+
+  <!-- Tab 2: Birthday -->
+  <div class="arcade-panel" id="panel-birthday" role="tabpanel" hidden>
+    <div class="arcade-bday-box">
+      <div class="arcade-panel-head">
+        <h4>Did Messi score on your birthday?</h4>
+        <p>Pick your birth month and day to discover his match goals:</p>
+      </div>
+      <div class="arcade-bday-inputs">
+        <select id="arcade-bday-month" class="arcade-select" aria-label="Select Birth Month">
+          <option value="1">January</option>
+          <option value="2">February</option>
+          <option value="3">March</option>
+          <option value="4">April</option>
+          <option value="5">May</option>
+          <option value="6" selected>June</option>
+          <option value="7">July</option>
+          <option value="8">August</option>
+          <option value="9">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+        <select id="arcade-bday-day" class="arcade-select" aria-label="Select Birth Day"></select>
+        <button type="button" class="btn-arcade-action" id="btn-arcade-check-bday">Check Goals 🔍</button>
+      </div>
+      <div class="arcade-bday-result" id="arcade-bday-result" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Tab 3: Goal Roulette -->
+  <div class="arcade-panel" id="panel-roulette" role="tabpanel" hidden>
+    <div class="arcade-roulette-box">
+      <div class="arcade-panel-head">
+        <h4>🎲 930-Goal Roulette</h4>
+        <p>Spin a random goal from Lionel Messi's entire 22-year senior career:</p>
+      </div>
+      <div class="arcade-roulette-display" id="arcade-roulette-display">
+        <div class="roulette-placeholder">
+          <span>Click below to spin a legendary goal from #1 to #930</span>
+        </div>
+      </div>
+      <div class="arcade-roulette-actions">
+        <button type="button" class="btn-arcade-action" id="btn-spin-roulette">🎲 Spin Random Goal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 4: GOAT Vote -->
+  <div class="arcade-panel" id="panel-goat" role="tabpanel" hidden>
+    <div class="arcade-goat-box">
+      <div class="arcade-panel-head">
+        <h4>Who is the real GOAT of football?</h4>
+        <p>Cast your vote and see live fan percentages:</p>
+      </div>
+      <div class="goat-vote-buttons" id="goat-vote-buttons">
+        <button type="button" class="btn-vote-candidate messi" data-vote="messi">
+          <span class="vote-icon">🐐</span>
+          <span class="vote-name">Lionel Messi</span>
+          <span class="vote-subtitle">930 Goals · 46 Trophies · 8 Ballons d'Or</span>
+        </button>
+        <button type="button" class="btn-vote-candidate ronaldo" data-vote="ronaldo">
+          <span class="vote-icon">⚡</span>
+          <span class="vote-name">Cristiano Ronaldo</span>
+          <span class="vote-subtitle">979 Goals · 35 Trophies · 5 Ballons d'Or</span>
+        </button>
+      </div>
+      <div class="goat-vote-results" id="goat-vote-results" style="display:none;"></div>
+    </div>
+  </div>
+</section>
+
 <!-- GROUND TRUTH FOR SEARCH & AI OVERVIEWS: Lionel Messi Career Record -->
 <section class="ground-truth-card" id="messi-total-goals" aria-label="Lionel Messi Total Goals and Assists Official Record">
   <span id="messi-total-assists" style="display:none;" aria-hidden="true"></span>
