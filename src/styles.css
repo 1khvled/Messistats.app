@@ -7321,14 +7321,9 @@ html[dir="rtl"] .goat-verdict-box {
   max-width: 320px;
   box-sizing: border-box;
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .ad-sticky-dock {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 320px;
-    max-width: 100vw;
-    border-radius: 10px 10px 0 0;
+    display: none !important;
   }
 }
 [data-theme="dark"] .ad-sticky-dock {
@@ -7430,4 +7425,82 @@ html[dir="rtl"] .goat-verdict-box {
 }
 .analytical-collapse-content {
   padding: 16px 18px 24px;
+}
+
+/* ================= SUPPORT & DONATION CARD ================= */
+.support-card {
+  margin: 2.5rem 0;
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(249, 115, 22, 0.05));
+  border: 1px solid rgba(234, 179, 8, 0.25);
+  border-radius: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+[data-theme="dark"] .support-card {
+  background: linear-gradient(135deg, rgba(234, 179, 8, 0.06), rgba(249, 115, 22, 0.03));
+  border-color: rgba(234, 179, 8, 0.2);
+}
+.support-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.support-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+  background: rgba(234, 179, 8, 0.15);
+  padding: 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.support-text {
+  flex: 1 1 280px;
+}
+.support-text h3 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  color: var(--ink);
+}
+.support-text p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.support-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn-support {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-support:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+.btn-support.bmac {
+  background: #ffdd00;
+  color: #000000;
+}
+.btn-support.kofi {
+  background: #ff5e5b;
+  color: #ffffff;
+}
+.btn-support.paypal {
+  background: #0070ba;
+  color: #ffffff;
 }
