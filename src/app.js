@@ -6433,12 +6433,32 @@ async function renderBirthday(d) {
   // Calendar Heatmap Month Filter Navigation
   const heatmapNav = el("bday-heatmap-nav");
   if (heatmapNav) {
-    let navHtml = `<button type="button" class="bday-heatmap-nav-btn active" data-month="all">All (366 Days)</button>`;
+    const params = new URLSearchParams(window.location.search);
+    const dateParam = params.get("date");
+    const monthParam = params.get("month");
+    let initMonth = (new Date()).getMonth() + 1; // 1-12
+    if (monthParam && +monthParam >= 1 && +monthParam <= 12) {
+      initMonth = +monthParam;
+    } else if (dateParam && dateParam.includes("-")) {
+      const pm = parseInt(dateParam.split("-")[0], 10);
+      if (pm >= 1 && pm <= 12) initMonth = pm;
+    }
+
+    let navHtml = `<button type="button" class="bday-heatmap-nav-btn ${initMonth === 'all' ? 'active' : ''}" data-month="all">All (366 Days)</button>`;
     for (let m = 1; m <= 12; m++) {
       const shortName = MONTH_NAMES[m].length > 4 ? MONTH_NAMES[m].slice(0, 3) : MONTH_NAMES[m];
-      navHtml += `<button type="button" class="bday-heatmap-nav-btn" data-month="${m}">${shortName}</button>`;
+      const isActive = m === initMonth;
+      navHtml += `<button type="button" class="bday-heatmap-nav-btn ${isActive ? 'active' : ''}" data-month="${m}">${shortName}</button>`;
     }
     heatmapNav.innerHTML = navHtml;
+
+    // Apply initial filter to hide non-active months for a compact, short layout
+    const monthCards = document.querySelectorAll(".bday-month-card");
+    if (initMonth !== "all") {
+      monthCards.forEach((c) => {
+        c.hidden = +c.dataset.month !== initMonth;
+      });
+    }
 
     heatmapNav.addEventListener("click", (e) => {
       const btn = e.target.closest(".bday-heatmap-nav-btn");
@@ -6446,7 +6466,6 @@ async function renderBirthday(d) {
       const mTarget = btn.dataset.month;
       heatmapNav.querySelectorAll(".bday-heatmap-nav-btn").forEach((b) => b.classList.toggle("active", b === btn));
 
-      const monthCards = document.querySelectorAll(".bday-month-card");
       if (mTarget === "all") {
         monthCards.forEach((c) => { c.hidden = false; });
       } else {

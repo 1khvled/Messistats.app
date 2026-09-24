@@ -7301,3 +7301,133 @@ html[dir="rtl"] .goat-verdict-box {
 .milestone-table td strong {
   color: var(--ink);
 }
+
+/* ================= STICKY BOTTOM AD DOCK (NON-INTRUSIVE & DISMISSIBLE) ================= */
+.ad-sticky-dock {
+  position: fixed;
+  bottom: 0;
+  right: 18px;
+  z-index: 9999;
+  background: var(--card, #ffffff);
+  border: 1px solid var(--line, #e2e8f0);
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  padding: 6px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  max-width: 320px;
+  box-sizing: border-box;
+}
+@media (max-width: 640px) {
+  .ad-sticky-dock {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    max-width: 100vw;
+    border-radius: 10px 10px 0 0;
+  }
+}
+[data-theme="dark"] .ad-sticky-dock {
+  background: #101726;
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
+}
+.ad-sticky-dock.hidden {
+  display: none !important;
+}
+.ad-sticky-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 4px 6px;
+  border-bottom: 1px solid var(--line-soft, rgba(0, 0, 0, 0.05));
+  margin-bottom: 6px;
+}
+[data-theme="dark"] .ad-sticky-bar {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+.ad-sticky-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted, #64748b);
+  font-weight: 700;
+}
+.ad-sticky-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted, #64748b);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ad-sticky-close-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--ink, #000);
+}
+[data-theme="dark"] .ad-sticky-close-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+.ad-sticky-slot {
+  width: 300px;
+  height: 250px;
+  max-width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= COMPACT COLLAPSIBLE SEO ANALYTICAL INDEX ================= */
+.analytical-index-collapse {
+  margin-top: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft, rgba(0,0,0,0.015));
+  overflow: hidden;
+}
+[data-theme="dark"] .analytical-index-collapse {
+  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+.analytical-collapse-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  background: var(--surface);
+  transition: background 0.15s ease;
+}
+.analytical-collapse-summary::-webkit-details-marker {
+  display: none;
+}
+.analytical-collapse-summary:hover {
+  background: var(--surface-hover, rgba(0, 0, 0, 0.03));
+}
+.analytical-collapse-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+.analytical-index-collapse[open] .analytical-collapse-arrow {
+  transform: rotate(180deg);
+}
+.analytical-collapse-content {
+  padding: 16px 18px 24px;
+}
