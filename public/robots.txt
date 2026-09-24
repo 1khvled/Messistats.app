@@ -1,12 +1,84 @@
-User-agent: *
-Allow: /
-Disallow: /admin
-Disallow: /admin/
-Disallow: /en/admin
-Disallow: /en/admin/
-Disallow: /api/
-Disallow: /api
+# ==============================================================================
+# MessiStats (www.messistat.com) - Universal robots.txt
+# Full indexing authorized for Bing, Google, DuckDuckGo, and verified AI search engines.
+# ==============================================================================
 
+# Microsoft Bing & MSN Ecosystem
+User-agent: Bingbot
+Allow: /
+
+User-agent: bingbot
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: msnbot-media
+Allow: /
+
+User-agent: AdIdxBot
+Allow: /
+
+User-agent: BingPreview
+Allow: /
+
+User-agent: Microsoft-Copilot
+Allow: /
+
+User-agent: Copilot
+Allow: /
+
+# Bing-powered search engines
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Qwantify
+Allow: /
+
+User-agent: Ecosia
+Allow: /
+
+# OpenAI / ChatGPT Search
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Google Ecosystem
 User-agent: Googlebot
 Allow: /
 
@@ -16,34 +88,31 @@ Allow: /favicon*
 Allow: /apple-touch-icon.png
 Allow: /img/
 
-# Dedicated permissions for AI search engines & assistants
-User-agent: GPTBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
 User-agent: Google-Extended
 Allow: /
 
-User-agent: Applebot-Extended
-Allow: /
-
+# Other Search & AI Crawlers
 User-agent: Bytespider
 Allow: /
 
 User-agent: CCBot
 Allow: /
 
+# Universal fallback
+User-agent: *
+Allow: /
+Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /18188f5363f745f1bbf821767e0f0daf.txt
+Disallow: /admin
+Disallow: /admin/
+Disallow: /en/admin
+Disallow: /en/admin/
+Disallow: /api/
+Disallow: /api
+Disallow: /api/admin/
+
+# Sitemaps
 Sitemap: https://www.messistat.com/sitemap.xml
 
 # LLM Curated Facts & Direct Query Knowledge Base:

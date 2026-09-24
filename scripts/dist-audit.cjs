@@ -4,7 +4,7 @@ const dist = "./dist";
 const must = ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html",
   "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html", "latest-goal.html",
   "es/index.html", "es/birthday.html", "es/latest-goal.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html",
-  "404.html", "sitemap.xml", "robots.txt", "llms.txt",
+  "404.html", "sitemap.xml", "robots.txt", "llms.txt", "18188f5363f745f1bbf821767e0f0daf.txt",
   "data/messi-data.json", "data/birthday-goals.json", "fonts/dm-sans-latin.woff2", "img/og-messi.jpg",
   "img/era-2008-olympic.jpg", "img/teams/barcelona.png", "favicon.svg", "favicon.ico", "favicon-48x48.png",
   "apple-touch-icon.png", "site.webmanifest", "img/logo.png", "img/messi.webp", "img/messi-450.webp"];

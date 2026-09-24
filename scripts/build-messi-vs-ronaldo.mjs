@@ -2029,6 +2029,23 @@ ${JSON.stringify(jsonLd, null, 2)}
       </table>
     </div>
 
+    <!-- Banner Ad Slot -->
+    <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
+      <span class="ad-native-label">${t.adLabel}</span>
+      <div class="ad-banner-slot">
+        <script>
+          atOptions = {
+            'key' : '53bbdf66c3aca04103610bd62cfc3e6a',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/53bbdf66c3aca04103610bd62cfc3e6a/invoke.js"></script>
+      </div>
+    </aside>
+
     <!-- 5. 36 Direct Encounters (Head-to-Head Table) -->
     <div class="shead"><h2>${t.h2hHeader}</h2></div>
     <p class="comparison-intro-p">${t.h2hIntro}</p>
