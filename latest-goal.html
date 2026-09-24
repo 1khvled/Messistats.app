@@ -336,6 +336,42 @@
   <p class="page-lead">Watch Lionel Messi's most recent official goal clip, check today's live match status, and browse his latest goals with interactive video playback.</p>
 </div>
 
+<!-- Live Matchday Countdown Banner -->
+<section class="latest-match-countdown-card" id="latest-next-fixture-countdown" aria-label="Next Match Countdown">
+  <div class="countdown-badge-row">
+    <div class="fixture-live-pill"><span class="fixture-live-dot"></span>NEXT FIXTURE • MLS REGULAR SEASON</div>
+    <span class="countdown-venue-tag">📍 Chase Stadium · Fort Lauderdale, FL</span>
+  </div>
+  <div class="countdown-content-row">
+    <div class="countdown-matchup">
+      <span class="matchup-team inter-miami"><b>Inter Miami CF</b></span>
+      <span class="matchup-vs">VS</span>
+      <span class="matchup-team opponent"><b>Charlotte FC</b></span>
+    </div>
+    <div class="countdown-digits-wrap" id="latest-page-countdown">
+      <div class="countdown-unit">
+        <span class="cd-num" id="cd-days">02</span>
+        <span class="cd-lab">Days</span>
+      </div>
+      <span class="cd-sep">:</span>
+      <div class="countdown-unit">
+        <span class="cd-num" id="cd-hours">18</span>
+        <span class="cd-lab">Hours</span>
+      </div>
+      <span class="cd-sep">:</span>
+      <div class="countdown-unit">
+        <span class="cd-num" id="cd-mins">42</span>
+        <span class="cd-lab">Mins</span>
+      </div>
+      <span class="cd-sep">:</span>
+      <div class="countdown-unit">
+        <span class="cd-num" id="cd-secs">15</span>
+        <span class="cd-lab">Secs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Did Messi Score Today Card -->
 <section class="today-status-card" id="today-status-section" aria-label="Today Match Status">
   <div class="today-status-top">
@@ -536,6 +572,36 @@
       <span class="recent-goal-card-tag">Assist: De Paul</span>
     </div>
 
+  </div>
+</section>
+
+<!-- Dedicated 930-Goal Roulette Card -->
+<section class="latest-goal-roulette-card" id="dedicated-roulette-section" aria-label="930 Career Goal Roulette">
+  <div class="roulette-card-header">
+    <div class="roulette-badge-pill">🎲 930-GOAL ROULETTE</div>
+    <h2 class="roulette-section-title">Spin a Random Messi Career Goal Highlight</h2>
+    <p class="roulette-section-desc">Spin through all 930 official senior goals across Lionel Messi's 22-year legendary career. Click to immediately stream and replay the highlight video in the player above!</p>
+  </div>
+
+  <div class="roulette-interactive-stage">
+    <div class="roulette-highlight-display" id="dedicated-roulette-display">
+      <div class="roulette-standby-view">
+        <span class="roulette-standby-icon">⚽</span>
+        <div class="roulette-standby-text">
+          <b>930 Senior Goals Available</b>
+          <span>Click the button below to randomly draw a classic milestone, solo stunner, or cup final decider.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="roulette-action-row">
+      <button type="button" class="btn-spin-roulette-dedicated" id="btn-spin-dedicated-roulette">
+        <span>🎲 Spin 930-Goal Roulette</span>
+      </button>
+      <button type="button" class="btn-load-roulette-video" id="btn-load-roulette-video" style="display:none;">
+        <span>▶ Load in Video Player</span>
+      </button>
+    </div>
   </div>
 </section>
 

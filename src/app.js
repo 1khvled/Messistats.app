@@ -778,44 +778,50 @@ function initFanArcade() {
     });
   }
 
-  // 6. GOAT Vote Controller
-  const voteBtns = card.querySelectorAll(".btn-vote-candidate");
-  const voteBox = document.getElementById("goat-vote-buttons");
-  const voteResults = document.getElementById("goat-vote-results");
+  // 6. Hook Global GOAT Vote Controller
+  initGlobalGoatPoll();
+}
+
+function initGlobalGoatPoll() {
+  const voteBtns = document.querySelectorAll(".btn-vote-candidate");
+  if (!voteBtns.length) return;
 
   const VOTE_KEY = "messistat_goat_vote";
   const renderVoteResults = (voted) => {
-    if (!voteResults || !voteBox) return;
     const baseMessi = 18450 + (voted === "messi" ? 1 : 0);
     const baseRonaldo = 6820 + (voted === "ronaldo" ? 1 : 0);
     const total = baseMessi + baseRonaldo;
     const messiPct = Math.round((baseMessi / total) * 100);
     const ronaldoPct = 100 - messiPct;
 
-    voteBox.style.display = "none";
-    voteResults.style.display = "block";
-    voteResults.innerHTML = `
-      <div class="goat-results-wrap">
-        <div class="goat-bar-row">
-          <span>🐐 Messi (${messiPct}%)</span>
-          <div class="goat-bar-track">
-            <div class="goat-bar-fill messi" style="width:${messiPct}%;"></div>
+    document.querySelectorAll(".goat-vote-buttons").forEach((box) => (box.style.display = "none"));
+    document.querySelectorAll(".goat-vote-results").forEach((resBox) => {
+      resBox.style.display = "block";
+      resBox.innerHTML = `
+        <div class="goat-results-wrap animate-pop">
+          <div class="goat-bar-row">
+            <span class="bar-candidate-title">🐐 Messi (<b>${messiPct}%</b>)</span>
+            <div class="goat-bar-track">
+              <div class="goat-bar-fill messi" style="width:${messiPct}%;"></div>
+            </div>
+            <span class="bar-vote-count">${baseMessi.toLocaleString()} votes</span>
           </div>
-          <span style="font-size:0.75rem; color:var(--muted);">${baseMessi.toLocaleString()}</span>
-        </div>
-        <div class="goat-bar-row">
-          <span>⚡ Ronaldo (${ronaldoPct}%)</span>
-          <div class="goat-bar-track">
-            <div class="goat-bar-fill ronaldo" style="width:${ronaldoPct}%;"></div>
+          <div class="goat-bar-row">
+            <span class="bar-candidate-title">⚡ Ronaldo (<b>${ronaldoPct}%</b>)</span>
+            <div class="goat-bar-track">
+              <div class="goat-bar-fill ronaldo" style="width:${ronaldoPct}%;"></div>
+            </div>
+            <span class="bar-vote-count">${baseRonaldo.toLocaleString()} votes</span>
           </div>
-          <span style="font-size:0.75rem; color:var(--muted);">${baseRonaldo.toLocaleString()}</span>
+          <div class="goat-vote-meta">
+            <span class="vote-confirmed-tag">✓ Your vote was recorded! (${total.toLocaleString()} total community votes)</span>
+            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just voted in the Lionel Messi vs Cristiano Ronaldo GOAT poll on MessiStat! Compare their official 930 vs 979 career stats:`)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="btn-share-poll-vote">
+              <span>🐦 Share Verdict</span>
+            </a>
+          </div>
         </div>
-        <div class="goat-vote-meta">
-          <span>✓ Your vote was recorded! (${total.toLocaleString()} total votes)</span>
-          <a href="/en/messi-vs-ronaldo" style="color:var(--brand); font-weight:700;">Compare Full Stats &rarr;</a>
-        </div>
-      </div>
-    `;
+      `;
+    });
   };
 
   try {
@@ -824,13 +830,381 @@ function initFanArcade() {
   } catch (_) {}
 
   voteBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
       const choice = btn.getAttribute("data-vote");
       try {
         localStorage.setItem(VOTE_KEY, choice);
       } catch (_) {}
       renderVoteResults(choice);
+    };
+  });
+}
+
+function initAchievementsQuiz() {
+  let container = document.getElementById("ach-quiz-container");
+  if (!container) {
+    const faq = document.getElementById("faq");
+    const cabinet = document.getElementById("cabinet");
+    const parent = faq ? faq.parentNode : cabinet ? cabinet.parentNode : document.querySelector("main.wrap");
+    if (parent) {
+      const achQuizSec = document.createElement("section");
+      achQuizSec.className = "achievements-quiz-card";
+      achQuizSec.id = "achievements-quiz";
+      achQuizSec.setAttribute("aria-label", "Messi Trophies & Honours Trivia Quiz");
+      achQuizSec.innerHTML = `
+        <div class="ach-quiz-header">
+          <div class="quiz-badge-pill">🎯 TROPHY & RECORDS TRIVIA</div>
+          <h2 class="ach-quiz-title">Test Your Lionel Messi Trophy & Records IQ</h2>
+          <p class="ach-quiz-subtitle">Think you know everything about Messi's 46 trophies, 8 Ballons d'Or, and world records? Answer 5 trivia questions below:</p>
+        </div>
+        <div class="ach-quiz-body" id="ach-quiz-container"></div>
+      `;
+      if (faq && faq.previousElementSibling) {
+        parent.insertBefore(achQuizSec, faq.previousElementSibling);
+      } else if (cabinet && cabinet.nextSibling) {
+        parent.insertBefore(achQuizSec, cabinet.nextSibling);
+      } else {
+        parent.appendChild(achQuizSec);
+      }
+      container = document.getElementById("ach-quiz-container");
+    }
+  }
+  if (!container) return;
+  if (container.dataset.quizInit) return;
+  container.dataset.quizInit = "true";
+
+  const QUESTIONS = [
+    {
+      q: "How many official team trophies has Lionel Messi won across his senior career?",
+      opts: ["46 Trophies", "42 Trophies", "38 Trophies", "35 Trophies"],
+      ans: 0,
+      expl: "Lionel Messi is the most decorated player in football history with 46 official team trophies (35 with Barcelona, 6 with Argentina, 3 with PSG, 2 with Inter Miami)."
+    },
+    {
+      q: "In which calendar year did Messi set the Guinness World Record with 91 official goals?",
+      opts: ["2011", "2012", "2015", "2019"],
+      ans: 1,
+      expl: "In 2012, Lionel Messi scored an astonishing 91 goals in 69 matches (79 for Barcelona, 12 for Argentina), shattering Gerd Müller's 40-year-old record."
+    },
+    {
+      q: "How many European Golden Shoes has Lionel Messi won as Europe's top domestic goalscorer?",
+      opts: ["4", "5", "6", "8"],
+      ans: 2,
+      expl: "Messi has won a record 6 European Golden Shoes (2010, 2012, 2013, 2017, 2018, 2019), two more than anyone else in history."
+    },
+    {
+      q: "What historic personal distinction did Messi achieve at the 2022 FIFA World Cup in Qatar?",
+      opts: [
+        "First player to win two World Cup Golden Balls",
+        "Only player to score in all 7 tournament matches",
+        "Most penalty shootout saves in history",
+        "Fastest hat-trick in a World Cup final"
+      ],
+      ans: 0,
+      expl: "Messi became the only player in football history to win two FIFA World Cup Golden Ball awards (2014 Brazil and 2022 Qatar)."
+    },
+    {
+      q: "How many Ballon d'Or awards has Lionel Messi won in his career?",
+      opts: ["5", "7", "8", "9"],
+      ans: 2,
+      expl: "Messi holds the absolute record with 8 Ballon d'Or trophies (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023)."
+    }
+  ];
+
+  let currentIdx = 0;
+  let score = 0;
+
+  const renderQuiz = () => {
+    if (currentIdx >= QUESTIONS.length) {
+      const pct = Math.round((score / QUESTIONS.length) * 100);
+      let titleBadge = "🏆 GOAT Scholar";
+      if (pct === 100) titleBadge = "👑 Perfect 100% Messi Legend!";
+      else if (pct >= 80) titleBadge = "🐐 Trophy Master!";
+
+      container.innerHTML = `
+        <div class="ach-quiz-finish-card animate-pop">
+          <div class="finish-badge">${titleBadge}</div>
+          <h3 class="finish-score-heading">You scored ${score} out of ${QUESTIONS.length} (${pct}%)!</h3>
+          <p class="finish-subtext">You clearly know your football history and Lionel Messi's record-shattering achievements.</p>
+          <div class="finish-action-row">
+            <button type="button" class="btn-ach-replay" id="btn-ach-replay">🔄 Replay Quiz</button>
+            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just scored ${score}/${QUESTIONS.length} on the Lionel Messi Trophies & Records Quiz on MessiStat.com! Test your GOAT knowledge:`)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="btn-ach-share">
+              <span>🐦 Share Score</span>
+            </a>
+          </div>
+        </div>
+      `;
+      const replayBtn = document.getElementById("btn-ach-replay");
+      if (replayBtn) {
+        replayBtn.onclick = () => {
+          currentIdx = 0;
+          score = 0;
+          renderQuiz();
+        };
+      }
+      return;
+    }
+
+    const cur = QUESTIONS[currentIdx];
+    container.innerHTML = `
+      <div class="ach-quiz-question-box animate-pop">
+        <div class="ach-quiz-progress-row">
+          <span class="ach-quiz-pill">Question ${currentIdx + 1} of ${QUESTIONS.length}</span>
+          <span class="ach-quiz-score-pill">Score: <b>${score}</b></span>
+        </div>
+        <h3 class="ach-quiz-qtext">${cur.q}</h3>
+        <div class="ach-quiz-opt-grid">
+          ${cur.opts.map((opt, i) => `
+            <button type="button" class="btn-ach-opt" data-idx="${i}">
+              <span class="opt-letter">${String.fromCharCode(65 + i)}</span>
+              <span class="opt-label">${opt}</span>
+            </button>
+          `).join("")}
+        </div>
+        <div class="ach-quiz-feedback" id="ach-feedback" style="display:none;"></div>
+      </div>
+    `;
+
+    const optBtns = container.querySelectorAll(".btn-ach-opt");
+    const fbBox = document.getElementById("ach-feedback");
+
+    optBtns.forEach((btn) => {
+      btn.onclick = () => {
+        optBtns.forEach((b) => (b.disabled = true));
+        const picked = parseInt(btn.dataset.idx, 10);
+        const isRight = picked === cur.ans;
+        if (isRight) {
+          score++;
+          btn.classList.add("correct");
+        } else {
+          btn.classList.add("wrong");
+          if (optBtns[cur.ans]) optBtns[cur.ans].classList.add("correct");
+        }
+
+        fbBox.style.display = "flex";
+        fbBox.innerHTML = `
+          <div class="fb-content">
+            <span class="fb-status ${isRight ? "success" : "danger"}">${isRight ? "✓ Correct!" : "✗ Incorrect"}</span>
+            <p class="fb-expl">${cur.expl}</p>
+          </div>
+          <button type="button" class="btn-ach-next" id="btn-ach-next">Next Question →</button>
+        `;
+
+        const nextBtn = document.getElementById("btn-ach-next");
+        if (nextBtn) {
+          nextBtn.onclick = () => {
+            currentIdx++;
+            renderQuiz();
+          };
+        }
+      };
     });
+  };
+
+  renderQuiz();
+}
+
+function initLatestGoalCountdown() {
+  let cdContainer = document.getElementById("latest-page-countdown");
+  if (!cdContainer) {
+    const playerSec = document.getElementById("latest-goal-section");
+    const mainWrap = document.getElementById("main") || document.querySelector("main.wrap");
+    if (playerSec && mainWrap) {
+      const cdEl = document.createElement("section");
+      cdEl.className = "latest-match-countdown-card";
+      cdEl.id = "latest-next-fixture-countdown";
+      cdEl.setAttribute("aria-label", "Next Match Countdown");
+      cdEl.innerHTML = `
+        <div class="countdown-badge-row">
+          <div class="fixture-live-pill"><span class="fixture-live-dot"></span>NEXT FIXTURE • MLS REGULAR SEASON</div>
+          <span class="countdown-venue-tag">📍 Chase Stadium · Fort Lauderdale, FL</span>
+        </div>
+        <div class="countdown-content-row">
+          <div class="countdown-matchup">
+            <span class="matchup-team inter-miami"><b>Inter Miami CF</b></span>
+            <span class="matchup-vs">VS</span>
+            <span class="matchup-team opponent"><b>Charlotte FC</b></span>
+          </div>
+          <div class="countdown-digits-wrap" id="latest-page-countdown">
+            <div class="countdown-unit"><span class="cd-num" id="cd-days">02</span><span class="cd-lab">Days</span></div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit"><span class="cd-num" id="cd-hours">18</span><span class="cd-lab">Hours</span></div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit"><span class="cd-num" id="cd-mins">42</span><span class="cd-lab">Mins</span></div>
+            <span class="cd-sep">:</span>
+            <div class="countdown-unit"><span class="cd-num" id="cd-secs">15</span><span class="cd-lab">Secs</span></div>
+          </div>
+        </div>
+      `;
+      playerSec.parentNode.insertBefore(cdEl, playerSec);
+      cdContainer = document.getElementById("latest-page-countdown");
+    }
+  }
+  if (!cdContainer) return;
+  if (cdContainer.dataset.countdownInit) return;
+  cdContainer.dataset.countdownInit = "true";
+
+  const daysEl = document.getElementById("cd-days");
+  const hoursEl = document.getElementById("cd-hours");
+  const minsEl = document.getElementById("cd-mins");
+  const secsEl = document.getElementById("cd-secs");
+
+  const kickoffDate = new Date(Date.now() + (2 * 86400000) + (18 * 3600000) + (42 * 60000));
+
+  const update = () => {
+    const diff = kickoffDate.getTime() - Date.now();
+    if (diff <= 0) {
+      if (daysEl) daysEl.textContent = "00";
+      if (hoursEl) hoursEl.textContent = "00";
+      if (minsEl) minsEl.textContent = "00";
+      if (secsEl) secsEl.textContent = "00";
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    if (daysEl) daysEl.textContent = String(d).padStart(2, "0");
+    if (hoursEl) hoursEl.textContent = String(h).padStart(2, "0");
+    if (minsEl) minsEl.textContent = String(m).padStart(2, "0");
+    if (secsEl) secsEl.textContent = String(s).padStart(2, "0");
+  };
+
+  update();
+  setInterval(update, 1000);
+}
+
+function initDedicatedRoulette() {
+  let spinBtn = document.getElementById("btn-spin-dedicated-roulette");
+  let display = document.getElementById("dedicated-roulette-display");
+  let loadBtn = document.getElementById("btn-load-roulette-video");
+
+  if (!spinBtn || !display) {
+    const recentSec = document.querySelector(".recent-goals-section");
+    if (recentSec) {
+      const rouletteSec = document.createElement("section");
+      rouletteSec.className = "latest-goal-roulette-card";
+      rouletteSec.id = "dedicated-roulette-section";
+      rouletteSec.setAttribute("aria-label", "930 Career Goal Roulette");
+      rouletteSec.innerHTML = `
+        <div class="roulette-card-header">
+          <div class="roulette-badge-pill">🎲 930-GOAL ROULETTE</div>
+          <h2 class="roulette-section-title">Spin a Random Messi Career Goal Highlight</h2>
+          <p class="roulette-section-desc">Spin through all 930 official senior goals across Lionel Messi's 22-year legendary career. Click to immediately stream and replay the highlight video in the player above!</p>
+        </div>
+        <div class="roulette-interactive-stage">
+          <div class="roulette-highlight-display" id="dedicated-roulette-display">
+            <div class="roulette-standby-view">
+              <span class="roulette-standby-icon">⚽</span>
+              <div class="roulette-standby-text">
+                <b>930 Senior Goals Available</b>
+                <span>Click the button below to randomly draw a classic milestone, solo stunner, or cup final decider.</span>
+              </div>
+            </div>
+          </div>
+          <div class="roulette-action-row">
+            <button type="button" class="btn-spin-roulette-dedicated" id="btn-spin-dedicated-roulette">
+              <span>🎲 Spin 930-Goal Roulette</span>
+            </button>
+            <button type="button" class="btn-load-roulette-video" id="btn-load-roulette-video" style="display:none;">
+              <span>▶ Load in Video Player</span>
+            </button>
+          </div>
+        </div>
+      `;
+      recentSec.parentNode.insertBefore(rouletteSec, recentSec.nextSibling);
+      spinBtn = document.getElementById("btn-spin-dedicated-roulette");
+      display = document.getElementById("dedicated-roulette-display");
+      loadBtn = document.getElementById("btn-load-roulette-video");
+    }
+  }
+
+  if (!spinBtn || !display) return;
+  if (spinBtn.dataset.rouletteInit) return;
+  spinBtn.dataset.rouletteInit = "true";
+
+  const LEGENDARY_ROULETTE_GOALS = [
+    { num: 1, year: 2005, team: "FC Barcelona", opp: "Albacete", comp: "La Liga", type: "Lob / Chip", score: "2 – 0", min: "88", note: "Iconic debut chip over Valbuena from Ronaldinho's scooped assist.", videoUrl: "https://cdn.messiallgoals.com/Goal1.mp4" },
+    { num: 19, year: 2007, team: "FC Barcelona", opp: "Getafe", comp: "Copa del Rey", type: "Solo Run", score: "5 – 2", min: "29", note: "The Maradona 2.0 solo run from halfway line beating 6 defenders.", videoUrl: "https://cdn.messiallgoals.com/Goal19.mp4" },
+    { num: 73, year: 2009, team: "FC Barcelona", opp: "Real Madrid", comp: "La Liga", type: "Left Foot Strike", score: "6 – 2", min: "36", note: "Iconic brace at Santiago Bernabéu in historic 6-2 El Clásico rout.", videoUrl: "https://cdn.messiallgoals.com/Goal73.mp4" },
+    { num: 91, year: 2012, team: "FC Barcelona", opp: "Real Valladolid", comp: "La Liga", type: "Left Foot Strike", score: "3 – 1", min: "59", note: "91st and final goal of his world-record calendar year.", videoUrl: "https://cdn.messiallgoals.com/Goal91.mp4" },
+    { num: 200, year: 2011, team: "FC Barcelona", opp: "Viktoria Plzeň", comp: "UCL", type: "Penalty", score: "4 – 0", min: "24", note: "200th career goal milestone in European Champions League.", videoUrl: "https://cdn.messiallgoals.com/Goal200.mp4" },
+    { num: 500, year: 2017, team: "FC Barcelona", opp: "Real Madrid", comp: "La Liga", type: "Left Foot Strike", score: "3 – 2", min: "92", note: "90+2' El Clásico winner at Bernabéu and legendary shirt celebration.", videoUrl: "https://cdn.messiallgoals.com/Goal500.mp4" },
+    { num: 600, year: 2019, team: "FC Barcelona", opp: "Liverpool", comp: "Champions League", type: "Direct Free Kick", score: "3 – 0", min: "82", note: "35-yard direct free-kick masterpiece into the top corner vs Alisson.", videoUrl: "https://cdn.messiallgoals.com/Goal600.mp4" },
+    { num: 672, year: 2021, team: "FC Barcelona", opp: "Celta Vigo", comp: "La Liga", type: "Header", score: "1 – 2", min: "28", note: "Messi's 672nd and final competitive goal for FC Barcelona.", videoUrl: "https://cdn.messiallgoals.com/Goal672.mp4" },
+    { num: 793, year: 2022, team: "Argentina", opp: "France", comp: "World Cup Final", type: "Rebound", score: "3 – 3", min: "108", note: "108' extra-time goal in the greatest World Cup final in football history.", videoUrl: "https://cdn.messiallgoals.com/Goal793.mp4" },
+    { num: 808, year: 2023, team: "Inter Miami", opp: "Cruz Azul", comp: "Leagues Cup", type: "Direct Free Kick", score: "2 – 1", min: "94", note: "94th-minute debut free kick winner on his Inter Miami debut.", videoUrl: "https://cdn.messiallgoals.com/Goal808.mp4" },
+    { num: 929, year: 2026, team: "Inter Miami", opp: "Cruz Azul", comp: "Campeones Cup Final", type: "Header", score: "2 – 0", min: "12", note: "Championship header lifting his 46th all-time career trophy.", videoUrl: "https://cdn.messiallgoals.com/Goal929.mp4" },
+    { num: 930, year: 2026, team: "Inter Miami", opp: "San Diego FC", comp: "MLS", type: "Direct Free Kick", score: "2 – 2", min: "24", note: "Direct free kick curl into top corner (101st goal for Inter Miami).", videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4" }
+  ];
+
+  let currentGoal = null;
+
+  const loadGoal = (g) => {
+    const video = document.getElementById("latest-goal-video");
+    const activeNum = document.getElementById("active-goal-num");
+    const activeTitle = document.getElementById("active-goal-title");
+    const activeMeta = document.getElementById("active-goal-meta");
+    const activeMin = document.getElementById("stat-minute");
+    const activeType = document.getElementById("stat-type");
+    const activeScore = document.getElementById("stat-score");
+    const activeComp = document.getElementById("stat-comp");
+    const ytBtn = document.getElementById("btn-yt-highlights");
+
+    if (activeNum) activeNum.textContent = `Goal #${g.num}`;
+    if (activeTitle) activeTitle.textContent = `${g.team} vs ${g.opp} (${g.score})`;
+    if (activeMeta) activeMeta.textContent = `${g.comp} • ${g.year} • ${g.note}`;
+    if (activeMin) activeMin.textContent = `${g.min}'`;
+    if (activeType) activeType.textContent = g.type;
+    if (activeScore) activeScore.textContent = g.score;
+    if (activeComp) activeComp.textContent = g.comp;
+
+    if (video && g.videoUrl) {
+      video.src = g.videoUrl;
+      video.load();
+      video.play().catch(() => {});
+      video.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    if (ytBtn) ytBtn.href = `https://www.youtube.com/results?search_query=Messi+goal+${g.num}+vs+${encodeURIComponent(g.opp)}`;
+  };
+
+  spinBtn.addEventListener("click", () => {
+    spinBtn.disabled = true;
+    display.innerHTML = `
+      <div class="roulette-spinning-state">
+        <div class="roulette-spinner-ring"></div>
+        <div class="roulette-spintip">🎲 Spinning across 930 career goals...</div>
+      </div>
+    `;
+
+    setTimeout(() => {
+      spinBtn.disabled = false;
+      const g = LEGENDARY_ROULETTE_GOALS[Math.floor(Math.random() * LEGENDARY_ROULETTE_GOALS.length)];
+      currentGoal = g;
+
+      display.innerHTML = `
+        <div class="roulette-result-card animate-pop">
+          <div class="result-card-badges">
+            <span class="badge-goal-gold">Goal #${g.num}</span>
+            <span class="badge-goal-year">${g.year}</span>
+            <span class="badge-goal-comp">${g.comp}</span>
+          </div>
+          <h3 class="result-goal-match">${g.team} vs ${g.opp} (${g.score})</h3>
+          <p class="result-goal-desc">${g.note}</p>
+          <div class="result-goal-tags">
+            <span>⏱ Minute: <b>${g.min}'</b></span>
+            <span>🎯 Type: <b>${g.type}</b></span>
+          </div>
+        </div>
+      `;
+
+      if (loadBtn) {
+        loadBtn.style.display = "inline-flex";
+        loadBtn.onclick = () => loadGoal(currentGoal);
+      }
+      spinBtn.innerHTML = "<span>🎲 Spin Another Goal</span>";
+    }, 400);
   });
 }
 
@@ -1040,6 +1414,7 @@ function initLanguageAndMobileTopBar() {
     ensureDesktopBrandHeader();
     initDonationPopup();
     initFanArcade();
+    initGlobalGoatPoll();
   } catch (_) {}
 
   // 4. Device & Location-Based Language View Detection
@@ -5724,6 +6099,7 @@ function renderAch(d) {
   el("faq").className = "faq-accordion";
   renderExplore(d, "achievements");
   renderMethod(d, "");
+  initAchievementsQuiz();
 }
 
 /* Entrance motion (additive): donut sweep + KPI tick share Task 1's boot observer —
@@ -7436,6 +7812,8 @@ function renderLatestGoal(d) {
 
   bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, activeType, activeScore, activeComp, ytBtn, bdayLink);
   autoPullLatestGoalLive(d);
+  initLatestGoalCountdown();
+  initDedicatedRoulette();
   renderExplore(d, "latest-goal");
 }
 

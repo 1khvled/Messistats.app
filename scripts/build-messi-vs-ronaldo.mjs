@@ -39,6 +39,117 @@ function getHreflangs(lang, slug) {
   ].join("\n");
 }
 
+const POLL_I18N = {
+  en: {
+    badge: "⚔️ LIVE FAN POLL",
+    title: "Who is the Greatest of All Time (GOAT)?",
+    sub: "Cast your vote below and see real-time global fan percentages:",
+    messiName: "Lionel Messi",
+    messiDesc: "930 Goals · 46 Trophies · 8 Ballons d'Or · World Cup Champion",
+    ronaldoName: "Cristiano Ronaldo",
+    ronaldoDesc: "979 Goals · 35 Trophies · 5 Ballons d'Or · All-Time UCL Top Scorer",
+    votedMsg: "✓ Your vote has been recorded! Global community results:",
+    totalVotes: "votes cast worldwide",
+    shareVote: "Share Your Vote"
+  },
+  es: {
+    badge: "⚔️ ENCUESTA GLOBAL EN VIVO",
+    title: "¿Quién es el mejor de todos los tiempos (GOAT)?",
+    sub: "Vota a continuación y descubre los porcentajes en tiempo real:",
+    messiName: "Lionel Messi",
+    messiDesc: "930 Goles · 46 Títulos · 8 Balones de Oro · Campeón del Mundo",
+    ronaldoName: "Cristiano Ronaldo",
+    ronaldoDesc: "979 Goles · 35 Títulos · 5 Balones de Oro · Máximo Goleador Histórico UCL",
+    votedMsg: "✓ ¡Tu voto ha sido registrado! Resultados globales:",
+    totalVotes: "votos registrados en todo el mundo",
+    shareVote: "Compartir tu voto"
+  },
+  pt: {
+    badge: "⚔️ ENQUETE GLOBAL AO VIVO",
+    title: "Quem é o Maior de Todos os Tempos (GOAT)?",
+    sub: "Vote abaixo e veja as porcentagens globais em tempo real:",
+    messiName: "Lionel Messi",
+    messiDesc: "930 Gols · 46 Títulos · 8 Bolas de Ouro · Campeão da Copa do Mundo",
+    ronaldoName: "Cristiano Ronaldo",
+    ronaldoDesc: "979 Gols · 35 Títulos · 5 Bolas de Ouro · Maior Artilheiro da UCL",
+    votedMsg: "✓ Seu voto foi registrado! Resultados da comunidade:",
+    totalVotes: "votos no mundo todo",
+    shareVote: "Compartilhar Voto"
+  },
+  fr: {
+    badge: "⚔️ SONDAGE MONDIAL EN DIRECT",
+    title: "Qui est le meilleur joueur de tous les temps (GOAT) ?",
+    sub: "Votez ci-dessous et découvrez les résultats en temps réel :",
+    messiName: "Lionel Messi",
+    messiDesc: "930 Buts · 46 Trophées · 8 Ballons d'Or · Champion du Monde",
+    ronaldoName: "Cristiano Ronaldo",
+    ronaldoDesc: "979 Buts · 35 Trophées · 5 Ballons d'Or · Meilleur Buteur Histoire UCL",
+    votedMsg: "✓ Votre vote a été enregistré ! Résultats de la communauté :",
+    totalVotes: "votes à travers le monde",
+    shareVote: "Partager votre vote"
+  },
+  ar: {
+    badge: "⚔️ استطلاع جماهيري مباشر",
+    title: "من هو الأعظم في تاريخ كرة القدم (GOAT)؟",
+    sub: "صوّت الآن وشاهد نتائج الجماهير حول العالم في الوقت الفعلي:",
+    messiName: "ليونيل ميسي",
+    messiDesc: "930 هدفاً · 46 بطولة · 8 كرات ذهبية · بطل كأس العالم",
+    ronaldoName: "كريستيانو رونالدو",
+    ronaldoDesc: "979 هدفاً · 35 بطولة · 5 كرات ذهبية · الهداف التاريخي لدوري الأبطال",
+    votedMsg: "✓ تم تسجيل صوتك بنجاح! نتائج المجتمع العالمي:",
+    totalVotes: "صوت حول العالم",
+    shareVote: "شارك تصويتك"
+  },
+  bn: {
+    badge: "⚔️ লাইভ ফ্যান পোল",
+    title: "সর্বকালের সেরা ফুটবলার (GOAT) কে?",
+    sub: "নিচে আপনার ভোট দিন এবং রিয়েল-টাইম বৈশ্বিক ফলাফল দেখুন:",
+    messiName: "লিওনেল মেসি",
+    messiDesc: "৯৩০ গোল · ৪৬ ট্রফি · ৮ ব্যালন ডি'অর · বিশ্বকাপ চ্যাম্পিয়ন",
+    ronaldoName: "ক্রিশ্চিয়ানো রোনালদো",
+    ronaldoDesc: "৯৭৯ গোল · ৩৫ ট্রফি · ৫ ব্যালন ডি'অর · সর্বকালের সেরা চ্যাম্পিয়ন্স লিগ স্কোরার",
+    votedMsg: "✓ আপনার ভোট রেকর্ড করা হয়েছে! বিশ্বব্যাপী ফলাফল:",
+    totalVotes: "টি মোট ভোট",
+    shareVote: "ভোট শেয়ার করুন"
+  },
+  hi: {
+    badge: "⚔️ लाइव फैन पोल",
+    title: "फुटबॉल इतिहास का सर्वकालिक महान (GOAT) कौन है?",
+    sub: "नीचे अपना वोट दें और वास्तविक समय में वैश्विक परिणाम देखें:",
+    messiName: "लियोनेल मेस्सी",
+    messiDesc: "930 गोल · 46 ट्रॉफियां · 8 बैलोन डी'ओर · विश्व कप चैंपियन",
+    ronaldoName: "क्रिस्टियानो रोनाल्डो",
+    ronaldoDesc: "979 गोल · 35 ट्रॉफियां · 5 बैलोन डी'ओर · सर्वकालिक यूसीएल शीर्ष स्कोरर",
+    votedMsg: "✓ आपका वोट दर्ज कर लिया गया है! वैश्विक परिणाम:",
+    totalVotes: "कुल वोट",
+    shareVote: "अपना वोट साझा करें"
+  },
+  ro: {
+    badge: "⚔️ SONDAJ LIVE FAN",
+    title: "Cine este cel mai bun fotbalist din toate timpurile (GOAT)?",
+    sub: "Votează mai jos și vezi procentajele fanilor în timp real:",
+    messiName: "Lionel Messi",
+    messiDesc: "930 Goluri · 46 Trofee · 8 Baloane de Aur · Campion Mondial",
+    ronaldoName: "Cristiano Ronaldo",
+    ronaldoDesc: "979 Goluri · 35 Trofee · 5 Baloane de Aur · Golgheter Istoric UCL",
+    votedMsg: "✓ Votul tău a fost înregistrat! Rezultatele comunității:",
+    totalVotes: "voturi înregistrate",
+    shareVote: "Distribuie votul"
+  },
+  uz: {
+    badge: "⚔️ JONLI FAN SO'ROVNOMA",
+    title: "Futbol tarixidagi eng buyuk o'yinchi (GOAT) kim?",
+    sub: "Quyida ovoz bering va real vaqtdagi natijalarni ko'ring:",
+    messiName: "Lionel Messi",
+    messiDesc: "930 Gol · 46 Sovrin · 8 Oltin To'p · Jahon Chempioni",
+    ronaldoName: "Krishtianu Ronaldu",
+    ronaldoDesc: "979 Gol · 35 Sovrin · 5 Oltin To'p · YECHL Tarixiy To'purari",
+    votedMsg: "✓ Ovozingiz qabul qilindi! Dunyo bo'yicha natijalar:",
+    totalVotes: "ta ovoz berildi",
+    shareVote: "Ovozingizni ulashing"
+  }
+};
+
 const I18N = {
   en: {
     dir: "ltr",
@@ -1574,6 +1685,7 @@ const I18N = {
 
 function generateHtml(lang) {
   const t = I18N[lang] || I18N.en;
+  const p = POLL_I18N[lang] || POLL_I18N.en;
   const isEn = lang === "en";
   const canonicalUrl = `https://www.messistat.com/${lang}/messi-vs-ronaldo`;
   const slugPath = isEn ? "/en" : `/${lang}`;
@@ -1760,6 +1872,34 @@ ${JSON.stringify(jsonLd, null, 2)}
       <div class="goat-verdict-badge">${t.verdictBadge}</div>
       <h2 class="goat-verdict-title">${t.verdictTitle}</h2>
       <p class="goat-verdict-summary">${t.verdictText}</p>
+    </section>
+
+    <!-- Dedicated Live GOAT Community Poll Card -->
+    <section class="goat-poll-card" id="goat-community-poll" aria-label="${p.title}">
+      <div class="goat-poll-header">
+        <span class="goat-poll-badge">${p.badge}</span>
+        <h2 class="goat-poll-title">${p.title}</h2>
+        <p class="goat-poll-subtitle">${p.sub}</p>
+      </div>
+
+      <div class="goat-vote-buttons" id="goat-page-vote-buttons">
+        <button type="button" class="btn-vote-candidate messi" data-vote="messi" aria-label="Vote for ${p.messiName}">
+          <div class="candidate-badge-pill">🐐 THE PLAYMAKER GOAT</div>
+          <span class="vote-icon">🐐</span>
+          <span class="vote-name">${p.messiName}</span>
+          <span class="vote-subtitle">${p.messiDesc}</span>
+          <span class="vote-cta-action">Vote Messi →</span>
+        </button>
+        <button type="button" class="btn-vote-candidate ronaldo" data-vote="ronaldo" aria-label="Vote for ${p.ronaldoName}">
+          <div class="candidate-badge-pill">⚡ THE RECORD GOALSCORER</div>
+          <span class="vote-icon">⚡</span>
+          <span class="vote-name">${p.ronaldoName}</span>
+          <span class="vote-subtitle">${p.ronaldoDesc}</span>
+          <span class="vote-cta-action">Vote Ronaldo →</span>
+        </button>
+      </div>
+
+      <div class="goat-vote-results" id="goat-page-vote-results" style="display:none;"></div>
     </section>
 
     <!-- 1. All-Time Career Overview Matrix Table -->

@@ -8227,27 +8227,33 @@ html[dir="rtl"] .goat-verdict-box {
 .goat-results-wrap {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 .goat-bar-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.84rem;
+  gap: 12px;
+  font-size: 0.88rem;
   font-weight: 700;
+}
+.bar-candidate-title {
+  min-width: 140px;
+  color: var(--ink);
 }
 .goat-bar-track {
   flex: 1;
-  height: 14px;
+  height: 16px;
   border-radius: 999px;
   background: var(--line-soft);
   overflow: hidden;
   position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 .goat-bar-fill {
   height: 100%;
   border-radius: 999px;
-  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 12px rgba(234, 179, 8, 0.35);
 }
 .goat-bar-fill.messi {
   background: linear-gradient(90deg, #eab308, #f59e0b);
@@ -8255,11 +8261,590 @@ html[dir="rtl"] .goat-verdict-box {
 .goat-bar-fill.ronaldo {
   background: linear-gradient(90deg, #94a3b8, #64748b);
 }
+.bar-vote-count {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
 .goat-vote-meta {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 6px;
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.vote-confirmed-tag {
+  color: #10b981;
+  font-weight: 700;
+}
+.btn-share-poll-vote {
+  background: var(--brand);
+  color: #090d16 !important;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.15s ease;
+}
+.btn-share-poll-vote:hover {
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   DEDICATED PAGE: MESSI VS RONALDO GOAT POLL CARD
+   ========================================================================== */
+.goat-poll-card {
+  margin: 24px 0 28px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px 28px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.goat-poll-card:hover {
+  border-color: rgba(234, 179, 8, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.09);
+}
+.goat-poll-header {
+  margin-bottom: 18px;
+}
+.goat-poll-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(234, 179, 8, 0.14);
+  color: #b45309;
+  font-weight: 800;
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+[data-theme="dark"] .goat-poll-badge {
+  color: #fbbf24;
+}
+.goat-poll-title {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.goat-poll-subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.candidate-badge-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--brand);
+  background: var(--brand-soft);
+  padding: 2px 8px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+.vote-cta-action {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--brand);
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
+}
+.btn-vote-candidate:hover .vote-cta-action {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   DEDICATED PAGE: LATEST GOAL & MATCHDAY TRACKER
+   ========================================================================== */
+.latest-match-countdown-card {
+  margin: 16px 0 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 16px 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+.countdown-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.countdown-venue-tag {
   font-size: 0.76rem;
   color: var(--muted);
+  font-weight: 600;
+}
+.countdown-content-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.countdown-matchup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+}
+.matchup-team b {
+  color: var(--ink);
+}
+.matchup-vs {
+  font-size: 0.74rem;
+  font-weight: 800;
+  color: var(--muted);
+  background: var(--surface-solid);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid var(--line-soft);
+}
+.countdown-digits-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--surface-solid);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 6px 10px;
+  min-width: 48px;
+}
+.cd-num {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.cd-lab {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.cd-sep {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+/* Dedicated Roulette Section in latest-goal.html */
+.latest-goal-roulette-card {
+  margin: 28px 0 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px 26px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+}
+.roulette-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(234, 179, 8, 0.12);
+  color: #b45309;
+  font-weight: 800;
+  font-size: 0.74rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+[data-theme="dark"] .roulette-badge-pill {
+  color: #fbbf24;
+}
+.roulette-section-title {
+  margin: 0 0 6px;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.roulette-section-desc {
+  margin: 0 0 16px;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.roulette-interactive-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.roulette-highlight-display {
+  background: var(--surface-solid);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 20px;
+  min-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.roulette-standby-view {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.roulette-standby-icon {
+  font-size: 2rem;
+}
+.roulette-standby-text b {
+  display: block;
+  font-size: 0.96rem;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.roulette-standby-text span {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.roulette-action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-spin-roulette-dedicated {
+  background: var(--brand);
+  color: #090d16;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+.btn-spin-roulette-dedicated:hover {
+  background: var(--gold);
+  transform: translateY(-1px);
+}
+.btn-load-roulette-video {
+  background: #ff5e5b;
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.15s ease;
+}
+.btn-load-roulette-video:hover {
+  transform: translateY(-1px);
+}
+
+.roulette-spinning-state {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.roulette-spinner-ring {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(234, 179, 8, 0.2);
+  border-top-color: var(--brand);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+.roulette-spintip {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--brand);
+}
+
+.roulette-result-card {
+  width: 100%;
+}
+.result-card-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.badge-goal-gold {
+  background: var(--brand-soft);
+  color: var(--brand-ink);
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.badge-goal-year, .badge-goal-comp {
+  background: var(--line-soft);
+  color: var(--ink-soft);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+.result-goal-match {
+  margin: 0 0 4px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.result-goal-desc {
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.result-goal-tags {
+  display: flex;
+  gap: 14px;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* ==========================================================================
+   DEDICATED PAGE: ACHIEVEMENTS TROPHIES & RECORDS IQ QUIZ
+   ========================================================================== */
+.achievements-quiz-card {
+  margin: 32px 0 28px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 26px 28px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.05);
+}
+.quiz-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(234, 179, 8, 0.12);
+  color: #b45309;
+  font-weight: 800;
+  font-size: 0.74rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+[data-theme="dark"] .quiz-badge-pill {
+  color: #fbbf24;
+}
+.ach-quiz-title {
+  margin: 0 0 6px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.ach-quiz-subtitle {
+  margin: 0 0 18px;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.ach-quiz-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.ach-quiz-pill {
+  font-weight: 700;
+  background: var(--surface-solid);
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--line-soft);
+}
+.ach-quiz-score-pill b {
+  color: var(--brand);
+}
+.ach-quiz-qtext {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 14px;
+  line-height: 1.35;
+}
+.ach-quiz-opt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 600px) {
+  .ach-quiz-opt-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.btn-ach-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--surface-solid);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+.btn-ach-opt:hover:not(:disabled) {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  transform: translateY(-1px);
+}
+.opt-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  background: var(--line-soft);
+  font-weight: 800;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  flex-shrink: 0;
+}
+.btn-ach-opt.correct {
+  background: rgba(34, 197, 94, 0.15) !important;
+  border-color: #22c55e !important;
+  color: #15803d !important;
+  font-weight: 800;
+}
+[data-theme="dark"] .btn-ach-opt.correct {
+  color: #4ade80 !important;
+}
+.btn-ach-opt.wrong {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: #ef4444 !important;
+  color: #b91c1c !important;
+}
+[data-theme="dark"] .btn-ach-opt.wrong {
+  color: #f87171 !important;
+}
+.ach-quiz-feedback {
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: var(--surface-solid);
+  border: 1px solid var(--line-soft);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.fb-status {
+  font-weight: 800;
+  font-size: 0.88rem;
+}
+.fb-status.success { color: #15803d; }
+[data-theme="dark"] .fb-status.success { color: #4ade80; }
+.fb-status.danger { color: #b91c1c; }
+[data-theme="dark"] .fb-status.danger { color: #f87171; }
+.fb-expl {
+  margin: 4px 0 0;
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.btn-ach-next {
+  background: var(--brand);
+  color: #090d16;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Completion state */
+.ach-quiz-finish-card {
+  text-align: center;
+  padding: 16px 10px;
+}
+.finish-badge {
+  display: inline-block;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand-ink);
+  background: var(--brand-soft);
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+.finish-score-heading {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.finish-subtext {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+.finish-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-ach-replay {
+  background: var(--surface-solid);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-ach-share {
+  background: var(--brand);
+  color: #090d16 !important;
+  text-decoration: none;
+  padding: 9px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Pop Animation */
+.animate-pop {
+  animation: popIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
 }
