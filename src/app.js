@@ -582,83 +582,52 @@ function initStreamPromoPopup() {
 }
 
 function showStreamPromoPopup() {
-  if (typeof document === "undefined" || document.getElementById("stream-promo-modal")) return;
+  if (typeof document === "undefined" || document.getElementById("stream-hidden-gem-toast")) return;
 
-  // If donation modal is currently displayed, wait 12s before trying again
-  if (document.getElementById("donation-modal")) {
-    setTimeout(showStreamPromoPopup, 12000);
-    return;
-  }
+  const toast = document.createElement("div");
+  toast.id = "stream-hidden-gem-toast";
+  toast.className = "stream-hidden-gem-toast";
+  toast.setAttribute("role", "status");
+  toast.setAttribute("aria-live", "polite");
 
-  const backdrop = document.createElement("div");
-  backdrop.id = "stream-promo-modal";
-  backdrop.className = "stream-promo-backdrop";
-  backdrop.setAttribute("role", "dialog");
-  backdrop.setAttribute("aria-modal", "true");
-  backdrop.setAttribute("aria-labelledby", "stream-promo-title");
-
-  backdrop.innerHTML = `
-    <div class="stream-promo-sheet">
-      <div class="stream-promo-header">
-        <div class="stream-promo-badge">
-          <span class="stream-live-dot"></span> LIVE FOOTBALL
-        </div>
-        <button type="button" class="stream-promo-close" id="stream-promo-close-x" aria-label="Close">✕</button>
+  toast.innerHTML = `
+    <div class="gem-toast-header">
+      <div class="gem-toast-badge">
+        <span class="gem-sparkle">💎</span> HIDDEN GEM
       </div>
-
-      <div class="stream-promo-body">
-        <div class="stream-promo-graphic">
-          <div class="stream-icon-badge">⚽</div>
-          <span class="stream-hd-pill">1080p HD</span>
-        </div>
-
-        <h3 id="stream-promo-title">Watch Live Football Matches Free</h3>
-        <p class="stream-promo-desc">
-          Enjoying MessiStat? Catch live football matches, real-time match scores & kickoff schedules today on <strong>Koora Live</strong> — 100% free streaming with no intrusive popups.
-        </p>
-
-        <div class="stream-promo-features">
-          <div class="stream-feature-tag">🔥 Free HD Streams</div>
-          <div class="stream-feature-tag">🏆 UCL, La Liga & EPL</div>
-          <div class="stream-feature-tag">⚡ Live Score Tracking</div>
-        </div>
-
-        <div class="stream-promo-actions">
-          <a href="https://kooraadz.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-watch-stream" id="stream-promo-watch-btn">
-            <span>Watch Live Matches Free</span>
-            <svg class="stream-btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </a>
-        </div>
+      <button type="button" class="gem-toast-close" id="gem-toast-close-x" aria-label="Close notification">✕</button>
+    </div>
+    <div class="gem-toast-body">
+      <div class="gem-toast-icon">⚽</div>
+      <div class="gem-toast-content">
+        <div class="gem-toast-title">Free Football Live Streams</div>
+        <p class="gem-toast-desc">Watch live matchday fixtures & clean HD streaming on Koora Live.</p>
       </div>
-
-      <div class="stream-promo-footer">
-        <button type="button" class="btn-stream-dismiss" id="stream-promo-dismiss-btn">
-          Maybe Later
-        </button>
-      </div>
+    </div>
+    <div class="gem-toast-actions">
+      <a href="https://kooraadz.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-gem-watch" id="gem-toast-watch-btn">
+        <span>Watch Live ⚽</span>
+      </a>
+      <button type="button" class="btn-gem-dismiss" id="gem-toast-dismiss-btn">Dismiss</button>
     </div>
   `;
 
-  document.body.appendChild(backdrop);
+  document.body.appendChild(toast);
 
   const DISMISS_KEY = "koora_stream_promo_dismissed";
   const close = () => {
     try {
       localStorage.setItem(DISMISS_KEY, String(Date.now()));
     } catch (_) {}
-    backdrop.style.animation = "streamFadeOut 0.2s ease-out forwards";
+    toast.classList.add("gem-toast-hiding");
     setTimeout(() => {
-      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
-    }, 200);
+      if (toast.parentNode) toast.parentNode.removeChild(toast);
+    }, 250);
   };
 
-  const closeX = backdrop.querySelector("#stream-promo-close-x");
-  const dismissBtn = backdrop.querySelector("#stream-promo-dismiss-btn");
-  const watchBtn = backdrop.querySelector("#stream-promo-watch-btn");
+  const closeX = toast.querySelector("#gem-toast-close-x");
+  const dismissBtn = toast.querySelector("#gem-toast-dismiss-btn");
+  const watchBtn = toast.querySelector("#gem-toast-watch-btn");
 
   if (closeX) closeX.addEventListener("click", close);
   if (dismissBtn) dismissBtn.addEventListener("click", close);
@@ -670,18 +639,6 @@ function showStreamPromoPopup() {
       setTimeout(close, 400);
     });
   }
-
-  backdrop.addEventListener("click", (e) => {
-    if (e.target === backdrop) close();
-  });
-
-  const handleKeydown = (e) => {
-    if (e.key === "Escape") {
-      close();
-      window.removeEventListener("keydown", handleKeydown);
-    }
-  };
-  window.addEventListener("keydown", handleKeydown);
 }
 
 function initFanArcade() {
@@ -716,27 +673,7 @@ function initFanArcade() {
     });
   });
 
-  // 2. Next Match Countdown Ticker
-  const countdownEl = document.getElementById("arcade-countdown");
-  if (countdownEl) {
-    const targetDate = new Date(Date.now() + 2.8 * 86400000);
-    const updateCountdown = () => {
-      const diff = targetDate.getTime() - Date.now();
-      if (diff <= 0) {
-        countdownEl.innerHTML = `⚽ Matchday is <b>TODAY!</b>`;
-        return;
-      }
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const mins = Math.floor((diff / (1000 * 60)) % 60);
-      const secs = Math.floor((diff / 1000) % 60);
-      countdownEl.innerHTML = `⏳ Kickoff in <b>${days}d ${hours}h ${mins}m ${secs}s</b>`;
-    };
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  }
-
-  // 3. Quiz Controller (Authentic Mind-Blowing Messi Lore)
+  // 2. Quiz Controller (Authentic Mind-Blowing Messi Lore)
   const quizBox = document.getElementById("quiz-box");
   if (quizBox) {
     const ALL_LORE_QUESTIONS = [
@@ -1222,77 +1159,6 @@ function initAchievementsQuiz() {
   };
 
   renderQuiz();
-}
-
-function initLatestGoalCountdown() {
-  let cdContainer = document.getElementById("latest-page-countdown");
-  if (!cdContainer) {
-    const playerSec = document.getElementById("latest-goal-section");
-    const mainWrap = document.getElementById("main") || document.querySelector("main.wrap");
-    if (playerSec && mainWrap) {
-      const cdEl = document.createElement("section");
-      cdEl.className = "latest-match-countdown-card";
-      cdEl.id = "latest-next-fixture-countdown";
-      cdEl.setAttribute("aria-label", "Next Match Countdown");
-      cdEl.innerHTML = `
-        <div class="countdown-badge-row">
-          <div class="fixture-live-pill"><span class="fixture-live-dot"></span>NEXT FIXTURE • MLS REGULAR SEASON</div>
-          <span class="countdown-venue-tag">📍 Chase Stadium · Fort Lauderdale, FL</span>
-        </div>
-        <div class="countdown-content-row">
-          <div class="countdown-matchup">
-            <span class="matchup-team inter-miami"><b>Inter Miami CF</b></span>
-            <span class="matchup-vs">VS</span>
-            <span class="matchup-team opponent"><b>Charlotte FC</b></span>
-          </div>
-          <div class="countdown-digits-wrap" id="latest-page-countdown">
-            <div class="countdown-unit"><span class="cd-num" id="cd-days">02</span><span class="cd-lab">Days</span></div>
-            <span class="cd-sep">:</span>
-            <div class="countdown-unit"><span class="cd-num" id="cd-hours">18</span><span class="cd-lab">Hours</span></div>
-            <span class="cd-sep">:</span>
-            <div class="countdown-unit"><span class="cd-num" id="cd-mins">42</span><span class="cd-lab">Mins</span></div>
-            <span class="cd-sep">:</span>
-            <div class="countdown-unit"><span class="cd-num" id="cd-secs">15</span><span class="cd-lab">Secs</span></div>
-          </div>
-        </div>
-      `;
-      playerSec.parentNode.insertBefore(cdEl, playerSec);
-      cdContainer = document.getElementById("latest-page-countdown");
-    }
-  }
-  if (!cdContainer) return;
-  if (cdContainer.dataset.countdownInit) return;
-  cdContainer.dataset.countdownInit = "true";
-
-  const daysEl = document.getElementById("cd-days");
-  const hoursEl = document.getElementById("cd-hours");
-  const minsEl = document.getElementById("cd-mins");
-  const secsEl = document.getElementById("cd-secs");
-
-  const kickoffDate = new Date(Date.now() + (2 * 86400000) + (18 * 3600000) + (42 * 60000));
-
-  const update = () => {
-    const diff = kickoffDate.getTime() - Date.now();
-    if (diff <= 0) {
-      if (daysEl) daysEl.textContent = "00";
-      if (hoursEl) hoursEl.textContent = "00";
-      if (minsEl) minsEl.textContent = "00";
-      if (secsEl) secsEl.textContent = "00";
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff % 86400000) / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
-
-    if (daysEl) daysEl.textContent = String(d).padStart(2, "0");
-    if (hoursEl) hoursEl.textContent = String(h).padStart(2, "0");
-    if (minsEl) minsEl.textContent = String(m).padStart(2, "0");
-    if (secsEl) secsEl.textContent = String(s).padStart(2, "0");
-  };
-
-  update();
-  setInterval(update, 1000);
 }
 
 function initDedicatedRoulette() {
@@ -8033,7 +7899,6 @@ function renderLatestGoal(d) {
 
   bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, activeType, activeScore, activeComp, ytBtn, bdayLink);
   autoPullLatestGoalLive(d);
-  initLatestGoalCountdown();
   initDedicatedRoulette();
   renderExplore(d, "latest-goal");
 }
