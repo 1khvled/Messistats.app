@@ -19,8 +19,17 @@ const navLinks = {
 
 function processHtmlFile(filePath, lang) {
   let content = fs.readFileSync(filePath, "utf8");
-  if (content.includes(`/${lang}/latest-goal`) || content.includes('latest-goal.html')) {
-    return false; // Already has it
+
+  // Check specifically within <nav>...</nav>
+  const navMatch = content.match(/<nav\b[^>]*>([\s\S]*?)<\/nav>/i);
+  if (!navMatch) {
+    console.warn(`Could not find <nav> in ${filePath}`);
+    return false;
+  }
+
+  const navContent = navMatch[1];
+  if (navContent.includes(`/${lang}/latest-goal`) || navContent.includes("latest-goal.html") || navContent.includes("/latest-goal")) {
+    return false; // Already has latest-goal link in nav
   }
 
   // Look for birthday link in nav: either <a class="nav-bday-link" or <a aria-current="page" class="on nav-bday-link" or similar
