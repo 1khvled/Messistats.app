@@ -1,7 +1,7 @@
 {
-  "name": "MessiStats - Lionel Messi Career Statistics",
-  "short_name": "MessiStats",
-  "description": "Comprehensive Lionel Messi career statistics: 928 goals, 46 trophies, 8 Ballons d'Or.",
+  "name": "MessiStat - Lionel Messi Career Statistics",
+  "short_name": "MessiStat",
+  "description": "Comprehensive Lionel Messi career statistics: 930 goals, 46 trophies, 8 Ballons d'Or.",
   "start_url": "/en",
   "scope": "/",
   "display": "standalone",

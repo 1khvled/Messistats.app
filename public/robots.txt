@@ -84,12 +84,37 @@ Allow: /
 
 User-agent: Googlebot-Image
 Allow: /
+Allow: /img/
+Allow: /img/*
+Allow: /img/logo.png
+Allow: /img/og-messi.jpg
 Allow: /favicon*
 Allow: /apple-touch-icon.png
-Allow: /img/
 
 User-agent: Google-Extended
 Allow: /
+
+# Social Media & Card Preview Crawlers (Twitter/X, Facebook, WhatsApp, Telegram)
+User-agent: Twitterbot
+Allow: /
+Allow: /img/
+Allow: /img/*
+Allow: /favicon*
+
+User-agent: facebookexternalhit
+Allow: /
+Allow: /img/
+Allow: /img/*
+
+User-agent: WhatsApp
+Allow: /
+Allow: /img/
+Allow: /img/*
+
+User-agent: TelegramBot
+Allow: /
+Allow: /img/
+Allow: /img/*
 
 # Other Search & AI Crawlers
 User-agent: Bytespider

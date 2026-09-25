@@ -43,15 +43,19 @@
 <meta property="og:title" content="Messi Goals by Season | MessiStat"/>
 <meta content="Complete breakdown of Messi's 930 goals by season: Barcelona, PSG, Inter Miami &amp; Argentina tallies across league, cup and continental competitions." property="og:description"/>
 <meta content="https://www.messistat.com/en/goalsbyseason" property="og:url"/>
-<meta content="https://www.messistat.com/img/og-messi.jpg" property="og:image"/>
+<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" property="og:image"/>
+<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" property="og:image:secure_url"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="image/jpeg" property="og:image:type"/>
 <meta content="Lionel Messi career statistics: 930 goals in 1,176 senior appearances" property="og:image:alt"/>
 <meta content="summary_large_image" name="twitter:card"/>
+<meta content="@messistat1" name="twitter:site"/>
+<meta content="@messistat1" name="twitter:creator"/>
+<meta content="messistat.com" name="twitter:domain"/>
 <meta name="twitter:title" content="Messi Goals by Season | MessiStat"/>
 <meta content="Complete breakdown of Messi's 930 goals by season: Barcelona, PSG, Inter Miami &amp; Argentina tallies across league, cup and continental competitions." name="twitter:description"/>
-<meta content="https://www.messistat.com/img/og-messi.jpg" name="twitter:image"/>
+<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" name="twitter:image"/>
 <meta content="Lionel Messi career statistics: 930 goals in 1,176 senior appearances" name="twitter:image:alt"/>
 <link rel="icon" href="/favicon.ico" sizes="48x48"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
@@ -60,6 +64,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512x512.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+<link rel="apple-touch-icon" href="/img/logo.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link as="font" crossorigin="" href="/fonts/plus-jakarta-sans-latin.woff2" rel="preload" type="font/woff2"/>
 <link as="font" crossorigin="" href="/fonts/dm-sans-latin.woff2" rel="preload" type="font/woff2"/>
@@ -67,16 +72,113 @@
 <title>Messi Goals by Season | MessiStat</title>
 <link href="src/styles.css" rel="stylesheet"/>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@graph":[
-{"@type":"Dataset","@id":"https://www.messistat.com/en/goalsbyseason#dataset","name":"Lionel Messi goals by club season and Argentina year","description":"Appearances and goals for every Lionel Messi club season since 2004/05 with league, cup and continental splits, plus Argentina scoring year by year.","temporalCoverage":"2004/2026","dateModified": "2026-09-25","creator":{"@id":"https://www.messistat.com/#org"},"publisher":{"@id":"https://www.messistat.com/#org"},"distribution":{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://www.messistat.com/data/messi-data.json"},"variableMeasured":"Goals"},
-{"@type":"Organization","@id":"https://www.messistat.com/#org","name":"MessiStat","alternateName":"messistat.com","url":"https://www.messistat.com/","logo":{"@type":"ImageObject","url":"https://www.messistat.com/img/logo.png","width":512,"height":512},"image":"https://www.messistat.com/img/logo.png"},
-{"@type":"WebPage","@id":"https://www.messistat.com/en/goalsbyseason#webpage","url":"https://www.messistat.com/en/goalsbyseason","name":"Lionel Messi Goals by Season (2004–2026) — Club & Argentina Stats | MessiStat","description":"Every Messi club season since 2004/05 with league, cup and continental splits — plus Argentina year by year.","dateModified": "2026-09-25","inLanguage":"en","publisher":{"@id":"https://www.messistat.com/#org"},"speakable":{"@type":"SpeakableSpecification","cssSelector":["#lede","#bestseason"]},"mainEntity":{"@id":"https://www.messistat.com/en/goalsbyseason#dataset"}},
-{"@type":"FAQPage","@id":"https://www.messistat.com/en/goalsbyseason#faq","mainEntity":[
-{"@type":"Question","name":"What was Messi's best season for club goals?","acceptedAnswer":{"@type":"Answer","text":"The 2011/12 season with Barcelona, when Messi scored an all-time record 73 goals in 60 matches (50 in La Liga, 14 in Champions League, 3 in Copa del Rey, 3 in Supercopa, 2 in Club World Cup, 1 in UEFA Super Cup)."}},
-{"@type":"Question","name":"How many seasons did Messi play for Barcelona?","acceptedAnswer":{"@type":"Answer","text":"17 senior seasons from 2004/05 to 2020/21, scoring 672 goals in 778 appearances."}}
-]},
-{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.messistat.com/en"},{"@type":"ListItem","position":2,"name":"Goals by Season","item":"https://www.messistat.com/en/goalsbyseason"}]}
-]}
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Dataset",
+      "@id": "https://www.messistat.com/en/goalsbyseason#dataset",
+      "name": "Lionel Messi goals by club season and Argentina year",
+      "description": "Appearances and goals for every Lionel Messi club season since 2004/05 with league, cup and continental splits, plus Argentina scoring year by year.",
+      "temporalCoverage": "2004/2026",
+      "dateModified": "2026-09-25",
+      "creator": {
+        "@id": "https://www.messistat.com/#org"
+      },
+      "publisher": {
+        "@id": "https://www.messistat.com/#org"
+      },
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://www.messistat.com/data/messi-data.json"
+      },
+      "variableMeasured": "Goals"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://www.messistat.com/#org",
+      "name": "MessiStat",
+      "alternateName": "messistat.com",
+      "url": "https://www.messistat.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://www.messistat.com/#logo",
+        "url": "https://www.messistat.com/img/logo.png",
+        "contentUrl": "https://www.messistat.com/img/logo.png",
+        "caption": "MessiStat Official Logo",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://www.messistat.com/img/logo.png",
+      "sameAs": [
+        "https://x.com/messistat1",
+        "https://twitter.com/messistat1"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.messistat.com/en/goalsbyseason#webpage",
+      "url": "https://www.messistat.com/en/goalsbyseason",
+      "name": "Lionel Messi Goals by Season (2004–2026) — Club & Argentina Stats | MessiStat",
+      "description": "Every Messi club season since 2004/05 with league, cup and continental splits — plus Argentina year by year.",
+      "dateModified": "2026-09-25",
+      "inLanguage": "en",
+      "publisher": {
+        "@id": "https://www.messistat.com/#org"
+      },
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": [
+          "#lede",
+          "#bestseason"
+        ]
+      },
+      "mainEntity": {
+        "@id": "https://www.messistat.com/en/goalsbyseason#dataset"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.messistat.com/en/goalsbyseason#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What was Messi's best season for club goals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The 2011/12 season with Barcelona, when Messi scored an all-time record 73 goals in 60 matches (50 in La Liga, 14 in Champions League, 3 in Copa del Rey, 3 in Supercopa, 2 in Club World Cup, 1 in UEFA Super Cup)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many seasons did Messi play for Barcelona?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "17 senior seasons from 2004/05 to 2020/21, scoring 672 goals in 778 appearances."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.messistat.com/en"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Goals by Season",
+          "item": "https://www.messistat.com/en/goalsbyseason"
+        }
+      ]
+    }
+  ]
+}
 </script>
 <script>
   (function() {
@@ -209,7 +311,8 @@
 </div>
 </aside><nav aria-label="More Lionel Messi statistics" class="explore" id="explore"></nav>
 <section class="card method" id="method"></section>
-<footer><p id="foot-date"></p><p class="crest-note">Club crests are trademarks of their respective clubs, shown for team identification.</p></footer>
+<footer><div class="footer-social-bar"><a href="https://x.com/messistat1" target="_blank" rel="noopener noreferrer" class="footer-x-link" aria-label="Follow MessiStat on X (@messistat1)"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>Follow @messistat1 on X</span></a></div>
+  <p id="foot-date"></p><p class="crest-note">Club crests are trademarks of their respective clubs, shown for team identification.</p></footer>
 </main>
 </div>
 <script src="src/app.js" type="module"></script><script src="src/matchday.js" type="module"></script>

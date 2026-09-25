@@ -487,6 +487,12 @@ function ensureMobileMenuDrawer() {
             <span>${txt.toggleTheme}</span>
           </button>
         </div>
+        <div class="mobile-drawer-social">
+          <a href="https://x.com/messistat1" target="_blank" rel="noopener noreferrer" class="mobile-drawer-x-btn" aria-label="Follow @messistat1 on X">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span>Follow @messistat1 on X</span>
+          </a>
+        </div>
       </div>
     </div>
   `;
@@ -2396,6 +2402,23 @@ function setHead(d, ledeHTML) {
       `Lionel Messi: ${n(d.totals.apps)} senior appearances, ${n(d.totals.goals)} goals ` +
       `(${n(d.totals.clubs.apps)} apps / ${n(d.totals.clubs.goals)} goals club, ` +
       `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} Argentina). Last checked ${d.lastUpdated}.`;
+  }
+  const footEl = document.querySelector("footer");
+  if (footEl && !footEl.querySelector(".footer-social-bar")) {
+    const socialDiv = document.createElement("div");
+    socialDiv.className = "footer-social-bar";
+    socialDiv.innerHTML = `
+      <a href="https://x.com/messistat1" target="_blank" rel="noopener noreferrer" class="footer-x-link" aria-label="Follow MessiStat on X (@messistat1)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 24.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span>Follow @messistat1 on X</span>
+      </a>
+    `;
+    const crestNote = footEl.querySelector(".crest-note");
+    if (crestNote) {
+      footEl.insertBefore(socialDiv, crestNote);
+    } else {
+      footEl.appendChild(socialDiv);
+    }
   }
 }
 function reveal() {

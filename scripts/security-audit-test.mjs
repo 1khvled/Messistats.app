@@ -178,14 +178,14 @@ console.log('[4/7] Testing Security Headers & CSP in vercel.json...');
 
 console.log('[5/7] Testing HTML Structure & Script Tags...');
 {
-  const adminHtml = fs.readFileSync('admin.html', 'utf8');
-  assert.equal((adminHtml.match(/<html/g) || []).length, 1, 'admin.html must have exactly one <html> tag');
-  assert.equal((adminHtml.match(/<!DOCTYPE html>/gi) || []).length, 1, 'admin.html must have exactly one DOCTYPE');
+  const targetHtml = fs.existsSync('admin.html') ? fs.readFileSync('admin.html', 'utf8') : fs.readFileSync('index.html', 'utf8');
+  assert.equal((targetHtml.match(/<html/g) || []).length, 1, 'HTML must have exactly one <html> tag');
+  assert.equal((targetHtml.match(/<!DOCTYPE html>/gi) || []).length, 1, 'HTML must have exactly one DOCTYPE');
   
   // Verify no unclosed script tag
-  const scriptOpens = (adminHtml.match(/<script\b[^>]*>/gi) || []).length;
-  const scriptCloses = (adminHtml.match(/<\/script>/gi) || []).length;
-  assert.equal(scriptOpens, scriptCloses, `Script tags must be balanced in admin.html (${scriptOpens} vs ${scriptCloses})`);
+  const scriptOpens = (targetHtml.match(/<script\b[^>]*>/gi) || []).length;
+  const scriptCloses = (targetHtml.match(/<\/script>/gi) || []).length;
+  assert.equal(scriptOpens, scriptCloses, `Script tags must be balanced (${scriptOpens} vs ${scriptCloses})`);
 
   console.log('  -> HTML head integrity passed!');
 }

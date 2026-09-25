@@ -1722,15 +1722,22 @@ function generateHtml(lang) {
         },
         "publisher": {
           "@type": "Organization",
-          "name": "MessiStats",
+          "name": "MessiStat",
           "alternateName": "messistat.com",
           "url": "https://www.messistat.com/",
           "logo": {
             "@type": "ImageObject",
+            "@id": "https://www.messistat.com/#logo",
             "url": "https://www.messistat.com/img/logo.png",
+            "contentUrl": "https://www.messistat.com/img/logo.png",
+            "caption": "MessiStat Official Logo",
             "width": 512,
             "height": 512
-          }
+          },
+          "sameAs": [
+            "https://x.com/messistat1",
+            "https://twitter.com/messistat1"
+          ]
         }
       },
       {
@@ -1793,13 +1800,17 @@ ${getHreflangs(lang, "messi-vs-ronaldo")}
 <meta property="og:title" content="${t.title}"/>
 <meta property="og:description" content="${t.desc}"/>
 <meta property="og:url" content="${canonicalUrl}"/>
-<meta property="og:image" content="https://www.messistat.com/img/og-messi.jpg"/>
+<meta property="og:image" content="https://www.messistat.com/img/og-messi.jpg?v=930"/>
+<meta property="og:image:secure_url" content="https://www.messistat.com/img/og-messi.jpg?v=930"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:site" content="@messistat1"/>
+<meta name="twitter:creator" content="@messistat1"/>
+<meta name="twitter:domain" content="messistat.com"/>
 <meta name="twitter:title" content="${t.title}"/>
 <meta name="twitter:description" content="${t.desc}"/>
-<meta name="twitter:image" content="https://www.messistat.com/img/og-messi.jpg"/>
+<meta name="twitter:image" content="https://www.messistat.com/img/og-messi.jpg?v=930"/>
 <link rel="icon" href="/favicon.ico" sizes="48x48"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>

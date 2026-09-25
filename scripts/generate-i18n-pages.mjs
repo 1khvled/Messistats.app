@@ -387,21 +387,25 @@ function renderHeadBoilerplate(lang, pageSlug, title, desc, keywords) {
 ${hreflangs}
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
 <meta content="#16243a" name="theme-color"/>
-<meta content="MessiStats" name="author"/>
+<meta content="MessiStat" name="author"/>
 <meta content="website" property="og:type"/>
-<meta content="MessiStats" property="og:site_name"/>
+<meta content="MessiStat" property="og:site_name"/>
 <meta content="${L.ogLocale}" property="og:locale"/>
 <meta content="${L.ogLocaleAlt}" property="og:locale:alternate"/>
-<meta content="${title} | MessiStats" property="og:title"/>
+<meta content="${title} | MessiStat" property="og:title"/>
 <meta content="${desc}" property="og:description"/>
 <meta content="https://www.messistat.com/${lang}/${pageSlug === 'index' ? '' : pageSlug}" property="og:url"/>
-<meta content="https://www.messistat.com/img/og-messi.jpg" property="og:image"/>
+<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" property="og:image"/>
+<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" property="og:image:secure_url"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta content="summary_large_image" name="twitter:card"/>
-<meta content="${title} | MessiStats" name="twitter:title"/>
+<meta content="@messistat1" name="twitter:site"/>
+<meta content="@messistat1" name="twitter:creator"/>
+<meta content="messistat.com" name="twitter:domain"/>
+<meta content="${title} | MessiStat" name="twitter:title"/>
 <meta content="${desc}" name="twitter:description"/>
-<meta content="https://www.messistat.com/img/og-messi.jpg" name="twitter:image"/>
+<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" name="twitter:image"/>
 <link rel="icon" href="/favicon.ico" sizes="48x48"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>

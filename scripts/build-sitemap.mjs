@@ -66,8 +66,8 @@ urlBlocks.push(`  <url>
 ${getHreflangsXml("")}
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
-      <image:title>MessiStats Official Logo</image:title>
-      <image:caption>MessiStats - Lionel Messi Career Statistics and Analytics</image:caption>
+      <image:title>MessiStat Official Logo</image:title>
+      <image:caption>MessiStat - Lionel Messi Career Statistics and Analytics</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://www.messistat.com/img/messi.jpg</image:loc>
@@ -212,9 +212,9 @@ const videoMeta = {
     tags: ["ليونيل ميسي", "إنتر ميامي", "الهدف 930", "كأس الأبطال", "آخر هدف لميسي"]
   },
   bn: {
-    title: "লিওনেল মেসির সর্বশেষ গোল ভিডিও: ক্রুজ আজুলের বিরুদ্ধে ৯২৯তম গোল",
-    desc: "লিওনেল মেসির ক্যারিয়ারের ৯২৯তম গোল দেখুন: ২০২৬ ক্যাম্পিওনেস কাপ ফাইনালে ইন্টার মায়ামির হয়ে হেডে গোল করে ক্যারিয়ারের ৪৬তম ট্রফি জয়।",
-    tags: ["লিওনেল মেসি", "ইন্টার মায়ামি", "গোল ৯২৯", "ক্যাম্পিওনেস কাপ", "মেসির শেষ গোল"]
+    title: "লিওনেল মেসির সর্বশেষ গোল ভিডিও: ক্রুজ আজুলের বিরুদ্ধে ৯৩০তম গোল",
+    desc: "লিওনেল মেসির ক্যারিয়ারের ৯৩০তম গোল দেখুন: ২০২৬ ক্যাম্পিওনেস কাপ ফাইনালে ইন্টার মায়ামির হয়ে হেডে গোল করে ক্যারিয়ারের ৪৬তম ট্রফি জয়।",
+    tags: ["লিওনেল মেসি", "ইন্টার মায়ামি", "গোল ৯৩০", "ক্যাম্পিওনেস কাপ", "মেসির শেষ গোল"]
   },
   hi: {
     title: "लियोनेल मेसी का आखिरी गोल वीडियो: क्रूज़ अज़ुल के खिलाफ 930वां गोल",
@@ -287,8 +287,8 @@ const langHomeMeta = {
   },
   bn: {
     priority: "0.95",
-    title: "মেসির মোট গোল: ৯২৯ গোল লাইভ ট্র্যাকার",
-    caption: "লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ১,১৭৫ ম্যাচে ৯২৯ গোল, ৪৬টি শিরোপা এবং ৮টি ব্যালন ডি'অর।"
+    title: "মেসির মোট গোল: ৯৩০ গোল লাইভ ট্র্যাকার",
+    caption: "লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ১,১৭৬ ম্যাচে ৯৩০ গোল, ৪৬টি শিরোপা এবং ৮টি ব্যালন ডি'অর।"
   },
   hi: {
     priority: "0.95",
@@ -316,6 +316,11 @@ for (const lang of ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"]) {
     <changefreq>daily</changefreq>
     <priority>${meta.priority}</priority>
 ${getHreflangsXml("")}
+    <image:image>
+      <image:loc>https://www.messistat.com/img/logo.png</image:loc>
+      <image:title>MessiStat Official Logo</image:title>
+      <image:caption>MessiStat - Lionel Messi Career Statistics and Analytics</image:caption>
+    </image:image>
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
       <image:title>${meta.title}</image:title>
