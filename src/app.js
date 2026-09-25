@@ -203,35 +203,237 @@ function ensureMobileMenuDrawer() {
   let drawer = document.getElementById("mobile-nav-drawer");
   if (drawer) return drawer;
 
+  const DRAWER_I18N = {
+    en: {
+      menuTitle: "Messi<b>Stats</b> Menu",
+      statGoals: "Total Goals",
+      statApps: "Senior Apps",
+      statTrophies: "Trophies",
+      statBallons: "Ballons d'Or",
+      catFeatured: "Featured ⚡",
+      catHistory: "History & Trophies 🏆",
+      catStats: "Big Matches & Stats 📊",
+      home: "Career Home & Stats",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "Latest Goal Replay",
+      birthday: "Birthday Goals Explorer",
+      achievements: "All 46 Trophies & Awards",
+      timeline: "Career Timeline & Photos",
+      goalsByYear: "Goals by Calendar Year",
+      goalsBySeason: "Goals by Season",
+      dashboard: "Deep Stats & Analytics",
+      vsRealMadrid: "vs Real Madrid (El Clásico)",
+      championsLeague: "Champions League Hub",
+      toggleTheme: "🌓 Toggle Dark Mode"
+    },
+    es: {
+      menuTitle: "Menú Messi<b>Stats</b>",
+      statGoals: "Goles Totales",
+      statApps: "Partidos",
+      statTrophies: "Títulos",
+      statBallons: "Balones de Oro",
+      catFeatured: "Destacado ⚡",
+      catHistory: "Historia y Títulos 🏆",
+      catStats: "Partidos y Análisis 📊",
+      home: "Inicio y Estadísticas",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "Último Gol Replay",
+      birthday: "Goles en tu Cumpleaños",
+      achievements: "Los 46 Títulos y Premios",
+      timeline: "Línea de Tiempo y Fotos",
+      goalsByYear: "Goles por Año Calendario",
+      goalsBySeason: "Goles por Temporada",
+      dashboard: "Panel de Análisis Avanzado",
+      vsRealMadrid: "vs Real Madrid (El Clásico)",
+      championsLeague: "Champions League Hub",
+      toggleTheme: "🌓 Cambiar Modo Oscuro"
+    },
+    pt: {
+      menuTitle: "Menu Messi<b>Stats</b>",
+      statGoals: "Total de Gols",
+      statApps: "Partidas",
+      statTrophies: "Títulos",
+      statBallons: "Bolas de Ouro",
+      catFeatured: "Destaques ⚡",
+      catHistory: "História e Títulos 🏆",
+      catStats: "Grandes Jogos e Dados 📊",
+      home: "Início e Estatísticas",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "Último Gol Replay",
+      birthday: "Gols no Aniversário",
+      achievements: "Todos os 46 Títulos",
+      timeline: "Linha do Tempo e Fotos",
+      goalsByYear: "Gols por Ano",
+      goalsBySeason: "Gols por Temporada",
+      dashboard: "Painel de Análise",
+      vsRealMadrid: "vs Real Madrid (El Clásico)",
+      championsLeague: "Champions League Hub",
+      toggleTheme: "🌓 Alternar Modo Escuro"
+    },
+    fr: {
+      menuTitle: "Menu Messi<b>Stats</b>",
+      statGoals: "Total de Buts",
+      statApps: "Matchs",
+      statTrophies: "Trophées",
+      statBallons: "Ballons d'Or",
+      catFeatured: "En Vedette ⚡",
+      catHistory: "Histoire & Trophées 🏆",
+      catStats: "Grands Matchs & Stats 📊",
+      home: "Accueil & Statistiques",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "Dernier But Replay",
+      birthday: "Buts par Anniversaire",
+      achievements: "Tous les 46 Trophées",
+      timeline: "Chronologie & Photos",
+      goalsByYear: "Buts par Année Civile",
+      goalsBySeason: "Buts par Saison",
+      dashboard: "Tableau de Bord & Analyses",
+      vsRealMadrid: "vs Real Madrid (El Clásico)",
+      championsLeague: "Hub Ligue des Champions",
+      toggleTheme: "🌓 Basculer Mode Sombre"
+    },
+    ar: {
+      menuTitle: "قائمة Messi<b>Stats</b>",
+      statGoals: "إجمالي الأهداف",
+      statApps: "المباريات الرسمية",
+      statTrophies: "الألقاب",
+      statBallons: "الكرة الذهبية",
+      catFeatured: "المميز ⚡",
+      catHistory: "التاريخ والألقاب 🏆",
+      catStats: "المباريات الكبرى والأرقام 📊",
+      home: "الرئيسية والإحصائيات",
+      vsRonaldo: "ميسي ضد رونالدو",
+      latestGoal: "إعادة الهدف الأخير",
+      birthday: "أهداف يوم ميلادك",
+      achievements: "جميع البطولات الـ 46",
+      timeline: "المسيرة والصور",
+      goalsByYear: "الأهداف حسب السنة",
+      goalsBySeason: "الأهداف حسب الموسم",
+      dashboard: "لوحة الإحصائيات الشاملة",
+      vsRealMadrid: "ضد ريال مدريد (الكلاسيكو)",
+      championsLeague: "دوري أبطال أوروبا",
+      toggleTheme: "🌓 تبديل الوضع الليلي"
+    },
+    bn: {
+      menuTitle: "Messi<b>Stats</b> মেনু",
+      statGoals: "মোট গোল",
+      statApps: "অফিসিয়াল ম্যাচ",
+      statTrophies: "শিরোপা",
+      statBallons: "ব্যালন ডি'অর",
+      catFeatured: "বিশেষ ⚡",
+      catHistory: "ইতিহাস ও শিরোপা 🏆",
+      catStats: "বড় ম্যাচ ও পরিসংখ্যান 📊",
+      home: "মূল পাতা ও পরিসংখ্যান",
+      vsRonaldo: "মেসি বনাম রোনালদো",
+      latestGoal: "সর্বশেষ গোলের রিপ্লে",
+      birthday: "জন্মদিনের গোল এক্সপ্লোরার",
+      achievements: "সব ৪৬টি শিরোপা ও ট্রফি",
+      timeline: "ক্যারিয়ার টাইমলাইন ও ছবি",
+      goalsByYear: "ক্যালেন্ডার বছরভিত্তিক গোল",
+      goalsBySeason: "মৌসুমভিত্তিক গোল",
+      dashboard: "অ্যানালিটিক্স ড্যাশবোর্ড",
+      vsRealMadrid: "বনাম রিয়াল মাদ্রিদ (এল ক্লাসিকো)",
+      championsLeague: "চ্যাম্পিয়ন্স লিগ হাব",
+      toggleTheme: "🌓 ডার্ক মোড পরিবর্তন"
+    },
+    hi: {
+      menuTitle: "Messi<b>Stats</b> मेन्यू",
+      statGoals: "कुल गोल",
+      statApps: "कुल मैच",
+      statTrophies: "ट्रॉफियां",
+      statBallons: "बैलोन डी'ओर",
+      catFeatured: "विशेष ⚡",
+      catHistory: "इतिहास व ट्रॉफियां 🏆",
+      catStats: "प्रमुख मैच व आंकड़े 📊",
+      home: "होम व करियर आंकड़े",
+      vsRonaldo: "मेसी बनाम रोनाल्डो",
+      latestGoal: "नवीनतम गोल रीप्ले",
+      birthday: "जन्मदिन गोल एक्सप्लोरर",
+      achievements: "सभी 46 ट्रॉफियां व खिताब",
+      timeline: "करियर टाइमलाइन व फोटो",
+      goalsByYear: "कैलेंडर वर्ष अनुसार गोल",
+      goalsBySeason: "सीज़न अनुसार गोल",
+      dashboard: "विश्लेषण डैशबोर्ड",
+      vsRealMadrid: "बनाम रियल मैड्रिड (एल क्लासिको)",
+      championsLeague: "चैंपियंस लीग हब",
+      toggleTheme: "🌓 डार्क मोड बदलें"
+    },
+    ro: {
+      menuTitle: "Meniu Messi<b>Stats</b>",
+      statGoals: "Total Goluri",
+      statApps: "Meciuri",
+      statTrophies: "Trofee",
+      statBallons: "Baloane de Aur",
+      catFeatured: "Recomandate ⚡",
+      catHistory: "Istorie & Trofee 🏆",
+      catStats: "Meciuri Mari & Date 📊",
+      home: "Acasă & Statistici Carieră",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "Revederea Ultimului Gol",
+      birthday: "Goluri de Ziua Ta",
+      achievements: "Toate cele 46 de Trofee",
+      timeline: "Cronologie & Fotografii",
+      goalsByYear: "Goluri pe An Calendaristic",
+      goalsBySeason: "Goluri pe Sezon",
+      dashboard: "Panou de Analiză Avansată",
+      vsRealMadrid: "vs Real Madrid (El Clásico)",
+      championsLeague: "Hub Champions League",
+      toggleTheme: "🌓 Comutare Mod Întunecat"
+    },
+    uz: {
+      menuTitle: "Messi<b>Stats</b> Menyu",
+      statGoals: "Jami Gollar",
+      statApps: "O'yinlar",
+      statTrophies: "Sovrinlar",
+      statBallons: "Oltin To'plar",
+      catFeatured: "Tanlangan ⚡",
+      catHistory: "Tarix va Sovrinlar 🏆",
+      catStats: "Muhim O'yinlar & Tahlil 📊",
+      home: "Asosiy & Statistika",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "So'nggi Gol Takrori",
+      birthday: "Tug'ilgan Kundagi Gollar",
+      achievements: "Barcha 46 ta Sovrin",
+      timeline: "Xronologiya va Suratlar",
+      goalsByYear: "Yillar Bo'yicha Gollar",
+      goalsBySeason: "Mavsumlar Bo'yicha Gollar",
+      dashboard: "Tahliliy Panel",
+      vsRealMadrid: "Real Madridga Qarshi (El Klasiko)",
+      championsLeague: "Chempionlar Ligasi Xabi",
+      toggleTheme: "🌓 Tungi Rejimni O'zgartirish"
+    }
+  };
+
   const curLangCode = getCurrentLangCode();
   const curLangObj = LANGUAGES.find((l) => l.code === curLangCode) || LANGUAGES[0];
   const curPath = (typeof location !== "undefined" ? location.pathname : "");
+  const txt = DRAWER_I18N[curLangCode] || DRAWER_I18N.en;
 
   const navCategories = [
     {
-      title: "Featured ⚡",
+      title: txt.catFeatured,
       items: [
-        { href: getLangUrl(curLangCode), label: "Career Home & Stats", badge: "930 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>` },
-        { href: `/${curLangCode}/messi-vs-ronaldo`, label: "Messi vs Ronaldo", badge: "GOAT", icon: `<svg viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg>` },
-        { href: `/${curLangCode}/latest-goal`, label: "Latest Goal Replay", badge: "LIVE ⚡", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
-        { href: `/${curLangCode}/birthday`, label: "Birthday Goals Explorer", badge: "HOT 🔥", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` }
+        { href: getLangUrl(curLangCode), label: txt.home, badge: "930 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>` },
+        { href: `/${curLangCode}/messi-vs-ronaldo`, label: txt.vsRonaldo, badge: "GOAT", icon: `<svg viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg>` },
+        { href: `/${curLangCode}/latest-goal`, label: txt.latestGoal, badge: "LIVE ⚡", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
+        { href: `/${curLangCode}/birthday`, label: txt.birthday, badge: "HOT 🔥", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` }
       ]
     },
     {
-      title: "History & Trophies 🏆",
+      title: txt.catHistory,
       items: [
-        { href: `/${curLangCode}/achievements`, label: "All 46 Trophies & Awards", badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` },
-        { href: `/${curLangCode}/timeline`, label: "Career Timeline & Photos", badge: "2004-2026", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
-        { href: `/${curLangCode}/goalsbyyear`, label: "Goals by Calendar Year", badge: "91 in 2012", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
-        { href: `/${curLangCode}/goalsbyseason`, label: "Goals by Season", badge: "22 Yrs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` }
+        { href: `/${curLangCode}/achievements`, label: txt.achievements, badge: "46 Cups", icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` },
+        { href: `/${curLangCode}/timeline`, label: txt.timeline, badge: "2004-2026", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyyear`, label: txt.goalsByYear, badge: "91 in 2012", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyseason`, label: txt.goalsBySeason, badge: "22 Yrs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` }
       ]
     },
     {
-      title: "Big Matches & Stats 📊",
+      title: txt.catStats,
       items: [
-        { href: `/${curLangCode}/dashboard`, label: "Deep Stats & Analytics", badge: "Hub", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
-        { href: `/${curLangCode}/vs-real-madrid`, label: "vs Real Madrid (El Clásico)", badge: "26 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
-        { href: `/${curLangCode}/champions-league`, label: "Champions League Hub", badge: "129 Goals", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
+        { href: `/${curLangCode}/dashboard`, label: txt.dashboard, badge: "Hub", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
+        { href: `/${curLangCode}/vs-real-madrid`, label: txt.vsRealMadrid, badge: "26 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
+        { href: `/${curLangCode}/champions-league`, label: txt.championsLeague, badge: "129 Goals", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
       ]
     }
   ];
@@ -262,7 +464,7 @@ function ensureMobileMenuDrawer() {
       <div class="mobile-drawer-header">
         <div class="mobile-drawer-brand">
           <img src="/img/logo.png" alt="MessiStats Logo" width="28" height="28" style="object-fit:contain;border-radius:4px;flex:0 0 28px;"/>
-          <span>Messi<b>Stats</b> Menu</span>
+          <span>${txt.menuTitle}</span>
         </div>
         <button type="button" class="mobile-drawer-close" id="mobile-drawer-close-btn" aria-label="Close menu">
           <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -270,10 +472,10 @@ function ensureMobileMenuDrawer() {
       </div>
       <div class="mobile-drawer-body">
         <div class="mobile-drawer-stats-card">
-          <div class="mobile-drawer-stat"><span class="num">930</span><span class="lbl">Total Goals</span></div>
-          <div class="mobile-drawer-stat"><span class="num">1,176</span><span class="lbl">Senior Apps</span></div>
-          <div class="mobile-drawer-stat"><span class="num">46</span><span class="lbl">Trophies</span></div>
-          <div class="mobile-drawer-stat"><span class="num">8</span><span class="lbl">Ballons d'Or</span></div>
+          <div class="mobile-drawer-stat"><span class="num">930</span><span class="lbl">${txt.statGoals}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">1,176</span><span class="lbl">${txt.statApps}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">46</span><span class="lbl">${txt.statTrophies}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">8</span><span class="lbl">${txt.statBallons}</span></div>
         </div>
         ${catHtml}
         <div class="mobile-drawer-footer">
@@ -282,7 +484,7 @@ function ensureMobileMenuDrawer() {
             <span>${curLangObj.name}</span>
           </button>
           <button type="button" class="mobile-drawer-btn" id="drawer-theme-btn">
-            <span>🌓 Toggle Dark Mode</span>
+            <span>${txt.toggleTheme}</span>
           </button>
         </div>
       </div>
@@ -295,6 +497,7 @@ function ensureMobileMenuDrawer() {
 
 function openMobileMenuDrawer() {
   const drawer = ensureMobileMenuDrawer();
+    ensureMobileMoreNavBtn();
   if (!drawer) return;
   drawer.hidden = false;
   drawer.setAttribute("aria-hidden", "false");
@@ -317,6 +520,45 @@ function closeMobileMenuDrawer() {
     menuBtn.setAttribute("aria-expanded", "false");
   }
   if (document.body) document.body.style.overflow = "";
+}
+
+
+// ---------- Mobile 'More' Button in Bottom Rail ----------
+function ensureMobileMoreNavBtn() {
+  if (typeof document === 'undefined') return;
+  const railNav = document.querySelector(".rail nav");
+  if (!railNav || railNav.querySelector(".rail-more-btn")) return;
+  const curLang = getCurrentLangCode();
+  const moreLabels = {
+    en: "More",
+    es: "Más",
+    pt: "Mais",
+    fr: "Plus",
+    ar: "المزيد",
+    bn: "আরও",
+    hi: "अधिक",
+    ro: "Mai mult",
+    uz: "Ko'proq"
+  };
+  const label = moreLabels[curLang] || "More";
+  const moreBtn = document.createElement("button");
+  moreBtn.type = "button";
+  moreBtn.className = "rail-more-btn";
+  moreBtn.setAttribute("aria-label", "Open all pages menu");
+  moreBtn.title = label;
+  moreBtn.innerHTML = `
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="1.5"></circle>
+      <circle cx="19" cy="12" r="1.5"></circle>
+      <circle cx="5" cy="12" r="1.5"></circle>
+    </svg>
+    <span>${label}</span>
+  `;
+  moreBtn.onclick = (e) => {
+    e.preventDefault();
+    openMobileMenuDrawer();
+  };
+  railNav.appendChild(moreBtn);
 }
 
 function ensureDesktopBrandHeader() {
@@ -1475,6 +1717,7 @@ function initLanguageAndMobileTopBar() {
   try {
     ensureLangModal();
     ensureMobileMenuDrawer();
+    ensureMobileMoreNavBtn();
     ensureDesktopBrandHeader();
     initDonationPopup();
     initStreamPromoPopup();

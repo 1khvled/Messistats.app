@@ -1401,26 +1401,20 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   .rail nav a span .nav-badge-hot {
     display: none !important;
   }
-  .rail nav a[href*="latest-goal"] span { font-size: 0 !important; }
-  .rail nav a[href*="latest-goal"] span::after { content: "Latest"; font-size: 0.63rem; }
-  .rail nav a[href*="birthday"] span { font-size: 0 !important; }
-  .rail nav a[href*="birthday"] span::after { content: "Birthday"; font-size: 0.63rem; }
-  .rail nav a[href*="vs-ronaldo"] span, .rail nav a[href*="messi-vs-ronaldo"] span { font-size: 0 !important; }
-  .rail nav a[href*="vs-ronaldo"] span::after, .rail nav a[href*="messi-vs-ronaldo"] span::after { content: "vs CR7"; font-size: 0.63rem; }
-  .rail nav a[href*="vs-real-madrid"] span { font-size: 0 !important; }
-  .rail nav a[href*="vs-real-madrid"] span::after { content: "Clásico"; font-size: 0.63rem; }
-  .rail nav a[href*="champions-league"] span { font-size: 0 !important; }
-  .rail nav a[href*="champions-league"] span::after { content: "UCL"; font-size: 0.63rem; }
-  .rail nav a[href*="goalsbyyear"] span { font-size: 0 !important; }
-  .rail nav a[href*="goalsbyyear"] span::after { content: "By Year"; font-size: 0.63rem; }
-  .rail nav a[href*="goalsbyseason"] span { font-size: 0 !important; }
-  .rail nav a[href*="goalsbyseason"] span::after { content: "By Season"; font-size: 0.63rem; }
-  .rail nav a[href*="dashboard"] span { font-size: 0 !important; }
-  .rail nav a[href*="dashboard"] span::after { content: "Stats"; font-size: 0.63rem; }
-  .rail nav a[href*="timeline"] span { font-size: 0 !important; }
-  .rail nav a[href*="timeline"] span::after { content: "Timeline"; font-size: 0.63rem; }
-  .rail nav a[href*="achievements"] span { font-size: 0 !important; }
-  .rail nav a[href*="achievements"] span::after { content: "Trophies"; font-size: 0.63rem; }
+  /* Truly localized mobile bottom rail labels */
+  .rail nav a span {
+    display: block !important;
+    font-size: 0.62rem !important;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    text-align: center;
+    white-space: nowrap;
+    max-width: 64px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.95;
+  }
   .rail nav a.on {
     background: var(--brand);
     color: #ffffff;
@@ -5306,20 +5300,66 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   }
 }
 
-@media (max-width: 440px) {
+@media (max-width: 600px) {
   .identity, .profile {
-    display: flex !important;
-    flex-direction: column !important;
+    display: grid !important;
+    grid-template-columns: 84px 1fr !important;
+    flex-direction: unset !important;
+    text-align: left !important;
     align-items: center !important;
-    text-align: center !important;
-    padding: 16px 12px !important;
+    gap: 14px !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+  }
+  html[dir="rtl"] .identity, html[dir="rtl"] .profile {
+    text-align: right !important;
   }
   .identity-photo {
-    width: 96px !important;
-    margin: 0 auto 6px !important;
+    width: 84px !important;
+    height: 110px !important;
+    margin: 0 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
   }
-  .identity-chips, .identity-facts, .identity-name {
-    justify-content: center !important;
+  .identity-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+  .identity-photo .photo-credit {
+    display: none !important;
+  }
+  .identity-name {
+    font-size: 1.2rem !important;
+    margin: 0 0 3px !important;
+    justify-content: flex-start !important;
+  }
+  html[dir="rtl"] .identity-name {
+    justify-content: flex-start !important;
+  }
+  .identity-chips {
+    gap: 4px !important;
+    justify-content: flex-start !important;
+    margin-bottom: 4px !important;
+  }
+  .id-chip {
+    font-size: 0.72rem !important;
+    padding: 2px 7px !important;
+  }
+  .identity-facts {
+    display: none !important;
+  }
+  .identity-meta {
+    font-size: 0.8rem !important;
+    margin-bottom: 4px !important;
+  }
+  .kpi.progress {
+    grid-column: 1 / -1 !important;
+  }
+  .ad-banner-wrap.ad-banner-top {
+    margin: 0.6rem auto 0.9rem auto !important;
+    min-height: 270px !important;
+    padding: 0.5rem !important;
   }
 }
 
@@ -9523,4 +9563,134 @@ html[dir="rtl"] .back-to-top-btn {
   }
 }
 
+/* ---------- Mobile Rail 'More' Button ---------- */
+.rail-more-btn {
+  display: none;
+}
+@media (max-width: 900px) {
+  .rail-more-btn {
+    flex: 0 0 auto;
+    min-width: 58px;
+    height: 48px;
+    padding: 4px 6px;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    border-radius: 12px;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-body);
+    font-size: 0.63rem;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.15s ease;
+  }
+  .rail-more-btn:active {
+    transform: scale(0.93);
+    background: var(--surface-soft);
+  }
+  .rail-more-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+@media (max-width: 480px) {
+  .rail-more-btn {
+    min-width: 48px;
+    height: 45px;
+    padding: 3px 3px;
+  }
+}
 
+
+
+
+/* ==========================================================================
+   MOBILE UX SIMPLIFICATIONS & ENHANCEMENTS
+   ========================================================================== */
+
+/* 1. Sticky First Column for mobile tables (Year, Season, Opponent, Competition) */
+@media (max-width: 768px) {
+  .table-wrap table th:first-child,
+  .table-wrap table td:first-child,
+  .ground-truth-table th:first-child,
+  .ground-truth-table td:first-child,
+  .data-table th:first-child,
+  .data-table td:first-child {
+    position: sticky !important;
+    left: 0 !important;
+    background: var(--card) !important;
+    z-index: 2 !important;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.07);
+  }
+  html[dir="rtl"] .table-wrap table th:first-child,
+  html[dir="rtl"] .table-wrap table td:first-child,
+  html[dir="rtl"] .ground-truth-table th:first-child,
+  html[dir="rtl"] .ground-truth-table td:first-child,
+  html[dir="rtl"] .data-table th:first-child,
+  html[dir="rtl"] .data-table td:first-child {
+    left: auto !important;
+    right: 0 !important;
+    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Safe bottom padding so fixed rail never covers footer or last cards */
+  .wrap {
+    padding-bottom: calc(88px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Mobile touch target minimum 42px for interactive pills & buttons */
+  .pill, .btn, .filter-chip {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  /* Compact quick jump sub-nav bar on mobile */
+  .quick-jump-bar {
+    margin: 0.5rem 0 0.85rem !important;
+    padding: 5px 8px !important;
+    gap: 6px !important;
+    border-radius: 14px !important;
+  }
+  .qj-pill {
+    padding: 6px 11px !important;
+    font-size: 0.76rem !important;
+    gap: 4px !important;
+  }
+
+  /* Clean headings line-height on mobile */
+  h1.page-title, .wrap > h1 {
+    font-size: clamp(1.45rem, 5.2vw, 1.85rem) !important;
+    line-height: 1.2 !important;
+    margin-bottom: 8px !important;
+  }
+  .lede {
+    font-size: 0.94rem !important;
+    line-height: 1.45 !important;
+  }
+}
+
+/* 2. Compact KPI cards on small mobile phones (320px - 480px) */
+@media (max-width: 480px) {
+  .kpi-card, .kpi {
+    padding: 12px 12px !important;
+    border-radius: 14px !important;
+  }
+  .kpi-label {
+    font-size: 0.72rem !important;
+  }
+  .kpi-value {
+    font-size: 1.7rem !important;
+  }
+  .kpi-note {
+    font-size: 0.78rem !important;
+  }
+}
