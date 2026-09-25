@@ -270,6 +270,7 @@ const I18N = {
     continentalMessi: "3 (2 Copas América, 1 Finalissima)",
     continentalRonaldo: "2 (1 Euro, 1 Nations League)",
     adLabel: "Advertisement",
+    showdownCaption: `<strong>The Eternal Duel:</strong> Lionel Messi &amp; Cristiano Ronaldo — Two football titans whose era-defining rivalry redefined world sports history across 36 direct clashes.`,
     bdayPromoBadge: "🎂 UNIQUE INTERACTIVE TOOL",
     bdayPromoAria: "Did Messi score on your birthday?",
     jumpCore: "All-Time Totals",
@@ -440,6 +441,7 @@ const I18N = {
     continentalMessi: "3 (2 Copas América, 1 Finalissima)",
     continentalRonaldo: "2 (1 Eurocopa, 1 Nations League)",
     adLabel: "Publicidad",
+    showdownCaption: `<strong>El Duelo Eterno:</strong> Lionel Messi y Cristiano Ronaldo — Dos titanes del fútbol cuya rivalidad histórica marcó época en 36 enfrentamientos directos.`,
     bdayPromoBadge: "🎂 HERRAMIENTA INTERACTIVA ÚNICA",
     bdayPromoAria: "¿Marcó Messi el día de tu cumpleaños?",
     jumpCore: "Totales de Carrera",
@@ -610,6 +612,7 @@ const I18N = {
     continentalMessi: "3 (2 Copas América, 1 Finalíssima)",
     continentalRonaldo: "2 (1 Eurocopa, 1 Liga das Nações)",
     adLabel: "Publicidade",
+    showdownCaption: `<strong>O Duelo Eterno:</strong> Lionel Messi e Cristiano Ronaldo — Dois gigantes do futebol cuja rivalidade histórica marcou época em 36 confrontos diretos.`,
     bdayPromoBadge: "🎂 FERRAMENTA INTERATIVA EXCLUSIVA",
     bdayPromoAria: "Messi marcou no dia do seu aniversário?",
     jumpCore: "Totais da Carreira",
@@ -780,6 +783,7 @@ const I18N = {
     continentalMessi: "3 (2 Copas América, 1 Finalissima)",
     continentalRonaldo: "2 (1 Euro, 1 Ligue des Nations)",
     adLabel: "Publicité",
+    showdownCaption: `<strong>Le Duel Éternel :</strong> Lionel Messi &amp; Cristiano Ronaldo — Deux géants du football dont la rivalité historique a marqué le sport mondial à travers 36 duels directs.`,
     bdayPromoBadge: "🎂 OUTIL INTERACTIF UNIQUE",
     bdayPromoAria: "Messi a-t-il marqué le jour de votre anniversaire ?",
     jumpCore: "Totaux de Carrière",
@@ -950,6 +954,7 @@ const I18N = {
     continentalMessi: "3 (2 كوبا أمريكا، 1 فيناليسيما)",
     continentalRonaldo: "2 (1 يورو، 1 دوري الأمم)",
     adLabel: "إعلان",
+    showdownCaption: `<strong>المواجهة التاريخية الخالدة:</strong> ليونيل ميسي وكريستيانو رونالدو — أسطورتان صنعا أعظم صراع تنافسي في تاريخ كرة القدم عبر 36 مواجهة مباشرة.`,
     bdayPromoBadge: "🎂 أداة تفاعلية فريدة",
     bdayPromoAria: "هل سجل ميسي في يوم ميلادك؟",
     jumpCore: "إجمالي المسيرة",
@@ -1120,6 +1125,7 @@ const I18N = {
     continentalMessi: "৩ (২ কোপা আমেরিকা, ১ ফিনালিসিমা)",
     continentalRonaldo: "২ (১ ইউরো, ১ নেশন্স লিগ)",
     adLabel: "বিজ্ঞাপন",
+    showdownCaption: `<strong>চিরন্তন দ্বৈরথ:</strong> লিওনেল মেসি ও ক্রিশ্চিয়ানো রোনালদো — বিশ্ব ফুটবলের দুই মহাতারকা যাদের ঐতিহাসিক ৩৬টি মুখোমুখি লড়াই তৈরি করেছে ক্রীড়া ইতিহাসের সেরা অধ্যায়।`,
     bdayPromoBadge: "🎂 অনন্য ইন্টারেক্টিভ টুল",
     bdayPromoAria: "আপনার জন্মদিনে কি মেসি গোল করেছিলেন?",
     jumpCore: "ক্যারিয়ার মোট",
@@ -1290,6 +1296,7 @@ const I18N = {
     continentalMessi: "3 (2 कोपा अमेरिका, 1 फाइनलिसिमा)",
     continentalRonaldo: "2 (1 यूरो, 1 नेशंस लीग)",
     adLabel: "विज्ञापन",
+    showdownCaption: `<strong>शाश्वत द्वंद्व:</strong> लियोनेल मेस्सी और क्रिस्टियानो रोनाल्डो — विश्व फुटबॉल के दो महानायक जिनकी 36 सीधी भिड़ंतों ने खेल इतिहास का सबसे बड़ा मुकाबला रचा।`,
     bdayPromoBadge: "🎂 अनोखा इंटरएक्टिव टूल",
     bdayPromoAria: "क्या मेस्सी ने आपके जन्मदिन पर गोल किया था?",
     jumpCore: "करियर के कुल आंकड़े",
@@ -1460,6 +1467,7 @@ const I18N = {
     continentalMessi: "3 (2 Copas América, 1 Finalissima)",
     continentalRonaldo: "2 (1 Euro, 1 Liga Națiunilor)",
     adLabel: "Publicitate",
+    showdownCaption: `<strong>Duelul Etern:</strong> Lionel Messi și Cristiano Ronaldo — Doi giganți ai fotbalului a căror rivalitate istorică a marcat o eră de-a lungul a 36 de meciuri directe.`,
     bdayPromoBadge: "🎂 INSTRUMENT INTERACTIV UNIC",
     bdayPromoAria: "A marcat Messi de ziua ta de naștere?",
     jumpCore: "Total Carieră",
@@ -1630,6 +1638,7 @@ const I18N = {
     continentalMessi: "3 (2 Copa América, 1 Finalissima)",
     continentalRonaldo: "2 (1 Yevro, 1 Millatlar Ligasi)",
     adLabel: "Reklama",
+    showdownCaption: `<strong>Abadiy To'qnashuv:</strong> Lionel Messi va Krishtianu Ronaldu — 36 ta to'g'ridan-to'g'ri o'yinda jahon futboli tarixini qayta yozgan ikki afsona.`,
     bdayPromoBadge: "🎂 NOYOB INTERAKTIV VOSITA",
     bdayPromoAria: "Messi sizning tugʻilgan kuningizda gol urganmi?",
     jumpCore: "Faoliyatdagi jami natijalar",
@@ -1853,9 +1862,38 @@ ${JSON.stringify(jsonLd, null, 2)}
         <div class="desktop-brand-sub">The Verified Lionel Messi Statistics &amp; Video Database</div>
       </div>
     </div>
+
+    <!-- Top Header Ad Banner Slot -->
+    <aside aria-label="${t.adLabel}" class="ad-banner-wrap ad-banner-top">
+      <span class="ad-native-label">${t.adLabel}</span>
+      <div class="ad-banner-slot">
+        <script>
+          atOptions = {
+            'key' : '53bbdf66c3aca04103610bd62cfc3e6a',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highrevenueformat.com/53bbdf66c3aca04103610bd62cfc3e6a/invoke.js"></script>
+      </div>
+    </aside>
+
     <p class="eyebrow">${t.eyebrow}</p>
     <h1>${t.h1}</h1>
     <p class="lede">${t.lead}</p>
+
+    <!-- Iconic Rivalry Showdown Photograph -->
+    <figure class="rivalry-showdown-card card">
+      <div class="showdown-media-wrap">
+        <img src="/img/messi-vs-ronaldo.webp" alt="Lionel Messi and Cristiano Ronaldo facing each other on the pitch" class="showdown-img" width="1100" height="460" loading="eager" fetchpriority="high" />
+        <div class="showdown-overlay-badge">⚔️ 36 DIRECT HEAD-TO-HEAD MATCHES · 13 BALLONS D'OR COMBINED</div>
+      </div>
+      <figcaption class="showdown-caption">
+        ${t.showdownCaption}
+      </figcaption>
+    </figure>
 
     <!-- Interactive Jump Navigation Pills -->
     <nav class="comparison-toc" aria-label="Comparison Sections">
@@ -1885,14 +1923,18 @@ ${JSON.stringify(jsonLd, null, 2)}
       <div class="goat-vote-buttons" id="goat-page-vote-buttons">
         <button type="button" class="btn-vote-candidate messi" data-vote="messi" aria-label="Vote for ${p.messiName}">
           <div class="candidate-badge-pill">🐐 THE PLAYMAKER GOAT</div>
-          <span class="vote-icon">🐐</span>
+          <div class="candidate-avatar-wrap">
+            <img src="/img/messi.webp" alt="Lionel Messi" class="candidate-avatar-img" width="76" height="76" loading="lazy" />
+          </div>
           <span class="vote-name">${p.messiName}</span>
           <span class="vote-subtitle">${p.messiDesc}</span>
           <span class="vote-cta-action">Vote Messi →</span>
         </button>
         <button type="button" class="btn-vote-candidate ronaldo" data-vote="ronaldo" aria-label="Vote for ${p.ronaldoName}">
           <div class="candidate-badge-pill">⚡ THE RECORD GOALSCORER</div>
-          <span class="vote-icon">⚡</span>
+          <div class="candidate-avatar-wrap">
+            <img src="/img/ronaldo.webp" alt="Cristiano Ronaldo" class="candidate-avatar-img" width="76" height="76" loading="lazy" />
+          </div>
           <span class="vote-name">${p.ronaldoName}</span>
           <span class="vote-subtitle">${p.ronaldoDesc}</span>
           <span class="vote-cta-action">Vote Ronaldo →</span>
