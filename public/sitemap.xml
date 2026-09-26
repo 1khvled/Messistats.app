@@ -5,7 +5,7 @@
         xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://www.messistat.com/en</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -53,7 +53,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -85,7 +85,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -123,7 +123,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -155,7 +155,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -187,7 +187,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -224,7 +224,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -261,7 +261,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -298,7 +298,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -352,7 +352,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -426,7 +426,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/en/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -488,7 +488,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -530,7 +530,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -562,7 +562,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -594,7 +594,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -626,7 +626,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -658,7 +658,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -690,7 +690,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -722,7 +722,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -754,7 +754,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -802,7 +802,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -834,7 +834,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/es/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -866,7 +866,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -908,7 +908,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -940,7 +940,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -972,7 +972,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -1004,7 +1004,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -1036,7 +1036,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -1068,7 +1068,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -1100,7 +1100,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -1132,7 +1132,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -1180,7 +1180,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -1212,7 +1212,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/pt/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -1244,7 +1244,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -1286,7 +1286,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -1318,7 +1318,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -1350,7 +1350,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -1382,7 +1382,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -1414,7 +1414,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -1446,7 +1446,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -1478,7 +1478,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -1510,7 +1510,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -1558,7 +1558,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -1590,7 +1590,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/fr/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -1622,7 +1622,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -1664,7 +1664,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -1696,7 +1696,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -1728,7 +1728,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -1760,7 +1760,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -1792,7 +1792,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -1824,7 +1824,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -1856,7 +1856,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -1888,7 +1888,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -1936,7 +1936,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -1968,7 +1968,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ar/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -2000,7 +2000,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -2042,7 +2042,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -2074,7 +2074,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -2106,7 +2106,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -2138,7 +2138,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -2170,7 +2170,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -2202,7 +2202,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -2234,7 +2234,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -2266,7 +2266,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -2314,7 +2314,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -2346,7 +2346,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/bn/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -2378,7 +2378,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -2420,7 +2420,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -2452,7 +2452,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -2484,7 +2484,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -2516,7 +2516,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -2548,7 +2548,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -2580,7 +2580,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -2612,7 +2612,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -2644,7 +2644,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -2692,7 +2692,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -2724,7 +2724,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/hi/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -2756,7 +2756,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -2798,7 +2798,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -2830,7 +2830,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -2862,7 +2862,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -2894,7 +2894,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -2926,7 +2926,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -2958,7 +2958,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -2990,7 +2990,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -3022,7 +3022,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -3070,7 +3070,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -3102,7 +3102,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/ro/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
@@ -3134,7 +3134,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
@@ -3176,7 +3176,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/dashboard</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
@@ -3208,7 +3208,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/birthday</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
@@ -3240,7 +3240,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/goalsbyseason</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
@@ -3272,7 +3272,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/goalsbyyear</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
@@ -3304,7 +3304,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/messi-vs-ronaldo</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
@@ -3336,7 +3336,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/vs-real-madrid</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
@@ -3368,7 +3368,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/champions-league</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
@@ -3400,7 +3400,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/latest-goal</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
@@ -3448,7 +3448,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/timeline</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
@@ -3480,7 +3480,7 @@
   </url>
   <url>
     <loc>https://www.messistat.com/uz/achievements</loc>
-    <lastmod>2026-09-25</lastmod>
+    <lastmod>2026-09-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
