@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T04:12:55.191Z",
+  "updated": "2026-09-27T11:36:29.422Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -152,11 +152,11 @@
       "sources": [
         {
           "url": "https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece",
-          "at": "2026-09-27T04:12:52.922Z"
+          "at": "2026-09-27T11:36:25.512Z"
         }
       ],
-      "fetched_at": "2026-09-27T04:12:52.922Z",
-      "note": "Page changed since last check (9d7169e46e0e -> aa9c4efb87c6) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
+      "fetched_at": "2026-09-27T11:36:25.512Z",
+      "note": "Page changed since last check (aa9c4efb87c6 -> fbcfcb45b850) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
     },
     {
       "match_id": "watch:article:planet-elclasico",
@@ -174,11 +174,11 @@
       "sources": [
         {
           "url": "https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists",
-          "at": "2026-09-27T04:12:53.172Z"
+          "at": "2026-09-27T11:36:25.784Z"
         }
       ],
-      "fetched_at": "2026-09-27T04:12:53.172Z",
-      "note": "Page changed since last check (0311c9f2b0da -> cc63cbe38ba1) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
+      "fetched_at": "2026-09-27T11:36:25.784Z",
+      "note": "Page changed since last check (cc63cbe38ba1 -> 0e19cb33cd98) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
     },
     {
       "match_id": "watch:article:espn-tracker",
@@ -218,11 +218,11 @@
       "sources": [
         {
           "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
-          "at": "2026-09-27T04:12:55.191Z"
+          "at": "2026-09-27T11:36:29.421Z"
         }
       ],
-      "fetched_at": "2026-09-27T04:12:55.191Z",
-      "note": "Page changed since last check (4af9032e0380 -> 2230a83d1fd4) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+      "fetched_at": "2026-09-27T11:36:29.421Z",
+      "note": "Page changed since last check (2230a83d1fd4 -> 2d00028cee88) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
     },
     {
       "match_id": "watch:espn-mls-stale:espn25",
