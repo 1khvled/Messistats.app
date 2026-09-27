@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-27T16:35:13.728Z",
+  "updated": "2026-09-27T21:02:07.823Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -152,11 +152,11 @@
       "sources": [
         {
           "url": "https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece",
-          "at": "2026-09-27T11:36:25.512Z"
+          "at": "2026-09-27T21:02:06.273Z"
         }
       ],
-      "fetched_at": "2026-09-27T11:36:25.512Z",
-      "note": "Page changed since last check (aa9c4efb87c6 -> fbcfcb45b850) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
+      "fetched_at": "2026-09-27T21:02:06.273Z",
+      "note": "Page changed since last check (fbcfcb45b850 -> aa9c4efb87c6) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
     },
     {
       "match_id": "watch:article:planet-elclasico",
@@ -218,11 +218,11 @@
       "sources": [
         {
           "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
-          "at": "2026-09-27T16:35:13.728Z"
+          "at": "2026-09-27T21:02:07.822Z"
         }
       ],
-      "fetched_at": "2026-09-27T16:35:13.728Z",
-      "note": "Page changed since last check (2d00028cee88 -> 190885c33390) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+      "fetched_at": "2026-09-27T21:02:07.822Z",
+      "note": "Page changed since last check (190885c33390 -> 7bf7f43ea9b7) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
     },
     {
       "match_id": "watch:espn-mls-stale:espn25",
