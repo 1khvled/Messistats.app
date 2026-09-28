@@ -6,7 +6,7 @@
  *    - twitter:site = @messistat1
  *    - twitter:creator = @messistat1
  *    - twitter:domain = messistat.com
- *    - Cache-busting twitter:image & og:image = https://www.messistat.com/img/og-messi.jpg?v=930
+ *    - Cache-busting twitter:image & og:image = https://www.messistat.com/img/og-messi.jpg?v=931
  *    - og:image:secure_url
  * 2. Guarantees Google Logo Indexing & Schema.org Organization:
  *    - Organization.logo with ImageObject (512x512, caption, contentUrl)
@@ -53,26 +53,26 @@ for (const file of htmlFiles) {
   // 1. Cache-bust og:image and twitter:image
   content = content.replace(
     /(<meta[^>]+property=["']og:image["'][^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=930$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=931$2`
   );
   content = content.replace(
     /(<meta[^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'][^>]+property=["']og:image["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=930$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=931$2`
   );
   content = content.replace(
     /(<meta[^>]+name=["']twitter:image["'][^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=930$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=931$2`
   );
   content = content.replace(
     /(<meta[^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'][^>]+name=["']twitter:image["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=930$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=931$2`
   );
 
   // 1b. Add og:image:secure_url if missing
   if (content.includes('property="og:image"') && !content.includes('property="og:image:secure_url"')) {
     content = content.replace(
       /(<meta[^>]+property=["']og:image["'][^>]+>)/,
-      `$1\n<meta content="https://www.messistat.com/img/og-messi.jpg?v=930" property="og:image:secure_url"/>`
+      `$1\n<meta content="https://www.messistat.com/img/og-messi.jpg?v=931" property="og:image:secure_url"/>`
     );
   }
 

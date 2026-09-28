@@ -1,6 +1,6 @@
 {
   "meta": {
-    "totalGoals": 930,
+    "totalGoals": 931,
     "totalDaysInYear": 366,
     "daysWithGoals": 292,
     "daysWithoutGoals": 74,
@@ -53,6 +53,12 @@
         "formatted": "7 December",
         "goalsCount": 8,
         "matchCount": 3
+      },
+      {
+        "key": "09-27",
+        "formatted": "27 September",
+        "goalsCount": 8,
+        "matchCount": 6
       },
       {
         "key": "02-01",
@@ -163,7 +169,7 @@
       {
         "month": 9,
         "name": "September",
-        "goals": 102,
+        "goals": 103,
         "daysScored": 25,
         "totalDays": 30
       },
@@ -17372,7 +17378,7 @@
       "day": 27,
       "monthName": "September",
       "formatted": "27 September",
-      "goalsCount": 7,
+      "goalsCount": 8,
       "matches": [
         {
           "date": "2006-09-27",
@@ -17525,6 +17531,33 @@
               "opponent": "Jamaica",
               "assist": "",
               "xg": 0.186,
+              "freekick": true,
+              "penalty": false
+            }
+          ]
+        },
+        {
+          "date": "2026-09-27",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "Columbus Crew",
+          "competition": "MLS",
+          "score": "1 – 2",
+          "goalsCount": 1,
+          "minutes": [
+            "33"
+          ],
+          "types": [
+            "Direct Free Kick"
+          ],
+          "videos": [
+            {
+              "goalNumber": 931,
+              "videoUrl": "https://cdn.messiallgoals.com/Goal931.mp4",
+              "minute": "33'",
+              "opponent": "Columbus Crew",
+              "assist": "",
+              "xg": 0.12,
               "freekick": true,
               "penalty": false
             }

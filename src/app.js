@@ -472,8 +472,8 @@ function ensureMobileMenuDrawer() {
       </div>
       <div class="mobile-drawer-body">
         <div class="mobile-drawer-stats-card">
-          <div class="mobile-drawer-stat"><span class="num">930</span><span class="lbl">${txt.statGoals}</span></div>
-          <div class="mobile-drawer-stat"><span class="num">1,176</span><span class="lbl">${txt.statApps}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">931</span><span class="lbl">${txt.statGoals}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">1,177</span><span class="lbl">${txt.statApps}</span></div>
           <div class="mobile-drawer-stat"><span class="num">46</span><span class="lbl">${txt.statTrophies}</span></div>
           <div class="mobile-drawer-stat"><span class="num">8</span><span class="lbl">${txt.statBallons}</span></div>
         </div>
@@ -5076,7 +5076,7 @@ function renderDashboard(d, team) {
       { goal: "700", opp: "vs Atlético Madrid", date: "30 Jun 2020", age: "33y 6d", apps: "862" },
       { goal: "800", opp: "vs Panama", date: "23 Mar 2023", age: "35y 272d", apps: "1,017" },
       { goal: "900", opp: "vs NY Red Bulls", date: "2025", age: "37y 315d", apps: "1,135" },
-      { goal: "930", opp: "Active Record", date: "2026", age: "39y", apps: "1,176" }
+      { goal: "931", opp: "Active Record", date: "2026", age: "39y", apps: "1,177" }
     ];
     msCard.innerHTML = `
       <h3 class="dash-card-title">⚡ Landmark Goal Speed Tracker</h3>

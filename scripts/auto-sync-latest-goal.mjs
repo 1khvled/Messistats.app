@@ -58,21 +58,62 @@ export async function autoPullLatestGoal() {
   const currentGoalNum = latestData.latestGoal?.goalNumber || 930;
   console.log(`Current registered latest goal: Goal #${currentGoalNum} (${latestData.latestGoal?.opponent || "Unknown"})`);
 
-  // Fetch overview from ESPN
-  const ovData = await fetchJson(ESPN_ATHLETE_OVERVIEW);
-  if (!ovData) {
-    console.warn("ESPN API unreachable. Keeping current verified state.");
+  // Fetch overview from ESPN and MLS Scoreboard in parallel
+  const [ovData, mlsData] = await Promise.all([
+    fetchJson(ESPN_ATHLETE_OVERVIEW),
+    fetchJson(ESPN_MLS_SCOREBOARD)
+  ]);
+
+  if (!ovData && !mlsData) {
+    console.warn("ESPN APIs unreachable. Keeping current verified state.");
     return latestData;
   }
 
-  const events = Object.values(ovData.gameLog?.events || {});
+  const candidateMap = new Map();
+
+  if (ovData?.gameLog?.events) {
+    for (const [id, ev] of Object.entries(ovData.gameLog.events)) {
+      candidateMap.set(String(id), {
+        id: String(id),
+        gameDate: ev.gameDate,
+        opponent: ev.opponent,
+        leagueName: ev.leagueName || "Major League Soccer",
+        score: ev.score
+      });
+    }
+  }
+
+  if (mlsData?.events) {
+    for (const ev of mlsData.events) {
+      const isCompleted = ev.status?.type?.completed === true;
+      const isMiami = ev.competitions?.[0]?.competitors?.some(c => /miami/i.test(c.team?.displayName || ""));
+      if (isCompleted && isMiami) {
+        const id = String(ev.id);
+        const comp = ev.competitions?.[0];
+        const miamiComp = comp?.competitors?.find(c => /miami/i.test(c.team?.displayName || ""));
+        const oppComp = comp?.competitors?.find(c => !/miami/i.test(c.team?.displayName || ""));
+        const scoreStr = `${miamiComp?.score || 0}-${oppComp?.score || 0}`;
+        if (!candidateMap.has(id)) {
+          candidateMap.set(id, {
+            id,
+            gameDate: ev.date,
+            opponent: { displayName: oppComp?.team?.displayName || "Opponent" },
+            leagueName: "Major League Soccer",
+            score: scoreStr
+          });
+        }
+      }
+    }
+  }
+
+  const events = Array.from(candidateMap.values());
   events.sort((a, b) => new Date(b.gameDate) - new Date(a.gameDate));
 
   const todayUtc = new Date().toISOString().split("T")[0];
 
   // Check nextGame to see if there is a match today
   let hasMatchToday = false;
-  if (ovData.nextGame) {
+  if (ovData?.nextGame) {
     const nextDate = (ovData.nextGame.date || "").split("T")[0];
     if (nextDate === todayUtc) hasMatchToday = true;
   }
@@ -135,6 +176,12 @@ export async function autoPullLatestGoal() {
       const formattedDate = dObj.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
       const bdayKey = `${String(dObj.getMonth() + 1).padStart(2, '0')}-${String(dObj.getDate()).padStart(2, '0')}`;
 
+      const venueCity = summary.gameInfo?.venue?.address?.city;
+      const venueState = summary.gameInfo?.venue?.address?.state;
+      const venueFull = summary.gameInfo?.venue?.fullName;
+      const venueLocation = venueCity ? ` (${venueCity}${venueState ? `, ${venueState}` : ""})` : "";
+      const venue = venueFull ? `${venueFull}${venueLocation}` : "Chase Stadium (Fort Lauderdale, FL)";
+
       newlyFoundGoal = {
         id: ev.id,
         date: eventDate,
@@ -143,6 +190,7 @@ export async function autoPullLatestGoal() {
         opponent: opp,
         competition: comp,
         score,
+        venue,
         minute: goalDetail?.clock || "",
         finish: goalDetail?.finish || "Open play",
         assist: goalDetail?.assist || "",
@@ -186,7 +234,7 @@ export async function autoPullLatestGoal() {
         finish: newlyFoundGoal.finish,
         assist: newlyFoundGoal.assist,
         score: newlyFoundGoal.score,
-        venue: "Chase Stadium (Fort Lauderdale, FL)",
+        venue: newlyFoundGoal.venue,
         title: `Inter Miami ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}`,
         videoUrl: `https://cdn.messiallgoals.com/Goal${newGoalNum}.mp4`,
         youtubeUrl: `https://www.youtube.com/results?search_query=Messi+goal+vs+${encodeURIComponent(newlyFoundGoal.opponent)}+${encodeURIComponent(newlyFoundGoal.competition)}`,
