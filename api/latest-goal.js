@@ -4,13 +4,14 @@
  * Auto-pulls Lionel Messi's latest career goal, match details, video stream URL,
  * and live "Did Messi score today?" status directly from ESPN & local verified feeds.
  * 
- * Includes CDN caching (s-maxage=120) with instant stale-while-revalidate fallback.
+ * Includes CDN caching (s-maxage=60) with instant stale-while-revalidate fallback.
  */
 import { readFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ESPN_ATHLETE_OVERVIEW = "https://site.web.api.espn.com/apis/common/v3/sports/soccer/athletes/45843/overview";
+const ESPN_MLS_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000";
 const ESPN_SUMMARY_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/all/summary?event=";
 
 const HEADERS = {
@@ -24,49 +25,67 @@ function getLocalFallback() {
     const jsonPath = resolve(root, "public", "data", "latest-goal.json");
     return JSON.parse(readFileSync(jsonPath, "utf8"));
   } catch (e) {
-    // Hardcoded minimal baseline in case of filesystem constraints
     return {
       syncedAt: new Date().toISOString(),
       latestGoal: {
-        goalNumber: 930,
+        goalNumber: 931,
         team: "Inter Miami CF",
-        opponent: "San Diego FC",
+        opponent: "Columbus Crew",
         competition: "MLS",
-        date: "2026-09-20",
-        formattedDate: "21 September 2026",
-        minute: "24'",
+        competitionSlug: "mls",
+        date: "2026-09-27",
+        formattedDate: "27 September 2026",
+        bdayKey: "09-27",
+        minute: "33'",
+        clock: "33'",
         type: "Direct Free Kick",
         finish: "Direct Free Kick",
-        score: "2 – 2",
-        videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4",
-        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+San%20Diego%20FC+MLS",
-        bdayUrl: "/en/birthday/09-21"
+        assist: "",
+        score: "1-2",
+        venue: "ScottsMiracle-Gro Field (Columbus, Ohio)",
+        title: "Columbus Crew 2-1 Inter Miami CF",
+        videoUrl: "https://cdn.messiallgoals.com/Goal931.mp4",
+        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+Columbus+Crew+MLS+2026",
+        bdayUrl: "/en/birthday/09-27"
       },
       todayStatus: {
         didScoreToday: false,
         hasMatchToday: false,
-        lastMatchDate: "2026-09-20",
-        lastMatchOpponent: "San Diego FC",
-        lastMatchResult: "Inter Miami 2 – 2 San Diego FC",
-        lastGoalNumber: 930,
-        lastGoalMinute: "24'"
+        lastMatchDate: "2026-09-27",
+        lastMatchOpponent: "Columbus Crew",
+        lastMatchResult: "Columbus Crew 2-1 Inter Miami CF",
+        lastGoalNumber: 931,
+        lastGoalMinute: "33'"
       },
       recentGoals: [
-        { goalNumber: 930, match: "vs San Diego FC (2-2)", date: "21 September 2026 • 24'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4" },
+        { goalNumber: 931, match: "at Columbus Crew (1-2)", date: "27 September 2026 • 33'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal931.mp4" },
+        { goalNumber: 930, match: "vs San Diego FC (2-2)", date: "20 September 2026 • 24'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4" },
         { goalNumber: 929, match: "vs Cruz Azul (2-0)", date: "17 September 2026 • 12'", type: "Header", videoUrl: "https://cdn.messiallgoals.com/Goal929.mp4" },
         { goalNumber: 928, match: "vs Nashville SC (2-2)", date: "12 September 2026 • 67'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal928.mp4" },
-        { goalNumber: 927, match: "vs Montreal (7-1)", date: "29 August 2026 • 83'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal927.mp4" },
-        { goalNumber: 926, match: "vs Montreal (7-1)", date: "29 August 2026 • 65'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal926.mp4" }
+        { goalNumber: 927, match: "vs Montreal (7-1)", date: "29 August 2026 • 83'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal927.mp4" }
       ],
-      totals: { seniorGoals: 930, appearances: 1176, miamiGoals: 101, season2026Goals: 24, freeKicks: 67 }
+      totals: { seniorGoals: 931, appearances: 1177, miamiGoals: 102, season2026Goals: 25, freeKicks: 68 }
     };
+  }
+}
+
+async function fetchJsonSafe(url, timeoutMs = 2500) {
+  try {
+    const res = await fetch(url, {
+      headers: HEADERS,
+      signal: AbortSignal.timeout(timeoutMs)
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (_) {
+    return null;
   }
 }
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-  res.setHeader("Cache-Control", "public, s-maxage=120, stale-while-revalidate=300");
+  res.setHeader("Cache-Control", "public, s-maxage=60, stale-while-revalidate=120");
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
   if (req.method === "OPTIONS") {
@@ -81,21 +100,50 @@ export default async function handler(req, res) {
   const baseline = getLocalFallback();
 
   try {
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 2500); // 2.5s fast timeout
+    // Parallel fetch from both Overview & MLS Scoreboard with 2.5s fast timeout
+    const [ovData, mlsData] = await Promise.all([
+      fetchJsonSafe(ESPN_ATHLETE_OVERVIEW, 2500),
+      fetchJsonSafe(ESPN_MLS_SCOREBOARD, 2500)
+    ]);
 
-    const ovRes = await fetch(ESPN_ATHLETE_OVERVIEW, {
-      headers: HEADERS,
-      signal: controller.signal
-    });
-    clearTimeout(timeoutId);
+    const candidateMap = new Map();
 
-    if (!ovRes.ok) {
-      return res.status(200).json(baseline);
+    if (ovData?.gameLog?.events) {
+      for (const [id, ev] of Object.entries(ovData.gameLog.events)) {
+        candidateMap.set(String(id), {
+          id: String(id),
+          gameDate: ev.gameDate,
+          opponent: ev.opponent?.displayName || "Opponent",
+          leagueName: ev.leagueName || "Major League Soccer",
+          score: ev.score || "Final"
+        });
+      }
     }
 
-    const ovData = await ovRes.json();
-    const events = Object.values(ovData.gameLog?.events || {});
+    if (mlsData?.events) {
+      for (const ev of mlsData.events) {
+        const isCompleted = ev.status?.type?.completed === true;
+        const isMiami = ev.competitions?.[0]?.competitors?.some(c => /miami/i.test(c.team?.displayName || ""));
+        if (isCompleted && isMiami) {
+          const id = String(ev.id);
+          const comp = ev.competitions?.[0];
+          const miamiComp = comp?.competitors?.find(c => /miami/i.test(c.team?.displayName || ""));
+          const oppComp = comp?.competitors?.find(c => !/miami/i.test(c.team?.displayName || ""));
+          const scoreStr = `${miamiComp?.score || 0}-${oppComp?.score || 0}`;
+          if (!candidateMap.has(id)) {
+            candidateMap.set(id, {
+              id,
+              gameDate: ev.date,
+              opponent: oppComp?.team?.displayName || "Opponent",
+              leagueName: "Major League Soccer",
+              score: scoreStr
+            });
+          }
+        }
+      }
+    }
+
+    const events = Array.from(candidateMap.values());
     if (!events.length) {
       return res.status(200).json(baseline);
     }
@@ -104,38 +152,33 @@ export default async function handler(req, res) {
     events.sort((a, b) => new Date(b.gameDate) - new Date(a.gameDate));
     const latestEvent = events[0];
 
-    // Check if match was today
     const matchDateObj = new Date(latestEvent.gameDate);
     const todayUtc = new Date().toISOString().split("T")[0];
     const matchDateStr = latestEvent.gameDate.split("T")[0];
     const isToday = matchDateStr === todayUtc;
 
-    // Check nextGame to see if there is a match scheduled for today
     let hasMatchToday = isToday;
-    if (ovData.nextGame) {
+    if (ovData?.nextGame) {
       const nextDate = (ovData.nextGame.date || "").split("T")[0];
       if (nextDate === todayUtc) hasMatchToday = true;
     }
 
-    // If latest event matches our baseline, return baseline enriched with real-time today status
-    const baselineLastDate = baseline.todayStatus?.lastMatchDate;
-    if (matchDateStr <= baselineLastDate && latestEvent.id === "401901377") {
+    const baselineLastDate = baseline.todayStatus?.lastMatchDate || "2026-09-27";
+    const baselineGoalNum = baseline.latestGoal?.goalNumber || 931;
+
+    // If latest event is already accounted for in our baseline, return baseline with fresh live status
+    if (matchDateStr <= baselineLastDate && (latestEvent.id === "761844" || matchDateStr === baselineLastDate)) {
       baseline.todayStatus.hasMatchToday = hasMatchToday;
-      baseline.todayStatus.didScoreToday = isToday;
+      baseline.todayStatus.didScoreToday = isToday && (baseline.latestGoal?.date === todayUtc);
       return res.status(200).json(baseline);
     }
 
-    // If there is a newer event, fetch summary to get scorer details
-    const sumRes = await fetch(`${ESPN_SUMMARY_BASE}${latestEvent.id}`, {
-      headers: HEADERS,
-      signal: AbortSignal.timeout(2500)
-    });
-
-    if (!sumRes.ok) {
+    // A newer fixture exists: fetch summary to check if Messi scored
+    const sumData = await fetchJsonSafe(`${ESPN_SUMMARY_BASE}${latestEvent.id}`, 2500);
+    if (!sumData) {
       return res.status(200).json(baseline);
     }
 
-    const sumData = await sumRes.json();
     let messiGoals = 0;
     for (const team of sumData.rosters || []) {
       for (const p of team.roster || []) {
@@ -147,15 +190,15 @@ export default async function handler(req, res) {
       }
     }
 
-    // If Messi scored in the newly discovered fixture
     if (messiGoals > 0) {
       let minute = "";
       let finish = "Open play";
       let assist = "";
-      let goalText = "";
+      let venue = sumData.gameInfo?.venue?.fullName || "Chase Stadium (Fort Lauderdale, FL)";
 
       for (const ev of sumData.keyEvents || []) {
         const isGoal = /goal/i.test(ev.type?.text || "") && !/own\s*goal/i.test(ev.type?.text || "");
+        const goalTextRaw = ev.text || "";
         const primaryAthlete = ev.participants?.[0]?.athlete;
         const isMessiScorer = primaryAthlete ? 
           (primaryAthlete.id === "45843" || /messi/i.test(primaryAthlete.displayName || "")) :
@@ -163,22 +206,21 @@ export default async function handler(req, res) {
         if (isGoal && isMessiScorer) {
           const rawClock = (ev.clock?.displayValue || "").replace(/'/g, "");
           minute = rawClock ? `${rawClock}'` : "";
-          goalText = goalTextRaw;
-          const isPen = /penalty/i.test(goalText);
-          const isFK = /free\s*kick/i.test(goalText);
-          const isHead = /header|head/i.test(goalText);
-          const isRight = /right\s*foot/i.test(goalText);
+          const isPen = /penalty/i.test(goalTextRaw);
+          const isFK = /free\s*kick/i.test(goalTextRaw);
+          const isHead = /header|head/i.test(goalTextRaw);
+          const isRight = /right\s*foot/i.test(goalTextRaw);
 
           finish = isPen ? "Penalty" : (isFK ? "Direct Free Kick" : (isHead ? "Header" : (isRight ? "Right Foot" : "Left Foot")));
-          const assistMatch = goalText.match(/Assisted by ([^.]+)/i);
+          const assistMatch = goalTextRaw.match(/Assisted by ([^.]+)/i);
           if (assistMatch) assist = assistMatch[1].trim();
         }
       }
 
-      const oppName = latestEvent.opponent?.displayName || "Opponent";
-      const compName = latestEvent.leagueName || "Major League Soccer";
-      const scoreLine = latestEvent.score || "Final";
-      const newGoalNumber = (baseline.latestGoal.goalNumber || 930) + 1;
+      const oppName = latestEvent.opponent;
+      const compName = latestEvent.leagueName;
+      const scoreLine = latestEvent.score;
+      const newGoalNumber = baselineGoalNum + messiGoals;
       const formattedDate = matchDateObj.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
       const bdayKey = `${String(matchDateObj.getMonth() + 1).padStart(2, '0')}-${String(matchDateObj.getDate()).padStart(2, '0')}`;
 
@@ -191,13 +233,13 @@ export default async function handler(req, res) {
         date: matchDateStr,
         formattedDate,
         bdayKey,
-        minute: minute ? `${minute}'` : "",
-        clock: minute ? `${minute}'` : "",
+        minute: minute || "90'",
+        clock: minute || "90'",
         type: `${finish}${assist ? ` (Assist: ${assist})` : ""}`,
         finish,
         assist,
         score: scoreLine,
-        venue: "Chase Stadium (Fort Lauderdale, FL)",
+        venue,
         title: `Inter Miami ${scoreLine} ${oppName}`,
         videoUrl: `https://cdn.messiallgoals.com/Goal${newGoalNumber}.mp4`,
         youtubeUrl: `https://www.youtube.com/results?search_query=Messi+goal+vs+${encodeURIComponent(oppName)}+${encodeURIComponent(compName)}`,
@@ -210,8 +252,8 @@ export default async function handler(req, res) {
           title: dynamicLatest.title,
           meta: `${compName} • ${formattedDate}`,
           match: `vs ${oppName} (${scoreLine})`,
-          date: `${formattedDate} • ${minute}'`,
-          minute: `${minute}'`,
+          date: `${formattedDate} • ${minute || "90'"}`,
+          minute: minute || "90'",
           type: dynamicLatest.type,
           tag: `${finish} 🔥`,
           score: scoreLine,
@@ -233,24 +275,24 @@ export default async function handler(req, res) {
           lastMatchOpponent: oppName,
           lastMatchResult: `Inter Miami ${scoreLine} ${oppName}`,
           lastGoalNumber: newGoalNumber,
-          lastGoalMinute: minute ? `${minute}'` : ""
+          lastGoalMinute: minute || "90'"
         },
         recentGoals: newRecentGoals,
         totals: {
           seniorGoals: newGoalNumber,
-          appearances: (baseline.totals?.appearances || 1175) + 1,
-          miamiGoals: (baseline.totals?.miamiGoals || 100) + messiGoals,
-          season2026Goals: (baseline.totals?.season2026Goals || 23) + messiGoals,
-          freeKicks: finish.includes("Free Kick") ? (baseline.totals?.freeKicks || 67) + 1 : (baseline.totals?.freeKicks || 67)
+          appearances: (baseline.totals?.appearances || 1177) + 1,
+          miamiGoals: (baseline.totals?.miamiGoals || 102) + messiGoals,
+          season2026Goals: (baseline.totals?.season2026Goals || 25) + messiGoals,
+          freeKicks: finish.includes("Free Kick") ? (baseline.totals?.freeKicks || 68) + 1 : (baseline.totals?.freeKicks || 68)
         }
       });
     }
 
-    // Messi played but didn't score in the latest event
+    // Match played but Messi didn't score
     baseline.todayStatus.hasMatchToday = hasMatchToday;
     baseline.todayStatus.didScoreToday = false;
     baseline.todayStatus.lastMatchDate = matchDateStr;
-    baseline.todayStatus.lastMatchResult = `Inter Miami ${latestEvent.score || ""} ${latestEvent.opponent?.displayName || ""}`;
+    baseline.todayStatus.lastMatchResult = `Inter Miami ${latestEvent.score || ""} ${latestEvent.opponent || ""}`;
     return res.status(200).json(baseline);
 
   } catch (err) {
