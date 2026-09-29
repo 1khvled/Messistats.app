@@ -808,7 +808,7 @@ function initStreamPromoPopup() {
 }
 
 function showStreamPromoPopup() {
-  if (typeof document === "undefined" || document.getElementById("stream-hidden-gem-toast")) return;
+  if (typeof document === "undefined" || document.getElementById("stream-hidden-gem-toast") || document.getElementById("argentina-stream-banner")) return;
 
   const toast = document.createElement("div");
   toast.id = "stream-hidden-gem-toast";
@@ -863,6 +863,259 @@ function showStreamPromoPopup() {
         localStorage.setItem(DISMISS_KEY, String(Date.now()));
       } catch (_) {}
       setTimeout(close, 400);
+    });
+  }
+}
+
+
+/* ================= ARGENTINA FAREWELL MATCH STREAM NOTIFICATION ================= */
+const ARGENTINA_STREAM_I18N = {
+  en: {
+    badge: "🇦🇷 FINAL ARGENTINA MATCH",
+    title: "Lionel Messi's Farewell Match",
+    text: "Lionel Messi's farewell game on 6 October 2026! Watch the LIVE stream free with NO ADS.",
+    highlight: "Free live stream • No ads",
+    cta: "Watch Free Stream ▶",
+    closeAria: "Close notification",
+    matchCardTitle: "Historic Farewell Match • 6 Oct 2026",
+    matchCardDesc: "Watch Lionel Messi's final international match with Argentina live on Koora Live with zero ads."
+  },
+  es: {
+    badge: "🇦🇷 ÚLTIMO PARTIDO CON ARGENTINA",
+    title: "Partido de Despedida de Lionel Messi",
+    text: "¡El partido de despedida de Lionel Messi el 6 de octubre de 2026! Mira la transmisión EN VIVO gratis y SIN ANUNCIOS.",
+    highlight: "Transmisión gratis en vivo • Sin anuncios",
+    cta: "Ver Transmisión Gratis ▶",
+    closeAria: "Cerrar notificación",
+    matchCardTitle: "Partido Histórico de Despedida • 6 Oct 2026",
+    matchCardDesc: "Mira el último partido internacional de Lionel Messi con Argentina en vivo en Koora Live sin anuncios."
+  },
+  pt: {
+    badge: "🇦🇷 ÚLTIMO JOGO PELA ARGENTINA",
+    title: "Jogo de Despedida de Lionel Messi",
+    text: "O jogo de despedida de Lionel Messi em 6 de outubro de 2026! Assista à transmissão AO VIVO grátis e SEM ANÚNCIOS.",
+    highlight: "Transmissão ao vivo grátis • Sem anúncios",
+    cta: "Assistir Grátis ▶",
+    closeAria: "Fechar notificação",
+    matchCardTitle: "Jogo Histórico de Despedida • 6 Out 2026",
+    matchCardDesc: "Assista ao último jogo de Lionel Messi pela seleção da Argentina ao vivo no Koora Live sem anúncios."
+  },
+  fr: {
+    badge: "🇦🇷 DERNIER MATCH AVEC L'ARGENTINE",
+    title: "Match d'Adieu de Lionel Messi",
+    text: "Le match d'adieu de Lionel Messi le 6 octobre 2026 ! Regardez le direct EN DIRECT gratuit et SANS PUB.",
+    highlight: "Streaming gratuit en direct • Sans pub",
+    cta: "Regarder le Direct ▶",
+    closeAria: "Fermer la notification",
+    matchCardTitle: "Match Historique d'Adieu • 6 Oct 2026",
+    matchCardDesc: "Suivez le tout dernier match de Lionel Messi avec l'Argentine en direct sur Koora Live sans aucune publicité."
+  },
+  ar: {
+    badge: "🇦🇷 آخر مباراة مع الأرجنتين",
+    title: "مباراة وداع ليونيل ميسي",
+    text: "مباراة وداع ليونيل ميسي في 6 أكتوبر 2026! شاهد البث المباشر مجاناً وبدون إعلانات.",
+    highlight: "بث مباشر مجاني • بدون إعلانات",
+    cta: "شاهد البث المجاني ▶",
+    closeAria: "إغلاق الإشعار",
+    matchCardTitle: "مباراة الوداع التاريخية • 6 أكتوبر 2026",
+    matchCardDesc: "شاهد آخر مباراة دولية للأسطورة ليونيل ميسي مع الأرجنتين مباشرة وبدون أي إعلانات على Koora Live."
+  },
+  bn: {
+    badge: "🇦🇷 আর্জেন্টিনার হয়ে শেষ ম্যাচ",
+    title: "লিওনেল মেসির বিদায়ী ম্যাচ",
+    text: "৬ অক্টোবর ২০২৬ লিওনেল মেসির বিদায়ী ম্যাচ! কোনো বিজ্ঞাপন ছাড়া সম্পূর্ণ ফ্রিতে লাইভ স্ট্রিম দেখুন।",
+    highlight: "ফ্রি লাইভ স্ট্রিম • কোনো বিজ্ঞাপন নেই",
+    cta: "ফ্রি লাইভ স্ট্রিম দেখুন ▶",
+    closeAria: "বিজ্ঞপ্তি বন্ধ করুন",
+    matchCardTitle: "ঐতিহাসিক বিদায়ী ম্যাচ • ৬ অক্টোবর ২০২৬",
+    matchCardDesc: "আর্জেন্টিনার জার্সিতে লিওনেল মেসির শেষ আন্তর্জাতিক ম্যাচ সরাসরি ও বিজ্ঞাপনহীন দেখুন Koora Live-এ।"
+  },
+  hi: {
+    badge: "🇦🇷 अर्जेंटीना के साथ अंतिम मैच",
+    title: "लियोनेल मेसी का विदाई मैच",
+    text: "6 अक्टूबर 2026 को लियोनेल मेसी का विदाई मैच! बिना किसी विज्ञापन के बिल्कुल मुफ्त लाइव स्ट्रीम देखें।",
+    highlight: "मुफ्त लाइव स्ट्रीम • कोई विज्ञापन नहीं",
+    cta: "मुफ्त लाइव स्ट्रीम देखें ▶",
+    closeAria: "सूचना बंद करें",
+    matchCardTitle: "ऐतिहासिक विदाई मैच • 6 अक्टूबर 2026",
+    matchCardDesc: "अर्जेंटीना के लिए लियोनेल मेसी का आखिरी अंतर्राष्ट्रीय मैच Koora Live पर बिना किसी विज्ञापन के लाइव देखें।"
+  },
+  ro: {
+    badge: "🇦🇷 ULTIMUL MECI CU ARGENTINA",
+    title: "Meciul de Adio al lui Lionel Messi",
+    text: "Meciul de adio al lui Lionel Messi pe 6 octombrie 2026! Urmărește transmisiunea LIVE gratuit și FĂRĂ RECLAME.",
+    highlight: "Transmisiune live gratuită • Fără reclame",
+    cta: "Vezi Transmisiunea Gratuită ▶",
+    closeAria: "Închide notificarea",
+    matchCardTitle: "Meci Istoric de Adio • 6 Oct 2026",
+    matchCardDesc: "Urmărește ultimul meci al lui Lionel Messi pentru Argentina în direct pe Koora Live, fără reclame."
+  },
+  uz: {
+    badge: "🇦🇷 ARGENTINA BILAN SOʻNGGI OʻYIN",
+    title: "Lionel Messining xayrlashuv uchrashuvi",
+    text: "Lionel Messining 2026-yil 6-oktabrdagi xayrlashuv oʻyini! Jonli efirni REKLAMASIZ va mutlaqo bepul tomosha qiling.",
+    highlight: "Bepul jonli efir • Reklamasiz",
+    cta: "Bepul Efirni Koʻrish ▶",
+    closeAria: "Bildirishnomani yopish",
+    matchCardTitle: "Tarixiy Xayrlashuv Oʻyini • 6-oktabr 2026",
+    matchCardDesc: "Lionel Messining Argentina terma jamoasidagi soʻnggi bahsini Koora Live orqali hech qanday reklamasiz bepul tomosha qiling."
+  }
+};
+
+function initArgentinaStreamNotification() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  const STREAM_URL = "https://kooraadz.vercel.app/";
+  const DISMISS_KEY = "dismissed_argentina_stream_banner";
+  const COOLDOWN_MS = 6 * 60 * 60 * 1000; // 6 hours
+
+  // Target match date: 6 October 2026.
+  // 2 days before is: 4 October 2026 00:00:00 UTC (1791072000000)
+  // Active window until: 7 October 2026 06:00:00 UTC (1791352800000)
+  const START_MS = Date.parse("2026-10-04T00:00:00Z");
+  const END_MS = Date.parse("2026-10-07T06:00:00Z");
+  const now = Date.now();
+  const isWithinActiveWindow = now >= START_MS && now <= END_MS;
+
+  // Immediate Preview / Testing override support
+  let isTesting = false;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    isTesting = params.get("stream") === "1" ||
+                params.get("preview_stream") === "1" ||
+                window.__FORCE_STREAM_BANNER__ === true;
+  } catch (_) {}
+
+  // If outside active window and not forcing test mode, do not activate
+  if (!isWithinActiveWindow && !isTesting) return;
+
+  const lang = (typeof getLang === "function" ? getLang() : (typeof getCurrentLangCode === "function" ? getCurrentLangCode() : "en"));
+  const t = ARGENTINA_STREAM_I18N[lang] || ARGENTINA_STREAM_I18N.en;
+
+  // 1. Add stream link to active match card / home page matchday tracker when active
+  try {
+    // A. Home page & global matchday placeholder (#banner)
+    const bannerHost = document.getElementById("banner");
+    if (bannerHost && !document.getElementById("banner-arg-stream")) {
+      bannerHost.removeAttribute("hidden");
+      bannerHost.classList.add("argentina-matchday-banner-host");
+      const matchdayCard = document.createElement("div");
+      matchdayCard.id = "banner-arg-stream";
+      matchdayCard.className = "argentina-matchday-banner";
+      matchdayCard.innerHTML = `
+        <div class="arg-banner-info">
+          <div class="arg-banner-top">
+            <span class="arg-stream-badge">
+              <span class="arg-live-dot" aria-hidden="true"><span class="arg-live-dot-ping"></span><span class="arg-live-dot-core"></span></span>
+              <span>${t.badge}</span>
+            </span>
+            <span class="arg-stream-feature">⭐ ${t.highlight}</span>
+          </div>
+          <div class="arg-banner-title">${t.matchCardTitle}</div>
+          <p class="arg-banner-desc">${t.matchCardDesc}</p>
+        </div>
+        <a href="${STREAM_URL}" target="_blank" rel="noopener noreferrer" class="btn-arg-banner-stream" id="banner-arg-stream-btn">
+          <span>${t.cta}</span>
+        </a>
+      `;
+      bannerHost.appendChild(matchdayCard);
+    }
+
+    // B. Today match status section on latest-goal page (#today-status-section)
+    const todayCard = document.getElementById("today-status-section");
+    if (todayCard && !document.getElementById("today-arg-stream-alert")) {
+      const alert = document.createElement("div");
+      alert.id = "today-arg-stream-alert";
+      alert.className = "today-arg-stream-alert";
+      alert.innerHTML = `
+        <div class="today-arg-stream-top">
+          <span class="arg-stream-badge">
+            <span class="arg-live-dot" aria-hidden="true"><span class="arg-live-dot-ping"></span><span class="arg-live-dot-core"></span></span>
+            <span>${t.badge}</span>
+          </span>
+          <span class="arg-stream-feature">⭐ ${t.highlight}</span>
+        </div>
+        <div class="today-arg-stream-title">${t.matchCardTitle}</div>
+        <p class="today-arg-stream-desc">${t.matchCardDesc}</p>
+        <a href="${STREAM_URL}" target="_blank" rel="noopener noreferrer" class="btn-today-arg-stream" id="today-arg-stream-btn">
+          <span>${t.cta}</span>
+        </a>
+      `;
+      todayCard.appendChild(alert);
+    }
+  } catch (err) {
+    console.warn("Argentina stream tracker sync warning:", err);
+  }
+
+  // 2. Dismissible Floating Banner check
+  let isDismissed = false;
+  try {
+    const dismissedAt = localStorage.getItem(DISMISS_KEY);
+    if (dismissedAt && (now - parseInt(dismissedAt, 10) < COOLDOWN_MS)) {
+      isDismissed = true;
+    }
+  } catch (_) {}
+
+  // In test mode, ignore dismissal so user can verify anytime
+  if (isDismissed && !isTesting) return;
+
+  // Avoid duplicate injection
+  if (document.getElementById("argentina-stream-banner")) return;
+
+  const banner = document.createElement("aside");
+  banner.id = "argentina-stream-banner";
+  banner.className = "argentina-stream-banner";
+  banner.setAttribute("role", "region");
+  banner.setAttribute("aria-label", "Lionel Messi Farewell Match Stream Notification");
+  if (lang === "ar") {
+    banner.setAttribute("dir", "rtl");
+  }
+
+  banner.innerHTML = `
+    <div class="arg-stream-stripe" aria-hidden="true"></div>
+    <div class="arg-stream-header">
+      <div class="arg-stream-badge">
+        <span class="arg-live-dot" aria-hidden="true"><span class="arg-live-dot-ping"></span><span class="arg-live-dot-core"></span></span>
+        <span>${t.badge}</span>
+      </div>
+      <button type="button" class="arg-stream-close" id="arg-stream-close-btn" aria-label="${t.closeAria}">✕</button>
+    </div>
+    <div class="arg-stream-content">
+      <div class="arg-stream-title">${t.title}</div>
+      <p class="arg-stream-desc">${t.text}</p>
+      <div class="arg-stream-feature">
+        <span class="arg-feature-star">⭐</span>
+        <span>${t.highlight}</span>
+      </div>
+    </div>
+    <div class="arg-stream-actions">
+      <a href="${STREAM_URL}" target="_blank" rel="noopener noreferrer" class="btn-arg-stream" id="arg-stream-cta-btn">
+        <span>${t.cta}</span>
+      </a>
+    </div>
+  `;
+
+  document.body.appendChild(banner);
+
+  const closeBtn = banner.querySelector("#arg-stream-close-btn");
+  const ctaBtn = banner.querySelector("#arg-stream-cta-btn");
+
+  const dismiss = () => {
+    try {
+      localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    } catch (_) {}
+    banner.classList.add("arg-banner-hiding");
+    setTimeout(() => {
+      if (banner.parentNode) banner.parentNode.removeChild(banner);
+    }, 260);
+  };
+
+  if (closeBtn) closeBtn.addEventListener("click", dismiss);
+  if (ctaBtn) {
+    ctaBtn.addEventListener("click", () => {
+      try {
+        localStorage.setItem(DISMISS_KEY, String(Date.now()));
+      } catch (_) {}
     });
   }
 }
@@ -1972,6 +2225,7 @@ function initLanguageAndMobileTopBar() {
     ensureDesktopBrandHeader();
     initDonationPopup();
     initStreamPromoPopup();
+    initArgentinaStreamNotification();
     initQuizPopup();
     initFanArcade();
     initGlobalGoatPoll();
@@ -3653,6 +3907,7 @@ function renderHome(d) {
   initBdayQuickForm();
   renderOnThisDay();
   initFanArcade();
+  initArgentinaStreamNotification();
 }
 
 /* ================= BIRTHDAY QUICK FORM (HERO WIDGET) ================= */
@@ -8228,6 +8483,7 @@ function renderLatestGoal(d) {
   bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, activeType, activeScore, activeComp, ytBtn, bdayLink);
   autoPullLatestGoalLive(d);
   initDedicatedRoulette();
+  initArgentinaStreamNotification();
   renderExplore(d, "latest-goal");
 }
 
@@ -8329,6 +8585,7 @@ load().then((d) => {
      boot observer, same pattern as the timeline .tl-reveal wiring. */
   armEntrance();
   initBackToTop();
+  initArgentinaStreamNotification();
 }).catch(() => {
   const lang = getLang();
   const errorMsgs = {
