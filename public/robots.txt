@@ -129,6 +129,7 @@ Allow: /
 Allow: /llms.txt
 Allow: /llms-full.txt
 Allow: /18188f5363f745f1bbf821767e0f0daf.txt
+Allow: /58275d254596457f840c2220b7d2cde5.txt
 Disallow: /admin
 Disallow: /admin/
 Disallow: /en/admin

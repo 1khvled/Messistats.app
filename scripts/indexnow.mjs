@@ -9,7 +9,7 @@ const root = path.resolve(__dirname, "..");
 
 const SITE = "https://www.messistat.com";
 const HOST = "www.messistat.com";
-const KEY = "18188f5363f745f1bbf821767e0f0daf";
+const KEY = "58275d254596457f840c2220b7d2cde5";
 const KEY_LOCATION = `${SITE}/${KEY}.txt`;
 
 // Read sitemap from local file first, then fallback to fetch
