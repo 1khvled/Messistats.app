@@ -13,6 +13,7 @@ const NAV_LABELS = {
     langSelectAria: "Select Language (English)",
     langSelectTitle: "Select Language",
     home: "Home",
+    latestGoal: "Latest Goal",
     bday: "Birthday Goals",
     ronaldo: "vs Ronaldo",
     madrid: "vs Real Madrid",
@@ -32,6 +33,7 @@ const NAV_LABELS = {
     langSelectAria: "Seleccionar idioma (Español)",
     langSelectTitle: "Seleccionar idioma",
     home: "Inicio",
+    latestGoal: "Último Gol",
     bday: "Cumpleaños",
     ronaldo: "vs Ronaldo",
     madrid: "vs Real Madrid",
@@ -51,6 +53,7 @@ const NAV_LABELS = {
     langSelectAria: "Selecionar idioma (Português)",
     langSelectTitle: "Selecionar idioma",
     home: "Início",
+    latestGoal: "Último Gol",
     bday: "Aniversário",
     ronaldo: "vs Ronaldo",
     madrid: "vs Real Madrid",
@@ -70,6 +73,7 @@ const NAV_LABELS = {
     langSelectAria: "Changer de langue (Français)",
     langSelectTitle: "Changer de langue",
     home: "Accueil",
+    latestGoal: "Dernier But",
     bday: "Anniversaire",
     ronaldo: "vs Ronaldo",
     madrid: "vs Real Madrid",
@@ -89,6 +93,7 @@ const NAV_LABELS = {
     langSelectAria: "اختر اللغة (العربية)",
     langSelectTitle: "اختر اللغة",
     home: "الرئيسية",
+    latestGoal: "آخر هدف",
     bday: "عيد الميلاد",
     ronaldo: "ضد رونالدو",
     madrid: "ضد ريال مدريد",
@@ -108,6 +113,7 @@ const NAV_LABELS = {
     langSelectAria: "ভাষা নির্বাচন করুন (বাংলা)",
     langSelectTitle: "ভাষা নির্বাচন করুন",
     home: "হোম",
+    latestGoal: "সাম্প্রতিক গোল",
     bday: "জন্মদিন",
     ronaldo: "বনাম রোনালদো",
     madrid: "বনাম রিয়াল মাদ্রিদ",
@@ -127,6 +133,7 @@ const NAV_LABELS = {
     langSelectAria: "भाषा चुनें (हिन्दी)",
     langSelectTitle: "भाषा चुनें",
     home: "होम",
+    latestGoal: "ताजा गोल",
     bday: "जन्मदिन",
     ronaldo: "बनाम रोनाल्डो",
     madrid: "बनाम रियल मैड्रिड",
@@ -146,6 +153,7 @@ const NAV_LABELS = {
     langSelectAria: "Selectează limba (Română)",
     langSelectTitle: "Selectează limba",
     home: "Acasă",
+    latestGoal: "Ultimul Gol",
     bday: "Zi de naștere",
     ronaldo: "vs Ronaldo",
     madrid: "vs Real Madrid",
@@ -165,6 +173,7 @@ const NAV_LABELS = {
     langSelectAria: "Tilni tanlang (O'zbekcha)",
     langSelectTitle: "Tilni tanlang",
     home: "Asosiy",
+    latestGoal: "Soʻnggi gol",
     bday: "Tug'ilgan kun",
     ronaldo: "vs Ronaldu",
     madrid: "vs Real Madrid",
@@ -188,6 +197,9 @@ function generateRailHtml(lang, activeSlug) {
   const uclLink = lang === "en" ? "/en/champions-league" : `/${lang}/champions-league`;
   const uclItem = `\n<a${onAria("champions-league")} href="${uclLink}" aria-label="${L.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${L.ucl}</span></a>`;
 
+  const latestGoalLink = lang === "en" ? "/en/latest-goal" : `/${lang}/latest-goal`;
+  const latestGoalItem = `\n<a${onAria("latest-goal")} href="${latestGoalLink}" aria-label="${L.latestGoal}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>${L.latestGoal} <b class="nav-badge-hot">LIVE ⚡</b></span></a>`;
+
   const adminLink = "";
 
   return `<aside aria-label="Navigation" class="rail">
@@ -204,7 +216,7 @@ function generateRailHtml(lang, activeSlug) {
   </button>
 </div>
 <nav>
-<a${onAria("home")} href="/${lang}" aria-label="${L.home}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg><span>${L.home}</span></a>
+<a${onAria("home")} href="/${lang}" aria-label="${L.home}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg><span>${L.home}</span></a>${latestGoalItem}
 <a${onBday("birthday")} href="/${lang}/birthday" aria-label="${L.bday}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg><span>${L.bday} <b class="nav-badge-hot">HOT 🔥</b></span></a>
 <a${onAria("messi-vs-ronaldo")} href="/${lang}/messi-vs-ronaldo" aria-label="${L.ronaldo}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg><span>${L.ronaldo}</span></a>
 <a${onAria("vs-real-madrid")} href="/${lang}/vs-real-madrid" aria-label="${L.madrid}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg><span>${L.madrid}</span></a>${uclItem}
@@ -240,6 +252,7 @@ function updateFileRail(filePath, lang, activeSlug) {
 
 const PAGES_MAP = {
   "index.html": "home",
+  "latest-goal.html": "latest-goal",
   "birthday.html": "birthday",
   "messi-vs-ronaldo.html": "messi-vs-ronaldo",
   "vs-real-madrid.html": "vs-real-madrid",
