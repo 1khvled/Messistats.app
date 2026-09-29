@@ -2331,7 +2331,7 @@ ${JSON.stringify(jsonLd, null, 2)}
           <h3>${t.bdayTitle}</h3>
           <p>${t.bdayDesc}</p>
         </div>
-        <a href="${slugPath}/birthday?date=02-05" class="btn btn-primary bday-promo-btn">${t.bdayBtn}</a>
+        <a href="/en/birthday/02-05" class="btn btn-primary bday-promo-btn">${t.bdayBtn}</a>
       </div>
     </aside>
 

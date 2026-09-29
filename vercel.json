@@ -6,6 +6,27 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/:lang/birthday",
+      "has": [{ "type": "query", "key": "date", "value": "(?<date>.+)" }],
+      "destination": "/en/birthday/$date",
+      "permanent": true
+    },
+    {
+      "source": "/:lang",
+      "has": [{ "type": "query", "key": "date", "value": "(?<date>.+)" }],
+      "destination": "/en/birthday/$date",
+      "permanent": true
+    },
+    {
+      "source": "/:lang/birthday",
+      "has": [
+        { "type": "query", "key": "month", "value": "(?<month>.+)" },
+        { "type": "query", "key": "day", "value": "(?<day>.+)" }
+      ],
+      "destination": "/en/birthday/$month-$day",
+      "permanent": true
+    },
+    {
       "source": "/admin",
       "destination": "/en",
       "permanent": true

@@ -99,6 +99,13 @@ function getLangUrl(targetCode) {
     "latest-goal"
   ];
   const pathParts = location.pathname.split("/").filter(Boolean);
+  // Clean programmatic date pages exist in English only: keep every language
+  // switch on the single canonical date URL instead of forking ?date= copies
+  // (one per language) that Google indexes as separate duplicate pages.
+  if (pathParts.length > 2 && pathParts[1] === "birthday" && /^\d{1,2}-\d{1,2}$/.test(pathParts[2])) {
+    const cleanKey = pathParts[2].split("-").map((n) => String(parseInt(n, 10)).padStart(2, "0")).join("-");
+    return `/en/birthday/${cleanKey}${location.hash}`;
+  }
   let subpage = "";
   if (pathParts.length > 1) {
     subpage = pathParts[1].replace(/\.html$/, "");
@@ -106,11 +113,23 @@ function getLangUrl(targetCode) {
     subpage = pathParts[0].replace(/\.html$/, "");
   }
 
+  // Drop volatile filter/search params (?date=, ?month=, ?day=, ?q=, ?season=,
+  // ?country=, ?team=) on language switch so one shared link doesn't fork into
+  // 9 indexed duplicates. The page state itself is re-selected after navigation.
+  const VOLATILE_PARAMS = ["date", "month", "day", "q", "season", "country", "team"];
+  let search = "";
+  try {
+    const sp = new URLSearchParams(location.search);
+    VOLATILE_PARAMS.forEach((k) => sp.delete(k));
+    const rest = sp.toString();
+    search = rest ? `?${rest}` : "";
+  } catch (_) { search = ""; }
+
   if (subpage && validSubpages.includes(subpage)) {
-    return `/${targetCode}/${subpage}${location.search}${location.hash}`;
+    return `/${targetCode}/${subpage}${search}${location.hash}`;
   }
 
-  return `/${targetCode}${location.search}${location.hash}`;
+  return `/${targetCode}${search}${location.hash}`;
 }
 
 function centerActiveNav() {
@@ -3944,9 +3963,9 @@ function initBdayQuickForm() {
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const m = monthSel.value;
-    const d = daySel.value;
-    window.location.href = `/${getLang()}/birthday?date=${m}-${d}`;
+    const m = String(monthSel.value).padStart(2, "0");
+    const d = String(daySel.value).padStart(2, "0");
+    window.location.href = `/en/birthday/${m}-${d}`;
   });
 }
 
@@ -4247,7 +4266,7 @@ async function renderOnThisDay() {
           <h3 class="otd-headline">${headlineText}</h3>
         </div>
         <div class="otd-header-right">
-          <a href="/${lang}/birthday?date=${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
+          <a href="/en/birthday/${todayKey}" class="btn btn-secondary btn-sm otd-bday-link">
             ${o.btnBday}
           </a>
         </div>
@@ -4295,7 +4314,7 @@ async function renderOnThisDay() {
           </div>
 
           <div class="otd-cta-row">
-            <a href="/${lang}/birthday?date=${todayKey}" class="btn btn-primary btn-sm">
+            <a href="/en/birthday/${todayKey}" class="btn btn-primary btn-sm">
               ${o.btnExplore}
             </a>
           </div>
@@ -6958,7 +6977,7 @@ function updateBirthdaySocialShare(dayData, key) {
     }
   }
 
-  const shareUrl = `${location.origin}/${lang === "en" ? "en" : lang}/birthday?date=${key}`;
+  const shareUrl = `${location.origin}/en/birthday/${key}`;
 
   const shareBtn = el("bday-share-btn");
   if (shareBtn) {
@@ -7629,7 +7648,7 @@ async function renderBirthday(d) {
 
   const updateBirthdaySocialShare = (dayData, key) => {
     const formatted = `${dayData.day} ${MONTH_NAMES[dayData.month]}`;
-    const shareUrl = `${location.origin}/${lang}/birthday?date=${key}`;
+    const shareUrl = `${location.origin}/en/birthday/${key}`;
     const shareText = dayData.goalsCount > 0
       ? bDict.shareSuccess(formatted, dayData.goalsCount, dayData.matches?.length || 1)
       : bDict.shareEmpty(formatted);
@@ -7753,10 +7772,12 @@ async function renderBirthday(d) {
     window.__currentBdayFormatted = formatted;
     if (window.__updateEmbedModal) window.__updateEmbedModal();
 
+    // Point the address bar at the single canonical date page (clean URLs
+    // exist in English only) instead of a ?date= fork that Google indexes
+    // as a separate duplicate. Share/copy buttons use the same clean URL.
     try {
       const url = new URL(location.href);
-      url.searchParams.set("date", key);
-      history.replaceState(null, "", url.pathname + url.search + url.hash);
+      history.replaceState(null, "", `/en/birthday/${key}${url.hash}`);
     } catch (_) {}
 
     try {
@@ -8109,6 +8130,17 @@ async function renderBirthday(d) {
     initDay = parseInt(params.get("day"), 10);
   }
 
+  // Legacy ?date= / ?month=&day= URLs (shared before the clean-URL migration):
+  // consolidate onto the single canonical date page instead of hydrating a
+  // param duplicate that Google indexes separately from the canonical.
+  if (!pathMatch && (params.get("date") || (params.get("month") && params.get("day")))) {
+    if (Number.isFinite(initMonth) && Number.isFinite(initDay) && initMonth >= 1 && initMonth <= 12 && initDay >= 1 && initDay <= 31) {
+      const cleanKey = `${String(initMonth).padStart(2, "0")}-${String(initDay).padStart(2, "0")}`;
+      try { window.location.replace(`/en/birthday/${cleanKey}`); } catch (_) {}
+      return;
+    }
+  }
+
   updateDaysDropdown(initMonth, initDay);
   selectDate(initMonth, initDay, false);
   setupEmbedModal();
@@ -8371,7 +8403,8 @@ async function autoPullLatestGoalLive(d) {
       }
       if (ytBtn && g.youtubeUrl) ytBtn.href = g.youtubeUrl;
       if (bdayLink && g.bdayKey) {
-        bdayLink.href = lang === "en" ? `/en/birthday/${g.bdayKey}` : `/${lang}/birthday/${g.bdayKey}`;
+        // Date pages exist in English only — never link non-EN date forks (404s).
+        bdayLink.href = `/en/birthday/${g.bdayKey}`;
       }
     }
 
@@ -8405,7 +8438,8 @@ async function autoPullLatestGoalLive(d) {
           grid.innerHTML = payload.recentGoals.map((rg, idx) => {
             const isActive = idx === 0 ? " active" : "";
             const goalLabel = lang === "uz" ? `${rg.goalNumber}-gol` : `${t.goalPrefix}${rg.goalNumber}`;
-            const bdayPath = lang === "en" ? (rg.bdayUrl || `/en/birthday/${rg.bdayKey}`) : `/${lang}/birthday/${rg.bdayKey || "09-27"}`;
+            // Date pages exist in English only — never link non-EN date forks (404s).
+            const bdayPath = rg.bdayUrl || `/en/birthday/${rg.bdayKey || "09-27"}`;
             return `
               <div class="recent-goal-card${isActive}" data-goal-id="${rg.goalNumber}"
                    data-goal-num="${goalLabel}"
