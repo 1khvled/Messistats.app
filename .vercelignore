@@ -4,3 +4,8 @@
 # ignore before building (missing scripts/ fails the build).
 worker
 wrangler.toml
+scratch
+.github
+tests
+*.py
+__pycache__

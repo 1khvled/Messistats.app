@@ -283,10 +283,16 @@ for (let i = 0; i < keys.length; i++) {
   </url>`);
   }
 
+  // Safe HTML minification to drastically reduce disk footprint & Vercel deployment storage
+  const minifiedHtml = html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/>\s+</g, "><")
+    .replace(/\s{2,}/g, " ");
+
   // Write to dist/en/birthday/[key]/index.html
   const outDir = path.join(distDir, "en", "birthday", key);
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(path.join(outDir, "index.html"), html, "utf8");
+  fs.writeFileSync(path.join(outDir, "index.html"), minifiedHtml, "utf8");
 }
 
 console.log(`Generated ${keys.length} pages in dist/en/birthday/`);
