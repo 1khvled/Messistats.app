@@ -8098,15 +8098,19 @@ async function autoPullLatestGoalLive(d) {
     const currentNumStr = (activeNum ? activeNum.textContent : "").replace(/\D/g, "");
     const currentNum = parseInt(currentNumStr, 10) || 930;
 
-    if (g.goalNumber > currentNum) {
+    const isDesynced = (g.goalNumber !== currentNum) ||
+      (video && !video.src.includes(`Goal${g.goalNumber}.mp4`)) ||
+      (activeTitle && !activeTitle.textContent.toLowerCase().includes((g.opponent || "").toLowerCase()));
+
+    if (isDesynced || g.goalNumber >= currentNum) {
       if (activeNum) activeNum.textContent = lang === "uz" ? `${g.goalNumber}-gol` : `${t.goalPrefix}${g.goalNumber}`;
-      if (activeTitle && g.title) activeTitle.textContent = g.title;
+      if (activeTitle && g.title) activeTitle.textContent = `${t.goalPrefix}${g.goalNumber} ${t.matchHighlights || "Match Highlights"}: ${g.title}`;
       if (activeMeta && g.venue) activeMeta.textContent = `${g.competition} • ${g.formattedDate} • ${g.venue}`;
       if (activeMin && g.minute) activeMin.textContent = g.minute;
       if (activeType && g.type) activeType.textContent = g.type;
       if (activeScore && g.score) activeScore.textContent = g.score;
       if (activeComp && g.competition) activeComp.textContent = g.competition;
-      if (video && g.videoUrl && video.src !== g.videoUrl) {
+      if (video && g.videoUrl && !video.src.includes(`Goal${g.goalNumber}.mp4`)) {
         video.src = g.videoUrl;
         video.load();
       }
@@ -8135,12 +8139,18 @@ async function autoPullLatestGoalLive(d) {
     if (payload.recentGoals && payload.recentGoals.length > 0) {
       const grid = document.querySelector(".recent-goals-grid");
       if (grid) {
-        const firstCardId = parseInt(grid.querySelector(".recent-goal-card")?.dataset?.goalId, 10) || 0;
-        if (payload.recentGoals[0].goalNumber > firstCardId) {
+        const firstCard = grid.querySelector(".recent-goal-card");
+        const firstCardId = parseInt(firstCard?.dataset?.goalId, 10) || 0;
+        const firstCardTitle = firstCard?.dataset?.title || "";
+        const targetLatest = payload.recentGoals[0];
+        const gridNeedsSync = (targetLatest.goalNumber !== firstCardId) ||
+          (!firstCardTitle.toLowerCase().includes(targetLatest.title.toLowerCase().slice(0, 10)));
+
+        if (gridNeedsSync || targetLatest.goalNumber >= firstCardId) {
           grid.innerHTML = payload.recentGoals.map((rg, idx) => {
             const isActive = idx === 0 ? " active" : "";
             const goalLabel = lang === "uz" ? `${rg.goalNumber}-gol` : `${t.goalPrefix}${rg.goalNumber}`;
-            const bdayPath = lang === "en" ? (rg.bdayUrl || `/en/birthday/${rg.bdayKey}`) : `/${lang}/birthday/${rg.bdayKey || "09-17"}`;
+            const bdayPath = lang === "en" ? (rg.bdayUrl || `/en/birthday/${rg.bdayKey}`) : `/${lang}/birthday/${rg.bdayKey || "09-27"}`;
             return `
               <div class="recent-goal-card${isActive}" data-goal-id="${rg.goalNumber}"
                    data-goal-num="${goalLabel}"

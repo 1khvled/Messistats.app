@@ -15,6 +15,7 @@
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { syncLatestGoalHtml } from "./sync-latest-goal-html.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const latestGoalJsonPath = resolve(root, "public", "data", "latest-goal.json");
@@ -283,6 +284,11 @@ export async function autoPullLatestGoal() {
         }
         console.log(`[SUCCESS] Written new goal #${newGoalNum} to public/data/latest-goal.json!`);
         try {
+          syncLatestGoalHtml();
+        } catch (err) {
+          console.warn("syncLatestGoalHtml error:", err.message);
+        }
+        try {
           const { execSync } = await import("node:child_process");
           execSync("node scripts/generate-og.mjs", { cwd: root, stdio: "inherit" });
         } catch (err) {
@@ -294,6 +300,9 @@ export async function autoPullLatestGoal() {
       latestData.todayStatus.didScoreToday = newlyFoundGoal.isToday;
       if (!isCheckOnly) {
         writeFileSync(latestGoalJsonPath, JSON.stringify(latestData, null, 2), "utf8");
+        if (isForce) {
+          syncLatestGoalHtml();
+        }
       }
     }
   }
