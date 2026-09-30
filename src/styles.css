@@ -638,7 +638,7 @@ svg.donut circle:hover { stroke-width: 30; }
 .chapter > h3 { font-size: 1.2rem; margin-bottom: 2px; }
 .chapter .c-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; }
 .ch-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 10px; }
-.ch-era { font-family: var(--font-head); font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
+.ch-era { font-family: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif; font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
 .ch-range { color: var(--muted); font-size: 0.9rem; font-weight: 600; }
 .tl-events { list-style: none; counter-reset: ev; margin: 0; padding: 6px 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 .tl-event { counter-increment: ev; display: flex; align-items: baseline; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 0.94rem; color: var(--ink-soft); }
@@ -5401,6 +5401,7 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   width: 100%;
   max-width: 540px;
   max-height: 85vh;
+  max-height: 88dvh;   /* dvh keeps the sheet correct while the mobile URL bar hides */
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 24px;
@@ -5426,6 +5427,7 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   padding: 16px 20px;
   border-bottom: 1px solid var(--line);
   background: var(--surface);
+  flex: 0 0 auto;   /* the title must never be squeezed by the scrolling grid */
 }
 .lang-modal-title-wrap {
   display: flex;
@@ -5466,6 +5468,12 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   padding: 16px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  /* A flex child defaults to min-height:auto, so this grid refused to shrink
+     and never scrolled - the sheet's own overflow:hidden simply cut the last
+     language (Uzbek) off the bottom of the phone with no way to reach it. */
+  min-height: 0;
+  flex: 1 1 auto;
+  overscroll-behavior: contain;
 }
 
 .lang-card-option {
@@ -10991,26 +10999,21 @@ svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms);
   h2 { font-size: 1.24rem; margin: 1.9rem 0 0.8rem; }
   .page-lead, .lede { font-size: 1rem; line-height: 1.55; }
 
-  /* ---------- 2. Nothing readable below 13px ---------- */
-  main p, main li, main dd, main dt, main figcaption,
-  .figcap, .section-sub, .kpi-sub, .kpi-note, .lede, .page-lead,
-  .ground-truth-lead, .shead, .r1000-lbl, .r1000-desc {
-    font-size: max(0.82rem, 13px);
-  }
-  .data-table td, .data-table th, .ground-truth-table td, .ground-truth-table th,
-  .breakdown-table td, .breakdown-table th {
+    /* Table cells and headers keep the theme's inherited size (16px body,
+     0.76rem uppercase heads). An earlier pass shrank them to 13px/0.68rem. */
+/* Readability floor. This must only ever RAISE text that is already
+     under 13px (badges and chip labels). An earlier version also listed
+     main p, main li, .lede, .page-lead, .ground-truth-lead and the table
+     cells here, which silently pulled 16px body copy and 16px table cells
+     down to 13px on phones. Reading text keeps the theme's 16px. */
+  .dash-kpi-sub, .dash-team-goals, .tl-num, .year-pick-title, .dash-kpi-lbl {
     font-size: max(0.8rem, 13px);
   }
-  .data-table thead th, .ground-truth-table thead th, .breakdown-table thead th { font-size: 0.68rem; }
-  /* Secondary/meta text: 12.5px is the floor, not the target. */
-  .dash-kpi-sub, .dash-team-goals, .kpi-sub, .kpi-note, .hero-stat span,
-  .tl-num, .year-pick-title, .dash-kpi-lbl { font-size: max(0.8rem, 13px); }
   /* Timeline chrome: boxes are 40px tall, so lift the label a touch too. */
   .tl-filter-btn, .lbl { font-size: max(0.78rem, 12.8px); }
   .tl-pill-stat { font-size: max(0.75rem, 12.5px); }
   .tl-cat-badge { font-size: max(0.72rem, 12px); }
-
-  /* ---------- 3. Real tap targets (inline prose links stay small) ---------- */
+/* ---------- 3. Real tap targets (inline prose links stay small) ---------- */
   .btn, .btn-primary, .btn-secondary, .btn-sm,
   .table-play-link, .r1000-link, .bday-top-day-link, .qj-pill,
   .tl-filter-btn, .dash-team-btn, .bday-month-pill, .bday-mode-btn,
@@ -11058,7 +11061,6 @@ svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms);
 @media (max-width: 380px) {
   h1, h1.page-title, .wrap > h1 { font-size: 1.5rem; }
   .wrap { padding: 24px 16px 56px; }
-  main p, main li { font-size: max(0.8rem, 12.5px); }
 }
 
 /* ---------- 10. Avoid jank: no animated filter/shadow on scroll ---------- */
