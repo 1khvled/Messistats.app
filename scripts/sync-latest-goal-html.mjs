@@ -500,6 +500,11 @@ export function syncLatestGoalHtml() {
       /(<div class="kpi">\s*<span class="kpi-label">Free Kick Goals<\/span>\s*<span class="kpi-value tnum">)[0-9]+(<\/span>)/i,
       `$1${freeKicks}$2`
     );
+    // Same Free-Kick KPI in all 9 languages (labels are static per locale)
+    for (const lbl of ["Goles de Tiro Libre", "Gols de Falta", "Coups Francs Directs", "أهداف الركلات الحرة", "ফ্রি-কিক গোল", "फ्री किक गोल", "Goluri din Lovitură Liberă", "Jarima zarbalaridan gollar"]) {
+      const re = new RegExp(`(<span class="kpi-label">${lbl}<\\/span>\\s*<span class="kpi-value tnum">)[0-9]+(<\\/span>)`);
+      html = html.replace(re, `$1${freeKicks}$2`);
+    }
 
     // 9. Update Open Graph & Twitter Video Tags
     html = html.replace(/<meta property="og:video" content="[^"]*"/i, `<meta property="og:video" content="${g.videoUrl}"`);
