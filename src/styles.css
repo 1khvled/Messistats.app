@@ -11069,3 +11069,129 @@ svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms);
     transition: border-color 0.12s linear, background 0.12s linear;
   }
 }
+/* ---------- Days hub: 366 day links, month by month ----------
+   Reuses the heatmap tier tokens so a day cell reads the same as the
+   birthday heatmap, and stays legible at 16:9 down to 320px. */
+.days-month-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 1.2rem 0 1.6rem;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.days-month-link {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-solid);
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+}
+.days-month-link:hover { border-color: var(--brand); color: var(--brand-ink); }
+.days-top-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  margin: 0.6rem 0 0;
+}
+.days-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  min-height: 44px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.88rem;
+}
+.days-top span {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--gold);
+}
+.days-top:hover { border-color: var(--brand); border-left-color: var(--brand); }
+
+.days-month { margin: 0 0 2rem; }
+.days-month-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: var(--rule);
+}
+.days-month-stat {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--faint);
+  letter-spacing: 0.02em;
+}
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 6px;
+}
+.day-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-height: 44px;            /* thumb-sized */
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.82rem;
+  transition: border-color 0.12s linear, background 0.12s linear;
+}
+.day-cell:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--ink); }
+.day-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day-num {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  min-width: 20px;
+  text-align: right;
+  color: var(--ink);
+}
+.day-num--0 { color: var(--faint); font-weight: 600; }
+/* Heatmap tiers reuse the birthday tokens so the two views agree. */
+.day-cell.tier-0 { background: var(--bday-tier-0); }
+.day-cell.tier-1 { background: var(--bday-tier-1); }
+.day-cell.tier-2 { background: var(--bday-tier-2); color: var(--bday-tier-2-ink); }
+.day-cell.tier-3 { background: var(--bday-tier-3); color: var(--bday-tier-3-ink); }
+.day-cell.tier-4 { background: var(--bday-tier-4); color: var(--bday-tier-4-ink); }
+.day-cell.tier-2 .day-num, .day-cell.tier-3 .day-num, .day-cell.tier-4 .day-num { color: inherit; }
+.day-cell.tier-0 .day-num { color: var(--bday-tier-0-ink); }
+
+.days-footnote { margin: 2rem 0 0; }
+.days-footnote p { max-width: 74ch; line-height: 1.66; }
+
+@media (max-width: 760px) {
+  .days-grid { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 5px; }
+  .days-month-title { font-size: 1.1rem; }
+  .day-cell { flex-direction: column; align-items: flex-start; gap: 2px; padding: 7px 8px; }
+  .day-num { text-align: left; }
+  .days-month-nav { gap: 5px; padding: 8px; }
+  .days-month-link { padding: 6px 10px; min-height: 38px; }
+}
+@media (max-width: 380px) {
+  .days-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+  .day-cell { font-size: 0.76rem; }
+}

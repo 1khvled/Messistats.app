@@ -263,6 +263,17 @@ ${getHreflangsXml("/" + sub.slug)}${imgXml}${vidXml}
   </url>`);
 }
 
+// 2b. English-only hub for all 366 day pages.
+// Deliberately NOT in SUBPAGES: that array is reused for the other 8
+// languages, and /es/days, /ar/days etc. do not exist. The day pages
+// themselves are English-only too, so their hreflangs stay x-default+en.
+urlBlocks.push(`  <url>
+    <loc>https://www.messistat.com/en/days</loc>
+    <lastmod>${todayIso}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>`);
+
 // 3. Other languages: Homepage + Subpages
 const langHomeMeta = {
   es: {
