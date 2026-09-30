@@ -35,7 +35,7 @@
   --brand-ink: #073f5e;
   --brand-soft: #e2edf4;
   --navy: #0f1a2e;
-  --hero-grad: var(--navy);
+  --hero-grad: linear-gradient(112deg, #6d0f2e 8%, #1d3fae 52%, #0e7cc0 96%);
   --accent: #1a7f56;
   --accent-soft: #e0efe7;
   --gold: #7a5600;
@@ -56,8 +56,7 @@
   --rail-w: 76px;
   --rail-open: 248px;
   --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-head: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-head: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
   --bday-tier-0: #eceee9;
   --bday-tier-0-ink: #8a9184;
   --bday-tier-1: #d3e3ef;
@@ -10564,15 +10563,16 @@ input:-webkit-autofill:focus {
    Appended last so it wins the cascade.
    ===================================================================== */
 
-/* ---------- A. Typography: keep the original DM Sans / Plus Jakarta Sans ---------- */
-body {
-  font-family: var(--font-body);
-  font-variant-numeric: tabular-nums;
-}
-h1, h2, h3, h4 {
+/* ---------- A. Typography: IDENTICAL to the original theme ----------
+   Deliberately adds no font-weight and no global tabular-nums. An earlier
+   pass set font-weight:800 on every heading and tabular figures on <body>,
+   which made the type read heavier and wider than the DM Sans /
+   Plus Jakarta Sans original. Tabular figures stay scoped to the same
+   selectors the theme has always used (.tnum, td, .kpi-value, ...). */
+body { font-family: var(--font-body); }
+h1, h2, h3 {
   font-family: var(--font-head);
-  font-weight: 800;
-  letter-spacing: -0.015em;   /* original tracking, unchanged from the light theme */
+  letter-spacing: -0.015em;   /* original tracking, unchanged */
   line-height: 1.18;
 }
 /* Section rules: a hard 2px ink line instead of a floating heading. */
@@ -10585,39 +10585,18 @@ h2 {
   flex-wrap: wrap;
 }
 
-/* Every number on the site reads as a figure in a ledger. */
-.kpi-value, .kpi-num, .trophy-value, .r1000-num, .milestone-val,
-.num, .tnum, td, th, .hero-stat b, .tl-num, .bday-count, .stat-value,
-.data-table td, .data-table th, .ground-truth-table td, .ground-truth-table th {
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum" 1;
-}
+/* Tabular figures stay scoped to the same selectors the theme always used.
+   A previous pass applied them to <body> and to every heading, which widened
+   all digits and changed the texture of the type. */
+.tnum, td, .kpi-value, .trophy-value, .num { font-variant-numeric: tabular-nums; }
 
-/* Mono kickers � the "records bureau" voice. Eyebrows, labels, table heads. */
-.eyebrow,
-.kpi-label,
-.ground-truth-badge,
-.updated-badge,
-.hero-action-label,
-.tl-era-nav a,
-.data-table thead th,
-.ground-truth-table thead th,
-.breakdown-table thead th,
-.trophy-label,
-.updated-badge,
-.mini-lbl,
-.stat-label {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-.eyebrow { letter-spacing: 0.18em; font-weight: 600; }
+/* Labels keep the original Plus Jakarta Sans at weight 700. An earlier pass
+   swapped these to a monospace stack at weight 600, which made every kicker
+   and stat label read lighter and narrower than the theme it replaced.
+   Reverted on purpose: DM Sans / Plus Jakarta Sans, weight 700, original tracking. */
 .eyebrow i { display: none; }          /* the little dash was a template tic */
-.kpi-label { letter-spacing: 0.14em; font-weight: 600; }
 .updated-badge {
-  font-family: var(--font-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   border-radius: var(--radius-pill);
   background: transparent;
 }
@@ -10683,13 +10662,11 @@ h2 {
   color: #04202e;
 }
 
-/* Pills that are really filters/tabs get the ledger treatment: square, mono. */
+/* Filter pills: square geometry, but the theme's own face at weight 700. */
 .pill {
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 7px 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 7px 15px;
   border-radius: var(--radius);
 }
 .pill.on, .pill--active {
@@ -10802,10 +10779,9 @@ h2 {
   border-bottom: var(--rule);
 }
 .data-table thead th, .ground-truth-table thead th, .breakdown-table thead th {
-  font-family: var(--font-mono);
   font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--faint);
   border-bottom: 1px solid var(--ink);
@@ -10837,10 +10813,11 @@ h2 {
 .ground-truth-title { letter-spacing: -0.02em; }
 
 /* ---------- I. Rails & nav: hairline dividers, no pill hover ---------- */
-.rail { border: 1px solid var(--line); border-radius: var(--radius); }
-.rail nav a { border-radius: var(--radius); }
-.rail nav a.on { background: var(--ink); color: var(--bg-1); }
-[data-theme="dark"] .rail nav a.on { background: var(--ink); color: #000; }
+.rail { border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow-sm); }
+.rail-badge { border-radius: 16px; }
+.rail nav a { border-radius: 14px; }
+.rail nav a.on { background: var(--navy); color: #fff; }
+.rail nav a.on:hover { color: #fff; }
 .rail nav a:hover { background: var(--brand-soft); color: var(--brand-ink); }
 
 /* ---------- J. Progress bars: flat, no capsule ---------- */
@@ -10852,7 +10829,7 @@ input, select, textarea, .bday-select, .admin-select, .tl-search input {
   border-radius: var(--radius);
   font-family: var(--font-body);
 }
-input::placeholder, textarea::placeholder { font-family: var(--font-mono); font-size: 0.82em; }
+input::placeholder, textarea::placeholder { font-size: 0.9em; }
 
 /* ---------- L. Focus: a square bracket, not a rounded halo ---------- */
 :focus-visible { border-radius: 1px; outline-width: 2px; outline-offset: 1px; }
@@ -10989,11 +10966,11 @@ input::placeholder, textarea::placeholder { font-family: var(--font-mono); font-
    The compact chart uses a 360x300 viewBox (vs 1000x210), so at ~340px wide
    the scale is ~0.94 instead of ~0.34. These user-unit sizes land at a
    readable 11-16px on a phone instead of 4-7px. */
-svg.spark.compact text.yr { font-size: 12.5px; font-family: var(--font-mono); }
+svg.spark.compact text.yr { font-size: 12.5px; }
 svg.spark.compact text.axis { font-size: 12px; }
 svg.spark.compact text.prov-label { font-size: 13px; }
 svg.spark.compact text.peak-label { font-size: 17px; }
-svg.spark.compact text.thousand-label { font-size: 12.5px; font-family: var(--font-mono); font-weight: 700; text-anchor: start; }
+svg.spark.compact text.thousand-label { font-size: 12.5px; font-weight: 800; text-anchor: start; }
 svg.spark.compact .baseline { stroke-width: 1.5; }
 svg.spark.compact .cum { stroke-width: 2.5; }
 svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms); }

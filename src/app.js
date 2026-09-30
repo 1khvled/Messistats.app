@@ -2647,6 +2647,11 @@ function normalize(d) {
   t.goals = t.combined.goals;
   t.apps = t.combined.appearances;
   t.clubs = { apps: t.club.appearances, goals: t.club.goals, goalsPerGame: t.club.goalsPerGame };
+  // The JSON stores country appearances as `appearances`, but 18 call sites
+  // (KPI notes, the 8 languages' FAQ answers, the Argentina summary lines, the
+  // goals-by-year total row and the dashboard filter) read `country.apps`.
+  // Without this alias they all rendered the string "NaN" into visible copy.
+  t.country.apps = t.country.appearances;
   const _todayIso = new Date().toISOString().split("T")[0];
   const _updIso = (d.meta && d.meta.updated && d.meta.updated > _todayIso) ? d.meta.updated : _todayIso;
   d.lastUpdated = new Date(_updIso + "T00:00:00").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
