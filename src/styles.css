@@ -1,35 +1,17 @@
-/* MessiStats — "THE MESSI LEDGER": a statistical archive, not a marketing page.
-   Sharp print geometry, hairline rules, ledger hairlines, no glass.
-   Archivo (editorial grotesque) + IBM Plex Mono (data voice). Both self-hosted,
-   subsetted to latin/latin-ext. Arabic, Devanagari and Bengali fall to system
-   stacks, which is why those declarations carry explicit local fallbacks. */
+/* MessiStats — light editorial paper theme matching the ronaldostats.app reference structure.
+   Own code, own data, own copy. DM Sans (body) + Plus Jakarta Sans (headings), self-hosted. */
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo-latin.woff2") format("woff2");
-  font-weight: 400 800;
-  font-stretch: 100%;
+  font-family: "DM Sans";
+  src: url("/fonts/dm-sans-latin.woff2") format("woff2");
+  font-weight: 400 700;
   font-display: swap;
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
-    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Archivo";
-  src: url("/fonts/archivo-latin-ext.woff2") format("woff2");
-  font-weight: 400 800;
-  font-stretch: 100%;
+  font-family: "Plus Jakarta Sans";
+  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
+  font-weight: 500 800;
   font-display: swap;
-  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
-    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
-    U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-400-latin.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-400-latin-ext.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-500-latin.woff2") format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-500-latin-ext.woff2") format("woff2"); font-weight: 500; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-600-latin.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-600-latin-ext.woff2") format("woff2"); font-weight: 600; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-700-latin.woff2") format("woff2"); font-weight: 700; font-display: swap; }
-@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-700-latin-ext.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 /* Messi identity tokens: Argentina albiceleste (sky/white) primary, Blaugrana
    (deep blue/garnet) secondary, gold reserved for records and honours.
@@ -73,9 +55,9 @@
   --rule: 2px solid var(--ink);
   --rail-w: 76px;
   --rail-open: 248px;
-  --font-body: "Archivo", "Noto Sans Arabic", "Noto Sans Devanagari", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-head: "Archivo", "Noto Sans Arabic", "Noto Sans Devanagari", "Noto Sans Bengali", system-ui, sans-serif;
-  --font-mono: "Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
   --bday-tier-0: #eceee9;
   --bday-tier-0-ink: #8a9184;
   --bday-tier-1: #d3e3ef;
@@ -10580,21 +10562,17 @@ input:-webkit-autofill:focus {
    Appended last so it wins the cascade.
    ===================================================================== */
 
-/* ---------- A. Typography: editorial grotesque + mono data voice ---------- */
+/* ---------- A. Typography: keep the original DM Sans / Plus Jakarta Sans ---------- */
 body {
   font-family: var(--font-body);
-  font-feature-settings: "tnum" 1, "cv05" 1;
-  letter-spacing: -0.006em;
-  font-optical-sizing: auto;
+  font-variant-numeric: tabular-nums;
 }
 h1, h2, h3, h4 {
   font-family: var(--font-head);
   font-weight: 800;
-  letter-spacing: -0.028em;   /* tight, headline-tight � not airy SaaS */
-  line-height: 1.08;
+  letter-spacing: -0.015em;   /* original tracking, unchanged from the light theme */
+  line-height: 1.18;
 }
-h1.page-title, .wrap > h1 { letter-spacing: -0.035em; }
-h2 { letter-spacing: -0.03em; }
 /* Section rules: a hard 2px ink line instead of a floating heading. */
 h2 {
   padding-bottom: 0.45rem;

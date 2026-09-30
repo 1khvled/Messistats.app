@@ -624,6 +624,35 @@ function ensureSkipLink() {
 }
 ensureSkipLink();
 
+/* The 300x250 leaderboard sits above the headline, which on a 390x844 phone
+   pushed the H1 to 429px — over half the first screen before any content.
+   On phones we let the headline win and drop the slot just under the lede.
+   Desktop keeps the original position, and rotating re-applies the layout. */
+function placeTopAdForViewport() {
+  if (typeof document === "undefined") return;
+  const ad = document.querySelector(".ad-banner-top");
+  const main = document.getElementById("main") || document.querySelector(".wrap");
+  if (!ad || !main) return;
+  const narrow = window.innerWidth < 900;
+  if (narrow) {
+    if (ad.dataset.adMoved === "1") return;
+    const anchor = main.querySelector(".lede, .page-lead") || null;
+    if (anchor && anchor.parentElement) {
+      anchor.insertAdjacentElement("afterend", ad);
+      ad.dataset.adMoved = "1";
+    }
+  } else if (ad.dataset.adMoved === "1") {
+    if (main.firstElementChild) main.insertBefore(ad, main.firstElementChild);
+    else main.appendChild(ad);
+    ad.dataset.adMoved = "0";
+  }
+}
+placeTopAdForViewport();
+window.addEventListener("messi:spark-relayout", placeTopAdForViewport);
+if (typeof window !== "undefined") {
+  window.addEventListener("orientationchange", () => setTimeout(placeTopAdForViewport, 120));
+}
+
 function initDonationPopup() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
