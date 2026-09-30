@@ -228,6 +228,10 @@
       "destination": "/birthday.html"
     },
     {
+      "source": "/en/days",
+      "destination": "/days.html"
+    },
+    {
       "source": "/en/vs/real-madrid",
       "destination": "/vs-real-madrid.html"
     },

@@ -11195,3 +11195,33 @@ svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms);
   .days-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
   .day-cell { font-size: 0.76rem; }
 }
+/* ---------- Date-page month strip ----------
+   The 366 single-date pages each show only their own month's days instead of
+   the whole year, to keep the build small. Everything visual is deliberately
+   inherited from the existing .bday-days-grid / .bday-day-btn / .tier-N rules
+   so the strip is pixel-identical to the full-year grid on /en/birthday - only
+   the frame and the current-day marker are new. Do not re-declare the day
+   button here; that would override the calendar grid above. */
+.bday-month-strip {
+  margin: 18px 0 8px;
+  padding: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+/* Mark which day you are on, since the date pages ship a month-scoped grid.
+   Uses the same gold accent as the existing .bday-day-btn.active state, minus
+   the scale/float, per the no-hover-lift rule. */
+.bday-day-btn.is-current {
+  outline: 2px solid var(--gold);
+  outline-offset: -2px;
+  font-weight: 900;
+}
+.bday-month-strip-more {
+  margin: 12px 0 0;
+  font-size: 0.88rem;
+}
+.bday-month-strip-more a { font-weight: 700; }
+@media (max-width: 480px) {
+  .bday-month-strip { padding: 10px; }
+}
