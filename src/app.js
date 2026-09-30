@@ -2920,13 +2920,42 @@ function renderMethod(d, extra) {
 }
 
 /* ---------- SVG charts ---------- */
+/* One viewBox cannot serve a 340px phone and a 1120px desktop: the phone would
+   just shrink every label to ~4px. So the geometry is chosen at render time.
+   Compact = a narrow, tall box with larger user-unit type and thinned labels. */
+let SPARK_COMPACT = typeof window !== "undefined" ? window.innerWidth < 760 : false;
+if (typeof window !== "undefined" && window.matchMedia) {
+  const _mq = window.matchMedia("(min-width: 760px)");
+  const _sync = () => {
+    const next = !_mq.matches;
+    if (next !== SPARK_COMPACT) {
+      SPARK_COMPACT = next;
+      window.dispatchEvent(new Event("messi:spark-relayout"));
+    }
+  };
+  if (_mq.addEventListener) _mq.addEventListener("change", _sync);
+  else if (_mq.addListener) _mq.addListener(_sync);
+}
+
 function sparkSVG(rows, opts) {
   opts = opts || {};
-  const W = 1000, H = 210, base = 175, maxH = 120;
+  const compact = SPARK_COMPACT;
+  const W = compact ? 360 : 1000;
+  const H = compact ? 300 : 210;
+  const base = compact ? 246 : 175;
+  const maxH = compact ? 176 : 120;
+  const targetY = compact ? 34 : 44;
+  const labelY = compact ? 292 : 198;
   const max = Math.max(...rows.map((r) => r.value), 1);
   const step = W / rows.length;
-  const bw = Math.min(Math.max(20, step * 0.52), 64);
-  let s = `<svg class="spark" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.label || "Bar chart")}">`;
+  const bw = compact
+    ? Math.min(Math.max(5, step * 0.58), 20)
+    : Math.min(Math.max(20, step * 0.52), 64);
+  const rx = compact ? 1.5 : 4;
+  // Only label years where the text cannot collide with its neighbour.
+  const labelEvery = compact ? Math.max(1, Math.ceil(40 / step)) : (opts.skipLabels ? 2 : 1);
+  const svgCls = "spark" + (compact ? " compact" : "");
+  let s = `<svg class="${svgCls}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(opts.label || "Bar chart")}">`;
   s += `<defs>` +
     `<linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd0f2"/><stop offset="1" stop-color="#0e7cc0"/></linearGradient>` +
     `<linearGradient id="barPeak" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eec22f"/><stop offset="1" stop-color="#8a6300"/></linearGradient>` +
@@ -2938,36 +2967,57 @@ function sparkSVG(rows, opts) {
     es: " /año", pt: " /ano", fr: " /an", ar: " /سنة", bn: " /বছর", hi: " /वर्ष", ro: " /an", uz: " /yil"
   }[lang] || " /yr";
   s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
-  s += `<text class="axis" x="4" y="${(base - maxH + 4).toFixed(1)}">${max}${opts.cumulative ? yrSuffix : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
+  s += `<text class="axis" x="4" y="${(base - maxH + (compact ? 14 : 4)).toFixed(1)}">${max}${opts.cumulative ? yrSuffix : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
 
   // 1. Draw bars first so cumulative line and labels sit cleanly on top
+  const lastIdx = rows.length - 1;
+  // Decide which columns get a year label BEFORE drawing, so we can guarantee
+  // a minimum gap. Forcing the last column on top of a regular tick used to
+  // print "2025" and "2026" on top of each other.
+  const minGap = compact ? 42 : 46;
+  const wanted = [];
+  for (let i = 0; i <= lastIdx; i += labelEvery) wanted.push(i);
+  if (wanted[wanted.length - 1] !== lastIdx) wanted.push(lastIdx);
+  const peakIdx = rows.findIndex((r) => r.peak || (r.year != null && r.year === opts.peakYear));
+  if (peakIdx >= 0 && !wanted.includes(peakIdx)) wanted.push(peakIdx);
+  wanted.sort((a, b) => a - b);
+  const labelled = [];
+  for (const i of wanted) {
+    const x = i * step + step / 2;
+    if (labelled.length && x - labelled[labelled.length - 1] * step - step / 2 < minGap) {
+      // Too close to the previous label: keep the later one only if it is the
+      // final column, otherwise drop this one.
+      if (i !== lastIdx) continue;
+      labelled.pop();
+    }
+    labelled.push(i);
+  }
+  const labelSet = new Set(labelled);
+
   rows.forEach((r, i) => {
-    const h = Math.max(3, (r.value / max) * maxH);
+    const h = Math.max(compact ? 2 : 3, (r.value / max) * maxH);
     const x = (i * step + (step - bw) / 2).toFixed(1);
     const y = (base - h).toFixed(1);
     const peak = r.peak || (r.year != null && r.year === opts.peakYear);
     const selected = opts.selectedYear != null && r.year === opts.selectedYear;
     const cls = "bar ybar" + (peak ? " peak" : "") + (r.provisional ? " prov" : "") + (selected ? " active" : "");
-    const rect = `<rect class="${cls}" data-year="${r.year != null ? r.year : ""}" data-val="${r.value}" style="--i:${i}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="4"><title>${esc(r.tip)}</title></rect>`;
+    const rect = `<rect class="${cls}" data-year="${r.year != null ? r.year : ""}" data-val="${r.value}" style="--i:${i}" x="${x}" y="${y}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="${rx}"><title>${esc(r.tip)}</title></rect>`;
     s += (opts.linkPrefix && r.year != null) ? `<a href="${opts.linkPrefix}${r.year}">${rect}</a>` : rect;
 
+    const labY = Math.max(base - h - (compact ? 10 : 8), compact ? 22 : 26).toFixed(1);
     if (r.peak) {
-      const py = Math.max(base - h - 8, 26).toFixed(1);
-      s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="${py}">${r.value}</text>`;
+      s += `<text class="peak-label" x="${(i * step + step / 2).toFixed(0)}" y="${labY}">${r.value}</text>`;
+    } else if (r.provisional) {
+      s += `<text class="prov-label" x="${(i * step + step / 2).toFixed(0)}" y="${labY}">${r.value}</text>`;
     }
-    if (r.provisional && !r.peak) {
-      const py = Math.max(base - h - 8, 26).toFixed(1);
-      s += `<text class="prov-label" x="${(i * step + step / 2).toFixed(0)}" y="${py}">${r.value}</text>`;
-    }
-    if (!opts.skipLabels || i % 2 === 0)
-      s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="198">${esc(r.label)}</text>`;
+    if (labelSet.has(i))
+      s += `<text class="yr" x="${(i * step + step / 2).toFixed(0)}" y="${labelY}">${esc(r.label)}</text>`;
   });
 
   // 2. Cumulative polyline, target line, and labels drawn AFTER bars so they stay visible
   if (opts.cumulative) {
     const tot = rows.reduce((a, r) => a + r.value, 0);
     const target = 1000;
-    const targetY = 44;
     let run = 0;
     const pts = rows.map((r, i) => {
       run += r.value;
@@ -2994,13 +3044,20 @@ function sparkSVG(rows, opts) {
     // Subtle area under cumulative curve
     s += `<polygon class="cum-area" points="${firstX},${base} ${pts.join(" ")} ${lastX},${base}" fill="url(#cumAreaGrad)"/>`;
     // 1,000 goal target line
-    s += `<line class="thousand" x1="0" y1="${targetY}" x2="${W}" y2="${targetY}"/><text class="thousand-label" x="${W - 10}" y="${targetY - 6}">${cLabels.target}</text>`;
-    // Right axis for cumulative career total
-    s += `<text class="axis right" x="${W - 10}" y="${targetY + 16}" text-anchor="end">${cLabels.now}</text>`;
+    s += `<line class="thousand" x1="0" y1="${targetY}" x2="${W}" y2="${targetY}"/>`;
+    if (compact) {
+      // In a 360-unit box the two right-anchored notes would collide, so the
+      // target label goes top-left and the running total sits under the end dot.
+      s += `<text class="thousand-label" x="4" y="${targetY - 7}" text-anchor="start">${cLabels.target}</text>`;
+      s += `<text class="axis right" x="${W - 4}" y="${(+lastY + 20).toFixed(1)}" text-anchor="end">${cLabels.now}</text>`;
+    } else {
+      s += `<text class="thousand-label" x="${W - 10}" y="${targetY - 6}">${cLabels.target}</text>`;
+      s += `<text class="axis right" x="${W - 10}" y="${targetY + 16}" text-anchor="end">${cLabels.now}</text>`;
+    }
     // Cumulative climb line
     s += `<polyline class="cum" points="${pts.join(" ")}"/>`;
     // Current total marker dot
-    s += `<circle class="cum-dot" cx="${lastX}" cy="${lastY}" r="5"><title>${esc(cLabels.tip)}</title></circle>`;
+    s += `<circle class="cum-dot" cx="${lastX}" cy="${lastY}" r="${compact ? 4 : 5}"><title>${esc(cLabels.tip)}</title></circle>`;
   }
 
   return s + `</svg>`;
@@ -3884,6 +3941,9 @@ function renderHome(d) {
     const yp = el("yearPick");
     if (yp) yp.addEventListener("change", (e) => drawYear(e.target.value));
     drawYear(cur.year);
+    // Rotating a phone crosses the 760px breakpoint, so the chart needs a
+    // different viewBox. Redraw it rather than leaving a squashed desktop box.
+    window.addEventListener("messi:spark-relayout", () => drawYear(cur.year));
   }
 
   const best = ys.reduce((a, b) => (b.goals > a.goals ? b : a));
@@ -4535,11 +4595,19 @@ function renderByYear(d) {
 
   const comboCard = el("combo-card");
   if (comboCard) {
-    comboCard.innerHTML =
-      `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
-        ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === best.year, tip: `${x.year}: ${x.goals} (${x.careerTotal})` })),
-        { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "dashboard#y", label: cfg.chartLabel(best) }
-      )}</div><figcaption class="figcap">${cfg.cap(best, t)}</figcaption></figure>`;
+    // Kept as a closure so a phone rotating past the 760px breakpoint can
+    // redraw the chart with the compact viewBox instead of a squashed one.
+    const drawCombo = () => {
+      comboCard.innerHTML =
+        `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
+          ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === best.year, tip: `${x.year}: ${x.goals} (${x.careerTotal})` })),
+          { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "dashboard#y", label: cfg.chartLabel(best) }
+        )}</div><figcaption class="figcap">${cfg.cap(best, t)}</figcaption></figure>`;
+      const svg = comboCard.querySelector("svg.spark");
+      if (svg) svg.classList.add("in");
+    };
+    drawCombo();
+    window.addEventListener("messi:spark-relayout", drawCombo);
   }
 
   const kpis = el("kpis");
@@ -5418,9 +5486,15 @@ function renderDashboard(d, team) {
   const seasonCard = el("season-card");
   if (seasonCard) {
     const figCap = cfg.figCap(T, name);
-    seasonCard.innerHTML =
-      `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(seasonRows, { skipLabels: seasonRows.length > 12, label: `Messi goals season by season for ${name}` })}</div>` +
-      `<figcaption class="figcap">${figCap}</figcaption></figure>`;
+    const drawSeason = () => {
+      seasonCard.innerHTML =
+        `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(seasonRows, { skipLabels: seasonRows.length > 12, label: `Messi goals season by season for ${name}` })}</div>` +
+        `<figcaption class="figcap">${figCap}</figcaption></figure>`;
+      const svg = seasonCard.querySelector("svg.spark");
+      if (svg) svg.classList.add("in");
+    };
+    drawSeason();
+    window.addEventListener("messi:spark-relayout", drawSeason);
   }
 
   // 8. Age Card
@@ -5513,10 +5587,16 @@ function renderDashboard(d, team) {
   if (comboCard) {
     const ys = d.calendarYears;
     const bestY = ys.reduce((a, b) => (b.goals > a.goals ? b : a));
-    comboCard.innerHTML = `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
-      ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === bestY.year, tip: `${x.year}: ${x.goals} (${x.careerTotal})` })),
-      { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "#y", label: `Goals by year peaking at ${bestY.goals} in ${bestY.year}` }
-    )}</div><figcaption class="figcap">Bars: goals that year (peak ${bestY.goals}, ${bestY.year}). Line: cumulative career climb to ${n(d.totals.goals)}.</figcaption></figure>`;
+    const drawYearCombo = () => {
+      comboCard.innerHTML = `<figure style="margin:0"><div class="spark-wrap">${sparkSVG(
+        ys.map((x) => ({ label: String(x.year), value: x.goals, year: x.year, provisional: x.provisional, peak: x.year === bestY.year, tip: `${x.year}: ${x.goals} (${x.careerTotal})` })),
+        { cumulative: true, peakYear: 2012, provisionalYear: 2026, linkPrefix: "#y", label: `Goals by year peaking at ${bestY.goals} in ${bestY.year}` }
+      )}</div><figcaption class="figcap">Bars: goals that year (peak ${bestY.goals}, ${bestY.year}). Line: cumulative career climb to ${n(d.totals.goals)}.</figcaption></figure>`;
+      const svg = comboCard.querySelector("svg.spark");
+      if (svg) svg.classList.add("in");
+    };
+    drawYearCombo();
+    window.addEventListener("messi:spark-relayout", drawYearCombo);
   }
 
   const yrTable = el("year-table");

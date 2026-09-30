@@ -11005,3 +11005,22 @@ input::placeholder, textarea::placeholder { font-family: var(--font-mono); font-
 /* ---------- 9. Keyboard users can reach the rail without a mouse ---------- */
 .rail:focus-within { width: var(--rail-open); }
 .rail nav:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
+/* ---------- Responsive SVG chart type ----------
+   The compact chart uses a 360x300 viewBox (vs 1000x210), so at ~340px wide
+   the scale is ~0.94 instead of ~0.34. These user-unit sizes land at a
+   readable 11-16px on a phone instead of 4-7px. */
+svg.spark.compact text.yr { font-size: 12.5px; font-family: var(--font-mono); }
+svg.spark.compact text.axis { font-size: 12px; }
+svg.spark.compact text.prov-label { font-size: 13px; }
+svg.spark.compact text.peak-label { font-size: 17px; }
+svg.spark.compact text.thousand-label { font-size: 12.5px; font-family: var(--font-mono); font-weight: 700; text-anchor: start; }
+svg.spark.compact .baseline { stroke-width: 1.5; }
+svg.spark.compact .cum { stroke-width: 2.5; }
+svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms); }
+
+/* The chart card itself should not add its own padding on phones. */
+@media (max-width: 760px) {
+  .spark-wrap { margin-inline: -2px; }
+  svg.spark { touch-action: pan-y; }
+  .chart-card figcaption, .figcap { font-size: 0.82rem; line-height: 1.45; }
+}
