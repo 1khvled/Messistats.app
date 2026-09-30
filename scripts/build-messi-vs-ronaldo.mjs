@@ -199,7 +199,7 @@ const I18N = {
   en: {
     dir: "ltr",
     title: "Messi vs Ronaldo | MessiStats",
-    desc: "Lionel Messi vs Cristiano Ronaldo: 931 goals vs 979, 385+ assists vs 261, 822 non-penalty goals vs 795, 76 free kicks vs 65, 46 trophies vs 35, 8 Ballons d'Or vs 5. The definitive comparison.",
+    desc: "Lionel Messi vs Cristiano Ronaldo: 931 goals vs 979, 385+ assists vs 261, 822 non-penalty goals vs 795, 76 free kicks vs 64, 46 trophies vs 35, 8 Ballons d'Or vs 5. The definitive comparison.",
     keywords: "messi vs ronaldo, messi vs ronaldo stats, messi vs ronaldo free kicks, messi vs ronaldo penalties, messi vs ronaldo non penalty goals, messi vs ronaldo assists, messi vs ronaldo hat tricks, messi vs ronaldo all time goals, who is the goat messi or ronaldo, who has more goals messi or ronaldo, messi vs ronaldo head to head, messi vs ronaldo world cup, messi ronaldo trophies, messi ronaldo ballons d or",
     brand: "MessiStat",
     homeName: "Home",
@@ -299,7 +299,7 @@ const I18N = {
     crestNote: "Club crests are trademarks of their respective clubs, shown for identification purposes.",
     badgeRonaldoGoals: "Ronaldo (+48 goals, All-Time Record)",
     badgeMessiNPG: "Messi (+26 NPG)",
-    badgeMessiFK: "Messi (+11 free kicks)",
+    badgeMessiFK: "Messi (+12 free kicks)",
     badgeRonaldoPen: "Ronaldo (+75 penalties)",
     badgeMessiAssists: "Messi (+124 assists)",
     badgeRonaldoHT: "Ronaldo (+7 hat-tricks)",
@@ -350,7 +350,7 @@ const I18N = {
       },
       {
         q: "Who has scored more free kicks: Messi or Ronaldo?",
-        a: "Lionel Messi leads Cristiano Ronaldo with 76 direct free-kick goals to Ronaldo's 65. Messi has scored 50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG. Ronaldo has scored 33 for Real Madrid, 15 for Manchester United, 11 for Portugal, 5 for Al-Nassr, and 1 for Juventus."
+        a: "Lionel Messi leads Cristiano Ronaldo with 76 direct free-kick goals to Ronaldo's 64. Messi has scored 50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG. Ronaldo has scored 33 for Real Madrid, 14 for Manchester United, 11 for Portugal, 5 for Al-Nassr, and 1 for Juventus."
       },
       {
         q: "Who has more career assists: Messi or Ronaldo?",
@@ -485,7 +485,7 @@ const I18N = {
     crestNote: "Los escudos de clubes son marcas registradas de sus respectivos clubes, mostrados con fines de identificación.",
     badgeRonaldoGoals: "Ronaldo (+48 goles, récord histórico)",
     badgeMessiNPG: "Messi (+27 goles sin penalti)",
-    badgeMessiFK: "Messi (+11 tiros libres)",
+    badgeMessiFK: "Messi (+12 tiros libres)",
     badgeRonaldoPen: "Ronaldo (+75 penaltis)",
     badgeMessiAssists: "Messi (+124 asistencias)",
     badgeRonaldoHT: "Ronaldo (+7 hat-tricks)",
@@ -536,7 +536,7 @@ const I18N = {
       },
       {
         q: "¿Quién ha marcado más goles de tiro libre directo?",
-        a: "Actualmente supera a Cristiano Ronaldo con 76 goles de tiro libre directo frente a los 65 de Ronaldo en el fútbol profesional senior. Messi anotó 50 con el Barcelona, 12 con Argentina, 12 con el Inter Miami y 2 con el PSG. Ronaldo marcó 33 con el Real Madrid, 15 con el Manchester United, 11 con Portugal, 6 con Al-Nassr y 1 con la Juventus."
+        a: "Actualmente supera a Cristiano Ronaldo con 76 goles de tiro libre directo frente a los 64 de Ronaldo en el fútbol profesional senior. Messi anotó 50 con el Barcelona, 12 con Argentina, 12 con el Inter Miami y 2 con el PSG. Ronaldo marcó 33 con el Real Madrid, 15 con el Manchester United, 11 con Portugal, 5 con Al-Nassr y 1 con la Juventus."
       },
       {
         q: "¿Quién tiene más asistencias en su carrera: Messi o Ronaldo?",
@@ -671,7 +671,7 @@ const I18N = {
     crestNote: "Os escudos dos clubes são marcas registradas de seus respectivos times, exibidos para fins de identificação.",
     badgeRonaldoGoals: "Ronaldo (+48 gols, recorde histórico)",
     badgeMessiNPG: "Messi (+26 gols sem pênalti)",
-    badgeMessiFK: "Messi (+11 faltas diretas)",
+    badgeMessiFK: "Messi (+12 faltas diretas)",
     badgeRonaldoPen: "Ronaldo (+75 pênaltis)",
     badgeMessiAssists: "Messi (+124 assistências)",
     badgeRonaldoHT: "Ronaldo (+7 hat-tricks)",
@@ -722,7 +722,7 @@ const I18N = {
       },
       {
         q: "Quem marcou mais gols de falta direta na carreira?",
-        a: "Atualmente eles supera Cristiano Ronaldo com 76 gols de falta direta contra 65 de Ronaldo. Messi marcou 50 pelo Barcelona, 12 pela Argentina, 12 pelo Inter Miami e 2 pelo PSG. Ronaldo marcou 33 pelo Real Madrid, 15 pelo Manchester United, 11 por Portugal, 6 pelo Al-Nassr e 1 pela Juventus."
+        a: "Atualmente eles supera Cristiano Ronaldo com 76 gols de falta direta contra 64 de Ronaldo. Messi marcou 50 pelo Barcelona, 12 pela Argentina, 12 pelo Inter Miami e 2 pelo PSG. Ronaldo marcou 33 pelo Real Madrid, 15 pelo Manchester United, 11 por Portugal, 5 pelo Al-Nassr e 1 pela Juventus."
       },
       {
         q: "Quem tem mais assistências oficiais: Messi ou Ronaldo?",
@@ -757,7 +757,7 @@ const I18N = {
   fr: {
     dir: "ltr",
     title: "Messi vs Ronaldo : Statistiques, Coups Francs, Penaltys et Face-à-Face | MessiStat",
-    desc: "Lionel Messi vs Cristiano Ronaldo : 931 buts vs 979, 385+ passes décisives vs 261, 822 buts hors penalty vs 795, 76 coups francs vs 65, 46 trophées vs 35, 8 Ballons d'Or vs 5. La comparaison ultime.",
+    desc: "Lionel Messi vs Cristiano Ronaldo : 931 buts vs 979, 385+ passes décisives vs 261, 822 buts hors penalty vs 795, 76 coups francs vs 64, 46 trophées vs 35, 8 Ballons d'Or vs 5. La comparaison ultime.",
     keywords: "messi vs ronaldo, messi vs ronaldo statistiques, messi vs ronaldo coups francs, messi vs ronaldo penaltys, messi vs ronaldo buts hors penalty, messi vs ronaldo passes decisives, messi vs ronaldo triples, qui est le meilleur messi ou ronaldo, qui a le plus de buts messi ou ronaldo, face a face messi ronaldo, coupe du monde, ballons d or, trophees",
     brand: "MessiStat",
     homeName: "Accueil",
@@ -857,7 +857,7 @@ const I18N = {
     crestNote: "Les logos de clubs sont des marques déposées de leurs propriétaires respectifs, utilisés à des fins d'identification.",
     badgeRonaldoGoals: "Ronaldo (+48 buts, record historique)",
     badgeMessiNPG: "Messi (+27 buts hors penalty)",
-    badgeMessiFK: "Messi (+11 coups francs)",
+    badgeMessiFK: "Messi (+12 coups francs)",
     badgeRonaldoPen: "Ronaldo (+75 penaltys)",
     badgeMessiAssists: "Messi (+130 passes décisives)",
     badgeRonaldoHT: "Ronaldo (+7 triplés)",
@@ -1043,7 +1043,7 @@ const I18N = {
     crestNote: "شعارات الأندية علامات تجارية لأنديتها وتُعرض لغايات التعريف بالفرق فقط.",
     badgeRonaldoGoals: "رونالدو (+48 هدفاً، الرقم القياسي التاريخي)",
     badgeMessiNPG: "ميسي (+62 هدفاً بدون جزاء)",
-    badgeMessiFK: "ميسي (+11 ضربة حرة)",
+    badgeMessiFK: "ميسي (+12 ضربة حرة)",
     badgeRonaldoPen: "رونالدو (+75 ركلة جزاء)",
     badgeMessiAssists: "ميسي (+124 تمريرة حاسمة)",
     badgeRonaldoHT: "رونالدو (+7 هاتريك)",
@@ -1094,7 +1094,7 @@ const I18N = {
       },
       {
         q: "من سجل أهدافاً أكثر من ركلات حرة مباشرة؟",
-        a: "يتفوق ميسي على رونالدو بـ 76 هدفاً من ركلة حرة مباشرة مقابل 65 لرونالدو في كرة القدم الاحترافية. سجل ميسي 50 مع برشلونة، 12 مع الأرجنتين، 12 مع إنتر ميامي وهدفين مع باريس. وسجل رونالدو 33 مع ريال مدريد، 15 مع مانشستر يونايتد، 11 مع البرتغال، 6 مع النصر وهدفاً مع يوفنتوس."
+        a: "يتفوق ميسي على رونالدو بـ 76 هدفاً من ركلة حرة مباشرة مقابل 64 لرونالدو في كرة القدم الاحترافية. سجل ميسي 50 مع برشلونة، 12 مع الأرجنتين، 12 مع إنتر ميامي وهدفين مع باريس. وسجل رونالدو 33 مع ريال مدريد، 15 مع مانشستر يونايتد، 11 مع البرتغال، 5 مع النصر وهدفاً مع يوفنتوس."
       },
       {
         q: "من صنع أهدافاً أكثر (تمريرات حاسمة): ميسي أم رونالدو؟",
@@ -1129,7 +1129,7 @@ const I18N = {
   bn: {
     dir: "ltr",
     title: "মেসি বনাম রোনালদো: ক্যারিয়ার পরিসংখ্যান, ফ্রি কিক, পেনাল্টি ও মুখোমুখি লড়াই | মেসি স্ট্যাট",
-    desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯৩১ গোল বনাম ৯৭৯, ৩৮৫+ অ্যাসিস্ট বনাম ২৬১, ৮২২ নন-পেনাল্টি গোল বনাম ৭৯৫, ৭৬ ফ্রি কিক বনাম ৬৫, ৪৬টি ট্রফি বনাম ৩৫, ৮টি ব্যালন ডি'অর বনাম ৫। চূড়ান্ত পরিসংখ্যান।",
+    desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯৩১ গোল বনাম ৯৭৯, ৩৮৫+ অ্যাসিস্ট বনাম ২৬১, ৮২২ নন-পেনাল্টি গোল বনাম ৭৯৫, ৭৬ ফ্রি কিক বনাম ৬৪, ৪৬টি ট্রফি বনাম ৩৫, ৮টি ব্যালন ডি'অর বনাম ৫। চূড়ান্ত পরিসংখ্যান।",
     keywords: "মেসি বনাম রোনালদো, মেসি বনাম রোনালদো পরিসংখ্যান, ফ্রি কিক মেসি বনাম রোনালদো, পেনাল্টি মেসি বনাম রোনালদো, পেনাল্টি ছাড়া গোল, অ্যাসিস্ট মেসি বনাম রোনালদো, হ্যাটট্রিক মেসি বনাম রোনালদো, কে সেরা মেসি নাকি রোনালদো, কার গোল বেশি মেসি না রোনালদো, মুখোমুখি লড়াই, বিশ্বকাপ, ব্যালন ডি অর, ট্রফি",
     brand: "মেসি স্ট্যাট",
     homeName: "হোম",
@@ -1229,7 +1229,7 @@ const I18N = {
     crestNote: "ক্লাব ক্রেস্টগুলো তাদের স্ব স্ব ক্লাবের ট্রেডমার্ক, কেবল শনাক্তকরণের জন্য ব্যবহৃত।",
     badgeRonaldoGoals: "রোনালদো (+৪৮ গোল, সর্বকালের রেকর্ড)",
     badgeMessiNPG: "মেসি (+২৬ নন-পেনাল্টি গোল)",
-    badgeMessiFK: "মেসি (+১১ ফ্রি কিক)",
+    badgeMessiFK: "মেসি (+১২ ফ্রি কিক)",
     badgeRonaldoPen: "রোনালদো (+৭৫ পেনাল্টি)",
     badgeMessiAssists: "মেসি (+১২৪ অ্যাসিস্ট)",
     badgeRonaldoHT: "রোনালদো (+৭ হ্যাটট্রিক)",
@@ -1280,7 +1280,7 @@ const I18N = {
       },
       {
         q: "ফ্রি কিকে কে বেশি গোল করেছেন?",
-        a: "লিওনেল মেসি ৭৬টি সরাসরি ফ্রি কিক গোল করে রোনালদোর (৬৫) চেয়ে এগিয়ে রয়েছেন। মেসি বার্সেলোনার হয়ে ৫০টি, আর্জেন্টিনার হয়ে ১২টি, ইন্টার মায়ামির হয়ে ১২টি এবং পিএসজির হয়ে ২টি ফ্রি কিক গোল করেছেন। রোনালদো রিয়াল মাদ্রিদের হয়ে ৩৩টি, ম্যান ইউনাইটেডের হয়ে ১৫টি, পর্তুগালের হয়ে ১১টি, আল-নাসরের হয়ে ৫টি এবং জুভেন্টাসের হয়ে ১টি ফ্রি কিক গোল করেছেন।"
+        a: "লিওনেল মেসি ৭৬টি সরাসরি ফ্রি কিক গোল করে রোনালদোর (৬৪) চেয়ে এগিয়ে রয়েছেন। মেসি বার্সেলোনার হয়ে ৫০টি, আর্জেন্টিনার হয়ে ১২টি, ইন্টার মায়ামির হয়ে ১২টি এবং পিএসজির হয়ে ২টি ফ্রি কিক গোল করেছেন। রোনালদো রিয়াল মাদ্রিদের হয়ে ৩৩টি, ম্যান ইউনাইটেডের হয়ে ১৪টি, পর্তুগালের হয়ে ১১টি, আল-নাসরের হয়ে ৫টি এবং জুভেন্টাসের হয়ে ১টি ফ্রি কিক গোল করেছেন।"
       },
       {
         q: "কার অ্যাসিস্ট বেশি: মেসি নাকি রোনালদো?",
@@ -1315,7 +1315,7 @@ const I18N = {
   hi: {
     dir: "ltr",
     title: "मेसी बनाम रोनाल्डो: करियर आंकड़े, फ्री किक, पेनल्टी व आमने-सामने मुकाबले | मेसी स्टैट",
-    desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 931 गोल बनाम 979, 385+ असिस्ट बनाम 261, 822 नॉन-पेनल्टी गोल बनाम 795, 76 फ्री किक बनाम 65, 46 खिताब बनाम 35, 8 बैलन डी'ऑर बनाम 5। संपूर्ण तुलना।",
+    desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 931 गोल बनाम 979, 385+ असिस्ट बनाम 261, 822 नॉन-पेनल्टी गोल बनाम 795, 76 फ्री किक बनाम 64, 46 खिताब बनाम 35, 8 बैलन डी'ऑर बनाम 5। संपूर्ण तुलना।",
     keywords: "मेसी बनाम रोनाल्डो, मेसी बनाम रोनाल्डो आंकड़े, फ्री किक मेसी बनाम रोनाल्डो, पेनल्टी मेसी बनाम रोनाल्डो, बिना पेनल्टी के गोल, असिस्ट मेसी बनाम रोनाल्डो, हैट्रिक मेसी बनाम रोनाल्डो, कौन बेहतर है मेसी या रोनाल्डो, किसके ज्यादा गोल हैं, आमने सामने मैच, विश्व कप, बैलन डी'ओर, ट्रॉफी",
     brand: "मेसी स्टैट",
     homeName: "होम",
@@ -1415,7 +1415,7 @@ const I18N = {
     crestNote: "क्लब लोगो संबंधित क्लबों के पंजीकृत ट्रेडमार्क हैं, केवल पहचान हेतु प्रदर्शित।",
     badgeRonaldoGoals: "रोनाल्डो (+48 गोल, सर्वकालिक रिकॉर्ड)",
     badgeMessiNPG: "मेसी (+26 नॉन-पेनल्टी गोल)",
-    badgeMessiFK: "मेसी (+11 फ्री किक)",
+    badgeMessiFK: "मेसी (+12 फ्री किक)",
     badgeRonaldoPen: "रोनाल्डो (+57 पेनल्टी गोल)",
     badgeMessiAssists: "मेसी (+124 असिस्ट)",
     badgeRonaldoHT: "रोनाल्डो (+9 हैट्रिक)",
@@ -1466,7 +1466,7 @@ const I18N = {
       },
       {
         q: "फ्री किक से किसने ज्यादा गोल किए हैं?",
-        a: "वर्तमान में दोनों 76 फ्री किक गोल के साथ क्रिस्टियानो रोनाल्डो (65) से आगे हैं। मेसी ने बार्सिलोना के लिए 50, अर्जेंटीना के लिए 12, इंटर मियामी के लिए 12 और पीएसजी के लिए 2 फ्री किक गोल किए हैं। रोनाल्डो ने रियल मैड्रिड के लिए 33, मैनचेस्टर यूनाइटेड के लिए 15, पुर्तगाल के लिए 11, अल-नासर के लिए 6 और युवेंटस के लिए 1 फ्री किक गोल किया है।"
+        a: "वर्तमान में दोनों 76 फ्री किक गोल के साथ क्रिस्टियानो रोनाल्डो (64) से आगे हैं। मेसी ने बार्सिलोना के लिए 50, अर्जेंटीना के लिए 12, इंटर मियामी के लिए 12 और पीएसजी के लिए 2 फ्री किक गोल किए हैं। रोनाल्डो ने रियल मैड्रिड के लिए 33, मैनचेस्टर यूनाइटेड के लिए 14, पुर्तगाल के लिए 11, अल-नासर के लिए 5 और युवेंटस के लिए 1 फ्री किक गोल किया है।"
       },
       {
         q: "असिस्ट में कौन आगे है: मेसी या रोनाल्डो?",
@@ -1501,7 +1501,7 @@ const I18N = {
   ro: {
     dir: "ltr",
     title: "Messi vs Ronaldo: Statistici, Lovituri Libere, Penalty-uri și Meciuri Directe | MessiStat",
-    desc: "Lionel Messi vs Cristiano Ronaldo: 931 goluri vs 979, 385+ pase de gol vs 261, 822 goluri fără penalty vs 795, 76 lovituri libere vs 65, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparația definitivă.",
+    desc: "Lionel Messi vs Cristiano Ronaldo: 931 goluri vs 979, 385+ pase de gol vs 261, 822 goluri fără penalty vs 795, 76 lovituri libere vs 64, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparația definitivă.",
     keywords: "messi vs ronaldo, statistici messi vs ronaldo, lovituri libere messi vs ronaldo, penalty uri messi vs ronaldo, goluri fara penalty, pase de gol messi vs ronaldo, hat trick uri, cine e mai bun messi sau ronaldo, cine are mai multe goluri messi sau ronaldo, meciuri directe, cupa mondiala, baloane de aur, trofee",
     brand: "MessiStat",
     homeName: "Acasă",
@@ -1601,7 +1601,7 @@ const I18N = {
     crestNote: "Siglele cluburilor sunt mărci înregistrate ale respectivelor echipe, afișate strict în scop de identificare.",
     badgeRonaldoGoals: "Ronaldo (+48 goluri, record all-time)",
     badgeMessiNPG: "Messi (+26 goluri fără penalty)",
-    badgeMessiFK: "Messi (+11 lovituri libere)",
+    badgeMessiFK: "Messi (+12 lovituri libere)",
     badgeRonaldoPen: "Ronaldo (+75 penalty-uri)",
     badgeMessiAssists: "Messi (+124 pase de gol)",
     badgeRonaldoHT: "Ronaldo (+7 hat-trick-uri)",
@@ -1652,7 +1652,7 @@ const I18N = {
       },
       {
         q: "Cine a marcat mai multe goluri din lovitură liberă directă?",
-        a: "În prezent, cei doi îl devansează pe Ronaldo cu 76 de goluri din lovitură liberă directă față de 65 în fotbalul de seniori. Messi a marcat 50 pentru Barcelona, 12 pentru Argentina, 12 pentru Inter Miami și 2 pentru PSG. Ronaldo a înscris 33 pentru Real Madrid, 15 pentru Manchester United, 11 pentru Portugalia, 6 pentru Al-Nassr și 1 pentru Juventus."
+        a: "În prezent, cei doi îl devansează pe Ronaldo cu 76 de goluri din lovitură liberă directă față de 64 în fotbalul de seniori. Messi a marcat 50 pentru Barcelona, 12 pentru Argentina, 12 pentru Inter Miami și 2 pentru PSG. Ronaldo a înscris 33 pentru Real Madrid, 15 pentru Manchester United, 11 pentru Portugalia, 5 pentru Al-Nassr și 1 pentru Juventus."
       },
       {
         q: "Cine are mai multe pase de gol: Messi sau Ronaldo?",
@@ -1687,7 +1687,7 @@ const I18N = {
   uz: {
     dir: "ltr",
     title: "Messi vs Ronaldu: Statistikalar, Jarima zarbalari, Penaltilar va O'zaro o'yinlar | MessiStats",
-    desc: "Lionel Messi vs Krishtianu Ronaldu: 931 ga 979 ta gol, 385+ ga 261 ta assist, 822 ta penaltisiz gol vs 795, 76 ga 65 ta jarima zarbasi, 46 ga 35 ta titul, 8 ga 5 ta “Oltin to'p”. Yakuniy taqqoslash.",
+    desc: "Lionel Messi vs Krishtianu Ronaldu: 931 ga 979 ta gol, 385+ ga 261 ta assist, 822 ta penaltisiz gol vs 795, 76 ga 64 ta jarima zarbasi, 46 ga 35 ta titul, 8 ga 5 ta “Oltin to'p”. Yakuniy taqqoslash.",
     keywords: "messi ronaldu solishtirma, messi vs ronaldu statistikasi, jarima zarbalari messi ronaldu, penaltilar messi ronaldu, penaltisiz gollar, assistlar messi ronaldu, het triklar, kim yaxshiroq messi yoki ronaldu, kimning goli ko'proq, o'zaro o'yinlar, jahon chempionati, oltin to'p, sovrinlar",
     brand: "MessiStats",
     homeName: "Bosh sahifa",
@@ -1787,7 +1787,7 @@ const I18N = {
     crestNote: "Klub logotiplari tegishli klublarning savdo belgilari hisoblanadi va faqat maʼlumot berish uchun koʻrsatilgan.",
     badgeRonaldoGoals: "Ronaldu (+48 ta gol, tarixdagi mutlaq rekord)",
     badgeMessiNPG: "Messi (+27 ta penaltisiz gol)",
-    badgeMessiFK: "Messi (+11 ta jarima zarbasi)",
+    badgeMessiFK: "Messi (+12 ta jarima zarbasi)",
     badgeRonaldoPen: "Ronaldu (+75 ta penalti)",
     badgeMessiAssists: "Messi (+124 ta assist)",
     badgeRonaldoHT: "Ronaldu (+7 ta het-trik)",
@@ -1838,7 +1838,7 @@ const I18N = {
       },
       {
         q: "Jarima zarbasidan kim koʻproq gol urgan?",
-        a: "Hozirda har ikkala afsona ham kattalar safida toʻgʻridan-toʻgʻri jarima zarbasidan Ronaldudan 76 ta to'g'ridan-to'g'ri jarima zarbasi goli bilan oldinda (Ronalduda 65 ta). Messi Barselona safida 50 ta, Argentina safida 12 ta, Inter Mayami safida 12 ta va PSJ safida 2 ta jarima zarbasi goli urgan. Ronaldu Real Madrid safida 33 ta, Manchester Yunayted safida 15 ta, Portugaliya safida 11 ta, Al-Nasr safida 6 ta va Yuventus safida 1 ta gol urgan."
+        a: "Hozirda har ikkala afsona ham kattalar safida toʻgʻridan-toʻgʻri jarima zarbasidan Ronaldudan 76 ta to'g'ridan-to'g'ri jarima zarbasi goli bilan oldinda (Ronalduda 64 ta). Messi Barselona safida 50 ta, Argentina safida 12 ta, Inter Mayami safida 12 ta va PSJ safida 2 ta jarima zarbasi goli urgan. Ronaldu Real Madrid safida 33 ta, Manchester Yunayted safida 14 ta, Portugaliya safida 11 ta, Al-Nasr safida 6 ta va Yuventus safida 1 ta gol urgan."
       },
       {
         q: "Golli uzatmalar (assistlar) boʻyicha kim yetakchi: Messi yoki Ronaldu?",
@@ -2254,7 +2254,7 @@ ${JSON.stringify(jsonLd, null, 2)}
           <tr>
             <td class="left"><b>${t.statFreeKicks}</b></td>
             <td><b style="color:var(--accent);">76</b></td>
-            <td>65</td>
+            <td>64</td>
             <td class="left"><span class="leader-badge-messi">${t.badgeMessiFK}</span></td>
           </tr>
           <tr>
