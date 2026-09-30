@@ -50,7 +50,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 Goals · 35 Trophies · 5 Ballons d'Or · All-Time UCL Top Scorer",
     votedMsg: "✓ Your vote has been recorded! Global community results:",
     totalVotes: "votes cast worldwide",
-    shareVote: "Share Your Vote"
+    shareVote: "Share Your Vote",
+    votePrefix: "Vote for ",
+    messiBadge: "🐐 THE PLAYMAKER GOAT",
+    ronaldoBadge: "⚡ THE RECORD GOALSCORER",
+    messiCta: "Vote Messi →",
+    ronaldoCta: "Vote Ronaldo →"
   },
   es: {
     badge: "⚔️ ENCUESTA GLOBAL EN VIVO",
@@ -62,7 +67,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 Goles · 35 Títulos · 5 Balones de Oro · Máximo Goleador Histórico UCL",
     votedMsg: "✓ ¡Tu voto ha sido registrado! Resultados globales:",
     totalVotes: "votos registrados en todo el mundo",
-    shareVote: "Compartir tu voto"
+    shareVote: "Compartir tu voto",
+    votePrefix: "Votar por ",
+    messiBadge: "🐐 EL GOAT CREADOR DE JUEGO",
+    ronaldoBadge: "⚡ EL GOLEADOR RÉCORD",
+    messiCta: "Votar por Messi →",
+    ronaldoCta: "Votar por Ronaldo →"
   },
   pt: {
     badge: "⚔️ ENQUETE GLOBAL AO VIVO",
@@ -74,7 +84,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 Gols · 35 Títulos · 5 Bolas de Ouro · Maior Artilheiro da UCL",
     votedMsg: "✓ Seu voto foi registrado! Resultados da comunidade:",
     totalVotes: "votos no mundo todo",
-    shareVote: "Compartilhar Voto"
+    shareVote: "Compartilhar Voto",
+    votePrefix: "Votar em ",
+    messiBadge: "🐐 O MAESTRO GOAT",
+    ronaldoBadge: "⚡ O ARTILHEIRO RECORDE",
+    messiCta: "Votar no Messi →",
+    ronaldoCta: "Votar no Ronaldo →"
   },
   fr: {
     badge: "⚔️ SONDAGE MONDIAL EN DIRECT",
@@ -86,7 +101,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 Buts · 35 Trophées · 5 Ballons d'Or · Meilleur Buteur Histoire UCL",
     votedMsg: "✓ Votre vote a été enregistré ! Résultats de la communauté :",
     totalVotes: "votes à travers le monde",
-    shareVote: "Partager votre vote"
+    shareVote: "Partager votre vote",
+    votePrefix: "Voter pour ",
+    messiBadge: "🐐 LE GOAT MENEUR DE JEU",
+    ronaldoBadge: "⚡ LE BUTEUR RECORD",
+    messiCta: "Voter pour Messi →",
+    ronaldoCta: "Voter pour Ronaldo →"
   },
   ar: {
     badge: "⚔️ استطلاع جماهيري مباشر",
@@ -98,7 +118,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 هدفاً · 35 بطولة · 5 كرات ذهبية · الهداف التاريخي لدوري الأبطال",
     votedMsg: "✓ تم تسجيل صوتك بنجاح! نتائج المجتمع العالمي:",
     totalVotes: "صوت حول العالم",
-    shareVote: "شارك تصويتك"
+    shareVote: "شارك تصويتك",
+    votePrefix: "صوت لـ ",
+    messiBadge: "🐐 ملك صناعة اللعب",
+    ronaldoBadge: "⚡ الهداف التاريخي",
+    messiCta: "صوت لميسي →",
+    ronaldoCta: "صوت لرونالدو →"
   },
   bn: {
     badge: "⚔️ লাইভ ফ্যান পোল",
@@ -110,7 +135,12 @@ const POLL_I18N = {
     ronaldoDesc: "৯৭৯ গোল · ৩৫ ট্রফি · ৫ ব্যালন ডি'অর · সর্বকালের সেরা চ্যাম্পিয়ন্স লিগ স্কোরার",
     votedMsg: "✓ আপনার ভোট রেকর্ড করা হয়েছে! বিশ্বব্যাপী ফলাফল:",
     totalVotes: "টি মোট ভোট",
-    shareVote: "ভোট শেয়ার করুন"
+    shareVote: "ভোট শেয়ার করুন",
+    votePrefix: "ভোট দিন: ",
+    messiBadge: "🐐 সেরা প্লেমেকার",
+    ronaldoBadge: "⚡ রেকর্ড গোলদাতা",
+    messiCta: "মেসিকে ভোট দিন →",
+    ronaldoCta: "রোনালদোকে ভোট দিন →"
   },
   hi: {
     badge: "⚔️ लाइव फैन पोल",
@@ -122,7 +152,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 गोल · 35 ट्रॉफियां · 5 बैलोन डी'ओर · सर्वकालिक यूसीएल शीर्ष स्कोरर",
     votedMsg: "✓ आपका वोट दर्ज कर लिया गया है! वैश्विक परिणाम:",
     totalVotes: "कुल वोट",
-    shareVote: "अपना वोट साझा करें"
+    shareVote: "अपना वोट साझा करें",
+    votePrefix: "वोट करें: ",
+    messiBadge: "🐐 प्लेमेकर GOAT",
+    ronaldoBadge: "⚡ रिकॉर्ड गोलस्कोरर",
+    messiCta: "मेसी को वोट करें →",
+    ronaldoCta: "रोनाल्डो को वोट करें →"
   },
   ro: {
     badge: "⚔️ SONDAJ LIVE FAN",
@@ -134,7 +169,12 @@ const POLL_I18N = {
     ronaldoDesc: "979 Goluri · 35 Trofee · 5 Baloane de Aur · Golgheter Istoric UCL",
     votedMsg: "✓ Votul tău a fost înregistrat! Rezultatele comunității:",
     totalVotes: "voturi înregistrate",
-    shareVote: "Distribuie votul"
+    shareVote: "Distribuie votul",
+    votePrefix: "Votează ",
+    messiBadge: "🐐 GOAT-UL CREATOR DE JOC",
+    ronaldoBadge: "⚡ GOLGHETERUL RECORD",
+    messiCta: "Votează Messi →",
+    ronaldoCta: "Votează Ronaldo →"
   },
   uz: {
     badge: "⚔️ JONLI FAN SO'ROVNOMA",
@@ -146,14 +186,19 @@ const POLL_I18N = {
     ronaldoDesc: "979 Gol · 35 Sovrin · 5 Oltin To'p · YECHL Tarixiy To'purari",
     votedMsg: "✓ Ovozingiz qabul qilindi! Dunyo bo'yicha natijalar:",
     totalVotes: "ta ovoz berildi",
-    shareVote: "Ovozingizni ulashing"
+    shareVote: "Ovozingizni ulashing",
+    votePrefix: "Ovoz bering: ",
+    messiBadge: "🐐 PLEYMEYKER GOAT",
+    ronaldoBadge: "⚡ REKORD TO'PURAR",
+    messiCta: "Messiga ovoz bering →",
+    ronaldoCta: "Ronalduga ovoz bering →"
   }
 };
 
 const I18N = {
   en: {
     dir: "ltr",
-    title: "Messi vs Ronaldo | MessiStat",
+    title: "Messi vs Ronaldo | MessiStats",
     desc: "Lionel Messi vs Cristiano Ronaldo: 931 goals vs 979, 385+ assists vs 261, 822 non-penalty goals vs 795, 68 free kicks vs 65, 46 trophies vs 35, 8 Ballons d'Or vs 5. The definitive comparison.",
     keywords: "messi vs ronaldo, messi vs ronaldo stats, messi vs ronaldo free kicks, messi vs ronaldo penalties, messi vs ronaldo non penalty goals, messi vs ronaldo assists, messi vs ronaldo hat tricks, messi vs ronaldo all time goals, who is the goat messi or ronaldo, who has more goals messi or ronaldo, messi vs ronaldo head to head, messi vs ronaldo world cup, messi ronaldo trophies, messi ronaldo ballons d or",
     brand: "MessiStat",
@@ -232,6 +277,21 @@ const I18N = {
     bdayTitle: "Did Lionel Messi score on Cristiano Ronaldo's birthday?",
     bdayDesc: "Cristiano Ronaldo was born on 5 February. See what Messi did on 5 February and explore goals on your own birthday!",
     bdayBtn: "Check 5 February ⚽",
+    supportAria: "Support MessiStats",
+    supportTitle: "Support MessiStats",
+    supportText: "MessiStats is an independent project dedicated to tracking all 931+ career goals and video replays with zero paywalls. If you enjoy using this site, consider supporting us on Ko-fi or donating with crypto to help cover hosting and video CDN costs!",
+    supportCta: "💖 Support on Ko-fi",
+    cryptoLabel: "Direct Wallet Donation (USDT / BNB / ETH / BUSD):",
+    copyBtn: "Copy 📋",
+    copiedMsg: "✓ Copied!",
+    brandSub: "The Verified Lionel Messi Statistics & Video Database",
+    logoAlt: "MessiStat Logo",
+    showdownAlt: "Lionel Messi and Cristiano Ronaldo facing each other on the pitch",
+    showdownBadge: "⚔️ 36 DIRECT HEAD-TO-HEAD MATCHES · 13 BALLONS D'OR COMBINED",
+    tocAria: "Comparison Sections",
+    verdictAria: "GOAT Verdict Summary",
+    siteDirAria: "Site directory",
+    closeAdAria: "Close advertisement",
     faqHeader: "Frequently Asked Questions: Messi vs Ronaldo",
     exploreTitle: "Explore the full statistics",
     footerDir: "Career Records & Rivalries",
@@ -324,8 +384,8 @@ const I18N = {
   },
   es: {
     dir: "ltr",
-    title: "Messi vs Ronaldo: Estadísticas, Tiros Libres, Penaltis y Cara a Cara | MessiStats",
-    desc: "Lionel Messi vs Cristiano Ronaldo: 931 goluri vs 979, 385+ pase de gol vs 261, 822 goluri fără penalty vs 795, 68 lovituri libere vs 65, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparația definitivă.",
+    title: "Messi vs Ronaldo: Goles, Stats y ¿Quién Es Mejor? | MessiStats",
+    desc: "Messi vs Ronaldo: 931 vs 979 goles, tiros libres, penaltis, asistencias y títulos. ¿Quién es mejor? Comparativa 2026 cara a cara.",
     keywords: "messi vs ronaldo, messi vs ronaldo estadisticas, messi vs ronaldo tiros libres, messi vs ronaldo penales, messi vs ronaldo goles sin penal, messi vs ronaldo asistencias, messi vs ronaldo hat tricks, quien es mejor messi o ronaldo, quien tiene mas goles messi o ronaldo, messi vs ronaldo cara a cara, messi vs ronaldo mundiales, messi ronaldo titulos, balones de oro",
     brand: "MessiStats",
     homeName: "Inicio",
@@ -345,7 +405,7 @@ const I18N = {
     lead: "La comparativa estadística definitiva entre los dos máximos iconos del fútbol moderno. Goles totales, goles sin penalti, tiros libres, penaltis, asistencias, títulos, galardones individuales y los 36 enfrentamientos directos.",
     verdictBadge: "EL VEREDICTO GOAT • CIFRAS OFICIALES COMPLETAS",
     verdictTitle: "¿Quién tiene mejores estadísticas históricas: Messi o Ronaldo?",
-    verdictText: "În toate meciurile oficiale de seniori, <b>Lionel Messi a marcat 931 de goluri și a oferit peste 385 de pase de gol în 1.177 de partide</b> (1,12 contribuții la gol pe meci), în timp ce <b>Cristiano Ronaldo este cel mai bun marcator din istorie cu 979 de goluri și 261 de pase în 1.337 de meciuri</b> (0,93 contribuții pe meci). Deși Ronaldo conduce la numărul total de goluri (<b>979 vs 931</b>), Messi a atins borna de 931 în <b>160 de meciuri mai puține</b> cu o medie superioară (<b>0,79 vs 0,73</b>), are mai multe <b>goluri fără penalty (822 vs 795)</b> și pase decisive (<b>385+ vs 261</b>), a cucerit <b>Cupa Mondială FIFA (2022)</b> cu două Baloane de Aur și îl depășește pe Ronaldo la <b>Baloane de Aur (8 la 5)</b> și <b>trofee oficiale (46 la 35)</b>.",
+    verdictText: "En todos los partidos oficiales senior, <b>Lionel Messi ha marcado 931 goles y ha dado más de 385 asistencias en 1.177 partidos</b> (1,12 contribuciones de gol por partido), mientras que <b>Cristiano Ronaldo es el máximo goleador histórico con 979 goles y 261 asistencias en 1.337 partidos</b> (0,93 contribuciones por partido). Aunque Ronaldo lidera el total histórico de goles (<b>979 vs 931</b>), Messi llegó a 931 en <b>160 partidos menos</b> con mejor promedio (<b>0,79 vs 0,73</b>), lidera en <b>goles sin penalti (822 vs 795)</b> y asistencias (<b>385+ vs 261</b>), ganó la <b>Copa del Mundo FIFA (2022)</b> con dos Balones de Oro, y supera a Ronaldo en <b>Balones de Oro (8 vs 5)</b> y <b>títulos oficiales (46 vs 35)</b>.",
     tableStat: "Estadística",
     tableLeader: "Líder",
     coreHeader: "Totales de Carrera Senior Oficial",
@@ -403,6 +463,21 @@ const I18N = {
     bdayTitle: "¿Marcó Messi el día del cumpleaños de Cristiano Ronaldo?",
     bdayDesc: "Cristiano Ronaldo nació el 5 de febrero. ¡Mira qué hizo Messi el 5 de febrero y busca también tu propio cumpleaños!",
     bdayBtn: "Comprobar 5 de febrero ⚽",
+    supportAria: "Apoyar a MessiStats",
+    supportTitle: "Apoyar a MessiStats",
+    supportText: "MessiStats es un proyecto independiente dedicado a registrar los más de 931 goles de su carrera con videos y sin muros de pago. Si te gusta este sitio, apóyanos en Ko-fi o dona con cripto para cubrir el hosting y los videos.",
+    supportCta: "💖 Apoyar en Ko-fi",
+    cryptoLabel: "Donación directa (USDT / BNB / ETH / BUSD):",
+    copyBtn: "Copiar 📋",
+    copiedMsg: "✓ ¡Copiado!",
+    brandSub: "La Base de Datos Verificada de Estadísticas y Videos de Lionel Messi",
+    logoAlt: "Logotipo de MessiStats",
+    showdownAlt: "Lionel Messi y Cristiano Ronaldo frente a frente en el campo",
+    showdownBadge: "⚔️ 36 DUELOS DIRECTOS · 13 BALONES DE ORO COMBINADOS",
+    tocAria: "Secciones de la comparativa",
+    verdictAria: "Resumen del veredicto GOAT",
+    siteDirAria: "Directorio del sitio",
+    closeAdAria: "Cerrar publicidad",
     faqHeader: "Preguntas Frecuentes: Messi vs Cristiano Ronaldo",
     exploreTitle: "Explora las estadísticas completas",
     footerDir: "Récords y Rivalidades",
@@ -495,8 +570,8 @@ const I18N = {
   },
   pt: {
     dir: "ltr",
-    title: "Messi vs Ronaldo: Estatísticas, Faltas, Pênaltis e Frente a Frente | MessiStats",
-    desc: "Lionel Messi vs Cristiano Ronaldo: 931 gols vs 979, 385+ assistências vs 261, 822 gols sem pênalti vs 795, 68 cobranças de falta vs 65, 46 títulos vs 35, 8 Bolas de Ouro vs 5. A comparação definitiva.",
+    title: "Messi vs Cristiano Ronaldo: Gols e Estatísticas 2026 | MessiStats",
+    desc: "Messi vs Cristiano Ronaldo: 931 x 979 gols, assistências, faltas, pênaltis, títulos e Bolas de Ouro. Comparativo completo 2026.",
     keywords: "messi vs ronaldo, messi vs ronaldo estatisticas, messi vs ronaldo faltas, messi vs ronaldo penaltis, messi vs ronaldo gols sem penalti, messi vs ronaldo assistencias, messi vs ronaldo hat tricks, quem e melhor messi ou ronaldo, quem tem mais gols messi ou ronaldo, messi vs ronaldo confronto direto, messi vs ronaldo copa do mundo, titulos, bolas de ouro",
     brand: "MessiStats",
     homeName: "Início",
@@ -512,7 +587,7 @@ const I18N = {
     achievementsName: "Títulos e Prêmios",
     skipText: "Pular para o conteúdo",
     eyebrow: "A Maior Rivalidade <i></i> <span>Comparativo Completo e Confronto Direto</span>",
-    h1: "Lionel Messi vs Cristiano Ronaldo",
+    h1: "Messi vs Cristiano Ronaldo: Quem Tem Mais Gols?",
     lead: "O comparativo estatístico definitivo entre os dois maiores ícones do futebol moderno. Gols totais, gols sem pênalti, faltas, pênaltis, assistências, títulos, prêmios individuais e os 36 confrontos diretos.",
     verdictBadge: "O VEREDITO DO GOAT • DADOS OFICIAIS COMPLETOS",
     verdictTitle: "Quem tem as melhores estatísticas de carreira: Messi ou Ronaldo?",
@@ -574,6 +649,21 @@ const I18N = {
     bdayTitle: "Messi marcou gol no aniversário de Cristiano Ronaldo?",
     bdayDesc: "Cristiano Ronaldo nasceu em 5 de fevereiro. Veja o que Messi fez em 5 de fevereiro e pesquise também seu aniversário!",
     bdayBtn: "Ver 5 de fevereiro ⚽",
+    supportAria: "Apoiar o MessiStats",
+    supportTitle: "Apoie o MessiStats",
+    supportText: "MessiStats é um projeto independente dedicado a registrar os mais de 931 gols da carreira com vídeos e sem paywall. Se você gosta do site, apoie-nos no Ko-fi ou doe com cripto para cobrir hospedagem e vídeos.",
+    supportCta: "💖 Apoiar no Ko-fi",
+    cryptoLabel: "Doação direta (USDT / BNB / ETH / BUSD):",
+    copyBtn: "Copiar 📋",
+    copiedMsg: "✓ Copiado!",
+    brandSub: "O Banco de Dados Verificado de Estatísticas e Vídeos de Lionel Messi",
+    logoAlt: "Logotipo do MessiStats",
+    showdownAlt: "Lionel Messi e Cristiano Ronaldo frente a frente em campo",
+    showdownBadge: "⚔️ 36 CONFRONTOS DIRETOS · 13 BOLAS DE OURO SOMADAS",
+    tocAria: "Seções da comparação",
+    verdictAria: "Resumo do veredito GOAT",
+    siteDirAria: "Diretório do site",
+    closeAdAria: "Fechar publicidade",
     faqHeader: "Perguntas Frequentes: Messi vs Cristiano Ronaldo",
     exploreTitle: "Explore todas as estatísticas",
     footerDir: "Recordes e Rivalidades",
@@ -745,6 +835,21 @@ const I18N = {
     bdayTitle: "Messi a-t-il marqué le jour de l'anniversaire de Cristiano Ronaldo ?",
     bdayDesc: "Cristiano Ronaldo est né le 5 février. Découvrez ce que Messi a fait un 5 février et testez votre propre anniversaire !",
     bdayBtn: "Tester le 5 février ⚽",
+    supportAria: "Soutenir MessiStats",
+    supportTitle: "Soutenir MessiStats",
+    supportText: "MessiStats est un projet indépendant dédié au suivi des 931+ buts en carrière avec vidéos, sans paywall. Si vous aimez ce site, soutenez-nous sur Ko-fi ou donnez en crypto pour couvrir l'hébergement et les vidéos.",
+    supportCta: "💖 Soutenir sur Ko-fi",
+    cryptoLabel: "Don direct (USDT / BNB / ETH / BUSD) :",
+    copyBtn: "Copier 📋",
+    copiedMsg: "✓ Copié !",
+    brandSub: "La Base de Données Vérifiée des Statistiques et Vidéos de Lionel Messi",
+    logoAlt: "Logo MessiStats",
+    showdownAlt: "Lionel Messi et Cristiano Ronaldo face à face sur le terrain",
+    showdownBadge: "⚔️ 36 DUELS DIRECTS · 13 BALLONS D'OR COMBINÉS",
+    tocAria: "Sections de la comparaison",
+    verdictAria: "Résumé du verdict GOAT",
+    siteDirAria: "Plan du site",
+    closeAdAria: "Fermer la publicité",
     faqHeader: "Foire Aux Questions : Messi vs Ronaldo",
     exploreTitle: "Explorer toutes les statistiques",
     footerDir: "Records et Rivalités",
@@ -837,8 +942,8 @@ const I18N = {
   },
   ar: {
     dir: "rtl",
-    title: "ميسي ضد رونالدو: الأهداف التاريخية، الركلات الحرة، ضربات الجزاء والمواجهات المباشرة | ميسي ستات",
-    desc: "ليونيل ميسي ضد كريستيانو رونالدو: 931 هدفاً مقابل 979، أكثر من 385 تمريرة حاسمة مقابل 261، 822 هدفاً بدون ركلات جزاء مقابل 795، 68 ركلة حرة مقابل 65، 46 بطولة مقابل 35، 8 كرات ذهبية مقابل 5. المقارنة الشاملة.",
+    title: "ميسي ضد رونالدو: كم هدف سجل ميسي؟ مقارنة الأهداف | ميسي ستات",
+    desc: "ميسي ضد رونالدو: كم هدف سجل ميسي (931) مقابل رونالدو (979)؟ قارن أهداف ميسي ورونالدو، الركلات الحرة، البطولات والمواجهات المباشرة الـ36.",
     keywords: "ميسي ضد رونالدو, احصائيات ميسي ضد رونالدو, ركلات حرة ميسي ضد رونالدو, ركلات جزاء ميسي ضد رونالدو, اهداف بدون ركلات جزاء, تمريرات حاسمة ميسي ضد رونالدو, هاتريك ميسي ضد رونالدو, من الافضل ميسي ام رونالدو, من سجل اهداف اكثر ميسي ام رونالدو, المواجهات المباشرة ميسي ضد رونالدو, كاس العالم, كرات ذهبية, بطولات",
     brand: "ميسي ستات",
     homeName: "الرئيسية",
@@ -916,6 +1021,21 @@ const I18N = {
     bdayTitle: "هل سجل ميسي في يوم ميلاد كريستيانو رونالدو؟",
     bdayDesc: "ولد كريستيانو رونالدو في 5 فبراير. اكتشف ما فعله ميسي يوم 5 فبراير وجرب يوم ميلادك أيضاً!",
     bdayBtn: "تحقق من 5 فبراير ⚽",
+    supportAria: "ادعم ميسي ستات",
+    supportTitle: "ادعم ميسي ستات",
+    supportText: "ميسي ستات مشروع مستقل مخصص لتتبع أكثر من 931 هدفاً في المسيرة مع مقاطع الفيديو وبدون اشتراكات. إذا أعجبك الموقع، ادعمنا عبر Ko-fi أو تبرع بالعملات الرقمية لتغطية الاستضافة والفيديو.",
+    supportCta: "💖 ادعم عبر Ko-fi",
+    cryptoLabel: "تبرع مباشر (USDT / BNB / ETH / BUSD):",
+    copyBtn: "نسخ 📋",
+    copiedMsg: "✓ تم النسخ!",
+    brandSub: "قاعدة بيانات أهداف وإحصائيات ليونيل ميسي الموثقة بالفيديو",
+    logoAlt: "شعار ميسي ستات",
+    showdownAlt: "ليونيل ميسي وكريستيانو رونالدو وجهاً لوجه في الملعب",
+    showdownBadge: "⚔️ 36 مواجهة مباشرة · 13 كرة ذهبية مجتمعة",
+    tocAria: "أقسام المقارنة",
+    verdictAria: "ملخص حكم الأفضل في التاريخ",
+    siteDirAria: "دليل الموقع",
+    closeAdAria: "إغلاق الإعلان",
     faqHeader: "الأسئلة الشائعة: ميسي ضد رونالدو",
     exploreTitle: "استكشف كافة الإحصائيات",
     footerDir: "الأرقام القياسية والمنافسات",
@@ -1087,6 +1207,21 @@ const I18N = {
     bdayTitle: "ক্রিশ্চিয়ানো রোনালদোর জন্মদিনে কি মেসি গোল করেছিলেন?",
     bdayDesc: "ক্রিশ্চিয়ানো রোনালদোর জন্ম ৫ ফেব্রুয়ারি। ৫ ফেব্রুয়ারিতে মেসির পারফরম্যান্স এবং আপনার জন্মদিনের গোল দেখুন!",
     bdayBtn: "৫ ফেব্রুয়ারি দেখুন ⚽",
+    supportAria: "MessiStats-কে সমর্থন করুন",
+    supportTitle: "MessiStats-কে সমর্থন করুন",
+    supportText: "MessiStats একটি স্বাধীন প্রকল্প যা ভিডিওসহ ৯৩১+ ক্যারিয়ার গোল ট্র্যাক করে, কোনো পেওয়াল ছাড়াই। সাইটটি ভালো লাগলে Ko-fi-তে সমর্থন করুন বা হোস্টিং ও ভিডিও খরচের জন্য ক্রিপ্টোতে দান করুন।",
+    supportCta: "💖 Ko-fi-তে সমর্থন করুন",
+    cryptoLabel: "সরাসরি দান (USDT / BNB / ETH / BUSD):",
+    copyBtn: "কপি করুন 📋",
+    copiedMsg: "✓ কপি হয়েছে!",
+    brandSub: "লিওনেল মেসির যাচাইকৃত পরিসংখ্যান ও ভিডিও ডাটাবেস",
+    logoAlt: "MessiStats লোগো",
+    showdownAlt: "মাঠে মুখোমুখি লিওনেল মেসি ও ক্রিশ্চিয়ানো রোনালদো",
+    showdownBadge: "⚔️ ৩৬টি সরাসরি দ্বৈরথ · সম্মিলিত ১৩টি ব্যালন ডি'অর",
+    tocAria: "তুলনার বিভাগসমূহ",
+    verdictAria: "GOAT রায়ের সারসংক্ষেপ",
+    siteDirAria: "সাইট নির্দেশিকা",
+    closeAdAria: "বিজ্ঞাপন বন্ধ করুন",
     faqHeader: "সাধারণ জিজ্ঞাসা: মেসি বনাম রোনালদো",
     exploreTitle: "সম্পূর্ণ পরিসংখ্যান অন্বেষণ করুন",
     footerDir: "ক্যারিয়ার রেকর্ড ও প্রতিদ্বন্দ্বিতা",
@@ -1258,6 +1393,21 @@ const I18N = {
     bdayTitle: "क्या मेसी ने क्रिस्टियानो रोनाल्डो के जन्मदिन पर गोल किया?",
     bdayDesc: "क्रिस्टियानो रोनाल्डो का जन्म 5 फरवरी को हुआ था। देखें 5 फरवरी को मेसी का रिकॉर्ड और अपने जन्मदिन का गोल खोजें!",
     bdayBtn: "5 फरवरी देखें ⚽",
+    supportAria: "MessiStats का समर्थन करें",
+    supportTitle: "MessiStats का समर्थन करें",
+    supportText: "MessiStats एक स्वतंत्र प्रोजेक्ट है जो वीडियो सहित 931+ करियर गोलों को बिना पेवॉल के ट्रैक करता है। अगर साइट पसंद आए तो Ko-fi पर समर्थन करें या होस्टिंग व वीडियो खर्च के लिए क्रिप्टो में दान करें।",
+    supportCta: "💖 Ko-fi पर समर्थन करें",
+    cryptoLabel: "सीधा दान (USDT / BNB / ETH / BUSD):",
+    copyBtn: "कॉपी करें 📋",
+    copiedMsg: "✓ कॉपी हो गया!",
+    brandSub: "लियोनेल मेसी के सत्यापित आँकड़ों और वीडियो का डेटाबेस",
+    logoAlt: "MessiStats लोगो",
+    showdownAlt: "मैदान पर आमने-सामने लियोनेल मेसी और क्रिस्टियानो रोनाल्डो",
+    showdownBadge: "⚔️ 36 सीधे मुकाबले · संयुक्त 13 बैलन डी'ऑर",
+    tocAria: "तुलना के खंड",
+    verdictAria: "GOAT फैसले का सारांश",
+    siteDirAria: "साइट निर्देशिका",
+    closeAdAria: "विज्ञापन बंद करें",
     faqHeader: "अक्सर पूछे जाने वाले सवाल: मेसी बनाम रोनाल्डो",
     exploreTitle: "संपूर्ण आंकड़े देखें",
     footerDir: "करियर रिकॉर्ड व प्रतिद्वंद्विता",
@@ -1429,6 +1579,21 @@ const I18N = {
     bdayTitle: "A marcat Messi de ziua de naștere a lui Cristiano Ronaldo?",
     bdayDesc: "Cristiano Ronaldo s-a născut pe 5 februarie. Află ce a făcut Messi pe 5 februarie și caută și propria ta zi de naștere!",
     bdayBtn: "Vezi 5 februarie ⚽",
+    supportAria: "Susține MessiStats",
+    supportTitle: "Susține MessiStats",
+    supportText: "MessiStats este un proiect independent dedicat înregistrării celor peste 931 de goluri din carieră cu videoclipuri, fără paywall. Dacă îți place site-ul, susține-ne pe Ko-fi sau donează crypto pentru hosting și videoclipuri.",
+    supportCta: "💖 Susține pe Ko-fi",
+    cryptoLabel: "Donație directă (USDT / BNB / ETH / BUSD):",
+    copyBtn: "Copiază 📋",
+    copiedMsg: "✓ Copiat!",
+    brandSub: "Baza de Date Verificată cu Statisticile și Videoclipurile lui Lionel Messi",
+    logoAlt: "Sigla MessiStats",
+    showdownAlt: "Lionel Messi și Cristiano Ronaldo față în față pe teren",
+    showdownBadge: "⚔️ 36 DUELE DIRECTE · 13 BALOANE DE AUR COMBINATE",
+    tocAria: "Secțiunile comparației",
+    verdictAria: "Rezumatul verdictului GOAT",
+    siteDirAria: "Harta site-ului",
+    closeAdAria: "Închide reclama",
     faqHeader: "Întrebări Frecvente: Messi vs Ronaldo",
     exploreTitle: "Explorează toate statisticile",
     footerDir: "Recorduri și Rivalități",
@@ -1600,6 +1765,21 @@ const I18N = {
     bdayTitle: "Messi Krishtianu Ronalduning tug'ilgan kunida gol urganmi?",
     bdayDesc: "Krishtianu Ronaldu 5-fevralda tugʻilgan. 5-fevral kuni Messi nima qilganini koʻring va oʻz tugʻilgan kuningizni ham tekshiring!",
     bdayBtn: "5-fevralni tekshirish ⚽",
+    supportAria: "MessiStats'ni qo'llab-quvvatlang",
+    supportTitle: "MessiStats'ni qo'llab-quvvatlang",
+    supportText: "MessiStats videoli 931+ karyera gollarini pullik obunasiz kuzatib boruvchi mustaqil loyihadir. Sayt yoqsa, Ko-fi orqali qo'llab-quvvatlang yoki hosting va videolar uchun kripto xayriya qiling.",
+    supportCta: "💖 Ko-fi orqali qo'llab-quvvatlash",
+    cryptoLabel: "To'g'ridan-to'g'ri xayriya (USDT / BNB / ETH / BUSD):",
+    copyBtn: "Nusxalash 📋",
+    copiedMsg: "✓ Nusxalandi!",
+    brandSub: "Lionel Messining Tasdiqlangan Statistikasi va Videolari Bazasi",
+    logoAlt: "MessiStats Logotipi",
+    showdownAlt: "Maydonda yuzma-yuz Lionel Messi va Krishtianu Ronaldu",
+    showdownBadge: "⚔️ 36 TA JONLI DUEL · JAMI 13 TA OLTIN TO'P",
+    tocAria: "Taqqoslash Bo'limlari",
+    verdictAria: "GOAT Xulosasi",
+    siteDirAria: "Sayt Xaritasi",
+    closeAdAria: "Reklamani yopish",
     faqHeader: "Koʻp beriladigan savollar: Messi vs Ronaldu",
     exploreTitle: "Toʻliq statistikani koʻrish",
     footerDir: "Karyera rekordlari va Raqobat",
@@ -1866,11 +2046,11 @@ ${JSON.stringify(jsonLd, null, 2)}
   <main class="wrap" id="main">
     <div class="desktop-brand-header">
       <a href="${slugPath}" class="desktop-brand-logo-link" aria-label="${t.brand}">
-        <img src="/img/logo.png" alt="MessiStat Logo" class="desktop-brand-logo" width="48" height="48" />
+        <img src="/img/logo.png" alt="${t.logoAlt}" class="desktop-brand-logo" width="48" height="48" />
       </a>
       <div class="desktop-brand-titles">
         <div class="desktop-brand-name">Messi<span>Stat</span></div>
-        <div class="desktop-brand-sub">The Verified Lionel Messi Statistics &amp; Video Database</div>
+        <div class="desktop-brand-sub">${t.brandSub}</div>
       </div>
     </div>
 
@@ -1898,8 +2078,8 @@ ${JSON.stringify(jsonLd, null, 2)}
     <!-- Iconic Rivalry Showdown Photograph -->
     <figure class="rivalry-showdown-card card">
       <div class="showdown-media-wrap">
-        <img src="/img/messi-vs-ronaldo.webp" alt="Lionel Messi and Cristiano Ronaldo facing each other on the pitch" class="showdown-img" width="1100" height="460" loading="eager" fetchpriority="high" />
-        <div class="showdown-overlay-badge">⚔️ 36 DIRECT HEAD-TO-HEAD MATCHES · 13 BALLONS D'OR COMBINED</div>
+        <img src="/img/messi-vs-ronaldo.webp" alt="${t.showdownAlt}" class="showdown-img" width="1100" height="460" loading="eager" fetchpriority="high" />
+        <div class="showdown-overlay-badge">${t.showdownBadge}</div>
       </div>
       <figcaption class="showdown-caption">
         ${t.showdownCaption}
@@ -1907,7 +2087,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     </figure>
 
     <!-- Interactive Jump Navigation Pills -->
-    <nav class="comparison-toc" aria-label="Comparison Sections">
+    <nav class="comparison-toc" aria-label="${t.tocAria}">
       <a href="#core-matrix" class="toc-pill">📊 ${t.jumpCore}</a>
       <a href="#scoring-matrix" class="toc-pill">🎯 ${t.jumpScoring}</a>
       <a href="#playmaking-matrix" class="toc-pill">🅰️ ${t.jumpPlaymaking}</a>
@@ -1917,7 +2097,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     </nav>
 
     <!-- Rank #0 Featured Snippet GOAT Verdict Box -->
-    <section class="goat-verdict-box" aria-label="GOAT Verdict Summary">
+    <section class="goat-verdict-box" aria-label="${t.verdictAria}">
       <div class="goat-verdict-badge">${t.verdictBadge}</div>
       <h2 class="goat-verdict-title">${t.verdictTitle}</h2>
       <p class="goat-verdict-summary">${t.verdictText}</p>
@@ -1932,23 +2112,23 @@ ${JSON.stringify(jsonLd, null, 2)}
       </div>
 
       <div class="goat-vote-buttons" id="goat-page-vote-buttons">
-        <button type="button" class="btn-vote-candidate messi" data-vote="messi" aria-label="Vote for ${p.messiName}">
-          <div class="candidate-badge-pill">🐐 THE PLAYMAKER GOAT</div>
+        <button type="button" class="btn-vote-candidate messi" data-vote="messi" aria-label="${p.votePrefix}${p.messiName}">
+          <div class="candidate-badge-pill">${p.messiBadge}</div>
           <div class="candidate-avatar-wrap">
             <img src="/img/messi.webp" alt="Lionel Messi" class="candidate-avatar-img" width="76" height="76" loading="lazy" />
           </div>
           <span class="vote-name">${p.messiName}</span>
           <span class="vote-subtitle">${p.messiDesc}</span>
-          <span class="vote-cta-action">Vote Messi →</span>
+          <span class="vote-cta-action">${p.messiCta}</span>
         </button>
-        <button type="button" class="btn-vote-candidate ronaldo" data-vote="ronaldo" aria-label="Vote for ${p.ronaldoName}">
-          <div class="candidate-badge-pill">⚡ THE RECORD GOALSCORER</div>
+        <button type="button" class="btn-vote-candidate ronaldo" data-vote="ronaldo" aria-label="${p.votePrefix}${p.ronaldoName}">
+          <div class="candidate-badge-pill">${p.ronaldoBadge}</div>
           <div class="candidate-avatar-wrap">
             <img src="/img/ronaldo.webp" alt="Cristiano Ronaldo" class="candidate-avatar-img" width="76" height="76" loading="lazy" />
           </div>
           <span class="vote-name">${p.ronaldoName}</span>
           <span class="vote-subtitle">${p.ronaldoDesc}</span>
-          <span class="vote-cta-action">Vote Ronaldo →</span>
+          <span class="vote-cta-action">${p.ronaldoCta}</span>
         </button>
       </div>
 
@@ -2368,16 +2548,16 @@ ${faqItemsHtml}
     </aside>
 
     <!-- Support & Donation Card -->
-    <section class="support-card" id="support" aria-label="Support MessiStats">
+    <section class="support-card" id="support" aria-label="${t.supportAria}">
       <div class="support-inner">
         <div class="support-icon">❤️</div>
         <div class="support-text">
-          <h3>Support MessiStats</h3>
-          <p>MessiStats is an independent project dedicated to tracking all 931+ career goals and video replays with zero paywalls. If you enjoy using this site, consider supporting us on Ko-fi or donating with crypto to help cover hosting and video CDN costs!</p>
+          <h3>${t.supportTitle}</h3>
+          <p>${t.supportText}</p>
         </div>
         <div class="support-actions">
           <a href="https://ko-fi.com/messistat" target="_blank" rel="noopener noreferrer" class="btn-support kofi">
-            <span>💖 Support on Ko-fi</span>
+            <span>${t.supportCta}</span>
           </a>
         </div>
       </div>
@@ -2385,12 +2565,12 @@ ${faqItemsHtml}
       <div class="support-crypto-box">
         <div class="crypto-meta">
           <span class="crypto-badge">🪙 Crypto (BEP-20 / BNB Chain)</span>
-          <span class="crypto-label">Direct Wallet Donation (USDT / BNB / ETH / BUSD):</span>
+          <span class="crypto-label">${t.cryptoLabel}</span>
         </div>
         <div class="crypto-copy-row">
           <code class="crypto-address" id="crypto-addr">0xe78ee7a6ce01978562c90df0fa3f775215457390</code>
-          <button type="button" class="btn-copy-crypto" onclick="navigator.clipboard.writeText('0xe78ee7a6ce01978562c90df0fa3f775215457390'); this.textContent='✓ Copied!'; setTimeout(()=>this.textContent='Copy 📋', 2500);" aria-label="Copy BEP20 Wallet Address">
-            Copy 📋
+          <button type="button" class="btn-copy-crypto" onclick="navigator.clipboard.writeText('0xe78ee7a6ce01978562c90df0fa3f775215457390'); this.textContent='${t.copiedMsg}'; setTimeout(()=>this.textContent='${t.copyBtn}', 2500);" aria-label="Copy BEP20 Wallet Address">
+            ${t.copyBtn}
           </button>
         </div>
       </div>
@@ -2399,7 +2579,7 @@ ${faqItemsHtml}
     <h2>${t.exploreTitle}</h2>
     <nav class="explore" id="explore"></nav>
     <footer class="site-footer">
-      <nav class="footer-nav" aria-label="Site directory">
+      <nav class="footer-nav" aria-label="${t.siteDirAria}">
         <div class="footer-group">
           <span class="footer-heading">${t.footerDir}</span>
           <div class="footer-links">
@@ -2442,7 +2622,7 @@ ${faqItemsHtml}
 <aside class="ad-sticky-dock" id="ad-sticky-dock" aria-label="${t.adLabel}">
   <div class="ad-sticky-bar">
     <span class="ad-sticky-tag">${t.adLabel}</span>
-    <button type="button" class="ad-sticky-close-btn" id="ad-sticky-close" aria-label="Close advertisement" onclick="document.getElementById('ad-sticky-dock').classList.add('hidden')">&times;</button>
+    <button type="button" class="ad-sticky-close-btn" id="ad-sticky-close" aria-label="${t.closeAdAria}" onclick="document.getElementById('ad-sticky-dock').classList.add('hidden')">&times;</button>
   </div>
   <div class="ad-sticky-slot">
     <script>
