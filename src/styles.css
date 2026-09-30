@@ -62,37 +62,40 @@
   --bday-tier-4-ink: #78350f;
 }
 
+/* Dark theme is TRUE NEUTRAL BLACK — no navy/blue cast on any surface.
+   Colour is reserved for data + accents only (brand sky, gold, green, pink). */
 [data-theme="dark"] {
-  --bg-1: #090d16;
-  --bg-2: #0e1422;
-  --bg-3: #141c2e;
-  --surface: #111726;
-  --card: #151d30;
-  --surface-solid: #19243b;
-  --line: #223048;
-  --line-soft: #1c273c;
-  --ink: #f0f4fa;
-  --ink-soft: #c8d4e6;
-  --muted: #8fa0ba;
-  --faint: #657591;
+  color-scheme: dark;
+  --bg-1: #000000;
+  --bg-2: #0a0a0a;
+  --bg-3: #121212;
+  --surface: #0d0d0d;
+  --card: #121212;
+  --surface-solid: #1a1a1a;
+  --line: #262626;
+  --line-soft: #1e1e1e;
+  --ink: #f5f5f5;
+  --ink-soft: #d6d6d6;
+  --muted: #a3a3a3;
+  --faint: #8a8a8a;
   --brand: #38bdf8;
   --brand-ink: #7dd3fc;
   --brand-soft: rgba(56, 189, 248, 0.12);
-  --navy: #1e3a8a;
+  --navy: #2f2f2f;
   --accent: #34d399;
   --accent-soft: rgba(52, 211, 153, 0.14);
   --gold: #facc15;
   --gold-soft: rgba(250, 204, 21, 0.14);
   --pink: #f472b6;
   --sky: #38bdf8;
-  --bar-1: #2563eb;
-  --bar-2: #38bdf8;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-  --bday-tier-0: #141c2d;
-  --bday-tier-0-ink: #4b5b75;
+  --bar-1: #1d4ed8;
+  --bar-2: #60a5fa;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --bday-tier-0: #171717;
+  --bday-tier-0-ink: #52525b;
   --bday-tier-1: #1e3a8a;
-  --bday-tier-1-ink: #93c5fd;
+  --bday-tier-1-ink: #bfdbfe;
   --bday-tier-2: #2563eb;
   --bday-tier-2-ink: #ffffff;
   --bday-tier-3: #38bdf8;
@@ -7390,7 +7393,7 @@ html[dir="rtl"] .goat-verdict-box {
   }
 }
 [data-theme="dark"] .ad-sticky-dock {
-  background: #101726;
+  background: #111;
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6);
 }
@@ -7646,11 +7649,13 @@ html[dir="rtl"] .goat-verdict-box {
 
 /* ---------- Desktop Brand Header with Logo ---------- */
 .desktop-brand-header {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 14px;
+  width: fit-content;
+  max-width: 100%;
   margin-bottom: 22px;
-  padding: 12px 16px;
+  padding: 12px 18px;
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: 16px;
@@ -9709,7 +9714,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   transform: scale(0.95);
 }
 [data-theme="dark"] .back-to-top-btn {
-  background: rgba(22, 36, 58, 0.88);
+  background: rgba(10, 10, 10, 0.88);
   border-color: rgba(255, 255, 255, 0.15);
   color: #f1f5f9;
 }
@@ -9789,7 +9794,7 @@ html[dir="rtl"] .back-to-top-btn {
   transform: scale(0.96);
 }
 [data-theme="dark"] .quick-jump-bar {
-  background: rgba(22, 36, 58, 0.7);
+  background: rgba(10, 10, 10, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-color: rgba(255, 255, 255, 0.1);
@@ -10355,3 +10360,186 @@ html[dir="rtl"] .back-to-top-btn {
   transform: translateY(-1px);
 }
 
+
+/* =====================================================================
+   UI/UX PASS 2 � accessibility, mobile ergonomics, dark-mode consistency
+   Appended last so it wins the cascade without touching existing rules.
+   ===================================================================== */
+
+/* ---------- 1. Native colour scheme + scrollbars ---------- */
+:root { color-scheme: light; scrollbar-color: #c3ccd8 #f4f7fa; }
+[data-theme="dark"] { scrollbar-color: #333 #000; }
+::-webkit-scrollbar { width: 11px; height: 11px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink) 26%, transparent);
+  border-radius: 99px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--ink) 44%, transparent); background-clip: content-box; }
+
+/* ---------- 2. Selection colour matches theme ---------- */
+::selection { background: var(--brand-soft); color: var(--ink); }
+[data-theme="dark"] ::selection { background: rgba(56, 189, 248, 0.3); color: #fff; }
+
+/* ---------- 3. Visible focus ring for every keyboard control ---------- */
+:focus-visible {
+  outline: 2.5px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+/* Details/summary is keyboard-focusable � make the ring land on the row. */
+summary:focus-visible { outline: 2.5px solid var(--brand); outline-offset: 3px; border-radius: var(--radius); }
+
+/* ---------- 4. Skip-to-content link (keyboard + screen reader) ---------- */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -80px;
+  z-index: 10002;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: top 0.18s ease;
+}
+.skip-link:focus { top: 12px; color: #fff; text-decoration: none; }
+
+/* ---------- 5. Touch targets: 44px minimum on phones ---------- */
+@media (pointer: coarse) {
+  .rail nav a,
+  .rail .theme-toggle,
+  .rail .rail-badge,
+  .back-to-top-btn,
+  .quiz-modal-close,
+  .mobile-menu-btn,
+  .mobile-theme-btn,
+  .ad-sticky-close-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .rail nav a { justify-content: center; }
+}
+
+/* ---------- 6. No hover-jacking on touch (avoids sticky :hover) ---------- */
+@media (hover: none) {
+  .kpi:hover,
+  .cab-card:hover,
+  .recent-goal-card:hover,
+  .footer-x-link:hover,
+  .back-to-top-btn:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+}
+
+/* ---------- 7. Prevent iOS zoom-on-focus for form fields ---------- */
+@media (max-width: 900px) {
+  input, select, textarea { font-size: 16px; }
+}
+
+/* ---------- 8. Pressed feedback for all tappable rows ---------- */
+.rail nav a:active,
+.pill:active,
+.chip:active,
+.faq-question:active,
+.faq-item > summary:active {
+  opacity: 0.75;
+}
+
+/* ---------- 9. Respect reduced motion globally ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- 10. Anchor targets clear the sticky mobile topbar ---------- */
+@media (max-width: 900px) {
+  :target { scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px)); }
+  section[id], div[id].card[id] { scroll-margin-top: calc(64px + env(safe-area-inset-top, 0px)); }
+}
+
+/* ---------- 11. Headings never orphan at the bottom of a card ---------- */
+h1, h2, h3, h4 { break-inside: avoid; page-break-inside: avoid; }
+/* Long unbroken strings (URLs, hashes) must not blow out the layout. */
+body, table, td, th, .kpi-value, .kpi-num, .trophy-value {
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* ---------- 12. Forms: consistent autofill + placeholder contrast ---------- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--surface-solid) inset;
+  caret-color: var(--ink);
+}
+::placeholder { color: var(--faint); opacity: 1; }
+
+/* ---------- 13. Dark mode: pure black rails, no navy cast anywhere ---------- */
+[data-theme="dark"] .rail,
+[data-theme="dark"] .mobile-topbar,
+[data-theme="dark"] .admin-topbar { background: #000; }
+[data-theme="dark"] .ad-sticky-dock { background: #0d0d0d; }
+[data-theme="dark"] .quiz-modal-card,
+[data-theme="dark"] .messi-quiz-modal-backdrop { background: var(--card); }
+[data-theme="dark"] .argentina-stream-banner { background: rgba(0, 0, 0, 0.95); border-color: rgba(117, 170, 219, 0.4); }
+[data-theme="dark"] .admin-modal-overlay { background: rgba(0, 0, 0, 0.65); }
+[data-theme="dark"] .messi-quiz-modal-backdrop { background: rgba(0, 0, 0, 0.72); }
+[data-theme="dark"] img, [data-theme="dark"] video { background-color: #0a0a0a; }
+
+/* ---------- 14. Slightly stronger separation between card and page ---------- */
+[data-theme="dark"] .kpi,
+[data-theme="dark"] .card,
+[data-theme="dark"] .qa,
+[data-theme="dark"] .table-card,
+[data-theme="dark"] .trophy-card,
+[data-theme="dark"] .link-card,
+[data-theme="dark"] .split-card,
+[data-theme="dark"] .team-card,
+[data-theme="dark"] .identity,
+[data-theme="dark"] .profile {
+  background: var(--card);
+  border-color: var(--line);
+}
+
+/* ---------- 15. Long-form readability: measure + rhythm ---------- */
+.prose p,
+.seo-topic-card p,
+.ground-truth-lead {
+  max-width: 72ch;
+  line-height: 1.68;
+}
+
+/* ---------- 16. Tables scroll horizontally instead of clipping on phones ---------- */
+@media (max-width: 680px) {
+  .ground-truth-table-wrap,
+  .data-table-wrap,
+  .breakdown-table-wrap,
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .ground-truth-table { min-width: 460px; }
+}
+
+/* ---------- 17. Print: strip chrome, keep the data ---------- */
+@media print {
+  .rail, .mobile-topbar, .mobile-drawer, .back-to-top-btn, .quick-jump-bar,
+  .ad-native-wrap, .ad-banner-wrap, .ad-sticky-dock, .theme-toggle, .skip-link,
+  .footer-x-link, .mobile-drawer-social { display: none !important; }
+  body { background: #fff; color: #000; }
+  .card, .kpi, .qa { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #555; }
+}

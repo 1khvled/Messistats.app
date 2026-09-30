@@ -26,6 +26,9 @@ function initTheme() {
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
+    // Keep the mobile browser chrome in step with the theme (pure black in dark).
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", theme === "dark" ? "#000000" : "#16243a");
     const btns = document.querySelectorAll(".theme-toggle");
     btns.forEach((btn) => {
       const label = btn.querySelector(".theme-label");
@@ -605,6 +608,21 @@ function ensureDesktopBrandHeader() {
   `;
   wrap.prepend(brandHeader);
 }
+
+/* Keyboard users land here first: one Tab press reveals a jump-to-content link. */
+function ensureSkipLink() {
+  if (typeof document === "undefined") return;
+  if (document.querySelector(".skip-link")) return;
+  const main = document.getElementById("main") || document.querySelector(".wrap");
+  if (!main) return;
+  if (!main.id) main.id = "main";
+  const link = document.createElement("a");
+  link.className = "skip-link";
+  link.href = "#main";
+  link.textContent = document.documentElement.lang === "es" ? "Saltar al contenido" : "Skip to content";
+  document.body.prepend(link);
+}
+ensureSkipLink();
 
 function initDonationPopup() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
