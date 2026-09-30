@@ -2,6 +2,20 @@
  * scripts/reconcile-931.mjs
  *
  * Full project reconciliation to 931 goals and 1,177 appearances.
+ *
+ * ============================ RETIRED — DO NOT RUN ============================
+ * This was a one-off migration for the 930 -> 931 goal increment. It has been
+ * applied and superseded. Its rewrite targets are now WRONG and running it will
+ * corrupt data:
+ *   - `67 -> 68` free kicks: the verified direct-FK total is 76, not 68.
+ *   - `67 -> 68` bare numbers in latest-goal.json: 67' is a real match minute.
+ *   - `101 -> 102` Miami goals: already applied.
+ * Current ground truth lives in public/data/messi-data.json:
+ *   931 goals | 1,177 apps | 806 club + 125 Argentina | 109 pens | 822 NPG
+ *   | 405 official assists | 76 direct free kicks | 62 hat-tricks | 46 trophies
+ * To change a stat, edit the JSON and the page copy together, then run
+ * `npm run build && npm run audit && npm run audit:i18n`.
+ * ============================================================================
  */
 
 import fs from "node:fs";
@@ -11,7 +25,19 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 
-console.log("[reconcile-931] Starting comprehensive reconciliation to 931 goals...");
+console.error(
+  "\n[reconcile-931] RETIRED. Refusing to run.\n" +
+  "  This migration is obsolete and its rewrite targets are now wrong\n" +
+  "  (it would set free kicks to 68 instead of 76, and would corrupt the\n" +
+  "  67' match minute in latest-goal.json).\n" +
+  "  Ground truth: public/data/messi-data.json\n" +
+  "  Edit the JSON + page copy, then: npm run build && npm run audit\n"
+);
+process.exit(1);
+
+/* eslint-disable no-unreachable */
+void fs; void path; void root;
+
 
 // 1. Reconcile public/data/messi-data.json
 const messiDataPath = path.join(root, "public", "data", "messi-data.json");

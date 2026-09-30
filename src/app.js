@@ -5213,7 +5213,7 @@ function renderDashboard(d, team) {
       { id: "all", label: "All Teams", goals: d.totals.goals, apps: d.totals.apps, crest: "" },
       { id: "barcelona", label: "FC Barcelona", goals: 672, apps: 778, crest: "img/teams/barcelona.png" },
       { id: "argentina", label: "Argentina", goals: 125, apps: 207, crest: "img/teams/argentina.png" },
-      { id: "miami", label: "Inter Miami", goals: 101, apps: 116, crest: "img/teams/miami.png" },
+      { id: "miami", label: "Inter Miami", goals: 102, apps: 117, crest: "img/teams/miami.png" },
       { id: "psg", label: "Paris Saint-Germain", goals: 32, apps: 75, crest: "img/teams/psg.png" }
     ];
     pillsEl.className = "dash-team-selector";
@@ -5246,19 +5246,22 @@ function renderDashboard(d, team) {
   const kpisEl = el("kpis");
   if (kpisEl) {
     kpisEl.className = "dash-kpis-grid";
-    const assistsVal = T === "all" ? "385+" : T === "barcelona" ? "269" : T === "argentina" ? "57" : T === "miami" ? "44" : "30";
-    const gaVal = T === "all" ? "1,315+" : T === "barcelona" ? "941" : T === "argentina" ? "182" : T === "miami" ? "144" : "62";
-    const npgVal = T === "all" ? "821" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "95" : "30";
-    const fkVal = T === "all" ? "67" : T === "barcelona" ? "50" : T === "argentina" ? "11" : T === "miami" ? "3" : "2";
-    const htVal = T === "all" ? "59" : T === "barcelona" ? "48" : T === "argentina" ? "10" : T === "miami" ? "1" : "0";
+    // Sums reconcile to the 931 / 1,177 / 109-pen / 76-FK ground truth:
+    // assists 269+56+46+34 = 405; NPG 599+96+97+30 = 822; FK 50+12+12+2 = 76;
+    // hat-tricks 48+11+3+0 = 62; G+A 931+405 = 1,336.
+    const assistsVal = T === "all" ? "405+" : T === "barcelona" ? "269" : T === "argentina" ? "56" : T === "miami" ? "46" : "34";
+    const gaVal = T === "all" ? "1,336+" : T === "barcelona" ? "941" : T === "argentina" ? "181" : T === "miami" ? "148" : "66";
+    const npgVal = T === "all" ? "822" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "97" : "30";
+    const fkVal = T === "all" ? "76" : T === "barcelona" ? "50" : T === "argentina" ? "12" : T === "miami" ? "12" : "2";
+    const htVal = T === "all" ? "62" : T === "barcelona" ? "48" : T === "argentina" ? "11" : T === "miami" ? "3" : "0";
 
     const kpiList = [
       { label: "Total Goals", icon: "⚽", num: n(goals), sub: `${gpg(goals, apps)} goals/game · ${n(apps)} matches (${name})` },
-      { label: "Total Assists", icon: "👟", num: assistsVal, sub: `0.33 assists/game · All-time playmaker` },
-      { label: "Goal Contributions", icon: "🔥", num: gaVal, sub: `1.12 direct goal involvements per match` },
+      { label: "Total Assists", icon: "👟", num: assistsVal, sub: `0.34 assists/game · All-time playmaker` },
+      { label: "Goal Contributions", icon: "🔥", num: gaVal, sub: `1.14 direct goal involvements per match` },
       { label: "Non-Penalty Goals", icon: "⚡", num: npgVal, sub: `88.3% non-penalty ratio (open play & free kicks)` },
       { label: "Direct Free Kicks", icon: "🎯", num: fkVal, sub: `Record set-piece dead-ball precision` },
-      { label: "Career Hat-Tricks", icon: "🎩", num: htVal, sub: `51 hat-tricks, 6x 4-goals, 2x 5-goals` }
+      { label: "Career Hat-Tricks", icon: "🎩", num: htVal, sub: `62 career hat-tricks, 6x 4-goals, 2x 5-goals` }
     ];
 
     kpisEl.innerHTML = kpiList.map(k => `
@@ -6249,7 +6252,7 @@ function renderTimeline(d) {
     summaryEl.innerHTML = `
       <div class="tl-summary-kpi"><div class="val">22</div><div class="lbl">Seasons (2004–2026)</div></div>
       <div class="tl-summary-kpi"><div class="val">${n(t.goals)}</div><div class="lbl">Senior Goals</div></div>
-      <div class="tl-summary-kpi"><div class="val">385+</div><div class="lbl">Career Assists</div></div>
+      <div class="tl-summary-kpi"><div class="val">405+</div><div class="lbl">Career Assists</div></div>
       <div class="tl-summary-kpi"><div class="val">46</div><div class="lbl">Major Trophies</div></div>
       <div class="tl-summary-kpi"><div class="val">8</div><div class="lbl">Ballons d'Or</div></div>
       <div class="tl-summary-kpi"><div class="val">6</div><div class="lbl">Golden Shoes</div></div>

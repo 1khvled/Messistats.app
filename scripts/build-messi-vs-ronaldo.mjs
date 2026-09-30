@@ -219,7 +219,7 @@ const I18N = {
     lead: "The definitive statistical comparison between the two greatest icons of modern football. All-time goals, non-penalty goals, free kicks, penalties, assists, trophies, individual accolades, and all 36 direct matches.",
     verdictBadge: "THE GOAT VERDICT • COMPLETE OFFICIAL TOTALS",
     verdictTitle: "Who has better all-time career statistics: Messi or Ronaldo?",
-    verdictText: "Across all official senior matches, <b>Lionel Messi has scored 931 goals and provided 405+ assists in 1,177 appearances</b> (1.12 goal contributions per match), while <b>Cristiano Ronaldo holds the all-time goalscoring record with 979 goals and provided 261 assists in 1,337 appearances</b> (0.93 contributions per match). While Ronaldo leads the all-time goal tally (<b>979 vs 931</b>), Messi reached 931 goals in <b>160 fewer matches</b> with a higher scoring ratio (<b>0.79 vs 0.73</b>), leads in <b>non-penalty goals (822 vs 795)</b> and assists (<b>405+ vs 261</b>), won the <b>FIFA World Cup (2022)</b> with two Golden Balls, and leads in <b>Ballons d'Or (8 vs 5)</b> and <b>team trophies (46 vs 35)</b>.",
+    verdictText: "Across all official senior matches, <b>Lionel Messi has scored 931 goals and provided 405+ assists in 1,177 appearances</b> (1.14 goal contributions per match), while <b>Cristiano Ronaldo holds the all-time goalscoring record with 979 goals and provided 261 assists in 1,337 appearances</b> (0.93 contributions per match). While Ronaldo leads the all-time goal tally (<b>979 vs 931</b>), Messi reached 931 goals in <b>160 fewer matches</b> with a higher scoring ratio (<b>0.79 vs 0.73</b>), leads in <b>non-penalty goals (822 vs 795)</b> and assists (<b>405+ vs 261</b>), won the <b>FIFA World Cup (2022)</b> with two Golden Balls, and leads in <b>Ballons d'Or (8 vs 5)</b> and <b>team trophies (46 vs 35)</b>.",
     tableStat: "Statistic",
     tableLeader: "Leader",
     coreHeader: "All-Time Senior Career Totals",
@@ -963,7 +963,7 @@ const I18N = {
     lead: "المقارنة الإحصائية الشاملة والنهائية بين أسطورتي كرة القدم عبر التاريخ. إجمالي الأهداف، الأهداف بدون ركلات جزاء، الركلات الحرة، ضربات الجزاء، التمريرات الحاسمة، الألقاب الجماعية، الجوائز الفردية وكافة المواجهات المباشرة الـ 36.",
     verdictBadge: "حكم الأفضل في التاريخ • الأرقام الرسمية الكاملة",
     verdictTitle: "من يمتلك أرقاماً تاريخية أفضل: ميسي أم كريستيانو رونالدو؟",
-    verdictText: "عبر كافة المباريات الرسمية، <b>سجل ليونيل ميسي 931 هدفاً وقدم أكثر من 405 تمريرة حاسمة في 1,177 مباراة</b> (بمعدل 1.12 مساهمة تهديفية في المباراة)، بينما <b>يحمل كريستيانو رونالدو الرقم القياسي التاريخي بتسجيله 979 هدفاً و261 تمريرة حاسمة في 1,337 مباراة</b> (0.93 مساهمة في المباراة). ورغم تصدر رونالدو قائمة الهدافين التاريخيين (<b>979 مقابل 931</b>)، فإن ميسي حقق أهدافه في <b>160 مباراة أقل</b> وبمعدل تهديفي أعلى (<b>0.79 مقابل 0.73</b>)، ويتفوق في <b>الأهداف بدون ركلات جزاء (822 مقابل 795)</b> والتمريرات الحاسمة (<b>405+ مقابل 261</b>)، وتوج بلقب <b>كأس العالم FIFA (2022)</b> مع كرتين ذهبيتين للبطولة، ويتفوق في <b>الكرات الذهبية (8 مقابل 5)</b> والبطولات الرسمية (<b>46 مقابل 35</b>).",
+    verdictText: "عبر كافة المباريات الرسمية، <b>سجل ليونيل ميسي 931 هدفاً وقدم أكثر من 405 تمريرة حاسمة في 1,177 مباراة</b> (بمعدل 1.14 مساهمة تهديفية في المباراة)، بينما <b>يحمل كريستيانو رونالدو الرقم القياسي التاريخي بتسجيله 979 هدفاً و261 تمريرة حاسمة في 1,337 مباراة</b> (0.93 مساهمة في المباراة). ورغم تصدر رونالدو قائمة الهدافين التاريخيين (<b>979 مقابل 931</b>)، فإن ميسي حقق أهدافه في <b>160 مباراة أقل</b> وبمعدل تهديفي أعلى (<b>0.79 مقابل 0.73</b>)، ويتفوق في <b>الأهداف بدون ركلات جزاء (822 مقابل 795)</b> والتمريرات الحاسمة (<b>405+ مقابل 261</b>)، وتوج بلقب <b>كأس العالم FIFA (2022)</b> مع كرتين ذهبيتين للبطولة، ويتفوق في <b>الكرات الذهبية (8 مقابل 5)</b> والبطولات الرسمية (<b>46 مقابل 35</b>).",
     tableStat: "الإحصائية",
     tableLeader: "الأفضلية",
     coreHeader: "إجمالي المسيرة الاحترافية الكبرى",
@@ -1335,7 +1335,7 @@ const I18N = {
     lead: "आधुनिक फुटबॉल के दो दिग्गजों के बीच आधिकारिक आंकड़ों की संपूर्ण तुलना। कुल गोल, बिना पेनल्टी के गोल, फ्री किक, पेनल्टी, असिस्ट, टीम खिताब, व्यक्तिगत सम्मान और सभी 36 सीधे मुकाबले।",
     verdictBadge: "सर्वकालिक महानतम का फैसला • आधिकारिक आंकड़े",
     verdictTitle: "करियर आंकड़ों में कौन आगे है: लियोनेल मेसी या क्रिस्टियानो रोनाल्डो?",
-    verdictText: "सभी आधिकारिक सीनियर मैचों में, <b>लियोनेल मेसी ने 1,177 मैचों में 931 गोल और 405 से अधिक असिस्ट दर्ज किए हैं</b> (प्रति मैच 1.12 गोल योगदान), जबकि <b>क्रिस्टियानो रोनाल्डो 1,337 मैचों में 979 गोल और 261 असिस्ट के साथ सर्वकालिक शीर्ष स्कोरर हैं</b> (प्रति मैच 0.93 योगदान)। हालांकि रोनाल्डो कुल गोलों (<b>979 बनाम 931</b>) में आगे हैं, लेकिन मेसी ने <b>160 कम मैचों में</b> और बेहतर अनुपात (<b>0.79 बनाम 0.73</b>) के साथ 931 गोल हासिल किए हैं, नॉन-पेनल्टी गोल (<b>822 बनाम 795</b>) और असिस्ट (<b>405+ बनाम 261</b>) में आगे हैं, दो गोल्डन बॉल के साथ <b>फीफा विश्व कप (2022)</b> जीता है, और <b>बैलन डी'ऑर (8 बनाम 5)</b> व <b>टीम खिताबों (46 बनाम 35)</b> में आगे हैं।",
+    verdictText: "सभी आधिकारिक सीनियर मैचों में, <b>लियोनेल मेसी ने 1,177 मैचों में 931 गोल और 405 से अधिक असिस्ट दर्ज किए हैं</b> (प्रति मैच 1.14 गोल योगदान), जबकि <b>क्रिस्टियानो रोनाल्डो 1,337 मैचों में 979 गोल और 261 असिस्ट के साथ सर्वकालिक शीर्ष स्कोरर हैं</b> (प्रति मैच 0.93 योगदान)। हालांकि रोनाल्डो कुल गोलों (<b>979 बनाम 931</b>) में आगे हैं, लेकिन मेसी ने <b>160 कम मैचों में</b> और बेहतर अनुपात (<b>0.79 बनाम 0.73</b>) के साथ 931 गोल हासिल किए हैं, नॉन-पेनल्टी गोल (<b>822 बनाम 795</b>) और असिस्ट (<b>405+ बनाम 261</b>) में आगे हैं, दो गोल्डन बॉल के साथ <b>फीफा विश्व कप (2022)</b> जीता है, और <b>बैलन डी'ऑर (8 बनाम 5)</b> व <b>टीम खिताबों (46 बनाम 35)</b> में आगे हैं।",
     tableStat: "आंकड़ा",
     tableLeader: "बढ़त",
     coreHeader: "सीनियर करियर के कुल आधिकारिक आंकड़े",
@@ -2175,13 +2175,13 @@ ${JSON.stringify(jsonLd, null, 2)}
           </tr>
           <tr>
             <td class="left"><b>${t.statGoalContrib}</b></td>
-            <td><b style="color:var(--accent);">1,315+</b></td>
+            <td><b style="color:var(--accent);">1,336+</b></td>
             <td>1,240</td>
             <td class="left"><span class="leader-badge-messi">Messi (+75)</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statContribRatio}</b></td>
-            <td><b style="color:var(--accent);">1.12</b></td>
+            <td><b style="color:var(--accent);">1.14</b></td>
             <td>0.93</td>
             <td class="left"><span class="leader-badge-messi">Messi (+0.19)</span></td>
           </tr>

@@ -925,7 +925,7 @@ ${renderRailNav(lang, "timeline")}
 <section class="tl-summary-banner" id="tl-summary" aria-label="Career overview numbers">
   <div class="tl-summary-kpi"><div class="val">22</div><div class="lbl">Seasons (2004–2026)</div></div>
   <div class="tl-summary-kpi"><div class="val">931</div><div class="lbl">Senior Goals</div></div>
-  <div class="tl-summary-kpi"><div class="val">385+</div><div class="lbl">Career Assists</div></div>
+  <div class="tl-summary-kpi"><div class="val">405+</div><div class="lbl">Career Assists</div></div>
   <div class="tl-summary-kpi"><div class="val">46</div><div class="lbl">Major Trophies</div></div>
   <div class="tl-summary-kpi"><div class="val">8</div><div class="lbl">Ballons d'Or</div></div>
   <div class="tl-summary-kpi"><div class="val">6</div><div class="lbl">Golden Shoes</div></div>

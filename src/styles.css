@@ -1,65 +1,91 @@
-/* MessiStats — light editorial paper theme matching the ronaldostats.app reference structure.
-   Own code, own data, own copy. DM Sans (body) + Plus Jakarta Sans (headings), self-hosted. */
+/* MessiStats — "THE MESSI LEDGER": a statistical archive, not a marketing page.
+   Sharp print geometry, hairline rules, ledger hairlines, no glass.
+   Archivo (editorial grotesque) + IBM Plex Mono (data voice). Both self-hosted,
+   subsetted to latin/latin-ext. Arabic, Devanagari and Bengali fall to system
+   stacks, which is why those declarations carry explicit local fallbacks. */
 @font-face {
-  font-family: "DM Sans";
-  src: url("/fonts/dm-sans-latin.woff2") format("woff2");
-  font-weight: 400 700;
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin.woff2") format("woff2");
+  font-weight: 400 800;
+  font-stretch: 100%;
   font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+    U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Plus Jakarta Sans";
-  src: url("/fonts/plus-jakarta-sans-latin.woff2") format("woff2");
-  font-weight: 500 800;
+  font-family: "Archivo";
+  src: url("/fonts/archivo-latin-ext.woff2") format("woff2");
+  font-weight: 400 800;
+  font-stretch: 100%;
   font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304,
+    U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-400-latin.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-400-latin-ext.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-500-latin.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-500-latin-ext.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-600-latin.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-600-latin-ext.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-700-latin.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Plex Mono"; src: url("/fonts/plexmono-700-latin-ext.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 
 /* Messi identity tokens: Argentina albiceleste (sky/white) primary, Blaugrana
    (deep blue/garnet) secondary, gold reserved for records and honours.
-   Body text on white stays >= 4.5:1; fonts self-hosted, light theme kept. */
+   GEOMETRY IS DELIBERATELY SHARP — 2px/4px radii, hairline rules, no ambient
+   shadow blur. This is a statistical archive, so it reads like printed matter.
+   Body text on white stays >= 4.5:1; fonts self-hosted. */
 :root {
-  --bg-1: #f4f7fa;
-  --bg-2: #f4f7fa;
-  --bg-3: #eef3f7;
+  --bg-1: #f2f3f0;
+  --bg-2: #f2f3f0;
+  --bg-3: #e9ebe6;
   --surface: #ffffff;
   --card: #ffffff;
-  --surface-solid: #f1f6fa;
-  --line: #d9e6f1;
-  --line-soft: #e8f1f7;
-  --ink: #16243a;
-  --ink-soft: #3c4a63;
-  --muted: #52607c;
-  --faint: #596784;
-  --brand: #0b6fa4;
-  --brand-ink: #084e75;
-  --brand-soft: #e0f1fa;
-  --navy: #132c52;
-  --hero-grad: linear-gradient(112deg, #6d0f2e 8%, #1d3fae 52%, #0e7cc0 96%);
-  --accent: #22b07d;
-  --accent-soft: #e2f6ec;
-  --gold: #8a6300;
-  --gold-soft: #faf0cd;
-  --pink: #e1438b;
-  --sky: #1593d1;
-  --bar-1: #7cc4ea;
-  --bar-2: #0e7cc0;
-  --radius: 18px;
-  --radius-lg: 26px;
-  --shadow: 0 1px 2px rgba(22, 36, 58, 0.08);
-  --shadow-sm: 0 1px 2px rgba(22, 36, 58, 0.08);
+  --surface-solid: #f4f5f2;
+  --line: #d3d6ce;
+  --line-soft: #e2e5dd;
+  --ink: #10130f;
+  --ink-soft: #363c33;
+  --muted: #5c6357;
+  --faint: #767d70;
+  --brand: #0a5f8f;
+  --brand-ink: #073f5e;
+  --brand-soft: #e2edf4;
+  --navy: #0f1a2e;
+  --hero-grad: var(--navy);
+  --accent: #1a7f56;
+  --accent-soft: #e0efe7;
+  --gold: #7a5600;
+  --gold-soft: #f7eec9;
+  --pink: #c22a6e;
+  --sky: #0e7bb8;
+  --bar-1: #9dc6dd;
+  --bar-2: #0a5f8f;
+  /* Sharp archive geometry. Pills only where a pill is semantically right. */
+  --radius: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 2px;
+  /* Depth comes from a 1px hairline + one hard offset stamp, never a soft blur. */
+  --shadow: 2px 2px 0 var(--line);
+  --shadow-sm: 1px 1px 0 var(--line);
+  --hairline: 1px solid var(--line);
+  --rule: 2px solid var(--ink);
   --rail-w: 76px;
   --rail-open: 248px;
-  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-head: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
-  --bday-tier-0: #f1f5f9;
-  --bday-tier-0-ink: #94a3b8;
-  --bday-tier-1: #dbeafe;
-  --bday-tier-1-ink: #1e40af;
-  --bday-tier-2: #93c5fd;
-  --bday-tier-2-ink: #1e3a8a;
-  --bday-tier-3: #3b82f6;
+  --font-body: "Archivo", "Noto Sans Arabic", "Noto Sans Devanagari", "Noto Sans Bengali", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-head: "Archivo", "Noto Sans Arabic", "Noto Sans Devanagari", "Noto Sans Bengali", system-ui, sans-serif;
+  --font-mono: "Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --bday-tier-0: #eceee9;
+  --bday-tier-0-ink: #8a9184;
+  --bday-tier-1: #d3e3ef;
+  --bday-tier-1-ink: #14425e;
+  --bday-tier-2: #8fbed9;
+  --bday-tier-2-ink: #0b3247;
+  --bday-tier-3: #2b7fae;
   --bday-tier-3-ink: #ffffff;
-  --bday-tier-4: #f59e0b;
-  --bday-tier-4-ink: #78350f;
+  --bday-tier-4: #c98a08;
+  --bday-tier-4-ink: #1e1300;
 }
 
 /* Dark theme is TRUE NEUTRAL BLACK — no navy/blue cast on any surface.
@@ -72,36 +98,38 @@
   --surface: #0d0d0d;
   --card: #121212;
   --surface-solid: #1a1a1a;
-  --line: #262626;
-  --line-soft: #1e1e1e;
-  --ink: #f5f5f5;
-  --ink-soft: #d6d6d6;
-  --muted: #a3a3a3;
-  --faint: #8a8a8a;
-  --brand: #38bdf8;
-  --brand-ink: #7dd3fc;
-  --brand-soft: rgba(56, 189, 248, 0.12);
-  --navy: #2f2f2f;
-  --accent: #34d399;
-  --accent-soft: rgba(52, 211, 153, 0.14);
-  --gold: #facc15;
-  --gold-soft: rgba(250, 204, 21, 0.14);
-  --pink: #f472b6;
-  --sky: #38bdf8;
-  --bar-1: #1d4ed8;
-  --bar-2: #60a5fa;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
-  --bday-tier-0: #171717;
-  --bday-tier-0-ink: #52525b;
-  --bday-tier-1: #1e3a8a;
-  --bday-tier-1-ink: #bfdbfe;
-  --bday-tier-2: #2563eb;
+  --line: #2b2b2b;
+  --line-soft: #1f1f1f;
+  --ink: #f2f2f0;
+  --ink-soft: #d2d2ce;
+  --muted: #9d9d97;
+  --faint: #83837c;
+  --brand: #5cb3e8;
+  --brand-ink: #8ecdf3;
+  --brand-soft: rgba(92, 179, 232, 0.12);
+  --navy: #26262a;
+  --accent: #3fb984;
+  --accent-soft: rgba(63, 185, 132, 0.14);
+  --gold: #e8b93a;
+  --gold-soft: rgba(232, 185, 58, 0.14);
+  --pink: #ef6fa8;
+  --sky: #5cb3e8;
+  --bar-1: #2b5a72;
+  --bar-2: #6fb6dd;
+  --shadow: 2px 2px 0 #000;
+  --shadow-sm: 1px 1px 0 #000;
+  --hairline: 1px solid var(--line);
+  --rule: 2px solid var(--ink);
+  --bday-tier-0: #161616;
+  --bday-tier-0-ink: #4a4a45;
+  --bday-tier-1: #1c4a66;
+  --bday-tier-1-ink: #cfe6f4;
+  --bday-tier-2: #2b7fae;
   --bday-tier-2-ink: #ffffff;
-  --bday-tier-3: #38bdf8;
-  --bday-tier-3-ink: #082f49;
-  --bday-tier-4: #facc15;
-  --bday-tier-4-ink: #422006;
+  --bday-tier-3: #5cb3e8;
+  --bday-tier-3-ink: #04202e;
+  --bday-tier-4: #e8b93a;
+  --bday-tier-4-ink: #241a00;
 }
 
 * { box-sizing: border-box; }
@@ -629,7 +657,7 @@ svg.donut circle:hover { stroke-width: 30; }
 .chapter > h3 { font-size: 1.2rem; margin-bottom: 2px; }
 .chapter .c-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 10px; }
 .ch-head { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 12px; margin-bottom: 10px; }
-.ch-era { font-family: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif; font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
+.ch-era { font-family: var(--font-head); font-weight: 800; font-size: 1.18rem; letter-spacing: -0.01em; }
 .ch-range { color: var(--muted); font-size: 0.9rem; font-weight: 600; }
 .tl-events { list-style: none; counter-reset: ev; margin: 0; padding: 6px 22px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-sm); }
 .tl-event { counter-increment: ev; display: flex; align-items: baseline; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 0.94rem; color: var(--ink-soft); }
@@ -666,7 +694,7 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
   max-width: 68ch; margin: 10px 0 4px;
 }
 .chapter-intro::first-letter {
-  font-family: "Plus Jakarta Sans", "DM Sans", system-ui, sans-serif;
+  font-family: var(--font-head);
   font-weight: 800; font-size: 2.7em; float: left;
   line-height: 0.85; padding: 3px 9px 0 0; color: var(--brand);
 }
@@ -10543,3 +10571,437 @@ input:-webkit-autofill:focus {
   .card, .kpi, .qa { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #555; }
 }
+/* =====================================================================
+   THE MESSI LEDGER � identity pass
+   Kills: glassmorphism, mesh gradients, pill-everything, ambient shadow
+   blur, hover float, 18/26px radii, AI-default type.
+   Adds: hairline rules, hard offset stamps, mono data kickers, ledger
+   numbering, tabular figures as the default reading of every number.
+   Appended last so it wins the cascade.
+   ===================================================================== */
+
+/* ---------- A. Typography: editorial grotesque + mono data voice ---------- */
+body {
+  font-family: var(--font-body);
+  font-feature-settings: "tnum" 1, "cv05" 1;
+  letter-spacing: -0.006em;
+  font-optical-sizing: auto;
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  letter-spacing: -0.028em;   /* tight, headline-tight � not airy SaaS */
+  line-height: 1.08;
+}
+h1.page-title, .wrap > h1 { letter-spacing: -0.035em; }
+h2 { letter-spacing: -0.03em; }
+/* Section rules: a hard 2px ink line instead of a floating heading. */
+h2 {
+  padding-bottom: 0.45rem;
+  border-bottom: var(--rule);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Every number on the site reads as a figure in a ledger. */
+.kpi-value, .kpi-num, .trophy-value, .r1000-num, .milestone-val,
+.num, .tnum, td, th, .hero-stat b, .tl-num, .bday-count, .stat-value,
+.data-table td, .data-table th, .ground-truth-table td, .ground-truth-table th {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Mono kickers � the "records bureau" voice. Eyebrows, labels, table heads. */
+.eyebrow,
+.kpi-label,
+.ground-truth-badge,
+.updated-badge,
+.hero-action-label,
+.tl-era-nav a,
+.data-table thead th,
+.ground-truth-table thead th,
+.breakdown-table thead th,
+.trophy-label,
+.updated-badge,
+.mini-lbl,
+.stat-label {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.eyebrow { letter-spacing: 0.18em; font-weight: 600; }
+.eyebrow i { display: none; }          /* the little dash was a template tic */
+.kpi-label { letter-spacing: 0.14em; font-weight: 600; }
+.updated-badge {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+.updated-badge .dot { box-shadow: none; border-radius: 50%; }
+
+/* ---------- B. Geometry: sharp. Pills only where a pill is right. ---------- */
+.card, .kpi, .kpi-card, .qa, .table-card, .identity, .profile, .link-card,
+.split-card, .team-card, .trophy-card, .year-pick, .ground-truth-card,
+.recent-goal-card, .cab-card, .tl-card, .tl-event, .bday-picker-card,
+.bday-month-card, .bday-match-card, .bday-verdict-card, .bday-closest-btn,
+.ad-native-slot, .ad-native-wrap, .ad-banner-wrap, .road-1000-card,
+.r1000-metric, .id-chip, .support-card, .stream-card, .admin-kpi-card,
+.admin-hero, .arcade-card, .fan-arcade-card, .messi-quiz-modal-card,
+.quiz-modal-header, .quiz-modal-body, .quiz-modal-footer, .admin-modal-card,
+.roulette-card, .quiz-card, .fb-card, .crypto-copy-row, .match-row,
+.metric-row, .stat-row, .achievement-card, .goal-row, .tl-card-inner,
+.desktop-brand-header, .admin-hero-actions, .admin-select, .bday-select,
+.otd-card, .otd-match-tab, .bday-promo-card, .bday-hero-card, .analytical-index-collapse {
+  border-radius: var(--radius);
+}
+/* Anything explicitly pill-shaped stays a pill � chips, tags, badges, avatars. */
+.pill, .chip, .badge, .tag, .status-pill, .round-pill,
+.rail-badge, .qj-pill, .footer-x-link, .stream-pill, .bday-min-tag,
+.messi-quiz-modal-backdrop .btn-modal-dismiss, .admin-login-btn {
+  border-radius: var(--radius-pill);
+}
+.badge, .tag, .chip { border-radius: 2px; }
+
+/* Buttons: flat rectangles, not capsules. */
+.btn, .btn-primary, .btn-secondary, .btn-quiz-opt, .btn-ach-opt,
+.btn-modal-opt, .bday-heatmap-nav-btn, .bday-mode-btn, .tl-filter-btn,
+.dash-team-btn, .arcade-tab, .otd-match-tab, .ad-sticky-close-btn,
+.quiz-modal-close, .admin-period-btn, .mobile-menu-btn, .mobile-theme-btn,
+.theme-toggle, .bday-month-pill, .bday-closest-btn {
+  border-radius: var(--radius);
+}
+.btn, .btn-primary, .btn-secondary {
+  letter-spacing: 0.005em;
+  font-weight: 600;
+  box-shadow: none;
+}
+.btn { padding: 8px 15px; }
+.btn-primary {
+  background: var(--ink);
+  color: var(--bg-1);
+  border-color: var(--ink);
+}
+.btn-primary:hover {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+  transform: none;
+  box-shadow: none;
+}
+[data-theme="dark"] .btn-primary {
+  background: var(--ink);
+  color: #000;
+  border-color: var(--ink);
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #04202e;
+}
+
+/* Pills that are really filters/tabs get the ledger treatment: square, mono. */
+.pill {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 7px 14px;
+  border-radius: var(--radius);
+}
+.pill.on, .pill--active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--bg-1);
+  border-radius: var(--radius);
+}
+[data-theme="dark"] .pill.on,
+[data-theme="dark"] .pill--active { background: var(--ink); color: #000; border-color: var(--ink); }
+
+/* ---------- C. Kill glassmorphism: opaque surfaces, no blur ---------- */
+.rail, .mobile-topbar, .admin-topbar, .quick-jump-bar, .ad-sticky-dock,
+.back-to-top-btn, .admin-modal-overlay, .messi-quiz-modal-backdrop,
+.argentina-stream-banner, .analytics-bar, .sticky-dock, .float-bar {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.quick-jump-bar, .back-to-top-btn, .ad-sticky-dock {
+  background: var(--card) !important;
+}
+.rail { background: var(--card); }
+[data-theme="dark"] .rail { background: #000; }
+[data-theme="dark"] .quick-jump-bar,
+[data-theme="dark"] .back-to-top-btn,
+[data-theme="dark"] .ad-sticky-dock { background: #0d0d0d !important; }
+.admin-modal-overlay { background: rgba(10, 10, 10, 0.72); }
+.messi-quiz-modal-backdrop { background: rgba(10, 10, 10, 0.75); }
+[data-theme="dark"] .admin-modal-overlay,
+[data-theme="dark"] .messi-quiz-modal-backdrop { background: rgba(0, 0, 0, 0.78); }
+
+/* ---------- D. Kill ambient shadow blur; use hairline + hard stamp ---------- */
+.card, .kpi, .kpi-card, .qa, .table-card, .identity, .profile, .link-card,
+.split-card, .team-card, .trophy-card, .ground-truth-card, .recent-goal-card,
+.cab-card, .tl-card, .bday-picker-card, .road-1000-card, .admin-kpi-card,
+.admin-hero, .support-card, .desktop-brand-header {
+  box-shadow: none;
+  border: 1px solid var(--line);
+}
+/* Interactive cards gain depth only on intent, and only as a hard offset. */
+.kpi, .cab-card, .recent-goal-card, .link-card, .qa {
+  transition: border-color 0.12s linear, box-shadow 0.12s linear, background 0.12s linear;
+}
+.kpi:hover, .cab-card:hover, .recent-goal-card:hover, .link-card:hover {
+  transform: none;
+  border-color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+[data-theme="dark"] .kpi:hover,
+[data-theme="dark"] .cab-card:hover,
+[data-theme="dark"] .recent-goal-card:hover,
+[data-theme="dark"] .link-card:hover {
+  box-shadow: 3px 3px 0 var(--brand);
+  border-color: var(--brand);
+}
+@media (hover: none) {
+  .kpi:hover, .cab-card:hover, .recent-goal-card:hover, .link-card:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--line);
+  }
+}
+
+/* ---------- E. Kill hover float everywhere else ---------- */
+.footer-x-link:hover, .ad-sticky-close-btn:hover, .back-to-top-btn:hover,
+.desktop-brand-logo-link:hover, .rail-mark-logo:hover, .rail-badge:hover,
+.bday-closest-btn:hover, .btn:hover, .btn-secondary:hover, .pill:hover,
+.chip:hover, .arcade-tab:hover, .otd-match-tab:hover, .bday-month-pill:hover {
+  transform: none;
+}
+.desktop-brand-logo-link:hover, .rail-mark-logo:hover { transform: scale(1.02); }
+.desktop-brand-logo-link:hover, .rail-mark-logo:hover { box-shadow: none; }
+
+/* ---------- F. Hero: no mesh gradient. Flat ink slab with a hairline rule. ---------- */
+.hero, .hero-grad, [class*="hero"] { background-image: none; }
+.page-hero, .hero {
+  background: var(--navy);
+  color: #fff;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius);
+  padding: 28px 30px;
+  position: relative;
+}
+/* Ledger ruling: fine vertical hairlines, like a printed statistical table. */
+.page-hero::before, .hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.045) 0 1px,
+    transparent 1px 56px
+  );
+}
+.page-hero h1, .hero h1, .page-hero .h1 { color: #fff; }
+.page-hero p, .hero p { color: rgba(255, 255, 255, 0.82); max-width: 64ch; }
+[data-theme="dark"] .page-hero, [data-theme="dark"] .hero {
+  background: var(--card);
+  border-color: var(--line);
+  color: var(--ink);
+}
+[data-theme="dark"] .page-hero h1, [data-theme="dark"] .hero h1 { color: var(--ink); }
+[data-theme="dark"] .page-hero p, [data-theme="dark"] .hero p { color: var(--muted); }
+
+/* ---------- G. Tables: ruled ledger, not a floating card ---------- */
+.data-table, .ground-truth-table, .breakdown-table {
+  border-collapse: collapse;
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+}
+.data-table thead th, .ground-truth-table thead th, .breakdown-table thead th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  padding: 10px 12px;
+}
+.data-table td, .ground-truth-table td, .breakdown-table td {
+  border-bottom: 1px solid var(--line-soft);
+  padding: 10px 12px;
+}
+.data-table tbody tr:hover td, .ground-truth-table tbody tr:hover td {
+  background: var(--brand-soft);
+}
+.ground-truth-table-wrap, .data-table-wrap, .breakdown-table-wrap {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 0;
+  overflow-x: auto;
+}
+
+/* ---------- H. Signature: the primary-data card gets a stamped left rule ---------- */
+.ground-truth-card {
+  border-left: 3px solid var(--brand);
+  box-shadow: none;
+  background: var(--card);
+}
+[data-theme="dark"] .ground-truth-card { border-left-color: var(--gold); }
+.ground-truth-title { letter-spacing: -0.02em; }
+
+/* ---------- I. Rails & nav: hairline dividers, no pill hover ---------- */
+.rail { border: 1px solid var(--line); border-radius: var(--radius); }
+.rail nav a { border-radius: var(--radius); }
+.rail nav a.on { background: var(--ink); color: var(--bg-1); }
+[data-theme="dark"] .rail nav a.on { background: var(--ink); color: #000; }
+.rail nav a:hover { background: var(--brand-soft); color: var(--brand-ink); }
+
+/* ---------- J. Progress bars: flat, no capsule ---------- */
+.progress-track { border-radius: 1px; height: 10px; }
+.progress-fill { border-radius: 1px; }
+
+/* ---------- K. Forms: square, mono placeholder, no rounded chrome ---------- */
+input, select, textarea, .bday-select, .admin-select, .tl-search input {
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+}
+input::placeholder, textarea::placeholder { font-family: var(--font-mono); font-size: 0.82em; }
+
+/* ---------- L. Focus: a square bracket, not a rounded halo ---------- */
+:focus-visible { border-radius: 1px; outline-width: 2px; outline-offset: 1px; }
+
+/* ---------- M. Reduce gradients to data marks only ---------- */
+.bar-fill, .tl-bar, svg.spark .cum { /* keep */ }
+.ground-truth-card, .bday-hero-card, .bday-promo-card, .support-card,
+.admin-kpi-card.live-card, .kpi-card, .qa, .card, .link-card, .team-card,
+.identity, .profile, .recent-goal-card, .cab-card, .trophy-card {
+  background-image: none !important;
+}
+/* =====================================================================
+   SIDEBAR SCROLLABILITY + MOBILE OPTIMISATION
+   The rail always scrolled, but the scrollbar was display:none and there
+   was no edge cue, so it read as "not scrollable". Now: visible slim
+   scrollbar, scroll shadows, correct clearance under the fixed mobile
+   bar, and safe-area handling.
+   ===================================================================== */
+
+:root { --mobile-nav-h: 60px; }
+
+/* ---------- 1. Make the rail's scroll state obvious ---------- */
+.rail nav {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ink) 32%, transparent) transparent;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  /* Room so the first/last item is not flush against the rounded edge. */
+  padding: 2px;
+  margin: -2px;
+}
+.rail nav::-webkit-scrollbar { display: block; width: 6px; height: 6px; }
+.rail nav::-webkit-scrollbar-track { background: transparent; }
+.rail nav::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink) 30%, transparent);
+  border-radius: 99px;
+}
+.rail nav::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--ink) 50%, transparent); }
+.rail nav::-webkit-scrollbar-corner { background: transparent; }
+[data-theme="dark"] .rail nav { scrollbar-color: #3a3a3a transparent; }
+[data-theme="dark"] .rail nav::-webkit-scrollbar-thumb { background: #3a3a3a; }
+
+/* Scroll shadows: a hairline appears on whichever edge has more content.
+   Cheap trick, but it is the "there is more here" signal users expect.
+   NOTE: deliberately no mask-image here — a mask on a scroll container also
+   masks its scrollbar, which would hide the affordance we just added. The
+   visible scrollbar plus partially-clipped items at the edge carry the cue. */
+.rail nav { scroll-padding: 8px; }
+
+/* ---------- 2. Mobile: the rail IS the bottom nav ---------- */
+@media (max-width: 900px) {
+  .rail nav {
+    scroll-padding-inline: 14px;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .rail nav::-webkit-scrollbar { height: 4px; width: 4px; }
+  .rail nav::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--ink) 34%, transparent); }
+  [data-theme="dark"] .rail nav::-webkit-scrollbar-thumb { background: #3f3f3f; }
+
+  /* Content must clear the fixed bottom bar, including the iOS home indicator. */
+  body {
+    padding-bottom: calc(var(--mobile-nav-h) + env(safe-area-inset-bottom, 0px) + 12px);
+  }
+  /* Bottom nav sits below the ad dock band, never on top of it. */
+  .rail { z-index: 9000; }
+  .ad-sticky-dock { z-index: 9500; }
+  .back-to-top-btn { bottom: calc(var(--mobile-nav-h) + env(safe-area-inset-bottom, 0px) + 16px); }
+  .rail nav a { min-height: 46px; }
+}
+/* Between 769 and 900 the ad dock is still shown � keep it clear of the nav. */
+@media (min-width: 769px) and (max-width: 900px) {
+  .ad-sticky-dock { bottom: calc(var(--mobile-nav-h) + 10px); }
+  .rail nav a { min-height: 46px; }
+}
+
+/* ---------- 3. Comfortable targets on small phones ---------- */
+@media (max-width: 480px) {
+  .rail nav a { min-height: 48px; min-width: 52px; }
+  .rail nav a span { font-size: 0.6rem; letter-spacing: 0; }
+  .rail { padding: 4px; }
+}
+
+/* ---------- 4. Short viewports (landscape phones, small laptops) ---------- */
+@media (max-height: 560px) and (min-width: 901px) {
+  .rail-badge { padding: 6px 0; margin-bottom: 2px; font-size: 0.95rem; }
+  .rail-mark { width: 28px; height: 28px; flex-basis: 28px; }
+  .rail nav a { padding: 7px 12px; }
+  .rail { padding: 10px 8px; gap: 4px; }
+}
+@media (max-height: 430px) and (min-width: 901px) {
+  .rail-lang-wrap { display: none; }   /* give the nav its space back */
+}
+
+/* ---------- 5. Mobile drawer must scroll when it opens ---------- */
+.mobile-drawer {
+  max-height: 100dvh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+.mobile-drawer-body, .mobile-drawer nav, .mobile-drawer-links {
+  min-height: 0;
+}
+
+/* ---------- 6. Stop iOS rubber-banding the whole page ---------- */
+@media (max-width: 900px) {
+  html { overscroll-behavior-y: none; }
+  /* Momentum scroll on the horizontal nav, never on the document. */
+  .rail nav { -webkit-overflow-scrolling: touch; }
+}
+
+/* ---------- 7. No text inflation / no accidental zoom on rotate ---------- */
+@media (max-width: 900px) {
+  html, body { text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
+  /* Landscape phones have almost no vertical room � tighten the chrome. */
+  @media (orientation: landscape) and (max-height: 480px) {
+    .rail { inset: auto 6px calc(4px + env(safe-area-inset-bottom, 0px)) 6px; padding: 3px; }
+    .rail nav a { min-height: 40px; }
+    body { padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px)); }
+  }
+}
+
+/* ---------- 8. Wide-screen cap: never let lines run past ~1500px ---------- */
+@media (min-width: 1600px) {
+  .wrap { max-width: 1180px; }
+  .rail { inset: 20px auto 20px 20px; }
+}
+
+/* ---------- 9. Keyboard users can reach the rail without a mouse ---------- */
+.rail:focus-within { width: var(--rail-open); }
+.rail nav:focus-visible { outline: 2px solid var(--brand); outline-offset: -2px; }
