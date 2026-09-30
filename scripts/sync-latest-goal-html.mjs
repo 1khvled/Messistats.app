@@ -256,6 +256,78 @@ const I18N = {
   }
 };
 
+// Localized month names + technique terms for dynamic goal strings.
+// English is the source language in latest-goal.json; these maps convert
+// rendered dates/techniques so non-EN pages don't leak English.
+const MONTHS_FULL = {
+  es: ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
+  pt: ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],
+  fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
+  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+  bn: ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],
+  hi: ["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],
+  ro: ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"],
+  uz: ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"]
+};
+const MONTHS_SHORT = {
+  es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
+  pt: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],
+  fr: ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"],
+  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+  bn: ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],
+  hi: ["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],
+  ro: ["ian","feb","mar","apr","mai","iun","iul","aug","sep","oct","noi","dec"],
+  uz: ["yan","fev","mar","apr","may","iyn","iyl","avg","sen","okt","noy","dek"]
+};
+const EN_MONTHS_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const EN_MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const TECH_WORDS = {
+  es: { fk: "Tiro libre directo", header: "Cabeza", assist: "Asistencia", left: "Zurda", right: "Derecha", penalty: "Penalti", play: "Ver Video ▶", goalTag: "Gol 🔥" },
+  pt: { fk: "Falta direta", header: "Cabeceio", assist: "assistência", left: "Chute de esquerda", right: "Chute de direita", penalty: "Pênalti", play: "Ver Vídeo ▶", goalTag: "Gol 🔥" },
+  fr: { fk: "Coup franc direct", header: "Tête", assist: "passe décisive", left: "Frappe du gauche", right: "Frappe du droit", penalty: "Penalty", play: "Voir la Vidéo ▶", goalTag: "But 🔥" },
+  ar: { fk: "ركلة حرة مباشرة", header: "رأسية", assist: "تمريرة حاسمة", left: "تسديدة بالقدم اليسرى", right: "تسديدة بالقدم اليمنى", penalty: "ركلة جزاء", play: "تشغيل الفيديو ▶", goalTag: "هدف 🔥" },
+  bn: { fk: "ডাইরেক্ট ফ্রি কিক", header: "হেড", assist: "অ্যাসিস্ট", left: "বাঁ পায়ের শট", right: "ডান পায়ের শট", penalty: "পেনাল্টি", play: "ভিডিও দেখুন ▶", goalTag: "গোল 🔥" },
+  hi: { fk: "डायरेक्ट फ्री किक", header: "हेडर", assist: "असिस्ट", left: "बाएं पैर का शॉट", right: "दाएं पैर का शॉट", penalty: "पेनल्टी", play: "वीडियो देखें ▶", goalTag: "गोल 🔥" },
+  ro: { fk: "Lovitură liberă directă", header: "Cap", assist: "pasă decisivă", left: "Șut cu stângul", right: "Șut cu dreptul", penalty: "Penalty", play: "Vezi Videoclipul ▶", goalTag: "Gol 🔥" },
+  uz: { fk: "Jarima zarbasi", header: "Bosh bilan", assist: "assist", left: "Chap oyoq zarbasi", right: "O'ng oyoq zarbasi", penalty: "Penalti", play: "Videoni Ko'rish ▶", goalTag: "Gol 🔥" }
+};
+function locDateStr(s, lang, short = false) {
+  if (!s || lang === "en" || (!MONTHS_FULL[lang] && !MONTHS_SHORT[lang])) return s;
+  let out = String(s);
+  EN_MONTHS_FULL.forEach((en, i) => {
+    const rep = short ? (MONTHS_SHORT[lang] ? MONTHS_SHORT[lang][i] : MONTHS_FULL[lang][i]) : MONTHS_FULL[lang][i];
+    out = out.split(en).join(rep);
+  });
+  EN_MONTHS_SHORT.forEach((en, i) => {
+    const rep = MONTHS_SHORT[lang] ? MONTHS_SHORT[lang][i] : MONTHS_FULL[lang][i];
+    out = out.split(` ${en} `).join(` ${rep} `);
+  });
+  return out;
+}
+function locTech(s, lang) {
+  if (!s || lang === "en" || !TECH_WORDS[lang]) return s;
+  const w = TECH_WORDS[lang];
+  let out = String(s);
+  out = out.split("Direct Free Kick").join(w.fk);
+  out = out.split("Left Foot Strike").join(w.left);
+  out = out.split("Right Foot Strike").join(w.right);
+  out = out.split("Penalty").join(w.penalty);
+  out = out.split("Header").join(w.header);
+  out = out.split("Assist:").join(`${w.assist}:`);
+  out = out.split("assist:").join(`${w.assist}:`);
+  return out;
+}
+function locGoalLabel(n, lang) {
+  if (lang === "uz") return `${n}-gol`;
+  if (lang === "ar") return `الهدف #${n}`;
+  if (lang === "bn") return `গোল #${n}`;
+  if (lang === "hi") return `गोल #${n}`;
+  if (lang === "fr") return `But #${n}`;
+  if (lang === "es" || lang === "pt") return `Gol #${n}`;
+  if (lang === "ro") return `Golul #${n}`;
+  return `Goal #${n}`;
+}
+
 export function syncLatestGoalHtml() {
   console.log(`[sync-latest-goal-html] Synchronizing all latest-goal HTML files...`);
 
@@ -307,38 +379,42 @@ export function syncLatestGoalHtml() {
     );
 
     // 2. Update Active Goal Number Badge
-    const badgeText = lang === "uz" ? `${seniorGoals}-gol` : (lang === "ar" ? `الهدف #${seniorGoals}` : (lang === "bn" ? `গোল #${seniorGoals}` : (lang === "hi" ? `गोल #${seniorGoals}` : (lang === "fr" ? `But #${seniorGoals}` : (lang === "es" || lang === "pt" ? `Gol #${seniorGoals}` : `Goal #${seniorGoals}`)))));
+    const badgeText = locGoalLabel(seniorGoals, lang);
     html = html.replace(/<span id="active-goal-num"[^>]*>[^<]*<\/span>/i, `<span id="active-goal-num" class="goal-number-badge">${badgeText}</span>`);
 
     // 3. Update Active Goal Title & Meta
-    const matchTitleText = lang === "es" ? `Gol #${seniorGoals}: ${g.title}` : (lang === "pt" ? `Gol #${seniorGoals}: ${g.title}` : (lang === "fr" ? `But #${seniorGoals}: ${g.title}` : `Goal #${seniorGoals} Match Highlights: ${g.title}`));
+    const matchTitleText = lang === "en" ? `Goal #${seniorGoals} Match Highlights: ${g.title}` : `${locGoalLabel(seniorGoals, lang)}: ${g.title}`;
     html = html.replace(/<h2 id="active-goal-title"[^>]*>[^<]*<\/h2>/i, `<h2 id="active-goal-title" class="latest-goal-match-title">${matchTitleText}</h2>`);
 
-    const metaLineText = `${g.competition} • ${g.formattedDate} • ${g.venue}`;
+    const metaLineText = `${g.competition} • ${locDateStr(g.formattedDate, lang)} • ${g.venue}`;
     html = html.replace(/<p id="active-goal-meta"[^>]*>[^<]*<\/p>/i, `<p id="active-goal-meta" class="latest-goal-meta-line">${metaLineText}</p>`);
 
     // 4. Update Stat Boxes
     html = html.replace(/<span id="stat-minute"[^>]*>[^<]*<\/span>/i, `<span id="stat-minute" class="goal-stat-val tnum">${g.minute}</span>`);
-    html = html.replace(/<span id="stat-type"[^>]*>[^<]*<\/span>/i, `<span id="stat-type" class="goal-stat-val">${g.finish || "Direct Free Kick"}</span>`);
+    html = html.replace(/<span id="stat-type"[^>]*>[^<]*<\/span>/i, `<span id="stat-type" class="goal-stat-val">${locTech(g.finish || "Direct Free Kick", lang)}</span>`);
     html = html.replace(/<span id="stat-score"[^>]*>[^<]*<\/span>/i, `<span id="stat-score" class="goal-stat-val tnum">${g.score}</span>`);
     html = html.replace(/<span id="stat-comp"[^>]*>[^<]*<\/span>/i, `<span id="stat-comp" class="goal-stat-val">${g.competition}</span>`);
 
     // 5. Update Action Bar (YouTube search + Birthday link)
     html = html.replace(/href="https:\/\/www\.youtube\.com\/results\?search_query=[^"]*"/i, `href="${g.youtubeUrl}"`);
-    const bdayHref = lang === "en" ? `/en/birthday/${g.bdayKey}` : `/${lang}/birthday/${g.bdayKey}`;
+    const bdayHref = `/en/birthday/${g.bdayKey}`;
     html = html.replace(/id="link-bday-goal"[^>]*href="[^"]*"/i, `id="link-bday-goal" href="${bdayHref}"`);
+    html = html.replace(/href="[^"]*"([^>]*id="link-bday-goal")/i, `href="${bdayHref}"$1`);
 
     // 6. Update Recent Goals 5-Card Switcher
+    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre ", ar: "ضد ", bn: "বনাম ", hi: "बनाम ", ro: "vs ", uz: "vs " };
     const cardsHtml = recent.slice(0, 5).map((rg, idx) => {
       const isActive = idx === 0 ? " active" : "";
-      const goalLabel = lang === "uz" ? `${rg.goalNumber}-gol` : (lang === "ar" ? `الهدف #${rg.goalNumber}` : (lang === "fr" ? `But #${rg.goalNumber}` : (lang === "es" || lang === "pt" ? `Gol #${rg.goalNumber}` : `Goal #${rg.goalNumber}`)));
-      const bdayPath = lang === "en" ? (rg.bdayUrl || `/en/birthday/${rg.bdayKey}`) : `/${lang}/birthday/${rg.bdayKey || "09-27"}`;
+      const goalLabel = locGoalLabel(rg.goalNumber, lang);
+      const bdayPath = rg.bdayUrl || `/en/birthday/${rg.bdayKey || "09-27"}`;
+      const cardMatch = lang === "en" || !MATCH_PREP[lang] ? rg.match : String(rg.match || "").replace(/^(at|vs)\s+/, MATCH_PREP[lang]);
+      const cardTag = rg.tag ? locTech(rg.tag, lang) : (TECH_WORDS[lang] ? TECH_WORDS[lang].goalTag : "Goal 🔥");
       return `    <div class="recent-goal-card${isActive}" data-goal-id="${rg.goalNumber}"
          data-goal-num="${goalLabel}"
          data-title="${rg.title}"
-         data-meta="${rg.meta}"
+         data-meta="${locDateStr(rg.meta, lang)}"
          data-minute="${rg.minute}"
-         data-type="${rg.type}"
+         data-type="${locTech(rg.type, lang)}"
          data-score="${rg.score}"
          data-comp="${rg.comp}"
          data-video-url="${rg.videoUrl}"
@@ -348,62 +424,38 @@ export function syncLatestGoalHtml() {
         <span class="recent-goal-card-num">${goalLabel}</span>
         <svg class="recent-goal-play-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
       </div>
-      <div class="recent-goal-card-match">${rg.match}</div>
-      <div class="recent-goal-card-date">${rg.date}</div>
-      <span class="recent-goal-card-tag">${rg.tag || "Goal 🔥"}</span>
+      <div class="recent-goal-card-match">${cardMatch}</div>
+      <div class="recent-goal-card-date">${locDateStr(rg.date, lang)}</div>
+      <span class="recent-goal-card-tag">${cardTag}</span>
     </div>`;
     }).join("\n\n");
 
     html = html.replace(/<div class="recent-goals-grid">[\s\S]*?<\/div>\s*<\/section>/i, `<div class="recent-goals-grid">\n${cardsHtml}\n  </div>\n</section>`);
 
-    // 7. Update Comparison Matrix Table
-    const tableRows = [
-      `      <tr>
-        <td><span class="table-goal-badge">#931</span></td>
-        <td class="tnum">27 Sep 2026</td>
-        <td><b>Columbus Crew (1–2)</b></td>
-        <td>MLS</td>
-        <td class="tnum"><b>33'</b></td>
-        <td>Direct Free Kick</td>
-        <td><a href="https://cdn.messiallgoals.com/Goal931.mp4" target="_blank" rel="noopener noreferrer" class="table-play-link">Play Video ▶</a></td>
-      </tr>`,
-      `      <tr>
-        <td><span class="table-goal-badge">#930</span></td>
-        <td class="tnum">20 Sep 2026</td>
-        <td><b>San Diego FC (2–2)</b></td>
-        <td>MLS</td>
-        <td class="tnum"><b>24'</b></td>
-        <td>Direct Free Kick</td>
-        <td><a href="https://cdn.messiallgoals.com/Goal930.mp4" target="_blank" rel="noopener noreferrer" class="table-play-link">Play Video ▶</a></td>
-      </tr>`,
-      `      <tr>
-        <td><span class="table-goal-badge">#929</span></td>
-        <td class="tnum">17 Sep 2026</td>
-        <td><b>Cruz Azul (2–0)</b></td>
-        <td>Campeones Cup</td>
-        <td class="tnum"><b>12'</b></td>
-        <td>Header (Assist: Suárez)</td>
-        <td><a href="https://cdn.messiallgoals.com/Goal929.mp4" target="_blank" rel="noopener noreferrer" class="table-play-link">Play Video ▶</a></td>
-      </tr>`,
-      `      <tr>
-        <td><span class="table-goal-badge">#928</span></td>
-        <td class="tnum">12 Sep 2026</td>
-        <td><b>Nashville SC (2–2)</b></td>
-        <td>MLS</td>
-        <td class="tnum"><b>67'</b></td>
-        <td>Left Foot Strike</td>
-        <td><a href="https://cdn.messiallgoals.com/Goal928.mp4" target="_blank" rel="noopener noreferrer" class="table-play-link">Play Video ▶</a></td>
-      </tr>`,
-      `      <tr>
-        <td><span class="table-goal-badge">#927</span></td>
-        <td class="tnum">29 Aug 2026</td>
-        <td><b>CF Montréal (7–1)</b></td>
-        <td>MLS</td>
-        <td class="tnum"><b>83'</b></td>
-        <td>Direct Free Kick</td>
-        <td><a href="https://cdn.messiallgoals.com/Goal927.mp4" target="_blank" rel="noopener noreferrer" class="table-play-link">Play Video ▶</a></td>
-      </tr>`
-    ].join("\n\n");
+    // 7. Update Comparison Matrix Table (built from recent-goals JSON so dates,
+    // opponents and techniques render localized per language)
+    function shortDateLoc(longEn, lang) {
+      const m = String(longEn || "").match(/(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})/);
+      if (!m) return locDateStr(longEn, lang, true);
+      const idx = EN_MONTHS_FULL.indexOf(m[2]);
+      const short = (MONTHS_SHORT[lang] && MONTHS_SHORT[lang][idx]) || (MONTHS_FULL[lang] && MONTHS_FULL[lang][idx]) || m[2];
+      return `${m[1]} ${short} ${m[3]}`;
+    }
+    const tableRows = recent.slice(0, 5).map((rg) => {
+      const pm = String(rg.match || "").match(/^(?:at|vs)\s+(.+?)\s*\(([^)]+)\)\s*$/);
+      const opp = pm ? pm[1] : rg.match;
+      const sc = (pm ? pm[2] : rg.score || "").replace(/-/g, "–");
+      const playWord = TECH_WORDS[lang] ? TECH_WORDS[lang].play : "Play Video ▶";
+      return `      <tr>
+        <td><span class="table-goal-badge">#${rg.goalNumber}</span></td>
+        <td class="tnum">${shortDateLoc((rg.date || "").split("•")[0].trim(), lang)}</td>
+        <td><b>${opp} (${sc})</b></td>
+        <td>${rg.comp}</td>
+        <td class="tnum"><b>${rg.minute}</b></td>
+        <td>${locTech(rg.type, lang)}</td>
+        <td><a href="${rg.videoUrl}" target="_blank" rel="noopener noreferrer" class="table-play-link">${playWord}</a></td>
+      </tr>`;
+    }).join("\n\n");
 
     html = html.replace(/<tbody>[\s\S]*?<\/tbody>/i, `<tbody>\n${tableRows}\n    </tbody>`);
 
