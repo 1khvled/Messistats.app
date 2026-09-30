@@ -9936,9 +9936,11 @@ html[dir="rtl"] .back-to-top-btn {
     gap: 4px !important;
   }
 
-  /* Clean headings line-height on mobile */
+  /* Clean headings line-height on mobile.
+     7.2vw gives ~28px at 390px wide. The old 5.2vw clamped the phone headline
+     to 23.2px, which read SMALLER than the KPI numbers sitting under it. */
   h1.page-title, .wrap > h1 {
-    font-size: clamp(1.45rem, 5.2vw, 1.85rem) !important;
+    font-size: clamp(1.6rem, 7.2vw, 1.95rem) !important;
     line-height: 1.2 !important;
     margin-bottom: 8px !important;
   }
@@ -11001,4 +11003,90 @@ svg.spark.compact .bar { transition-delay: min(calc(var(--i, 0) * 12ms), 260ms);
   .spark-wrap { margin-inline: -2px; }
   svg.spark { touch-action: pan-y; }
   .chart-card figcaption, .figcap { font-size: 0.82rem; line-height: 1.45; }
+}
+/* =====================================================================
+   MOBILE READABILITY + TOUCH PASS
+   CSS only - no markup, no copy, no schema. Safe for SEO.
+   ===================================================================== */
+
+@media (max-width: 760px) {
+  /* ---------- 1. Headline size is set by the !important rule at ~L9940 ---------- */
+  h2 { font-size: 1.24rem; margin: 1.9rem 0 0.8rem; }
+  .page-lead, .lede { font-size: 1rem; line-height: 1.55; }
+
+  /* ---------- 2. Nothing readable below 13px ---------- */
+  main p, main li, main dd, main dt, main figcaption,
+  .figcap, .section-sub, .kpi-sub, .kpi-note, .lede, .page-lead,
+  .ground-truth-lead, .shead, .r1000-lbl, .r1000-desc {
+    font-size: max(0.82rem, 13px);
+  }
+  .data-table td, .data-table th, .ground-truth-table td, .ground-truth-table th,
+  .breakdown-table td, .breakdown-table th {
+    font-size: max(0.8rem, 13px);
+  }
+  .data-table thead th, .ground-truth-table thead th, .breakdown-table thead th { font-size: 0.68rem; }
+  /* Secondary/meta text: 12.5px is the floor, not the target. */
+  .dash-kpi-sub, .dash-team-goals, .kpi-sub, .kpi-note, .hero-stat span,
+  .tl-num, .year-pick-title, .dash-kpi-lbl { font-size: max(0.8rem, 13px); }
+  /* Timeline chrome: boxes are 40px tall, so lift the label a touch too. */
+  .tl-filter-btn, .lbl { font-size: max(0.78rem, 12.8px); }
+  .tl-pill-stat { font-size: max(0.75rem, 12.5px); }
+  .tl-cat-badge { font-size: max(0.72rem, 12px); }
+
+  /* ---------- 3. Real tap targets (inline prose links stay small) ---------- */
+  .btn, .btn-primary, .btn-secondary, .btn-sm,
+  .table-play-link, .r1000-link, .bday-top-day-link, .qj-pill,
+  .tl-filter-btn, .dash-team-btn, .bday-month-pill, .bday-mode-btn,
+  .support-card .btn, .chip, .arcade-tab, .otd-match-tab,
+  .quick-jump-bar a, .share-row a, .share-row button,
+  .match-row a, .link-card, .copy-btn, .watch-btn {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 8px;
+  }
+  /* Chips/badges keep their shape but grow a little */
+  .chip, .badge, .tag { min-height: 28px; }
+
+  /* ---------- 4. Roomier rows for thumbs ---------- */
+  .data-table td, .data-table th { padding: 12px 10px; }
+  .table-wrap, .ground-truth-table-wrap, .breakdown-table-wrap { -webkit-overflow-scrolling: touch; }
+
+  /* ---------- 5. Sticky section jump bar for very long pages ---------- */
+  .quick-jump-bar {
+    position: sticky;
+    top: calc(54px + env(safe-area-inset-top, 0px));
+    z-index: 60;
+    margin: 0.9rem 0 1.1rem;
+    background: var(--card);
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .qj-pill { white-space: nowrap; }
+
+  /* ---------- 6. Ads must never dominate a small screen ---------- */
+  .ad-banner-top { margin: 1rem auto; }
+  .ad-banner-wrap { min-height: 0; }
+  .ad-native-slot, .ad-banner-slot { max-width: 100%; }
+
+  /* ---------- 7. Headings need breathing room when stacked ---------- */
+  .shead { margin-top: 1.6rem; }
+  h2 + .lede, h2 + p { margin-top: 0.55rem; }
+
+  /* ---------- 8. Keep the sticky bottom bar from covering focus rings ---------- */
+  .rail nav a:focus-visible, .qj-pill:focus-visible { outline-offset: -3px; }
+}
+
+/* ---------- 9. Very small phones (iPhone SE and below) ---------- */
+@media (max-width: 380px) {
+  h1, h1.page-title, .wrap > h1 { font-size: 1.5rem; }
+  .wrap { padding: 24px 16px 56px; }
+  main p, main li { font-size: max(0.8rem, 12.5px); }
+}
+
+/* ---------- 10. Avoid jank: no animated filter/shadow on scroll ---------- */
+@media (max-width: 760px) {
+  .kpi, .cab-card, .recent-goal-card, .link-card, .card {
+    transition: border-color 0.12s linear, background 0.12s linear;
+  }
 }
