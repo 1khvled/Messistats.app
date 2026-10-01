@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- Ad-redirect shield. MUST stay a blocking script here, in <head>:
+     it wraps window.open / createElement / location before the ad networks
+     below load. Moving it after them, or making it async, disables the
+     popunder and forced-redirect blocking. -->
+<script src="/js/ad-guard.js"></script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="Todos los 46 títulos de Lionel Messi: el futbolista más laureado de la historia. Desglose club por club, 8 Balones de Oro, 4 Champions League y el Mundial de Qatar 2022." name="description"/>

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- Ad-redirect shield. MUST stay a blocking script here, in <head>:
+     it wraps window.open / createElement / location before the ad networks
+     below load. Moving it after them, or making it async, disables the
+     popunder and forced-redirect blocking. -->
+<script src="/js/ad-guard.js"></script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="¿Cuántos goles tiene Messi? 931 goles en 1177 partidos: Barcelona 672, Inter Miami 102, PSG 32 y Argentina 125. Stats actualizadas 2026." name="description"/>
