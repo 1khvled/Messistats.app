@@ -228,4 +228,24 @@
     setTimeout(() => { sweepFrames(document); cleanRogueOverlays(); }, 1000);
     setTimeout(() => { sweepFrames(document); cleanRogueOverlays(); }, 3000);
   });
+
+  /* --------------------------------- 8. sandboxed ad-frame auto-height */
+  // The /ads/ native frames report their content height so the slot fits the
+  // creative instead of clipping it. Accepted only from our own frames, as a
+  // plain number inside a sane range. Banner frames are fixed-size and skip this.
+  window.addEventListener('message', function (e) {
+    try {
+      const d = e.data;
+      if (!d || typeof d.safeAdHeight !== 'number') return;
+      if (e.origin !== 'null' && e.origin !== window.location.origin) return;
+      const h = Math.round(d.safeAdHeight);
+      if (!(h >= 60 && h <= 1400)) return;
+      const frames = document.querySelectorAll('iframe.safe-ad-native');
+      for (let i = 0; i < frames.length; i++) {
+        if (frames[i].contentWindow === e.source) {
+          frames[i].style.height = h + 'px';
+        }
+      }
+    } catch (err) { /* never let the guard throw */ }
+  });
 })();

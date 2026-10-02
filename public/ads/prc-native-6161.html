@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Advertisement</title>
+<link rel="stylesheet" href="/ads/frame.css">
+</head>
+<body>
+<script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
+<div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
+<script>
+(function () {
+  function report() {
+    try {
+      var h = Math.max(
+        document.body ? document.body.scrollHeight : 0,
+        document.documentElement ? document.documentElement.scrollHeight : 0
+      );
+      parent.postMessage({ safeAdHeight: Math.ceil(h) }, "*");
+    } catch (e) {}
+  }
+  window.addEventListener("load", function () {
+    report();
+    setTimeout(report, 800);
+    setTimeout(report, 2500);
+  });
+  if (typeof MutationObserver !== "undefined" && document.documentElement) {
+    new MutationObserver(function () { report(); }).observe(document.documentElement, { childList: true, subtree: true });
+  }
+})();
+</script>
+</body>
+</html>

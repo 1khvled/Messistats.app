@@ -1,16 +1,23 @@
 /**
- * Ad-redirect guard. Fails the build if the hardening that stops popunder /
+ * Ad-redirect guard. Fails the build if the sandboxing that stops popunder /
  * forced-redirect ads from hijacking visitors ever regresses.
  *
- * This does NOT police which ad networks are used - the popunder slots are
- * deliberately kept. It only asserts the things that must stay true for the
- * client-side blocking to work:
+ * Ad-network scripts (highrevenueformat, profitableratecpmnetwork) must NEVER
+ * run in a top-level page: they register document-wide click handlers that
+ * bounce mobile visitors off-site on the first tap. They run only inside
+ * public/ads/*.html, embedded via sandboxed iframes that cannot navigate the
+ * top page (no allow-top-navigation / allow-top-navigation-by-user-activation
+ * / allow-same-origin). The banners keep rendering and keep earning; only the
+ * redirect capability is removed.
  *
- *   1. ad-guard.js is present on every page
- *   2. ad-guard.js loads BEFORE every ad-network script (it wraps window.open,
- *      createElement and location at parse time, so ordering is load-bearing)
- *   3. Cross-Origin-Opener-Policy is not 'same-origin-allow-popups'
- *   4. no inline <script> re-enables popups after ad-guard has run
+ * Asserts:
+ *   1. No top-level page loads a network script directly (<script src> to a
+ *      popunder host, or a bare atOptions block).
+ *   2. Every iframe.safe-ad-frame points at /ads/ and carries a sandbox
+ *      without top-navigation or same-origin tokens.
+ *   3. public/ads/*.html exist and contain the expected network payloads.
+ *   4. ad-guard.js is present on every page that embeds ads or frames.
+ *   5. Cross-Origin-Opener-Policy does not re-allow popups.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,7 +26,6 @@ const ROOT = path.resolve('C:/Users/Abdelli/Desktop/Projects/messi-stats');
 const DIST = path.join(ROOT, 'dist');
 
 const NETWORKS = ['highrevenueformat.com', 'profitableratecpmnetwork.com', 'adsterra.com', 'propellerads.com'];
-const AD_HOSTS = [...NETWORKS, 'googlesyndication.com', 'doubleclick.net'];
 const failures = [];
 const pages = [];
 
@@ -31,38 +37,74 @@ const pages = [];
   }
 })(DIST);
 
-let checked = 0;
+// The isolated ad documents. Keyed by the iframe src pages must use.
+const ADS_DIR = path.join(DIST, 'ads');
+const EXPECTED_ADS = {
+  'hrf-300x250.html': 'highrevenueformat.com',
+  'hrf-728x90.html': 'highrevenueformat.com',
+  'prc-native-6161.html': 'profitableratecpmnetwork.com',
+  'prc-native-6160.html': 'profitableratecpmnetwork.com',
+  'frame.css': null,
+};
+for (const [file, net] of Object.entries(EXPECTED_ADS)) {
+  const p = path.join(ADS_DIR, file);
+  if (!fs.existsSync(p)) {
+    failures.push(`dist/ads/${file} is missing - sandboxed ad docs must ship`);
+    continue;
+  }
+  if (net && !fs.readFileSync(p, 'utf8').includes(net)) {
+    failures.push(`dist/ads/${file} no longer loads ${net}`);
+  }
+}
+
+let withFrames = 0;
 let noAds = 0;
 
 for (const f of pages) {
   const h = fs.readFileSync(f, 'utf8');
   const rel = path.relative(DIST, f).replace(/\\/g, '/');
+  const isAdDoc = rel.startsWith('ads/');
 
-  const adHosts = AD_HOSTS.filter((n) => h.includes(n));
-  // Pages with no ad network at all need no shield (404, GSC verify, embeds).
-  if (!adHosts.length) { noAds++; continue; }
-
-  const g = h.indexOf('/js/ad-guard.js');
-  if (g < 0) { failures.push(`${rel}: loads ${adHosts.join(',')} but ad-guard.js is missing`); continue; }
-
-  // The shield must be a plain blocking script, never async/defer.
-  const tag = h.slice(Math.max(0, h.lastIndexOf('<script', g)), g);
-  if (/\basync\b|\bdefer\b/.test(tag)) {
-    failures.push(`${rel}: ad-guard.js is async/defer - it must run before the ad scripts`);
+  // 1. Raw network scripts must not run in top-level pages.
+  if (!isAdDoc) {
+    if (/<script[^>]*src="https:\/\/(www\.highrevenueformat\.com|pl31316537\.profitableratecpmnetwork\.com|[^"]*adsterra\.com|[^"]*propellerads\.com)/.test(h)) {
+      failures.push(`${rel}: loads a popunder script top-level - move it into public/ads/`);
+    }
+    if (/<script>\s*atOptions\s*=/.test(h)) {
+      failures.push(`${rel}: bare atOptions block top-level - belongs in public/ads/hrf-*.html`);
+    }
   }
 
-  let worst = null;
-  for (const net of adHosts) {
-    const i = h.indexOf(net);
-    if (i >= 0 && (worst === null || i < worst.i)) worst = { net, i };
+  // 2. Every safe-ad-frame must be a sandboxed /ads/ embed.
+  const frames = [...h.matchAll(/<iframe\b[^>]*class="[^"]*safe-ad-frame[^"]*"[^>]*>/g)].map((m) => m[0]);
+  for (const tag of frames) {
+    const src = (tag.match(/\ssrc="([^"]*)"/) || [])[1] || '';
+    const sb = (tag.match(/\ssandbox="([^"]*)"/) || [])[1];
+    if (!src.startsWith('/ads/')) {
+      failures.push(`${rel}: safe-ad-frame points outside /ads/ (${src})`);
+    }
+    if (sb === undefined) {
+      failures.push(`${rel}: safe-ad-frame has no sandbox attribute`);
+    } else {
+      const toks = sb.split(/\s+/);
+      for (const bad of ['allow-top-navigation', 'allow-top-navigation-by-user-activation', 'allow-same-origin']) {
+        if (toks.includes(bad)) failures.push(`${rel}: safe-ad-frame sandbox allows ${bad}`);
+      }
+      if (!toks.includes('allow-scripts')) failures.push(`${rel}: safe-ad-frame sandbox drops allow-scripts (creative would not render)`);
+    }
   }
-  if (worst && worst.i < g) {
-    failures.push(`${rel}: ${worst.net} loads at ${worst.i}, before ad-guard.js at ${g}`);
+
+  const mentionsAds = frames.length > 0 || /googlesyndication\.com|doubleclick\.net/.test(h);
+  if (!mentionsAds) { noAds++; continue; }
+  withFrames++;
+
+  // 4. Pages with ads must carry the shield (second layer of defence).
+  if (!isAdDoc && !h.includes('/js/ad-guard.js')) {
+    failures.push(`${rel}: embeds ads but ad-guard.js is missing`);
   }
-  checked++;
 }
 
-// Header check
+// 5. Header check
 const vercel = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
 for (const block of vercel.headers || []) {
   for (const h of block.headers || []) {
@@ -72,9 +114,8 @@ for (const block of vercel.headers || []) {
   }
 }
 
-console.log(`[ad-guard] pages with ads, shield verified: ${checked}`);
-console.log(`[ad-guard] pages with no ad network (no shield needed): ${noAds}`);
-console.log(`[ad-guard] popunder slots intentionally retained; redirect blocking verified above.`);
+console.log(`[ad-guard] pages with sandboxed ads, verified: ${withFrames}`);
+console.log(`[ad-guard] pages with no ads (no shield needed): ${noAds}`);
 
 if (failures.length) {
   console.error(`\n[ad-guard] BUILD BLOCKED - ${failures.length} problem(s):`);
@@ -82,4 +123,4 @@ if (failures.length) {
   if (failures.length > 25) console.error(`  ... +${failures.length - 25} more`);
   process.exit(1);
 }
-console.log('[ad-guard] OK - ad-guard.js present, loads first, popups not re-allowed.');
+console.log('[ad-guard] OK - networks isolated in /ads/, frames sandboxed, shield present.');

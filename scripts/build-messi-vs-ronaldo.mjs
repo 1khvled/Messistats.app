@@ -2058,16 +2058,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap ad-banner-top">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <script>
-          atOptions = {
-            'key' : '53bbdf66c3aca04103610bd62cfc3e6a',
-            'format' : 'iframe',
-            'height' : 90,
-            'width' : 728,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highrevenueformat.com/53bbdf66c3aca04103610bd62cfc3e6a/invoke.js"></script>
+        <iframe class="safe-ad-frame" src="/ads/hrf-728x90.html" width="728" height="90" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -2415,16 +2406,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <script>
-          atOptions = {
-            'key' : '53bbdf66c3aca04103610bd62cfc3e6a',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highrevenueformat.com/53bbdf66c3aca04103610bd62cfc3e6a/invoke.js"></script>
+        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -2519,8 +2501,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-native-wrap">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-native-slot">
-        <script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965160/invoke.js"></script>
-        <div id="container-f4bcf68dc7a4accd4a4c773aa7965160"></div>
+        <iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6160.html" style="width:100%;height:320px" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -2534,16 +2515,7 @@ ${faqItemsHtml}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <script>
-          atOptions = {
-            'key' : '53bbdf66c3aca04103610bd62cfc3e6a',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        </script>
-        <script src="https://www.highrevenueformat.com/53bbdf66c3aca04103610bd62cfc3e6a/invoke.js"></script>
+        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 

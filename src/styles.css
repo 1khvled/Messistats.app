@@ -6297,6 +6297,18 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   background: transparent;
   color-scheme: normal;
 }
+/* Sandboxed network slots: the creative runs in /ads/*.html and cannot touch
+   the page. Native frames auto-size via postMessage; 320px is the pre-resize
+   placeholder so layout barely shifts when the creative reports its height. */
+.safe-ad-frame {
+  display: block;
+  border: 0;
+  overflow: hidden;
+}
+.safe-ad-native {
+  width: 100%;
+  height: 320px;
+}
 
 /* ================= RTL & ARABIC INTEGRITY ================= */
 html[dir="rtl"] .rail {

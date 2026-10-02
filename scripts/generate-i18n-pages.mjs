@@ -353,8 +353,7 @@ function renderAdSlot(lang) {
   return `<aside aria-label="${L.adLabel}" class="ad-native-wrap">
 <span class="ad-native-label">${L.adLabel}</span>
 <div class="ad-native-slot">
-<script async="async" data-cfasync="false" src="https://pl31316537.profitableratecpmnetwork.com/f4bcf68dc7a4accd4a4c773aa7965161/invoke.js"></script>
-<div id="container-f4bcf68dc7a4accd4a4c773aa7965161"></div>
+<iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6161.html" style="width:100%;height:320px" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
 </div>
 </aside>`;
 }

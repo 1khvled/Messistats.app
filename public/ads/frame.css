@@ -1,0 +1,115 @@
+/* Layout for the native ad creative inside the sandboxed /ads/ frame.
+   Mirrors the .ad-native-slot rules from the site stylesheet so the creative
+   renders the same grid on desktop and the same swipe row on phones.
+   Colors are neutral literals: the frame does not inherit the site theme,
+   and ad creatives are light boxes in both modes. */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  overflow-x: hidden;
+}
+div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__stand"] {
+  width: 100%;
+}
+
+/* Phones: horizontal swipeable row, same as the site stylesheet. */
+@media (max-width: 768px) {
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__stand"] {
+    display: flex;
+    flex-flow: row nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 8px;
+    padding: 2px 2px 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    width: 100%;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__bn-container"] {
+    display: block;
+    flex: 0 0 160px;
+    width: 160px;
+    max-width: 160px;
+    scroll-snap-align: start;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__bn"] {
+    max-width: 160px;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__img"] {
+    padding-top: 58%;
+    width: 100%;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__title"] {
+    font-size: 0.72rem;
+    line-height: 1.25;
+    min-height: 2.2rem;
+    max-height: 2.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 5px 6px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+}
+
+/* Desktop: 4-column grid, same as the site stylesheet. */
+@media (min-width: 769px) {
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__stand"] {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    width: 100%;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__bn-container"] {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__bn"] {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__img"] {
+    padding-top: 56.25%;
+  }
+  div[id^="container-f4bcf68dc7a4accd4a4c773aa796516"] [class*="__title"] {
+    font-size: 0.78rem;
+    line-height: 1.3;
+    min-height: 2.5rem;
+    max-height: 2.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    padding: 6px 8px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+}
