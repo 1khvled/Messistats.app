@@ -21,8 +21,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = path.resolve('C:/Users/Abdelli/Desktop/Projects/messi-stats');
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 
 const NETWORKS = ['highrevenueformat.com', 'profitableratecpmnetwork.com', 'adsterra.com', 'propellerads.com'];

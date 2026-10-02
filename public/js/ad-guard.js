@@ -170,7 +170,7 @@
   };
 
   /* --------------------------------------------- 7. transparent click overlays */
-  const OURS = '.page, .rail, .video-modal-backdrop, .messi-quiz-modal-backdrop, .ad-banner-wrap, .ad-native-wrap';
+  const OURS = '.page, .rail, .video-modal-backdrop, .ad-banner-wrap, .ad-native-wrap';
 
   function cleanRogueOverlays() {
     try {
