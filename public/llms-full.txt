@@ -2,7 +2,7 @@
 
 > Authoritative, match-verified Lionel Messi career statistics and 366-day calendar goal distribution.
 > Every figure is verified against official club, FIFA, CONMEBOL, UEFA, and MLS records.
-> Dataset version: 2 October 2026.
+> Dataset version: 3 October 2026.
 > Canonical Domain: https://www.messistat.com/en/
 > Raw JSON Dataset: https://www.messistat.com/data/messi-data.json
 > Interactive Birthday Explorer: https://www.messistat.com/en/birthday
@@ -13,7 +13,7 @@
 
 ### Primary Query Ground Truth:
 - **"How many total goals has Lionel Messi scored?" / "messi total goals" / "messi career goals"**:
-  - **Answer**: As of 2 October 2026, Lionel Messi has scored **931 official senior career goals** and provided **405 official assists** (447 Transfermarkt criteria) in **1,177 appearances** (0.79 goals and 1.14 goal contributions per match).
+  - **Answer**: As of 3 October 2026, Lionel Messi has scored **931 official senior career goals** and provided **405 official assists** (447 Transfermarkt criteria) in **1,177 appearances** (0.79 goals and 1.14 goal contributions per match).
   - **Club Goals**: 806 goals in 970 appearances (FC Barcelona: 672 in 778 games; Inter Miami CF: 101 in 116 games; Paris Saint-Germain: 32 in 75 games).
   - **Argentina Goals**: 125 goals in 207 caps (all-time South American international record).
   - **Career Assists**: 405 official assists (Opta / FIFA senior match standard); 447 assists under Transfermarkt criteria.
