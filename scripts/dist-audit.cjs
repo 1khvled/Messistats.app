@@ -6,7 +6,7 @@ const must = ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard
   "es/index.html", "es/birthday.html", "es/latest-goal.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html",
   "404.html", "sitemap.xml", "robots.txt", "llms.txt", "18188f5363f745f1bbf821767e0f0daf.txt",
   "data/messi-data.json", "data/birthday-goals.json", "fonts/dm-sans-latin.woff2", "img/og-messi.jpg",
-  "img/era-2008-olympic.jpg", "img/teams/barcelona.png", "favicon.svg", "favicon.ico", "favicon-48x48.png",
+  "img/era-2008-olympic.webp", "img/teams/barcelona.png", "favicon.svg", "favicon.ico", "favicon-48x48.png",
   "apple-touch-icon.png", "site.webmanifest", "img/logo.png", "img/messi.webp", "img/messi-450.webp"];
 let ok = true;
 for (const f of must) {
@@ -17,7 +17,7 @@ for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashbo
   if (!s.includes('class="skip"') || !s.includes('id="main"')) { ok = false; console.log("NO SKIP in " + p); }
 }
 const d = JSON.parse(fs.readFileSync(dist + "/data/messi-data.json", "utf8"));
-const totalGoalsStr = String(d.totals?.combined?.goals || 930);
+const totalGoalsStr = String(d.totals?.combined?.goals || 931);
 const bnDigits = ["০","১","২","৩","৪","৫","৬","৭","৮","৯"];
 const bnGoalsStr = totalGoalsStr.split("").map((c) => bnDigits[c] || c).join("");
 for (const p of ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html"]) {

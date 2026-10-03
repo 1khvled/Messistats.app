@@ -458,12 +458,14 @@ if (staged.length || expired || touched) {
 } else console.log("clean: nothing changed.");
 console.log("messi-data.json untouched by design.");
 
-// Persist watcher state (hashes + check log only).
-{
+// Persist watcher state (hashes + check log only) when changes were made or on full run:
+if (staged.length || expired || touched || didFull || !existsSync(statePath)) {
   const next = { updated: nowIso(), generator: "scripts/source-watch.mjs; never messi-data.json", lastFull: didFull ? nowIso() : (state.lastFull || null), matchdayToday: matchdayToday, hashes: state.hashes, checks: checks, skipped: [{ source: "football-data.org", reason: FOOTBALL_DATA_SKIPPED }] };
   for (const k of Object.keys(state)) if (k.startsWith("hashAt:")) next[k] = state[k];
   mkdirSync(dirname(statePath), { recursive: true });
   writeFileSync(statePath, JSON.stringify(next, null, 2));
   console.log("wrote " + statePath);
+} else {
+  console.log("source-watch: state clean and unchanged.");
 }
 process.exit(0); // watcher, not a gate — always green

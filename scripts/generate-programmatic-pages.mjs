@@ -21,8 +21,47 @@ const bdayData = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 const template = fs.readFileSync(templatePath, "utf8");
 const days = bdayData.calendar || bdayData.days || {};
 const keys = Object.keys(days);
+const totalCareerGoals = bdayData.meta?.totalGoals || 931;
 
-console.log(`Generating ${keys.length} programmatic birthday pages...`);
+console.log(`Pre-cleaning template & generating ${keys.length} programmatic birthday pages...`);
+
+// Pre-clean shared template once to remove heavy sections that belong only on
+// the main hub page (/en/birthday). Cloning them into all 366 date pages previously
+// generated ~25 MB of repetitive HTML:
+let cleanTemplate = template
+  // 1. Remove non-reciprocal language alternate links (keep en and x-default)
+  .replace(/<link\s+rel="alternate"\s+hreflang="(?!en\b|x-default)[^"]*"\s+href="[^"]*"\s*\/?>/gi, "")
+  // 2. Remove date explorer picker terminal (users navigate dates via ← / → or explore card)
+  .replace(/<section\s+class="bday-picker-card"[\s\S]*?<\/section>/i, "")
+  // 3. Remove 4 KPI cards (belongs on hub page)
+  .replace(/<div\s+class="kpis\s+kpis-4"\s+id="bday-kpis"[\s\S]*?<\/div>/i, "")
+  // 4. Remove 366-day calendar heatmap section
+  .replace(/<section\s+class="bday-heatmap-section"[\s\S]*?<\/section>/i, "")
+  // 5. Remove top 15 prolific days table
+  .replace(/<section\s+class="table-card"\s+id="bday-top-days"[\s\S]*?<\/section>/i, "")
+  // 6. Remove monthly overview table
+  .replace(/<section\s+class="table-card"\s+id="bday-monthly"[\s\S]*?<\/section>/i, "")
+  // 7. Remove embed modal
+  .replace(/<div\s+id="bday-embed-modal"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/i, "");
+
+// 8. Add sleek explore card right after the verdict card
+const exploreCardHtml = `
+    <section class="bday-explore-card" aria-label="Explore more dates">
+      <div class="bday-explore-inner">
+        <h3 class="bday-explore-title">Explore More Messi Birthday Goals</h3>
+        <p class="bday-explore-sub">Check another birthday or browse all 366 calendar days across Messi's ${totalCareerGoals} career goals.</p>
+        <div class="bday-explore-actions">
+          <a href="/en/birthday" class="btn-primary">📅 Interactive Date Picker</a>
+          <a href="/en/days" class="btn-secondary">🗓️ Browse All 366 Days</a>
+        </div>
+      </div>
+    </section>
+`;
+
+cleanTemplate = cleanTemplate.replace(
+  /(<\/section>\s*)(<aside\s+class="ad-banner-wrap")/i,
+  `$1\n${exploreCardHtml}\n$2`
+);
 
 const escapeHtml = (str) =>
   String(str || "")
@@ -53,13 +92,13 @@ for (let i = 0; i < keys.length; i++) {
 
   if (goalsCount > 0) {
     pageTitle = `Did Messi Score on ${formatted}? (${goalsCount} Goals & Video Clips) | MessiStat`;
-    metaDesc = `Did Lionel Messi score on ${formatted}? Lionel Messi scored ${goalsCount} goals on ${formatted} across his 930-goal career. Watch match highlights, goal videos, and stats.`;
+    metaDesc = `Did Lionel Messi score on ${formatted}? Lionel Messi scored ${goalsCount} goals on ${formatted} across his ${totalCareerGoals}-goal career. Watch match highlights, goal videos, and stats.`;
   } else if (isMessiBday) {
     pageTitle = `Did Messi Score on His Birthday (24 June)? | MessiStat`;
-    metaDesc = `Did Lionel Messi ever score on his own birthday (24 June)? Explore Leo Messi's 930 senior goals and why he never played on 24 June.`;
+    metaDesc = `Did Lionel Messi ever score on his own birthday (24 June)? Explore Leo Messi's ${totalCareerGoals} senior goals and why he never played on 24 June.`;
   } else {
     pageTitle = `Did Messi Score on ${formatted}? 366-Day Goal Explorer | MessiStat`;
-    metaDesc = `Did Lionel Messi score on ${formatted}? Search all 366 calendar days across Messi's 930 career goals with video highlights and match reports.`;
+    metaDesc = `Did Lionel Messi score on ${formatted}? Search all 366 calendar days across Messi's ${totalCareerGoals} career goals with video highlights and match reports.`;
   }
 
   // Generate VideoObject schemas if videos exist
@@ -71,7 +110,7 @@ for (let i = 0; i < keys.length; i++) {
           videoObjects.push({
             "@type": "VideoObject",
             name: `Lionel Messi Goal vs ${m.opponent} (${formatted} ${m.year})`,
-            description: `Watch Lionel Messi score vs ${m.opponent} in the ${m.competition || "official match"} on ${formatted} ${m.year}. Part of Messi's 930 career goals.`,
+            description: `Watch Lionel Messi score vs ${m.opponent} in the ${m.competition || "official match"} on ${formatted} ${m.year}. Part of Messi's ${totalCareerGoals} career goals.`,
             thumbnailUrl: "https://www.messistat.com/img/og-messi.jpg",
             uploadDate: `${m.date}T20:00:00Z`,
             contentUrl: v.videoUrl,
@@ -208,96 +247,8 @@ for (let i = 0; i < keys.length; i++) {
     `;
   }
 
-  // In project template, replace meta and title
-  let html = template;
-
-  // STORAGE: the shared birthday.html template carries the full 366-day heatmap
-  // grid (~46 KB of anchors). Cloning that into all 366 date pages meant 32 MB of
-  // near-identical HTML - 91% of every build. A single-date page does not need
-  // the whole year: app.js already hides 11 of the 12 month cards on load, so
-  // only the visited month is ever visible. Each date page therefore ships just
-  // that month, plus a pointer to /en/days for the full archive.
-  //
-  // Must replace the WHOLE #bday-heatmap-grid by depth, not a lazy inner match:
-  // the naive regex swallowed all 12 <article> wrappers and the section's own
-  // closing tags, which silently broke the page.
-  {
-    const month = Number(String(key).slice(0, 2));
-    const monthNames = ["January","February","March","April","May","June","July",
-      "August","September","October","November","December"];
-    const pad = (x) => String(x).padStart(2, "0");
-    // Derive the month length and total from the data itself. Do NOT use
-    // new Date(y, m, 0): the calendar carries 366 days, so February must run to
-    // the 29th, and a Date-based length would silently drop 02-29.
-    const monthKeys = Object.keys(days).filter((k) => k.slice(0, 2) === pad(month));
-    const daysInMonth = monthKeys.length
-      ? Math.max(...monthKeys.map((k) => Number(k.slice(3))))
-      : 0;
-    const monthGoals = monthKeys.reduce((a, k) => a + (days[k].goalsCount || 0), 0);
-    const cells = [];
-    for (let d = 1; d <= daysInMonth; d++) {
-      const k2 = `${pad(month)}-${pad(d)}`;
-      const rec = days[k2];
-      const n = rec ? (rec.goalsCount || 0) : 0;
-      // Thresholds match the legend printed under the shared heatmap:
-      // 0 -> t0, 1-2 -> t1, 3-5 -> t2, 6-8 -> t3, 9+ -> t4 (Peak).
-      const tier = n === 0 ? 0 : n >= 9 ? 4 : n >= 6 ? 3 : n >= 3 ? 2 : 1;
-      // Read the month name from the data rather than a local array, so it stays
-      // correct if the calendar ever gains a locale.
-      const mName = rec && rec.monthName ? rec.monthName : monthNames[month - 1];
-      const title = `${d} ${mName}: ${n} goal${n === 1 ? "" : "s"}`;
-      const current = k2 === key;
-      cells.push(
-        `<a href="/en/birthday/${k2}" class="bday-day-btn tier-${tier}${current ? " is-current" : ""}"` +
-        ` data-month="${month}" data-day="${d}" title="${escapeHtml(title)}"` +
-        `${current ? ` aria-current="page"` : ""}>${d}</a>`
-      );
-    }
-
-    const monthGrid =
-      `<div class="bday-heatmap-grid" id="bday-heatmap-grid">` +
-      `<article class="bday-month-card" data-month="${month}">` +
-      `<div class="bday-month-card-head">` +
-      `<h3 class="bday-month-card-title">${escapeHtml(monthNames[month - 1])}</h3>` +
-      `<span class="bday-month-card-goals">${monthGoals} goals</span>` +
-      `</div>` +
-      `<div class="bday-days-grid">${cells.join("")}</div>` +
-      `</article>` +
-      `</div>` +
-      `<p class="bday-month-strip-more">` +
-      `<a href="/en/days">Browse all 366 days &rarr;</a>` +
-      `</p>`;
-
-    // app.js fills #bday-heatmap-nav with 13 month buttons that filter the grid.
-    // With one month shipped, those buttons would blank the grid, so drop the
-    // element entirely - el() returns null and the whole nav block is skipped.
-    html = html.replace(
-      /<div\s+class="bday-heatmap-nav"\s+id="bday-heatmap-nav"[^>]*><\/div>/i,
-      ""
-    );
-
-    // Depth-match the grid div so only that element is replaced.
-    const openRe = /<div\s+class="bday-heatmap-grid"\s+id="bday-heatmap-grid"\s*>/i;
-    const om = openRe.exec(html);
-    if (!om) {
-      console.warn(`[programmatic] heatmap grid not found for ${key}`);
-    } else {
-      let depth = 0, end = -1;
-      const divRe = /<(\/?)div\b[^>]*?(\/?)>/g;
-      divRe.lastIndex = om.index;
-      let dm;
-      while ((dm = divRe.exec(html)) !== null) {
-        if (dm[2] === "/") continue;              // self-closing, ignore
-        depth += dm[1] ? -1 : 1;
-        if (depth === 0) { end = dm.index + dm[0].length; break; }
-      }
-      if (end < 0) {
-        console.warn(`[programmatic] heatmap grid unbalanced for ${key}`);
-      } else {
-        html = html.slice(0, om.index) + monthGrid + html.slice(end);
-      }
-    }
-  }
+  // Clone pre-cleaned template
+  let html = cleanTemplate;
 
   // Title & H1
   html = html.replace(/<title>.*?<\/title>/i, `<title>${escapeHtml(pageTitle)}</title>`);
@@ -308,7 +259,7 @@ for (let i = 0; i < keys.length; i++) {
     : `Did Lionel Messi Score on ${formatted}?`;
   html = html.replace(/<h1[^>]*>.*?<\/h1>/i, `<h1 class="page-title">${escapeHtml(bdayH1)}</h1>`);
 
-  // Canonical & Alternates
+  // Canonical & Alternates (Reciprocal English and x-default)
   html = html.replace(/<link[^>]*rel="canonical"[^>]*>/i, `<link rel="canonical" href="https://www.messistat.com/en/birthday/${key}"/>`);
   html = html.replace(/<link[^>]*hreflang="en"[^>]*>/i, `<link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday/${key}"/>`);
   html = html.replace(/<link[^>]*hreflang="x-default"[^>]*>/i, `<link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday/${key}"/>`);

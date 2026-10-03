@@ -85,73 +85,73 @@ ${getHreflangsXml("")}
 // 2. English Subpages
 const enImages = {
   timeline: `    <image:image>
-      <image:loc>https://www.messistat.com/img/era-2008-olympic.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2008-olympic.webp</image:loc>
       <image:title>Lionel Messi Olympic Gold &amp; Barcelona Breakthrough (2004–2008)</image:title>
       <image:caption>Lionel Messi celebrating his breakthrough years and Olympic Gold medal with Argentina.</image:caption>
       <image:geo_location>Beijing, China / Barcelona, Spain</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/era-2011-wembley.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2011-wembley.webp</image:loc>
       <image:title>Lionel Messi Champions League Final at Wembley (2011)</image:title>
       <image:caption>Messi holding the European Cup after the 2011 Champions League final win at Wembley.</image:caption>
       <image:geo_location>London, United Kingdom</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/era-2012-ballon.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2012-ballon.webp</image:loc>
       <image:title>Lionel Messi World-Record 91 Goals in 2012</image:title>
       <image:caption>Lionel Messi holding his fourth consecutive Ballon d'Or trophy after his 91-goal world record in 2012.</image:caption>
       <image:geo_location>Zurich, Switzerland</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/era-2016.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2016.webp</image:loc>
       <image:title>Lionel Messi 500th Goal Celebration at Santiago Bernabéu (2017)</image:title>
       <image:caption>Lionel Messi holding up his number 10 shirt after scoring his 500th Barcelona goal in El Clásico.</image:caption>
       <image:geo_location>Madrid, Spain</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/era-2021-psg-signing.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2021-psg-signing.webp</image:loc>
       <image:title>Lionel Messi Paris Saint-Germain (2021–2023)</image:title>
       <image:caption>Lionel Messi signing for Paris Saint-Germain at Parc des Princes.</image:caption>
       <image:geo_location>Paris, France</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/era-2022.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2022.webp</image:loc>
       <image:title>Lionel Messi FIFA World Cup Champion Lusail 2022</image:title>
       <image:caption>Lionel Messi lifted on Agüero's shoulders celebrating the 2022 World Cup win at Lusail.</image:caption>
       <image:geo_location>Lusail, Qatar</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/era-2023-miami.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2023-miami.webp</image:loc>
       <image:title>Lionel Messi Inter Miami CF (2023–2026)</image:title>
       <image:caption>Lionel Messi unveiled as Inter Miami number 10 alongside David Beckham.</image:caption>
       <image:geo_location>Fort Lauderdale, Florida, United States</image:geo_location>
     </image:image>`,
   achievements: `    <image:image>
-      <image:loc>https://www.messistat.com/img/cab-ballon.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/cab-ballon.webp</image:loc>
       <image:title>Lionel Messi Record 8 Ballons d'Or</image:title>
       <image:caption>Lionel Messi celebrating his record 8th Ballon d'Or award (2009, 2010, 2011, 2012, 2015, 2019, 2021, 2023).</image:caption>
       <image:geo_location>Paris, France</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/cab-wc.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/cab-wc.webp</image:loc>
       <image:title>Lionel Messi FIFA World Cup Trophy 2022</image:title>
       <image:caption>Lionel Messi lifting the FIFA World Cup trophy after Argentina's final victory against France in Qatar.</image:caption>
       <image:geo_location>Lusail, Qatar</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/cab-ucl.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/cab-ucl.webp</image:loc>
       <image:title>Lionel Messi UEFA Champions League Trophies</image:title>
       <image:caption>Lionel Messi celebrating one of his 4 UEFA Champions League titles with FC Barcelona (2006, 2009, 2011, 2015).</image:caption>
       <image:geo_location>Rome, Italy / London, UK / Berlin, Germany</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/cab-copa.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/cab-copa.webp</image:loc>
       <image:title>Lionel Messi Copa América Champion</image:title>
       <image:caption>Lionel Messi celebrating continental championship with Argentina at Copa América (2021 and 2024).</image:caption>
       <image:geo_location>Rio de Janeiro, Brazil / Miami, USA</image:geo_location>
     </image:image>
     <image:image>
-      <image:loc>https://www.messistat.com/img/cab-liga.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/cab-liga.webp</image:loc>
       <image:title>Lionel Messi 10 La Liga Championships</image:title>
       <image:caption>Lionel Messi celebrating domestic league supremacy with 10 La Liga titles at FC Barcelona.</image:caption>
       <image:geo_location>Barcelona, Spain</image:geo_location>
@@ -173,7 +173,7 @@ const enImages = {
       <image:caption>Complete statistical head-to-head comparison between Lionel Messi and Cristiano Ronaldo.</image:caption>
     </image:image>`,
   "champions-league": `    <image:image>
-      <image:loc>https://www.messistat.com/img/era-2011-wembley.jpg</image:loc>
+      <image:loc>https://www.messistat.com/img/era-2011-wembley.webp</image:loc>
       <image:title>Lionel Messi Champions League Goals</image:title>
       <image:caption>Lionel Messi UEFA Champions League statistics: 129 goals in 163 matches and 4 European titles.</image:caption>
     </image:image>`,

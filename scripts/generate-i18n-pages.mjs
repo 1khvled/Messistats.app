@@ -2381,7 +2381,7 @@ function generateChampionsLeague(lang) {
         "@type": "VideoObject",
         "name": dict.videoName,
         "description": dict.videoDesc,
-        "thumbnailUrl": "https://www.messistat.com/img/era-2011-wembley.jpg",
+        "thumbnailUrl": "https://www.messistat.com/img/era-2011-wembley.webp",
         "uploadDate": "2011-05-28T20:45:00Z",
         "contentUrl": "https://cdn.messiallgoals.com/Goal180.mp4",
         "embedUrl": `https://www.messistat.com/en/birthday/05-28`

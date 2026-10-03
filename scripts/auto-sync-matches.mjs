@@ -323,13 +323,15 @@ export async function runAutoSync() {
     }
   } else {
     console.log("\nNo new goals or appearances to sync. Database is up to date.");
-    const lastCheck = {
-      checkedAt: new Date().toISOString(),
-      status: "UP_TO_DATE",
-      currentGoals: initialGoals,
-      currentApps: initialApps
-    };
-    if (!isDryRun) {
+    // Only write last-check.json if it doesn't exist, to prevent generating dirty git diffs
+    // on routine no-op checks which unnecessarily triggers deployment snapshots.
+    if (!isDryRun && !existsSync(lastCheckPath)) {
+      const lastCheck = {
+        checkedAt: new Date().toISOString(),
+        status: "UP_TO_DATE",
+        currentGoals: initialGoals,
+        currentApps: initialApps
+      };
       writeFileSync(lastCheckPath, JSON.stringify(lastCheck, null, 2), "utf8");
     }
   }

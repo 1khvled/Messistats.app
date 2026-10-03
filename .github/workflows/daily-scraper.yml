@@ -44,6 +44,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
+          # Discard internal ephemeral watcher logs if no stats changed
+          git checkout public/data/source-watch.json public/data/last-check.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "chore(stats): daily Messi stats & freshness sync [skip ci]"
             git push origin HEAD:${{ github.ref }}
