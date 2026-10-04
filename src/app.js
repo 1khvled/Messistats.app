@@ -841,113 +841,6 @@ function showDonationPopup() {
   }
 }
 
-function initStreamPromoPopup() {
-  if (typeof window === "undefined" || typeof document === "undefined") return;
-
-  const DISMISS_KEY = "koora_stream_promo_dismissed";
-  const SHOWN_KEY = "koora_stream_promo_shown";
-  const SESSION_START_KEY = "messistat_session_start";
-  const DWELL_TARGET_MS = 150000; // 2.5 minutes (150 seconds)
-
-  try {
-    const dismissedTime = localStorage.getItem(DISMISS_KEY);
-    if (dismissedTime && (Date.now() - parseInt(dismissedTime, 10) < 24 * 60 * 60 * 1000)) {
-      return;
-    }
-    if (sessionStorage.getItem(SHOWN_KEY) === "true") {
-      return;
-    }
-  } catch (_) {}
-
-  // Session dwell time tracking across pageviews
-  let sessionStart = Date.now();
-  try {
-    const storedStart = sessionStorage.getItem(SESSION_START_KEY);
-    if (storedStart) {
-      sessionStart = parseInt(storedStart, 10);
-    } else {
-      sessionStorage.setItem(SESSION_START_KEY, String(sessionStart));
-    }
-  } catch (_) {}
-
-  const elapsed = Date.now() - sessionStart;
-  const remainingTime = Math.max(1000, DWELL_TARGET_MS - elapsed);
-
-  let triggered = false;
-  const triggerPromo = () => {
-    if (triggered) return;
-    try {
-      if (sessionStorage.getItem(SHOWN_KEY) === "true") return;
-      const dismissed = localStorage.getItem(DISMISS_KEY);
-      if (dismissed && (Date.now() - parseInt(dismissed, 10) < 24 * 60 * 60 * 1000)) return;
-      triggered = true;
-      sessionStorage.setItem(SHOWN_KEY, "true");
-      showStreamPromoPopup();
-    } catch (_) {}
-  };
-
-  setTimeout(triggerPromo, remainingTime);
-}
-
-function showStreamPromoPopup() {
-  if (typeof document === "undefined" || document.getElementById("stream-hidden-gem-toast") || document.getElementById("argentina-stream-banner")) return;
-
-  const toast = document.createElement("div");
-  toast.id = "stream-hidden-gem-toast";
-  toast.className = "stream-hidden-gem-toast";
-  toast.setAttribute("role", "status");
-  toast.setAttribute("aria-live", "polite");
-
-  toast.innerHTML = `
-    <div class="gem-toast-header">
-      <div class="gem-toast-badge">
-        <span class="gem-sparkle">💎</span> HIDDEN GEM
-      </div>
-      <button type="button" class="gem-toast-close" id="gem-toast-close-x" aria-label="Close notification">✕</button>
-    </div>
-    <div class="gem-toast-body">
-      <div class="gem-toast-icon">⚽</div>
-      <div class="gem-toast-content">
-        <div class="gem-toast-title">Free Football Live Streams</div>
-        <p class="gem-toast-desc">Watch live matchday fixtures & clean HD streaming on Koora Live.</p>
-      </div>
-    </div>
-    <div class="gem-toast-actions">
-      <a href="https://kooraadz.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn-gem-watch" id="gem-toast-watch-btn">
-        <span>Watch Live ⚽</span>
-      </a>
-      <button type="button" class="btn-gem-dismiss" id="gem-toast-dismiss-btn">Dismiss</button>
-    </div>
-  `;
-
-  document.body.appendChild(toast);
-
-  const DISMISS_KEY = "koora_stream_promo_dismissed";
-  const close = () => {
-    try {
-      localStorage.setItem(DISMISS_KEY, String(Date.now()));
-    } catch (_) {}
-    toast.classList.add("gem-toast-hiding");
-    setTimeout(() => {
-      if (toast.parentNode) toast.parentNode.removeChild(toast);
-    }, 250);
-  };
-
-  const closeX = toast.querySelector("#gem-toast-close-x");
-  const dismissBtn = toast.querySelector("#gem-toast-dismiss-btn");
-  const watchBtn = toast.querySelector("#gem-toast-watch-btn");
-
-  if (closeX) closeX.addEventListener("click", close);
-  if (dismissBtn) dismissBtn.addEventListener("click", close);
-  if (watchBtn) {
-    watchBtn.addEventListener("click", () => {
-      try {
-        localStorage.setItem(DISMISS_KEY, String(Date.now()));
-      } catch (_) {}
-      setTimeout(close, 400);
-    });
-  }
-}
 
 
 /* ================= ARGENTINA FAREWELL MATCH STREAM NOTIFICATION ================= */
@@ -1048,8 +941,6 @@ function initArgentinaStreamNotification() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
   const STREAM_URL = "https://kooraadz.vercel.app/";
-  const DISMISS_KEY = "dismissed_argentina_stream_banner";
-  const COOLDOWN_MS = 6 * 60 * 60 * 1000; // 6 hours
 
   // Target match date: 6 October 2026.
   // 2 days before is: 4 October 2026 00:00:00 UTC (1791072000000)
@@ -1127,78 +1018,6 @@ function initArgentinaStreamNotification() {
     }
   } catch (err) {
     console.warn("Argentina stream tracker sync warning:", err);
-  }
-
-  // 2. Dismissible Floating Banner check
-  let isDismissed = false;
-  try {
-    const dismissedAt = localStorage.getItem(DISMISS_KEY);
-    if (dismissedAt && (now - parseInt(dismissedAt, 10) < COOLDOWN_MS)) {
-      isDismissed = true;
-    }
-  } catch (_) {}
-
-  // In test mode, ignore dismissal so user can verify anytime
-  if (isDismissed && !isTesting) return;
-
-  // Avoid duplicate injection
-  if (document.getElementById("argentina-stream-banner")) return;
-
-  const banner = document.createElement("aside");
-  banner.id = "argentina-stream-banner";
-  banner.className = "argentina-stream-banner";
-  banner.setAttribute("role", "region");
-  banner.setAttribute("aria-label", "Lionel Messi Farewell Match Stream Notification");
-  if (lang === "ar") {
-    banner.setAttribute("dir", "rtl");
-  }
-
-  banner.innerHTML = `
-    <div class="arg-stream-stripe" aria-hidden="true"></div>
-    <div class="arg-stream-header">
-      <div class="arg-stream-badge">
-        <span class="arg-live-dot" aria-hidden="true"><span class="arg-live-dot-ping"></span><span class="arg-live-dot-core"></span></span>
-        <span>${t.badge}</span>
-      </div>
-      <button type="button" class="arg-stream-close" id="arg-stream-close-btn" aria-label="${t.closeAria}">✕</button>
-    </div>
-    <div class="arg-stream-content">
-      <div class="arg-stream-title">${t.title}</div>
-      <p class="arg-stream-desc">${t.text}</p>
-      <div class="arg-stream-feature">
-        <span class="arg-feature-star">⭐</span>
-        <span>${t.highlight}</span>
-      </div>
-    </div>
-    <div class="arg-stream-actions">
-      <a href="${STREAM_URL}" target="_blank" rel="noopener noreferrer" class="btn-arg-stream" id="arg-stream-cta-btn">
-        <span>${t.cta}</span>
-      </a>
-    </div>
-  `;
-
-  document.body.appendChild(banner);
-
-  const closeBtn = banner.querySelector("#arg-stream-close-btn");
-  const ctaBtn = banner.querySelector("#arg-stream-cta-btn");
-
-  const dismiss = () => {
-    try {
-      localStorage.setItem(DISMISS_KEY, String(Date.now()));
-    } catch (_) {}
-    banner.classList.add("arg-banner-hiding");
-    setTimeout(() => {
-      if (banner.parentNode) banner.parentNode.removeChild(banner);
-    }, 260);
-  };
-
-  if (closeBtn) closeBtn.addEventListener("click", dismiss);
-  if (ctaBtn) {
-    ctaBtn.addEventListener("click", () => {
-      try {
-        localStorage.setItem(DISMISS_KEY, String(Date.now()));
-      } catch (_) {}
-    });
   }
 }
 
@@ -2063,7 +1882,6 @@ function initLanguageAndMobileTopBar() {
     ensureMobileMoreNavBtn();
     ensureDesktopBrandHeader();
     initDonationPopup();
-    initStreamPromoPopup();
     initArgentinaStreamNotification();
     initFanArcade();
     initGlobalGoatPoll();

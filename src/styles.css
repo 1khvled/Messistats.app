@@ -9822,6 +9822,11 @@ html[dir="rtl"] .back-to-top-btn {
 .qj-pill:active {
   transform: scale(0.96);
 }
+/* Donate jump button under the hero lede: scrolls to the on-page #support
+   card. Reuses .qj-pill so no new component styling is needed. */
+.donate-jump {
+  margin: 10px 0 0;
+}
 [data-theme="dark"] .quick-jump-bar {
   background: rgba(10, 10, 10, 0.82);
   backdrop-filter: blur(12px);
