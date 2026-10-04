@@ -10368,6 +10368,8 @@ html[dir="rtl"] .back-to-top-btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
   margin: 16px 0 12px;
 }
 .footer-x-link {
@@ -10389,6 +10391,30 @@ html[dir="rtl"] .back-to-top-btn {
   color: #ffffff !important;
   border-color: #000000;
   transform: translateY(-1px);
+}
+/* Telegram channel button: same pill, Telegram-blue hover. */
+.footer-x-link.footer-tg-link:hover {
+  background: #229ED9;
+  border-color: #229ED9;
+  color: #ffffff !important;
+}
+.mobile-drawer-social {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mobile-drawer-x-btn.mobile-drawer-tg-btn {
+  background: #229ED9;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.mobile-drawer-x-btn.mobile-drawer-tg-btn:hover,
+.mobile-drawer-x-btn.mobile-drawer-tg-btn:active {
+  background: #1b8ac0;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.btn-support.tg {
+  background: #229ED9;
+  color: #ffffff;
 }
 
 

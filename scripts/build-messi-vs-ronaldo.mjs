@@ -1916,7 +1916,8 @@ function generateHtml(lang) {
           },
           "sameAs": [
             "https://x.com/messistat1",
-            "https://twitter.com/messistat1"
+            "https://twitter.com/messistat1",
+            "https://t.me/messistatdotcom"
           ]
         }
       },
@@ -2530,6 +2531,9 @@ ${faqItemsHtml}
         <div class="support-actions">
           <a href="https://ko-fi.com/messistat" target="_blank" rel="noopener noreferrer" class="btn-support kofi">
             <span>${t.supportCta}</span>
+          </a>
+          <a href="https://t.me/messistatdotcom" target="_blank" rel="noopener noreferrer" class="btn-support tg">
+            <span>Join Telegram Channel</span>
           </a>
         </div>
       </div>
