@@ -14,7 +14,8 @@
       "PROVISIONAL: byFinish/byBodyPart show widely published compiled tallies (penalties 109, free kicks 66, hat-tricks 57) and must be treated as provisional until hand-counted match by match like ronaldostats.app does.",
       "Auto-synced on 2026-09-18: Inter Miami vs Cruz Azul (+1G).",
       "Auto-synced on 2026-09-22: Inter Miami vs San Diego FC (+1G).",
-      "Auto-synced on 2026-09-28: Inter Miami CF at Columbus Crew (+1G)."
+      "Auto-synced on 2026-09-28: Inter Miami CF at Columbus Crew (+1G).",
+      "Auto-synced on 2026-10-07: Inter Miami vs Benin (+1G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -28,7 +29,8 @@
       "761800",
       "401901377",
       "761829",
-      "761844"
+      "761844",
+      "401921408"
     ]
   },
   "profile": {
@@ -54,8 +56,8 @@
   },
   "totals": {
     "club": {
-      "appearances": 970,
-      "goals": 806,
+      "appearances": 971,
+      "goals": 807,
       "goalsPerGame": 0.83
     },
     "country": {
@@ -64,8 +66,8 @@
       "goalsPerGame": 0.6
     },
     "combined": {
-      "appearances": 1177,
-      "goals": 931
+      "appearances": 1178,
+      "goals": 932
     },
     "assists": {
       "official": 405,
@@ -611,11 +613,11 @@
         1
       ],
       "other": [
-        3,
-        3
+        4,
+        4
       ],
-      "apps": 29,
-      "goals": 25
+      "apps": 30,
+      "goals": 26
     }
   ],
   "countryYears": [
@@ -968,7 +970,7 @@
     {
       "competition": "Leagues Cup / MLS playoffs / other cups",
       "team": "Inter Miami",
-      "goals": 23
+      "goals": 24
     },
     {
       "competition": "FIFA World Cup",
@@ -995,7 +997,7 @@
   "byFinish": [
     {
       "finish": "Open play",
-      "goals": 746
+      "goals": 747
     },
     {
       "finish": "Penalties",
@@ -1009,7 +1011,7 @@
   "byBodyPart": [
     {
       "part": "Left foot",
-      "goals": 743
+      "goals": 744
     },
     {
       "part": "Right foot",
@@ -1473,8 +1475,8 @@
     },
     {
       "year": 2026,
-      "goals": 35,
-      "careerTotal": 931,
+      "goals": 36,
+      "careerTotal": 932,
       "age": 39,
       "status": "provisional-ongoing"
     }
