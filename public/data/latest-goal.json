@@ -1,36 +1,51 @@
 {
-  "syncedAt": "2026-10-07T03:41:33.706Z",
+  "syncedAt": "2026-10-07T10:35:55.002Z",
   "latestGoal": {
-    "goalNumber": 931,
+    "goalNumber": 932,
     "team": "Inter Miami CF",
-    "opponent": "Columbus Crew",
-    "competition": "MLS",
-    "competitionSlug": "mls",
-    "date": "2026-09-27",
-    "formattedDate": "27 September 2026",
-    "bdayKey": "09-27",
-    "minute": "33'",
-    "clock": "33'",
-    "type": "Direct Free Kick",
-    "finish": "Direct Free Kick",
+    "opponent": "Benin",
+    "competition": "International Friendly",
+    "competitionSlug": "international-friendly",
+    "date": "2026-10-06",
+    "formattedDate": "6 October 2026",
+    "bdayKey": "10-06",
+    "minute": "",
+    "clock": "",
+    "type": "Open play",
+    "finish": "Open play",
     "assist": "",
-    "score": "1-2",
-    "venue": "ScottsMiracle-Gro Field (Columbus, Ohio)",
-    "title": "Columbus Crew 2-1 Inter Miami CF",
-    "videoUrl": "https://cdn.messiallgoals.com/Goal931.mp4",
-    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Columbus+Crew+MLS+2026",
-    "bdayUrl": "/en/birthday/09-27"
+    "score": "3-0",
+    "venue": "Estadio Más Monumental (Buenos Aires)",
+    "title": "Inter Miami 3-0 Benin",
+    "videoUrl": "https://cdn.messiallgoals.com/Goal932.mp4",
+    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+International%20Friendly",
+    "bdayUrl": "/en/birthday/10-06"
   },
   "todayStatus": {
     "didScoreToday": false,
     "hasMatchToday": false,
-    "lastMatchDate": "2026-09-27",
-    "lastMatchOpponent": "Columbus Crew",
-    "lastMatchResult": "Columbus Crew 2-1 Inter Miami CF",
-    "lastGoalNumber": 931,
-    "lastGoalMinute": "33'"
+    "lastMatchDate": "2026-10-06",
+    "lastMatchOpponent": "Benin",
+    "lastMatchResult": "Inter Miami 3-0 Benin",
+    "lastGoalNumber": 932,
+    "lastGoalMinute": ""
   },
   "recentGoals": [
+    {
+      "goalNumber": 932,
+      "title": "Inter Miami 3-0 Benin",
+      "meta": "International Friendly • 6 October 2026",
+      "match": "vs Benin (3-0)",
+      "date": "6 October 2026 • ",
+      "minute": "",
+      "type": "Open play",
+      "tag": "Open play 🔥",
+      "score": "3-0",
+      "comp": "International Friendly",
+      "videoUrl": "https://cdn.messiallgoals.com/Goal932.mp4",
+      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+International%20Friendly",
+      "bdayUrl": "/en/birthday/10-06"
+    },
     {
       "goalNumber": 931,
       "title": "Columbus Crew 2-1 Inter Miami CF",
@@ -90,28 +105,13 @@
       "videoUrl": "https://cdn.messiallgoals.com/Goal928.mp4",
       "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Nashville+SC+September+2026+Inter+Miami",
       "bdayUrl": "/en/birthday/09-12"
-    },
-    {
-      "goalNumber": 927,
-      "title": "Inter Miami 7 – 1 CF Montréal",
-      "meta": "MLS Regular Season • 29 August 2026 • Chase Stadium (Fort Lauderdale, FL)",
-      "match": "vs Montreal (7-1)",
-      "date": "29 August 2026 • 83'",
-      "minute": "83'",
-      "type": "Direct Free Kick",
-      "tag": "Direct Free Kick 🔥",
-      "score": "7 – 1",
-      "comp": "MLS",
-      "videoUrl": "https://cdn.messiallgoals.com/Goal927.mp4",
-      "ytUrl": "https://www.youtube.com/results?search_query=Messi+free+kick+vs+Montreal+August+2026+Inter+Miami",
-      "bdayUrl": "/en/birthday/08-29"
     }
   ],
   "totals": {
-    "seniorGoals": 931,
-    "appearances": 1177,
-    "miamiGoals": 102,
-    "season2026Goals": 25,
+    "seniorGoals": 932,
+    "appearances": 1178,
+    "miamiGoals": 103,
+    "season2026Goals": 26,
     "freeKicks": 76
   }
 }
