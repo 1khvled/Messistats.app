@@ -506,8 +506,8 @@ function ensureMobileMenuDrawer() {
       </div>
       <div class="mobile-drawer-body">
         <div class="mobile-drawer-stats-card">
-          <div class="mobile-drawer-stat"><span class="num">931</span><span class="lbl">${txt.statGoals}</span></div>
-          <div class="mobile-drawer-stat"><span class="num">1,177</span><span class="lbl">${txt.statApps}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">932</span><span class="lbl">${txt.statGoals}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">1,178</span><span class="lbl">${txt.statApps}</span></div>
           <div class="mobile-drawer-stat"><span class="num">46</span><span class="lbl">${txt.statTrophies}</span></div>
           <div class="mobile-drawer-stat"><span class="num">8</span><span class="lbl">${txt.statBallons}</span></div>
         </div>
@@ -1354,7 +1354,7 @@ function initGlobalGoatPoll() {
           </div>
           <div class="goat-vote-meta">
             <span class="vote-confirmed-tag">✓ Your vote was recorded! (${total.toLocaleString()} total community votes)</span>
-            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just voted in the Lionel Messi vs Cristiano Ronaldo GOAT poll on MessiStat! Compare their official 930 vs 979 career stats:`)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="btn-share-poll-vote">
+            <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just voted in the Lionel Messi vs Cristiano Ronaldo GOAT poll on MessiStat! Compare their official 932 vs 980 career stats:`)}&url=${encodeURIComponent(window.location.href)}" target="_blank" rel="noopener noreferrer" class="btn-share-poll-vote">
               <span>🐦 Share Verdict</span>
             </a>
           </div>
@@ -2348,7 +2348,7 @@ function reveal() {
 }
 const EXPLORE = [
   { href: "/en/birthday", page: "birthday", t: "🎂 Did Messi score on your birthday?", d: (d) => `Search all 366 calendar days with video clips across Messi's ${n(d.totals.goals)} senior career goals.` },
-  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Head-to-head career stats: 930 vs 979 goals, 46 vs 35 trophies, 8 vs 5 Ballons d'Or." },
+  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Head-to-head career stats: 932 vs 980 goals, 46 vs 35 trophies, 8 vs 5 Ballons d'Or." },
   { href: "/en/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "All 26 El Clásico goals, 45 matches, 14 assists, hat-tricks, and video clips." },
   { href: "/en/champions-league", page: "champions-league", t: "⭐ Champions League Record", d: () => "129 UEFA Champions League goals, 8 hat-tricks, and 4 European titles." },
   { href: "/en/latest-goal", page: "latest-goal", t: "⚽ Latest Messi Goal Video", d: () => "Watch Goal #930 vs San Diego FC, see if Messi scored today, and view recent goal clips." },
@@ -2368,7 +2368,7 @@ function getLang() {
 const EXPLORE_LANGS = {
   es: [
     { href: "/es/birthday", page: "birthday", t: "🎂 ¿Marcó Messi en tu cumpleaños?", d: (d) => `Busca entre los 366 días del año con clips de video de los ${n(d.totals.goals)} goles oficiales de Messi.` },
-    { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estadísticas cara a cara: 930 vs 979 goles, 46 vs 35 títulos, 8 vs 5 Balones de Oro." },
+    { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estadísticas cara a cara: 932 vs 980 goles, 46 vs 35 títulos, 8 vs 5 Balones de Oro." },
     { href: "/es/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Los 26 goles en El Clásico, 45 partidos, 14 asistencias, hat-tricks y videos." },
     { href: "/es/champions-league", page: "champions-league", t: "⭐ Récord en Champions League", d: () => "129 goles en UEFA Champions League, 8 hat-tricks y 4 títulos europeos." },
     { href: "/es/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi en video", d: () => "Mira el gol 929 vs Cruz Azul, consulta si Messi marcó hoy y reproduce sus últimos goles." },
@@ -2378,7 +2378,7 @@ const EXPLORE_LANGS = {
   ],
   pt: [
     { href: "/pt/birthday", page: "birthday", t: "🎂 ¿Marcou Messi no seu aniversário?", d: (d) => `Pesquise os 366 dias do ano com vídeos de todos os ${n(d.totals.goals)} gols de Messi.` },
-    { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estatísticas cara a cara: 930 vs 979 gols, 46 vs 35 títulos, 8 vs 5 Bolas de Ouro." },
+    { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estatísticas cara a cara: 932 vs 980 gols, 46 vs 35 títulos, 8 vs 5 Bolas de Ouro." },
     { href: "/pt/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Os 26 gols no El Clásico, 45 partidas, 14 assistências e hat-tricks." },
     { href: "/pt/champions-league", page: "champions-league", t: "⭐ Recorde na Champions League", d: () => "129 gols na UEFA Champions League, 8 hat-tricks e 4 títulos europeus." },
     { href: "/pt/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi em vídeo", d: () => "Assista ao gol 929 vs Cruz Azul, veja se Messi marcou hoje e confira vídeos recentes." },
@@ -2388,7 +2388,7 @@ const EXPLORE_LANGS = {
   ],
   fr: [
     { href: "/fr/birthday", page: "birthday", t: "🎂 Messi a-t-il marqué le jour de votre anniversaire ?", d: (d) => `Recherchez parmi les 366 jours de l'année avec vidéos des ${n(d.totals.goals)} buts.` },
-    { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => "Statistiques historiques : 930 vs 979 buts, 46 vs 35 titres, 8 vs 5 Ballons d'Or." },
+    { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => "Statistiques historiques : 932 vs 980 buts, 46 vs 35 titres, 8 vs 5 Ballons d'Or." },
     { href: "/fr/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Tous les 26 buts dans le Clásico, 45 matchs, 14 passes décisives." },
     { href: "/fr/champions-league", page: "champions-league", t: "⭐ Bilan en Ligue des Champions", d: () => "129 buts en UEFA Champions League, 8 triplés et 4 titres européens." },
     { href: "/fr/latest-goal", page: "latest-goal", t: "⚽ Dernier but de Messi en vidéo", d: () => "Regardez le but 929 contre Cruz Azul, vérifiez s'il a marqué aujourd'hui et ses derniers buts." },
@@ -2398,7 +2398,7 @@ const EXPLORE_LANGS = {
   ],
   ar: [
     { href: "/ar/birthday", page: "birthday", t: "🎂 هل سجل ميسي في يوم ميلادك؟", d: (d) => `ابحث في جميع أيام السنة الـ 366 مع مقاطع الفيديو لـ ${n(d.totals.goals)} هدفاً.` },
-    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => "مقارنة المسيرة: 930 ضد 979 هدفاً، 46 ضد 35 بطولة، و8 كرات ذهبية." },
+    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => "مقارنة المسيرة: 930 ضد 980 هدفاً، 46 ضد 35 بطولة، و8 كرات ذهبية." },
     { href: "/ar/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ ميسي ضد ريال مدريد", d: () => "26 هدفاً في الكلاسيكو، 45 مباراة و14 تمريرة حاسمة." },
     { href: "/ar/champions-league", page: "champions-league", t: "⭐ سجل دوري أبطال أوروبا", d: () => "129 هدفاً في دوري أبطال أوروبا، 8 هاتريك و4 ألقاب أوروبية." },
     { href: "/ar/latest-goal", page: "latest-goal", t: "⚽ فيديو آخر هدف لميسي", d: () => "شاهد الهدف 929 ضد كروز أزول، واعرف هل سجل ميسي اليوم وتصفح أحدث أهدافه بالفيديو." },
@@ -2418,7 +2418,7 @@ const EXPLORE_LANGS = {
   ],
   hi: [
     { href: "/hi/birthday", page: "birthday", t: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?", d: (d) => `साल के 366 दिनों में मेसी के ${n(d.totals.goals)} गोल वीडियो देखें।` },
-    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 930 बनाम 979 गोल, 46 बनाम 35 खिताब, 8 बैलन डी'ओर." },
+    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 930 बनाम 980 गोल, 46 बनाम 35 खिताब, 8 बैलन डी'ओर." },
     { href: "/hi/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ मेसी बनाम रियल मैड्रिड", d: () => "एल क्लासिको में 26 गोल, 45 मैच और 14 असिस्ट।" },
     { href: "/hi/champions-league", page: "champions-league", t: "⭐ चैंपियंस लीग रिकॉर्ड", d: () => "यूईएफए चैंपियंस लीग में 129 गोल, 8 हैट्रिक और 4 यूरोपीय खिताब।" },
     { href: "/hi/latest-goal", page: "latest-goal", t: "⚽ मेसी का पिछला गोल वीडियो", d: () => "क्रूज़ अज़ूल के खिलाफ 929वां गोल देखें, जानें क्या मेसी ने आज गोल किया और हालिया गोल।" },
@@ -2428,7 +2428,7 @@ const EXPLORE_LANGS = {
   ],
   ro: [
     { href: "/ro/birthday", page: "birthday", t: "🎂 A marcat Messi de ziua ta de naștere?", d: (d) => `Caută în toate cele 366 de zile din an cu cele ${n(d.totals.goals)} goluri ale lui Messi.` },
-    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Statistici cap la cap: 930 vs 979 goluri, 46 vs 35 trofee, 8 Baloane de Aur." },
+    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Statistici cap la cap: 932 vs 980 goluri, 46 vs 35 trofee, 8 Baloane de Aur." },
     { href: "/ro/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Toate cele 26 de goluri din El Clásico, 45 de meciuri, 14 pase de gol." },
     { href: "/ro/champions-league", page: "champions-league", t: "⭐ Recordul în Champions League", d: () => "129 de goluri în UEFA Champions League, 8 hat-trick-uri și 4 trofee europene." },
     { href: "/ro/latest-goal", page: "latest-goal", t: "⚽ Ultimul gol al lui Messi video", d: () => "Urmărește golul 929 contra lui Cruz Azul, vezi dacă a marcat azi și cele mai recente goluri." },
@@ -2438,7 +2438,7 @@ const EXPLORE_LANGS = {
   ],
   uz: [
     { href: "/uz/birthday", page: "birthday", t: "🎂 Messi sizning tug'ilgan kuningizda gol urganmi?", d: (d) => `Yilning 366 kunidagi gollarni videolar bilan ko'ring (${n(d.totals.goals)} ta gol).` },
-    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => "O'zaro solishtirma: 930 ga 979 ta gol, 46 ga 35 ta titul, 8 ta “Oltin to'p”." },
+    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => "O'zaro solishtirma: 930 ga 980 ta gol, 46 ga 35 ta titul, 8 ta “Oltin to'p”." },
     { href: "/uz/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "El-Klasikodagi 26 ta gol, 45 ta o'yin va 14 ta assist." },
     { href: "/uz/champions-league", page: "champions-league", t: "⭐ Chempionlar Ligasi rekordi", d: () => "UEFA Chempionlar Ligasida 129 ta gol, 8 ta het-trik va 4 ta Yevropa chempionligi." },
     { href: "/uz/latest-goal", page: "latest-goal", t: "⚽ Messining soʻnggi goli video", d: () => "Kruz Asulga qarshi 929-golni tomosha qiling, Messi bugun gol urdimi va soʻnggi gollari." },
@@ -2727,13 +2727,13 @@ function clubTableCaption() {
 function provisionalNote() {
   const lang = getLang();
   const notes = {
-    es: `<p class="caveat">Penaltis (109), tiros libres (66), hat-tricks (57) y asistencias (400) son cifras recopiladas provisionales hasta completar el conteo manual partido a partido.</p>`,
-    pt: `<p class="caveat">Pênaltis (109), faltas (66), hat-tricks (57) e assistências (400) são números provisórios até a conclusão da contagem manual jogo a jogo.</p>`,
-    fr: `<p class="caveat">Penaltys (109), coups francs (66), triplés (57) et passes décisives (400) sont des totaux provisoires en attente de vérification match par match.</p>`,
-    ar: `<p class="caveat">ضربات الجزاء (109)، الركلات الحرة (66)، الهاتريك (57) والتمريرات الحاسمة (400) هي إحصائيات مجمعة مؤقتة حتى اكتمال التدقيق اليدوي لكل مباراة.</p>`,
+    es: `<p class="caveat">Penaltis (110), tiros libres (66), hat-tricks (57) y asistencias (400) son cifras recopiladas provisionales hasta completar el conteo manual partido a partido.</p>`,
+    pt: `<p class="caveat">Pênaltis (110), faltas (66), hat-tricks (57) e assistências (400) são números provisórios até a conclusão da contagem manual jogo a jogo.</p>`,
+    fr: `<p class="caveat">Penaltys (110), coups francs (66), triplés (57) et passes décisives (400) sont des totaux provisoires en attente de vérification match par match.</p>`,
+    ar: `<p class="caveat">ضربات الجزاء (110)، الركلات الحرة (66)، الهاتريك (57) والتمريرات الحاسمة (400) هي إحصائيات مجمعة مؤقتة حتى اكتمال التدقيق اليدوي لكل مباراة.</p>`,
     bn: `<p class="caveat">পেনাল্টি (১০৯), ফ্রি-কিক (৭৬), হ্যাটট্রিক (৫৭) এবং অ্যাসিস্ট (৪০০) ম্যাচভিত্তিক সম্পূর্ণ যাচাইকরণ না হওয়া পর্যন্ত সাময়িক পরিসংখ্যান হিসেবে প্রদর্শিত।</p>`,
-    hi: `<p class="caveat">पेनाल्टी (109), फ्री किक (66), हैट्रिक (57) और असिस्ट (400) मैच-दर-मैच सत्यापन पूरा होने तक अनंतिम आंकड़े हैं।</p>`,
-    ro: `<p class="caveat">Penalty-uri (109), lovituri libere (66), hat-trick-uri (57) și pase decisive (400) sunt cifre provizorii până la finalizarea numărătorii manuale meci cu meci.</p>`,
+    hi: `<p class="caveat">पेनाल्टी (110), फ्री किक (66), हैट्रिक (57) और असिस्ट (400) मैच-दर-मैच सत्यापन पूरा होने तक अनंतिम आंकड़े हैं।</p>`,
+    ro: `<p class="caveat">Penalty-uri (110), lovituri libere (66), hat-trick-uri (57) și pase decisive (400) sunt cifre provizorii până la finalizarea numărătorii manuale meci cu meci.</p>`,
     uz: `<p class="caveat">Penaltilar (109), jarima to'plari (66), het-triklar (57) va assistlar (400) o'yinma-o'yin to'liq tekshiruv tugagunga qadar dastlabki hisob-kitoblar sifatida ko'rsatilgan.</p>`
   };
   return notes[lang] || `<p class="caveat">Penalties (109), free kicks (66), hat-tricks (57) and assists (400) are widely published compiled tallies, shown as provisional until a true match-by-match hand count is finished.</p>`;
@@ -2818,9 +2818,9 @@ const HOME_I18N = {
     splitCaveat: (tot) => `Free-kick and penalty splits are a widely published compiled tally — provisional until a full match-by-match hand count is finished. The ${tot} total is unaffected.`,
     faq: (t, agg, m, d, lang) => [
       ["How many total career goals has Lionel Messi scored?", `<b>${n(t.goals)} official career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. Explore his full <a href="/${lang}/goalsbyyear">year-by-year scoring breakdown</a>.`],
-      ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded <b>405 official career assists</b> under Opta/FIFA standards (and <b>447 assists</b> under Transfermarkt's broader criteria) in ${n(t.apps)} appearances, making him the all-time assist leader in modern football history. His official breakdown includes 269 assists for FC Barcelona, 56 for Argentina, 46 for Inter Miami CF, and 34 for Paris Saint-Germain.`],
-      ["What are Lionel Messi's total goals and assists?", `Across his senior career, Lionel Messi has accumulated <b>1,335 official goal contributions</b> (<b>${n(t.goals)} goals</b> and <b>405 official assists</b>) in ${n(t.apps)} appearances — an extraordinary rate of <b>1.14 direct goal involvements per match</b>. Under Transfermarkt's criteria, his total stands at <b>1,377 goal involvements</b> (${n(t.goals)} goals + 447 assists).`],
-      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with 979 goals and 261 assists in 1,337 matches (0.73 goals/game), while Messi has <b>${n(t.goals)} goals and 405 official assists in ${n(t.apps)} matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached ${n(t.goals)} goals in 161 fewer matches, holds 46 team trophies to 35, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
+      ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded <b>407 official career assists</b> under Opta/FIFA standards (and <b>449 assists</b> under Transfermarkt's broader criteria) in ${n(t.apps)} appearances, making him the all-time assist leader in modern football history. His official breakdown includes 269 assists for FC Barcelona, 56 for Argentina, 46 for Inter Miami CF, and 34 for Paris Saint-Germain.`],
+      ["What are Lionel Messi's total goals and assists?", `Across his senior career, Lionel Messi has accumulated <b>1,335 official goal contributions</b> (<b>${n(t.goals)} goals</b> and <b>407 official assists</b>) in ${n(t.apps)} appearances — an extraordinary rate of <b>1.14 direct goal involvements per match</b>. Under Transfermarkt's criteria, his total stands at <b>1,381 goal involvements</b> (${n(t.goals)} goals + 449 assists).`],
+      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with 980 goals and 261 assists in 1,339 matches (0.73 goals/game), while Messi has <b>${n(t.goals)} goals and 407 official assists in ${n(t.apps)} matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached ${n(t.goals)} goals in 161 fewer matches, holds 46 team trophies to 35, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
       ["What is Messi's career goal breakdown by team?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games for FC Barcelona, <b>${agg.psg.goals} goals</b> in ${n(agg.psg?.apps || 75)} games for PSG, <b>${n(agg.miami.goals)} goals</b> in ${n(agg.miami?.apps || 118)} games for Inter Miami, and <b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps for Argentina. See <a href="/${lang}/goalsbyseason">season-by-season club stats</a>.`],
       ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 76} direct free-kick goals</b> in senior football (50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG), ranking 2nd all-time behind Marcelinho Carioca's record of 78.`],
       ["How many hat-tricks has Lionel Messi scored?", `Messi has scored <b>${d.hatTricks || 59} career hat-tricks</b> (48 for Barcelona, 10 for Argentina, 1 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.`],
@@ -4908,7 +4908,7 @@ function renderDashboard(d, team) {
     const teams = [
       { id: "all", label: "All Teams", goals: d.totals.goals, apps: d.totals.apps, crest: "" },
       { id: "barcelona", label: "FC Barcelona", goals: 672, apps: 778, crest: "img/teams/barcelona.png" },
-      { id: "argentina", label: "Argentina", goals: 125, apps: 207, crest: "img/teams/argentina.png" },
+      { id: "argentina", label: "Argentina", goals: 126, apps: 208, crest: "img/teams/argentina.png" },
       { id: "miami", label: "Inter Miami", goals: 102, apps: 117, crest: "img/teams/miami.png" },
       { id: "psg", label: "Paris Saint-Germain", goals: 32, apps: 75, crest: "img/teams/psg.png" }
     ];
@@ -4942,10 +4942,10 @@ function renderDashboard(d, team) {
   const kpisEl = el("kpis");
   if (kpisEl) {
     kpisEl.className = "dash-kpis-grid";
-    // Sums reconcile to the 931 / 1,177 / 109-pen / 76-FK ground truth:
-    // assists 269+56+46+34 = 405; NPG 599+96+97+30 = 822; FK 50+12+12+2 = 76;
-    // hat-tricks 48+11+3+0 = 62; G+A 931+405 = 1,336.
-    const assistsVal = T === "all" ? "405+" : T === "barcelona" ? "269" : T === "argentina" ? "56" : T === "miami" ? "46" : "34";
+    // Sums reconcile to the 932 / 1,178 / 110-pen / 76-FK ground truth:
+    // assists 269+58+46+34 = 407; NPG 599+96+97+30 = 822; FK 50+12+12+2 = 76;
+    // hat-tricks 48+11+3+0 = 62; G+A 932+407 = 1,339.
+    const assistsVal = T === "all" ? "407+" : T === "barcelona" ? "269" : T === "argentina" ? "58" : T === "miami" ? "46" : "34";
     const gaVal = T === "all" ? "1,336+" : T === "barcelona" ? "941" : T === "argentina" ? "181" : T === "miami" ? "148" : "66";
     const npgVal = T === "all" ? "822" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "97" : "30";
     const fkVal = T === "all" ? "76" : T === "barcelona" ? "50" : T === "argentina" ? "12" : T === "miami" ? "12" : "2";
@@ -5067,7 +5067,7 @@ function renderDashboard(d, team) {
       { goal: "700", opp: "vs Atlético Madrid", date: "30 Jun 2020", age: "33y 6d", apps: "862" },
       { goal: "800", opp: "vs Panama", date: "23 Mar 2023", age: "35y 272d", apps: "1,017" },
       { goal: "900", opp: "vs NY Red Bulls", date: "2025", age: "37y 315d", apps: "1,135" },
-      { goal: "931", opp: "Active Record", date: "2026", age: "39y", apps: "1,177" }
+      { goal: "932", opp: "Active Record", date: "2026", age: "39y", apps: "1,178" }
     ];
     msCard.innerHTML = `
       <h3 class="dash-card-title">⚡ Landmark Goal Speed Tracker</h3>

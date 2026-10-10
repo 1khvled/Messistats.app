@@ -1,7 +1,7 @@
 /**
  * Auto-Sync Matches Pipeline (scripts/auto-sync-matches.mjs)
  * 
- * Automatically detects newly completed Inter Miami and Argentina matches across ALL
+ * Automatically detects newly completed Inter Miami (all cups) and Argentina (incl. friendlies) matches
  * competitions (MLS, Campeones Cup, Concacaf Champions Cup, Leagues Cup, FIFA World Cup,
  * and Friendlies) via ESPN APIs, parses Lionel Messi's appearances, goals, and assists,
  * updates public/data/messi-data.json, reconciles all 4 checksums to the exact total,
@@ -23,6 +23,7 @@ const lastCheckPath = resolve(root, "public", "data", "last-check.json");
 
 const ESPN_ATHLETE_OVERVIEW = "https://site.web.api.espn.com/apis/common/v3/sports/soccer/athletes/45843/overview";
 const ESPN_MLS_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000";
+const ESPN_FIFA_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=2026&limit=1000";
 const ESPN_SUMMARY_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/all/summary?event=";
 
 const isDryRun = process.argv.includes("--dry-run");
@@ -114,6 +115,14 @@ export async function runAutoSync() {
   }
 
   const d = JSON.parse(readFileSync(dataPath, "utf8"));
+  let latestRecordedDate = "2026-10-06";
+  try {
+    const bday = JSON.parse(readFileSync(resolve(root, "public", "data", "birthday-goals.json"), "utf8"));
+    const dates = Object.values(bday.calendar || {}).flatMap((day) => (day.matches || []).map((m) => m.date).filter(Boolean));
+    dates.sort();
+    if (dates.length) latestRecordedDate = dates[dates.length - 1];
+  } catch {}
+  console.log(`Backfill guard: skipping matches on or before ${latestRecordedDate} (already in birthday-goals.json).`);
   const initialGoals = d.totals.combined.goals;
   const initialApps = d.totals.combined.appearances;
 
@@ -123,10 +132,11 @@ export async function runAutoSync() {
     d.meta.syncedMatches = [];
   }
 
-  // Fetch athlete overview (tracks all competitions) and MLS scoreboard
-  const [athleteData, mlsData] = await Promise.all([
+  // Fetch athlete overview (tracks all competitions), MLS and FIFA scoreboards
+  const [athleteData, mlsData, fifaData] = await Promise.all([
     fetchJson(ESPN_ATHLETE_OVERVIEW),
-    fetchJson(ESPN_MLS_SCOREBOARD)
+    fetchJson(ESPN_MLS_SCOREBOARD),
+    fetchJson(ESPN_FIFA_SCOREBOARD)
   ]);
 
   const candidateMatches = new Map();
@@ -146,6 +156,30 @@ export async function runAutoSync() {
   }
 
   // 2. Ingest from MLS Scoreboard
+  // 2b. Ingest from FIFA scoreboard (Argentina incl. friendlies). Without
+  // this, Argentina goals are structurally invisible (e.g. Benin, Oct 2026).
+  const fifaEvents = (typeof fifaData !== "undefined" ? fifaData : null)?.events || [];
+  for (const ev of fifaEvents) {
+    const isCompleted = ev.status?.type?.completed === true;
+    const isArgentina = ev.competitions?.[0]?.competitors?.some((c) => {
+      const t = c.team || {};
+      return /argentina/i.test(t.displayName || "") || /argentina/i.test(t.shortDisplayName || "") ||
+        String(t.abbreviation || "").toUpperCase() === "ARG";
+    });
+    if (isCompleted && isArgentina) {
+      const matchId = String(ev.id);
+      if (!candidateMatches.has(matchId)) {
+        candidateMatches.set(matchId, {
+          id: matchId,
+          date: ev.date,
+          name: ev.name,
+          leagueName: "Argentina National Team",
+          competitionSlug: "ARG",
+          isArgentina: true
+        });
+      }
+    }
+  }
   const mlsEvents = mlsData?.events || [];
   for (const ev of mlsEvents) {
     const isCompleted = ev.status?.type?.completed === true;
@@ -175,8 +209,12 @@ export async function runAutoSync() {
     const matchDate = match.date;
     const matchName = match.name;
 
-    // Skip historical matches or already synced
-    if (new Date(matchDate) < new Date("2026-09-10T00:00:00Z")) {
+    // Skip historical matches (rolling 150-day window) or already synced,
+    // or already recorded in birthday-goals.json (manual-era backfill guard).
+    if (String(matchDate).slice(0, 10) <= latestRecordedDate) {
+      continue;
+    }
+    if (new Date(matchDate) < new Date(Date.now() - 150 * 24 * 3600 * 1000)) {
       continue;
     }
     if (d.meta.syncedMatches.includes(matchId)) {
@@ -194,6 +232,7 @@ export async function runAutoSync() {
     if (messiApps > 0 || messiGoals > 0) {
       totalNewApps += messiApps;
       totalNewGoals += messiGoals;
+      match.isArgentina = match.isArgentina || /argentina/i.test(match.name || "") || /argentina/i.test(match.leagueName || "");
 
       const miami2026 = d.clubSeasons.find(s => s.club === "Inter Miami" && s.season === "2026");
       const isMlsLeague = /major league soccer|mls/i.test(match.leagueName) || match.competitionSlug === "MLS";
@@ -215,8 +254,19 @@ export async function runAutoSync() {
         miami2026.goals += messiGoals;
       }
 
-      // Update byCompetition
-      if (isMlsLeague) {
+      // Update countryYears + byCompetition for Argentina games
+      if (match.isArgentina) {
+        const cy = d.countryYears.find((r) => r.year === new Date(matchDate).getFullYear());
+        if (cy) {
+          cy.apps += messiApps;
+          cy.goals += messiGoals;
+          if (Array.isArray(cy.friendly)) { cy.friendly[0] += messiApps; cy.friendly[1] += messiGoals; }
+        }
+        const argComp = d.byCompetition.find((c) => c.team === "Argentina" && /friendlies/.test(c.competition));
+        if (argComp) argComp.goals += messiGoals;
+      }
+      // Update byCompetition (Argentina exclusive: handled above, never falls through)
+      if (!match.isArgentina && isMlsLeague) {
         const mlsComp = d.byCompetition.find(c => /MLS\s*\(regular/i.test(c.competition));
         if (mlsComp) mlsComp.goals += messiGoals;
       } else if (isChampionsCup) {
@@ -252,7 +302,9 @@ export async function runAutoSync() {
         name: matchName,
         league: match.leagueName,
         goals: messiGoals,
-        apps: messiApps
+        apps: messiApps,
+        assists: messiAssists,
+        isArgentina: !!match.isArgentina
       });
     } else {
       d.meta.syncedMatches.push(matchId);
@@ -266,13 +318,35 @@ export async function runAutoSync() {
     console.log(`========================================`);
 
     // Update Totals
-    d.totals.club.goals += totalNewGoals;
-    d.totals.club.appearances += totalNewApps;
+    const argGoals = processedMatches.filter((m) => m.isArgentina).reduce((x, m) => x + m.goals, 0);
+    const argApps = processedMatches.filter((m) => m.isArgentina).reduce((x, m) => x + (m.goals > 0 || m.apps > 0 ? 1 : 0), 0);
+    const clubGoals = totalNewGoals - argGoals;
+    const clubApps = totalNewApps - argApps;
+    d.totals.club.goals += clubGoals;
+    d.totals.club.appearances += clubApps;
     d.totals.club.goalsPerGame = Number((d.totals.club.goals / d.totals.club.appearances).toFixed(2));
 
+    d.totals.country.goals += argGoals;
+    d.totals.country.appearances += argApps;
+    d.totals.country.goalsPerGame = Number((d.totals.country.goals / d.totals.country.appearances).toFixed(2));
+    // Assists move with goals (both systems; splits follow the match side)
+    const totalNewAssists = processedMatches.reduce((x, m) => x + (m.assists || 0), 0);
+    const argAssists = processedMatches.filter((m) => m.isArgentina).reduce((x, m) => x + (m.assists || 0), 0);
+    d.totals.assists.official += totalNewAssists;
+    d.totals.assists.transfermarkt += totalNewAssists;
+    const argSplit = d.totals.assists.byTeam.argentina;
+    if (argSplit) {
+      argSplit.official += argAssists;
+      argSplit.transfermarkt += argAssists;
+      argSplit.appearances += argApps;
+    }
     d.totals.combined.goals += totalNewGoals;
     d.totals.combined.appearances += totalNewApps;
     d.totals.goalsPerGame = Number((d.totals.combined.goals / d.totals.combined.appearances).toFixed(2));
+    // Goal contributions are derived, never hand-synced
+    d.totals.goalContributions.official = d.totals.combined.goals + d.totals.assists.official;
+    d.totals.goalContributions.transfermarkt = d.totals.combined.goals + d.totals.assists.transfermarkt;
+    d.totals.goalContributions.perGameOfficial = Number((d.totals.goalContributions.official / d.totals.combined.appearances).toFixed(2));
 
     // Update 2026 Calendar Year
     const year2026 = d.calendarYears.find(y => y.year === 2026);
@@ -300,13 +374,51 @@ export async function runAutoSync() {
       throw new Error(`CHECKSUM FAILURE: sums do not reconcile to ${finalTotal}`);
     }
 
+    // Append new goals to birthday-goals.json so day pages + days hub stay
+    // current without manual edits. Videos fill in later via the media pipeline.
+    try {
+      const bdayPath = resolve(root, "public", "data", "birthday-goals.json");
+      const bday = JSON.parse(readFileSync(bdayPath, "utf8"));
+      const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      for (const pm of processedMatches) {
+        if (!pm.goals || pm.goals <= 0) continue;
+        const ds = String(pm.date || "").slice(0, 10);
+        const key = ds.slice(5);
+        if (!/^\d\d-\d\d$/.test(key)) continue;
+        if ((bday.calendar[key]?.matches || []).some((m) => m.date === ds)) continue;
+        const dt = new Date(ds + "T12:00:00Z");
+        const rec = bday.calendar[key] || {
+          key, month: dt.getUTCMonth() + 1, day: dt.getUTCDate(),
+          monthName: MONTHS[dt.getUTCMonth()], formatted: `${dt.getUTCDate()} ${MONTHS[dt.getUTCMonth()]}`,
+          goalsCount: 0, matches: []
+        };
+        const hadGoals = (rec.goalsCount || 0) > 0;
+        rec.matches.push({
+          date: ds, year: dt.getUTCFullYear(),
+          team: pm.isArgentina ? "Argentina" : "Inter Miami",
+          opponent: pm.name.replace(/^Inter Miami vs /i, "").replace(/^Argentina vs /i, "").trim() || "Opponent",
+          competition: pm.league === "Major League Soccer" ? "MLS" : (pm.isArgentina ? "International Friendly" : pm.league),
+          score: "", goalsCount: pm.goals, minutes: [], types: [], videos: []
+        });
+        rec.goalsCount = (rec.goalsCount || 0) + pm.goals;
+        bday.calendar[key] = rec;
+        bday.meta.totalGoals = (bday.meta.totalGoals || 0) + pm.goals;
+        const mm = (bday.meta.months || []).find((mm2) => mm2.month === rec.month);
+        if (mm) { mm.goals += pm.goals; if (!hadGoals) mm.daysScored += 1; }
+      }
+      if (!isDryRun) writeFileSync(bdayPath, JSON.stringify(bday, null, 2), "utf8");
+      console.log("  birthday-goals.json appended for new goal days.");
+    } catch (err) {
+      console.warn("birthday append warning:", err.message);
+    }
+
     d.meta.updated = new Date().toISOString().split("T")[0];
     d.meta.verification.push(`Auto-synced on ${d.meta.updated}: ${processedMatches.map(m => `${m.name} (+${m.goals}G)`).join(", ")}.`);
 
     if (!isDryRun) {
       writeFileSync(dataPath, JSON.stringify(d, null, 2), "utf8");
       console.log(`\nSUCCESS: messi-data.json updated to ${finalTotal} goals!`);
-      syncIndexHtmlFiles(finalTotal, d.totals.combined.appearances);
+      syncIndexHtmlFiles(initialGoals, initialApps, finalTotal, d.totals.combined.appearances);
 
       const lastCheck = {
         checkedAt: new Date().toISOString(),
@@ -352,9 +464,13 @@ export async function runAutoSync() {
   return { newGoals: totalNewGoals, newApps: totalNewApps, finalGoals: d.totals.combined.goals };
 }
 
-function syncIndexHtmlFiles(newTotalGoals, newTotalApps) {
+function syncIndexHtmlFiles(prevGoals, prevApps, newTotalGoals, newTotalApps) {
   const bnDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-  const bnGoals = String(newTotalGoals).split("").map((c) => bnDigits[c] || c).join("");
+  const bn = (n) => String(n).replace(/[0-9]/g, (dd) => bnDigits[dd]);
+  const bnGoals = bn(newTotalGoals), bnApps = bn(newTotalApps);
+  const bnPrevGoals = bn(prevGoals), bnPrevApps = bn(prevApps);
+  const esc = (x) => String(x).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const repNum = (text, a, b) => text.replace(new RegExp("\\b" + esc(a) + "\\b", "g"), String(b));
   const indexFiles = [
     resolve(root, "index.html"),
     resolve(root, "es", "index.html"),
@@ -371,9 +487,13 @@ function syncIndexHtmlFiles(newTotalGoals, newTotalApps) {
     let html = readFileSync(f, "utf8");
     const gtCardRegex = /(<section[^>]*id="messi-total-goals"[^>]*>[\s\S]*?<\/section>)/;
     html = html.replace(gtCardRegex, (match) => {
-      let updated = match.replace(/\b9\d{2}\b/g, String(newTotalGoals));
+      // Exact previous totals only. A former \b9\d{2}\b pattern once rewrote
+      // Ronaldo’s 979 into the Messi total inside this same card. Never again.
+      let updated = repNum(match, prevGoals, newTotalGoals);
+      updated = repNum(updated, prevApps, newTotalApps);
       if (f.includes("bn")) {
-        updated = updated.replace(/৯\d{2}/g, bnGoals);
+        updated = repNum(updated, bnPrevGoals, bnGoals);
+        updated = repNum(updated, bnPrevApps, bnApps);
       }
       return updated;
     });

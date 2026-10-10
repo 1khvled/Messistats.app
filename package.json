@@ -25,7 +25,8 @@
     "sync:latest": "node scripts/auto-sync-latest-goal.mjs",
     "admin:hash": "node scripts/generate-admin-hash.mjs",
     "indexnow": "node scripts/indexnow.mjs",
-    "guard:ads": "node scripts/guard-ad-redirects.mjs"
+    "guard:ads": "node scripts/guard-ad-redirects.mjs",
+    "sync:ronaldo": "node scripts/auto-sync-ronaldo.mjs"
   },
   "devDependencies": {
     "vite": "^6.0.0"

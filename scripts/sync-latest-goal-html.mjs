@@ -343,15 +343,15 @@ export function syncLatestGoalHtml() {
   const recent = latestData.recentGoals || [];
   const totals = latestData.totals || {};
 
-  const seniorGoals = g.goalNumber || totals.seniorGoals || 931;
+  const seniorGoals = g.goalNumber || totals.seniorGoals || 932;
   const apps = totals.appearances || 1177;
   const miamiGoals = totals.miamiGoals || 102;
-  const seasonGoals = totals.season2026Goals || 25;
+  const seasonGoals = totals.season2026Goals || 26;
   const freeKicks = totals.freeKicks || 68;
   const goalsNeeded = 1000 - seniorGoals;
 
   const clubGoals = messiData?.totals?.club?.goals || 806;
-  const intlGoals = messiData?.totals?.international?.goals || 125;
+  const intlGoals = messiData?.totals?.international?.goals || 126;
 
   const targetFiles = [
     { lang: "en", file: path.join(root, "latest-goal.html") },

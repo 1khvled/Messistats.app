@@ -33,6 +33,7 @@ jobs:
           node scripts/auto-sync-matches.mjs
           node scripts/auto-sync-latest-goal.mjs
           node scripts/source-watch.mjs
+          node scripts/auto-sync-ronaldo.mjs
 
       - name: Build & Run Verification Audits
         run: |

@@ -29,8 +29,8 @@ if (!existsSync(dataPath)) {
 }
 
 const data = JSON.parse(readFileSync(dataPath, "utf8"));
-const totalGoals = data.totals?.combined?.goals || 930;
-const totalApps = data.totals?.combined?.appearances || 1176;
+const totalGoals = data.totals?.combined?.goals || 932;
+const totalApps = data.totals?.combined?.appearances || 1178;
 const formattedApps = totalApps.toLocaleString("en-US");
 
 // Calculate club goals breakdown
@@ -40,8 +40,8 @@ for (const s of (data.clubSeasons || [])) {
 }
 const barcaGoals = clubs["Barcelona"] || 672;
 const psgGoals = clubs["Paris Saint-Germain"] || 32;
-const miamiGoals = clubs["Inter Miami"] || 101;
-const argGoals = data.totals?.country?.goals || 125;
+const miamiGoals = clubs["Inter Miami"] || 102;
+const argGoals = data.totals?.country?.goals || 126;
 
 // Formatted update date
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];

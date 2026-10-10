@@ -21,7 +21,7 @@ const bdayData = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 const template = fs.readFileSync(templatePath, "utf8");
 const days = bdayData.calendar || bdayData.days || {};
 const keys = Object.keys(days);
-const totalCareerGoals = bdayData.meta?.totalGoals || 931;
+const totalCareerGoals = bdayData.meta?.totalGoals || 932;
 
 console.log(`Pre-cleaning template & generating ${keys.length} programmatic birthday pages...`);
 

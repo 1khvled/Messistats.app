@@ -1,24 +1,24 @@
 {
-  "syncedAt": "2026-10-10T08:56:07.942Z",
+  "syncedAt": "2026-10-10T13:59:39.537Z",
   "latestGoal": {
     "goalNumber": 932,
-    "team": "Inter Miami CF",
+    "team": "Argentina",
     "opponent": "Benin",
     "competition": "International Friendly",
-    "competitionSlug": "international-friendly",
+    "competitionSlug": "friendly",
     "date": "2026-10-06",
     "formattedDate": "6 October 2026",
     "bdayKey": "10-06",
-    "minute": "",
-    "clock": "",
-    "type": "Open play",
-    "finish": "Open play",
+    "minute": "71'",
+    "clock": "71'",
+    "type": "Penalty",
+    "finish": "Penalty",
     "assist": "",
     "score": "3-0",
     "venue": "Estadio Más Monumental (Buenos Aires)",
-    "title": "Inter Miami 3-0 Benin",
+    "title": "Argentina 3-0 Benin",
     "videoUrl": "https://cdn.messiallgoals.com/Goal932.mp4",
-    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+International%20Friendly",
+    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+Argentina+2026",
     "bdayUrl": "/en/birthday/10-06"
   },
   "todayStatus": {
@@ -26,24 +26,24 @@
     "hasMatchToday": false,
     "lastMatchDate": "2026-10-06",
     "lastMatchOpponent": "Benin",
-    "lastMatchResult": "Inter Miami 3-0 Benin",
+    "lastMatchResult": "Argentina 3-0 Benin",
     "lastGoalNumber": 932,
-    "lastGoalMinute": ""
+    "lastGoalMinute": "71'"
   },
   "recentGoals": [
     {
       "goalNumber": 932,
-      "title": "Inter Miami 3-0 Benin",
+      "title": "Argentina 3-0 Benin",
       "meta": "International Friendly • 6 October 2026",
       "match": "vs Benin (3-0)",
-      "date": "6 October 2026 • ",
-      "minute": "",
-      "type": "Open play",
-      "tag": "Open play 🔥",
+      "date": "6 October 2026 • 71'",
+      "minute": "71'",
+      "type": "Penalty",
+      "tag": "Penalty 🔥",
       "score": "3-0",
       "comp": "International Friendly",
       "videoUrl": "https://cdn.messiallgoals.com/Goal932.mp4",
-      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+International%20Friendly",
+      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+Argentina+2026",
       "bdayUrl": "/en/birthday/10-06"
     },
     {
@@ -110,7 +110,7 @@
   "totals": {
     "seniorGoals": 932,
     "appearances": 1178,
-    "miamiGoals": 103,
+    "miamiGoals": 102,
     "season2026Goals": 26,
     "freeKicks": 76
   }

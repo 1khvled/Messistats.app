@@ -28,43 +28,43 @@ function getLocalFallback() {
     return {
       syncedAt: new Date().toISOString(),
       latestGoal: {
-        goalNumber: 931,
-        team: "Inter Miami CF",
-        opponent: "Columbus Crew",
-        competition: "MLS",
-        competitionSlug: "mls",
-        date: "2026-09-27",
-        formattedDate: "27 September 2026",
-        bdayKey: "09-27",
-        minute: "33'",
-        clock: "33'",
-        type: "Direct Free Kick",
-        finish: "Direct Free Kick",
+        goalNumber: 932,
+        team: "Argentina",
+        opponent: "Benin",
+        competition: "International Friendly",
+        competitionSlug: "friendly",
+        date: "2026-10-06",
+        formattedDate: "6 October 2026",
+        bdayKey: "10-06",
+        minute: "71'",
+        clock: "71'",
+        type: "Penalty",
+        finish: "Penalty",
         assist: "",
-        score: "1-2",
-        venue: "ScottsMiracle-Gro Field (Columbus, Ohio)",
-        title: "Columbus Crew 2-1 Inter Miami CF",
-        videoUrl: "https://cdn.messiallgoals.com/Goal931.mp4",
-        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+Columbus+Crew+MLS+2026",
-        bdayUrl: "/en/birthday/09-27"
+        score: "3-0",
+        venue: "Estadio Más Monumental (Buenos Aires)",
+        title: "Argentina 3-0 Benin",
+        videoUrl: "https://cdn.messiallgoals.com/Goal932.mp4",
+        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+Argentina+2026",
+        bdayUrl: "/en/birthday/10-06"
       },
       todayStatus: {
         didScoreToday: false,
         hasMatchToday: false,
-        lastMatchDate: "2026-09-27",
-        lastMatchOpponent: "Columbus Crew",
-        lastMatchResult: "Columbus Crew 2-1 Inter Miami CF",
-        lastGoalNumber: 931,
-        lastGoalMinute: "33'"
+        lastMatchDate: "2026-10-06",
+        lastMatchOpponent: "Benin",
+        lastMatchResult: "Argentina 3-0 Benin",
+        lastGoalNumber: 932,
+        lastGoalMinute: "71'"
       },
       recentGoals: [
+        { goalNumber: 932, match: "vs Benin (3-0)", date: "6 October 2026 • 71'", type: "Penalty", videoUrl: "https://cdn.messiallgoals.com/Goal932.mp4" },
         { goalNumber: 931, match: "at Columbus Crew (1-2)", date: "27 September 2026 • 33'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal931.mp4" },
         { goalNumber: 930, match: "vs San Diego FC (2-2)", date: "20 September 2026 • 24'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4" },
         { goalNumber: 929, match: "vs Cruz Azul (2-0)", date: "17 September 2026 • 12'", type: "Header", videoUrl: "https://cdn.messiallgoals.com/Goal929.mp4" },
-        { goalNumber: 928, match: "vs Nashville SC (2-2)", date: "12 September 2026 • 67'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal928.mp4" },
-        { goalNumber: 927, match: "vs Montreal (7-1)", date: "29 August 2026 • 83'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal927.mp4" }
+        { goalNumber: 928, match: "vs Nashville SC (2-2)", date: "12 September 2026 • 67'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal928.mp4" }
       ],
-      totals: { seniorGoals: 931, appearances: 1177, miamiGoals: 102, season2026Goals: 25, freeKicks: 68 }
+      totals: { seniorGoals: 932, appearances: 1178, miamiGoals: 102, season2026Goals: 26, freeKicks: 76 }
     };
   }
 }
@@ -163,8 +163,8 @@ export default async function handler(req, res) {
       if (nextDate === todayUtc) hasMatchToday = true;
     }
 
-    const baselineLastDate = baseline.todayStatus?.lastMatchDate || "2026-09-27";
-    const baselineGoalNum = baseline.latestGoal?.goalNumber || 931;
+    const baselineLastDate = baseline.todayStatus?.lastMatchDate || "2026-10-06";
+    const baselineGoalNum = baseline.latestGoal?.goalNumber || 932;
 
     // If latest event is already accounted for in our baseline, return baseline with fresh live status
     if (matchDateStr <= baselineLastDate && (latestEvent.id === "761844" || matchDateStr === baselineLastDate)) {

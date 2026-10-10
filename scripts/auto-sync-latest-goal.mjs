@@ -1,7 +1,7 @@
 /**
  * Automated Messi Latest Goal Auto-Puller (scripts/auto-sync-latest-goal.mjs)
  * 
- * Automatically polls ESPN APIs (Athlete Overview, MLS Scoreboard, Event Summaries),
+ * Automatically polls ESPN APIs (Athlete Overview, MLS + FIFA Scoreboards, Event Summaries),
  * detects any new senior goals scored by Lionel Messi, updates public/data/latest-goal.json,
  * reconciles public/data/messi-data.json, and synchronizes the HTML hubs across all 9 languages
  * without requiring any manual human or agent intervention.
@@ -24,6 +24,7 @@ const distLatestGoalPath = resolve(root, "dist", "data", "latest-goal.json");
 
 const ESPN_ATHLETE_OVERVIEW = "https://site.web.api.espn.com/apis/common/v3/sports/soccer/athletes/45843/overview";
 const ESPN_MLS_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000";
+const ESPN_FIFA_SCOREBOARD = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?dates=2026&limit=1000";
 const ESPN_SUMMARY_BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer/all/summary?event=";
 
 const isCheckOnly = process.argv.includes("--check");
@@ -56,13 +57,14 @@ export async function autoPullLatestGoal() {
   const latestData = JSON.parse(readFileSync(latestGoalJsonPath, "utf8"));
   const messiData = existsSync(messiDataJsonPath) ? JSON.parse(readFileSync(messiDataJsonPath, "utf8")) : null;
 
-  const currentGoalNum = latestData.latestGoal?.goalNumber || 930;
+  const currentGoalNum = latestData.latestGoal?.goalNumber || 932;
   console.log(`Current registered latest goal: Goal #${currentGoalNum} (${latestData.latestGoal?.opponent || "Unknown"})`);
 
   // Fetch overview from ESPN and MLS Scoreboard in parallel
-  const [ovData, mlsData] = await Promise.all([
+  const [ovData, mlsData, fifaData] = await Promise.all([
     fetchJson(ESPN_ATHLETE_OVERVIEW),
-    fetchJson(ESPN_MLS_SCOREBOARD)
+    fetchJson(ESPN_MLS_SCOREBOARD),
+    fetchJson(ESPN_FIFA_SCOREBOARD)
   ]);
 
   if (!ovData && !mlsData) {
@@ -81,6 +83,30 @@ export async function autoPullLatestGoal() {
         leagueName: ev.leagueName || "Major League Soccer",
         score: ev.score
       });
+    }
+  }
+
+  if (fifaData?.events) {
+    for (const ev of fifaData.events) {
+      const isCompleted = ev.status?.type?.completed === true;
+      const isArgentina = ev.competitions?.[0]?.competitors?.some((c) => {
+        const t = c.team || {};
+        return /argentina/i.test(t.displayName || "") || String(t.abbreviation || "").toUpperCase() === "ARG";
+      });
+      if (isCompleted && isArgentina) {
+        const id = String(ev.id);
+        const oppComp = ev.competitions?.[0]?.competitors?.find((c) => !/argentina/i.test(c.team?.displayName || ""));
+        if (!candidateMap.has(id)) {
+          candidateMap.set(id, {
+            id,
+            gameDate: ev.date,
+            opponent: { displayName: oppComp?.team?.displayName || "Opponent" },
+            leagueName: "International Friendly",
+            score: ev.name || "Final",
+            isArgentina: true
+          });
+        }
+      }
     }
   }
 
@@ -196,7 +222,8 @@ export async function autoPullLatestGoal() {
         finish: goalDetail?.finish || "Open play",
         assist: goalDetail?.assist || "",
         type: `${goalDetail?.finish || "Open play"}${goalDetail?.assist ? ` (Assist: ${goalDetail.assist})` : ""}`,
-        isToday
+        isToday,
+        isArgentina: !!ev.isArgentina
       };
       newGoalsCount = messiGoals;
       break; // Only latest goal needed
@@ -222,7 +249,7 @@ export async function autoPullLatestGoal() {
 
       const newGoalObj = {
         goalNumber: newGoalNum,
-        team: "Inter Miami CF",
+        team: newlyFoundGoal.isArgentina ? "Argentina" : "Inter Miami CF",
         opponent: newlyFoundGoal.opponent,
         competition: newlyFoundGoal.competition,
         competitionSlug: newlyFoundGoal.competition.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
@@ -236,7 +263,7 @@ export async function autoPullLatestGoal() {
         assist: newlyFoundGoal.assist,
         score: newlyFoundGoal.score,
         venue: newlyFoundGoal.venue,
-        title: `Inter Miami ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}`,
+        title: newlyFoundGoal.isArgentina ? `Argentina ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}` : `Inter Miami ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}`,
         videoUrl: `https://cdn.messiallgoals.com/Goal${newGoalNum}.mp4`,
         youtubeUrl: `https://www.youtube.com/results?search_query=Messi+goal+vs+${encodeURIComponent(newlyFoundGoal.opponent)}+${encodeURIComponent(newlyFoundGoal.competition)}`,
         bdayUrl: `/en/birthday/${newlyFoundGoal.bdayKey}`
@@ -269,11 +296,11 @@ export async function autoPullLatestGoal() {
 
       if (latestData.totals) {
         latestData.totals.seniorGoals = newGoalNum;
-        latestData.totals.appearances = (latestData.totals.appearances || 1176) + 1;
-        latestData.totals.miamiGoals = (latestData.totals.miamiGoals || 101) + 1;
-        latestData.totals.season2026Goals = (latestData.totals.season2026Goals || 24) + 1;
+        latestData.totals.appearances = (latestData.totals.appearances || 1178) + 1;
+        if (!newlyFoundGoal.isArgentina) latestData.totals.miamiGoals = (latestData.totals.miamiGoals || 102) + 1;
+        latestData.totals.season2026Goals = (latestData.totals.season2026Goals || 26) + 1;
         if (newlyFoundGoal.finish.includes("Free Kick")) {
-          latestData.totals.freeKicks = (latestData.totals.freeKicks || 67) + 1;
+          latestData.totals.freeKicks = (latestData.totals.freeKicks || 76) + 1;
         }
       }
 
@@ -307,7 +334,7 @@ export async function autoPullLatestGoal() {
     }
   }
 
-  console.log(`[AUTO-PULL COMPLETED] Status: UP_TO_DATE (Goal #${latestData.latestGoal?.goalNumber || 930})`);
+  console.log(`[AUTO-PULL COMPLETED] Status: UP_TO_DATE (Goal #${latestData.latestGoal?.goalNumber || 932})`);
   return latestData;
 }
 
