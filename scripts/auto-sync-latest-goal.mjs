@@ -55,6 +55,30 @@ export async function autoPullLatestGoal() {
   }
 
   const latestData = JSON.parse(readFileSync(latestGoalJsonPath, "utf8"));
+  // Volatile-only fields (timestamps) must never dirty the file on their own:
+  // every 10-min run would otherwise commit + redeploy Vercel with zero real change.
+  const stripVolatile = (o) => {
+    if (Array.isArray(o)) return o.map(stripVolatile);
+    if (o && typeof o === "object") {
+      const out = {};
+      for (const [k, v] of Object.entries(o)) {
+        if (k === "syncedAt") continue;
+        out[k] = stripVolatile(v);
+      }
+      return out;
+    }
+    return o;
+  };
+  const materialBefore = JSON.stringify(stripVolatile(latestData));
+  const writeLatestGoalIfChanged = () => {
+    if (JSON.stringify(stripVolatile(latestData)) === materialBefore) {
+      console.log("latest-goal.json material state unchanged - skipping write (no deploy).");
+      return false;
+    }
+    latestData.syncedAt = new Date().toISOString();
+    writeFileSync(latestGoalJsonPath, JSON.stringify(latestData, null, 2), "utf8");
+    return true;
+  };
   const messiData = existsSync(messiDataJsonPath) ? JSON.parse(readFileSync(messiDataJsonPath, "utf8")) : null;
 
   const currentGoalNum = latestData.latestGoal?.goalNumber || 932;
@@ -233,7 +257,6 @@ export async function autoPullLatestGoal() {
   // Update today status
   latestData.todayStatus = latestData.todayStatus || {};
   latestData.todayStatus.hasMatchToday = hasMatchToday;
-  latestData.syncedAt = new Date().toISOString();
 
   if (newlyFoundGoal) {
     console.log(`\nDiscovered latest match with Messi goal: ${newlyFoundGoal.opponent} (${newlyFoundGoal.date}, ${newlyFoundGoal.minute})`);
@@ -305,7 +328,7 @@ export async function autoPullLatestGoal() {
       }
 
       if (!isCheckOnly) {
-        writeFileSync(latestGoalJsonPath, JSON.stringify(latestData, null, 2), "utf8");
+        writeLatestGoalIfChanged();
         if (existsSync(distLatestGoalPath)) {
           writeFileSync(distLatestGoalPath, JSON.stringify(latestData, null, 2), "utf8");
         }
@@ -326,8 +349,8 @@ export async function autoPullLatestGoal() {
       console.log(`Database is already synchronized with latest match (${newlyFoundGoal.opponent} on ${newlyFoundGoal.date}).`);
       latestData.todayStatus.didScoreToday = newlyFoundGoal.isToday;
       if (!isCheckOnly) {
-        writeFileSync(latestGoalJsonPath, JSON.stringify(latestData, null, 2), "utf8");
-        if (isForce) {
+        const changedElse = writeLatestGoalIfChanged();
+        if (changedElse && isForce) {
           syncLatestGoalHtml();
         }
       }
