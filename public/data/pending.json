@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-05T12:35:06.979Z",
+  "updated": "2026-10-10T02:34:05.206Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -86,11 +86,11 @@
       "sources": [
         {
           "url": "https://www.messivsronaldo.app/detailed-stats/",
-          "at": "2026-10-05T12:35:05.170Z"
+          "at": "2026-10-10T02:34:03.749Z"
         }
       ],
-      "fetched_at": "2026-10-05T12:35:05.170Z",
-      "note": "Page changed since last check (041f9ee3a606 -> b6c73ba17a2c) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.messivsronaldo.app/detailed-stats/"
+      "fetched_at": "2026-10-10T02:34:03.749Z",
+      "note": "Page changed since last check (b6c73ba17a2c -> e694239c2760) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.messivsronaldo.app/detailed-stats/"
     },
     {
       "match_id": "watch:article:mvrapp-elclasico",
@@ -108,11 +108,11 @@
       "sources": [
         {
           "url": "https://www.messivsronaldo.app/club-stats/el-clasico/",
-          "at": "2026-10-05T12:35:05.515Z"
+          "at": "2026-10-10T02:34:03.845Z"
         }
       ],
-      "fetched_at": "2026-10-05T12:35:05.515Z",
-      "note": "Page changed since last check (26f8aaad1d79 -> 158973048c77) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.messivsronaldo.app/club-stats/el-clasico/"
+      "fetched_at": "2026-10-10T02:34:03.845Z",
+      "note": "Page changed since last check (158973048c77 -> 8dcdadae4243) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.messivsronaldo.app/club-stats/el-clasico/"
     },
     {
       "match_id": "watch:article:fox-wc21",
@@ -130,11 +130,11 @@
       "sources": [
         {
           "url": "https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked",
-          "at": "2026-10-05T12:35:04.266Z"
+          "at": "2026-10-10T02:34:03.160Z"
         }
       ],
-      "fetched_at": "2026-10-05T12:35:04.266Z",
-      "note": "Page changed since last check (76063776c8c9 -> 8985467e59a7) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked"
+      "fetched_at": "2026-10-10T02:34:03.160Z",
+      "note": "Page changed since last check (8985467e59a7 -> db3491bb57be) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked"
     },
     {
       "match_id": "watch:article:sportstar-400",
@@ -152,11 +152,11 @@
       "sources": [
         {
           "url": "https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece",
-          "at": "2026-10-05T12:35:04.618Z"
+          "at": "2026-10-10T02:34:03.299Z"
         }
       ],
-      "fetched_at": "2026-10-05T12:35:04.618Z",
-      "note": "Page changed since last check (fbcfcb45b850 -> 5ded3ae450c4) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
+      "fetched_at": "2026-10-10T02:34:03.299Z",
+      "note": "Page changed since last check (5ded3ae450c4 -> c1da5501b31b) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
     },
     {
       "match_id": "watch:article:planet-elclasico",
@@ -174,11 +174,11 @@
       "sources": [
         {
           "url": "https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists",
-          "at": "2026-10-05T12:35:04.900Z"
+          "at": "2026-10-10T02:34:03.615Z"
         }
       ],
-      "fetched_at": "2026-10-05T12:35:04.900Z",
-      "note": "Page changed since last check (e13a6dbd8a90 -> 107ac127c778) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
+      "fetched_at": "2026-10-10T02:34:03.615Z",
+      "note": "Page changed since last check (107ac127c778 -> 54edca533bed) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
     },
     {
       "match_id": "watch:article:espn-tracker",
@@ -218,11 +218,11 @@
       "sources": [
         {
           "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
-          "at": "2026-10-05T12:35:06.979Z"
+          "at": "2026-10-10T02:34:05.206Z"
         }
       ],
-      "fetched_at": "2026-10-05T12:35:06.979Z",
-      "note": "Page changed since last check (97db32c56157 -> 13b00e5a75ec) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+      "fetched_at": "2026-10-10T02:34:05.206Z",
+      "note": "Page changed since last check (13b00e5a75ec -> 5acab2024fe0) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
     },
     {
       "match_id": "watch:espn-mls-stale:espn25",
