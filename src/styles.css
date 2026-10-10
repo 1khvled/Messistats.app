@@ -9822,12 +9822,7 @@ html[dir="rtl"] .back-to-top-btn {
 .qj-pill:active {
   transform: scale(0.96);
 }
-/* Donate jump button under the hero lede: scrolls to the on-page #support
-   card. Reuses .qj-pill so no new component styling is needed. */
-.donate-jump {
-  margin: 10px 0 0;
-}
-[data-theme="dark"] .quick-jump-bar {
+ [data-theme="dark"] .quick-jump-bar {
   background: rgba(10, 10, 10, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -10420,6 +10415,60 @@ html[dir="rtl"] .back-to-top-btn {
 .btn-support.tg {
   background: #229ED9;
   color: #ffffff;
+}
+/* Homepage community strip: Telegram growth + donations. Inline only. */
+.community-strip {
+  margin: 1.5rem 0;
+  background: linear-gradient(135deg, rgba(34, 158, 217, 0.10), rgba(34, 158, 217, 0.04));
+  border: 1px solid rgba(34, 158, 217, 0.30);
+  border-radius: 16px;
+  padding: 20px 22px;
+  box-sizing: border-box;
+}
+[data-theme="dark"] .community-strip {
+  background: linear-gradient(135deg, rgba(34, 158, 217, 0.08), rgba(34, 158, 217, 0.03));
+  border-color: rgba(34, 158, 217, 0.25);
+}
+.community-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.community-icon {
+  font-size: 2rem;
+  line-height: 1;
+  background: rgba(34, 158, 217, 0.15);
+  padding: 12px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.community-text {
+  flex: 1 1 280px;
+}
+.community-text h2 {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+.community-text p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.community-text p a {
+  color: var(--ink);
+  font-weight: 700;
+}
+.community-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 
