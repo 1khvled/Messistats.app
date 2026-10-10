@@ -4,12 +4,8 @@
 import "./ad-guard.js";
 import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
-import { initAnalytics, trackBirthdaySearch, trackVideoPlay, trackShare } from "./analytics.js";
 inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 injectSpeedInsights(); // Core Web Vitals; same deal — production only, silent locally
-initAnalytics();
-// lightweight Supabase live telemetry
-
 /* Theme manager (Dark / Light mode) with localStorage persistence and OS sync */
 function initTheme() {
   const getPreferred = () => {
@@ -6712,7 +6708,6 @@ function updateBirthdaySocialShare(dayData, key) {
   if (shareBtn) {
     shareBtn.hidden = false;
     shareBtn.onclick = async () => {
-      try { trackShare("web_share", shareText); } catch (_) {}
       if (navigator.share) {
         try {
           await navigator.share({ title: "Messi Birthday Stats", text: shareText, url: shareUrl });
@@ -7318,7 +7313,6 @@ async function renderBirthday(d) {
         const idx = +watchBtn.dataset.idx;
         const match = currentMatches[idx];
         if (match) {
-          trackVideoPlay(match.opponent, match.date, match.competition);
           openGoalVideo(match, 0);
         }
         return;
@@ -7342,7 +7336,6 @@ async function renderBirthday(d) {
         });
 
         if (!isCurrentlyOpen) {
-          trackVideoPlay(match.opponent, match.date, match.competition);
           container.hidden = false;
           inlineBtn.classList.add("active");
           inlineBtn.textContent = bDict.closeInline;
@@ -7509,9 +7502,6 @@ async function renderBirthday(d) {
       history.replaceState(null, "", `/en/birthday/${key}${url.hash}`);
     } catch (_) {}
 
-    try {
-      trackBirthdaySearch(key, formatted, dayData.goalsCount);
-    } catch (_) {}
 
     const formatScore = (str) => {
       if (!str) return "—";
@@ -8068,7 +8058,6 @@ function bindGoalCards(video, activeNum, activeTitle, activeMeta, activeMin, act
       if (ytBtn && ytUrl) ytBtn.href = ytUrl;
       if (bdayLink && bdayUrl) bdayLink.href = bdayUrl;
 
-      trackVideoPlay(gid, title);
 
       if (window.innerWidth < 768 && video) {
         video.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -8229,7 +8218,6 @@ function renderLatestGoal(d) {
       if (navigator.share) {
         try {
           await navigator.share({ title, url });
-          trackShare("latest-goal", "native");
         } catch (_) {}
       } else {
         try {
@@ -8237,7 +8225,6 @@ function renderLatestGoal(d) {
           const orig = shareBtn.innerHTML;
           shareBtn.innerHTML = "<span>✓</span>";
           setTimeout(() => { shareBtn.innerHTML = orig; }, 2000);
-          trackShare("latest-goal", "clipboard");
         } catch (_) {}
       }
     });

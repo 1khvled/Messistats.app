@@ -18,7 +18,6 @@
     "pending": "node scripts/confirm-provisional.mjs --list",
     "triage": "node scripts/triage.mjs",
     "audit": "node scripts/dist-audit.cjs",
-    "audit:security": "node scripts/security-audit-test.mjs",
     "audit:i18n": "node scripts/verify-all-i18n.cjs",
     "sync:daily": "node scripts/auto-sync-matches.mjs && node scripts/auto-sync-latest-goal.mjs && node scripts/source-watch.mjs",
     "sync:auto": "node scripts/auto-sync-matches.mjs && node scripts/auto-sync-latest-goal.mjs",
