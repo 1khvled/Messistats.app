@@ -18,6 +18,19 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { buildNarrative, compLabel, bnDigits } from "./latest-goal-narrative.mjs";
+
+const VERDICT_LABEL = {
+  en: "Latest Match Result: ",
+  es: "Último Resultado: ",
+  pt: "Último Resultado: ",
+  fr: "Résultat du dernier match : ",
+  ar: "نتيجة آخر مباراة: ",
+  bn: "সর্বশেষ ম্যাচের ফলাফল: ",
+  hi: "आख़िरी मैच का नतीजा: ",
+  ro: "Ultimul rezultat: ",
+  uz: "So'nggi natija: ",
+};
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
@@ -515,24 +528,165 @@ export function syncLatestGoalHtml() {
     html = html.replace(/"contentUrl":\s*"https:\/\/cdn\.messiallgoals\.com\/Goal[0-9]+\.mp4"/g, `"contentUrl": "${g.videoUrl}"`);
     html = html.replace(/"embedUrl":\s*"https:\/\/cdn\.messiallgoals\.com\/Goal[0-9]+\.mp4"/g, `"embedUrl": "${g.videoUrl}"`);
 
-    // 11. Narrative & FAQ updates for Columbus Crew
-    html = html.replace(/against San Diego FC in MLS at Chase Stadium/gi, `against ${g.opponent} in ${g.competition} at ${g.venue}`);
-    html = html.replace(/contra San Diego FC en MLS en Chase Stadium/gi, `contra ${g.opponent} en ${g.competition} en ${g.venue}`);
-    html = html.replace(/contra o San Diego FC na MLS/gi, `contra o ${g.opponent} na ${g.competition}`);
-    html = html.replace(/contre San Diego FC en MLS/gi, `contre ${g.opponent} en ${g.competition}`);
+    // 11. Full narrative rebuild - template-driven, sourced from JSON.
+    // The old one-hop literal swaps are gone. Everything below rebuilds
+    // from latest-goal.json so copy can never drift again.
+    const intlGoalsN = intlGoals;
+    const _bparts = String(g.bdayKey || "").split("-");
+    const _bdayEn = (_bparts.length === 2) ? (Number(_bparts[1]) + " " + (EN_MONTHS_FULL[Number(_bparts[0]) - 1] || "")).trim() : "";
+    const _bdayLoc = locDateStr(_bdayEn, lang);
+    const _techBase = locTech(g.finish || "", lang);
+    const _techPhrase = lang === "fr"
+      ? (String(_techBase).toLowerCase().indexOf("penalty") >= 0 ? "coup de penalty" : String(_techBase).toLowerCase())
+      : (_techBase ? _techBase.charAt(0).toLowerCase() + _techBase.slice(1) : _techBase);
+    const _verdict = VERDICT_LABEL[lang] || VERDICT_LABEL.en;
+    const NAR = buildNarrative({
+      g, seniorGoals, apps, miamiGoals, intlGoals: intlGoalsN, goalsNeeded, lang,
+      compLoc: compLabel(g.competition, lang), techLowerLoc: _techPhrase, bdayLabel: _bdayLoc,
+    });
+    const escAttr = (st) => String(st).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+    const escHtml = (st) => String(st).replace(/</g, "&lt;");
 
-    html = html.replace(/20 September 2026 at Chase Stadium in Fort Lauderdale against San Diego FC \(2–2\) in MLS/gi, `${g.formattedDate} at ${g.venue} against ${g.opponent} (${g.score}) in ${g.competition}`);
-    html = html.replace(/20 de septiembre de 2026 en Chase Stadium en Fort Lauderdale contra San Diego FC \(2–2\) en MLS/gi, `${g.formattedDate} en ${g.venue} contra ${g.opponent} (${g.score}) en ${g.competition}`);
-    html = html.replace(/20 de setembro de 2026 no estádio Chase Stadium em Fort Lauderdale contra o San Diego FC \(2-2\) na MLS/gi, `${g.formattedDate} no estádio ${g.venue} contra ${g.opponent} (${g.score}) na ${g.competition}`);
+    html = html.replace(/<meta name="description" content="[^"]*"/i, '<meta name="description" content="' + escAttr(NAR.desc) + '"');
+    html = html.replace(/<meta property="og:description" content="[^"]*"/i, '<meta property="og:description" content="' + escAttr(NAR.desc) + '"');
+    html = html.replace(/<meta name="twitter:description" content="[^"]*"/i, '<meta name="twitter:description" content="' + escAttr(NAR.desc) + '"');
+    html = html.replace(/<meta content="[^"]*" property="og:image:secure_url"/i, '<meta content="https://www.messistat.com/img/og-messi.jpg?v=' + seniorGoals + '" property="og:image:secure_url"');
+    html = html.replace(/<meta property="og:image:alt" content="[^"]*"/i, '<meta property="og:image:alt" content="' + escAttr(NAR.videoName) + '"');
+    html = html.replace(/<meta name="keywords" content="([^"]*)"/i, (whole, kw) => {
+      const prev = seniorGoals - 1;
+      return '<meta name="keywords" content="' + kw.split(String(prev)).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals)) + '"';
+    });
 
-    // Update today-status card
-    html = html.replace(/<span>Latest Match Result:[^<]*<\/span>/i, `<span>Latest Match Result: ${g.title}</span>`);
-    html = html.replace(/<span>Último Resultado:[^<]*<\/span>/i, `<span>Último Resultado: ${g.title}</span>`);
-    html = html.replace(/<span>Résultat du dernier match :[^<]*<\/span>/i, `<span>Résultat du dernier match : ${g.title}</span>`);
+        html = html.replace(/(<title>[^<]*<\/title>|<meta property="og:title" content="[^"]*"|<meta name="twitter:title" content="[^"]*")/gi, (tag) => {
+      const prevT = String(seniorGoals - 1);
+      return tag.split(prevT).join(String(seniorGoals)).split(bnDigits(prevT)).join(bnDigits(seniorGoals));
+    });
 
-    html = html.replace(/<span class="badge badge-video">[^<]*<\/span>/i, `<span class="badge badge-video">${badgeText} (${g.minute})</span>`);
+    html = html.replace(/(<div class="today-status-verdict">[\s\S]*?<span>)[^<]*(<\/span>)/i, function (w, a, b) { return a + escHtml(_verdict) + escHtml(g.title) + b; });
+    html = html.replace(/<span class="badge badge-season">[^<]*<\/span>/i, '<span class="badge badge-season">' + escHtml(NAR.seasonBadge) + '</span>');
+
+    html = html.replace(/<p id="lg-today-desc"[^>]*>[\s\S]*?<\/p>/i, '<p id="lg-today-desc" class="today-status-desc">' + NAR.todayDesc + '</p>');
+    html = html.replace(/<span id="stat-team"[^>]*>[^<]*<\/span>/i, '<span id="stat-team" class="goal-stat-val">' + escHtml(g.team) + '</span>');
+    const _exTotal = (html.match(/<span id="stat-total"[^>]*>([^<]*)<\/span>/i) || [])[1] || "";
+    const _totalPair = /[০-৯]/.test(_exTotal) ? (bnDigits(seniorGoals) + " / " + bnDigits(seniorGoals)) : (seniorGoals + " / " + seniorGoals);
+    html = html.replace(/<span id="stat-total"[^>]*>[^<]*<\/span>/i, '<span id="stat-total" class="goal-stat-val tnum">' + _totalPair + '</span>');
+    html = html.replace(/(<a[^>]*id="link-bday-goal"[^>]*>[\s\S]*?<span>)[^<]*(<\/span>)/i, function (w, a, b) { return a + NAR.bdayLink + b; });
+    html = html.replace(/<h2 id="lg-milestone-h2"[^>]*>[\s\S]*?<\/h2>/i, '<h2 id="lg-milestone-h2">' + NAR.milestoneH2 + '</h2>');
+    html = html.replace(/<p id="lg-analysis"[^>]*>[\s\S]*?<\/p>/i, '<p id="lg-analysis">' + NAR.analysis + '</p>');
+    html = html.replace(/<li id="lg-latest-line">[\s\S]*?<\/li>/i, '<li id="lg-latest-line">' + NAR.recentLine + '</li>');
+    const FAQ_HTML = [NAR.faqScoredToday, NAR.faqWhenScored, NAR.faqGoalNumber, null, NAR.faq1000, null];
+    FAQ_HTML.forEach((txt, i) => {
+      if (!txt) return;
+      html = html.replace(new RegExp('<p id="lg-faq-' + i + '"[^>]*>[\\s\\S]*?<\\/p>'), '<p id="lg-faq-' + i + '">' + txt + '</p>');
+    });
+
+        html = html.replace(/<!--[\s\S]*?-->/g, (c) => {
+      const prevC = String(seniorGoals - 1);
+      return c.split(prevC).join(String(seniorGoals)).split(bnDigits(prevC)).join(bnDigits(seniorGoals));
+    });
+
+    html = html.replace(/(<section class="latest-goal-roulette-card"[\s\S]*?<\/section>)/i, (blk) => {
+      const prev = String(seniorGoals - 1);
+      return blk.split(prev).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals));
+    });
+
+        // kpi-note / milestone-note carry the appearances total ("1,177 appearances").
+    // Swap old apps -> new apps, preserving each locale's separator style.
+    const APPS_NOTE_STYLES = [",", ".", " ", "\u00a0", "\u202f"];
+    const groupNum = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+    html = html.replace(/(<span class="(?:kpi-note|milestone-note)"[^>]*>)([^<]*)(<\/span>)/g, (whole2, open2, txt2, close2) => {
+      let out2 = txt2;
+      for (const sep of APPS_NOTE_STYLES) {
+        out2 = out2.split(groupNum(apps - 1, sep)).join(groupNum(apps, sep));
+      }
+      out2 = out2.split(bnDigits(groupNum(apps - 1, ","))).join(bnDigits(groupNum(apps, ",")));
+      return open2 + out2 + close2;
+    });
+
+    html = html.replace(/(<span class="(?:milestone-val|kpi-value) tnum"[^>]*>)([0-9০-৯,\s]+)(<\/span>)/g, (whole, open, val, close) => {
+      const norm = val.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))).replace(/,/g, "");
+      const n = Number(norm);
+      if (!Number.isFinite(n) || (n !== seniorGoals && n !== seniorGoals - 1)) return whole;
+      return open + (/[০-৯]/.test(val) ? bnDigits(seniorGoals) : String(seniorGoals)) + close;
+    });
+
+    html = html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi, (whole, body) => {
+      let data;
+      try { data = JSON.parse(body); } catch (e) { return whole; }
+      const classifyFaq = (qn) => {
+        const q = String(qn || "");
+        if (/1.?000|1000|1 000|\u09e7.?\u09e6\u09e6\u09e6|\u0661.?\u0660\u0660\u0660/.test(q)) return NAR.faq1000;
+        if (/number|n\u00famero|num\u00e9ro|\u0631\u0642\u0645|\u09a8\u09ae\u09cd\u09ac\u09b0|\u0928\u0902\u092c\u0930|num[\u0103a]r|raqam|nechanchi|\u2116/i.test(q)) return NAR.faqGoalNumber;
+        if (/when|cu\u00e1ndo|quando|quand|d\u00f3nde|onde|o\u00f9|contre|\u0645\u062a\u0649|\u0995\u0996\u09a8|\u0915\u092c|c\u00e2nd|qachon/i.test(q)) return NAR.faqWhenScored;
+        if (/today|hoy|hoje|aujourd|\u0627\u0644\u064a\u0648\u0645|\u0986\u099c|\u0906\u091c|azi|bugun|latest/i.test(q)) return NAR.faqScoredToday;
+        return null;
+      };
+      const walk = (node) => {
+        if (Array.isArray(node)) return node.forEach(walk);
+        if (!node || typeof node !== "object") return;
+        if (node["@type"] === "WebPage" && node.description) node.description = NAR.desc;
+        if (node["@type"] === "VideoObject") {
+          if (node.name) node.name = NAR.videoName;
+          if (node.description) node.description = NAR.videoDesc;
+        }
+        if (node["@type"] === "Clip" && node.name) node.name = g.minute + " " + locGoalLabel(seniorGoals, lang) + " " + locTech(g.finish || "", lang);
+        if (node["@type"] === "SportsEvent") {
+          const yr = String(g.date || "").slice(0, 4) || "2026";
+          const shortComp = g.competition === "International Friendly" ? "Friendly" : g.competition;
+          node.name = g.team + " vs " + g.opponent + " (" + shortComp + " " + yr + ")";
+          if (g.date) { node.startDate = g.date; node.endDate = g.date; }
+          if (!/Inter Miami/i.test(g.team || "") && node.location && typeof node.location === "object") {
+            node.location.name = g.venue;
+            if (node.location.address && typeof node.location.address === "object") {
+              const venParen = String(g.venue || "").match(/\(([^)]+)\)/);
+              if (venParen) node.location.address.addressLocality = venParen[1];
+              delete node.location.address.addressRegion;
+              node.location.address.addressCountry = "AR";
+            }
+          } else if (node.location && typeof node.location === "object") {
+            node.location.name = g.venue;
+          }
+          if (Array.isArray(node.competitor) && node.competitor.length >= 2) {
+            node.competitor[0].name = g.team;
+            node.competitor[1].name = g.opponent;
+          }
+        }
+        if (node["@type"] === "Question" && node.name) {
+          const txt = classifyFaq(node.name);
+          if (txt) {
+            const ansObjs = [];
+            const collect = (v) => { if (Array.isArray(v)) v.forEach(collect); else if (v && typeof v === "object" && v["@type"] === "Answer") ansObjs.push(v); };
+            collect(node.acceptedAnswer); collect(node.answer); collect(node.answers);
+            ansObjs.forEach(a => { if (typeof a.text === "string") a.text = txt; });
+          }
+        }
+        Object.values(node).forEach(walk);
+      };
+      walk(data);
+      return '<script type="application/ld+json">' + JSON.stringify(data, null, 2) + '</script>';
+    });
+
+    html = html.replace(/<span class="badge badge-video">[^<]*<\/span>/i, '<span class="badge badge-video">' + badgeText + ' (' + g.minute + ')</span>');
 
     fs.writeFileSync(file, html, "utf8");
+
+    const written = fs.readFileSync(file, "utf8");
+    const guardZone = written
+      .replace(/<svg[\s\S]*?<\/svg>/gi, "")
+      .replace(/<div class="recent-goals-grid">[\s\S]*?<\/section>/i, "")
+      .replace(/<div class="recent-goals-table-wrap">[\s\S]*?<\/section>/i, "")
+      .replace(/<li id="lg-latest-line">[\s\S]*?<\/li>/i, "");
+    const staleProblems = [];
+    const _prevList = [String(seniorGoals - 1), bnDigits(seniorGoals - 1)];
+    for (const pt of _prevList) {
+      const re = new RegExp("(?<![\\d,])" + pt + "(?![\\d])", "g");
+      const n = (guardZone.match(re) || []).length;
+      if (n > 0) staleProblems.push(pt + " x" + n);
+    }
+    if (staleProblems.length) {
+      throw new Error("DRIFT in " + lang + "/latest-goal.html: stale goal total " + staleProblems.join(", ") + " still present after sync");
+    }
+
     updatedCount++;
     console.log(`  ✓ Synchronized ${lang}/latest-goal.html`);
   }
