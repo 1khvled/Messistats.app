@@ -34,27 +34,26 @@ const root = path.resolve(__dirname, "..");
 const isCheck = process.argv.includes("--check");
 const isVerbose = process.argv.includes("--verbose");
 
-const readJson = (p) => JSON.parse(fs.readFileSync(path.join(root, p), "utf8"));
-const messi = readJson("public/data/messi-data.json");
-const latest = readJson("public/data/latest-goal.json");
+import { S } from "./stats.mjs";
 
-// ---- ground truth ----------------------------------------------------------
-const goals = messi.totals.combined.goals;              // 934
-const apps = messi.totals.combined.appearances;          // 1179
-const club = messi.totals.club.goals;                    // 808
-const ga = messi.totals.goalContributions.official;      // 1341
-const trophies = messi.splits?.trophies?.messi ?? 47;
-const ronaldoTrophies = messi.splits?.trophies?.ronaldo ?? 37;
-const assists = messi.totals?.assists?.official ?? 407;
-const miami = latest.totals?.miamiGoals ?? 104;
+// ---- ground truth: every variable comes from the central registry ---------
+// (scripts/stats.mjs reads the JSON database + derives gap/fewer/road).
+const goals = S.goals;                                 // 934
+const apps = S.apps;                                   // 1179
+const club = S.clubGoals;                              // 808
+const ga = S.ga;                                       // 1341
+const trophies = S.trophies;                           // 47
+const ronaldoTrophies = S.rTrophies;                   // 37
+const assists = S.assists;                             // 407
+const miami = S.miamiGoals;                            // 104
 
 // Ronaldo comparison baseline — site-wide constant (see vs-ronaldo pages).
-const RONALDO_GOALS = 980;
-const RONALDO_APPS = 1339;
+const RONALDO_GOALS = S.rGoals;
+const RONALDO_APPS = S.rApps;
 
-const gap = RONALDO_GOALS - goals;   // 46  (Ronaldo leads by …)
-const fewer = RONALDO_APPS - apps;   // 160 (Messi played … fewer matches)
-const road = 1000 - goals;           // 66  (… more goals to 1,000)
+const gap = S.gap;        // 46  (Ronaldo leads by …)
+const fewer = S.fewer;    // 160 (Messi played … fewer matches)
+const road = S.road;      // 66  (… more goals to 1,000)
 
 // ---- helpers ---------------------------------------------------------------
 // 1179 → "1,179" / "1.179" / "1 179" / "1179" (4-digit safe)

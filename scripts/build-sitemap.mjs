@@ -11,17 +11,16 @@ const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
 
 const todayIso = new Date().toISOString().split("T")[0];
 
-// Single source of truth — so the sitemap's career totals and "last goal" meta
-// can never drift behind a new goal (previously hardcoded at #932 / 1,178).
-const readJson = (p) => JSON.parse(fs.readFileSync(path.join(rootDir, "public", "data", p), "utf8"));
-const messiData = readJson("messi-data.json");
-const latestGoalData = readJson("latest-goal.json");
+// Single source of truth — the central stat registry (scripts/stats.mjs),
+// so the sitemap's career totals and "last goal" meta can never drift behind
+// a new goal (previously hardcoded at #932 / 1,178).
+import { S } from "./stats.mjs";
 
-const CAREER_GOALS = messiData.totals?.combined?.goals ?? 934;
-const CAREER_APPS = messiData.totals?.combined?.appearances ?? 1179;
-const CAREER_TROPHIES = messiData.splits?.trophies?.messi ?? 47;
+const CAREER_GOALS = S.goals;
+const CAREER_APPS = S.apps;
+const CAREER_TROPHIES = S.trophies;
 const BALLONS_DOR = 8;
-const LG = latestGoalData.latestGoal;
+const LG = S.latestGoal;
 const LG_NUM = LG?.goalNumber ?? CAREER_GOALS;
 const LG_OPP = (LG?.opponent || "").trim();
 const LG_TEAM = (LG?.team || "Inter Miami CF").replace(/\s+CF$/, "").trim();

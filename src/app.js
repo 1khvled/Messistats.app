@@ -502,9 +502,9 @@ function ensureMobileMenuDrawer() {
       </div>
       <div class="mobile-drawer-body">
         <div class="mobile-drawer-stats-card">
-          <div class="mobile-drawer-stat"><span class="num">934</span><span class="lbl">${txt.statGoals}</span></div>
-          <div class="mobile-drawer-stat"><span class="num">1,179</span><span class="lbl">${txt.statApps}</span></div>
-          <div class="mobile-drawer-stat"><span class="num">47</span><span class="lbl">${txt.statTrophies}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">${n(LIVE.goals)}</span><span class="lbl">${txt.statGoals}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">${n(LIVE.apps)}</span><span class="lbl">${txt.statApps}</span></div>
+          <div class="mobile-drawer-stat"><span class="num">${LIVE.trophies}</span><span class="lbl">${txt.statTrophies}</span></div>
           <div class="mobile-drawer-stat"><span class="num">8</span><span class="lbl">${txt.statBallons}</span></div>
         </div>
         ${catHtml}
@@ -1390,7 +1390,7 @@ function initAchievementsQuiz() {
         <div class="ach-quiz-header">
           <div class="quiz-badge-pill">🎯 TROPHY & RECORDS TRIVIA</div>
           <h2 class="ach-quiz-title">Test Your Lionel Messi Trophy & Records IQ</h2>
-          <p class="ach-quiz-subtitle">Think you know everything about Messi's 47 trophies, 8 Ballons d'Or, and world records? Answer 5 trivia questions below:</p>
+          <p class="ach-quiz-subtitle">Think you know everything about Messi's ${LIVE.trophies} trophies, 8 Ballons d'Or, and world records? Answer 5 trivia questions below:</p>
         </div>
         <div class="ach-quiz-body" id="ach-quiz-container"></div>
       `;
@@ -2120,7 +2120,25 @@ async function load() {
     r = await fetch("data/messi-data.json", { cache: "no-store" });
   }
   if (!r.ok) throw new Error("data " + r.status);
-  return r.json();
+  const d = await r.json();
+  // Secondary sources for the LIVE registry — best-effort; verified
+  // fallbacks in LIVE apply when a fetch fails (offline, adblock, path).
+  const get = async (...urls) => {
+    for (const u of urls) {
+      try {
+        const x = await fetch(u, { cache: "no-store" });
+        if (x && x.ok) return await x.json();
+      } catch (_) {}
+    }
+    return null;
+  };
+  const [ron, lg] = await Promise.all([
+    get("/data/ronaldo.json", "data/ronaldo.json"),
+    get("/data/latest-goal.json", "data/latest-goal.json"),
+  ]);
+  d.ronaldo = ron;
+  d.latest = lg;
+  return d;
 }
 const el = (id) => document.getElementById(id);
 const esc = (s) => {
@@ -2135,6 +2153,31 @@ const esc = (s) => {
 };
 const n = (v) => Number(v).toLocaleString("en-US");
 const gpg = (g, a) => (a ? (g / a).toFixed(2) : "—");
+const BN_D = "০১২৩৪৫৬৭৮৯";
+const bn = (v) => String(v).replace(/[0-9]/g, (dd) => BN_D[+dd]);
+
+/* ================= LIVE STAT REGISTRY (runtime variables) =================
+ * Every number templates display lives here — same names and derivation as
+ * scripts/stats.mjs (build time). normalize() refreshes LIVE from the JSON
+ * database on every load, so editing a variable means editing JSON, never
+ * hunting literals. Fallbacks are the verified 2026-10-11 truth, so pages
+ * still render correctly if a fetch fails. Frozen history (past match facts,
+ * trophy ordinals of won events, per-team NPG/FK/HT splits absent from the
+ * JSON) intentionally stays literal — see CONTEXT.md.
+ */
+const LIVE = {
+  goals: 934, apps: 1179, clubGoals: 808, argGoals: 126, argCaps: 208,
+  assists: 407, tmAssists: 449, ga: 1341, tmGa: 1383,
+  trophies: 47, rTrophies: 37, tBarca: 35, tArg: 5, tPsg: 3, tMiami: 4,
+  gap: 46, fewer: 160, road: 66,
+  rGoals: 980, rApps: 1339, rAssists: 261, rGpg: "0.73",
+  miamiGoals: 104, miamiApps: 118,
+  abtBarca: 269, abtArg: 58, abtMiami: 46, abtPsg: 34,
+  compMLS: 73, compCCC: 8, compLC: 23, compQual: 91, compWC: 21, compCopa: 14,
+  compLiga: 474, compUCLb: 120, compUCLp: 9, compCDR: 56, compSuper: 22,
+  compLigue1: 22, compTDC: 1,
+  lgNum: 934, lgOpp: "D.C. United", lgDate: "10 October 2026",
+};
 
 /* Click a column header to sort. Rows with class "total" stay pinned at the bottom. */
 function sortable(table) {
@@ -2254,6 +2297,65 @@ function normalize(d) {
   });
   d.countryYears.forEach((s) => { s.provisional = s.year === 2026; });
   d.trophies.forEach((x) => { x.count = x.years.length; });
+
+  // ---- LIVE registry refresh (see LIVE declaration): every template number
+  // reads LIVE.*, so a JSON update propagates without touching literals. ----
+  {
+    const R = d.ronaldo || {};
+    const LGJ = (d.latest && d.latest.latestGoal) || {};
+    const LGT = (d.latest && d.latest.totals) || {};
+    const compRow = (team, ...keys) =>
+      (d.byCompetition || []).find((r) => r.team === team && keys.some((k) => r.competition.startsWith(k)));
+    const compGoals = (team, fb, ...keys) => {
+      const r = compRow(team, ...keys);
+      return r && typeof r.goals === "number" ? r.goals : fb;
+    };
+    const tByTeam = {};
+    (d.trophies || []).forEach((x) => {
+      if (x.team === "Individual") return;
+      tByTeam[x.team] = (tByTeam[x.team] || 0) + (x.years ? x.years.length : 0);
+    });
+    const rGoals = R.goals ?? 980;
+    const rApps = R.appearances ?? 1339;
+    const goals = t.goals, apps = t.apps;
+    const assists = t.assists.official, tmAssists = t.assists.transfermarkt;
+    Object.assign(LIVE, {
+      goals, apps,
+      clubGoals: t.clubs.goals, argGoals: t.country.goals, argCaps: t.country.apps,
+      assists, tmAssists,
+      ga: goals + assists, tmGa: goals + tmAssists,
+      trophies: d.splits?.trophies?.messi ?? LIVE.trophies,
+      rTrophies: d.splits?.trophies?.ronaldo ?? LIVE.rTrophies,
+      tBarca: tByTeam["Barcelona"] ?? LIVE.tBarca,
+      tArg: tByTeam["Argentina"] ?? LIVE.tArg,
+      tPsg: tByTeam["Paris Saint-Germain"] ?? LIVE.tPsg,
+      tMiami: tByTeam["Inter Miami"] ?? LIVE.tMiami,
+      gap: rGoals - goals, fewer: rApps - apps, road: 1000 - goals,
+      rGoals, rApps,
+      rAssists: R.assists ?? 261,
+      rGpg: rApps ? (rGoals / rApps).toFixed(2) : "0.73",
+      miamiGoals: LGT.miamiGoals ?? LIVE.miamiGoals,
+      miamiApps: t.assists.byTeam?.inter_miami?.appearances ?? LIVE.miamiApps,
+      abtBarca: t.assists.byTeam?.barcelona?.official ?? 269,
+      abtArg: t.assists.byTeam?.argentina?.official ?? 58,
+      abtMiami: t.assists.byTeam?.inter_miami?.official ?? 46,
+      abtPsg: t.assists.byTeam?.psg?.official ?? 34,
+      compMLS: compGoals("Inter Miami", LIVE.compMLS, "MLS (regular"),
+      compCCC: compGoals("Inter Miami", LIVE.compCCC, "Concacaf"),
+      compLC: compGoals("Inter Miami", LIVE.compLC, "Leagues Cup"),
+      compQual: compGoals("Argentina", LIVE.compQual, "Argentina: qualifiers"),
+      compWC: compGoals("Argentina", LIVE.compWC, "FIFA World Cup"),
+      compCopa: compGoals("Argentina", LIVE.compCopa, "Copa America"),
+      compLiga: compGoals("Barcelona", LIVE.compLiga, "La Liga"),
+      compCDR: compGoals("Barcelona", LIVE.compCDR, "Copa del Rey"),
+      compSuper: compGoals("Barcelona", LIVE.compSuper, "Spanish Super Cup"),
+      compLigue1: compGoals("Paris Saint-Germain", LIVE.compLigue1, "Ligue 1"),
+      compTDC: compGoals("Paris Saint-Germain", LIVE.compTDC, "Trophee"),
+      lgNum: LGJ.goalNumber ?? goals,
+      lgOpp: LGJ.opponent ?? LIVE.lgOpp,
+      lgDate: LGJ.formattedDate ?? d.lastUpdated,
+    });
+  }
 }
 
 function clubAgg(d) {
@@ -2344,10 +2446,10 @@ function reveal() {
 }
 const EXPLORE = [
   { href: "/en/birthday", page: "birthday", t: "🎂 Did Messi score on your birthday?", d: (d) => `Search all 366 calendar days with video clips across Messi's ${n(d.totals.goals)} senior career goals.` },
-  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Head-to-head career stats: 934 vs 980 goals, 47 vs 37 trophies, 8 vs 5 Ballons d'Or." },
+  { href: "/en/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => `Head-to-head career stats: ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} goals, ${LIVE.trophies} vs ${LIVE.rTrophies} trophies, 8 vs 5 Ballons d'Or.` },
   { href: "/en/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "All 26 El Clásico goals, 45 matches, 14 assists, hat-tricks, and video clips." },
   { href: "/en/champions-league", page: "champions-league", t: "⭐ Champions League Record", d: () => "129 UEFA Champions League goals, 8 hat-tricks, and 4 European titles." },
-  { href: "/en/latest-goal", page: "latest-goal", t: "⚽ Latest Messi Goal Video", d: () => "Watch Goal #930 vs San Diego FC, see if Messi scored today, and view recent goal clips." },
+  { href: "/en/latest-goal", page: "latest-goal", t: "⚽ Latest Messi Goal Video", d: () => "Watch Messi's latest goal video, see if he scored today, and view recent goal clips." },
   { href: "/en", page: "home", t: "Messi career stats", d: (d) => `The headline numbers: ${n(d.totals.goals)} goals in ${n(d.totals.apps)} senior games.` },
   { href: "/en/dashboard", page: "dashboard", t: "Messi stats dashboard", d: () => "Filter every chart by Barcelona, PSG, Inter Miami or Argentina." },
   { href: "/en/timeline", page: "timeline", t: "Messi through the years", d: () => "Every career milestone, dated and in order, from 2004 to today." },
@@ -2364,80 +2466,80 @@ function getLang() {
 const EXPLORE_LANGS = {
   es: [
     { href: "/es/birthday", page: "birthday", t: "🎂 ¿Marcó Messi en tu cumpleaños?", d: (d) => `Busca entre los 366 días del año con clips de video de los ${n(d.totals.goals)} goles oficiales de Messi.` },
-    { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estadísticas cara a cara: 934 vs 980 goles, 47 vs 37 títulos, 8 vs 5 Balones de Oro." },
+    { href: "/es/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => `Estadísticas cara a cara: ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} goles, ${LIVE.trophies} vs ${LIVE.rTrophies} títulos, 8 vs 5 Balones de Oro.` },
     { href: "/es/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Los 26 goles en El Clásico, 45 partidos, 14 asistencias, hat-tricks y videos." },
     { href: "/es/champions-league", page: "champions-league", t: "⭐ Récord en Champions League", d: () => "129 goles en UEFA Champions League, 8 hat-tricks y 4 títulos europeos." },
-    { href: "/es/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi en video", d: () => "Mira el gol 929 vs Cruz Azul, consulta si Messi marcó hoy y reproduce sus últimos goles." },
+    { href: "/es/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi en video", d: () => "Mira el video del último gol de Messi, consulta si marcó hoy y reproduce sus últimos goles." },
     { href: "/es", page: "home", t: "Estadísticas de Messi", d: (d) => `Las cifras clave: ${n(d.totals.goals)} goles en ${n(d.totals.apps)} partidos profesionales.` },
     { href: "/es/dashboard", page: "dashboard", t: "Panel interactivo de Messi", d: () => "Filtra todos los gráficos por Barcelona, PSG, Inter Miami o Argentina." },
     { href: "/es/timeline", page: "timeline", t: "Lionel Messi en el tiempo", d: () => "Cada hito histórico de su carrera, fechado y en orden, de 2004 a hoy." },
   ],
   pt: [
     { href: "/pt/birthday", page: "birthday", t: "🎂 ¿Marcou Messi no seu aniversário?", d: (d) => `Pesquise os 366 dias do ano com vídeos de todos os ${n(d.totals.goals)} gols de Messi.` },
-    { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => "Estatísticas cara a cara: 934 vs 980 gols, 47 vs 37 títulos, 8 vs 5 Bolas de Ouro." },
+    { href: "/pt/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Histórico", d: () => `Estatísticas cara a cara: ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} gols, ${LIVE.trophies} vs ${LIVE.rTrophies} títulos, 8 vs 5 Bolas de Ouro.` },
     { href: "/pt/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Os 26 gols no El Clásico, 45 partidas, 14 assistências e hat-tricks." },
     { href: "/pt/champions-league", page: "champions-league", t: "⭐ Recorde na Champions League", d: () => "129 gols na UEFA Champions League, 8 hat-tricks e 4 títulos europeus." },
-    { href: "/pt/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi em vídeo", d: () => "Assista ao gol 929 vs Cruz Azul, veja se Messi marcou hoje e confira vídeos recentes." },
+    { href: "/pt/latest-goal", page: "latest-goal", t: "⚽ Último gol de Messi em vídeo", d: () => "Assista ao vídeo do último gol de Messi, veja se marcou hoje e confira vídeos recentes." },
     { href: "/pt", page: "home", t: "Estatísticas de Lionel Messi", d: (d) => `Os números oficiais: ${n(d.totals.goals)} gols em ${n(d.totals.apps)} partidas profissionais.` },
     { href: "/pt/dashboard", page: "dashboard", t: "Painel de estatísticas", d: () => "Filtre todos os gráficos por Barcelona, PSG, Inter Miami ou Argentina." },
     { href: "/pt/timeline", page: "timeline", t: "História e Linha do tempo", d: () => "Cada momento da carreira em ordem cronológica de 2004 até hoje." },
   ],
   fr: [
     { href: "/fr/birthday", page: "birthday", t: "🎂 Messi a-t-il marqué le jour de votre anniversaire ?", d: (d) => `Recherchez parmi les 366 jours de l'année avec vidéos des ${n(d.totals.goals)} buts.` },
-    { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => "Statistiques historiques : 934 vs 980 buts, 47 vs 37 titres, 8 vs 5 Ballons d'Or." },
+    { href: "/fr/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo Face-à-Face", d: () => `Statistiques historiques : ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} buts, ${LIVE.trophies} vs ${LIVE.rTrophies} titres, 8 vs 5 Ballons d'Or.` },
     { href: "/fr/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Tous les 26 buts dans le Clásico, 45 matchs, 14 passes décisives." },
     { href: "/fr/champions-league", page: "champions-league", t: "⭐ Bilan en Ligue des Champions", d: () => "129 buts en UEFA Champions League, 8 triplés et 4 titres européens." },
-    { href: "/fr/latest-goal", page: "latest-goal", t: "⚽ Dernier but de Messi en vidéo", d: () => "Regardez le but 929 contre Cruz Azul, vérifiez s'il a marqué aujourd'hui et ses derniers buts." },
+    { href: "/fr/latest-goal", page: "latest-goal", t: "⚽ Dernier but de Messi en vidéo", d: () => "Regardez la vidéo du dernier but de Messi, vérifiez s'il a marqué aujourd'hui et ses derniers buts." },
     { href: "/fr", page: "home", t: "Statistiques de Lionel Messi", d: (d) => `Les chiffres clés : ${n(d.totals.goals)} buts en ${n(d.totals.apps)} matchs officiels.` },
     { href: "/fr/dashboard", page: "dashboard", t: "Tableau de bord interactif", d: () => "Filtrez par Barcelone, PSG, Inter Miami ou Argentine." },
     { href: "/fr/timeline", page: "timeline", t: "Chronologie de sa carrière", d: () => "Chaque événement historique daté dans l'ordre chronologique." },
   ],
   ar: [
     { href: "/ar/birthday", page: "birthday", t: "🎂 هل سجل ميسي في يوم ميلادك؟", d: (d) => `ابحث في جميع أيام السنة الـ 366 مع مقاطع الفيديو لـ ${n(d.totals.goals)} هدفاً.` },
-    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => "مقارنة المسيرة: 934 ضد 980 هدفاً، 47 ضد 37 بطولة، و8 كرات ذهبية." },
+    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => `مقارنة المسيرة: ${n(LIVE.goals)} ضد ${n(LIVE.rGoals)} هدفاً، ${LIVE.trophies} ضد ${LIVE.rTrophies} بطولة، و8 كرات ذهبية.` },
     { href: "/ar/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ ميسي ضد ريال مدريد", d: () => "26 هدفاً في الكلاسيكو، 45 مباراة و14 تمريرة حاسمة." },
     { href: "/ar/champions-league", page: "champions-league", t: "⭐ سجل دوري أبطال أوروبا", d: () => "129 هدفاً في دوري أبطال أوروبا، 8 هاتريك و4 ألقاب أوروبية." },
-    { href: "/ar/latest-goal", page: "latest-goal", t: "⚽ فيديو آخر هدف لميسي", d: () => "شاهد الهدف 929 ضد كروز أزول، واعرف هل سجل ميسي اليوم وتصفح أحدث أهدافه بالفيديو." },
+    { href: "/ar/latest-goal", page: "latest-goal", t: "⚽ فيديو آخر هدف لميسي", d: () => "شاهد فيديو أحدث أهداف ميسي، واعرف هل سجل اليوم وتصفح أحدث أهدافه بالفيديو." },
     { href: "/ar", page: "home", t: "إحصائيات ليونيل ميسي", d: (d) => `الأرقام الرسمية: ${n(d.totals.goals)} هدفاً في ${n(d.totals.apps)} مباراة رسمية.` },
     { href: "/ar/dashboard", page: "dashboard", t: "لوحة البيانات التفاعلية", d: () => "تصفية حسب برشلونة، باريس، إنتر ميامي والأرجنتين." },
     { href: "/ar/timeline", page: "timeline", t: "المسار الزمني التاريخي", d: () => "كل محطة في مسيرته بالترتيب الزمني من 2004 حتى اليوم." },
   ],
   bn: [
     { href: "/bn/birthday", page: "birthday", t: "🎂 মেসি কি আপনার জন্মদিনে গোল করেছিলেন?", d: (d) => `৩৬৬ দিনের প্রতিটি দিন ভিডিও সহ অনুসন্ধান করুন (${n(d.totals.goals)} ক্যারিয়ার গোল)।` },
-    { href: "/bn/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 মেসি বনাম রোনালদো", d: () => "ক্যারিয়ার পরিসংখ্যান: ৯৩২ বনাম ৯৮০ গোল, ৪৭ বনাম ৩৭ ট্রফি, ৮টি ব্যালন ডি'অর।" },
+    { href: "/bn/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 মেসি বনাম রোনালদো", d: () => `ক্যারিয়ার পরিসংখ্যান: ${bn(LIVE.goals)} বনাম ${bn(LIVE.rGoals)} গোল, ${bn(LIVE.trophies)} বনাম ${bn(LIVE.rTrophies)} ট্রফি, ৮টি ব্যালন ডি'অর।` },
     { href: "/bn/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ মেসি বনাম রিয়াল মাদ্রিদ", d: () => "ক্লাসিকোতে ২৬ গোল, ৪৫ ম্যাচ ও ১৪টি অ্যাসিস্ট।" },
     { href: "/bn/champions-league", page: "champions-league", t: "⭐ চ্যাম্পিয়নস লিগ রেকর্ড", d: () => "উয়েফা চ্যাম্পিয়নস লিগে ১২৯টি গোল, ৮টি হ্যাটট্রিক এবং ৪টি ইউরোপীয় শিরোপা।" },
-    { href: "/bn/latest-goal", page: "latest-goal", t: "⚽ মেসির শেষ গোলের ভিডিও", d: () => "ক্রুজ আজুলের বিরুদ্ধে মেসির ৯২৯তম গোল দেখুন, আজ কি গোল করেছেন এবং সাম্প্রতিক গোলগুলো।" },
+    { href: "/bn/latest-goal", page: "latest-goal", t: "⚽ মেসির শেষ গোলের ভিডিও", d: () => "মেসির সর্বশেষ গোলের ভিডিও দেখুন, আজ কি গোল করেছেন এবং সাম্প্রতিক গোলগুলো।" },
     { href: "/bn", page: "home", t: "লিওনেল মেসির পরিসংখ্যান", d: (d) => `অফিসিয়াল তথ্য: ${n(d.totals.apps)} ম্যাচে ${n(d.totals.goals)} গোল।` },
     { href: "/bn/dashboard", page: "dashboard", t: "ইন্টারেক্টিভ ড্যাশবোর্ড", d: () => "বার্সেলোনা, পিএসজি, ইন্টার মায়ামি ও আর্জেন্টিনার পরিসংখ্যান।" },
     { href: "/bn/timeline", page: "timeline", t: "ক্যারিয়ার টাইমলাইন", d: () => "২০০৪ থেকে আজ পর্যন্ত প্রতিটি ঐতিহাসিক মুহূর্ত।" },
   ],
   hi: [
     { href: "/hi/birthday", page: "birthday", t: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?", d: (d) => `साल के 366 दिनों में मेसी के ${n(d.totals.goals)} गोल वीडियो देखें।` },
-    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => "करियर आंकड़े: 934 बनाम 980 गोल, 47 बनाम 37 खिताब, 8 बैलन डी'ओर." },
+    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => `करियर आंकड़े: ${n(LIVE.goals)} बनाम ${n(LIVE.rGoals)} गोल, ${LIVE.trophies} बनाम ${LIVE.rTrophies} खिताब, 8 बैलन डी'ओर.` },
     { href: "/hi/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ मेसी बनाम रियल मैड्रिड", d: () => "एल क्लासिको में 26 गोल, 45 मैच और 14 असिस्ट।" },
     { href: "/hi/champions-league", page: "champions-league", t: "⭐ चैंपियंस लीग रिकॉर्ड", d: () => "यूईएफए चैंपियंस लीग में 129 गोल, 8 हैट्रिक और 4 यूरोपीय खिताब।" },
-    { href: "/hi/latest-goal", page: "latest-goal", t: "⚽ मेसी का पिछला गोल वीडियो", d: () => "क्रूज़ अज़ूल के खिलाफ 929वां गोल देखें, जानें क्या मेसी ने आज गोल किया और हालिया गोल।" },
+    { href: "/hi/latest-goal", page: "latest-goal", t: "⚽ मेसी का पिछला गोल वीडियो", d: () => "मेस्सी के ताज़ा गोल का वीडियो देखें, जानें क्या उन्होंने आज गोल किया और हालिया गोल।" },
     { href: "/hi", page: "home", t: "मेसी के आधिकारिक आंकड़े", d: (d) => `${n(d.totals.apps)} आधिकारिक मैचों में ${n(d.totals.goals)} गोल।` },
     { href: "/hi/dashboard", page: "dashboard", t: "इंटरएक्टिव डैशबोर्ड", d: () => "बार्सिलोना, पीएसजी, मियामी और अर्जेंटीना अनुसार फ़िल्टर।" },
     { href: "/hi/timeline", page: "timeline", t: "करियर टाइमलाइन", d: () => "2004 से आज तक का हर ऐतिहासिक पड़ाव।" },
   ],
   ro: [
     { href: "/ro/birthday", page: "birthday", t: "🎂 A marcat Messi de ziua ta de naștere?", d: (d) => `Caută în toate cele 366 de zile din an cu cele ${n(d.totals.goals)} goluri ale lui Messi.` },
-    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => "Statistici cap la cap: 934 vs 980 goluri, 47 vs 37 trofee, 8 Baloane de Aur." },
+    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => `Statistici cap la cap: ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} goluri, ${LIVE.trophies} vs ${LIVE.rTrophies} trofee, 8 Baloane de Aur.` },
     { href: "/ro/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Toate cele 26 de goluri din El Clásico, 45 de meciuri, 14 pase de gol." },
     { href: "/ro/champions-league", page: "champions-league", t: "⭐ Recordul în Champions League", d: () => "129 de goluri în UEFA Champions League, 8 hat-trick-uri și 4 trofee europene." },
-    { href: "/ro/latest-goal", page: "latest-goal", t: "⚽ Ultimul gol al lui Messi video", d: () => "Urmărește golul 929 contra lui Cruz Azul, vezi dacă a marcat azi și cele mai recente goluri." },
+    { href: "/ro/latest-goal", page: "latest-goal", t: "⚽ Ultimul gol al lui Messi video", d: () => "Urmărește videoclipul ultimului gol al lui Messi, vezi dacă a marcat azi și cele mai recente goluri." },
     { href: "/ro", page: "home", t: "Statisticile lui Lionel Messi", d: (d) => `Cifrele cheie: ${n(d.totals.goals)} goluri în ${n(d.totals.apps)} meciuri oficiale.` },
     { href: "/ro/dashboard", page: "dashboard", t: "Panoul interactiv de statistici", d: () => "Filtrează pe Barcelona, PSG, Inter Miami sau Argentina." },
     { href: "/ro/timeline", page: "timeline", t: "Cronologia carierei", d: () => "Fiecare moment istoric datat din 2004 până azi." },
   ],
   uz: [
     { href: "/uz/birthday", page: "birthday", t: "🎂 Messi sizning tug'ilgan kuningizda gol urganmi?", d: (d) => `Yilning 366 kunidagi gollarni videolar bilan ko'ring (${n(d.totals.goals)} ta gol).` },
-    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => "O'zaro solishtirma: 934 ga 980 ta gol, 47 ga 37 ta titul, 8 ta “Oltin to'p”." },
+    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => `O'zaro solishtirma: ${n(LIVE.goals)} ga ${n(LIVE.rGoals)} ta gol, ${LIVE.trophies} ga ${LIVE.rTrophies} ta titul, 8 ta “Oltin to'p”.` },
     { href: "/uz/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "El-Klasikodagi 26 ta gol, 45 ta o'yin va 14 ta assist." },
     { href: "/uz/champions-league", page: "champions-league", t: "⭐ Chempionlar Ligasi rekordi", d: () => "UEFA Chempionlar Ligasida 129 ta gol, 8 ta het-trik va 4 ta Yevropa chempionligi." },
-    { href: "/uz/latest-goal", page: "latest-goal", t: "⚽ Messining soʻnggi goli video", d: () => "Kruz Asulga qarshi 929-golni tomosha qiling, Messi bugun gol urdimi va soʻnggi gollari." },
+    { href: "/uz/latest-goal", page: "latest-goal", t: "⚽ Messining soʻnggi goli video", d: () => "Messining soʻnggi goli videosini tomosha qiling, bugun gol urdimi va soʻnggi gollari." },
     { href: "/uz", page: "home", t: "Lionel Messi statistikasi", d: (d) => `Asosiy raqamlar: ${n(d.totals.apps)} ta o'yinda ${n(d.totals.goals)} ta rasmiy gol.` },
     { href: "/uz/dashboard", page: "dashboard", t: "Interaktiv statistika paneli", d: () => "Barselona, PSJ, Inter Mayami yoki Argentina bo'yicha saralang." },
     { href: "/uz/timeline", page: "timeline", t: "Karyera xronologiyasi", d: () => "2004 yildan to hozirgi kungacha bo'lgan tarixiy sanalar." },
@@ -2770,7 +2872,7 @@ const HOME_I18N = {
     kpiRoad: "Road to 1,000 goals",
     kpiRoadNote: (togo, projYear, pace) => `${togo} to go. Rough projection at current pace (~${pace.toFixed(0)} a year): 1,000 lands around ${projYear}.`,
     copyStatsBtn: "Copy headline stats",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goals in ${apps} senior apps (${clubGoals} club, ${argGoals} Argentina), 47 trophies, 8 Ballons d'Or — as of ${updated}.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goals in ${apps} senior apps (${clubGoals} club, ${argGoals} Argentina), ${LIVE.trophies} trophies, 8 Ballons d'Or — as of ${updated}.`,
     copyMsg: "Copied — paste it anywhere.",
     clubCaption: (updated, lang) => `Appearances and goals for every senior team Lionel Messi has played for, as of ${updated}. Full competition splits are on the <a href="/${lang}/goalsbyseason">goals by season page</a>.`,
     thTeam: "Team and years",
@@ -2794,7 +2896,7 @@ const HOME_I18N = {
       [`57`, `<b>Hat-tricks or more</b> for club and country across his senior career (provisional tally).`],
       [`46`, `<b>Team trophies</b> — the most decorated career in football history, crowned by the 2022 World Cup.`]
     ],
-    silverCaption: "47 senior team titles, club by club, plus the headline individual honours.",
+    silverCaption: () => `${LIVE.trophies} senior team titles, club by club, plus the headline individual honours.`,
     silverThTrophy: "Trophy",
     silverThTimes: "Times",
     silverThNote: "Note",
@@ -2814,9 +2916,9 @@ const HOME_I18N = {
     splitCaveat: (tot) => `Free-kick and penalty splits are a widely published compiled tally — provisional until a full match-by-match hand count is finished. The ${tot} total is unaffected.`,
     faq: (t, agg, m, d, lang) => [
       ["How many total career goals has Lionel Messi scored?", `<b>${n(t.goals)} official career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. Explore his full <a href="/${lang}/goalsbyyear">year-by-year scoring breakdown</a>.`],
-      ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded <b>407 official career assists</b> under Opta/FIFA standards (and <b>449 assists</b> under Transfermarkt's broader criteria) in ${n(t.apps)} appearances, making him the all-time assist leader in modern football history. His official breakdown includes 269 assists for FC Barcelona, 58 for Argentina, 46 for Inter Miami CF, and 34 for Paris Saint-Germain.`],
-      ["What are Lionel Messi's total goals and assists?", `Across his senior career, Lionel Messi has accumulated <b>1,341 official goal contributions</b> (<b>${n(t.goals)} goals</b> and <b>407 official assists</b>) in ${n(t.apps)} appearances — an extraordinary rate of <b>1.14 direct goal involvements per match</b>. Under Transfermarkt's criteria, his total stands at <b>1,383 goal involvements</b> (${n(t.goals)} goals + 449 assists).`],
-      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with 980 goals and 261 assists in 1,339 matches (0.73 goals/game), while Messi has <b>${n(t.goals)} goals and 407 official assists in ${n(t.apps)} matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached ${n(t.goals)} goals in 160 fewer matches, holds 47 team trophies to 37, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
+      ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded <b>407 official career assists</b> under Opta/FIFA standards (and <b>449 assists</b> under Transfermarkt's broader criteria) in ${n(t.apps)} appearances, making him the all-time assist leader in modern football history. His official breakdown includes ${LIVE.abtBarca} assists for FC Barcelona, ${LIVE.abtArg} for Argentina, ${LIVE.abtMiami} for Inter Miami CF, and ${LIVE.abtPsg} for Paris Saint-Germain.`],
+      ["What are Lionel Messi's total goals and assists?", `Across his senior career, Lionel Messi has accumulated <b>${n(LIVE.ga)} official goal contributions</b> (<b>${n(t.goals)} goals</b> and <b>${n(LIVE.assists)} official assists</b>) in ${n(t.apps)} appearances — an extraordinary rate of <b>1.14 direct goal involvements per match</b>. Under Transfermarkt's criteria, his total stands at <b>${n(LIVE.tmGa)} goal involvements</b> (${n(t.goals)} goals + ${n(LIVE.tmAssists)} assists).`],
+      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with 980 goals and 261 assists in 1,339 matches (0.73 goals/game), while Messi has <b>${n(t.goals)} goals and 407 official assists in ${n(t.apps)} matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached ${n(t.goals)} goals in ${n(LIVE.fewer)} fewer matches, holds ${LIVE.trophies} team trophies to ${LIVE.rTrophies}, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
       ["What is Messi's career goal breakdown by team?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games for FC Barcelona, <b>${agg.psg.goals} goals</b> in ${n(agg.psg?.apps || 75)} games for PSG, <b>${n(agg.miami.goals)} goals</b> in ${n(agg.miami?.apps || 118)} games for Inter Miami, and <b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps for Argentina. See <a href="/${lang}/goalsbyseason">season-by-season club stats</a>.`],
       ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 76} direct free-kick goals</b> in senior football (50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG), ranking 2nd all-time behind Marcelinho Carioca's record of 78.`],
       ["How many hat-tricks has Lionel Messi scored?", `Messi has scored <b>${d.hatTricks || 62} career hat-tricks</b> (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.`],
@@ -2846,11 +2948,11 @@ const HOME_I18N = {
     kpiArg: "Goles con Argentina",
     kpiArgNote: (gpg, caps) => `${gpg} por partido en ${caps} encuentros internacionales.`,
     kpiTrophies: "Títulos colectivos",
-    kpiTrophiesNote: (lang) => `Récord histórico de 47 títulos y 8 Balones de Oro. <a href="/${lang}/achievements">Palmarés completo</a>.`,
+    kpiTrophiesNote: (lang) => `Récord histórico de ${LIVE.trophies} títulos y 8 Balones de Oro. <a href="/${lang}/achievements">Palmarés completo</a>.`,
     kpiRoad: "Camino a los 1.000 goles",
     kpiRoadNote: (togo, projYear, pace) => `Faltan ${togo} goles. Al ritmo actual (~${pace.toFixed(0)} por año), alcanzará los 1.000 hacia ${projYear}.`,
     copyStatsBtn: "Copiar estadísticas",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goles en ${apps} partidos oficiales (${clubGoals} en clubes, ${argGoals} con Argentina), 47 títulos colectivos, 8 Balones de Oro — al ${updated}.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goles en ${apps} partidos oficiales (${clubGoals} en clubes, ${argGoals} con Argentina), ${LIVE.trophies} títulos colectivos, 8 Balones de Oro — al ${updated}.`,
     copyMsg: "Copiado al portapapeles.",
     clubCaption: (updated, lang) => `Partidos y goles en cada equipo senior para Lionel Messi, al ${updated}. Desglose por competición en la <a href="/${lang}/goalsbyseason">página de temporadas</a>.`,
     thTeam: "Equipo y años",
@@ -2874,7 +2976,7 @@ const HOME_I18N = {
       [`57`, `<b>Hat-tricks o más</b> con clubes y selección absoluta en su carrera profesional.`],
       [`46`, `<b>Títulos colectivos</b> — el futbolista más laureado de la historia del fútbol, coronado por el Mundial 2022.`]
     ],
-    silverCaption: "47 títulos oficiales de primer equipo, club por club, más premios individuales máximos.",
+    silverCaption: () => `${LIVE.trophies} títulos oficiales de primer equipo, club por club, más premios individuales máximos.`,
     silverThTrophy: "Título",
     silverThTimes: "Veces",
     silverThNote: "Detalles",
@@ -2916,11 +3018,11 @@ const HOME_I18N = {
     kpiArg: "Gols pela Argentina",
     kpiArgNote: (gpg, caps) => `${gpg} por jogo em ${caps} jogos internacionais.`,
     kpiTrophies: "Títulos coletivos",
-    kpiTrophiesNote: (lang) => `Recorde histórico de 47 títulos e 8 Bolas de Ouro. <a href="/${lang}/achievements">Palmarés completo</a>.`,
+    kpiTrophiesNote: (lang) => `Recorde histórico de ${LIVE.trophies} títulos e 8 Bolas de Ouro. <a href="/${lang}/achievements">Palmarés completo</a>.`,
     kpiRoad: "Rumo aos 1.000 gols",
     kpiRoadNote: (togo, projYear, pace) => `Faltam ${togo} gols. No ritmo atual (~${pace.toFixed(0)} por ano), atingirá os 1.000 perto de ${projYear}.`,
     copyStatsBtn: "Copiar estatísticas",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} gols em ${apps} partidas oficiais (${clubGoals} por clubes, ${argGoals} pela Argentina), 47 títulos, 8 Bolas de Ouro — em ${updated}.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} gols em ${apps} partidas oficiais (${clubGoals} por clubes, ${argGoals} pela Argentina), ${LIVE.trophies} títulos, 8 Bolas de Ouro — em ${updated}.`,
     copyMsg: "Copiado para a área de transferência.",
     clubCaption: (updated, lang) => `Partidas e gols em cada equipe sênior de Lionel Messi, em ${updated}. Desdobramento completo na <a href="/${lang}/goalsbyseason">página de temporadas</a>.`,
     thTeam: "Equipe e anos",
@@ -2944,7 +3046,7 @@ const HOME_I18N = {
       [`57`, `<b>Hat-tricks ou mais</b> por clubes e seleção principal em sua carreira profissional.`],
       [`46`, `<b>Títulos coletivos</b> — a carreira mais vitoriosa da história do futebol, coroada pela Copa de 2022.`]
     ],
-    silverCaption: "47 títulos oficiais de equipes principais, clube a clube, mais as maiores honrarias individuais.",
+    silverCaption: () => `${LIVE.trophies} títulos oficiais de equipes principais, clube a clube, mais as maiores honrarias individuais.`,
     silverThTrophy: "Troféu",
     silverThTimes: "Vezes",
     silverThNote: "Observações",
@@ -2986,11 +3088,11 @@ const HOME_I18N = {
     kpiArg: "Buts avec l'Argentine",
     kpiArgNote: (gpg, caps) => `${gpg} par match en ${caps} sélections.`,
     kpiTrophies: "Trophées collectifs",
-    kpiTrophiesNote: (lang) => `Record historique de 47 titres et 8 Ballons d'Or. <a href="/${lang}/achievements">Palmarès complet</a>.`,
+    kpiTrophiesNote: (lang) => `Record historique de ${LIVE.trophies} titres et 8 Ballons d'Or. <a href="/${lang}/achievements">Palmarès complet</a>.`,
     kpiRoad: "Route vers les 1 000 buts",
     kpiRoadNote: (togo, projYear, pace) => `Plus que ${togo} buts. Au rythme actuel (~${pace.toFixed(0)} par an), cap des 1 000 vers ${projYear}.`,
     copyStatsBtn: "Copier les stats clés",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi : ${goals} buts en ${apps} matchs officiels (${clubGoals} en club, ${argGoals} avec l'Argentine), 47 trophées, 8 Ballons d'Or — au ${updated}.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi : ${goals} buts en ${apps} matchs officiels (${clubGoals} en club, ${argGoals} avec l'Argentine), ${LIVE.trophies} trophées, 8 Ballons d'Or — au ${updated}.`,
     copyMsg: "Copié dans le presse-papiers !",
     clubCaption: (updated, lang) => `Matchs et buts pour chaque équipe senior de Lionel Messi au ${updated}. Détail complet sur la <a href="/${lang}/goalsbyseason">page des saisons</a>.`,
     thTeam: "Équipe et années",
@@ -3014,7 +3116,7 @@ const HOME_I18N = {
       [`57`, `<b>Triplés ou plus</b> en club et en sélection au cours de sa carrière professionnelle.`],
       [`46`, `<b>Trophées collectifs</b> — le joueur le plus titré de l'histoire du football, couronné par le Mondial 2022.`]
     ],
-    silverCaption: "47 titres collectifs officiels, club par club, ainsi que les plus grandes distinctions individuelles.",
+    silverCaption: () => `${LIVE.trophies} titres collectifs officiels, club par club, ainsi que les plus grandes distinctions individuelles.`,
     silverThTrophy: "Trophée",
     silverThTimes: "Fois",
     silverThNote: "Détails",
@@ -3056,11 +3158,11 @@ const HOME_I18N = {
     kpiArg: "أهداف الأرجنتين",
     kpiArgNote: (gpg, caps) => `${gpg} هدفاً في المباراة في ${caps} مباراة دولية.`,
     kpiTrophies: "البطولات الجماعية",
-    kpiTrophiesNote: (lang) => `رقم قياسي عالمي بـ 47 لقباً و8 كرات ذهبية. <a href="/${lang}/achievements">قائمة البطولات</a>.`,
+    kpiTrophiesNote: (lang) => `رقم قياسي عالمي بـ ${LIVE.trophies} لقباً و8 كرات ذهبية. <a href="/${lang}/achievements">قائمة البطولات</a>.`,
     kpiRoad: "الطريق إلى 1,000 هدف",
     kpiRoadNote: (togo, projYear, pace) => `يتبقى ${togo} هدفاً. وفقاً لمعدله الحالي (~${pace.toFixed(0)} هدفاً سنوياً)، سيصل إلى 1,000 هدف بحلول عام ${projYear}.`,
     copyStatsBtn: "نسخ أهم الأرقام",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `ميسي: ${goals} هدفاً في ${apps} مباراة رسمية (${clubGoals} مع الأندية، ${argGoals} مع الأرجنتين)، 47 لقباً، 8 كرات ذهبية — حتى ${updated}.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `ميسي: ${goals} هدفاً في ${apps} مباراة رسمية (${clubGoals} مع الأندية، ${argGoals} مع الأرجنتين)، ${LIVE.trophies} لقباً، 8 كرات ذهبية — حتى ${updated}.`,
     copyMsg: "تم النسخ إلى الحافظة بنجاح.",
     clubCaption: (updated, lang) => `المباريات والأهداف لكل فريق لعب له ليونيل ميسي رسمياً حتى ${updated}. التفاصيل في <a href="/${lang}/goalsbyseason">صفحة المواسم</a>.`,
     thTeam: "الفريق والسنوات",
@@ -3084,7 +3186,7 @@ const HOME_I18N = {
       [`57`, `<b>هاتريك أو أكثر</b> مع الأندية والمنتخب الأول خلال مسيرته الاحترافية.`],
       [`46`, `<b>بطولة جماعية</b> — اللاعب الأكثر تتويجاً في تاريخ الساحرة المستديرة، متوجاً بكأس العالم 2022.`]
     ],
-    silverCaption: "47 لقباً جماعياً لفرق الدرجة الأولى الكبرى، حسب النادي، إضافة إلى أهم الإنجازات الفردية.",
+    silverCaption: () => `${LIVE.trophies} لقباً جماعياً لفرق الدرجة الأولى الكبرى، حسب النادي، إضافة إلى أهم الإنجازات الفردية.`,
     silverThTrophy: "البطولة",
     silverThTimes: "المرات",
     silverThNote: "ملاحظات",
@@ -3126,11 +3228,11 @@ const HOME_I18N = {
     kpiArg: "আর্জেন্টিনার হয়ে গোল",
     kpiArgNote: (gpg, caps) => `${caps} আন্তর্জাতিক ম্যাচে ম্যাচ প্রতি ${gpg} গোল।`,
     kpiTrophies: "দলগত ট্রফি",
-    kpiTrophiesNote: (lang) => `সর্বকালের রেকর্ড ৪৭টি ট্রফি এবং ৮টি ব্যালন ডি'অর। <a href="/${lang}/achievements">পূর্ণাঙ্গ তালিকা দেখুন</a>।`,
+    kpiTrophiesNote: (lang) => `সর্বকালের রেকর্ড ${bn(LIVE.trophies)}টি ট্রফি এবং ৮টি ব্যালন ডি'অর। <a href="/${lang}/achievements">পূর্ণাঙ্গ তালিকা দেখুন</a>।`,
     kpiRoad: "১,০০০ গোলের পথে",
     kpiRoadNote: (togo, projYear, pace) => `বাকি মাত্র ${togo} গোল। বর্তমান গতিতে (~বছরে ${pace.toFixed(0)} গোল), ${projYear} সালের মধ্যে ১,০০০ গোল পূর্ণ হবে।`,
     copyStatsBtn: "মূল পরিসংখ্যান কপি করুন",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `মেসি: ${apps} ম্যাচে ${goals} গোল (${clubGoals} ক্লাব, ${argGoals} আর্জেন্টিনা), ৪৭ ট্রফি, ৮ ব্যালন ডি'অর — হালনাগাদ: ${updated}।`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `মেসি: ${apps} ম্যাচে ${goals} গোল (${clubGoals} ক্লাব, ${argGoals} আর্জেন্টিনা), ${LIVE.trophies} ট্রফি, ৮ ব্যালন ডি'অর — হালনাগাদ: ${updated}।`,
     copyMsg: "ক্লিপবোর্ডে কপি করা হয়েছে।",
     clubCaption: (updated, lang) => `লিওনেল মেসির প্রতিটি সিনিয়র দলের ম্যাচ ও গোলের খতিয়ান (${updated} পর্যন্ত)। বিস্তারিত দেখুন <a href="/${lang}/goalsbyseason">মৌসুমভিত্তিক পৃষ্ঠায়</a>।`,
     thTeam: "দল ও বছর",
@@ -3154,7 +3256,7 @@ const HOME_I18N = {
       [`57`, `<b>হ্যাটট্রিক বা ততোধিক</b> সিনিয়র ক্যারিয়ারে ক্লাব ও দেশের হয়ে।`],
       [`46`, `<b>দলগত ট্রফি</b> — ফুটবল ইতিহাসের সবচেয়ে সফল ক্যারিয়ার, ২০২২ বিশ্বকাপ জয়ে যার পূর্ণতা।`]
     ],
-    silverCaption: "সিনিয়র প্রথম দলের ৪৭টি ট্রফি এবং শীর্ষ ব্যক্তিগত পুরস্কারসমূহের বিবরণ।",
+    silverCaption: () => `সিনিয়র প্রথম দলের ${bn(LIVE.trophies)}টি ট্রফি এবং শীর্ষ ব্যক্তিগত পুরস্কারসমূহের বিবরণ।`,
     silverThTrophy: "শিরোপা",
     silverThTimes: "বার",
     silverThNote: "বিবরণ",
@@ -3196,11 +3298,11 @@ const HOME_I18N = {
     kpiArg: "अर्जेंटीना के लिए गोल",
     kpiArgNote: (gpg, caps) => `${caps} अंतरराष्ट्रीय मैचों में प्रति मैच ${gpg} गोल।`,
     kpiTrophies: "टीम खिताब",
-    kpiTrophiesNote: (lang) => `रिकॉर्ड 47 खिताब और 8 बैलन डी'ओर। <a href="/${lang}/achievements">पूरी सूची देखें</a>।`,
+    kpiTrophiesNote: (lang) => `रिकॉर्ड ${LIVE.trophies} खिताब और 8 बैलन डी'ओर। <a href="/${lang}/achievements">पूरी सूची देखें</a>।`,
     kpiRoad: "1,000 गोलों की ओर",
     kpiRoadNote: (togo, projYear, pace) => `मात्र ${togo} गोल शेष। वर्तमान गति (~साल में ${pace.toFixed(0)} गोल) से 1,000 गोल ${projYear} के आसपास पूरे होंगे।`,
     copyStatsBtn: "मुख्य आंकड़े कॉपी करें",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `मेसी: ${apps} मैचों में ${goals} गोल (${clubGoals} क्लब, ${argGoals} अर्जेंटीना), 47 ट्रॉफियां, 8 बैलन डी'ओर — ${updated} तक।`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `मेसी: ${apps} मैचों में ${goals} गोल (${clubGoals} क्लब, ${argGoals} अर्जेंटीना), ${LIVE.trophies} ट्रॉफियां, 8 बैलन डी'ओर — ${updated} तक।`,
     copyMsg: "क्लिपबोर्ड पर कॉपी किया गया।",
     clubCaption: (updated, lang) => `लियोनेल मेसी के सभी सीनियर टीमों के आंकड़े (${updated} तक)। <a href="/${lang}/goalsbyseason">सीज़न के अनुसार देखें</a>।`,
     thTeam: "टीम और वर्ष",
@@ -3224,7 +3326,7 @@ const HOME_I18N = {
       [`57`, `<b>हैट्रिक या अधिक</b> क्लब और देश के लिए सीनियर करियर में।`],
       [`46`, `<b>टीम ट्रॉफियां</b> — फुटबॉल इतिहास का सबसे सफल करियर, 2022 विश्व कप जीत द्वारा ताज पहनाया गया।`]
     ],
-    silverCaption: "47 सीनियर टीम खिताब और प्रमुख व्यक्तिगत पुरस्कार।",
+    silverCaption: () => `${LIVE.trophies} सीनियर टीम खिताब और प्रमुख व्यक्तिगत पुरस्कार।`,
     silverThTrophy: "ट्रॉफी",
     silverThTimes: "संख्या",
     silverThNote: "विवरण",
@@ -3266,11 +3368,11 @@ const HOME_I18N = {
     kpiArg: "Goluri pentru Argentina",
     kpiArgNote: (gpg, caps) => `${gpg} pe meci în ${caps} selecții.`,
     kpiTrophies: "Trofee de echipă",
-    kpiTrophiesNote: (lang) => `Record absolut de 47 de trofee și 8 Baloane de Aur. <a href="/${lang}/achievements">Palmares complet</a>.`,
+    kpiTrophiesNote: (lang) => `Record absolut de ${LIVE.trophies} de trofee și 8 Baloane de Aur. <a href="/${lang}/achievements">Palmares complet</a>.`,
     kpiRoad: "Drumul spre 1.000 de goluri",
     kpiRoadNote: (togo, projYear, pace) => `Mai are nevoie de ${togo} goluri. În ritmul actual (~${pace.toFixed(0)} pe an), borna 1.000 va fi atinsă spre ${projYear}.`,
     copyStatsBtn: "Copiază statisticile",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goluri în ${apps} meciuri oficiale (${clubGoals} la cluburi, ${argGoals} cu Argentina), 47 de trofee, 8 Baloane de Aur — la ${updated}.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goluri în ${apps} meciuri oficiale (${clubGoals} la cluburi, ${argGoals} cu Argentina), ${LIVE.trophies} de trofee, 8 Baloane de Aur — la ${updated}.`,
     copyMsg: "Copiat în clipboard!",
     clubCaption: (updated, lang) => `Meciuri și goluri pentru fiecare echipă a lui Lionel Messi la ${updated}. Detalii complete pe <a href="/${lang}/goalsbyseason">pagina sezoanelor</a>.`,
     thTeam: "Echipă și ani",
@@ -3294,7 +3396,7 @@ const HOME_I18N = {
       [`57`, `<b>Hat-trick-uri sau mai mult</b> la club și națională în cariera profesionistă.`],
       [`46`, `<b>Trofee colective</b> — cel mai titrat fotbalist din istorie, încununat de Cupa Mondială 2022.`]
     ],
-    silverCaption: "47 de titluri oficiale de seniori, club cu club, plus distincțiile individuale supreme.",
+    silverCaption: () => `${LIVE.trophies} de titluri oficiale de seniori, club cu club, plus distincțiile individuale supreme.`,
     silverThTrophy: "Trofeu",
     silverThTimes: "Nr.",
     silverThNote: "Detalii",
@@ -3336,11 +3438,11 @@ const HOME_I18N = {
     kpiArg: "Argentina safida gollar",
     kpiArgNote: (gpg, caps) => `${caps} ta o'yinda har o'yinga ${gpg} ta gol.`,
     kpiTrophies: "Jamoaviy sovrinlar",
-    kpiTrophiesNote: (lang) => `Rekord darajadagi 47 ta titul va 8 ta “Oltin to'p”. <a href="/${lang}/achievements">To'liq ro'yxat</a>.`,
+    kpiTrophiesNote: (lang) => `Rekord darajadagi ${LIVE.trophies} ta titul va 8 ta “Oltin to'p”. <a href="/${lang}/achievements">To'liq ro'yxat</a>.`,
     kpiRoad: "1 000 ta gol sari",
     kpiRoadNote: (togo, projYear, pace) => `Yana ${togo} ta gol qoldi. Hozirgi sur'atda (~yiliga ${pace.toFixed(0)} ta gol), 1 000-golga ${projYear}-yil atrofida erishiladi.`,
     copyStatsBtn: "Statistikani nusxalash",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${apps} ta rasmiy o'yinda ${goals} ta gol (${clubGoals} klub, ${argGoals} Argentina), 47 ta sovrin, 8 ta “Oltin to'p” — ${updated} holatiga.`,
+    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${apps} ta rasmiy o'yinda ${goals} ta gol (${clubGoals} klub, ${argGoals} Argentina), ${LIVE.trophies} ta sovrin, 8 ta “Oltin to'p” — ${updated} holatiga.`,
     copyMsg: "Buferga nusxalandi!",
     clubCaption: (updated, lang) => `Lionel Messining barcha jamoalardagi o'yin va gollari (${updated} holatiga). <a href="/${lang}/goalsbyseason">Mavsumlar bo'yicha</a> to'liq taqsimot.`,
     thTeam: "Jamoa va yillar",
@@ -3364,7 +3466,7 @@ const HOME_I18N = {
       [`57`, `<b>Het-trik yoki undan ko'p</b> klub va terma jamoa safidagi o'yinlarda.`],
       [`46`, `<b>Jamoaviy sovrinlar</b> — futbol tarixidagi eng ko'p sovrin yutgan futbolchi, 2022-yilgi Jahon kubogi bilan bezatilgan.`]
     ],
-    silverCaption: "Messining barcha 47 ta rasmiy jamoaviy titullari va eng yuksak shaxsiy sovrinlari.",
+    silverCaption: () => `Messining barcha ${LIVE.trophies} ta rasmiy jamoaviy titullari va eng yuksak shaxsiy sovrinlari.`,
     silverThTrophy: "Sovrin",
     silverThTimes: "Soni",
     silverThNote: "Tafsilotlar",
@@ -3451,7 +3553,7 @@ function renderHome(d) {
       kpi(dict.kpiCareer, n(t.goals), dict.kpiCareerNote(t.goalsPerGame, seasons)) +
       kpi(dict.kpiApps, n(t.apps), dict.kpiAppsNote(n(t.clubs.apps), n(t.country.apps))) +
       kpi(dict.kpiArg, n(t.country.goals), dict.kpiArgNote(gpg(t.country.goals, t.country.apps), n(t.country.apps))) +
-      kpi(dict.kpiTrophies, "46", dict.kpiTrophiesNote(lang)) +
+      kpi(dict.kpiTrophies, String(LIVE.trophies), dict.kpiTrophiesNote(lang)) +
       `<div class="kpi progress"><span class="kpi-label">${dict.kpiRoad}</span>` +
       `<span class="kpi-value">${n(t.goals)} <small style="font-size:1rem;color:var(--muted)">/ 1,000</small></span>` +
       `<div class="progress-track"><div class="progress-fill" style="width:${(t.goals / 10).toFixed(1)}%"></div></div>` +
@@ -3582,9 +3684,9 @@ function renderHome(d) {
   const silver = el("silver");
   if (silver) {
     silver.innerHTML =
-      `<div class="table-wrap"><table class="data-table"><caption>${dict.silverCaption}</caption>` +
+      `<div class="table-wrap"><table class="data-table"><caption>${dict.silverCaption()}</caption>` +
       `<thead><tr><th scope="col" class="left">${dict.silverThTrophy}</th><th scope="col">${dict.silverThTimes}</th><th scope="col" class="left">${dict.silverThNote}</th></tr></thead><tbody>` +
-      dict.silverRows.map((r) => `<tr><th scope="row">${r[0]}</th><td>${r[1]}</td><td class="left">${r[2]}</td></tr>`).join("") +
+      dict.silverRows.map((r, i) => `<tr><th scope="row">${r[0]}</th><td>${[LIVE.tBarca, LIVE.tArg, LIVE.tPsg, LIVE.tMiami][i] ?? r[1]}</td><td class="left">${r[2]}</td></tr>`).join("") +
       `</tbody></table></div>`;
     const sTable = silver.querySelector("table");
     if (sTable) sortable(sTable);
@@ -4513,12 +4615,15 @@ function renderBySeason(d) {
 }
 
 /* ================= DASHBOARD ================= */
-const TEAM_COMPS = {
-  barcelona: [["La Liga", 474], ["UEFA Champions League", 120], ["Copa del Rey", 56], ["Spanish / UEFA / World super cups", 22]],
-  psg: [["Ligue 1", 22], ["UEFA Champions League", 9], ["Trophée des Champions", 1]],
-  miami: [["Major League Soccer", 73], ["Concacaf Champions Cup", 8], ["Leagues Cup and playoffs", 23]],
-  argentina: [["World Cup qualifiers and friendlies", 91], ["FIFA World Cup", 21], ["Copa América", 14]],
-};
+const TEAM_COMPS = null; // retired: buckets now come from teamComps() (LIVE/JSON) so comps update with data.
+function teamComps() {
+  return {
+    barcelona: [["La Liga", LIVE.compLiga], ["UEFA Champions League", LIVE.compUCLb], ["Copa del Rey", LIVE.compCDR], ["Spanish / UEFA / World super cups", LIVE.compSuper]],
+    psg: [["Ligue 1", LIVE.compLigue1], ["UEFA Champions League", LIVE.compUCLp], ["Trophée des Champions", LIVE.compTDC]],
+    miami: [["Major League Soccer", LIVE.compMLS], ["Concacaf Champions Cup", LIVE.compCCC], ["Leagues Cup and playoffs", LIVE.compLC]],
+    argentina: [["World Cup qualifiers and friendlies", LIVE.compQual], ["FIFA World Cup", LIVE.compWC], ["Copa América", LIVE.compCopa]],
+  };
+}
 const FINISH_COLORS = { "Open play": "#0e7cc0", Penalties: "#7cc4ea", "Free kicks": "#132c52" };
 const BODY_COLORS = { "Left foot": "#0e7cc0", "Right foot": "#55a8dc", Head: "#a9d3ee", Other: "#132c52" };
 
@@ -4563,7 +4668,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>Goles en Champions League</b> — 120 Barcelona · 9 PSG.`],
       ["8", `<b>Balones de Oro</b> — récord histórico del fútbol (2009–12, 2015, 2019, 2021, 2023).`],
       [n(d.hatTricks), `<b>Hat-tricks o más</b> con clubes y selección absoluta.`],
-      ["47", `<b>Títulos oficiales</b> — el futbolista más laureado de la historia.`]
+      [`${LIVE.trophies}`, `<b>Títulos oficiales</b> — el futbolista más laureado de la historia.`]
     ],
     method: "Los goles en Champions League se dividen en Barcelona 120 y PSG 9 a partir de actas oficiales; el resto de competiciones siguen la distribución oficial de partidos documentada en los datos."
   },
@@ -4607,7 +4712,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>Gols na Champions League</b> — 120 pelo Barcelona, 9 pelo PSG.`],
       ["8", `<b>Bolas de Ouro</b> — recorde histórico do futebol (2009–12, 2015, 2019, 2021, 2023).`],
       [n(d.hatTricks), `<b>Hat-tricks ou mais</b> por clubes e seleção.`],
-      ["47", `<b>Títulos oficiais</b> — o jogador mais laureado da história do futebol.`]
+      [`${LIVE.trophies}`, `<b>Títulos oficiais</b> — o jogador mais laureado da história do futebol.`]
     ],
     method: "Gols na Champions League divididos em Barcelona 120 e PSG 9 a partir de fontes oficiais dos clubes; demais competições seguem os registros oficiais."
   },
@@ -4651,7 +4756,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>Buts en Ligue des Champions</b> — 120 pour Barcelone, 9 pour le PSG.`],
       ["8", `<b>Ballons d'Or</b> — record absolu du football (2009–12, 2015, 2019, 2021, 2023).`],
       [n(d.hatTricks), `<b>Coups du chapeau ou plus</b> en club et en sélection.`],
-      ["47", `<b>Titres collectifs officiels</b> — le joueur le plus titré de l'histoire.`]
+      [`${LIVE.trophies}`, `<b>Titres collectifs officiels</b> — le joueur le plus titré de l'histoire.`]
     ],
     method: "Les buts en Ligue des Champions sont répartis à 120 pour Barcelone et 9 pour le PSG d'après les archives officielles."
   },
@@ -4695,7 +4800,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>أهداف دوري أبطال أوروبا</b> — 120 لبرشلونة، 9 لباريس سان جيرمان.`],
       ["8", `<b>كرات ذهبية</b> — الرقم القياسي التاريخي في كرة القدم (2009–12, 2015, 2019, 2021, 2023).`],
       [n(d.hatTricks), `<b>هاتريك أو أكثر</b> مع الأندية والمنتخب الأول.`],
-      ["47", `<b>بطولة رسمية</b> — أكثر لاعب تتويجاً بالألقاب في تاريخ كرة القدم.`]
+      [`${LIVE.trophies}`, `<b>بطولة رسمية</b> — أكثر لاعب تتويجاً بالألقاب في تاريخ كرة القدم.`]
     ],
     method: "أهداف دوري أبطال أوروبا مقسمة 120 لبرشلونة و9 لباريس سان جيرمان من السجلات الرسمية للأندية."
   },
@@ -4739,7 +4844,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>চ্যাম্পিয়ন্স লিগে গোল</b> — বার্সেলোনা ১২০, পিএসজি ৯।`],
       ["8", `<b>ব্যালন ডি'অর</b> — ফুটবল ইতিহাসের রেকর্ড (২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩)।`],
       [n(d.hatTricks), `<b>হ্যাটট্রিক বা তদূর্ধ্ব</b> ক্লাব ও আন্তর্জাতিক ফুটবলে।`],
-      ["47", `<b>দলীয় শিরোপা</b> — ফুটবল ইতিহাসের সবচেয়ে বেশি ট্রফিজয়ী খেলোয়াড়।`]
+      [`${LIVE.trophies}`, `<b>দলীয় শিরোপা</b> — ফুটবল ইতিহাসের সবচেয়ে বেশি ট্রফিজয়ী খেলোয়াড়।`]
     ],
     method: "চ্যাম্পিয়ন্স লিগে গোল বিভাজন বার্সেলোনা ১২০ ও পিএসজি ৯ ক্লাবের আনুষ্ঠানিক তথ্যানুযায়ী।"
   },
@@ -4783,7 +4888,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>चैंपियंस लीग गोल</b> — 120 बार्सिलोना, 9 पीएसजी।`],
       ["8", `<b>बैलन डी'ओर</b> — फुटबॉल इतिहास का रिकॉर्ड (2009–12, 2015, 2019, 2021, 2023)।`],
       [n(d.hatTricks), `<b>हैट्रिक या अधिक</b> क्लब और देश के लिए।`],
-      ["47", `<b>आधिकारिक ट्रॉफियां</b> — फुटबॉल इतिहास के सबसे सफल खिलाड़ी।`]
+      [`${LIVE.trophies}`, `<b>आधिकारिक ट्रॉफियां</b> — फुटबॉल इतिहास के सबसे सफल खिलाड़ी।`]
     ],
     method: "चैंपियंस लीग गोल बार्सिलोना 120 और पीएसजी 9 में आधिकारिक रिकॉर्ड के आधार पर विभाजित हैं।"
   },
@@ -4827,7 +4932,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>Goluri în Champions League</b> — 120 pentru Barcelona, 9 pentru PSG.`],
       ["8", `<b>Baloane de Aur</b> — recordul all-time în fotbal (2009–12, 2015, 2019, 2021, 2023).`],
       [n(d.hatTricks), `<b>Hat-trick-uri sau mai mult</b> pentru club și națională.`],
-      ["47", `<b>Trofee oficiale</b> — cel mai titrat fotbalist din istoria fotbalului.`]
+      [`${LIVE.trophies}`, `<b>Trofee oficiale</b> — cel mai titrat fotbalist din istoria fotbalului.`]
     ],
     method: "Golurile din Champions League sunt împărțite în Barcelona 120 și PSG 9 conform documentelor oficiale ale cluburilor."
   },
@@ -4871,7 +4976,7 @@ const DASH_I18N = {
       [n(comp("UEFA Champions League")), `<b>Chempionlar Ligasidagi gollar</b> — Barselona uchun 120, PSJ uchun 9.`],
       ["8", `<b>Oltin to'p</b> — futbol tarixidagi rekord (2009–12, 2015, 2019, 2021, 2023).`],
       [n(d.hatTricks), `<b>Xet-trik yoki undan ko'p</b> klub va terma jamoada.`],
-      ["47", `<b>Rasmiy sovrinlar</b> — futbol tarixidagi eng ko'p unvonga ega o'yinchi.`]
+      [`${LIVE.trophies}`, `<b>Rasmiy sovrinlar</b> — futbol tarixidagi eng ko'p unvonga ega o'yinchi.`]
     ],
     method: "Chempionlar Ligasidagi gollar rasmiy manbalar asosida Barselona 120 va PSJ 9 ga bo'lingan."
   }
@@ -4917,7 +5022,7 @@ const DASH_EN = {
     [n(comp("UEFA Champions League")), `<b>Champions League goals</b> — 120 for Barcelona, 9 for PSG.`],
     ["8", `<b>Ballons d'Or</b>, more than any player in history (2009–12, 2015, 2019, 2021, 2023).`],
     [n(d.hatTricks), `<b>Hat-tricks or more</b> for club and country (provisional tally).`],
-    ["47", `<b>Team trophies</b> — the most decorated career football has seen.`]
+    [`${LIVE.trophies}`, `<b>Team trophies</b> — the most decorated career football has seen.`]
   ],
   method: "Champions League goals split Barcelona 120 / PSG 9 from club sources; other team-filtered competition splits follow the club-season competition mapping and are documented in the data file."
 };
@@ -4925,10 +5030,10 @@ const DASH_EN = {
 function renderDashboard(d, team) {
   const lang = getLang();
   const cfg = DASH_I18N[lang] || DASH_EN;
-  const T = TEAM_COMPS[team] ? team : "all";
+  const T = teamComps()[team] ? team : "all";
   const name = cfg.teamNames[T] || (T === "all" ? "all teams" : teamName(T));
   const sum = (arr) => arr.reduce((a, r) => a + r[1], 0);
-  const goals = T === "all" ? d.totals.goals : sum(TEAM_COMPS[T]);
+  const goals = T === "all" ? d.totals.goals : sum(teamComps()[T]);
   const apps = T === "all" ? d.totals.apps : T === "argentina" ? d.totals.country.apps : clubAgg(d)[T].apps;
 
   setHead(d, cfg.head(name));
@@ -4976,8 +5081,9 @@ function renderDashboard(d, team) {
     // Sums reconcile to the 934 / 1,179 / 110-pen / 76-FK ground truth:
     // assists 269+58+46+34 = 407; NPG 599+96+97+30 = 822; FK 50+12+12+2 = 76;
     // hat-tricks 48+11+3+0 = 62; G+A 934+407 = 1,341.
-    const assistsVal = T === "all" ? "407+" : T === "barcelona" ? "269" : T === "argentina" ? "58" : T === "miami" ? "46" : "34";
-    const gaVal = T === "all" ? "1,336+" : T === "barcelona" ? "941" : T === "argentina" ? "181" : T === "miami" ? "148" : "66";
+    const assistsBT = d.totals.assists.byTeam;
+    const assistsVal = T === "all" ? n(d.totals.assists.official) + "+" : String(assistsBT[T === "miami" ? "inter_miami" : T].official);
+    const gaVal = T === "all" ? n(d.totals.goals + d.totals.assists.official) + "+" : n(clubAgg(d)[T].goals + d.totals.assists.byTeam[T === "miami" ? "inter_miami" : T].official);
     const npgVal = T === "all" ? "822" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "97" : "30";
     const fkVal = T === "all" ? "76" : T === "barcelona" ? "50" : T === "argentina" ? "12" : T === "miami" ? "12" : "2";
     const htVal = T === "all" ? "62" : T === "barcelona" ? "48" : T === "argentina" ? "11" : T === "miami" ? "3" : "0";
@@ -5059,7 +5165,7 @@ function renderDashboard(d, team) {
   }
 
   // 5. Competitions Card
-  const compRows = T === "all" ? d.byCompetition : TEAM_COMPS[T].map((r) => ({ competition: r[0], goals: r[1] }));
+  const compRows = T === "all" ? d.byCompetition : teamComps()[T].map((r) => ({ competition: r[0], goals: r[1] }));
   const cmax = Math.max(...compRows.map((r) => r.goals), 1);
   const compCard = el("comp-card");
   if (compCard) {
@@ -5098,7 +5204,7 @@ function renderDashboard(d, team) {
       { goal: "700", opp: "vs Atlético Madrid", date: "30 Jun 2020", age: "33y 6d", apps: "862" },
       { goal: "800", opp: "vs Panama", date: "23 Mar 2023", age: "35y 272d", apps: "1,017" },
       { goal: "900", opp: "vs NY Red Bulls", date: "2025", age: "37y 315d", apps: "1,135" },
-      { goal: "934", opp: "D.C. United", date: "10 Oct 2026", age: "39y", apps: "1,179" }
+      { goal: String(LIVE.goals), opp: LIVE.lgOpp, date: LIVE.lgDate, age: "39y", apps: n(LIVE.apps) }
     ];
     msCard.innerHTML = `
       <h3 class="dash-card-title">⚡ Landmark Goal Speed Tracker</h3>
