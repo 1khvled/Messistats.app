@@ -9,6 +9,38 @@
 </head>
 <body>
 <script>
+/* Sandbox storage shim: ad-network scripts read document.cookie /
+  localStorage at init, which throws SecurityError inside a sandboxed
+  frame without allow-same-origin and kills rendering before the
+  creative is written. These inert stand-ins let the creative render.
+  Nothing is stored, nothing leaves the frame. */
+(function () {
+  try {
+    Object.defineProperty(document, 'cookie', {
+      configurable: true,
+      get: function () { return ''; },
+      set: function () { return true; }
+    });
+  } catch (e) {}
+  try {
+    var __adMem = {};
+    function __adMemStorage() {
+      return {
+        getItem: function (k) { return Object.prototype.hasOwnProperty.call(__adMem, k) ? __adMem[k] : null; },
+        setItem: function (k, v) { __adMem[String(k)] = String(v); },
+        removeItem: function (k) { delete __adMem[k]; },
+        clear: function () { __adMem = {}; },
+        key: function (i) { return Object.keys(__adMem)[i] || null; },
+        get length() { return Object.keys(__adMem).length; }
+      };
+    }
+    Object.defineProperty(window, 'localStorage', { configurable: true, value: __adMemStorage() });
+    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: __adMemStorage() });
+  } catch (e) {}
+})();
+</script>
+
+<script>
 atOptions = {
   'key' : '53bbdf66c3aca04103610bd62cfc3e6a',
   'format' : 'iframe',
