@@ -6305,6 +6305,14 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   border: 0;
   overflow: hidden;
 }
+/* Banner slots are fixed-size by design (300x250 / 728x90): pin the frame
+   box so a creative-side resize can never stretch the slot and clip
+   neighbours. Native slots (.safe-ad-native) are excluded on purpose —
+   they resize via the approved auto-height postMessage flow. */
+.ad-banner-slot > iframe.safe-ad-frame {
+  max-width: 300px !important;
+  max-height: 250px !important;
+}
 .safe-ad-native {
   width: 100%;
   height: 320px;

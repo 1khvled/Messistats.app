@@ -48,7 +48,6 @@ const pages = [];
 const ADS_DIR = path.join(DIST, 'ads');
 const EXPECTED_ADS = {
   'hrf-300x250.html': 'highrevenueformat.com',
-  'hrf-728x90.html': 'highrevenueformat.com',
   'prc-native-6161.html': 'profitableratecpmnetwork.com',
   'prc-native-6160.html': 'profitableratecpmnetwork.com',
   'frame.css': null,
