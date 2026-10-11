@@ -326,6 +326,8 @@ function locTech(s, lang) {
   out = out.split("Right Foot Strike").join(w.right);
   out = out.split("Penalty").join(w.penalty);
   out = out.split("Header").join(w.header);
+  out = out.split("Left Foot").join(w.left);
+  out = out.split("Right Foot").join(w.right);
   out = out.split("Assist:").join(`${w.assist}:`);
   out = out.split("assist:").join(`${w.assist}:`);
   return out;
@@ -535,9 +537,17 @@ export function syncLatestGoalHtml() {
     const _bparts = String(g.bdayKey || "").split("-");
     const _bdayEn = (_bparts.length === 2) ? (Number(_bparts[1]) + " " + (EN_MONTHS_FULL[Number(_bparts[0]) - 1] || "")).trim() : "";
     const _bdayLoc = locDateStr(_bdayEn, lang);
-    const _techBase = locTech(g.finish || "", lang);
+    const _techEn = g.finish || "";
+    const _techBase = locTech(_techEn, lang);
+    // French needs masculine noun phrases after "d'un" (a bare feminine
+    // "frappe" would be ungrammatical), so map from the English finish.
     const _techPhrase = lang === "fr"
-      ? (String(_techBase).toLowerCase().indexOf("penalty") >= 0 ? "coup de penalty" : String(_techBase).toLowerCase())
+      ? (/penalty/i.test(_techEn) ? "coup de penalty"
+        : /free kick/i.test(_techEn) ? "coup franc direct"
+        : /left/i.test(_techEn) ? "coup de pied gauche"
+        : /right/i.test(_techEn) ? "coup de pied droit"
+        : /head/i.test(_techEn) ? "coup de tête"
+        : (_techBase ? _techBase.charAt(0).toLowerCase() + _techBase.slice(1) : _techBase))
       : (_techBase ? _techBase.charAt(0).toLowerCase() + _techBase.slice(1) : _techBase);
     const _verdict = VERDICT_LABEL[lang] || VERDICT_LABEL.en;
     const NAR = buildNarrative({
@@ -588,6 +598,20 @@ export function syncLatestGoalHtml() {
       if (!txt) return;
       html = html.replace(new RegExp('<p id="lg-faq-' + i + '"[^>]*>[\\s\\S]*?<\\/p>'), '<p id="lg-faq-' + i + '">' + txt + '</p>');
     });
+    // Miami-count answer (index 3, all languages): the only 3-digit number
+    // in it is the Miami total (years are 4-digit), so a range swap is safe.
+    const patchMiamiAns = (txt) => {
+      let out = String(txt).replace(/(?<![\d.,])\d{3}(?![\d])/g, (m) => {
+        const nv = Number(m);
+        return (nv <= miamiGoals && nv >= miamiGoals - 5) ? String(miamiGoals) : m;
+      });
+      out = out.replace(/(?<![\d০-৯,])[\u09e6-\u09ef]{3}(?![\d০-৯])/g, (m) => {
+        const nv = Number(m.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))));
+        return (nv <= miamiGoals && nv >= miamiGoals - 5) ? bnDigits(miamiGoals) : m;
+      });
+      return out;
+    };
+    html = html.replace(/(<p id="lg-faq-3"[^>]*>)([\s\S]*?)(<\/p>)/i, (w, a, txt, c) => a + patchMiamiAns(txt) + c);
 
         html = html.replace(/<!--[\s\S]*?-->/g, (c) => {
       let outC = c;
@@ -699,6 +723,12 @@ export function syncLatestGoalHtml() {
             const collect = (v) => { if (Array.isArray(v)) v.forEach(collect); else if (v && typeof v === "object" && v["@type"] === "Answer") ansObjs.push(v); };
             collect(node.acceptedAnswer); collect(node.answer); collect(node.answers);
             ansObjs.forEach(a => { if (typeof a.text === "string") a.text = txt; });
+          } else if (/miami|mayami/i.test(String(node.name))) {
+            // Miami-count answer: same range logic as the visible card
+            const ansObjs = [];
+            const collect = (v) => { if (Array.isArray(v)) v.forEach(collect); else if (v && typeof v === "object" && v["@type"] === "Answer") ansObjs.push(v); };
+            collect(node.acceptedAnswer); collect(node.answer); collect(node.answers);
+            ansObjs.forEach(a => { if (typeof a.text === "string") a.text = patchMiamiAns(a.text); });
           }
         }
         Object.values(node).forEach(walk);
