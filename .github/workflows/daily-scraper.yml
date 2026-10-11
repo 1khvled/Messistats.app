@@ -39,6 +39,7 @@ jobs:
         run: |
           npm run build
           npm run audit
+          npm run audit:wc
 
       - name: Commit & Push New Match Stats
         run: |

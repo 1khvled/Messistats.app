@@ -1151,6 +1151,14 @@
       "note": "ESPN 2026 tracker: first MLS Cup in club history"
     },
     {
+      "title": "Campeones Cup",
+      "team": "Inter Miami",
+      "years": [
+        2026
+      ],
+      "note": "2-0 vs Cruz Azul, Sep 17 2026; Messi 12' header (100th Miami goal) + assist"
+    },
+    {
       "title": "Olympic Gold Medal",
       "team": "Argentina",
       "years": [
@@ -1495,5 +1503,42 @@
       "status": "provisional-ongoing"
     }
   ],
-  "hatTricks": 57
+  "hatTricks": 62,
+  "splits": {
+    "_note": "Rivalry comparison splits, verified 2026-10-11. WC2026 Messi: 8 goals (Algeria 3, Austria 2, Jordan 1, Cape Verde 1, Egypt 1) + 4 assists (QF 1, SF 2, R32/R16 share 1); KO 2+4. Ronaldo: 3 (Uzbekistan brace + R32 pen vs Croatia). Finals: Messi +WC26 +Campeones26; Ronaldo +ACL2 +NL25. Continental: Ronaldo +NL2025. Trophies: Messi +Campeones26, Ronaldo +NL25 +Saudi League 25/26.",
+    "worldCup": {
+      "messi": {
+        "goals": 21,
+        "assists": 12,
+        "koGoals": 7,
+        "koAssists": 10,
+        "games": 34
+      },
+      "ronaldo": {
+        "goals": 11,
+        "assists": 2,
+        "koGoals": 1,
+        "koAssists": 0,
+        "games": null
+      }
+    },
+    "finals": {
+      "messi": {
+        "goals": 36,
+        "apps": 52
+      },
+      "ronaldo": {
+        "goals": 23,
+        "apps": 40
+      }
+    },
+    "continental": {
+      "messi": 3,
+      "ronaldo": 3
+    },
+    "trophies": {
+      "messi": 47,
+      "ronaldo": 37
+    }
+  }
 }

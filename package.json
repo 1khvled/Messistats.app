@@ -19,6 +19,7 @@
     "triage": "node scripts/triage.mjs",
     "audit": "node scripts/dist-audit.cjs",
     "audit:i18n": "node scripts/verify-all-i18n.cjs",
+    "audit:wc": "node scripts/audit-wc-splits.mjs",
     "sync:daily": "node scripts/auto-sync-matches.mjs && node scripts/auto-sync-latest-goal.mjs && node scripts/source-watch.mjs",
     "sync:auto": "node scripts/auto-sync-matches.mjs && node scripts/auto-sync-latest-goal.mjs",
     "sync:latest": "node scripts/auto-sync-latest-goal.mjs",

@@ -78,7 +78,7 @@ ${getHreflangsXml("")}
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
       <image:title>Lionel Messi 932 Career Goals Official Stats</image:title>
-      <image:caption>Lionel Messi career overview: 932 goals in 1,178 senior appearances, 46 trophies, 8 Ballons d'Or.</image:caption>
+      <image:caption>Lionel Messi career overview: 932 goals in 1,178 senior appearances, 47 trophies, 8 Ballons d'Or.</image:caption>
     </image:image>
   </url>`);
 
@@ -279,42 +279,42 @@ const langHomeMeta = {
   es: {
     priority: "1.0",
     title: "Goles de Messi: 932 Goles Oficiales en Vivo",
-    caption: "Estadísticas completas de la carrera de Lionel Messi: 932 goles en 1.178 partidos oficiales, 46 títulos colectivos y 8 Balones de Oro."
+    caption: "Estadísticas completas de la carrera de Lionel Messi: 932 goles en 1.178 partidos oficiales, 47 títulos colectivos y 8 Balones de Oro."
   },
   pt: {
     priority: "0.95",
     title: "Gols de Messi: 932 Gols Oficiais ao Vivo",
-    caption: "Estatísticas completas da carreira de Lionel Messi: 932 gols em 1.178 jogos oficiais, 46 títulos coletivos e 8 Bolas de Ouro."
+    caption: "Estatísticas completas da carreira de Lionel Messi: 932 gols em 1.178 jogos oficiais, 47 títulos coletivos e 8 Bolas de Ouro."
   },
   fr: {
     priority: "0.95",
     title: "Buts de Messi : 932 Buts Officiels en Direct",
-    caption: "Statistiques complètes de la carrière de Lionel Messi : 932 buts en 1 178 matchs officiels, 46 trophées collectifs et 8 Ballons d'Or."
+    caption: "Statistiques complètes de la carrière de Lionel Messi : 932 buts en 1 178 matchs officiels, 47 trophées collectifs et 8 Ballons d'Or."
   },
   ar: {
     priority: "0.95",
     title: "أهداف ميسي: 932 هدفاً رسمياً مباشر",
-    caption: "إحصائيات مسيرة ليونيل ميسي الرسمية: 932 هدفاً في 1,178 مباراة، 46 بطولة و8 كرات ذهبية."
+    caption: "إحصائيات مسيرة ليونيل ميسي الرسمية: 932 هدفاً في 1,178 مباراة، 47 بطولة و8 كرات ذهبية."
   },
   bn: {
     priority: "0.95",
     title: "মেসির মোট গোল: ৯৩২ গোল লাইভ ট্র্যাকার",
-    caption: "লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ১,১৭৮ ম্যাচে ৯৩২ গোল, ৪৬টি শিরোপা এবং ৮টি ব্যালন ডি'অর।"
+    caption: "লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ১,১৭৮ ম্যাচে ৯৩২ গোল, ৪৭টি শিরোপা এবং ৮টি ব্যালন ডি'অর।"
   },
   hi: {
     priority: "0.95",
     title: "मेसी के कुल गोल: 932 आधिकारिक गोल लाइव",
-    caption: "लियोनेल मेसी के करियर के आधिकारिक आंकड़े: 1,178 मैचों में 932 गोल, 46 ट्रॉफियां और 8 बैलन डी'ऑर।"
+    caption: "लियोनेल मेसी के करियर के आधिकारिक आंकड़े: 1,178 मैचों में 932 गोल, 47 ट्रॉफियां और 8 बैलन डी'ऑर।"
   },
   ro: {
     priority: "0.95",
     title: "Goluri Messi: 932 Goluri Oficiale Live",
-    caption: "Statisticile complete ale carierei lui Lionel Messi: 932 goluri în 1.178 meciuri oficiale, 46 trofee și 8 Baloane de Aur."
+    caption: "Statisticile complete ale carierei lui Lionel Messi: 932 goluri în 1.178 meciuri oficiale, 47 trofee și 8 Baloane de Aur."
   },
   uz: {
     priority: "0.95",
     title: "Messi gollari: 932 ta rasmiy gol",
-    caption: "Lionel Messining toʻliq rasmiy statistikasi: 1 178 ta oʻyinda 932 ta gol, 46 ta sovrin va 8 ta Oltin toʻp."
+    caption: "Lionel Messining toʻliq rasmiy statistikasi: 1 178 ta oʻyinda 932 ta gol, 47 ta sovrin va 8 ta Oltin toʻp."
   }
 };
 

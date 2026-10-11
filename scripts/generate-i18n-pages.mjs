@@ -601,7 +601,7 @@ function generateGoalsBySeason(lang) {
   const dict = {
     pt: {
       title: "Gols de Messi por Temporada (2004/05–2026)",
-      desc: "Todos os gols de Lionel Messi por temporada de clubes e ano de seleção: 804 por clubes e 126 pela Argentina.",
+      desc: "Todos os gols de Lionel Messi por temporada de clubes e ano de seleção: 806 por clubes e 126 pela Argentina.",
       h1: "Gols de Lionel Messi por Temporada",
       lede: "Todas as temporadas de clube desde 2004/05 até 2026 — recorde de 73 gols em 2011/12 — com divisão de liga, copas e torneios internacionais.",
       clubHead: "Todas as temporadas por clube (Barcelona, PSG, Inter Miami)",
@@ -611,7 +611,7 @@ function generateGoalsBySeason(lang) {
     },
     fr: {
       title: "Buts de Messi par Saison (2004/05–2026)",
-      desc: "Tous les buts de Lionel Messi par saison en club et par année en sélection : 804 buts en club et 126 avec l'Argentine.",
+      desc: "Tous les buts de Lionel Messi par saison en club et par année en sélection : 806 buts en club et 126 avec l'Argentine.",
       h1: "Buts de Lionel Messi par Saison",
       lede: "Toutes les saisons en club de 2004/05 à 2026 — record de 73 buts en 2011/12 — avec répartition par ligue, coupes et compétitions continentales.",
       clubHead: "Toutes les saisons en club (Barcelone, PSG, Inter Miami)",
@@ -621,7 +621,7 @@ function generateGoalsBySeason(lang) {
     },
     ar: {
       title: "أهداف ميسي حسب الموسم (2004/05–2026)",
-      desc: "جميع أهداف ليونيل ميسي حسب الموسم مع الأندية والأرجنتين: 804 هدفاً للأندية و126 للأرجنتين.",
+      desc: "جميع أهداف ليونيل ميسي حسب الموسم مع الأندية والأرجنتين: 806 هدفاً للأندية و126 للأرجنتين.",
       h1: "أهداف ليونيل ميسي حسب الموسم",
       lede: "جميع مواسم الأندية من 2004/05 إلى 2026 — الرقم القياسي 73 هدفاً في موسم 2011/12 — مع تقسيم الدوري، الكأس والبطولات القارية.",
       clubHead: "جميع مواسم الأندية (برشلونة، باريس، إنتر ميامي)",
@@ -631,7 +631,7 @@ function generateGoalsBySeason(lang) {
     },
     bn: {
       title: "মৌসুম অনুযায়ী লিওনেল মেসির গোল (২০০৪/০৫–২০২৬)",
-      desc: "ক্লাব ও আর্জেন্টিনার হয়ে লিওনেল মেসির প্রতিটি মৌসুমের গোলের হিসাব: ক্লাবে ৮০৪ এবং আর্জেন্টিনার হয়ে ১২৫ গোল।",
+      desc: "ক্লাব ও আর্জেন্টিনার হয়ে লিওনেল মেসির প্রতিটি মৌসুমের গোলের হিসাব: ক্লাবে ৮০৬ এবং আর্জেন্টিনার হয়ে ১২৬ গোল।",
       h1: "মৌসুম অনুযায়ী লিওনেল মেসির গোল",
       lede: "২০০৪/০৫ থেকে ২০২৬ পর্যন্ত প্রতিটি ক্লাব মৌসুম — ২০১১/১২ মৌসুমে রেকর্ড ৭৩ গোল সহ লীগ, কাপ ও মহাদেশীয় টুর্নামেন্টের বিভাজন।",
       clubHead: "ক্লাবের হয়ে প্রতিটি মৌসুম (বার্সেলোনা, পিএসজি, ইন্টার মায়ামি)",
@@ -641,7 +641,7 @@ function generateGoalsBySeason(lang) {
     },
     hi: {
       title: "सीज़न अनुसार लियोनेल मेसी के गोल (2004/05–2026)",
-      desc: "क्लब और अर्जेंटीना के लिए लियोनेल मेसी के सीज़न दर सीज़न गोल: क्लबों के लिए 804 और अर्जेंटीना के लिए 126 गोल।",
+      desc: "क्लब और अर्जेंटीना के लिए लियोनेल मेसी के सीज़न दर सीज़न गोल: क्लबों के लिए 806 और अर्जेंटीना के लिए 126 गोल।",
       h1: "सीज़न अनुसार लियोनेल मेसी के गोल",
       lede: "2004/05 से 2026 तक का हर सीज़न — 2011/12 में 73 गोलों का विश्व रिकॉर्ड — लीग, कप और अंतरराष्ट्रीय प्रतियोगिताओं का पूरा ब्यौरा।",
       clubHead: "क्लब सीज़न (बार्सिलोना, पीएसजी, इंटर मियामी)",
@@ -651,7 +651,7 @@ function generateGoalsBySeason(lang) {
     },
     ro: {
       title: "Golurile lui Messi pe Sezoane (2004/05–2026)",
-      desc: "Toate golurile lui Lionel Messi pe sezoane la cluburi și națională: 804 la cluburi și 126 pentru Argentina.",
+      desc: "Toate golurile lui Lionel Messi pe sezoane la cluburi și națională: 806 la cluburi și 126 pentru Argentina.",
       h1: "Golurile lui Lionel Messi pe Sezoane",
       lede: "Fiecare sezon de club din 2004/05 până în 2026 — record: 73 de goluri în 2011/12 — cu detalii pe campionat, cupă și meciuri europene.",
       clubHead: "Toate sezoanele de club (Barcelona, PSG, Inter Miami)",
@@ -661,7 +661,7 @@ function generateGoalsBySeason(lang) {
     },
     uz: {
       title: "Messining Mavsumlar Bo'yicha Gollari (2004/05–2026)",
-      desc: "Lionel Messining klublar va terma jamoadagi barcha gollari: klublarda 804 ta va Argentinada 126 ta gol.",
+      desc: "Lionel Messining klublar va terma jamoadagi barcha gollari: klublarda 806 ta va Argentinada 126 ta gol.",
       h1: "Lionel Messining Mavsumlar Bo'yicha Gollari",
       lede: "2004/05 yildan 2026 yilgacha bo'lgan barcha klub mavsumlari — rekord: 2011/12 mavsumda 73 ta gol — liga, kubok va qit'a musobaqalari bo'yicha.",
       clubHead: "Barcha klub mavsumlari (Barselona, PSJ, Inter Mayami)",
@@ -925,7 +925,7 @@ ${renderRailNav(lang, "timeline")}
   <div class="tl-summary-kpi"><div class="val">22</div><div class="lbl">Seasons (2004–2026)</div></div>
   <div class="tl-summary-kpi"><div class="val">932</div><div class="lbl">Senior Goals</div></div>
   <div class="tl-summary-kpi"><div class="val">407+</div><div class="lbl">Career Assists</div></div>
-  <div class="tl-summary-kpi"><div class="val">46</div><div class="lbl">Major Trophies</div></div>
+  <div class="tl-summary-kpi"><div class="val">47</div><div class="lbl">Major Trophies</div></div>
   <div class="tl-summary-kpi"><div class="val">8</div><div class="lbl">Ballons d'Or</div></div>
   <div class="tl-summary-kpi"><div class="val">6</div><div class="lbl">Golden Shoes</div></div>
 </section>
@@ -961,10 +961,10 @@ function generateAchievements(lang) {
   const L = LANGS[lang];
   const dict = {
     pt: {
-      title: "Títulos e Prêmios de Lionel Messi: Recorde de 46 Troféus e 8 Bolas de Ouro",
-      desc: "Todos os 46 títulos oficiais de Lionel Messi — recorde mundial absoluto na história do futebol — mais 8 Bolas de Ouro e a Copa do Mundo.",
+      title: "Títulos e Prêmios de Lionel Messi: Recorde de 47 Troféus e 8 Bolas de Ouro",
+      desc: "Todos os 47 títulos oficiais de Lionel Messi — recorde mundial absoluto na história do futebol — mais 8 Bolas de Ouro e a Copa do Mundo.",
       h1: "Títulos e Premiações de Lionel Messi",
-      lede: "Todos os 46 títulos oficiais de Lionel Messi (recorde mundial), 8 Bolas de Ouro, 6 Chuteiras de Ouro e a Copa do Mundo FIFA 2022.",
+      lede: "Todos os 47 títulos oficiais de Lionel Messi (recorde mundial), 8 Bolas de Ouro, 6 Chuteiras de Ouro e a Copa do Mundo FIFA 2022.",
       kpiHead: "Resumo de títulos",
       qaHead: "Perguntas rápidas sobre títulos",
       galleryHead: "Galeria de troféus",
@@ -973,10 +973,10 @@ function generateAchievements(lang) {
       exploreTitle: "Explore todas as estatísticas"
     },
     fr: {
-      title: "Palmarès et Trophées de Lionel Messi : 46 Titres et 8 Ballons d'Or",
-      desc: "Les 46 trophées collectifs officiels de Lionel Messi (record mondial absolu de l'histoire du football), 8 Ballons d'Or et la Coupe du Monde.",
+      title: "Palmarès et Trophées de Lionel Messi : 47 Titres et 8 Ballons d'Or",
+      desc: "Les 47 trophées collectifs officiels de Lionel Messi (record mondial absolu de l'histoire du football), 8 Ballons d'Or et la Coupe du Monde.",
       h1: "Palmarès et Trophées de Lionel Messi",
-      lede: "L'intégralité des 46 trophées officiels de Lionel Messi — record absolu du football — plus 8 Ballons d'Or, 6 Souliers d'Or et la Coupe du Monde 2022.",
+      lede: "L'intégralité des 47 trophées officiels de Lionel Messi — record absolu du football — plus 8 Ballons d'Or, 6 Souliers d'Or et la Coupe du Monde 2022.",
       kpiHead: "Résumé des titres",
       qaHead: "Questions rapides sur les trophées",
       galleryHead: "Galerie des trophées",
@@ -985,10 +985,10 @@ function generateAchievements(lang) {
       exploreTitle: "Explorer toutes les statistiques"
     },
     ar: {
-      title: "بطولات وجوائز ليونيل ميسي: رقم قياسي 46 لقباً و8 كرات ذهبية",
-      desc: "جميع بطولات وألقاب ليونيل ميسي الـ 46 (الرقم القياسي العالمي في تاريخ كرة القدم)، بالإضافة إلى 8 كرات ذهبية وكأس العالم.",
+      title: "بطولات وجوائز ليونيل ميسي: رقم قياسي 47 لقباً و8 كرات ذهبية",
+      desc: "جميع بطولات وألقاب ليونيل ميسي الـ 47 (الرقم القياسي العالمي في تاريخ كرة القدم)، بالإضافة إلى 8 كرات ذهبية وكأس العالم.",
       h1: "بطولات وإنجازات ليونيل ميسي",
-      lede: "جميع الألقاب الرسمية الـ 46 لليونيل ميسي (الرقم القياسي التاريخي)، 8 كرات ذهبية، 6 أحذية ذهبية وكأس العالم قطر 2022.",
+      lede: "جميع الألقاب الرسمية الـ 47 لليونيل ميسي (الرقم القياسي التاريخي)، 8 كرات ذهبية، 6 أحذية ذهبية وكأس العالم قطر 2022.",
       kpiHead: "ملخص البطولات",
       qaHead: "أسئلة سريعة حول الألقاب",
       galleryHead: "معرض الكؤوس والجوائز",
@@ -997,10 +997,10 @@ function generateAchievements(lang) {
       exploreTitle: "استكشف جميع الإحصائيات"
     },
     bn: {
-      title: "লিওনেল মেসির ট্রফি ও অর্জন: রেকর্ড ৪৬টি খেতাব ও ৮টি ব্যালন ডি'অর",
-      desc: "ফুটবল ইতিহাসের সর্বোচ্চ ৪৬টি অফিশিয়াল ট্রফি, রেকর্ড ৮টি ব্যালন ডি'অর এবং ২০২২ বিশ্বকাপ সহ লিওনেল মেসির সকল অর্জনের পূর্ণ বিবরণ।",
+      title: "লিওনেল মেসির ট্রফি ও অর্জন: রেকর্ড ৪৭টি খেতাব ও ৮টি ব্যালন ডি'অর",
+      desc: "ফুটবল ইতিহাসের সর্বোচ্চ ৪৭টি অফিশিয়াল ট্রফি, রেকর্ড ৮টি ব্যালন ডি'অর এবং ২০২২ বিশ্বকাপ সহ লিওনেল মেসির সকল অর্জনের পূর্ণ বিবরণ।",
       h1: "লিওনেল মেসির ট্রফি ও অর্জনসমূহ",
-      lede: "লিওনেল মেসির ক্যারিয়ারের ৪৬টি দলগত খেতাব (ফুটবল ইতিহাসের বিশ্বরেকর্ড), ৮টি ব্যালন ডি'অর, ৬টি গোল্ডেন বুট ও বিশ্বকাপ ২০২২।",
+      lede: "লিওনেল মেসির ক্যারিয়ারের ৪৭টি দলগত খেতাব (ফুটবল ইতিহাসের বিশ্বরেকর্ড), ৮টি ব্যালন ডি'অর, ৬টি গোল্ডেন বুট ও বিশ্বকাপ ২০২২।",
       kpiHead: "ট্রফির সারসংক্ষেপ",
       qaHead: "ট্রফি সম্পর্কিত দ্রুত প্রশ্নোত্তর",
       galleryHead: "ট্রফি গ্যালারি",
@@ -1009,10 +1009,10 @@ function generateAchievements(lang) {
       exploreTitle: "সব পরিসংখ্যান দেখুন"
     },
     hi: {
-      title: "लियोनेल मेसी के खिताब और अवॉर्ड: रिकॉर्ड 46 ट्रॉफियां और 8 बैलन डी'ओर",
-      desc: "फुटबॉल इतिहास में सबसे ज्यादा 46 खिताब, 8 बैलन डी'ओर और फीफा विश्व कप 2022 सहित लियोनेल मेसी की सभी ट्रॉफियों का पूरा विवरण।",
+      title: "लियोनेल मेसी के खिताब और अवॉर्ड: रिकॉर्ड 47 ट्रॉफियां और 8 बैलन डी'ओर",
+      desc: "फुटबॉल इतिहास में सबसे ज्यादा 47 खिताब, 8 बैलन डी'ओर और फीफा विश्व कप 2022 सहित लियोनेल मेसी की सभी ट्रॉफियों का पूरा विवरण।",
       h1: "लियोनेल मेसी के खिताब और उपलब्धियां",
-      lede: "लियोनेल मेसी की सभी 46 आधिकारिक ट्रॉफियां (विश्व रिकॉर्ड), 8 बैलन डी'ओर, 6 गोल्डन बूट और 2022 फीफा विश्व कप।",
+      lede: "लियोनेल मेसी की सभी 47 आधिकारिक ट्रॉफियां (विश्व रिकॉर्ड), 8 बैलन डी'ओर, 6 गोल्डन बूट और 2022 फीफा विश्व कप।",
       kpiHead: "खिताबों का सारांश",
       qaHead: "ट्रॉफियों पर त्वरित सवाल",
       galleryHead: "ट्रॉफी गैलरी",
@@ -1021,10 +1021,10 @@ function generateAchievements(lang) {
       exploreTitle: "सभी आंकड़े देखें"
     },
     ro: {
-      title: "Trofeele și Premiile lui Lionel Messi: Record de 46 de Titluri și 8 Baloane de Aur",
-      desc: "Toate cele 46 de trofee oficiale ale lui Lionel Messi (record mondial absolut în istoria fotbalului), 8 Baloane de Aur și Cupa Mondială.",
+      title: "Trofeele și Premiile lui Lionel Messi: Record de 47 de Titluri și 8 Baloane de Aur",
+      desc: "Toate cele 47 de trofee oficiale ale lui Lionel Messi (record mondial absolut în istoria fotbalului), 8 Baloane de Aur și Cupa Mondială.",
       h1: "Palmaresul și Trofeele lui Lionel Messi",
-      lede: "Toate cele 46 de titluri de echipă ale lui Lionel Messi — record mondial, plus 8 Baloane de Aur, 6 Ghete de Aur și Cupa Mondială 2022.",
+      lede: "Toate cele 47 de titluri de echipă ale lui Lionel Messi — record mondial, plus 8 Baloane de Aur, 6 Ghete de Aur și Cupa Mondială 2022.",
       kpiHead: "Rezumatul trofeelor",
       qaHead: "Întrebări rapide despre trofee",
       galleryHead: "Galeria de trofee",
@@ -1033,10 +1033,10 @@ function generateAchievements(lang) {
       exploreTitle: "Explorează toate statisticile"
     },
     uz: {
-      title: "Lionel Messining Sovrinlari va Yutuqlari: 46 ta Titul va 8 ta “Oltin To'p”",
-      desc: "Futbol tarixidagi mutlaq rekord bo'lgan 46 ta rasmiy jamoaviy sovrin, 8 ta “Oltin to'p” va 2022 yilgi Jahon chempionati.",
+      title: "Lionel Messining Sovrinlari va Yutuqlari: 47 ta Titul va 8 ta “Oltin To'p”",
+      desc: "Futbol tarixidagi mutlaq rekord bo'lgan 47 ta rasmiy jamoaviy sovrin, 8 ta “Oltin to'p” va 2022 yilgi Jahon chempionati.",
       h1: "Lionel Messining Sovrinlari va Unvonlari",
-      lede: "Lionel Messining barcha 46 ta rasmiy sovrini (jahon rekordi), 8 ta “Oltin to'p”, 6 ta “Oltin butsa” va Jahon kubogi 2022.",
+      lede: "Lionel Messining barcha 47 ta rasmiy sovrini (jahon rekordi), 8 ta “Oltin to'p”, 6 ta “Oltin butsa” va Jahon kubogi 2022.",
       kpiHead: "Sovrinlar qisqacha mazmuni",
       qaHead: "Sovrinlar bo'yicha tezkor savol-javob",
       galleryHead: "Sovrinlar galereyasi",
@@ -1237,15 +1237,15 @@ function generateMessiVsRonaldo(lang) {
   const dict = {
     pt: {
       title: "Messi vs Ronaldo: Gols, Títulos e Confrontos Diretos",
-      desc: "Lionel Messi vs Cristiano Ronaldo: 932 gols vs 980, 46 títulos vs 35, 8 Bolas de Ouro vs 5. Estatísticas completas e os 36 confrontos diretos.",
+      desc: "Lionel Messi vs Cristiano Ronaldo: 932 gols vs 980, 47 títulos vs 37, 8 Bolas de Ouro vs 5. Estatísticas completas e os 36 confrontos diretos.",
       h1: "Messi vs Cristiano Ronaldo: A Comparação Definitiva",
-      lede: "A comparação estatística definitiva entre Lionel Messi e Cristiano Ronaldo: 932 vs 980 gols, 46 vs 35 títulos e 8 vs 5 Bolas de Ouro.",
+      lede: "A comparação estatística definitiva entre Lionel Messi e Cristiano Ronaldo: 932 vs 980 gols, 47 vs 37 títulos e 8 vs 5 Bolas de Ouro.",
       kpiMessiNote: "1.178 jogos (0,79 g/j)",
       kpiRonaldoNote: "1.339 jogos (0,72 g/j)",
       kpiDiff: "Diferença",
       kpiDiffNote: "Messi em 161 jogos a menos",
       titlesName: "🏆 Títulos Coletivos",
-      titlesGoals: "Messi: 46 <span>vs Ronaldo: 35</span>",
+      titlesGoals: "Messi: 47 <span>vs Ronaldo: 37</span>",
       titlesMeta: "Messi detém o recorde mundial absoluto na história do futebol.",
       bdoName: "🌕 Bola de Ouro",
       bdoGoals: "Messi: 8 <span>vs Ronaldo: 5</span>",
@@ -1274,15 +1274,15 @@ function generateMessiVsRonaldo(lang) {
     },
     fr: {
       title: "Messi vs Ronaldo : Buts, Titres et Face-à-Face Historique",
-      desc: "Lionel Messi vs Cristiano Ronaldo : 932 buts vs 980, 46 trophées vs 35, 8 Ballons d'Or vs 5. Statistiques complètes et les 36 confrontations directes.",
+      desc: "Lionel Messi vs Cristiano Ronaldo : 932 buts vs 980, 47 trophées vs 37, 8 Ballons d'Or vs 5. Statistiques complètes et les 36 confrontations directes.",
       h1: "Messi vs Cristiano Ronaldo : La Comparaison Ultime",
-      lede: "Le comparatif statistique absolu entre Lionel Messi et Cristiano Ronaldo : 932 contre 980 buts, 46 contre 35 titres et 8 contre 5 Ballons d'Or.",
+      lede: "Le comparatif statistique absolu entre Lionel Messi et Cristiano Ronaldo : 932 contre 980 buts, 47 contre 37 titres et 8 contre 5 Ballons d'Or.",
       kpiMessiNote: "1 178 matchs (0,79 b/m)",
       kpiRonaldoNote: "1 280+ matchs (0,72 b/m)",
       kpiDiff: "Différence",
       kpiDiffNote: "Messi en 161 matchs de moins",
       titlesName: "🏆 Titres Collectifs",
-      titlesGoals: "Messi : 46 <span>vs Ronaldo : 35</span>",
+      titlesGoals: "Messi : 47 <span>vs Ronaldo : 37</span>",
       titlesMeta: "Messi détient le record mondial absolu dans l'histoire du football.",
       bdoName: "🌕 Ballon d'Or",
       bdoGoals: "Messi : 8 <span>vs Ronaldo : 5</span>",
@@ -1311,15 +1311,15 @@ function generateMessiVsRonaldo(lang) {
     },
     ar: {
       title: "ميسي ضد رونالدو: مقارنة الأهداف، البطولات والمواجهات المباشرة",
-      desc: "ليونيل ميسي ضد كريستيانو رونالدو: 932 هدفاً مقابل 980، 46 بطولة مقابل 35، و8 كرات ذهبية مقابل 5. تفاصيل الـ 36 مباراة المباشرة.",
+      desc: "ليونيل ميسي ضد كريستيانو رونالدو: 932 هدفاً مقابل 980، 47 بطولة مقابل 37، و8 كرات ذهبية مقابل 5. تفاصيل الـ 36 مباراة المباشرة.",
       h1: "ميسي ضد كريستيانو رونالدو: المقارنة التاريخية",
-      lede: "المقارنة الإحصائية الشاملة بين ليونيل ميسي وكريستيانو رونالدو: 932 مقابل 980 هدفاً، 46 مقابل 35 لقباً، و8 كرات ذهبية مقابل 5.",
+      lede: "المقارنة الإحصائية الشاملة بين ليونيل ميسي وكريستيانو رونالدو: 932 مقابل 980 هدفاً، 47 مقابل 37 لقباً، و8 كرات ذهبية مقابل 5.",
       kpiMessiNote: "1,178 مباراة (0.79 هدف/مباراة)",
       kpiRonaldoNote: "+1,339 مباراة (0.72 هدف/مباراة)",
       kpiDiff: "الفارق",
       kpiDiffNote: "ميسي في 161 مباراة أقل",
       titlesName: "🏆 البطولات الجماعية",
-      titlesGoals: "ميسي: 46 <span>ضد رونالدو: 35</span>",
+      titlesGoals: "ميسي: 47 <span>ضد رونالدو: 37</span>",
       titlesMeta: "ميسي يحمل الرقم القياسي العالمي في تاريخ كرة القدم.",
       bdoName: "🌕 الكرة الذهبية",
       bdoGoals: "ميسي: 8 <span>ضد رونالدو: 5</span>",
@@ -1348,15 +1348,15 @@ function generateMessiVsRonaldo(lang) {
     },
     bn: {
       title: "মেসি বনাম রোনালদো: গোল, ট্রফি এবং মুখোমুখি লড়াইয়ের পূর্ণাঙ্গ হিসাব",
-      desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯৩২ গোল বনাম ৯৮০+, ৪৬ ট্রফি বনাম ৩৫, এবং ৮টি ব্যালন ডি'অর বনাম ৫। মুখোমুখি ৩৬টি ম্যাচের রেকর্ড।",
+      desc: "লিওনেল মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: ৯৩২ গোল বনাম ৯৮০+, ৪৭ ট্রফি বনাম ৩৭, এবং ৮টি ব্যালন ডি'অর বনাম ৫। মুখোমুখি ৩৬টি ম্যাচের রেকর্ড।",
       h1: "মেসি বনাম ক্রিশ্চিয়ানো রোনালদো: সর্বকালের সেরা তুলনা",
-      lede: "মেসি ও রোনালদোর ক্যারিয়ারের পুঙ্খানুপুঙ্খ পরিসংখ্যান: ৯৩২ বনাম ৯৮০ গোল, ৪৬ বনাম ৩৫টি শিরোপা এবং ৮ বনাম ৫টি ব্যালন ডি'অর।",
+      lede: "মেসি ও রোনালদোর ক্যারিয়ারের পুঙ্খানুপুঙ্খ পরিসংখ্যান: ৯৩২ বনাম ৯৮০ গোল, ৪৭ বনাম ৩৭টি শিরোপা এবং ৮ বনাম ৫টি ব্যালন ডি'অর।",
       kpiMessiNote: "১,১৭৮ ম্যাচ (০.৭৯ গোল/ম্যাচ)",
       kpiRonaldoNote: "১,৩৩৯+ ম্যাচ (০.৭২ গোল/ম্যাচ)",
       kpiDiff: "পার্থক্য",
       kpiDiffNote: "১৬১ ম্যাচ কম খেলে মেসি",
       titlesName: "🏆 দলগত শিরোপা",
-      titlesGoals: "মেসি: ৪৬ <span>বনাম রোনালদো: ৩৫</span>",
+      titlesGoals: "মেসি: ৪৭ <span>বনাম রোনালদো: ৩৭</span>",
       titlesMeta: "মেসি ফুটবল ইতিহাসের সর্বকালের বিশ্বরেকর্ডের অধিকারী।",
       bdoName: "🌕 ব্যালন ডি'অর",
       bdoGoals: "মেসি: ৮ <span>বনাম রোনালদো: ৫</span>",
@@ -1385,15 +1385,15 @@ function generateMessiVsRonaldo(lang) {
     },
     hi: {
       title: "मेसी बनाम रोनाल्डो: गोल, ट्रॉफियां और आमने-सामने के मुकाबले",
-      desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 932 गोल बनाम 980, 46 खिताब बनाम 35, और 8 बैलन डी'ओर बनाम 5। दोनों के बीच 36 सीधे मैचों का विवरण।",
+      desc: "लियोनेल मेसी बनाम क्रिस्टियानो रोनाल्डो: 932 गोल बनाम 980, 47 खिताब बनाम 37, और 8 बैलन डी'ओर बनाम 5। दोनों के बीच 36 सीधे मैचों का विवरण।",
       h1: "मेसी बनाम क्रिस्टियानो रोनाल्डो: अंतिम तुलना",
-      lede: "लियोनेल मेसी और क्रिस्टियानो रोनाल्डो के आंकड़ों का पूर्ण तुलनात्मक विश्लेषण: 932 बनाम 980 गोल, 46 बनाम 35 ट्रॉफियां और 8 बनाम 5 बैलन डी'ओर।",
+      lede: "लियोनेल मेसी और क्रिस्टियानो रोनाल्डो के आंकड़ों का पूर्ण तुलनात्मक विश्लेषण: 932 बनाम 980 गोल, 47 बनाम 37 ट्रॉफियां और 8 बनाम 5 बैलन डी'ओर।",
       kpiMessiNote: "1,178 मैच (0.79 गोल/मैच)",
       kpiRonaldoNote: "1,339 मैच (0.72 गोल/मैच)",
       kpiDiff: "अंतर",
       kpiDiffNote: "मेसी ने 161 कम मैचों में",
       titlesName: "🏆 टीम खिताब",
-      titlesGoals: "मेसी: 46 <span>बनाम रोनाल्डो: 35</span>",
+      titlesGoals: "मेसी: 47 <span>बनाम रोनाल्डो: 37</span>",
       titlesMeta: "मेसी के नाम फुटबॉल इतिहास में सर्वकालिक विश्व रिकॉर्ड है।",
       bdoName: "🌕 बैलन डी'ओर",
       bdoGoals: "मेसी: 8 <span>बनाम रोनाल्डो: 5</span>",
@@ -1422,15 +1422,15 @@ function generateMessiVsRonaldo(lang) {
     },
     ro: {
       title: "Messi vs Ronaldo: Goluri, Trofee și Meciuri Directe",
-      desc: "Lionel Messi vs Cristiano Ronaldo: 932 goluri vs 980, 46 trofee vs 35, 8 Baloane de Aur vs 5. Comparație completă și cele 36 de meciuri directe.",
+      desc: "Lionel Messi vs Cristiano Ronaldo: 932 goluri vs 980, 47 trofee vs 37, 8 Baloane de Aur vs 5. Comparație completă și cele 36 de meciuri directe.",
       h1: "Messi vs Cristiano Ronaldo: Comparația Supremă",
-      lede: "Comparația statistică definitivă între Lionel Messi și Cristiano Ronaldo: 932 vs 980 goluri, 46 vs 35 trofee și 8 vs 5 Baloane de Aur.",
+      lede: "Comparația statistică definitivă între Lionel Messi și Cristiano Ronaldo: 932 vs 980 goluri, 47 vs 37 trofee și 8 vs 5 Baloane de Aur.",
       kpiMessiNote: "1.178 meciuri (0,79 g/m)",
       kpiRonaldoNote: "1.339 meciuri (0,72 g/m)",
       kpiDiff: "Diferență",
       kpiDiffNote: "Messi în 161 meciuri mai puține",
       titlesName: "🏆 Titluri de Echipă",
-      titlesGoals: "Messi: 46 <span>vs Ronaldo: 35</span>",
+      titlesGoals: "Messi: 47 <span>vs Ronaldo: 37</span>",
       titlesMeta: "Messi deține recordul mondial absolut din istoria fotbalului.",
       bdoName: "🌕 Balonul de Aur",
       bdoGoals: "Messi: 8 <span>vs Ronaldo: 5</span>",
@@ -1459,15 +1459,15 @@ function generateMessiVsRonaldo(lang) {
     },
     uz: {
       title: "Messi vs Ronaldu: Gollar, Sovrinlar va O'zaro To'qnashuvlar",
-      desc: "Lionel Messi va Krishtianu Ronaldu: 932 ta gol vs 980, 46 ta titul vs 35, 8 ta “Oltin to'p” vs 5. O'zaro 36 ta o'yin natijalari.",
+      desc: "Lionel Messi va Krishtianu Ronaldu: 932 ta gol vs 980, 47 ta titul vs 37, 8 ta “Oltin to'p” vs 5. O'zaro 36 ta o'yin natijalari.",
       h1: "Messi vs Krishtianu Ronaldu: Karyeralar Qiyosi",
-      lede: "Lionel Messi va Krishtianu Ronaldu o'rtasidagi to'liq statistik taqqoslash: 932 ga 980 ta gol, 46 ga 35 ta sovrin va 8 ga 5 ta “Oltin to'p”.",
+      lede: "Lionel Messi va Krishtianu Ronaldu o'rtasidagi to'liq statistik taqqoslash: 932 ga 980 ta gol, 47 ga 37 ta sovrin va 8 ga 5 ta “Oltin to'p”.",
       kpiMessiNote: "1 178 o'yin (0,79 g/o')",
       kpiRonaldoNote: "1 280+ o'yin (0,72 g/o')",
       kpiDiff: "Farq",
       kpiDiffNote: "Messi 105 ta kam o'yinda",
       titlesName: "🏆 Jamoaviy Sovrinlar",
-      titlesGoals: "Messi: 46 <span>vs Ronaldu: 35</span>",
+      titlesGoals: "Messi: 47 <span>vs Ronaldu: 37</span>",
       titlesMeta: "Messi futbol tarixidagi mutlaq jahon rekordchisidir.",
       bdoName: "🌕 “Oltin to'p”",
       bdoGoals: "Messi: 8 <span>vs Ronaldu: 5</span>",

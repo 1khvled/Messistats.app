@@ -69,6 +69,35 @@ export function syncHomeKpis() {
   const fy = new Date().getFullYear();
   const estEnd = fy + Math.max(1, Math.ceil(toGo / (pace * 50)));
   const estStr = `${estEnd - 1}/${estEnd}`;
+  const trophies = (messi.trophies || []).filter((t) => t.team !== "Individual").reduce((n, t) => n + ((t.years || []).length), 0);
+  let miami = 102;
+  try {
+    const lg = JSON.parse(fs.readFileSync(path.join(root, "public", "data", "latest-goal.json"), "utf8"));
+    if (lg.totals?.miamiGoals) miami = lg.totals.miamiGoals;
+  } catch {}
+  // value-anchored transplant for prose facts (magnitudes that can ONLY mean
+  // one thing on homepages; trophies-adjacent 46 handled explicitly elsewhere
+  // to avoid the "46 assists" collision)
+  const BN_D = "০১২৩৪৫৬৭৮৯";
+  const toLatin = (tok) => tok.replace(/[০-৯]/g, (d) => String(BN_D.indexOf(d))).replace(/[,\.\s  ]/g, "");
+  const transplantNums = (txt) => {
+    const map = [[[goals - 2, goals - 1, goals], goals], [[apps - 1, apps], apps], [[club - 2, club - 1, club], club], [[arg - 1, arg], arg], [[miami - 2, miami - 1, miami], miami]];
+    return txt.replace(/[\d০-৯]{1,3}(?:[,\.\s  ][\d০-৯]{3})+|[\d০-৯]+/g, (tok, off, full) => {
+      const before = full[off - 1] || "";
+      const after = full[off + tok.length] || "";
+      if (/[\d.,]/.test(before) || /[\d\w]/.test(after)) return tok;
+      if (/[০-৯]/.test(tok) && /[0-9]/.test(tok)) return tok;
+      const key = Number(toLatin(tok));
+      if (!Number.isFinite(key)) return tok;
+      for (const [olds, nv] of map) {
+        if (olds.includes(key)) {
+          const rendered = reformatLike(tok, nv);
+          return rendered;
+        }
+      }
+      return tok;
+    });
+  };
 
   const files = ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ar/index.html", "bn/index.html", "hi/index.html", "ro/index.html", "uz/index.html"];
   let n = 0;
@@ -114,11 +143,11 @@ export function syncHomeKpis() {
         let s = section;
         const nums = [...s.matchAll(/(<span class="kpi-num">)([^<]*)(<\/span>)/g)];
         if (nums.length === 6) {
-          const vals = [String(goals), `${assists}*`, reformatLike(nums[2][2], ga), reformatLike(nums[3][2], apps), nums[4][2], nums[5][2]];
+          const vals = [String(goals), `${assists}*`, reformatLike(nums[2][2], ga), reformatLike(nums[3][2], apps), reformatLike(nums[4][2], trophies), nums[5][2]];
           let i = 0;
           s = s.replace(/(<span class="kpi-num">)([^<]*)(<\/span>)/g, (w, a, _o, c) => (i < vals.length ? `${a}${vals[i++] ?? ""}${c}` : w));
         } else if (nums.length === 4) {
-          const vals = [reformatLike(nums[0][2], goals), reformatLike(nums[1][2], apps), nums[2][2], nums[3][2]];
+          const vals = [reformatLike(nums[0][2], goals), reformatLike(nums[1][2], apps), reformatLike(nums[2][2], trophies), nums[3][2]];
           let i = 0;
           s = s.replace(/(<span class="kpi-num">)([^<]*)(<\/span>)/g, (w, a, _o, c) => (i < vals.length ? `${a}${vals[i++] ?? ""}${c}` : w));
         }
@@ -145,6 +174,40 @@ export function syncHomeKpis() {
       });
     }
 
+    // ---- Facts pass: prose totals/splits (bio JSON-LD, lede, pills,
+    // footer links, chips, FAQ answers). Value-anchored: only magnitudes
+    // that unambiguously mean one fact. Trophies-46 handled explicitly
+    // (never blanket: "46 assists" collision); WC splits untouched here.
+    {
+      const TROPHY_WORDS = /troph|t[ií]tul|titre|لقب|بطولة|ট্রফি|शिरोपा|ट्रॉफी|खिताब|trofe|sovrin|palmar|record.*cup|cups/i;
+      const ASSIST_WORDS = /assist|asist|передача/i;
+      const transplantPlus = (txt, allowTrophies, trophies) => {
+        let out = transplantNums(txt);
+        if (allowTrophies) {
+          out = out.replace(/(?<![\d০-৯,])(46|৪৬)(?![\d০-৯])/g, (tok) => (/[০-৯]/.test(tok) ? bnDigits(trophies) : String(trophies)));
+        }
+        return out;
+      };
+      const trophyOk = (txt) => TROPHY_WORDS.test(txt) && !ASSIST_WORDS.test(txt);
+      html = html.replace(/("description": ")((?:[^"\\]|\\.)*)(")/gi, (w, a, desc, c) => a + transplantPlus(desc, trophyOk(desc), trophies) + c);
+      html = html.replace(/("text": ")((?:[^"\\]|\\.)*)(")/gi, (w, a, txt, c) => a + transplantPlus(txt, trophyOk(txt), trophies) + c);
+      const block = (re, trophyScope) => {
+        html = html.replace(re, (w, a, inner, c) => a + transplantPlus(inner, trophyScope ? trophyOk(inner) : false, trophies) + c);
+      };
+      block(/(<h1[^>]*>)([\s\S]*?)(<\/h1>)/gi, true);
+      block(/(<p class="lede"[^>]*>)([\s\S]*?)(<\/p>)/gi, true);
+      block(/(<div class="gt-stat-pill">[\s\S]*?)(<\/div>)/gi, true);
+      html = html.replace(/(<a href="[^"]*achievements"[^>]*>)([^<]*)(<\/a>)/gi, (w, a, txt, c) => a + transplantPlus(txt, trophyOk(txt), trophies) + c);
+      block(/(<span class="id-chip[^"]*">)([^<]*)(<\/span>)/gi, true);
+      block(/(<p class="section-sub">)([\s\S]*?)(<\/p>)/gi, true);
+      block(/(<div class="faq-answer"><p>)([\s\S]*?)(<\/p><\/div>)/gi, false);
+      // table cells (club/trophy tables; years/scores/assists magnitudes unmapped)
+      html = html.replace(/(<(?:td|th)[^>]*>)([\s\S]*?)(<\/(?:td|th)>)/gi, (w, a, inner, c) => {
+        if (/<(?:td|th)[^>]*>/.test(inner)) return w; // nested: leave
+        return a + transplantNums(inner) + c;
+      });
+    }
+
     fs.writeFileSync(file, html, "utf8");
 
     // ---- drift guard: totals-only zones must not hold older totals ----
@@ -155,7 +218,7 @@ export function syncHomeKpis() {
     ].join("\n");
     if (!zones) { n++; continue; }
     const stale = [];
-    for (const prev of [goals - 1, goals - 2]) {
+    for (const prev of [goals - 1, goals - 2, trophies - 1]) {
       if (prev <= 0) continue;
       for (const tok of [String(prev), bnDigits(prev)]) {
         const esc = tok.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
