@@ -551,15 +551,24 @@ export function syncLatestGoalHtml() {
     html = html.replace(/<meta property="og:description" content="[^"]*"/i, '<meta property="og:description" content="' + escAttr(NAR.desc) + '"');
     html = html.replace(/<meta name="twitter:description" content="[^"]*"/i, '<meta name="twitter:description" content="' + escAttr(NAR.desc) + '"');
     html = html.replace(/<meta content="[^"]*" property="og:image:secure_url"/i, '<meta content="https://www.messistat.com/img/og-messi.jpg?v=' + seniorGoals + '" property="og:image:secure_url"');
+    html = html.replace(/og-messi\.jpg\?v=\d+/g, "og-messi.jpg?v=" + seniorGoals);
     html = html.replace(/<meta property="og:image:alt" content="[^"]*"/i, '<meta property="og:image:alt" content="' + escAttr(NAR.videoName) + '"');
     html = html.replace(/<meta name="keywords" content="([^"]*)"/i, (whole, kw) => {
-      const prev = seniorGoals - 1;
-      return '<meta name="keywords" content="' + kw.split(String(prev)).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals)) + '"';
+      let out = kw;
+      for (let back = 1; back <= 5; back++) {
+        const prev = seniorGoals - back;
+        out = out.split(String(prev)).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals));
+      }
+      return '<meta name="keywords" content="' + out + '"';
     });
 
         html = html.replace(/(<title>[^<]*<\/title>|<meta property="og:title" content="[^"]*"|<meta name="twitter:title" content="[^"]*")/gi, (tag) => {
-      const prevT = String(seniorGoals - 1);
-      return tag.split(prevT).join(String(seniorGoals)).split(bnDigits(prevT)).join(bnDigits(seniorGoals));
+      let outT = tag;
+      for (let back = 1; back <= 5; back++) {
+        const prevT = String(seniorGoals - back);
+        outT = outT.split(prevT).join(String(seniorGoals)).split(bnDigits(prevT)).join(bnDigits(seniorGoals));
+      }
+      return outT;
     });
 
     html = html.replace(/(<div class="today-status-verdict">[\s\S]*?<span>)[^<]*(<\/span>)/i, function (w, a, b) { return a + escHtml(_verdict) + escHtml(g.title) + b; });
@@ -581,13 +590,21 @@ export function syncLatestGoalHtml() {
     });
 
         html = html.replace(/<!--[\s\S]*?-->/g, (c) => {
-      const prevC = String(seniorGoals - 1);
-      return c.split(prevC).join(String(seniorGoals)).split(bnDigits(prevC)).join(bnDigits(seniorGoals));
+      let outC = c;
+      for (let back = 1; back <= 5; back++) {
+        const prevC = String(seniorGoals - back);
+        outC = outC.split(prevC).join(String(seniorGoals)).split(bnDigits(prevC)).join(bnDigits(seniorGoals));
+      }
+      return outC;
     });
 
     html = html.replace(/(<section class="latest-goal-roulette-card"[\s\S]*?<\/section>)/i, (blk) => {
-      const prev = String(seniorGoals - 1);
-      return blk.split(prev).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals));
+      let out = blk;
+      for (let back = 1; back <= 5; back++) {
+        const prev = String(seniorGoals - back);
+        out = out.split(prev).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals));
+      }
+      return out;
     });
 
         // kpi-note / milestone-note carry the appearances total ("1,177 appearances").
@@ -603,11 +620,35 @@ export function syncLatestGoalHtml() {
       return open2 + out2 + close2;
     });
 
+    const trophiesNow = (() => { try { return (messiData.trophies || []).filter((t) => t.team !== "Individual").reduce((a, t) => a + ((t.years || []).length), 0); } catch { return 47; } })();
     html = html.replace(/(<span class="(?:milestone-val|kpi-value) tnum"[^>]*>)([0-9০-৯,\s]+)(<\/span>)/g, (whole, open, val, close) => {
       const norm = val.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))).replace(/,/g, "");
       const n = Number(norm);
-      if (!Number.isFinite(n) || (n !== seniorGoals && n !== seniorGoals - 1)) return whole;
-      return open + (/[০-৯]/.test(val) ? bnDigits(seniorGoals) : String(seniorGoals)) + close;
+      if (!Number.isFinite(n)) return whole;
+      const isBn = /[০-৯]/.test(val);
+      const put = (v) => open + (isBn ? bnDigits(v) : String(v)) + close;
+      if (n <= seniorGoals && n >= seniorGoals - 5 && n >= 900) return put(seniorGoals);
+      if (n <= miamiGoals && n >= miamiGoals - 5) return put(miamiGoals);
+      if (n >= goalsNeeded && n <= goalsNeeded + 5) return put(goalsNeeded);
+      if (n < trophiesNow && n >= trophiesNow - 5) return put(trophiesNow);
+      return whole;
+    });
+    // milestone international-goals desc ("806 club ... 125 international"): first int -> club, last int -> country
+    html = html.replace(/(<p class="milestone-desc">)([\s\S]*?)(<\/p>)/gi, (whole, open, txt, close) => {
+      const ints = [...txt.matchAll(/[\d০-৯]+/g)].map((m) => m[0]);
+      if (ints.length < 2) return whole;
+      const norm = (t) => Number(t.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))));
+      const first = norm(ints[0]);
+      const last = norm(ints[ints.length - 1]);
+      if (!(first >= clubGoals - 5 && first <= clubGoals)) return whole;
+      if (!(last >= intlGoals - 5 && last <= intlGoals)) return whole;
+      let out = txt;
+      const bn1 = /[০-৯]/.test(ints[0]);
+      out = out.replace(ints[0], bn1 ? bnDigits(clubGoals) : String(clubGoals));
+      const bnL = /[০-৯]/.test(ints[ints.length - 1]);
+      const li = out.lastIndexOf(ints[ints.length - 1]);
+      out = out.slice(0, li) + (bnL ? bnDigits(intlGoals) : String(intlGoals)) + out.slice(li + ints[ints.length - 1].length);
+      return open + out + close;
     });
 
     html = html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi, (whole, body) => {
@@ -675,9 +716,13 @@ export function syncLatestGoalHtml() {
       .replace(/<svg[\s\S]*?<\/svg>/gi, "")
       .replace(/<div class="recent-goals-grid">[\s\S]*?<\/section>/i, "")
       .replace(/<div class="recent-goals-table-wrap">[\s\S]*?<\/section>/i, "")
-      .replace(/<li id="lg-latest-line">[\s\S]*?<\/li>/i, "");
+      .replace(/<li(?![^>]*id="lg-latest-line")><b>#\d+:<\/b>[\s\S]*?<\/li>/gi, "");
+    if (!written.includes('<li id="lg-latest-line"><b>#' + seniorGoals + ':</b>') && !written.includes('<li id="lg-latest-line"><b>#' + bnDigits(seniorGoals) + ':</b>')) {
+      throw new Error("DRIFT in " + lang + "/latest-goal.html: latest-goal line missing Goal #" + seniorGoals);
+    }
     const staleProblems = [];
-    const _prevList = [String(seniorGoals - 1), bnDigits(seniorGoals - 1)];
+    const _prevList = [];
+    for (let back = 1; back <= 5; back++) _prevList.push(String(seniorGoals - back), bnDigits(seniorGoals - back));
     for (const pt of _prevList) {
       const re = new RegExp("(?<![\\d,])" + pt + "(?![\\d])", "g");
       const n = (guardZone.match(re) || []).length;

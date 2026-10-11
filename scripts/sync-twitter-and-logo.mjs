@@ -6,7 +6,7 @@
  *    - twitter:site = @messistat1
  *    - twitter:creator = @messistat1
  *    - twitter:domain = messistat.com
- *    - Cache-busting twitter:image & og:image = https://www.messistat.com/img/og-messi.jpg?v=932
+ *    - Cache-busting twitter:image & og:image = https://www.messistat.com/img/og-messi.jpg?v={live-goals}
  *    - og:image:secure_url
  * 2. Guarantees Google Logo Indexing & Schema.org Organization:
  *    - Organization.logo with ImageObject (512x512, caption, contentUrl)
@@ -46,6 +46,13 @@ console.log(`[sync-twitter-and-logo] Processing ${htmlFiles.length} HTML files..
 
 let updatedCount = 0;
 
+// Cache-buster tracks the live career total (never a frozen number).
+let OG_V = 934;
+try {
+  const _md = JSON.parse(fs.readFileSync(path.join(root, "public", "data", "messi-data.json"), "utf8"));
+  if (_md?.totals?.combined?.goals) OG_V = _md.totals.combined.goals;
+} catch {}
+
 for (const file of htmlFiles) {
   let content = fs.readFileSync(file, "utf8");
   const orig = content;
@@ -53,26 +60,26 @@ for (const file of htmlFiles) {
   // 1. Cache-bust og:image and twitter:image
   content = content.replace(
     /(<meta[^>]+property=["']og:image["'][^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=932$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=${OG_V}$2`
   );
   content = content.replace(
     /(<meta[^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'][^>]+property=["']og:image["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=932$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=${OG_V}$2`
   );
   content = content.replace(
     /(<meta[^>]+name=["']twitter:image["'][^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=932$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=${OG_V}$2`
   );
   content = content.replace(
     /(<meta[^>]+content=["'])https:\/\/www\.messistat\.com\/img\/og-messi\.jpg(?:[?][^"']*)?(["'][^>]+name=["']twitter:image["'])/g,
-    `$1https://www.messistat.com/img/og-messi.jpg?v=932$2`
+    `$1https://www.messistat.com/img/og-messi.jpg?v=${OG_V}$2`
   );
 
   // 1b. Add og:image:secure_url if missing
   if (content.includes('property="og:image"') && !content.includes('property="og:image:secure_url"')) {
     content = content.replace(
       /(<meta[^>]+property=["']og:image["'][^>]+>)/,
-      `$1\n<meta content="https://www.messistat.com/img/og-messi.jpg?v=932" property="og:image:secure_url"/>`
+      `$1\n<meta content="https://www.messistat.com/img/og-messi.jpg?v=${OG_V}" property="og:image:secure_url"/>`
     );
   }
 

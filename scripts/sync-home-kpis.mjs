@@ -70,18 +70,19 @@ export function syncHomeKpis() {
   const estEnd = fy + Math.max(1, Math.ceil(toGo / (pace * 50)));
   const estStr = `${estEnd - 1}/${estEnd}`;
   const trophies = (messi.trophies || []).filter((t) => t.team !== "Individual").reduce((n, t) => n + ((t.years || []).length), 0);
-  let miami = 102;
+  let miami = (messi.totals?.club?.goals ?? 806) - 672 - 32; // messi-data first: already updated when this runs (latest-goal.json may still lag)
   try {
     const lg = JSON.parse(fs.readFileSync(path.join(root, "public", "data", "latest-goal.json"), "utf8"));
     if (lg.totals?.miamiGoals) miami = lg.totals.miamiGoals;
   } catch {}
+  const miamiApps = (messi.clubSeasons || []).filter((s) => s.club === "Inter Miami").reduce((n, s) => n + (s.apps || 0), 0);
   // value-anchored transplant for prose facts (magnitudes that can ONLY mean
   // one thing on homepages; trophies-adjacent 46 handled explicitly elsewhere
   // to avoid the "46 assists" collision)
   const BN_D = "০১২৩৪৫৬৭৮৯";
   const toLatin = (tok) => tok.replace(/[০-৯]/g, (d) => String(BN_D.indexOf(d))).replace(/[,\.\s  ]/g, "");
   const transplantNums = (txt) => {
-    const map = [[[goals - 2, goals - 1, goals], goals], [[apps - 1, apps], apps], [[club - 2, club - 1, club], club], [[arg - 1, arg], arg], [[miami - 2, miami - 1, miami], miami]];
+    const map = [[[goals - 2, goals - 1, goals], goals], [[apps - 1, apps], apps], [[club - 2, club - 1, club], club], [[arg - 1, arg], arg], [[miami - 2, miami - 1, miami], miami], [miamiApps ? [miamiApps - 1, miamiApps] : [], miamiApps]];
     return txt.replace(/[\d০-৯]{1,3}(?:[,\.\s  ][\d০-৯]{3})+|[\d০-৯]+/g, (tok, off, full) => {
       const before = full[off - 1] || "";
       const after = full[off + tok.length] || "";

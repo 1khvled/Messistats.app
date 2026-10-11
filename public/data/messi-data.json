@@ -30,7 +30,8 @@
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
-      "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932)."
+      "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
+      "Auto-synced on 2026-10-11: D.C. United at Inter Miami CF (+2G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -44,7 +45,8 @@
       "761800",
       "401901377",
       "761829",
-      "761844"
+      "761844",
+      "761847"
     ]
   },
   "profile": {
@@ -70,18 +72,18 @@
   },
   "totals": {
     "club": {
-      "appearances": 970,
-      "goals": 806,
+      "appearances": 971,
+      "goals": 808,
       "goalsPerGame": 0.83
     },
     "country": {
       "appearances": 208,
       "goals": 126,
-      "goalsPerGame": 0.6
+      "goalsPerGame": 0.61
     },
     "combined": {
-      "appearances": 1178,
-      "goals": 932
+      "appearances": 1179,
+      "goals": 934
     },
     "assists": {
       "official": 407,
@@ -118,8 +120,8 @@
       }
     },
     "goalContributions": {
-      "official": 1339,
-      "transfermarkt": 1381,
+      "official": 1341,
+      "transfermarkt": 1383,
       "perGameOfficial": 1.14
     },
     "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (405 assists); Transfermarkt criteria includes penalties won and rebounds (447 assists).",
@@ -615,8 +617,8 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        23,
-        21
+        24,
+        23
       ],
       "cup": [
         0,
@@ -630,8 +632,8 @@
         3,
         3
       ],
-      "apps": 29,
-      "goals": 25
+      "apps": 30,
+      "goals": 27
     }
   ],
   "countryYears": [
@@ -964,7 +966,7 @@
     {
       "competition": "MLS (regular season)",
       "team": "Inter Miami",
-      "goals": 71
+      "goals": 73
     },
     {
       "competition": "Copa del Rey",
@@ -1011,7 +1013,7 @@
   "byFinish": [
     {
       "finish": "Open play",
-      "goals": 746
+      "goals": 748
     },
     {
       "finish": "Penalties",
@@ -1025,7 +1027,7 @@
   "byBodyPart": [
     {
       "part": "Left foot",
-      "goals": 744
+      "goals": 746
     },
     {
       "part": "Right foot",
@@ -1497,8 +1499,8 @@
     },
     {
       "year": 2026,
-      "goals": 36,
-      "careerTotal": 932,
+      "goals": 38,
+      "careerTotal": 934,
       "age": 39,
       "status": "provisional-ongoing"
     }

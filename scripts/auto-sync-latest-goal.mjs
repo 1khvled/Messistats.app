@@ -267,8 +267,11 @@ export async function autoPullLatestGoal() {
     const isSameMatch = registeredDate === newlyFoundGoal.date && registeredOpp.includes(newlyFoundGoal.opponent.toLowerCase());
 
     if (!isSameMatch && new Date(newlyFoundGoal.date) > new Date(registeredDate)) {
-      console.log(`[ALERT] NEW GOAL DETECTED! Incrementing from Goal #${currentGoalNum} to Goal #${currentGoalNum + 1}`);
-      const newGoalNum = currentGoalNum + 1;
+      // Multi-goal games (brace, hat-trick): the match contributes ALL of
+      // Messi's goals, not just +1. newGoalsCount comes from the roster stats.
+      const matchGoals = Math.max(1, newGoalsCount || 1);
+      console.log(`[ALERT] NEW GOAL${matchGoals > 1 ? "S" : ""} DETECTED! Incrementing from Goal #${currentGoalNum} by ${matchGoals} to Goal #${currentGoalNum + matchGoals}`);
+      const newGoalNum = currentGoalNum + matchGoals;
 
       const newGoalObj = {
         goalNumber: newGoalNum,
@@ -320,8 +323,8 @@ export async function autoPullLatestGoal() {
       if (latestData.totals) {
         latestData.totals.seniorGoals = newGoalNum;
         latestData.totals.appearances = (latestData.totals.appearances || 1178) + 1;
-        if (!newlyFoundGoal.isArgentina) latestData.totals.miamiGoals = (latestData.totals.miamiGoals || 102) + 1;
-        latestData.totals.season2026Goals = (latestData.totals.season2026Goals || 26) + 1;
+        if (!newlyFoundGoal.isArgentina) latestData.totals.miamiGoals = (latestData.totals.miamiGoals || 102) + matchGoals;
+        latestData.totals.season2026Goals = (latestData.totals.season2026Goals || 26) + matchGoals;
         if (newlyFoundGoal.finish.includes("Free Kick")) {
           latestData.totals.freeKicks = (latestData.totals.freeKicks || 76) + 1;
         }

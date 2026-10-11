@@ -1,6 +1,6 @@
 {
   "meta": {
-    "totalGoals": 932,
+    "totalGoals": 934,
     "totalDaysInYear": 366,
     "daysWithGoals": 292,
     "daysWithoutGoals": 74,
@@ -176,7 +176,7 @@
       {
         "month": 10,
         "name": "October",
-        "goals": 92,
+        "goals": 94,
         "daysScored": 27,
         "totalDays": 31
       },
@@ -18406,7 +18406,7 @@
       "day": 10,
       "monthName": "October",
       "formatted": "10 October",
-      "goalsCount": 4,
+      "goalsCount": 6,
       "matches": [
         {
           "date": "2017-10-10",
@@ -18479,6 +18479,18 @@
               "penalty": false
             }
           ]
+        },
+        {
+          "date": "2026-10-10",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "D.C. United at Inter Miami CF",
+          "competition": "MLS",
+          "score": "",
+          "goalsCount": 2,
+          "minutes": [],
+          "types": [],
+          "videos": []
         }
       ]
     },
