@@ -11,6 +11,31 @@ const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
 
 const todayIso = new Date().toISOString().split("T")[0];
 
+// Single source of truth — so the sitemap's career totals and "last goal" meta
+// can never drift behind a new goal (previously hardcoded at #932 / 1,178).
+const readJson = (p) => JSON.parse(fs.readFileSync(path.join(rootDir, "public", "data", p), "utf8"));
+const messiData = readJson("messi-data.json");
+const latestGoalData = readJson("latest-goal.json");
+
+const CAREER_GOALS = messiData.totals?.combined?.goals ?? 934;
+const CAREER_APPS = messiData.totals?.combined?.appearances ?? 1179;
+const CAREER_TROPHIES = messiData.splits?.trophies?.messi ?? 47;
+const BALLONS_DOR = 8;
+const LG = latestGoalData.latestGoal;
+const LG_NUM = LG?.goalNumber ?? CAREER_GOALS;
+const LG_OPP = (LG?.opponent || "").trim();
+const LG_TEAM = (LG?.team || "Inter Miami CF").replace(/\s+CF$/, "").trim();
+const LG_MIN = (LG?.minute || "").replace(/'/g, "").trim();
+const LG_FINISH = (LG?.finish || "left-foot").trim();
+const LG_COMP = (LG?.competition || "Major League Soccer").trim();
+const LG_DATE = (LG?.formattedDate || todayIso).trim();
+const LG_VIDEO = LG?.videoUrl || `https://cdn.messiallgoals.com/Goal${LG_NUM}.mp4`;
+// URL-safe slug fragments for title/tags
+const LG_OPP_TAG = (LG_OPP || "Opponent").replace(/[^A-Za-z0-9]+/g, " ").trim();
+
+// 934 → "934th" / "934e" / "934e" / "٩٣٤" style helpers are avoided; templates
+// interpolate the raw number and let the locale wording carry the grammar.
+
 const SUBPAGES = [
   { slug: "dashboard", changefreq: "daily", priority: "0.9", lastmod: todayIso },
   { slug: "birthday", changefreq: "daily", priority: "0.95", lastmod: todayIso },
@@ -77,8 +102,8 @@ ${getHreflangsXml("")}
     </image:image>
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>Lionel Messi 932 Career Goals Official Stats</image:title>
-      <image:caption>Lionel Messi career overview: 932 goals in 1,178 senior appearances, 47 trophies, 8 Ballons d'Or.</image:caption>
+      <image:title>Lionel Messi ${CAREER_GOALS} Career Goals Official Stats</image:title>
+      <image:caption>Lionel Messi career overview: ${CAREER_GOALS} goals in ${CAREER_APPS.toLocaleString("en-US")} senior appearances, ${CAREER_TROPHIES} trophies, ${BALLONS_DOR} Ballons d'Or.</image:caption>
     </image:image>
   </url>`);
 
@@ -158,7 +183,7 @@ const enImages = {
     </image:image>`,
   birthday: `    <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>Lionel Messi Birthday Goal Explorer: 932 Career Goals Across 366 Days</image:title>
+      <image:title>Lionel Messi Birthday Goal Explorer: ${CAREER_GOALS} Career Goals Across 366 Days</image:title>
       <image:caption>Interactive visual map and video player showing all goals Lionel Messi scored across 366 calendar days.</image:caption>
       <image:geo_location>Miami, Florida, United States / Barcelona, Spain / Buenos Aires, Argentina</image:geo_location>
     </image:image>`,
@@ -179,57 +204,57 @@ const enImages = {
     </image:image>`,
   "latest-goal": `    <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>Lionel Messi Last Goal Video and Highlights (Goal #932 vs Columbus Crew)</image:title>
-      <image:caption>Watch Lionel Messi score Goal #932 of his career for Inter Miami against San Diego FC in MLS on 20 September 2026.</image:caption>
+      <image:title>Lionel Messi Last Goal Video and Highlights (Goal #${LG_NUM} vs ${LG_OPP})</image:title>
+      <image:caption>Watch Lionel Messi score Goal #${LG_NUM} of his career for ${LG_TEAM} against ${LG_OPP} in ${LG_COMP} on ${LG_DATE}.</image:caption>
       <image:geo_location>Miami, Florida, United States</image:geo_location>
     </image:image>`
 };
 
 const videoMeta = {
   en: {
-    title: "Lionel Messi Last Goal Video: Goal #932 vs Benin",
-    desc: "Watch Lionel Messi's Goal #932: 71st-minute penalty for Argentina vs Benin in the 6 October 2026 farewell friendly at El Monumental — his 126th Argentina goal in his final international appearance.",
-    tags: ["Lionel Messi", "Argentina", "Goal 932", "Farewell Match", "Messi Last Goal"]
+    title: `Lionel Messi Last Goal Video: Goal #${LG_NUM} vs ${LG_OPP}`,
+    desc: `Watch Lionel Messi's Goal #${LG_NUM}: a ${LG_FINISH.toLowerCase()} goal for ${LG_TEAM} vs ${LG_OPP} in ${LG_COMP} on ${LG_DATE}.`,
+    tags: ["Lionel Messi", `Goal ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Messi Last Goal"]
   },
   es: {
-    title: "Último Gol de Lionel Messi: Gol #932 contra Benín",
-    desc: "Mira el gol #932 de Lionel Messi: penalti en el minuto 71 con Argentina contra Benín en el amistoso de despedida del 6 de octubre de 2026 en El Monumental — su gol 126 con Argentina en su último partido internacional.",
-    tags: ["Lionel Messi", "Argentina", "Gol 932", "Despedida", "Último gol de Messi"]
+    title: `Último Gol de Lionel Messi: Gol #${LG_NUM} contra ${LG_OPP}`,
+    desc: `Mira el gol #${LG_NUM} de Lionel Messi: gol de ${LG_FINISH.toLowerCase()} para ${LG_TEAM} contra ${LG_OPP} en ${LG_COMP} el ${LG_DATE}.`,
+    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Último gol de Messi"]
   },
   pt: {
-    title: "Último Gol de Lionel Messi: Gol #932 contra o Benim",
-    desc: "Veja o gol #932 de Lionel Messi: pênalti aos 71 minutos pela Argentina contra o Benim no amistoso de despedida de 6 de outubro de 2026 no Monumental — seu 126º gol pela Argentina na última partida internacional.",
-    tags: ["Lionel Messi", "Argentina", "Gol 932", "Despedida", "Último gol do Messi"]
+    title: `Último Gol de Lionel Messi: Gol #${LG_NUM} contra ${LG_OPP}`,
+    desc: `Veja o gol #${LG_NUM} de Lionel Messi: gol de ${LG_FINISH.toLowerCase()} pelo ${LG_TEAM} contra ${LG_OPP} na ${LG_COMP} em ${LG_DATE}.`,
+    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Último gol do Messi"]
   },
   fr: {
-    title: "Dernier But de Lionel Messi : But #932 contre le Bénin",
-    desc: "Regardez le 932e but de Lionel Messi : penalty à la 71e minute avec l'Argentine contre le Bénin lors du match d'adieu du 6 octobre 2026 au Monumental — son 126e but avec l'Argentine lors de sa dernière sélection.",
-    tags: ["Lionel Messi", "Argentine", "But 932", "Adieu", "Dernier but de Messi"]
+    title: `Dernier But de Lionel Messi : But #${LG_NUM} contre ${LG_OPP}`,
+    desc: `Regardez le but #${LG_NUM} de Lionel Messi : une frappe ${LG_FINISH.toLowerCase()} pour ${LG_TEAM} contre ${LG_OPP} en ${LG_COMP} le ${LG_DATE}.`,
+    tags: ["Lionel Messi", `But ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Dernier but de Messi"]
   },
   ar: {
-    title: "فيديو آخر هدف لليونيل ميسي: الهدف 932 ضد بنين",
-    desc: "شاهد هدف ليونيل ميسي رقم 932: ركلة جزاء في الدقيقة 71 مع الأرجنتين ضد بنين في مباراة الوداع الودية يوم 6 أكتوبر 2026 على ملعب مونومنتال — هدفه الـ126 مع الأرجنتين في مباراته الدولية الأخيرة.",
-    tags: ["ليونيل ميسي", "الأرجنتين", "الهدف 932", "مباراة الوداع", "آخر هدف لميسي"]
+    title: `فيديو آخر هدف لليونيل ميسي: الهدف ${LG_NUM} ضد ${LG_OPP}`,
+    desc: `شاهد هدف ليونيل ميسي رقم ${LG_NUM}: هدف بقدم ${LG_FINISH === "Left Foot" ? "اليسرى" : LG_FINISH === "Right Foot" ? "اليمنى" : "رأسية"} لصالح ${LG_TEAM} ضد ${LG_OPP} في ${LG_COMP} يوم ${LG_DATE}.`,
+    tags: ["ليونيل ميسي", `الهدف ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "آخر هدف لميسي"]
   },
   bn: {
-    title: "লিওনেল মেসির সর্বশেষ গোল ভিডিও: বেনিনের বিরুদ্ধে ৯৩২তম গোল",
-    desc: "লিওনেল মেসির ক্যারিয়ারের ৯৩২তম গোল দেখুন: ৬ অক্টোবর ২০২৬-এ মোনুমেন্টালে বিদায়ী প্রীতি ম্যাচে বেনিনের বিরুদ্ধে আর্জেন্টিনার হয়ে ৭১ মিনিটে পেনাল্টি — শেষ আন্তর্জাতিক ম্যাচে ১২৬তম আর্জেন্টিনা গোল।",
-    tags: ["লিওনেল মেসি", "আর্জেন্টিনা", "গোল ৯৩২", "বিদায়ী ম্যাচ", "মেসির শেষ গোল"]
+    title: `লিওনেল মেসির সর্বশেষ গোল ভিডিও: ${LG_OPP}-এর বিরুদ্ধে ${LG_NUM}তম গোল`,
+    desc: `লিওনেল মেসির ${LG_NUM}তম গোলটি দেখুন: ${LG_DATE}-এ ${LG_COMP}-এ ${LG_OPP}-এর বিরুদ্ধে ${LG_TEAM}-এর হয়ে।`,
+    tags: ["লিওনেল মেসি", `গোল ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "মেসির শেষ গোল"]
   },
   hi: {
-    title: "लियोनेल मेसी का आखिरी गोल वीडियो: बेनिन के खिलाफ 932वां गोल",
-    desc: "लियोनेल मेसी का 932वां करियर गोल देखें: 6 अक्टूबर 2026 को मोनुमेंटल में विदाई मैत्री मैच में बेनिन के खिलाफ अर्जेंटीना के लिए 71वें मिनट में पेनल्टी — आखिरी अंतरराष्ट्रीय मैच में 126वां अर्जेंटीना गोल।",
-    tags: ["लियोनेल मेसी", "अर्जेंटीना", "गोल 932", "विदाई मैच", "मेसी का आखिरी गोल"]
+    title: `लियोनेल मेसी का आखिरी गोल वीडियो: ${LG_OPP} के खिलाफ ${LG_NUM}वां गोल`,
+    desc: `लियोनेल मेसी का ${LG_NUM}वां करियर गोल देखें: ${LG_DATE} को ${LG_COMP} में ${LG_OPP} के खिलाफ ${LG_TEAM} के लिए।`,
+    tags: ["लियोनेल मेसी", `गोल ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "मेसी का आखिरी गोल"]
   },
   ro: {
-    title: "Ultimul Gol al lui Lionel Messi: Golul #932 împotriva Beninului",
-    desc: "Urmărește golul #932 al lui Lionel Messi: penalty în minutul 71 pentru Argentina împotriva Beninului în amicalul de adio din 6 octombrie 2026 de pe Monumental — al 126-lea gol pentru Argentina în ultimul meci internațional.",
-    tags: ["Lionel Messi", "Argentina", "Gol 932", "Adio", "Ultimul gol Messi"]
+    title: `Ultimul Gol al lui Lionel Messi: Golul #${LG_NUM} împotriva ${LG_OPP}`,
+    desc: `Urmărește golul #${LG_NUM} al lui Lionel Messi: gol ${LG_FINISH.toLowerCase()} pentru ${LG_TEAM} împotriva ${LG_OPP} în ${LG_COMP} pe ${LG_DATE}.`,
+    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Ultimul gol Messi"]
   },
   uz: {
-    title: "Lionel Messining so'nggi goli: Beninga qarshi 932-gol",
-    desc: "Lionel Messining 932-golini tomosha qiling: 2026-yil 6-oktabrda Monumentalda xayrlashuv o'rtoqlik o'yinida Beninga qarshi Argentina safida 71-daqiqada urilgan penalti — so'nggi xalqaro o'yindagi 126-Argentina goli.",
-    tags: ["Lionel Messi", "Argentina", "Gol 932", "Xayrlashuv", "Messining oxirgi goli"]
+    title: `Lionel Messining so'nggi goli: ${LG_OPP} ga qarshi ${LG_NUM}-gol`,
+    desc: `Lionel Messining ${LG_NUM}-golini tomosha qiling: ${LG_DATE} kuni ${LG_COMP} doirasida ${LG_OPP} ga qarshi ${LG_TEAM} safida.`,
+    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Messining oxirgi goli"]
   }
 };
 
@@ -241,9 +266,9 @@ function getVideoXml(lang) {
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
       <video:title>${v.title}</video:title>
       <video:description>${v.desc}</video:description>
-      <video:content_loc>https://cdn.messiallgoals.com/Goal932.mp4</video:content_loc>
+      <video:content_loc>${LG_VIDEO}</video:content_loc>
       <video:duration>35</video:duration>
-      <video:publication_date>2026-10-06T23:45:00Z</video:publication_date>
+      <video:publication_date>${LG?.date || todayIso}T22:00:00Z</video:publication_date>
       <video:family_friendly>yes</video:family_friendly>
 ${tagLines}
       <video:category>Sports</video:category>
@@ -275,46 +300,57 @@ urlBlocks.push(`  <url>
   </url>`);
 
 // 3. Other languages: Homepage + Subpages
+// Number rendering per locale (Bengali sitemap strings keep native digits,
+// matching the original copy; other locales use their group separator).
+const bnDigits = (s) => String(s).replace(/[0-9]/g, (d) => "০১২৩৪৫৬৭৮৯"[+d]);
+const groupNum = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " ", ar: ",", bn: ",", hi: ",", ro: ".", uz: " " };
+const num = (l, n) => (l === "bn" ? bnDigits(n) : String(n));
+const appsNum = (l) =>
+  l === "bn" ? bnDigits(groupNum(CAREER_APPS, ",")) : groupNum(CAREER_APPS, APPS_SEP[l] || ",");
+const trophyNum = (l) => num(l, CAREER_TROPHIES);
+const ballonNum = (l) => num(l, BALLONS_DOR);
+
 const langHomeMeta = {
   es: {
     priority: "1.0",
-    title: "Goles de Messi: 932 Goles Oficiales en Vivo",
-    caption: "Estadísticas completas de la carrera de Lionel Messi: 932 goles en 1.178 partidos oficiales, 47 títulos colectivos y 8 Balones de Oro."
+    title: `Goles de Messi: ${num("es", CAREER_GOALS)} Goles Oficiales en Vivo`,
+    caption: `Estadísticas completas de la carrera de Lionel Messi: ${num("es", CAREER_GOALS)} goles en ${appsNum("es")} partidos oficiales, ${trophyNum("es")} títulos colectivos y ${ballonNum("es")} Balones de Oro.`
   },
   pt: {
     priority: "0.95",
-    title: "Gols de Messi: 932 Gols Oficiais ao Vivo",
-    caption: "Estatísticas completas da carreira de Lionel Messi: 932 gols em 1.178 jogos oficiais, 47 títulos coletivos e 8 Bolas de Ouro."
+    title: `Gols de Messi: ${num("pt", CAREER_GOALS)} Gols Oficiais ao Vivo`,
+    caption: `Estatísticas completas da carreira de Lionel Messi: ${num("pt", CAREER_GOALS)} gols em ${appsNum("pt")} jogos oficiais, ${trophyNum("pt")} títulos coletivos e ${ballonNum("pt")} Bolas de Ouro.`
   },
   fr: {
     priority: "0.95",
-    title: "Buts de Messi : 932 Buts Officiels en Direct",
-    caption: "Statistiques complètes de la carrière de Lionel Messi : 932 buts en 1 178 matchs officiels, 47 trophées collectifs et 8 Ballons d'Or."
+    title: `Buts de Messi : ${num("fr", CAREER_GOALS)} Buts Officiels en Direct`,
+    caption: `Statistiques complètes de la carrière de Lionel Messi : ${num("fr", CAREER_GOALS)} buts en ${appsNum("fr")} matchs officiels, ${trophyNum("fr")} trophées collectifs et ${ballonNum("fr")} Ballons d'Or.`
   },
   ar: {
     priority: "0.95",
-    title: "أهداف ميسي: 932 هدفاً رسمياً مباشر",
-    caption: "إحصائيات مسيرة ليونيل ميسي الرسمية: 932 هدفاً في 1,178 مباراة، 47 بطولة و8 كرات ذهبية."
+    title: `أهداف ميسي: ${num("ar", CAREER_GOALS)} هدفاً رسمياً مباشر`,
+    caption: `إحصائيات مسيرة ليونيل ميسي الرسمية: ${num("ar", CAREER_GOALS)} هدفاً في ${appsNum("ar")} مباراة، ${trophyNum("ar")} بطولة و${ballonNum("ar")} كرات ذهبية.`
   },
   bn: {
     priority: "0.95",
-    title: "মেসির মোট গোল: ৯৩২ গোল লাইভ ট্র্যাকার",
-    caption: "লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ১,১৭৮ ম্যাচে ৯৩২ গোল, ৪৭টি শিরোপা এবং ৮টি ব্যালন ডি'অর।"
+    title: `মেসির মোট গোল: ${num("bn", CAREER_GOALS)} গোল লাইভ ট্র্যাকার`,
+    caption: `লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ${appsNum("bn")} ম্যাচে ${num("bn", CAREER_GOALS)} গোল, ${trophyNum("bn")}টি শিরোপা এবং ${ballonNum("bn")}টি ব্যালন ডি'অর।`
   },
   hi: {
     priority: "0.95",
-    title: "मेसी के कुल गोल: 932 आधिकारिक गोल लाइव",
-    caption: "लियोनेल मेसी के करियर के आधिकारिक आंकड़े: 1,178 मैचों में 932 गोल, 47 ट्रॉफियां और 8 बैलन डी'ऑर।"
+    title: `मेसी के कुल गोल: ${num("hi", CAREER_GOALS)} आधिकारिक गोल लाइव`,
+    caption: `लियोनेल मेसी के करियर के आधिकारिक आंकड़े: ${appsNum("hi")} मैचों में ${num("hi", CAREER_GOALS)} गोल, ${trophyNum("hi")} ट्रॉफियां और ${ballonNum("hi")} बैलन डी'ऑर।`
   },
   ro: {
     priority: "0.95",
-    title: "Goluri Messi: 932 Goluri Oficiale Live",
-    caption: "Statisticile complete ale carierei lui Lionel Messi: 932 goluri în 1.178 meciuri oficiale, 47 trofee și 8 Baloane de Aur."
+    title: `Goluri Messi: ${num("ro", CAREER_GOALS)} Goluri Oficiale Live`,
+    caption: `Statisticile complete ale carierei lui Lionel Messi: ${num("ro", CAREER_GOALS)} goluri în ${appsNum("ro")} meciuri oficiale, ${trophyNum("ro")} trofee și ${ballonNum("ro")} Baloane de Aur.`
   },
   uz: {
     priority: "0.95",
-    title: "Messi gollari: 932 ta rasmiy gol",
-    caption: "Lionel Messining toʻliq rasmiy statistikasi: 1 178 ta oʻyinda 932 ta gol, 47 ta sovrin va 8 ta Oltin toʻp."
+    title: `Messi gollari: ${num("uz", CAREER_GOALS)} ta rasmiy gol`,
+    caption: `Lionel Messining toʻliq rasmiy statistikasi: ${appsNum("uz")} ta oʻyinda ${num("uz", CAREER_GOALS)} ta gol, ${trophyNum("uz")} ta sovrin va ${ballonNum("uz")} ta Oltin toʻp.`
   }
 };
 

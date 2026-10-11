@@ -7,8 +7,8 @@
     "competition": "Major League Soccer",
     "competitionSlug": "major-league-soccer",
     "date": "2026-10-10",
-    "formattedDate": "11 October 2026",
-    "bdayKey": "10-11",
+    "formattedDate": "10 October 2026",
+    "bdayKey": "10-10",
     "minute": "60'",
     "clock": "60'",
     "type": "Left Foot (Assist: Rodrigo De Paul)",
@@ -19,7 +19,7 @@
     "title": "Inter Miami 4-0 D.C. United",
     "videoUrl": "https://cdn.messiallgoals.com/Goal934.mp4",
     "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+D.C.%20United+Major%20League%20Soccer",
-    "bdayUrl": "/en/birthday/10-11"
+    "bdayUrl": "/en/birthday/10-10"
   },
   "todayStatus": {
     "didScoreToday": false,
@@ -34,9 +34,9 @@
     {
       "goalNumber": 934,
       "title": "Inter Miami 4-0 D.C. United",
-      "meta": "Major League Soccer • 11 October 2026",
+      "meta": "Major League Soccer • 10 October 2026",
       "match": "vs D.C. United (4-0)",
-      "date": "11 October 2026 • 60'",
+      "date": "10 October 2026 • 60'",
       "minute": "60'",
       "type": "Left Foot (Assist: Rodrigo De Paul)",
       "tag": "Left Foot 🔥",
@@ -44,7 +44,22 @@
       "comp": "Major League Soccer",
       "videoUrl": "https://cdn.messiallgoals.com/Goal934.mp4",
       "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+D.C.%20United+Major%20League%20Soccer",
-      "bdayUrl": "/en/birthday/10-11"
+      "bdayUrl": "/en/birthday/10-10"
+    },
+    {
+      "goalNumber": 933,
+      "title": "Inter Miami 4-0 D.C. United",
+      "meta": "Major League Soccer • 10 October 2026",
+      "match": "vs D.C. United (4-0)",
+      "date": "10 October 2026 • 47'",
+      "minute": "47'",
+      "type": "Left Foot (Assist: Luis Suárez)",
+      "tag": "Left Foot 🔥",
+      "score": "4-0",
+      "comp": "Major League Soccer",
+      "videoUrl": "https://cdn.messiallgoals.com/Goal933.mp4",
+      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+D.C.%20United+Major%20League%20Soccer",
+      "bdayUrl": "/en/birthday/10-10"
     },
     {
       "goalNumber": 932,
@@ -90,21 +105,6 @@
       "videoUrl": "https://cdn.messiallgoals.com/Goal930.mp4",
       "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+San+Diego+FC+MLS",
       "bdayUrl": "/en/birthday/09-21"
-    },
-    {
-      "goalNumber": 929,
-      "title": "Inter Miami 2 – 0 Cruz Azul",
-      "meta": "Campeones Cup Final • 17 September 2026 • Chase Stadium (Fort Lauderdale, FL)",
-      "match": "vs Cruz Azul (2-0)",
-      "date": "17 September 2026 • 12'",
-      "minute": "12'",
-      "type": "Header (Assist: Luis Suárez)",
-      "tag": "Header 🔥",
-      "score": "2 – 0",
-      "comp": "Campeones Cup",
-      "videoUrl": "https://cdn.messiallgoals.com/Goal929.mp4",
-      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+Cruz+Azul+Campeones+Cup+2026",
-      "bdayUrl": "/en/birthday/09-17"
     }
   ],
   "totals": {

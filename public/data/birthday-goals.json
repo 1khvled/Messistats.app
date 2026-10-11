@@ -18484,13 +18484,38 @@
           "date": "2026-10-10",
           "year": 2026,
           "team": "Inter Miami",
-          "opponent": "D.C. United at Inter Miami CF",
+          "opponent": "D.C. United",
           "competition": "MLS",
-          "score": "",
+          "score": "4 – 0",
           "goalsCount": 2,
-          "minutes": [],
-          "types": [],
-          "videos": []
+          "minutes": [
+            "47",
+            "60"
+          ],
+          "types": [
+            "Club Goal",
+            "Club Goal"
+          ],
+          "videos": [
+            {
+              "goalNumber": 933,
+              "videoUrl": "https://cdn.messiallgoals.com/Goal933.mp4",
+              "minute": "",
+              "opponent": "D.C. United",
+              "assist": "Luis Suárez",
+              "freekick": false,
+              "penalty": false
+            },
+            {
+              "goalNumber": 934,
+              "videoUrl": "https://cdn.messiallgoals.com/Goal934.mp4",
+              "minute": "",
+              "opponent": "D.C. United",
+              "assist": "Rodrigo De Paul",
+              "freekick": false,
+              "penalty": false
+            }
+          ]
         }
       ]
     },

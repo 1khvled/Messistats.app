@@ -196,6 +196,7 @@ export async function autoPullLatestGoal() {
       // Find the last goal event
       const keyEvents = summary.keyEvents || [];
       let goalDetail = null;
+      const goalDetails = []; // every Messi goal in the match (chronological)
 
       for (const k of keyEvents) {
         const isGoal = /goal/i.test(k.type?.text || "") && !/own\s*goal/i.test(k.type?.text || "");
@@ -217,6 +218,7 @@ export async function autoPullLatestGoal() {
           const assist = assistMatch ? assistMatch[1].trim() : "";
 
           goalDetail = { clock, finish, assist, text };
+          goalDetails.push(goalDetail);
         }
       }
 
@@ -273,52 +275,80 @@ export async function autoPullLatestGoal() {
       console.log(`[ALERT] NEW GOAL${matchGoals > 1 ? "S" : ""} DETECTED! Incrementing from Goal #${currentGoalNum} by ${matchGoals} to Goal #${currentGoalNum + matchGoals}`);
       const newGoalNum = currentGoalNum + matchGoals;
 
-      const newGoalObj = {
-        goalNumber: newGoalNum,
-        team: newlyFoundGoal.isArgentina ? "Argentina" : "Inter Miami CF",
-        opponent: newlyFoundGoal.opponent,
-        competition: newlyFoundGoal.competition,
-        competitionSlug: newlyFoundGoal.competition.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-        date: newlyFoundGoal.date,
-        formattedDate: newlyFoundGoal.formattedDate,
-        bdayKey: newlyFoundGoal.bdayKey,
-        minute: newlyFoundGoal.minute,
-        clock: newlyFoundGoal.minute,
-        type: newlyFoundGoal.type,
-        finish: newlyFoundGoal.finish,
-        assist: newlyFoundGoal.assist,
-        score: newlyFoundGoal.score,
-        venue: newlyFoundGoal.venue,
-        title: newlyFoundGoal.isArgentina ? `Argentina ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}` : `Inter Miami ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}`,
-        videoUrl: `https://cdn.messiallgoals.com/Goal${newGoalNum}.mp4`,
-        youtubeUrl: `https://www.youtube.com/results?search_query=Messi+goal+vs+${encodeURIComponent(newlyFoundGoal.opponent)}+${encodeURIComponent(newlyFoundGoal.competition)}`,
-        bdayUrl: `/en/birthday/${newlyFoundGoal.bdayKey}`
-      };
+      // Multi-goal matches (brace/hat-trick) contribute ONE entry per goal so the
+      // recent-5 playlist never skips a number (e.g. #934 then #932 with no #933).
+      // goalDetails is chronological, so index 0 maps to currentGoalNum+1.
+      const details = [];
+      for (let k = 0; k < matchGoals; k++) {
+        details.push(goalDetails[k] || goalDetails[goalDetails.length - 1] || {});
+      }
+      if (goalDetails.length < matchGoals) {
+        console.warn(`[WARN] parsed ${goalDetails.length} goal detail(s) for ${matchGoals} goals — padding with last known detail.`);
+      }
 
-      const newCard = {
-        goalNumber: newGoalNum,
-        title: newGoalObj.title,
-        meta: `${newlyFoundGoal.competition} • ${newlyFoundGoal.formattedDate}`,
-        match: `vs ${newlyFoundGoal.opponent} (${newlyFoundGoal.score})`,
-        date: `${newlyFoundGoal.formattedDate} • ${newlyFoundGoal.minute}`,
-        minute: newlyFoundGoal.minute,
-        type: newlyFoundGoal.type,
-        tag: `${newlyFoundGoal.finish} 🔥`,
-        score: newlyFoundGoal.score,
-        comp: newlyFoundGoal.competition,
-        videoUrl: newGoalObj.videoUrl,
-        ytUrl: newGoalObj.youtubeUrl,
-        bdayUrl: newGoalObj.bdayUrl
-      };
+      const newObjs = [];   // chronological: [currentGoalNum+1, …, newGoalNum]
+      const newCards = [];
+      for (let k = 0; k < matchGoals; k++) {
+        const gd = details[k];
+        const num = currentGoalNum + 1 + k;
+        const finish = gd.finish || "Open play";
+        const minute = gd.clock || newlyFoundGoal.minute;
+        const type = `${finish}${gd.assist ? ` (Assist: ${gd.assist})` : ""}`;
+        const title = newlyFoundGoal.isArgentina
+          ? `Argentina ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}`
+          : `Inter Miami ${newlyFoundGoal.score} ${newlyFoundGoal.opponent}`;
+        const videoUrl = `https://cdn.messiallgoals.com/Goal${num}.mp4`;
+        const youtubeUrl = `https://www.youtube.com/results?search_query=Messi+goal+vs+${encodeURIComponent(newlyFoundGoal.opponent)}+${encodeURIComponent(newlyFoundGoal.competition)}`;
+        const bdayUrl = `/en/birthday/${newlyFoundGoal.bdayKey}`;
 
-      latestData.latestGoal = newGoalObj;
-      latestData.recentGoals = [newCard, ...(latestData.recentGoals || []).slice(0, 4)];
+        newObjs.push({
+          goalNumber: num,
+          team: newlyFoundGoal.isArgentina ? "Argentina" : "Inter Miami CF",
+          opponent: newlyFoundGoal.opponent,
+          competition: newlyFoundGoal.competition,
+          competitionSlug: newlyFoundGoal.competition.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          date: newlyFoundGoal.date,
+          formattedDate: newlyFoundGoal.formattedDate,
+          bdayKey: newlyFoundGoal.bdayKey,
+          minute,
+          clock: minute,
+          type,
+          finish,
+          assist: gd.assist || "",
+          score: newlyFoundGoal.score,
+          venue: newlyFoundGoal.venue,
+          title,
+          videoUrl,
+          youtubeUrl,
+          bdayUrl
+        });
+        newCards.push({
+          goalNumber: num,
+          title,
+          meta: `${newlyFoundGoal.competition} • ${newlyFoundGoal.formattedDate}`,
+          match: `vs ${newlyFoundGoal.opponent} (${newlyFoundGoal.score})`,
+          date: `${newlyFoundGoal.formattedDate} • ${minute}`,
+          minute,
+          type,
+          tag: `${finish} 🔥`,
+          score: newlyFoundGoal.score,
+          comp: newlyFoundGoal.competition,
+          videoUrl,
+          ytUrl: youtubeUrl,
+          bdayUrl
+        });
+      }
+
+      const newestObj = newObjs[newObjs.length - 1];
+      const newestCards = [...newCards].reverse(); // newest first
+      latestData.latestGoal = newestObj;
+      latestData.recentGoals = [...newestCards, ...(latestData.recentGoals || [])].slice(0, 5);
       latestData.todayStatus.didScoreToday = newlyFoundGoal.isToday;
       latestData.todayStatus.lastMatchDate = newlyFoundGoal.date;
       latestData.todayStatus.lastMatchOpponent = newlyFoundGoal.opponent;
-      latestData.todayStatus.lastMatchResult = newGoalObj.title;
+      latestData.todayStatus.lastMatchResult = newestObj.title;
       latestData.todayStatus.lastGoalNumber = newGoalNum;
-      latestData.todayStatus.lastGoalMinute = newlyFoundGoal.minute;
+      latestData.todayStatus.lastGoalMinute = newestObj.minute;
 
       if (latestData.totals) {
         latestData.totals.seniorGoals = newGoalNum;

@@ -102,7 +102,7 @@
         "inter_miami": {
           "official": 46,
           "transfermarkt": 51,
-          "appearances": 117
+          "appearances": 118
         },
         "psg": {
           "official": 34,
@@ -124,7 +124,7 @@
       "transfermarkt": 1383,
       "perGameOfficial": 1.14
     },
-    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (405 assists); Transfermarkt criteria includes penalties won and rebounds (447 assists).",
+    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (407 assists); Transfermarkt criteria includes penalties won and rebounds (449 assists).",
     "goalsPerGame": 0.79
   },
   "clubSeasons": [
