@@ -16,6 +16,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { autoPullLatestGoal } from "./auto-sync-latest-goal.mjs";
+import { syncHomeKpis } from "./sync-home-kpis.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const dataPath = resolve(root, "public", "data", "messi-data.json");
@@ -419,6 +420,11 @@ export async function runAutoSync() {
       writeFileSync(dataPath, JSON.stringify(d, null, 2), "utf8");
       console.log(`\nSUCCESS: messi-data.json updated to ${finalTotal} goals!`);
       syncIndexHtmlFiles(initialGoals, initialApps, finalTotal, d.totals.combined.appearances);
+      try {
+        syncHomeKpis();
+      } catch (err) {
+        console.warn("syncHomeKpis warning inside auto-sync-matches:", err.message);
+      }
 
       const lastCheck = {
         checkedAt: new Date().toISOString(),

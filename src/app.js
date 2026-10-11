@@ -3608,19 +3608,54 @@ function renderHome(d) {
   }
 
   // Dynamically sync Road to 1,000 widget if present
+  // Dynamically sync Road to 1,000 widget if present (every number derives
+  // from live totals on each render — static HTML is SEO fallback only)
   const r1000 = el("road-1000");
   if (r1000) {
     const goals = t.goals || 930;
+    const apps = t.apps || 1178;
+    const clubG = (d.totals && d.totals.club && d.totals.club.goals) || 806;
+    const argG = (d.totals && d.totals.country && d.totals.country.goals) || 126;
     const remaining = Math.max(0, 1000 - goals);
     const pct = ((goals / 1000) * 100).toFixed(1);
+    const pace = apps ? goals / apps : 0.79;
+    const fy = new Date().getFullYear();
+    const estEnd = fy + Math.max(1, Math.ceil(remaining / (pace * 50)));
+    const estStr = `${estEnd - 1}/${estEnd}`;
+    const swapInt = (str, val) => String(str).replace(/(?<![\d.,])\d{3}(?![\d])/, String(val));
     const fill = r1000.querySelector(".road-1000-fill");
     if (fill) fill.style.width = `${pct}%`;
     const pin = r1000.querySelector(".road-1000-pin");
-    if (pin) pin.style.left = `${pct}%`;
+    if (pin) {
+      pin.style.left = `${pct}%`;
+      if (pin.title) pin.title = swapInt(pin.title, goals);
+    }
+    const track = r1000.querySelector(".road-1000-track");
+    if (track) {
+      track.setAttribute("aria-valuenow", String(goals));
+      const al = track.getAttribute("aria-label");
+      if (al) track.setAttribute("aria-label", swapInt(al, goals));
+    }
     const pBadge = r1000.querySelector(".r1000-percent");
     if (pBadge) pBadge.textContent = `${pct}%`;
     const remEl = r1000.querySelector(".r1000-remaining");
     if (remEl) remEl.textContent = `${remaining}`;
+    const nums = r1000.querySelectorAll(".r1000-num");
+    const want = [goals, remaining, clubG, argG];
+    nums.forEach((span, i) => { if (i < want.length) span.textContent = String(want[i]); });
+    const pinLabel = r1000.querySelector(".pin-label");
+    if (pinLabel) pinLabel.textContent = swapInt(pinLabel.textContent, goals);
+    const BN_D = "০১২৩৪৫৬৭৮৯";
+    r1000.querySelectorAll(".r1000-pace b").forEach((b) => {
+      const txt = b.textContent;
+      if (/\d{4}\/\d{4}/.test(txt)) { b.textContent = txt.replace(/\d{4}\/\d{4}/, estStr); return; }
+      const m = txt.match(/\d+([.,])\d+/);
+      if (m) {
+        let v = pace.toFixed(2).replace(".", m[1]);
+        if (/[০-৯]/.test(txt)) v = v.replace(/[0-9]/g, (dd) => BN_D[+dd]);
+        b.innerHTML = b.innerHTML.replace(/\d+([.,])\d+/, v);
+      }
+    });
   }
 
   renderExplore(d, "home");
