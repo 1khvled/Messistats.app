@@ -2073,7 +2073,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap ad-banner-top">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-728x90.html" width="728" height="90" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
+        <iframe class="safe-ad-frame" src="/ads/hrf-728x90.html" width="728" height="90" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -2421,7 +2421,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
+        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -2516,7 +2516,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-native-wrap">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-native-slot">
-        <iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6160.html" style="width:100%;height:320px" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
+        <iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6160.html" style="width:100%;height:320px" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -2530,7 +2530,7 @@ ${faqItemsHtml}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
+        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 

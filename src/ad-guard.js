@@ -21,6 +21,17 @@
 (function() {
   'use strict';
 
+  // The guard is installed twice on every page (bundled into app.js via
+  // `import "./ad-guard.js"` AND loaded as /js/ad-guard.js). Install once:
+  // re-wrapping would stack wrappers, and the non-configurable patches
+  // below would throw on the second pass.
+  if (window.__adGuardInstalled) return;
+  try {
+    Object.defineProperty(window, '__adGuardInstalled', { configurable: false, writable: false, value: true });
+  } catch (_) {
+    window.__adGuardInstalled = true;
+  }
+
   // 1. Hosts we are willing to let open a window or become the top page.
   const ALLOWED_POPUP_HOSTS = [
     'twitter.com',
@@ -75,8 +86,10 @@
   }
 
   /* ---------------------------------------------------------------- 2. window.open */
+  // Installed non-configurable: with same-origin ad frames on the page, a
+  // hostile creative must not be able to delete/overwrite this wrapper.
   const nativeWindowOpen = window.open;
-  window.open = function(url, target, features) {
+  function guardedWindowOpen(url, target, features) {
     if (isAllowedUrl(url)) {
       return nativeWindowOpen.call(window, url, target, features);
     }
@@ -87,7 +100,12 @@
     }
     console.warn('[AdGuard] blocked window.open ->', hostOf(url), '(' + describe(url) + ')');
     return null;
-  };
+  }
+  try {
+    Object.defineProperty(window, 'open', { configurable: false, writable: false, value: guardedWindowOpen });
+  } catch (_) {
+    try { window.open = guardedWindowOpen; } catch (_) {}
+  }
 
   /* --------------------------------------------- 3. iframe top-navigation hijack */
   // A cross-origin iframe may navigate the top window when it holds user
@@ -106,13 +124,18 @@
   }
 
   // Catch frames built with document.createElement, which is how the ad scripts
-  // inject them.
+  // inject them. Non-configurable for the same reason as window.open above.
   const nativeCreateElement = document.createElement.bind(document);
-  document.createElement = function(tag, ...rest) {
+  function guardedCreateElement(tag, ...rest) {
     const el = nativeCreateElement(tag, ...rest);
     if (typeof tag === 'string' && tag.toLowerCase() === 'iframe') sandboxFrame(el);
     return el;
-  };
+  }
+  try {
+    Object.defineProperty(document, 'createElement', { configurable: false, writable: false, value: guardedCreateElement });
+  } catch (_) {
+    try { document.createElement = guardedCreateElement; } catch (_) {}
+  }
 
   // ...and frames that arrive via innerHTML / insertAdjacentHTML / parsing.
   function sweepFrames(root) {
@@ -134,16 +157,16 @@
     const nativeAssign = loc.assign;
     const nativeReplace = loc.replace;
     Object.defineProperty(loc, 'assign', {
-      configurable: true,
-      writable: true,
+      configurable: false,
+      writable: false,
       value: function(url) {
         if (isAllowedUrl(url)) return nativeAssign.call(loc, url);
         console.warn('[AdGuard] blocked location.assign ->', hostOf(url), '(' + describe(url) + ')');
       }
     });
     Object.defineProperty(loc, 'replace', {
-      configurable: true,
-      writable: true,
+      configurable: false,
+      writable: false,
       value: function(url) {
         if (isAllowedUrl(url)) return nativeReplace.call(loc, url);
         console.warn('[AdGuard] blocked location.replace ->', hostOf(url), '(' + describe(url) + ')');
@@ -154,8 +177,9 @@
   }
 
   /* ------------------------------------------- 6. synthetic anchor click hijack */
+  // Non-configurable: see section 2.
   const nativeAnchorClick = HTMLAnchorElement.prototype.click;
-  HTMLAnchorElement.prototype.click = function() {
+  function guardedAnchorClick() {
     const href = this.href || '';
     if (href && !isAllowedUrl(href)) {
       const insideAd = this.closest(
@@ -167,7 +191,12 @@
       }
     }
     return nativeAnchorClick.apply(this, arguments);
-  };
+  }
+  try {
+    Object.defineProperty(HTMLAnchorElement.prototype, 'click', { configurable: false, writable: false, value: guardedAnchorClick });
+  } catch (_) {
+    try { HTMLAnchorElement.prototype.click = guardedAnchorClick; } catch (_) {}
+  }
 
   /* --------------------------------------------- 7. transparent click overlays */
   const OURS = '.page, .rail, .video-modal-backdrop, .ad-banner-wrap, .ad-native-wrap';

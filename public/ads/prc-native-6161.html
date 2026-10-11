@@ -9,6 +9,56 @@
 </head>
 <body>
 <script>
+/* In-frame popup gate: the sandbox allows popups so genuine creative
+  clicks reach the advertiser. Popunders (timers, synthetic events,
+  multi-tab sprays) are blocked here — only a real user click may open
+  anything, at most one popup per few seconds. Top-page navigation stays
+  dead via the sandbox itself (no allow-top-navigation token). */
+(function () {
+  var lastPopup = 0;
+  function trustedEvent() {
+    try {
+      var e = window.event;
+      return !!(e && e.isTrusted);
+    } catch (_) { return false; }
+  }
+  function inLink(el) {
+    try {
+      while (el) {
+        if (el.tagName === 'A' && el.href) return true;
+        el = el.parentElement;
+      }
+    } catch (_) {}
+    return false;
+  }
+  function gate() {
+    var now = Date.now();
+    if (!trustedEvent()) return false;
+    if (now - lastPopup < 5000) return false;
+    lastPopup = now;
+    return true;
+  }
+  try {
+    var nativeOpen = window.open;
+    window.open = function () {
+      if (!gate()) return null;
+      return nativeOpen.apply(window, arguments);
+    };
+  } catch (e) {}
+  try {
+    var ACP = window.HTMLAnchorElement && window.HTMLAnchorElement.prototype;
+    if (ACP && ACP.click) {
+      var nativeClick = ACP.click;
+      ACP.click = function () {
+        if (!gate() || !inLink(this)) return;
+        return nativeClick.apply(this, arguments);
+      };
+    }
+  } catch (e2) {}
+})();
+</script>
+
+<script>
 /* Sandbox storage shim: ad-network scripts read document.cookie /
   localStorage at init, which throws SecurityError inside a sandboxed
   frame without allow-same-origin and kills rendering before the
@@ -21,6 +71,12 @@
       get: function () { return ''; },
       set: function () { return true; }
     });
+    // Some ad scripts gate rendering on navigator.cookieEnabled, which is
+    // false in a sandboxed frame. Report true so the creative path is taken
+    // (cookies themselves stay inert above).
+    try {
+      Object.defineProperty(navigator, 'cookieEnabled', { configurable: true, value: true });
+    } catch (e2) {}
   } catch (e) {}
   try {
     var __adMem = {};

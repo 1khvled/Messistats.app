@@ -6,16 +6,22 @@
  * run in a top-level page: they register document-wide click handlers that
  * bounce mobile visitors off-site on the first tap. They run only inside
  * public/ads/*.html, embedded via sandboxed iframes that cannot navigate the
- * top page (no allow-top-navigation / allow-top-navigation-by-user-activation
- * / allow-same-origin). The banners keep rendering and keep earning; only the
- * redirect capability is removed.
+ * top page (no allow-top-navigation / allow-top-navigation-by-user-activation).
+ * The frames DO carry allow-same-origin: the networks refuse to paint into
+ * opaque-origin frames, so without it every slot stays blank. Top-level
+ * navigation stays dead regardless (it needs a top-navigation token), and an
+ * in-frame popup gate (timers/synthetic/spray blocked, one genuine click at
+ * a time) keeps popunders dead while genuine creative clicks still open.
+ * The banners keep rendering and keep earning; only the redirect capability
+ * is removed.
  *
  * Asserts:
  *   1. No top-level page loads a network script directly (<script src> to a
  *      popunder host, or a bare atOptions block).
  *   2. Every iframe.safe-ad-frame points at /ads/ and carries a sandbox
- *      without top-navigation or same-origin tokens.
- *   3. public/ads/*.html exist and contain the expected network payloads.
+ *      without top-navigation tokens (same-origin required so networks paint).
+ *   3. public/ads/*.html exist, contain the expected network payloads, and
+ *      carry the storage shim + in-frame popup gate.
  *   4. ad-guard.js is present on every page that embeds ads or frames.
  *   5. Cross-Origin-Opener-Policy does not re-allow popups.
  */
@@ -56,6 +62,15 @@ for (const [file, net] of Object.entries(EXPECTED_ADS)) {
   if (net && !fs.readFileSync(p, 'utf8').includes(net)) {
     failures.push(`dist/ads/${file} no longer loads ${net}`);
   }
+  if (file.endsWith('.html')) {
+    const doc = fs.readFileSync(p, 'utf8');
+    if (!doc.includes('Sandbox storage shim')) {
+      failures.push(`dist/ads/${file} lost the storage shim (creatives will not render sandboxed)`);
+    }
+    if (!doc.includes('In-frame popup gate')) {
+      failures.push(`dist/ads/${file} lost the in-frame popup gate (popunders would fire freely)`);
+    }
+  }
 }
 
 let withFrames = 0;
@@ -88,10 +103,15 @@ for (const f of pages) {
       failures.push(`${rel}: safe-ad-frame has no sandbox attribute`);
     } else {
       const toks = sb.split(/\s+/);
-      for (const bad of ['allow-top-navigation', 'allow-top-navigation-by-user-activation', 'allow-same-origin']) {
+      // allow-top-navigation (any form) would let ad frames redirect the
+      // page itself: always forbidden. allow-same-origin is permitted: the
+      // ad servers refuse to paint into opaque-origin frames, and top-level
+      // navigation stays dead without a top-navigation token.
+      for (const bad of ['allow-top-navigation', 'allow-top-navigation-by-user-activation']) {
         if (toks.includes(bad)) failures.push(`${rel}: safe-ad-frame sandbox allows ${bad}`);
       }
       if (!toks.includes('allow-scripts')) failures.push(`${rel}: safe-ad-frame sandbox drops allow-scripts (creative would not render)`);
+      if (!toks.includes('allow-same-origin')) failures.push(`${rel}: safe-ad-frame sandbox drops allow-same-origin (network refuses opaque-origin frames, creative would not render)`);
     }
   }
 
