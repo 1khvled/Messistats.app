@@ -1,18 +1,20 @@
 {
-  "checkedAt": "2026-10-07T17:31:54.442Z",
+  "checkedAt": "2026-10-15T01:47:11.433Z",
   "status": "AUTO_SYNCED",
-  "newGoals": 1,
+  "newGoals": 0,
   "newApps": 1,
-  "finalGoals": 932,
-  "finalApps": 1178,
+  "finalGoals": 934,
+  "finalApps": 1180,
   "matches": [
     {
-      "id": "401921408",
-      "date": "2026-10-06T23:00:00.000+00:00",
-      "name": "Inter Miami vs Benin",
-      "league": "International Friendly",
-      "goals": 1,
-      "apps": 1
+      "id": "761861",
+      "date": "2026-10-14T23:30:00.000+00:00",
+      "name": "Inter Miami vs New York City FC",
+      "league": "MLS",
+      "goals": 0,
+      "apps": 1,
+      "assists": 1,
+      "isArgentina": false
     }
   ]
 }
