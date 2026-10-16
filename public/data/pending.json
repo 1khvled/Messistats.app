@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-15T01:47:12.917Z",
+  "updated": "2026-10-16T00:55:57.551Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -399,10 +399,10 @@
       "sources": [
         {
           "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000",
-          "at": "2026-10-15T01:47:12.916Z"
+          "at": "2026-10-16T00:55:57.550Z"
         }
       ],
-      "fetched_at": "2026-10-15T01:47:12.916Z",
+      "fetched_at": "2026-10-16T00:55:57.550Z",
       "note": "ESPN lists 29 completed 2026 Miami games vs JSON league apps 25 — data may be stale, hand-check. https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard?dates=2026&limit=1000"
     }
   ],

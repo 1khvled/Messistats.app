@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "CROSS_CHECKED",
-    "updated": "2026-10-15",
+    "updated": "2026-10-16",
     "methodology": "Senior first-team matches only (league, national cup, continental, other). Youth/reserve excluded (Barcelona C/B rows dropped from totals). Each row cross-checked across 2+ free sources; splits must reconcile to the row total.",
     "verification": [
       "Club season splits: Wikipedia Lionel Messi career table (cites BDFutbol match logs), fetched 2026-09-09. Corrected 6 AS.com rows that disagreed (2009/10, 2010/11, 2011/12, 2012/13, 2013/14, 2015/16).",
@@ -32,7 +32,7 @@
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
       "Auto-synced on 2026-10-11: D.C. United at Inter Miami CF (+2G).",
-      "Auto-synced on 2026-10-15: Inter Miami vs New York City FC (+0G)."
+      "Auto-synced on 2026-10-16: Inter Miami vs New York City FC (+0G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -102,9 +102,9 @@
           "appearances": 208
         },
         "inter_miami": {
-          "official": 46,
-          "transfermarkt": 51,
-          "appearances": 118
+          "official": 47,
+          "transfermarkt": 52,
+          "appearances": 119
         },
         "psg": {
           "official": 34,
@@ -126,7 +126,7 @@
       "transfermarkt": 1384,
       "perGameOfficial": 1.14
     },
-    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (407 assists); Transfermarkt criteria includes penalties won and rebounds (449 assists).",
+    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (408 assists); Transfermarkt criteria includes penalties won and rebounds (450 assists).",
     "goalsPerGame": 0.79
   },
   "clubSeasons": [

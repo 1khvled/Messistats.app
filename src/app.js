@@ -2170,7 +2170,8 @@ const LIVE = {
   assists: 407, tmAssists: 449, ga: 1341, tmGa: 1383,
   trophies: 47, rTrophies: 37, tBarca: 35, tArg: 5, tPsg: 3, tMiami: 4,
   gap: 46, fewer: 160, road: 66,
-  rGoals: 980, rApps: 1339, rAssists: 261, rGpg: "0.73",
+  rGoals: 980, rApps: 1339, rAssists: 261, rGpg: "0.73", rGa: 1242, astLead: 147,
+  npg: 824, npgR: 797, npgLead: 27,
   miamiGoals: 104, miamiApps: 118,
   abtBarca: 269, abtArg: 58, abtMiami: 46, abtPsg: 34,
   compMLS: 73, compCCC: 8, compLC: 23, compQual: 91, compWC: 21, compCopa: 14,
@@ -2334,6 +2335,11 @@ function normalize(d) {
       rGoals, rApps,
       rAssists: R.assists ?? 261,
       rGpg: rApps ? (rGoals / rApps).toFixed(2) : "0.73",
+      rGa: rGoals + (R.assists ?? 261),
+      astLead: assists - (R.assists ?? 261),
+      npg: goals - d.byFinish.penalties,
+      npgR: rGoals - (R.penalties ?? 184),
+      npgLead: (goals - d.byFinish.penalties) - (rGoals - (R.penalties ?? 184)),
       miamiGoals: LGT.miamiGoals ?? LIVE.miamiGoals,
       miamiApps: t.assists.byTeam?.inter_miami?.appearances ?? LIVE.miamiApps,
       abtBarca: t.assists.byTeam?.barcelona?.official ?? 269,
@@ -2922,7 +2928,7 @@ const HOME_I18N = {
       ["What is Messi's career goal breakdown by team?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games for FC Barcelona, <b>${agg.psg.goals} goals</b> in ${n(agg.psg?.apps || 75)} games for PSG, <b>${n(agg.miami.goals)} goals</b> in ${n(agg.miami?.apps || 118)} games for Inter Miami, and <b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps for Argentina. See <a href="/${lang}/goalsbyseason">season-by-season club stats</a>.`],
       ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 76} direct free-kick goals</b> in senior football (50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG), ranking 2nd all-time behind Marcelinho Carioca's record of 78.`],
       ["How many hat-tricks has Lionel Messi scored?", `Messi has scored <b>${d.hatTricks || 62} career hat-tricks</b> (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.`],
-      ["How many penalty goals has Messi scored?", `Messi has scored <b>${m?.penalties || 111} penalty goals</b> from 142 attempts across club and country (a 78% conversion rate).`],
+      ["How many penalty goals has Messi scored?", `Messi has scored <b>${m?.penalties || 110} penalty goals</b> from 141 attempts across club and country (a 78% conversion rate).`],
       ["How many non-penalty goals has Lionel Messi scored?", `Messi has scored <b>${n(t.goals - (m?.penalties || 111))} non-penalty goals</b> in ${n(t.apps)} appearances (${((t.goals - (m?.penalties || 111)) / t.apps).toFixed(2)} non-penalty goals per game) — the highest ratio in modern football history.`],
       ["How many goals did Messi score in 2012?", `<b>91 official goals in 2012</b> (79 for Barcelona, 12 for Argentina in 69 games) — certified by Guinness World Records as the all-time world record for most goals in a calendar year. Check our <a href="/${lang}/goalsbyyear">2012 stats tracker</a>.`],
       ["How many trophies has Lionel Messi won?", `<b>47 senior team titles</b> — the most decorated player in football history: 35 with Barcelona, 5 with Argentina (2022 World Cup, 2 Copas América, Finalissima, Olympics), 3 with PSG, and 4 with Inter Miami, plus 8 Ballons d'Or. See <a href="/${lang}/achievements">the full trophy list</a>.`],
@@ -5078,21 +5084,24 @@ function renderDashboard(d, team) {
   const kpisEl = el("kpis");
   if (kpisEl) {
     kpisEl.className = "dash-kpis-grid";
-    // Sums reconcile to the 934 / 1,179 / 110-pen / 76-FK ground truth:
-    // assists 269+58+46+34 = 407; NPG 599+96+97+30 = 822; FK 50+12+12+2 = 76;
-    // hat-tricks 48+11+3+0 = 62; G+A 934+407 = 1,341.
+    // Sums reconcile to live ground truth (computed above where possible):
+    // assists 269+58+47+34 = 408; NPG total computed (goals − penalties);
+    // per-team NPG/FK/HT stay literal — the JSON has no per-team splits.
+    // Miami NPG "99" = 97 + #933/#934 (both open play); bump manually on
+    // future Miami non-penalty goals. FK 50+12+12+2 = 76.
+    // hat-tricks 48+11+3+0 = 62; G+A computed live (934+408 = 1,342).
     const assistsBT = d.totals.assists.byTeam;
     const assistsVal = T === "all" ? n(d.totals.assists.official) + "+" : String(assistsBT[T === "miami" ? "inter_miami" : T].official);
     const gaVal = T === "all" ? n(d.totals.goals + d.totals.assists.official) + "+" : n(clubAgg(d)[T].goals + d.totals.assists.byTeam[T === "miami" ? "inter_miami" : T].official);
-    const npgVal = T === "all" ? "822" : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "97" : "30";
+    const npgVal = T === "all" ? String(LIVE.npg) : T === "barcelona" ? "599" : T === "argentina" ? "96" : T === "miami" ? "99" : "30";
     const fkVal = T === "all" ? "76" : T === "barcelona" ? "50" : T === "argentina" ? "12" : T === "miami" ? "12" : "2";
     const htVal = T === "all" ? "62" : T === "barcelona" ? "48" : T === "argentina" ? "11" : T === "miami" ? "3" : "0";
 
     const kpiList = [
       { label: "Total Goals", icon: "⚽", num: n(goals), sub: `${gpg(goals, apps)} goals/game · ${n(apps)} matches (${name})` },
-      { label: "Total Assists", icon: "👟", num: assistsVal, sub: `0.34 assists/game · All-time playmaker` },
-      { label: "Goal Contributions", icon: "🔥", num: gaVal, sub: `1.14 direct goal involvements per match` },
-      { label: "Non-Penalty Goals", icon: "⚡", num: npgVal, sub: `88.3% non-penalty ratio (open play & free kicks)` },
+      { label: "Total Assists", icon: "👟", num: assistsVal, sub: `${(LIVE.assists / LIVE.apps).toFixed(2)} assists/game · All-time playmaker` },
+      { label: "Goal Contributions", icon: "🔥", num: gaVal, sub: `${(LIVE.ga / LIVE.apps).toFixed(2)} direct goal involvements per match` },
+      { label: "Non-Penalty Goals", icon: "⚡", num: npgVal, sub: `${(LIVE.npg / LIVE.goals * 100).toFixed(1)}% non-penalty ratio (open play & free kicks)` },
       { label: "Direct Free Kicks", icon: "🎯", num: fkVal, sub: `Record set-piece dead-ball precision` },
       { label: "Career Hat-Tricks", icon: "🎩", num: htVal, sub: `62 career hat-tricks, 6x 4-goals, 2x 5-goals` }
     ];

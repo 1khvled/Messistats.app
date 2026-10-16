@@ -341,8 +341,35 @@ export async function runAutoSync() {
       argSplit.transfermarkt += argAssists;
       argSplit.appearances += argApps;
     }
+    // Club-side assists/apps belong to the active club split (all post-2023
+    // club games are Inter Miami; frozen Barça/PSG rows never move). Without
+    // this the totals outgrow their own breakdown (e.g. 408 vs 269+58+46+34).
+    const clubAssists = totalNewAssists - argAssists;
+    const miamiSplit = d.totals.assists.byTeam.inter_miami;
+    if (miamiSplit && (clubAssists > 0 || clubApps > 0)) {
+      miamiSplit.official += clubAssists;
+      miamiSplit.transfermarkt += clubAssists;
+      miamiSplit.appearances += clubApps;
+    }
+    // Keep the methodology note's parenthetical tallies in sync with totals.
+    if (typeof d.totals.note === "string") {
+      d.totals.note = d.totals.note
+        .replace(/\(\d+ assists\)/, `(${d.totals.assists.official} assists)`)
+        .replace(/\(\d+ assists\)/, `(${d.totals.assists.transfermarkt} assists)`);
+    }
     d.totals.combined.goals += totalNewGoals;
     d.totals.combined.appearances += totalNewApps;
+    // latest-goal.json carries its own totals snapshot for the narrative
+    // templates (they must not read stale apps while messi-data moves on).
+    try {
+      const lgPath = resolve(root, "public", "data", "latest-goal.json");
+      const lg = JSON.parse(readFileSync(lgPath, "utf8"));
+      if (lg.totals) {
+        lg.totals.appearances = d.totals.combined.appearances;
+        lg.totals.seniorGoals = d.totals.combined.goals;
+        writeFileSync(lgPath, JSON.stringify(lg, null, 2) + "\n", "utf8");
+      }
+    } catch (_) { /* latest-goal totals stay as-is; sync-latest-goal owns the cards */ }
     d.totals.goalsPerGame = Number((d.totals.combined.goals / d.totals.combined.appearances).toFixed(2));
     // Goal contributions are derived, never hand-synced
     d.totals.goalContributions.official = d.totals.combined.goals + d.totals.assists.official;
@@ -407,7 +434,7 @@ export async function runAutoSync() {
         const mm = (bday.meta.months || []).find((mm2) => mm2.month === rec.month);
         if (mm) { mm.goals += pm.goals; if (!hadGoals) mm.daysScored += 1; }
       }
-      if (!isDryRun) writeFileSync(bdayPath, JSON.stringify(bday, null, 2), "utf8");
+      if (!isDryRun) writeFileSync(bdayPath, JSON.stringify(bday, null, 2) + "\n", "utf8");
       console.log("  birthday-goals.json appended for new goal days.");
     } catch (err) {
       console.warn("birthday append warning:", err.message);
