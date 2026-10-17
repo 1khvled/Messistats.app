@@ -9,7 +9,7 @@
     "prebuild": "node scripts/daily-date-sync.mjs && node scripts/prebuild-check.mjs && node scripts/build-messi-vs-ronaldo.mjs && node scripts/sync-latest-goal-html.mjs && node scripts/sync-all-rails.mjs && node scripts/inject-latest-goal-nav.mjs && node scripts/generate-og.mjs && node scripts/sync-twitter-and-logo.mjs && node scripts/sync-totals-everywhere.mjs",
     "build:og": "node scripts/generate-og.mjs",
     "build:rivalry": "node scripts/build-messi-vs-ronaldo.mjs",
-    "build": "node scripts/build-sitemap.mjs && vite build && node scripts/copy-en.mjs && node scripts/generate-programmatic-pages.mjs && node scripts/generate-days-hub.mjs && node scripts/guard-ad-redirects.mjs",
+    "build": "node scripts/build-sitemap.mjs && vite build && node scripts/copy-en.mjs && node scripts/generate-programmatic-pages.mjs && node scripts/generate-days-hub.mjs && node scripts/inject-yandex-verification.mjs && node scripts/guard-ad-redirects.mjs",
     "preview": "vite preview --port 4173",
     "sync:totals": "node scripts/sync-totals-everywhere.mjs",
     "verify": "node scripts/verify.mjs && node scripts/source-watch.mjs && node scripts/smart-check.mjs --dry-run",
