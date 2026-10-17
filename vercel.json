@@ -3,7 +3,7 @@
   "buildCommand": "npm run build",
   "ignoreCommand": "bash scripts/vercel-ignore-build.sh",
   "outputDirectory": "dist",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "redirects": [
     {
@@ -184,6 +184,14 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/yandex_197936edd518d1a5",
+      "destination": "/yandex_197936edd518d1a5.html"
+    },
+    {
+      "source": "/google07f67a37d7a48a18",
+      "destination": "/google07f67a37d7a48a18.html"
+    },
     {
       "source": "/en/data/:path*",
       "destination": "/data/:path*"
