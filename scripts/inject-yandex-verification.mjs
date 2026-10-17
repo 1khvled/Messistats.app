@@ -2,7 +2,8 @@ import fs from "fs";
 import path from "path";
 
 const dist = "./dist";
-const META = '<meta name="yandex-verification" content="197936edd518d1a5"/>';
+const META =
+  '<meta name="yandex-verification" content="197936edd518d1a5"/><meta name="yandex-verification" content="82490b828a836bb0"/>';
 const re = /<meta name="yandex-verification"[^>]*>/;
 
 let injected = 0;
