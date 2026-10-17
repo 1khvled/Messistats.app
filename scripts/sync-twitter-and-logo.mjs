@@ -12,7 +12,7 @@
  *    - Organization.logo with ImageObject (512x512, caption, contentUrl)
  *    - Organization.sameAs includes https://x.com/messistat1
  *    - WebSite.sameAs includes https://x.com/messistat1
- *    - apple-touch-icon for /img/logo.png
+ *    - apple-touch-icon: single canonical link (/apple-touch-icon.png); /img/logo.png duplicates stripped
  * 3. Static footer official X link for crawlers & users:
  *    - <div class="footer-social-bar"><a href="https://x.com/messistat1">...</a></div>
  */
@@ -94,15 +94,11 @@ for (const file of htmlFiles) {
     }
   }
 
-  // 3. Apple-touch-icon logo link for Google Favicon / Logo indexing
-  if (!content.includes('href="/img/logo.png" rel="apple-touch-icon"') && !content.includes('rel="apple-touch-icon" href="/img/logo.png"')) {
-    if (content.includes('rel="apple-touch-icon"')) {
-      content = content.replace(
-        /(<link[^>]+rel=["']apple-touch-icon["'][^>]*>)/i,
-        `$1\n<link rel="apple-touch-icon" href="/img/logo.png"/>`
-      );
-    }
-  }
+  // 3. Apple-touch-icon: keep exactly one, the canonical /apple-touch-icon.png.
+  //    SERP favicons (Google/Bing) come from /favicon.ico + the rel=icon ladder + Organization logo.
+  //    The /img/logo.png apple-touch duplicate plays no role in indexing and is stripped.
+  content = content.replace(/<link[^>]*rel=["']apple-touch-icon["'][^>]*href=["']\/img\/logo\.png["'][^>]*\/?>\n?/gi, "");
+  content = content.replace(/<link[^>]*href=["']\/img\/logo\.png["'][^>]*rel=["']apple-touch-icon["'][^>]*\/?>\n?/gi, "");
 
   // 4. Update Schema.org Organization & WebSite with @messistat1 and logo details
   content = content.replace(
