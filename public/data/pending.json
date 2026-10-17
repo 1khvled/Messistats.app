@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T21:42:26.467Z",
+  "updated": "2026-10-17T23:28:41.923Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -218,11 +218,11 @@
       "sources": [
         {
           "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
-          "at": "2026-10-17T19:35:37.848Z"
+          "at": "2026-10-17T23:28:41.922Z"
         }
       ],
-      "fetched_at": "2026-10-17T19:35:37.848Z",
-      "note": "Page changed since last check (e659861d9e6c -> 4486ccca2ac1) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+      "fetched_at": "2026-10-17T23:28:41.922Z",
+      "note": "Page changed since last check (4486ccca2ac1 -> c509afc44e9b) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
     },
     {
       "match_id": "watch:espn-mls-stale:espn25",
