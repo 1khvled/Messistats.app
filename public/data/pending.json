@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T14:24:31.840Z",
+  "updated": "2026-10-17T17:24:17.793Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -130,11 +130,11 @@
       "sources": [
         {
           "url": "https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked",
-          "at": "2026-10-17T14:24:29.011Z"
+          "at": "2026-10-17T17:24:15.915Z"
         }
       ],
-      "fetched_at": "2026-10-17T14:24:29.011Z",
-      "note": "Page changed since last check (5b77cfae5da5 -> 77d84f5fff0e) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked"
+      "fetched_at": "2026-10-17T17:24:15.915Z",
+      "note": "Page changed since last check (77d84f5fff0e -> 5b77cfae5da5) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.foxsports.com/stories/soccer/messi-2026-world-cup-goals-ranked"
     },
     {
       "match_id": "watch:article:sportstar-400",
@@ -174,11 +174,11 @@
       "sources": [
         {
           "url": "https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists",
-          "at": "2026-10-17T11:39:00.134Z"
+          "at": "2026-10-17T17:24:16.221Z"
         }
       ],
-      "fetched_at": "2026-10-17T11:39:00.134Z",
-      "note": "Page changed since last check (d99118655951 -> fdc5ff4c224c) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
+      "fetched_at": "2026-10-17T17:24:16.221Z",
+      "note": "Page changed since last check (fdc5ff4c224c -> 05c7b2c4ef1d) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
     },
     {
       "match_id": "watch:article:espn-tracker",
