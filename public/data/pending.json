@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T02:39:10.877Z",
+  "updated": "2026-10-17T07:11:27.281Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -174,11 +174,11 @@
       "sources": [
         {
           "url": "https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists",
-          "at": "2026-10-17T02:39:08.631Z"
+          "at": "2026-10-17T07:11:25.253Z"
         }
       ],
-      "fetched_at": "2026-10-17T02:39:08.631Z",
-      "note": "Page changed since last check (91f575822b57 -> 085e12c7c77b) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
+      "fetched_at": "2026-10-17T07:11:25.253Z",
+      "note": "Page changed since last check (085e12c7c77b -> d99118655951) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://www.planetfootball.com/la-liga/lionel-messi-cristiano-ronaldo-el-clasico-records-compared-real-madrid-barcelona-goals-assists"
     },
     {
       "match_id": "watch:article:espn-tracker",
@@ -218,11 +218,11 @@
       "sources": [
         {
           "url": "https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241",
-          "at": "2026-10-17T02:39:10.876Z"
+          "at": "2026-10-17T07:11:27.281Z"
         }
       ],
-      "fetched_at": "2026-10-17T02:39:10.876Z",
-      "note": "Page changed since last check (cba3db34b3da -> aec361763130) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
+      "fetched_at": "2026-10-17T07:11:27.281Z",
+      "note": "Page changed since last check (aec361763130 -> bbb26f158821) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://gulfnews.com/sport/football/messi-hits-400-assists-top-5-assist-makers-of-all-time-and-ronaldo-isnt-there-1.500342241"
     },
     {
       "match_id": "watch:espn-mls-stale:espn25",
