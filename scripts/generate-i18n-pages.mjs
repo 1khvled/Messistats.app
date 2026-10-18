@@ -378,6 +378,15 @@ function renderHeadBoilerplate(lang, pageSlug, title, desc, keywords) {
   return `<!DOCTYPE html>
 <html lang="${lang}" dir="${L.dir}">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FERBLJWWWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FERBLJWWWZ');
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <title>${title} | MessiStats</title>
