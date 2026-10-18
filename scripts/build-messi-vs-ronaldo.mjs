@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { S } from "./stats.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
@@ -2008,8 +2009,8 @@ ${getHreflangs(lang, "messi-vs-ronaldo")}
 <meta property="og:title" content="${t.title}"/>
 <meta property="og:description" content="${t.desc}"/>
 <meta property="og:url" content="${canonicalUrl}"/>
-<meta property="og:image" content="https://www.messistat.com/img/og-messi.jpg?v=932"/>
-<meta property="og:image:secure_url" content="https://www.messistat.com/img/og-messi.jpg?v=932"/>
+<meta property="og:image" content="https://www.messistat.com/img/og-messi.jpg?v=${S.goals}"/>
+<meta property="og:image:secure_url" content="https://www.messistat.com/img/og-messi.jpg?v=${S.goals}"/>
 <meta property="og:image:width" content="1200"/>
 <meta property="og:image:height" content="630"/>
 <meta name="twitter:card" content="summary_large_image"/>
@@ -2018,7 +2019,7 @@ ${getHreflangs(lang, "messi-vs-ronaldo")}
 <meta name="twitter:domain" content="messistat.com"/>
 <meta name="twitter:title" content="${t.title}"/>
 <meta name="twitter:description" content="${t.desc}"/>
-<meta name="twitter:image" content="https://www.messistat.com/img/og-messi.jpg?v=932"/>
+<meta name="twitter:image" content="https://www.messistat.com/img/og-messi.jpg?v=${S.goals}"/>
 <link rel="icon" href="/favicon.ico" sizes="48x48"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
@@ -2166,39 +2167,39 @@ ${JSON.stringify(jsonLd, null, 2)}
         <tbody>
           <tr>
             <td class="left"><b>${t.statGoals}</b></td>
-            <td>932</td>
-            <td><b style="color:#dc2626;">981</b></td>
+            <td>${S.goals}</td>
+            <td><b style="color:#dc2626;">${S.rGoals}</b></td>
             <td class="left"><span class="leader-badge-ronaldo">${t.badgeRonaldoGoals}</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statApps}</b></td>
-            <td>1,178</td>
-            <td>1,340</td>
-            <td class="left"><span class="leader-badge-messi">Messi (161 ${lang === 'es' ? 'partidos menos' : lang === 'pt' ? 'jogos a menos' : lang === 'fr' ? 'matchs de moins' : lang === 'ar' ? 'مباراة أقل' : lang === 'bn' ? 'ম্যাচ কম' : lang === 'hi' ? 'मैच कम' : lang === 'ro' ? 'meciuri mai puține' : lang === 'uz' ? 'ta kam oʻyin' : 'fewer matches'})</span></td>
+            <td>${S.apps.toLocaleString("en-US")}</td>
+            <td>${S.rApps.toLocaleString("en-US")}</td>
+            <td class="left"><span class="leader-badge-messi">Messi (${S.fewer} ${lang === 'es' ? 'partidos menos' : lang === 'pt' ? 'jogos a menos' : lang === 'fr' ? 'matchs de moins' : lang === 'ar' ? 'مباراة أقل' : lang === 'bn' ? 'ম্যাচ কম' : lang === 'hi' ? 'मैच कम' : lang === 'ro' ? 'meciuri mai puține' : lang === 'uz' ? 'ta kam oʻyin' : 'fewer matches'})</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statRatio}</b></td>
-            <td><b style="color:var(--accent);">0.79</b></td>
-            <td>0.73</td>
-            <td class="left"><span class="leader-badge-messi">Messi (+0.06)</span></td>
+            <td><b style="color:var(--accent);">${S.gpg.toFixed(2)}</b></td>
+            <td>${S.rGpg.toFixed(2)}</td>
+            <td class="left"><span class="leader-badge-messi">Messi (+${(S.gpg - S.rGpg).toFixed(2)})</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statAssists}</b></td>
-            <td><b style="color:var(--accent);">407+</b></td>
-            <td>261</td>
+            <td><b style="color:var(--accent);">${S.assists}+</b></td>
+            <td>${S.rAssists}</td>
             <td class="left"><span class="leader-badge-messi">${t.badgeMessiAssists}</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statGoalContrib}</b></td>
-            <td><b style="color:var(--accent);">1,340+</b></td>
-            <td>1,241</td>
-            <td class="left"><span class="leader-badge-messi">Messi (+98)</span></td>
+            <td><b style="color:var(--accent);">${S.ga.toLocaleString("en-US")}+</b></td>
+            <td>${S.rGa.toLocaleString("en-US")}</td>
+            <td class="left"><span class="leader-badge-messi">Messi (+${S.ga - S.rGa})</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statContribRatio}</b></td>
-            <td><b style="color:var(--accent);">1.14</b></td>
-            <td>0.93</td>
-            <td class="left"><span class="leader-badge-messi">Messi (+0.21)</span></td>
+            <td><b style="color:var(--accent);">${S.gaPerGame.toFixed(2)}</b></td>
+            <td>${(S.rGa / S.rApps).toFixed(2)}</td>
+            <td class="left"><span class="leader-badge-messi">Messi (+${(S.gaPerGame - (S.rGa / S.rApps)).toFixed(2)})</span></td>
           </tr>
           <tr>
             <td class="left"><b>${t.statMinsContrib}</b></td>
@@ -2256,8 +2257,8 @@ ${JSON.stringify(jsonLd, null, 2)}
         <tbody>
           <tr>
             <td class="left"><b>${t.statNPG}</b></td>
-            <td><b style="color:var(--accent);">822</b></td>
-            <td>796</td>
+            <td><b style="color:var(--accent);">${S.npg}</b></td>
+            <td>${S.npgR}</td>
             <td class="left"><span class="leader-badge-messi">${t.badgeMessiNPG}</span></td>
           </tr>
           <tr>
@@ -2334,8 +2335,8 @@ ${JSON.stringify(jsonLd, null, 2)}
         <tbody>
           <tr>
             <td class="left"><b>${t.statAllAssists}</b></td>
-            <td><b style="color:var(--accent);">407+</b></td>
-            <td>261</td>
+            <td><b style="color:var(--accent);">${S.assists}+</b></td>
+            <td>${S.rAssists}</td>
             <td class="left"><span class="leader-badge-messi">${t.badgeMessiAssists}</span></td>
           </tr>
           <tr>

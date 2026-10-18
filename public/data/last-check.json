@@ -1,19 +1,19 @@
 {
-  "checkedAt": "2026-10-16T00:54:33.987Z",
+  "checkedAt": "2026-10-18T16:09:17.062Z",
   "status": "AUTO_SYNCED",
-  "newGoals": 0,
+  "newGoals": 2,
   "newApps": 1,
-  "finalGoals": 934,
-  "finalApps": 1180,
+  "finalGoals": 936,
+  "finalApps": 1181,
   "matches": [
     {
-      "id": "761861",
-      "date": "2026-10-14T23:30:00.000+00:00",
-      "name": "Inter Miami vs New York City FC",
+      "id": "761880",
+      "date": "2026-10-17T23:30:00.000+00:00",
+      "name": "Inter Miami vs Atlanta United FC",
       "league": "MLS",
-      "goals": 0,
+      "goals": 2,
       "apps": 1,
-      "assists": 1,
+      "assists": 0,
       "isArgentina": false
     }
   ]

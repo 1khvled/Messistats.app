@@ -1,6 +1,6 @@
 {
   "meta": {
-    "totalGoals": 934,
+    "totalGoals": 936,
     "totalDaysInYear": 366,
     "daysWithGoals": 292,
     "daysWithoutGoals": 74,
@@ -176,7 +176,7 @@
       {
         "month": 10,
         "name": "October",
-        "goals": 94,
+        "goals": 96,
         "daysScored": 27,
         "totalDays": 31
       },
@@ -18910,7 +18910,7 @@
       "day": 17,
       "monthName": "October",
       "formatted": "17 October",
-      "goalsCount": 2,
+      "goalsCount": 4,
       "matches": [
         {
           "date": "2023-10-17",
@@ -18947,6 +18947,18 @@
               "penalty": false
             }
           ]
+        },
+        {
+          "date": "2026-10-17",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "Atlanta United FC",
+          "competition": "MLS",
+          "score": "",
+          "goalsCount": 2,
+          "minutes": [],
+          "types": [],
+          "videos": []
         }
       ]
     },

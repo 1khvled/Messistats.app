@@ -32,7 +32,8 @@
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
       "Goal #932 verified 2026-10-10: Argentina 3-0 Benin friendly, 6 Oct 2026, 71' penalty (126th Argentina goal, 208th cap, assists to Otamendi 48' + Paz 61'). Sources: BBC Sport, Guardian live, ESPN feed, messivsronaldo.app cross-check (932).",
       "Auto-synced on 2026-10-11: D.C. United at Inter Miami CF (+2G).",
-      "Auto-synced on 2026-10-16: Inter Miami vs New York City FC (+0G)."
+      "Auto-synced on 2026-10-16: Inter Miami vs New York City FC (+0G).",
+      "Auto-synced on 2026-10-18: Inter Miami vs Atlanta United FC (+2G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -48,7 +49,8 @@
       "761829",
       "761844",
       "761847",
-      "761861"
+      "761861",
+      "761880"
     ]
   },
   "profile": {
@@ -74,8 +76,8 @@
   },
   "totals": {
     "club": {
-      "appearances": 972,
-      "goals": 808,
+      "appearances": 973,
+      "goals": 810,
       "goalsPerGame": 0.83
     },
     "country": {
@@ -84,8 +86,8 @@
       "goalsPerGame": 0.61
     },
     "combined": {
-      "appearances": 1180,
-      "goals": 934
+      "appearances": 1181,
+      "goals": 936
     },
     "assists": {
       "official": 408,
@@ -104,7 +106,7 @@
         "inter_miami": {
           "official": 47,
           "transfermarkt": 52,
-          "appearances": 119
+          "appearances": 120
         },
         "psg": {
           "official": 34,
@@ -122,11 +124,11 @@
       }
     },
     "goalContributions": {
-      "official": 1342,
-      "transfermarkt": 1384,
+      "official": 1344,
+      "transfermarkt": 1386,
       "perGameOfficial": 1.14
     },
-    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (408 assists); Transfermarkt criteria includes penalties won and rebounds (450 assists).",
+    "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (450 assists); Transfermarkt criteria includes penalties won and rebounds (450 assists).",
     "goalsPerGame": 0.79
   },
   "clubSeasons": [
@@ -619,8 +621,8 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        25,
-        23
+        26,
+        25
       ],
       "cup": [
         0,
@@ -634,8 +636,8 @@
         3,
         3
       ],
-      "apps": 31,
-      "goals": 27
+      "apps": 32,
+      "goals": 29
     }
   ],
   "countryYears": [
@@ -968,7 +970,7 @@
     {
       "competition": "MLS (regular season)",
       "team": "Inter Miami",
-      "goals": 73
+      "goals": 75
     },
     {
       "competition": "Copa del Rey",
@@ -1015,7 +1017,7 @@
   "byFinish": [
     {
       "finish": "Open play",
-      "goals": 748
+      "goals": 750
     },
     {
       "finish": "Penalties",
@@ -1029,7 +1031,7 @@
   "byBodyPart": [
     {
       "part": "Left foot",
-      "goals": 746
+      "goals": 748
     },
     {
       "part": "Right foot",
@@ -1501,8 +1503,8 @@
     },
     {
       "year": 2026,
-      "goals": 38,
-      "careerTotal": 934,
+      "goals": 40,
+      "careerTotal": 936,
       "age": 39,
       "status": "provisional-ongoing"
     }

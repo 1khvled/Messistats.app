@@ -171,6 +171,7 @@ export async function autoPullLatestGoal() {
 
   let newlyFoundGoal = null;
   let newGoalsCount = 0;
+  let goalDetails = [];
 
   for (const ev of events) {
     const eventDate = (ev.gameDate || "").split("T")[0];
@@ -196,7 +197,7 @@ export async function autoPullLatestGoal() {
       // Find the last goal event
       const keyEvents = summary.keyEvents || [];
       let goalDetail = null;
-      const goalDetails = []; // every Messi goal in the match (chronological)
+      goalDetails = []; // every Messi goal in the match (chronological)
 
       for (const k of keyEvents) {
         const isGoal = /goal/i.test(k.type?.text || "") && !/own\s*goal/i.test(k.type?.text || "");

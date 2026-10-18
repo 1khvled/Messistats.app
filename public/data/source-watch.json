@@ -1,8 +1,8 @@
 {
-  "updated": "2026-10-17T23:28:41.942Z",
+  "updated": "2026-10-18T16:12:22.708Z",
   "generator": "scripts/source-watch.mjs; never messi-data.json",
   "lastFull": "2026-10-17T23:28:41.942Z",
-  "matchdayToday": true,
+  "matchdayToday": false,
   "hashes": {
     "fox-wc21": "5b77cfae5da5404141c5aae2d37f5063f964ace2",
     "sportstar-400": "e6ca62d8e486b9684d95cc1451299c6eb7691e2c",
@@ -18,154 +18,112 @@
       "slug": "internal-checksums",
       "kind": "structured",
       "ok": true,
-      "at": "2026-10-17T23:28:38.590Z",
-      "detail": "all three sums reconcile to 934"
+      "at": "2026-10-18T16:12:21.910Z",
+      "detail": "all three sums reconcile to 936"
     },
     {
       "slug": "espn-mls-count",
       "kind": "structured",
       "ok": false,
-      "at": "2026-10-17T23:28:38.903Z",
-      "detail": "espn=29 json=25"
+      "at": "2026-10-18T16:12:22.706Z",
+      "detail": "espn=30 json=26"
     },
     {
       "slug": "espn-arg-count",
       "kind": "structured",
       "ok": true,
-      "at": "2026-10-17T23:28:38.903Z",
+      "at": "2026-10-18T16:12:22.707Z",
       "detail": "espn completed=8 vs json apps=12"
-    },
-    {
-      "slug": "of-wc2022",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.035Z",
-      "detail": "Messi 2022 WC goals=7"
-    },
-    {
-      "slug": "of-wc2026",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.035Z",
-      "detail": "8 Argentina games, Messi 8 goals (matches JSON 2026 note)"
-    },
-    {
-      "slug": "of-wc-alltime",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.035Z",
-      "detail": "WC all-time 21 (6 pre-2022 + 7 + 8)"
-    },
-    {
-      "slug": "wiki-ach:Supporters' Shield",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.258Z",
-      "detail": "present"
-    },
-    {
-      "slug": "wiki-ach:Leagues Cup",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.258Z",
-      "detail": "present"
-    },
-    {
-      "slug": "wiki-ach:MLS Cup",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.258Z",
-      "detail": "present"
-    },
-    {
-      "slug": "wiki-ach:Olympic",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.258Z",
-      "detail": "present"
-    },
-    {
-      "slug": "wiki-info:laliga",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.434Z",
-      "detail": "league goals=474"
-    },
-    {
-      "slug": "wiki-info:ligue1",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.434Z",
-      "detail": "league goals=22"
-    },
-    {
-      "slug": "wiki-info:mls",
-      "kind": "structured",
-      "ok": true,
-      "at": "2026-10-17T23:28:39.434Z",
-      "detail": "league goals=73"
     },
     {
       "slug": "article:fox-wc21",
       "kind": "article",
       "ok": true,
-      "at": "2026-10-17T23:28:39.537Z",
-      "detail": "unchanged"
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:sportstar-400",
       "kind": "article",
       "ok": true,
-      "at": "2026-10-17T23:28:39.674Z",
-      "detail": "unchanged"
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:planet-elclasico",
       "kind": "article",
       "ok": true,
-      "at": "2026-10-17T23:28:39.952Z",
-      "detail": "unchanged"
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:mvrapp-detailed",
       "kind": "article",
       "ok": true,
-      "at": "2026-10-17T23:28:40.284Z",
-      "detail": "unchanged"
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:mvrapp-elclasico",
       "kind": "article",
       "ok": true,
-      "at": "2026-10-17T23:28:40.616Z",
-      "detail": "unchanged"
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:messicom-46",
       "kind": "article",
       "ok": true,
-      "at": "2026-10-17T23:28:41.384Z",
-      "detail": "unchanged"
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:espn-tracker",
       "kind": "article",
-      "ok": false,
-      "at": "2026-10-17T23:28:41.467Z",
-      "detail": "unreadable body (0 chars, likely bot-wall) — manual-only"
+      "ok": true,
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
     },
     {
       "slug": "article:gulfnews-400",
       "kind": "article",
-      "ok": false,
-      "at": "2026-10-17T23:28:41.922Z",
-      "detail": "CHANGED 4486ccca2ac1 -> c509afc44e9b (row updated in place)"
+      "ok": true,
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (hash fresh)"
+    },
+    {
+      "slug": "of-wc2022",
+      "kind": "structured",
+      "ok": true,
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (full fresh)"
+    },
+    {
+      "slug": "of-wc2026",
+      "kind": "structured",
+      "ok": true,
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (full fresh)"
+    },
+    {
+      "slug": "wiki-achievements",
+      "kind": "structured",
+      "ok": true,
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (full fresh)"
+    },
+    {
+      "slug": "wiki-messi",
+      "kind": "structured",
+      "ok": true,
+      "at": "2026-10-18T16:12:22.707Z",
+      "detail": "deferred (full fresh)"
     },
     {
       "slug": "football-data.org",
       "kind": "skip",
       "ok": true,
-      "at": "2026-10-17T23:28:41.923Z",
+      "at": "2026-10-18T16:12:22.707Z",
       "detail": "requires X-Auth-Token key; no key provisioned"
     }
   ],

@@ -121,24 +121,24 @@ const push = (re, to, kind) => rules.push({ re, to, kind });
 //    older numerals that may appear in unrelated contexts.
 for (let n = goals - 6; n < goals; n++) push(bare(n), String(goals), "goals");
 
-// 2) Club goals: two predecessors → current (bare, guarded).
-for (let n = club - 2; n < club; n++) push(bare(n), String(club), "club");
+// 2) Club goals: predecessors → current (bare, guarded).
+for (let n = club - 6; n < club; n++) push(bare(n), String(club), "club");
 
 // 3) Appearances in every separator format, format-preserving.
 for (const sep of [",", ".", " ", ""]) {
-  for (let n = apps - 3; n < apps; n++) {
+  for (let n = apps - 5; n < apps; n++) {
     push(bare(fmt(n, sep)), fmt(apps, sep), "apps");
   }
 }
 // French/Uzbek may use NBSP/space variants of the space separator.
 for (const sp of ["\u00A0", "\u202F"]) {
-  for (let n = apps - 2; n < apps; n++) {
+  for (let n = apps - 4; n < apps; n++) {
     push(new RegExp(`1${sp}${String(n).slice(-3)}(?!\\d)`, "g"), `1${sp}${String(apps).slice(-3)}`, "apps-nb");
   }
 }
 
 // 4) Goal contributions — ONLY when followed by "+" (bare "1,339" is Ronaldo's apps).
-for (let n = ga - 3; n < ga; n++) {
+for (let n = ga - 8; n < ga; n++) {
   for (const sep of [",", ".", " "]) push(bare(`${fmt(n, sep)}+`), `${fmt(ga, sep)}+`, "g+a");
 }
 
