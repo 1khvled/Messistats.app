@@ -15,7 +15,8 @@ const SUBPAGES = [
   "achievements",
   "birthday",
   "messi-vs-ronaldo",
-  "vs-real-madrid"
+  "vs-real-madrid",
+  "gear"
 ];
 
 // 26 reciprocal hreflangs

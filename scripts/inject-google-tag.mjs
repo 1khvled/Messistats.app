@@ -29,6 +29,7 @@ const SUBPAGES = [
   "messi-vs-ronaldo.html",
   "timeline.html",
   "vs-real-madrid.html",
+  "gear.html"
 ];
 
 const LANGS = ["ar", "bn", "es", "fr", "hi", "pt", "ro", "uz"];

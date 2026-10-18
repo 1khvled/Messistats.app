@@ -45,7 +45,8 @@ const SUBPAGES = [
   { slug: "champions-league", changefreq: "monthly", priority: "0.9", lastmod: todayIso },
   { slug: "latest-goal", changefreq: "daily", priority: "0.95", lastmod: todayIso },
   { slug: "timeline", changefreq: "weekly", priority: "0.9", lastmod: todayIso },
-  { slug: "achievements", changefreq: "monthly", priority: "0.85", lastmod: todayIso }
+  { slug: "achievements", changefreq: "monthly", priority: "0.85", lastmod: todayIso },
+  { slug: "gear", changefreq: "weekly", priority: "0.85", lastmod: todayIso }
 ];
 
 function getHreflangsXml(slugPath) {

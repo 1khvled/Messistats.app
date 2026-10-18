@@ -58,7 +58,8 @@ const subpages = [
   'messi-vs-ronaldo',
   'vs-real-madrid',
   'champions-league',
-  'latest-goal'
+  'latest-goal',
+  'gear'
 ];
 
 const rollupInput = {
@@ -72,7 +73,8 @@ const rollupInput = {
   vs_real_madrid: resolve(root, 'vs-real-madrid.html'),
   messi_vs_ronaldo: resolve(root, 'messi-vs-ronaldo.html'),
   champions_league: resolve(root, 'champions-league.html'),
-  latest_goal: resolve(root, 'latest-goal.html')
+  latest_goal: resolve(root, 'latest-goal.html'),
+  gear: resolve(root, 'gear.html')
 };
 
 for (const l of langs) {

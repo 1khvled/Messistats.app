@@ -8,21 +8,41 @@
   "redirects": [
     {
       "source": "/:lang/birthday",
-      "has": [{ "type": "query", "key": "date", "value": "(?<date>.+)" }],
+      "has": [
+        {
+          "type": "query",
+          "key": "date",
+          "value": "(?<date>.+)"
+        }
+      ],
       "destination": "/en/birthday/$date",
       "permanent": true
     },
     {
       "source": "/:lang",
-      "has": [{ "type": "query", "key": "date", "value": "(?<date>.+)" }],
+      "has": [
+        {
+          "type": "query",
+          "key": "date",
+          "value": "(?<date>.+)"
+        }
+      ],
       "destination": "/en/birthday/$date",
       "permanent": true
     },
     {
       "source": "/:lang/birthday",
       "has": [
-        { "type": "query", "key": "month", "value": "(?<month>.+)" },
-        { "type": "query", "key": "day", "value": "(?<day>.+)" }
+        {
+          "type": "query",
+          "key": "month",
+          "value": "(?<month>.+)"
+        },
+        {
+          "type": "query",
+          "key": "day",
+          "value": "(?<day>.+)"
+        }
       ],
       "destination": "/en/birthday/$month-$day",
       "permanent": true
@@ -105,6 +125,16 @@
     {
       "source": "/achievements.html",
       "destination": "/en/achievements",
+      "permanent": true
+    },
+    {
+      "source": "/gear",
+      "destination": "/en/gear",
+      "permanent": true
+    },
+    {
+      "source": "/gear.html",
+      "destination": "/en/gear",
       "permanent": true
     },
     {
@@ -233,6 +263,10 @@
       "destination": "/achievements.html"
     },
     {
+      "source": "/en/gear",
+      "destination": "/gear.html"
+    },
+    {
       "source": "/en/birthday",
       "destination": "/birthday.html"
     },
@@ -321,6 +355,10 @@
       "destination": "/es/achievements.html"
     },
     {
+      "source": "/es/gear",
+      "destination": "/es/gear.html"
+    },
+    {
       "source": "/es/birthday",
       "destination": "/es/birthday.html"
     },
@@ -387,6 +425,10 @@
     {
       "source": "/pt/achievements",
       "destination": "/pt/achievements.html"
+    },
+    {
+      "source": "/pt/gear",
+      "destination": "/pt/gear.html"
     },
     {
       "source": "/pt/birthday",
@@ -457,6 +499,10 @@
       "destination": "/fr/achievements.html"
     },
     {
+      "source": "/fr/gear",
+      "destination": "/fr/gear.html"
+    },
+    {
       "source": "/fr/birthday",
       "destination": "/fr/birthday.html"
     },
@@ -523,6 +569,10 @@
     {
       "source": "/ar/achievements",
       "destination": "/ar/achievements.html"
+    },
+    {
+      "source": "/ar/gear",
+      "destination": "/ar/gear.html"
     },
     {
       "source": "/ar/birthday",
@@ -593,6 +643,10 @@
       "destination": "/bn/achievements.html"
     },
     {
+      "source": "/bn/gear",
+      "destination": "/bn/gear.html"
+    },
+    {
       "source": "/bn/birthday",
       "destination": "/bn/birthday.html"
     },
@@ -659,6 +713,10 @@
     {
       "source": "/hi/achievements",
       "destination": "/hi/achievements.html"
+    },
+    {
+      "source": "/hi/gear",
+      "destination": "/hi/gear.html"
     },
     {
       "source": "/hi/birthday",
@@ -729,6 +787,10 @@
       "destination": "/ro/achievements.html"
     },
     {
+      "source": "/ro/gear",
+      "destination": "/ro/gear.html"
+    },
+    {
       "source": "/ro/birthday",
       "destination": "/ro/birthday.html"
     },
@@ -795,6 +857,10 @@
     {
       "source": "/uz/achievements",
       "destination": "/uz/achievements.html"
+    },
+    {
+      "source": "/uz/gear",
+      "destination": "/uz/gear.html"
     },
     {
       "source": "/uz/birthday",

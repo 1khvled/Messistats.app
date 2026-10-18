@@ -23,6 +23,7 @@ const NAV_LABELS = {
     dashboard: "Dashboard",
     timeline: "Through the Years",
     achievements: "Achievements",
+    gear: "Messi Gear",
     themeToggle: "Toggle dark mode",
     darkMode: "Dark mode"
   },
@@ -43,6 +44,7 @@ const NAV_LABELS = {
     dashboard: "Panel",
     timeline: "Historia",
     achievements: "Títulos",
+    gear: "Tienda Messi",
     themeToggle: "Cambiar tema",
     darkMode: "Modo oscuro"
   },
@@ -63,6 +65,7 @@ const NAV_LABELS = {
     dashboard: "Painel",
     timeline: "História",
     achievements: "Títulos",
+    gear: "Loja Messi",
     themeToggle: "Alternar tema",
     darkMode: "Modo escuro"
   },
@@ -83,6 +86,7 @@ const NAV_LABELS = {
     dashboard: "Tableau de bord",
     timeline: "Histoire",
     achievements: "Palmarès",
+    gear: "Boutique Messi",
     themeToggle: "Basculer le thème",
     darkMode: "Mode sombre"
   },
@@ -103,6 +107,7 @@ const NAV_LABELS = {
     dashboard: "لوحة البيانات",
     timeline: "التاريخ",
     achievements: "البطولات",
+    gear: "متجر ميسي",
     themeToggle: "تبديل الوضع",
     darkMode: "الوضع الداكن"
   },
@@ -123,6 +128,7 @@ const NAV_LABELS = {
     dashboard: "ড্যাশবোর্ড",
     timeline: "টাইমলাইন",
     achievements: "অর্জন",
+    gear: "মেসির গিয়ার",
     themeToggle: "থিম পরিবর্তন",
     darkMode: "ডার্ক মোড"
   },
@@ -143,6 +149,7 @@ const NAV_LABELS = {
     dashboard: "डैशबोर्ड",
     timeline: "इतिहास",
     achievements: "उपलब्धियां",
+    gear: "मेसी स्टोर",
     themeToggle: "थीम बदलें",
     darkMode: "डार्क मोड"
   },
@@ -163,6 +170,7 @@ const NAV_LABELS = {
     dashboard: "Panou",
     timeline: "Istorie",
     achievements: "Trofee",
+    gear: "Magazin Messi",
     themeToggle: "Comută tema",
     darkMode: "Mod întunecat"
   },
@@ -183,6 +191,7 @@ const NAV_LABELS = {
     dashboard: "Boshqaruv paneli",
     timeline: "Tarix",
     achievements: "Sovrinlar",
+    gear: "Messi do'koni",
     themeToggle: "Mavzuni o'zgartirish",
     darkMode: "Qorong'i rejim"
   }
@@ -199,6 +208,9 @@ function generateRailHtml(lang, activeSlug) {
 
   const latestGoalLink = lang === "en" ? "/en/latest-goal" : `/${lang}/latest-goal`;
   const latestGoalItem = `\n<a${onAria("latest-goal")} href="${latestGoalLink}" aria-label="${L.latestGoal}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>${L.latestGoal} <b class="nav-badge-hot">LIVE ⚡</b></span></a>`;
+
+  const gearLink = lang === "en" ? "/en/gear" : `/${lang}/gear`;
+  const gearItem = `\n<a${onAria("gear")} href="${gearLink}" aria-label="${L.gear}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span>${L.gear} 🛍️</span></a>`;
 
   const adminLink = "";
 
@@ -224,7 +236,7 @@ function generateRailHtml(lang, activeSlug) {
 <a${onAria("byseason")} href="/${lang}/goalsbyseason" aria-label="${L.byseason}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg><span>${L.byseason}</span></a>
 <a${onAria("dashboard")} href="/${lang}/dashboard" aria-label="${L.dashboard}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg><span>${L.dashboard}</span></a>
 <a${onAria("timeline")} href="/${lang}/timeline" aria-label="${L.timeline}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span>${L.timeline}</span></a>
-<a${onAria("achievements")} href="/${lang}/achievements" aria-label="${L.achievements}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg><span>${L.achievements}</span></a>
+<a${onAria("achievements")} href="/${lang}/achievements" aria-label="${L.achievements}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg><span>${L.achievements}</span></a>${gearItem}
 </nav>
 <button aria-label="${L.themeToggle}" class="theme-toggle" id="theme-toggle" title="${L.themeToggle}" type="button">
 <svg aria-hidden="true" class="sun-icon" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
@@ -262,6 +274,7 @@ const PAGES_MAP = {
   "dashboard.html": "dashboard",
   "timeline.html": "timeline",
   "achievements.html": "achievements",
+  "gear.html": "gear",
   "admin.html": "admin"
 };
 
