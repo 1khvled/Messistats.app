@@ -179,6 +179,7 @@ export async function runRonaldoSync() {
     return { status: "NEEDS_REVIEW" };
   }
 
+
   // Apply: baseline file + builder propagation
   const next = {
     ...base,
@@ -192,6 +193,20 @@ export async function runRonaldoSync() {
     updated: new Date().toISOString().split("T")[0],
     source: "messivsronaldo.app All Time Career (cross-checked vs our messi-data.json)",
   };
+
+  // The secondary statistics are bounded too. A source that changes its
+  // method would otherwise rewrite the page quietly, and a quiet rewrite is
+  // how a page ends up contradicting itself.
+  const SECONDARY_LIMITS = { assists: 3, penalties: 3, penaltyAttempts: 5, freeKicks: 3, hatTricks: 3 };
+  for (const [key, limit] of Object.entries(SECONDARY_LIMITS)) {
+    const from = base[key], to = next[key];
+    if (to === undefined || to === null || from === undefined) continue;
+    if (Math.abs(to - from) > limit) {
+      stageReview("ronaldo-secondary-jump", `${key} ${from}->${to} exceeds the auto-apply limit of ${limit}`);
+      process.exitCode = 1;
+      return { status: "NEEDS_REVIEW" };
+    }
+  }
   const messiG = d.totals.combined.goals;
   const messiA = d.totals.combined.appearances;
   const messiAst = d.totals.assists.official;

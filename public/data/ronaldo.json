@@ -1,12 +1,12 @@
 {
   "assists": 261,
-  "appearances": 1340,
+  "appearances": 1341,
   "freeKicks": 65,
   "goals": 981,
   "hatTricks": 66,
   "methodologyNote": "Official senior career tally. Cross-checked 2026-10-10: beIN Sports + The National (980th vs Al Diriyah, 9 Oct 2026) + messivsronaldo.app All Time Career (980/1339). Apps = 1337 repo baseline + verified Al Nassr appearance 9 Oct 2026 + 1 catch-up appearance per messivsronaldo.app cross-check (their live 1339 vs our stale 1337). Re-verify if apps drift again.",
   "penalties": 184,
-  "penaltyAttempts": 220,
+  "penaltyAttempts": 221,
   "source": "messivsronaldo.app All Time Career (cross-checked vs our messi-data.json)",
-  "updated": "2026-10-16"
+  "updated": "2026-10-22"
 }
