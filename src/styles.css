@@ -7549,6 +7549,10 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   background: #0070ba;
   color: #ffffff;
 }
+.btn-support.partner {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+}
 
 /* Crypto Wallet Donation Box */
 .support-crypto-box {
