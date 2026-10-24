@@ -5323,9 +5323,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
     padding: 12px 14px !important;
     border-radius: 16px !important;
   }
-  html[dir="rtl"] .identity, html[dir="rtl"] .profile {
-    text-align: right !important;
-  }
   .identity-photo {
     width: 84px !important;
     height: 110px !important;
@@ -5344,9 +5341,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   .identity-name {
     font-size: 1.2rem !important;
     margin: 0 0 3px !important;
-    justify-content: flex-start !important;
-  }
-  html[dir="rtl"] .identity-name {
     justify-content: flex-start !important;
   }
   .identity-chips {
@@ -5470,7 +5464,7 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   -webkit-overflow-scrolling: touch;
   /* A flex child defaults to min-height:auto, so this grid refused to shrink
      and never scrolled - the sheet's own overflow:hidden simply cut the last
-     language (Uzbek) off the bottom of the phone with no way to reach it. */
+     last language off the bottom of the phone with no way to reach it. */
   min-height: 0;
   flex: 1 1 auto;
   overscroll-behavior: contain;
@@ -6318,39 +6312,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   height: 320px;
 }
 
-/* ================= RTL & ARABIC INTEGRITY ================= */
-html[dir="rtl"] .rail {
-  inset: 16px 16px 16px auto;
-}
-html[dir="rtl"] .page {
-  margin-left: 0;
-  margin-right: calc(var(--rail-w) + 32px);
-}
-@media (max-width: 900px) {
-  html[dir="rtl"] .rail {
-    inset: auto 12px calc(10px + env(safe-area-inset-bottom, 0px)) 12px;
-  }
-  html[dir="rtl"] .page {
-    margin-right: 0;
-    margin-left: 0;
-  }
-}
-html[dir="rtl"] .rail-lang-label {
-  text-align: right;
-}
-html[dir="rtl"] .lang-auto-notice {
-  right: auto;
-  left: 16px;
-}
-html[dir="rtl"] .faq-chevron {
-  margin-left: 0;
-  margin-right: 0.5rem;
-}
-html[dir="rtl"] .bday-select {
-  padding: 10px 14px 10px 36px;
-  background-position: left 14px center !important;
-}
-
 /* ================= SEO KNOWLEDGE INDEX & TOPICAL DIRECTORY ================= */
 .seo-analytical-index {
   margin: 3rem 0 1.5rem;
@@ -6440,12 +6401,6 @@ html[dir="rtl"] .bday-select {
 .seo-stat-table td:nth-child(4),
 .seo-stat-table td:nth-child(5) {
   font-variant-numeric: tabular-nums;
-}
-html[dir="rtl"] .seo-topic-card ul {
-  padding: 0 18px 0 0;
-}
-html[dir="rtl"] .seo-stat-table {
-  text-align: right;
 }
 
 /* ================= LATEST GOAL / GOAL TODAY STYLES ================= */
@@ -6716,12 +6671,6 @@ html[dir="rtl"] .seo-stat-table {
   border-radius: 4px;
   align-self: flex-start;
 }
-html[dir="rtl"] .recent-goal-card {
-  text-align: right;
-}
-html[dir="rtl"] .recent-goal-card-tag {
-  align-self: flex-end;
-}
 
 /* Comparison Table & Milestones */
 .recent-goals-table-wrap {
@@ -6739,9 +6688,6 @@ html[dir="rtl"] .recent-goal-card-tag {
   text-align: left;
   font-size: 0.9rem;
   white-space: nowrap;
-}
-html[dir="rtl"] .recent-goals-table {
-  text-align: right;
 }
 .recent-goals-table th {
   background: var(--surface-solid);
@@ -6842,10 +6788,6 @@ html[dir="rtl"] .recent-goals-table {
   padding: 24px;
   margin: 24px 0 32px;
   box-shadow: var(--shadow-sm);
-}
-html[dir="rtl"] .goat-verdict-box {
-  border-left: 1px solid rgba(227, 185, 62, 0.4);
-  border-right: 5px solid var(--gold, #d97706);
 }
 .goat-verdict-badge {
   display: inline-block;
@@ -8412,25 +8354,6 @@ html[dir="rtl"] .goat-verdict-box {
   }
 }
 
-/* RTL layout support for Arabic */
-html[dir="rtl"] .argentina-stream-banner {
-  direction: rtl;
-  text-align: right;
-  left: 24px;
-  right: auto;
-}
-
-@media (max-width: 900px) {
-  html[dir="rtl"] .argentina-stream-banner {
-    left: 14px;
-    right: 14px;
-  }
-}
-
-html[dir="rtl"] .arg-stream-header {
-  flex-direction: row-reverse;
-}
-
 /* ---------- In-page Matchday Tracker & Today Match Card Enhancements ---------- */
 .argentina-matchday-banner-host {
   display: block !important;
@@ -9755,20 +9678,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   border-color: rgba(255, 255, 255, 0.15);
   color: #f1f5f9;
 }
-html[dir="rtl"] .back-to-top-btn {
-  right: auto;
-  left: 24px;
-}
 @media (max-width: 768px) {
   .back-to-top-btn {
     bottom: calc(75px + env(safe-area-inset-bottom, 0px));
     right: 16px;
     width: 40px;
     height: 40px;
-  }
-  html[dir="rtl"] .back-to-top-btn {
-    right: auto;
-    left: 16px;
   }
 }
 
@@ -9924,16 +9839,6 @@ html[dir="rtl"] .back-to-top-btn {
     background: var(--card) !important;
     z-index: 2 !important;
     box-shadow: 2px 0 6px rgba(0, 0, 0, 0.07);
-  }
-  html[dir="rtl"] .table-wrap table th:first-child,
-  html[dir="rtl"] .table-wrap table td:first-child,
-  html[dir="rtl"] .ground-truth-table th:first-child,
-  html[dir="rtl"] .ground-truth-table td:first-child,
-  html[dir="rtl"] .data-table th:first-child,
-  html[dir="rtl"] .data-table td:first-child {
-    left: auto !important;
-    right: 0 !important;
-    box-shadow: -2px 0 6px rgba(0, 0, 0, 0.07);
   }
 
   /* Safe bottom padding so fixed rail never covers footer or last cards */

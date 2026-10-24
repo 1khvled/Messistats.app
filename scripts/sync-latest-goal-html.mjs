@@ -1,7 +1,7 @@
 /**
  * Autonomous Latest Goal HTML Synchronizer (scripts/sync-latest-goal-html.mjs)
  * 
- * Synchronizes latest-goal.html across all 9 languages directly from public/data/latest-goal.json
+ * Synchronizes latest-goal.html across English, Spanish, Portuguese and French directly from public/data/latest-goal.json
  * and public/data/messi-data.json:
  * - Active video player src and poster
  * - Active goal badge, match title, meta line
@@ -18,18 +18,13 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { buildNarrative, compLabel, bnDigits } from "./latest-goal-narrative.mjs";
+import { buildNarrative, compLabel } from "./latest-goal-narrative.mjs";
 
 const VERDICT_LABEL = {
   en: "Latest Match Result: ",
   es: "Último Resultado: ",
   pt: "Último Resultado: ",
   fr: "Résultat du dernier match : ",
-  ar: "نتيجة آخر مباراة: ",
-  bn: "সর্বশেষ ম্যাচের ফলাফল: ",
-  hi: "आख़िरी मैच का नतीजा: ",
-  ro: "Ultimul rezultat: ",
-  uz: "So'nggi natija: ",
 };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -275,34 +270,19 @@ const I18N = {
 const MONTHS_FULL = {
   es: ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
   pt: ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],
-  fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
-  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
-  bn: ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],
-  hi: ["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],
-  ro: ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"],
-  uz: ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"]
+  fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]
 };
 const MONTHS_SHORT = {
   es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
   pt: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],
-  fr: ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"],
-  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
-  bn: ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"],
-  hi: ["जनवरी","फ़रवरी","मार्च","अप्रैल","मई","जून","जुलाई","अगस्त","सितंबर","अक्टूबर","नवंबर","दिसंबर"],
-  ro: ["ian","feb","mar","apr","mai","iun","iul","aug","sep","oct","noi","dec"],
-  uz: ["yan","fev","mar","apr","may","iyn","iyl","avg","sen","okt","noy","dek"]
+  fr: ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"]
 };
 const EN_MONTHS_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const EN_MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const TECH_WORDS = {
   es: { fk: "Tiro libre directo", header: "Cabeza", assist: "Asistencia", left: "Zurda", right: "Derecha", penalty: "Penalti", play: "Ver Video ▶", goalTag: "Gol 🔥" },
   pt: { fk: "Falta direta", header: "Cabeceio", assist: "assistência", left: "Chute de esquerda", right: "Chute de direita", penalty: "Pênalti", play: "Ver Vídeo ▶", goalTag: "Gol 🔥" },
-  fr: { fk: "Coup franc direct", header: "Tête", assist: "passe décisive", left: "Frappe du gauche", right: "Frappe du droit", penalty: "Penalty", play: "Voir la Vidéo ▶", goalTag: "But 🔥" },
-  ar: { fk: "ركلة حرة مباشرة", header: "رأسية", assist: "تمريرة حاسمة", left: "تسديدة بالقدم اليسرى", right: "تسديدة بالقدم اليمنى", penalty: "ركلة جزاء", play: "تشغيل الفيديو ▶", goalTag: "هدف 🔥" },
-  bn: { fk: "ডাইরেক্ট ফ্রি কিক", header: "হেড", assist: "অ্যাসিস্ট", left: "বাঁ পায়ের শট", right: "ডান পায়ের শট", penalty: "পেনাল্টি", play: "ভিডিও দেখুন ▶", goalTag: "গোল 🔥" },
-  hi: { fk: "डायरेक्ट फ्री किक", header: "हेडर", assist: "असिस्ट", left: "बाएं पैर का शॉट", right: "दाएं पैर का शॉट", penalty: "पेनल्टी", play: "वीडियो देखें ▶", goalTag: "गोल 🔥" },
-  ro: { fk: "Lovitură liberă directă", header: "Cap", assist: "pasă decisivă", left: "Șut cu stângul", right: "Șut cu dreptul", penalty: "Penalty", play: "Vezi Videoclipul ▶", goalTag: "Gol 🔥" },
-  uz: { fk: "Jarima zarbasi", header: "Bosh bilan", assist: "assist", left: "Chap oyoq zarbasi", right: "O'ng oyoq zarbasi", penalty: "Penalti", play: "Videoni Ko'rish ▶", goalTag: "Gol 🔥" }
+  fr: { fk: "Coup franc direct", header: "Tête", assist: "passe décisive", left: "Frappe du gauche", right: "Frappe du droit", penalty: "Penalty", play: "Voir la Vidéo ▶", goalTag: "But 🔥" }
 };
 function locDateStr(s, lang, short = false) {
   if (!s || lang === "en" || (!MONTHS_FULL[lang] && !MONTHS_SHORT[lang])) return s;
@@ -333,13 +313,8 @@ function locTech(s, lang) {
   return out;
 }
 function locGoalLabel(n, lang) {
-  if (lang === "uz") return `${n}-gol`;
-  if (lang === "ar") return `الهدف #${n}`;
-  if (lang === "bn") return `গোল #${n}`;
-  if (lang === "hi") return `गोल #${n}`;
   if (lang === "fr") return `But #${n}`;
   if (lang === "es" || lang === "pt") return `Gol #${n}`;
-  if (lang === "ro") return `Golul #${n}`;
   return `Goal #${n}`;
 }
 
@@ -372,12 +347,7 @@ export function syncLatestGoalHtml() {
     { lang: "en", file: path.join(root, "latest-goal.html") },
     { lang: "es", file: path.join(root, "es", "latest-goal.html") },
     { lang: "pt", file: path.join(root, "pt", "latest-goal.html") },
-    { lang: "fr", file: path.join(root, "fr", "latest-goal.html") },
-    { lang: "ar", file: path.join(root, "ar", "latest-goal.html") },
-    { lang: "bn", file: path.join(root, "bn", "latest-goal.html") },
-    { lang: "hi", file: path.join(root, "hi", "latest-goal.html") },
-    { lang: "ro", file: path.join(root, "ro", "latest-goal.html") },
-    { lang: "uz", file: path.join(root, "uz", "latest-goal.html") }
+    { lang: "fr", file: path.join(root, "fr", "latest-goal.html") }
   ];
 
   let updatedCount = 0;
@@ -417,7 +387,7 @@ export function syncLatestGoalHtml() {
     html = html.replace(/href="[^"]*"([^>]*id="link-bday-goal")/i, `href="${bdayHref}"$1`);
 
     // 6. Update Recent Goals 5-Card Switcher
-    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre ", ar: "ضد ", bn: "বনাম ", hi: "बनाम ", ro: "vs ", uz: "vs " };
+    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre " };
     const cardsHtml = recent.slice(0, 5).map((rg, idx) => {
       const isActive = idx === 0 ? " active" : "";
       const goalLabel = locGoalLabel(rg.goalNumber, lang);
@@ -515,8 +485,8 @@ export function syncLatestGoalHtml() {
       /(<div class="kpi">\s*<span class="kpi-label">Free Kick Goals<\/span>\s*<span class="kpi-value tnum">)[0-9]+(<\/span>)/i,
       `$1${freeKicks}$2`
     );
-    // Same Free-Kick KPI in all 9 languages (labels are static per locale)
-    for (const lbl of ["Goles de Tiro Libre", "Gols de Falta", "Coups Francs Directs", "أهداف الركلات الحرة", "ফ্রি-কিক গোল", "फ्री किक गोल", "Goluri din Lovitură Liberă", "Jarima zarbalaridan gollar"]) {
+    // Same Free-Kick KPI in all four languages (labels are static per locale)
+    for (const lbl of ["Goles de Tiro Libre", "Gols de Falta", "Coups Francs Directs"]) {
       const re = new RegExp(`(<span class="kpi-label">${lbl}<\\/span>\\s*<span class="kpi-value tnum">)[0-9]+(<\\/span>)`);
       html = html.replace(re, `$1${freeKicks}$2`);
     }
@@ -567,7 +537,7 @@ export function syncLatestGoalHtml() {
       let out = kw;
       for (let back = 1; back <= 5; back++) {
         const prev = seniorGoals - back;
-        out = out.split(String(prev)).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals));
+        out = out.split(String(prev)).join(String(seniorGoals));
       }
       return '<meta name="keywords" content="' + out + '"';
     });
@@ -576,7 +546,7 @@ export function syncLatestGoalHtml() {
       let outT = tag;
       for (let back = 1; back <= 5; back++) {
         const prevT = String(seniorGoals - back);
-        outT = outT.split(prevT).join(String(seniorGoals)).split(bnDigits(prevT)).join(bnDigits(seniorGoals));
+        outT = outT.split(prevT).join(String(seniorGoals));
       }
       return outT;
     });
@@ -586,8 +556,7 @@ export function syncLatestGoalHtml() {
 
     html = html.replace(/<p id="lg-today-desc"[^>]*>[\s\S]*?<\/p>/i, '<p id="lg-today-desc" class="today-status-desc">' + NAR.todayDesc + '</p>');
     html = html.replace(/<span id="stat-team"[^>]*>[^<]*<\/span>/i, '<span id="stat-team" class="goal-stat-val">' + escHtml(g.team) + '</span>');
-    const _exTotal = (html.match(/<span id="stat-total"[^>]*>([^<]*)<\/span>/i) || [])[1] || "";
-    const _totalPair = /[০-৯]/.test(_exTotal) ? (bnDigits(seniorGoals) + " / " + bnDigits(seniorGoals)) : (seniorGoals + " / " + seniorGoals);
+    const _totalPair = seniorGoals + " / " + seniorGoals;
     html = html.replace(/<span id="stat-total"[^>]*>[^<]*<\/span>/i, '<span id="stat-total" class="goal-stat-val tnum">' + _totalPair + '</span>');
     html = html.replace(/(<a[^>]*id="link-bday-goal"[^>]*>[\s\S]*?<span>)[^<]*(<\/span>)/i, function (w, a, b) { return a + NAR.bdayLink + b; });
     html = html.replace(/<h2 id="lg-milestone-h2"[^>]*>[\s\S]*?<\/h2>/i, '<h2 id="lg-milestone-h2">' + NAR.milestoneH2 + '</h2>');
@@ -601,15 +570,10 @@ export function syncLatestGoalHtml() {
     // Miami-count answer (index 3, all languages): the only 3-digit number
     // in it is the Miami total (years are 4-digit), so a range swap is safe.
     const patchMiamiAns = (txt) => {
-      let out = String(txt).replace(/(?<![\d.,])\d{3}(?![\d])/g, (m) => {
+      return String(txt).replace(/(?<![\d.,])\d{3}(?![\d])/g, (m) => {
         const nv = Number(m);
         return (nv <= miamiGoals && nv >= miamiGoals - 5) ? String(miamiGoals) : m;
       });
-      out = out.replace(/(?<![\d০-৯,])[\u09e6-\u09ef]{3}(?![\d০-৯])/g, (m) => {
-        const nv = Number(m.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))));
-        return (nv <= miamiGoals && nv >= miamiGoals - 5) ? bnDigits(miamiGoals) : m;
-      });
-      return out;
     };
     html = html.replace(/(<p id="lg-faq-3"[^>]*>)([\s\S]*?)(<\/p>)/i, (w, a, txt, c) => a + patchMiamiAns(txt) + c);
 
@@ -617,7 +581,7 @@ export function syncLatestGoalHtml() {
       let outC = c;
       for (let back = 1; back <= 5; back++) {
         const prevC = String(seniorGoals - back);
-        outC = outC.split(prevC).join(String(seniorGoals)).split(bnDigits(prevC)).join(bnDigits(seniorGoals));
+        outC = outC.split(prevC).join(String(seniorGoals));
       }
       return outC;
     });
@@ -626,7 +590,7 @@ export function syncLatestGoalHtml() {
       let out = blk;
       for (let back = 1; back <= 5; back++) {
         const prev = String(seniorGoals - back);
-        out = out.split(prev).join(String(seniorGoals)).split(bnDigits(prev)).join(bnDigits(seniorGoals));
+        out = out.split(prev).join(String(seniorGoals));
       }
       return out;
     });
@@ -640,17 +604,14 @@ export function syncLatestGoalHtml() {
       for (const sep of APPS_NOTE_STYLES) {
         out2 = out2.split(groupNum(apps - 1, sep)).join(groupNum(apps, sep));
       }
-      out2 = out2.split(bnDigits(groupNum(apps - 1, ","))).join(bnDigits(groupNum(apps, ",")));
       return open2 + out2 + close2;
     });
 
     const trophiesNow = (() => { try { return (messiData.trophies || []).filter((t) => t.team !== "Individual").reduce((a, t) => a + ((t.years || []).length), 0); } catch { return 47; } })();
-    html = html.replace(/(<span class="(?:milestone-val|kpi-value) tnum"[^>]*>)([0-9০-৯,\s]+)(<\/span>)/g, (whole, open, val, close) => {
-      const norm = val.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))).replace(/,/g, "");
-      const n = Number(norm);
+    html = html.replace(/(<span class="(?:milestone-val|kpi-value) tnum"[^>]*>)([0-9,\s]+)(<\/span>)/g, (whole, open, val, close) => {
+      const n = Number(val.replace(/,/g, ""));
       if (!Number.isFinite(n)) return whole;
-      const isBn = /[০-৯]/.test(val);
-      const put = (v) => open + (isBn ? bnDigits(v) : String(v)) + close;
+      const put = (v) => open + String(v) + close;
       if (n <= seniorGoals && n >= seniorGoals - 5 && n >= 900) return put(seniorGoals);
       if (n <= miamiGoals && n >= miamiGoals - 5) return put(miamiGoals);
       if (n >= goalsNeeded && n <= goalsNeeded + 5) return put(goalsNeeded);
@@ -659,19 +620,16 @@ export function syncLatestGoalHtml() {
     });
     // milestone international-goals desc ("806 club ... 125 international"): first int -> club, last int -> country
     html = html.replace(/(<p class="milestone-desc">)([\s\S]*?)(<\/p>)/gi, (whole, open, txt, close) => {
-      const ints = [...txt.matchAll(/[\d০-৯]+/g)].map((m) => m[0]);
+      const ints = [...txt.matchAll(/[\d]+/g)].map((m) => m[0]);
       if (ints.length < 2) return whole;
-      const norm = (t) => Number(t.replace(/[০-৯]/g, (d) => String("০১২৩৪৫৬৭৮৯".indexOf(d))));
-      const first = norm(ints[0]);
-      const last = norm(ints[ints.length - 1]);
+      const first = Number(ints[0]);
+      const last = Number(ints[ints.length - 1]);
       if (!(first >= clubGoals - 5 && first <= clubGoals)) return whole;
       if (!(last >= intlGoals - 5 && last <= intlGoals)) return whole;
       let out = txt;
-      const bn1 = /[০-৯]/.test(ints[0]);
-      out = out.replace(ints[0], bn1 ? bnDigits(clubGoals) : String(clubGoals));
-      const bnL = /[০-৯]/.test(ints[ints.length - 1]);
+      out = out.replace(ints[0], String(clubGoals));
       const li = out.lastIndexOf(ints[ints.length - 1]);
-      out = out.slice(0, li) + (bnL ? bnDigits(intlGoals) : String(intlGoals)) + out.slice(li + ints[ints.length - 1].length);
+      out = out.slice(0, li) + String(intlGoals) + out.slice(li + ints[ints.length - 1].length);
       return open + out + close;
     });
 
@@ -680,10 +638,10 @@ export function syncLatestGoalHtml() {
       try { data = JSON.parse(body); } catch (e) { return whole; }
       const classifyFaq = (qn) => {
         const q = String(qn || "");
-        if (/1.?000|1000|1 000|\u09e7.?\u09e6\u09e6\u09e6|\u0661.?\u0660\u0660\u0660/.test(q)) return NAR.faq1000;
-        if (/number|n\u00famero|num\u00e9ro|\u0631\u0642\u0645|\u09a8\u09ae\u09cd\u09ac\u09b0|\u0928\u0902\u092c\u0930|num[\u0103a]r|raqam|nechanchi|\u2116/i.test(q)) return NAR.faqGoalNumber;
-        if (/when|cu\u00e1ndo|quando|quand|d\u00f3nde|onde|o\u00f9|contre|\u0645\u062a\u0649|\u0995\u0996\u09a8|\u0915\u092c|c\u00e2nd|qachon/i.test(q)) return NAR.faqWhenScored;
-        if (/today|hoy|hoje|aujourd|\u0627\u0644\u064a\u0648\u0645|\u0986\u099c|\u0906\u091c|azi|bugun|latest/i.test(q)) return NAR.faqScoredToday;
+        if (/1.?000|1000|1 000/.test(q)) return NAR.faq1000;
+        if (/number|n\u00famero|num\u00e9ro|\u2116/i.test(q)) return NAR.faqGoalNumber;
+        if (/when|cu\u00e1ndo|quando|quand|d\u00f3nde|onde|o\u00f9|contre/i.test(q)) return NAR.faqWhenScored;
+        if (/today|hoy|hoje|aujourd|latest/i.test(q)) return NAR.faqScoredToday;
         return null;
       };
       const walk = (node) => {
@@ -747,12 +705,12 @@ export function syncLatestGoalHtml() {
       .replace(/<div class="recent-goals-grid">[\s\S]*?<\/section>/i, "")
       .replace(/<div class="recent-goals-table-wrap">[\s\S]*?<\/section>/i, "")
       .replace(/<li(?![^>]*id="lg-latest-line")><b>#\d+:<\/b>[\s\S]*?<\/li>/gi, "");
-    if (!written.includes('<li id="lg-latest-line"><b>#' + seniorGoals + ':</b>') && !written.includes('<li id="lg-latest-line"><b>#' + bnDigits(seniorGoals) + ':</b>')) {
+    if (!written.includes('<li id="lg-latest-line"><b>#' + seniorGoals + ':</b>')) {
       throw new Error("DRIFT in " + lang + "/latest-goal.html: latest-goal line missing Goal #" + seniorGoals);
     }
     const staleProblems = [];
     const _prevList = [];
-    for (let back = 1; back <= 5; back++) _prevList.push(String(seniorGoals - back), bnDigits(seniorGoals - back));
+    for (let back = 1; back <= 5; back++) _prevList.push(String(seniorGoals - back));
     for (const pt of _prevList) {
       const re = new RegExp("(?<![\\d,])" + pt + "(?![\\d])", "g");
       const n = (guardZone.match(re) || []).length;

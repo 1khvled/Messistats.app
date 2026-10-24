@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
-const LANGS = ["pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+const LANGS = ["pt", "fr"];
 const PAGES = [
   "birthday.html",
   "goalsbyyear.html",
@@ -19,86 +19,41 @@ const PAGES = [
 
 const HOME_NAMES = {
   pt: "Início",
-  fr: "Accueil",
-  ar: "الرئيسية",
-  bn: "হোম",
-  hi: "होम",
-  ro: "Acasă",
-  uz: "Bosh sahifa"
+  fr: "Accueil"
 };
 
 const PAGE_NAMES = {
   "birthday.html": {
     pt: "Aniversário",
-    fr: "Anniversaire",
-    ar: "أعياد الميلاد",
-    bn: "জন্মদিনের গোল",
-    hi: "जन्मदिन के गोल",
-    ro: "Zile de naștere",
-    uz: "Tug'ilgan kunlar"
+    fr: "Anniversaire"
   },
   "goalsbyyear.html": {
     pt: "Gols por Ano",
-    fr: "Buts par Année",
-    ar: "الأهداف حسب السنة",
-    bn: "বছর অনুযায়ী গোল",
-    hi: "साल दर साल गोल",
-    ro: "Goluri pe Ani",
-    uz: "Yillar bo'yicha gollar"
+    fr: "Buts par Année"
   },
   "goalsbyseason.html": {
     pt: "Temporadas",
-    fr: "Saisons",
-    ar: "المواسم",
-    bn: "মৌসুমভিত্তিক গোল",
-    hi: "सीज़न दर सीज़न",
-    ro: "Sezoane",
-    uz: "Mavsumlar"
+    fr: "Saisons"
   },
   "dashboard.html": {
     pt: "Painel",
-    fr: "Tableau de bord",
-    ar: "لوحة البيانات",
-    bn: "ড্যাশবোর্ড",
-    hi: "डैशबोर्ड",
-    ro: "Panou statistic",
-    uz: "Statistika paneli"
+    fr: "Tableau de bord"
   },
   "timeline.html": {
     pt: "Linha do Tempo",
-    fr: "Frise Chronologique",
-    ar: "الخط الزمني",
-    bn: "টাইমলাইন",
-    hi: "टाइमलाइन",
-    ro: "Cronologie",
-    uz: "Xronologiya"
+    fr: "Frise Chronologique"
   },
   "achievements.html": {
     pt: "Títulos",
-    fr: "Palmarès",
-    ar: "الإنجازات والبطولات",
-    bn: "অর্জনসমূহ",
-    hi: "उपलब्धियां",
-    ro: "Palmares",
-    uz: "Yutuqlar"
+    fr: "Palmarès"
   },
   "messi-vs-ronaldo.html": {
     pt: "Messi vs Ronaldo",
-    fr: "Messi vs Ronaldo",
-    ar: "ميسي ضد رونالدو",
-    bn: "মেসি বনাম রোনালদো",
-    hi: "मेस्सी बनाम रोनाल्डो",
-    ro: "Messi vs Ronaldo",
-    uz: "Messi vs Ronaldu"
+    fr: "Messi vs Ronaldo"
   },
   "vs-real-madrid.html": {
     pt: "Messi vs Real Madrid",
-    fr: "Messi vs Real Madrid",
-    ar: "ميسي ضد ريال مدريد",
-    bn: "মেসি বনাম রিয়াল মাদ্রিদ",
-    hi: "मेस्सी बनाम रियल मैड्रिड",
-    ro: "Messi vs Real Madrid",
-    uz: "Messi Real Madridga qarshi"
+    fr: "Messi vs Real Madrid"
   }
 };
 

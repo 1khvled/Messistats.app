@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const langs = ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+const langs = ["es", "pt", "fr"];
 const englishTerms = [
   "Senior Career Goals",
   "105 fewer games",
@@ -54,7 +54,7 @@ try {
 }
 
 if (totalIssues === 0) {
-  console.log("\n[SUCCESS] ALL 8 LANGUAGES PASSED COMPLETE TRANSLATION AUDIT WITH 0 ISSUES!");
+  console.log("\n[SUCCESS] ALL LOCALIZED LANGUAGES PASSED COMPLETE TRANSLATION AUDIT WITH 0 ISSUES!");
 } else {
   console.error(`\n[ERROR] Found ${totalIssues} translation issues.`);
   process.exit(1);

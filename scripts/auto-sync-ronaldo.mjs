@@ -167,6 +167,10 @@ export async function runRonaldoSync() {
     goals: live.ronaldoGoals - base.goals,
     apps: (live.ronaldoApps ?? base.appearances) - base.appearances,
   };
+  if (live.ronaldoGoals < base.goals) {
+    console.log(`Live tracker (${live.ronaldoGoals}) lags behind verified baseline (${base.goals}). Keeping verified baseline.`);
+    return { status: "UP_TO_DATE" };
+  }
   if (deltas.goals === 0 && deltas.apps === 0) {
     console.log(`Ronaldo unchanged at ${base.goals}/${base.appearances}. Nothing to do.`);
     return { status: "UP_TO_DATE" };
@@ -238,16 +242,14 @@ function propagateBuilder(base, next, derived, messiG, messiA) {
   const [masked, store] = mask(h);
   let m = masked;
   const esc = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  // thousands-grouped variants per locale: 1,339 / 1.339 / 1 339 / ১,৩৩৯
+  // thousands-grouped variants per locale: 1,339 / 1.339 / 1 339
   const forms = (v) => {
     const digits = String(v).replace(/,/g, "");
     if (!/^\d{4}$/.test(digits)) return [String(v)];
-    const bn = digits.replace(/[0-9]/g, (d) => "০১২৩৪৫৬৭৮৯"[+d]);
     return [
       `${digits.slice(0, 1)},${digits.slice(1)}`,
       `${digits.slice(0, 1)}.${digits.slice(1)}`,
       `${digits.slice(0, 1)} ${digits.slice(1)}`,
-      `${bn.slice(0, 1)},${bn.slice(1)}`,
       digits,
     ];
   };

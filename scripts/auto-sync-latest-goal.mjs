@@ -3,7 +3,7 @@
  * 
  * Automatically polls ESPN APIs (Athlete Overview, MLS + FIFA Scoreboards, Event Summaries),
  * detects any new senior goals scored by Lionel Messi, updates public/data/latest-goal.json,
- * reconciles public/data/messi-data.json, and synchronizes the HTML hubs across all 9 languages
+ * reconciles public/data/messi-data.json, and synchronizes the HTML hubs across English, Spanish, Portuguese and French
  * without requiring any manual human or agent intervention.
  * 
  * Usage:

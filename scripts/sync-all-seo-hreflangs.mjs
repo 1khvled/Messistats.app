@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
-const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+const LANGS = ["en", "es", "pt", "fr"];
 
 const SUBPAGES = [
   "dashboard",
@@ -19,7 +19,7 @@ const SUBPAGES = [
   "gear"
 ];
 
-// 26 reciprocal hreflangs
+// 15 reciprocal hreflangs
 function getHreflangTags(pageSlug) {
   const slugPath = pageSlug === "index" || !pageSlug ? "" : `/${pageSlug}`;
   return [
@@ -37,17 +37,6 @@ function getHreflangTags(pageSlug) {
     `<link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr${slugPath}"/>`,
     `<link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr${slugPath}"/>`,
     `<link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr${slugPath}"/>`,
-    `<link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar${slugPath}"/>`,
-    `<link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar${slugPath}"/>`,
-    `<link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn${slugPath}"/>`,
-    `<link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn${slugPath}"/>`,
-    `<link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn${slugPath}"/>`,
-    `<link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi${slugPath}"/>`,
-    `<link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi${slugPath}"/>`,
-    `<link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro${slugPath}"/>`,
-    `<link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro${slugPath}"/>`,
-    `<link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz${slugPath}"/>`,
-    `<link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz${slugPath}"/>`,
     `<link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en${slugPath}"/>`
   ].join("\n");
 }
@@ -91,12 +80,12 @@ for (const sub of SUBPAGES) {
   updateFileHreflangs(path.join(rootDir, "es", `${sub}.html`), "es", sub);
 }
 
-// 3. Update all 7 generated languages
-const otherLangs = ["pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+// 3. Update the remaining generated languages
+const otherLangs = ["pt", "fr"];
 for (const l of otherLangs) {
   for (const sub of SUBPAGES) {
     updateFileHreflangs(path.join(rootDir, l, `${sub}.html`), l, sub);
   }
 }
 
-console.log("Synchronized canonicals and 26 hreflang tags across all 9 languages and 8 subpages!");
+console.log("Synchronized canonicals and 15 hreflang tags across all four languages and 8 subpages!");

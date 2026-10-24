@@ -7,7 +7,7 @@ const rootDir = path.resolve(__dirname, "..");
 const publicSitemap = path.join(rootDir, "public", "sitemap.xml");
 const distSitemap = path.join(rootDir, "dist", "sitemap.xml");
 
-const LANGS = ["en", "es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+const LANGS = ["en", "es", "pt", "fr"];
 
 const todayIso = new Date().toISOString().split("T")[0];
 
@@ -32,7 +32,7 @@ const LG_VIDEO = LG?.videoUrl || `https://cdn.messiallgoals.com/Goal${LG_NUM}.mp
 // URL-safe slug fragments for title/tags
 const LG_OPP_TAG = (LG_OPP || "Opponent").replace(/[^A-Za-z0-9]+/g, " ").trim();
 
-// 934 → "934th" / "934e" / "934e" / "٩٣٤" style helpers are avoided; templates
+// 934 → "934th" / "934e" / "934e" style helpers are avoided; templates
 // interpolate the raw number and let the locale wording carry the grammar.
 
 const SUBPAGES = [
@@ -65,17 +65,6 @@ function getHreflangsXml(slugPath) {
     `    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr${slugPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr${slugPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="bn" href="https://www.messistat.com/bn${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="bn-BD" href="https://www.messistat.com/bn${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="bn-IN" href="https://www.messistat.com/bn${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="hi" href="https://www.messistat.com/hi${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="hi-IN" href="https://www.messistat.com/hi${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="uz-UZ" href="https://www.messistat.com/uz${slugPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en${slugPath}" />`
   ].join("\n");
 }
@@ -230,31 +219,6 @@ const videoMeta = {
     title: `Dernier But de Lionel Messi : But #${LG_NUM} contre ${LG_OPP}`,
     desc: `Regardez le but #${LG_NUM} de Lionel Messi : une frappe ${LG_FINISH.toLowerCase()} pour ${LG_TEAM} contre ${LG_OPP} en ${LG_COMP} le ${LG_DATE}.`,
     tags: ["Lionel Messi", `But ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Dernier but de Messi"]
-  },
-  ar: {
-    title: `فيديو آخر هدف لليونيل ميسي: الهدف ${LG_NUM} ضد ${LG_OPP}`,
-    desc: `شاهد هدف ليونيل ميسي رقم ${LG_NUM}: هدف بقدم ${LG_FINISH === "Left Foot" ? "اليسرى" : LG_FINISH === "Right Foot" ? "اليمنى" : "رأسية"} لصالح ${LG_TEAM} ضد ${LG_OPP} في ${LG_COMP} يوم ${LG_DATE}.`,
-    tags: ["ليونيل ميسي", `الهدف ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "آخر هدف لميسي"]
-  },
-  bn: {
-    title: `লিওনেল মেসির সর্বশেষ গোল ভিডিও: ${LG_OPP}-এর বিরুদ্ধে ${LG_NUM}তম গোল`,
-    desc: `লিওনেল মেসির ${LG_NUM}তম গোলটি দেখুন: ${LG_DATE}-এ ${LG_COMP}-এ ${LG_OPP}-এর বিরুদ্ধে ${LG_TEAM}-এর হয়ে।`,
-    tags: ["লিওনেল মেসি", `গোল ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "মেসির শেষ গোল"]
-  },
-  hi: {
-    title: `लियोनेल मेसी का आखिरी गोल वीडियो: ${LG_OPP} के खिलाफ ${LG_NUM}वां गोल`,
-    desc: `लियोनेल मेसी का ${LG_NUM}वां करियर गोल देखें: ${LG_DATE} को ${LG_COMP} में ${LG_OPP} के खिलाफ ${LG_TEAM} के लिए।`,
-    tags: ["लियोनेल मेसी", `गोल ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "मेसी का आखिरी गोल"]
-  },
-  ro: {
-    title: `Ultimul Gol al lui Lionel Messi: Golul #${LG_NUM} împotriva ${LG_OPP}`,
-    desc: `Urmărește golul #${LG_NUM} al lui Lionel Messi: gol ${LG_FINISH.toLowerCase()} pentru ${LG_TEAM} împotriva ${LG_OPP} în ${LG_COMP} pe ${LG_DATE}.`,
-    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Ultimul gol Messi"]
-  },
-  uz: {
-    title: `Lionel Messining so'nggi goli: ${LG_OPP} ga qarshi ${LG_NUM}-gol`,
-    desc: `Lionel Messining ${LG_NUM}-golini tomosha qiling: ${LG_DATE} kuni ${LG_COMP} doirasida ${LG_OPP} ga qarshi ${LG_TEAM} safida.`,
-    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Messining oxirgi goli"]
   }
 };
 
@@ -289,8 +253,8 @@ ${getHreflangsXml("/" + sub.slug)}${imgXml}${vidXml}
 }
 
 // 2b. English-only hub for all 366 day pages.
-// Deliberately NOT in SUBPAGES: that array is reused for the other 8
-// languages, and /es/days, /ar/days etc. do not exist. The day pages
+// Deliberately NOT in SUBPAGES: that array is reused for the other three
+// languages, and /es/days, /pt/days, /fr/days do not exist. The day pages
 // themselves are English-only too, so their hreflangs stay x-default+en.
 urlBlocks.push(`  <url>
     <loc>https://www.messistat.com/en/days</loc>
@@ -300,14 +264,11 @@ urlBlocks.push(`  <url>
   </url>`);
 
 // 3. Other languages: Homepage + Subpages
-// Number rendering per locale (Bengali sitemap strings keep native digits,
-// matching the original copy; other locales use their group separator).
-const bnDigits = (s) => String(s).replace(/[0-9]/g, (d) => "০১২৩৪৫৬৭৮৯"[+d]);
+// Number rendering per locale (each remaining locale uses its group separator).
 const groupNum = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " ", ar: ",", bn: ",", hi: ",", ro: ".", uz: " " };
-const num = (l, n) => (l === "bn" ? bnDigits(n) : String(n));
-const appsNum = (l) =>
-  l === "bn" ? bnDigits(groupNum(CAREER_APPS, ",")) : groupNum(CAREER_APPS, APPS_SEP[l] || ",");
+const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " " };
+const num = (_l, n) => String(n);
+const appsNum = (l) => groupNum(CAREER_APPS, APPS_SEP[l] || ",");
 const trophyNum = (l) => num(l, CAREER_TROPHIES);
 const ballonNum = (l) => num(l, BALLONS_DOR);
 
@@ -326,35 +287,10 @@ const langHomeMeta = {
     priority: "0.95",
     title: `Buts de Messi : ${num("fr", CAREER_GOALS)} Buts Officiels en Direct`,
     caption: `Statistiques complètes de la carrière de Lionel Messi : ${num("fr", CAREER_GOALS)} buts en ${appsNum("fr")} matchs officiels, ${trophyNum("fr")} trophées collectifs et ${ballonNum("fr")} Ballons d'Or.`
-  },
-  ar: {
-    priority: "0.95",
-    title: `أهداف ميسي: ${num("ar", CAREER_GOALS)} هدفاً رسمياً مباشر`,
-    caption: `إحصائيات مسيرة ليونيل ميسي الرسمية: ${num("ar", CAREER_GOALS)} هدفاً في ${appsNum("ar")} مباراة، ${trophyNum("ar")} بطولة و${ballonNum("ar")} كرات ذهبية.`
-  },
-  bn: {
-    priority: "0.95",
-    title: `মেসির মোট গোল: ${num("bn", CAREER_GOALS)} গোল লাইভ ট্র্যাকার`,
-    caption: `লিওনেল মেসির অফিসিয়াল ক্যারিয়ার পরিসংখ্যান: ${appsNum("bn")} ম্যাচে ${num("bn", CAREER_GOALS)} গোল, ${trophyNum("bn")}টি শিরোপা এবং ${ballonNum("bn")}টি ব্যালন ডি'অর।`
-  },
-  hi: {
-    priority: "0.95",
-    title: `मेसी के कुल गोल: ${num("hi", CAREER_GOALS)} आधिकारिक गोल लाइव`,
-    caption: `लियोनेल मेसी के करियर के आधिकारिक आंकड़े: ${appsNum("hi")} मैचों में ${num("hi", CAREER_GOALS)} गोल, ${trophyNum("hi")} ट्रॉफियां और ${ballonNum("hi")} बैलन डी'ऑर।`
-  },
-  ro: {
-    priority: "0.95",
-    title: `Goluri Messi: ${num("ro", CAREER_GOALS)} Goluri Oficiale Live`,
-    caption: `Statisticile complete ale carierei lui Lionel Messi: ${num("ro", CAREER_GOALS)} goluri în ${appsNum("ro")} meciuri oficiale, ${trophyNum("ro")} trofee și ${ballonNum("ro")} Baloane de Aur.`
-  },
-  uz: {
-    priority: "0.95",
-    title: `Messi gollari: ${num("uz", CAREER_GOALS)} ta rasmiy gol`,
-    caption: `Lionel Messining toʻliq rasmiy statistikasi: ${appsNum("uz")} ta oʻyinda ${num("uz", CAREER_GOALS)} ta gol, ${trophyNum("uz")} ta sovrin va ${ballonNum("uz")} ta Oltin toʻp.`
   }
 };
 
-for (const lang of ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"]) {
+for (const lang of ["es", "pt", "fr"]) {
   const meta = langHomeMeta[lang];
   // Homepage
   urlBlocks.push(`  <url>

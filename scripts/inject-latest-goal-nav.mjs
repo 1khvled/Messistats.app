@@ -9,12 +9,7 @@ const navLinks = {
   en: '<a href="/en/latest-goal" aria-label="Latest Goal"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Latest Goal <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
   es: '<a href="/es/latest-goal" aria-label="Último Gol"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Último Gol <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
   pt: '<a href="/pt/latest-goal" aria-label="Último Gol"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Último Gol <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
-  fr: '<a href="/fr/latest-goal" aria-label="Dernier But"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Dernier But <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
-  ar: '<a href="/ar/latest-goal" aria-label="آخر هدف"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>آخر هدف <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
-  bn: '<a href="/bn/latest-goal" aria-label="সাম্প্রতিক গোল"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>সাম্প্রতিক গোল <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
-  hi: '<a href="/hi/latest-goal" aria-label="ताजा गोल"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>ताजा गोल <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
-  ro: '<a href="/ro/latest-goal" aria-label="Ultimul Gol"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Ultimul Gol <b class="nav-badge-hot">LIVE ⚡</b></span></a>',
-  uz: '<a href="/uz/latest-goal" aria-label="Soʻnggi gol"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Soʻnggi gol <b class="nav-badge-hot">LIVE ⚡</b></span></a>'
+  fr: '<a href="/fr/latest-goal" aria-label="Dernier But"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>Dernier But <b class="nav-badge-hot">LIVE ⚡</b></span></a>'
 };
 
 function processHtmlFile(filePath, lang) {
@@ -58,7 +53,7 @@ for (const file of rootFiles) {
 }
 
 // Localized directories
-for (const lang of ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"]) {
+for (const lang of ["es", "pt", "fr"]) {
   const langDir = path.join(rootDir, lang);
   if (!fs.existsSync(langDir)) continue;
   const files = fs.readdirSync(langDir).filter(f => f.endsWith(".html") && f !== "latest-goal.html" && f !== "404.html");

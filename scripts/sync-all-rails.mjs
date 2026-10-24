@@ -89,111 +89,6 @@ const NAV_LABELS = {
     gear: "Boutique Messi",
     themeToggle: "Basculer le thème",
     darkMode: "Mode sombre"
-  },
-  ar: {
-    badgeAria: "الرئيسية MessiStats",
-    langName: "العربية",
-    langTag: "AR",
-    langSelectAria: "اختر اللغة (العربية)",
-    langSelectTitle: "اختر اللغة",
-    home: "الرئيسية",
-    latestGoal: "آخر هدف",
-    bday: "عيد الميلاد",
-    ronaldo: "ضد رونالدو",
-    madrid: "ضد ريال مدريد",
-    ucl: "دوري الأبطال",
-    byyear: "الأهداف سنوياً",
-    byseason: "المواسم",
-    dashboard: "لوحة البيانات",
-    timeline: "التاريخ",
-    achievements: "البطولات",
-    gear: "متجر ميسي",
-    themeToggle: "تبديل الوضع",
-    darkMode: "الوضع الداكن"
-  },
-  bn: {
-    badgeAria: "হোম MessiStats",
-    langName: "বাংলা",
-    langTag: "BN",
-    langSelectAria: "ভাষা নির্বাচন করুন (বাংলা)",
-    langSelectTitle: "ভাষা নির্বাচন করুন",
-    home: "হোম",
-    latestGoal: "সাম্প্রতিক গোল",
-    bday: "জন্মদিন",
-    ronaldo: "বনাম রোনালদো",
-    madrid: "বনাম রিয়াল মাদ্রিদ",
-    ucl: "চ্যাম্পিয়ন্স লিগ",
-    byyear: "বছর অনুযায়ী",
-    byseason: "মৌসুম",
-    dashboard: "ড্যাশবোর্ড",
-    timeline: "টাইমলাইন",
-    achievements: "অর্জন",
-    gear: "মেসির গিয়ার",
-    themeToggle: "থিম পরিবর্তন",
-    darkMode: "ডার্ক মোড"
-  },
-  hi: {
-    badgeAria: "होम MessiStats",
-    langName: "हिन्दी",
-    langTag: "HI",
-    langSelectAria: "भाषा चुनें (हिन्दी)",
-    langSelectTitle: "भाषा चुनें",
-    home: "होम",
-    latestGoal: "ताजा गोल",
-    bday: "जन्मदिन",
-    ronaldo: "बनाम रोनाल्डो",
-    madrid: "बनाम रियल मैड्रिड",
-    ucl: "चैंपियंस लीग",
-    byyear: "वर्षवार गोल",
-    byseason: "सीज़न",
-    dashboard: "डैशबोर्ड",
-    timeline: "इतिहास",
-    achievements: "उपलब्धियां",
-    gear: "मेसी स्टोर",
-    themeToggle: "थीम बदलें",
-    darkMode: "डार्क मोड"
-  },
-  ro: {
-    badgeAria: "MessiStats Acasă",
-    langName: "Română",
-    langTag: "RO",
-    langSelectAria: "Selectează limba (Română)",
-    langSelectTitle: "Selectează limba",
-    home: "Acasă",
-    latestGoal: "Ultimul Gol",
-    bday: "Zi de naștere",
-    ronaldo: "vs Ronaldo",
-    madrid: "vs Real Madrid",
-    ucl: "Champions League",
-    byyear: "Goluri pe An",
-    byseason: "Sezoane",
-    dashboard: "Panou",
-    timeline: "Istorie",
-    achievements: "Trofee",
-    gear: "Magazin Messi",
-    themeToggle: "Comută tema",
-    darkMode: "Mod întunecat"
-  },
-  uz: {
-    badgeAria: "MessiStats Asosiy",
-    langName: "O'zbekcha",
-    langTag: "UZ",
-    langSelectAria: "Tilni tanlang (O'zbekcha)",
-    langSelectTitle: "Tilni tanlang",
-    home: "Asosiy",
-    latestGoal: "Soʻnggi gol",
-    bday: "Tug'ilgan kun",
-    ronaldo: "vs Ronaldu",
-    madrid: "vs Real Madrid",
-    ucl: "Chempionlar Ligasi",
-    byyear: "Yillar bo'yicha",
-    byseason: "Mavsumlar",
-    dashboard: "Boshqaruv paneli",
-    timeline: "Tarix",
-    achievements: "Sovrinlar",
-    gear: "Messi do'koni",
-    themeToggle: "Mavzuni o'zgartirish",
-    darkMode: "Qorong'i rejim"
   }
 };
 
@@ -283,8 +178,8 @@ for (const [file, slug] of Object.entries(PAGES_MAP)) {
   updateFileRail(path.join(rootDir, file), "en", slug);
 }
 
-// 2. All 8 localized languages (es, pt, fr, ar, bn, hi, ro, uz)
-const ALL_LANGS = ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+// 2. All three localized languages (es, pt, fr)
+const ALL_LANGS = ["es", "pt", "fr"];
 for (const lang of ALL_LANGS) {
   for (const [file, slug] of Object.entries(PAGES_MAP)) {
     if (file === "admin.html") continue;

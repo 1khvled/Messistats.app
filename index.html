@@ -32,17 +32,6 @@
 <link href="https://www.messistat.com/fr" hreflang="fr" rel="alternate"/>
 <link href="https://www.messistat.com/fr" hreflang="fr-FR" rel="alternate"/>
 <link href="https://www.messistat.com/fr" hreflang="fr-NE" rel="alternate"/>
-<link href="https://www.messistat.com/ar" hreflang="ar" rel="alternate"/>
-<link href="https://www.messistat.com/ar" hreflang="ar-EG" rel="alternate"/>
-<link href="https://www.messistat.com/bn" hreflang="bn" rel="alternate"/>
-<link href="https://www.messistat.com/bn" hreflang="bn-BD" rel="alternate"/>
-<link href="https://www.messistat.com/bn" hreflang="bn-IN" rel="alternate"/>
-<link href="https://www.messistat.com/hi" hreflang="hi" rel="alternate"/>
-<link href="https://www.messistat.com/hi" hreflang="hi-IN" rel="alternate"/>
-<link href="https://www.messistat.com/ro" hreflang="ro" rel="alternate"/>
-<link href="https://www.messistat.com/ro" hreflang="ro-RO" rel="alternate"/>
-<link href="https://www.messistat.com/uz" hreflang="uz" rel="alternate"/>
-<link href="https://www.messistat.com/uz" hreflang="uz-UZ" rel="alternate"/>
 <link href="https://www.messistat.com/en" hreflang="x-default" rel="alternate"/>
 <script src="/js/ad-guard.js"></script>
 <meta content="messi stats, lionel messi stats, messi career stats, messi all time stats, messi total goals, messi assists, messi stats 2026, messi vs ronaldo stats, messi career goals, how many goals has messi scored, messi all time goals, messi free kicks, messi free kick goals, messi direct free kick goal, how many free kicks messi have, messi hat tricks, messi penalties, messi trophies, messi ballons d or, messi champions league stats, messi world cup stats, messi el clasico stats, messi barcelona stats, messi inter miami stats, messi argentina stats, messi non penalty goals, messi goals today, messi stats hub, messistat, messistats, messi goal tracker, messi total career goals, messi assists all time, messi vs ronaldo all time goals, who has more goals messi or ronaldo, messi 91 goals in 2012, messi minutes per goal, messi goals per game ratio, messi golden boot, messi trophies list, messi international goals, messi 1000 goals tracker, messi scoring record, leo messi stats, messi records all time, messi stats database" name="keywords"/>
@@ -304,7 +293,7 @@
           "name": "Who has better all-time stats, Messi or Ronaldo?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Cristiano Ronaldo holds the all-time goalscoring record with 981 goals and 261 assists in 1,342 appearances (0.73 goals per game). Lionel Messi has scored 936 goals and 408 official assists in 1,181 appearances (0.79 goals per game, 1.14 goal contributions per game). Messi reached 936 goals in 161 fewer matches, has won 47 team trophies to Ronaldo's 37, and holds 8 Ballons d'Or compared to Ronaldo's 5."
+            "text": "Cristiano Ronaldo holds the all-time goalscoring record with 983 goals and 261 assists in 1,342 appearances (0.73 goals per game). Lionel Messi has scored 936 goals and 408 official assists in 1,181 appearances (0.79 goals per game, 1.14 goal contributions per game). Messi reached 936 goals in 161 fewer matches, has won 47 team trophies to Ronaldo's 37, and holds 8 Ballons d'Or compared to Ronaldo's 5."
           }
         },
         {
@@ -434,6 +423,10 @@
       if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) return;
       var saved = localStorage.getItem('messistats_lang_choice');
       var isRoot = location.pathname === '/' || location.pathname === '/en' || location.pathname === '/en/';
+      if (saved && ['en', 'es', 'pt', 'fr'].indexOf(saved) === -1) {
+        localStorage.removeItem('messistats_lang_choice');
+        saved = null;
+      }
       if (saved && saved !== 'en' && isRoot) {
         location.replace('/' + saved);
         return;
@@ -450,16 +443,6 @@
           target = 'pt';
         } else if (primary.startsWith('fr') || /Paris|Niamey|Dakar|Abidjan|Douala|Kinshasa|Bamako|Ouagadougou|Brussels/i.test(tz)) {
           target = 'fr';
-        } else if (primary.startsWith('ar') || /Cairo|Riyadh|Dubai|Baghdad|Kuwait|Qatar|Casablanca|Algiers|Tunis|Amman|Beirut|Muscat/i.test(tz)) {
-          target = 'ar';
-        } else if (primary.startsWith('bn') || /Dhaka/i.test(tz)) {
-          target = 'bn';
-        } else if (primary.startsWith('hi')) {
-          target = 'hi';
-        } else if (primary.startsWith('ro') || /Bucharest|Chisinau/i.test(tz)) {
-          target = 'ro';
-        } else if (primary.startsWith('uz') || /Tashkent|Samarkand/i.test(tz)) {
-          target = 'uz';
         }
         if (target && target !== 'en') {
           sessionStorage.setItem('geo_routed', target);
@@ -650,14 +633,14 @@
     </table>
   </div>
   <div class="ground-truth-footer">
-    <div class="gt-stat-pill"><strong>Non-Penalty Goals:</strong> 826</div>3667135956359383598235982
-    <div class="gt-stat-pill"><strong>Penalties:</strong> 110</div>3676836048360253606436059
-    <div class="gt-stat-pill"><strong>Direct Free Kicks:</strong> 76</div>3685736132361043613836128
-    <div class="gt-stat-pill"><strong>Career Assists:</strong> 407 Official · 450 TM (All-Time Record)</div>3695336223361903621936204
-    <div class="gt-stat-pill"><strong>Goal Contributions:</strong> 1,342 G+A (1.14 / match)</div>3708336348363103633436314
-    <div class="gt-stat-pill"><strong>Hat-Tricks:</strong> 62</div>3720236462364193643836413
-    <div class="gt-stat-pill"><strong>Senior Trophies:</strong> 47 (World Record)</div>3729136546364983651236482
-    <div class="gt-stat-pill"><strong>Ballons d'Or:</strong> 8 (World Record)</div>3740036650365973660636571
+    <div class="gt-stat-pill"><strong>Non-Penalty Goals:</strong> 826</div>
+    <div class="gt-stat-pill"><strong>Penalties:</strong> 110</div>
+    <div class="gt-stat-pill"><strong>Direct Free Kicks:</strong> 76</div>
+    <div class="gt-stat-pill"><strong>Career Assists:</strong> 407 Official · 450 TM (All-Time Record)</div>
+    <div class="gt-stat-pill"><strong>Goal Contributions:</strong> 1,342 G+A (1.14 / match)</div>
+    <div class="gt-stat-pill"><strong>Hat-Tricks:</strong> 62</div>
+    <div class="gt-stat-pill"><strong>Senior Trophies:</strong> 47 (World Record)</div>
+    <div class="gt-stat-pill"><strong>Ballons d'Or:</strong> 8 (World Record)</div>
   </div>
 </section>
 
@@ -786,7 +769,7 @@
   <details class="faq-item"><summary class="faq-question"><span>How many total career goals has Lionel Messi scored?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p><b>936 official career goals</b> in 1,181 senior appearances for club and country (0.79 goals per game). Explore his full <a href="/en/goalsbyyear">year-by-year scoring breakdown</a>.</p></div></details>
   <details class="faq-item"><summary class="faq-question"><span>How many career assists does Lionel Messi have?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>Lionel Messi has recorded <b>407 official senior career assists</b> under Opta/FIFA standards (and <b>450 assists</b> under Transfermarkt's broader criteria) in 1,181 appearances, making him the all-time assist leader in modern football history. His official breakdown includes 269 assists for FC Barcelona, 58 for Argentina, 46 for Inter Miami CF, and 34 for Paris Saint-Germain.</p></div></details>
   <details class="faq-item"><summary class="faq-question"><span>What are Lionel Messi's total goals and assists?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>Across his senior career, Lionel Messi has accumulated <b>1,344 official goal contributions</b> (<b>936 goals</b> and <b>408 official assists</b>) in 1,181 appearances — an extraordinary rate of <b>1.14 direct goal involvements per match</b>. Under Transfermarkt's criteria (including penalties won), Messi has <b>1,386 total goal involvements</b> (936 goals + 450 assists).</p></div></details>
-  <details class="faq-item"><summary class="faq-question"><span>Who has better all-time stats, Messi or Ronaldo?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>Across official senior matches, Cristiano Ronaldo holds the all-time goal record with 981 goals and 261 assists in 1,342 matches (0.73 goals/game), while Messi has <b>936 goals and 408 official assists in 1,181 matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached 936 goals in 161 fewer matches, holds 47 team trophies to 37, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/en/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.</p></div></details>
+  <details class="faq-item"><summary class="faq-question"><span>Who has better all-time stats, Messi or Ronaldo?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>Across official senior matches, Cristiano Ronaldo holds the all-time goal record with 983 goals and 261 assists in 1,342 matches (0.73 goals/game), while Messi has <b>936 goals and 408 official assists in 1,181 matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached 936 goals in 161 fewer matches, holds 47 team trophies to 37, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/en/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.</p></div></details>
   <details class="faq-item"><summary class="faq-question"><span>What is Messi's career goal breakdown by team?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p><b>672 goals</b> in 778 games for FC Barcelona, <b>32 goals</b> in 75 games for PSG, <b>104 goals</b> in 120 games for Inter Miami, and <b>126 goals</b> in 208 caps for Argentina. See <a href="/en/goalsbyseason">season-by-season club stats</a>.</p></div></details>
   <details class="faq-item"><summary class="faq-question"><span>How many direct free kick goals has Messi scored?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>Lionel Messi has scored <b>76 direct free-kick goals</b> in senior football (50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG). His 76th free kick came on 27 September 2026 vs Columbus Crew, making him the <b>2nd-highest free-kick scorer in history</b> behind Marcelinho Carioca (78) — just 2 more to tie the all-time record.</p></div></details>
   <details class="faq-item"><summary class="faq-question"><span>How many hat-tricks has Lionel Messi scored?</span><span class="faq-chevron" aria-hidden="true">▾</span></summary><div class="faq-answer"><p>Messi has scored <b>62 career hat-tricks</b> (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.</p></div></details>
@@ -852,7 +835,7 @@
     <article class="seo-topic-card">
       <h3>🐐 Lionel Messi vs Cristiano Ronaldo Comparison</h3>
       <ul>
-        <li><b>Career Goals &amp; Efficiency</b>: Messi has 936 goals in 1,181 games (0.79 GPG / 104 mins per goal) vs Ronaldo's 981 goals in 1,342 games (0.73 GPG / 112 mins per goal). Messi reached 936 goals in 161 fewer matches.</li>
+        <li><b>Career Goals &amp; Efficiency</b>: Messi has 936 goals in 1,181 games (0.79 GPG / 104 mins per goal) vs Ronaldo's 983 goals in 1,342 games (0.73 GPG / 112 mins per goal). Messi reached 936 goals in 161 fewer matches.</li>
         <li><b>Playmaking &amp; Assists</b>: Messi holds 407 official career assists (450 under Transfermarkt) compared to Ronaldo's 261 assists — a commanding advantage of over 144 to 186 assists.</li>
         <li><b>Senior Trophies</b>: Messi has won 47 senior team titles (the all-time world record) compared to Ronaldo's 37 trophies. Check <a href="/en/achievements">the complete trophy breakdown</a>.</li>
         <li><b>Individual Honours</b>: Messi leads with 8 Ballons d'Or (to 5) and 6 European Golden Shoes (to 4).</li>
@@ -1004,11 +987,6 @@
         <a href="/es" hreflang="es">Español (Argentina, España)</a>
         <a href="/pt" hreflang="pt">Português (Brasil, Portugal)</a>
         <a href="/fr" hreflang="fr">Français (France, Niger)</a>
-        <a href="/ar" hreflang="ar">العربية (مصر والوطن العربي)</a>
-        <a href="/bn" hreflang="bn">বাংলা (বাংলাদেশ ও ভারত)</a>
-        <a href="/hi" hreflang="hi">हिन्दी (भारत)</a>
-        <a href="/ro" hreflang="ro">Română (România)</a>
-        <a href="/uz" hreflang="uz">Oʻzbekcha (Oʻzbekiston)</a>
       </div>
     </div>
   </nav>

@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
-const langs = ["pt", "fr", "ar", "bn", "hi", "ro", "uz"];
+const langs = ["pt", "fr"];
 
 for (const lang of langs) {
   const file = path.join(rootDir, lang, "index.html");

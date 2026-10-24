@@ -498,10 +498,6 @@ export async function runAutoSync() {
 }
 
 function syncIndexHtmlFiles(prevGoals, prevApps, newTotalGoals, newTotalApps) {
-  const bnDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-  const bn = (n) => String(n).replace(/[0-9]/g, (dd) => bnDigits[dd]);
-  const bnGoals = bn(newTotalGoals), bnApps = bn(newTotalApps);
-  const bnPrevGoals = bn(prevGoals), bnPrevApps = bn(prevApps);
   const esc = (x) => String(x).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const repNum = (text, a, b) => text.replace(new RegExp("\\b" + esc(a) + "\\b", "g"), String(b));
   const indexFiles = [
@@ -509,11 +505,6 @@ function syncIndexHtmlFiles(prevGoals, prevApps, newTotalGoals, newTotalApps) {
     resolve(root, "es", "index.html"),
     resolve(root, "pt", "index.html"),
     resolve(root, "fr", "index.html"),
-    resolve(root, "ar", "index.html"),
-    resolve(root, "bn", "index.html"),
-    resolve(root, "hi", "index.html"),
-    resolve(root, "ro", "index.html"),
-    resolve(root, "uz", "index.html"),
   ];
   for (const f of indexFiles) {
     if (!existsSync(f)) continue;
@@ -524,10 +515,6 @@ function syncIndexHtmlFiles(prevGoals, prevApps, newTotalGoals, newTotalApps) {
       // Ronaldo’s 979 into the Messi total inside this same card. Never again.
       let updated = repNum(match, prevGoals, newTotalGoals);
       updated = repNum(updated, prevApps, newTotalApps);
-      if (f.includes("bn")) {
-        updated = repNum(updated, bnPrevGoals, bnGoals);
-        updated = repNum(updated, bnPrevApps, bnApps);
-      }
       return updated;
     });
     writeFileSync(f, html, "utf8");

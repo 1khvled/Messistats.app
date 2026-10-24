@@ -2,16 +2,21 @@ name: Daily Messi Stats Scraper & Auto-Deploy
 
 on:
   schedule:
-    # Runs every 10 minutes to instantly catch new matches and goals
-    - cron: '*/10 * * * *'
+    # Runs every 30 minutes to catch new matches and goals
+    - cron: '*/30 * * * *'
   workflow_dispatch: # Allows manual one-click trigger anytime from GitHub Actions tab
 
 permissions:
   contents: write
 
+concurrency:
+  group: daily-messi-sync
+  cancel-in-progress: true
+
 jobs:
   scrape-and-sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -29,11 +34,11 @@ jobs:
 
       - name: Run Scrapers & Auto-Sync
         run: |
-          node scripts/daily-date-sync.mjs
-          node scripts/auto-sync-matches.mjs
-          node scripts/auto-sync-latest-goal.mjs
-          node scripts/source-watch.mjs
-          node scripts/auto-sync-ronaldo.mjs
+          node scripts/daily-date-sync.mjs || true
+          node scripts/auto-sync-matches.mjs || true
+          node scripts/auto-sync-latest-goal.mjs || true
+          node scripts/source-watch.mjs || true
+          node scripts/auto-sync-ronaldo.mjs || true
 
       - name: Build & Run Verification Audits
         run: |
@@ -47,11 +52,24 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           # Discard internal ephemeral watcher logs if no stats changed
-          git checkout public/data/source-watch.json public/data/last-check.json public/data/pending.json 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(stats): daily Messi stats & freshness sync [skip ci]"
-            git push origin HEAD:${{ github.ref }}
-            echo "Successfully synced new match data and pushed to remote."
-          else
+          git reset -q -- public/data/source-watch.json public/data/last-check.json public/data/pending.json
+          git checkout -- public/data/source-watch.json public/data/last-check.json public/data/pending.json 2>/dev/null || true
+          if git diff --cached --quiet; then
             echo "All stats up to date. No new match changes to commit."
+            exit 0
           fi
+          git commit -m "chore(stats): daily Messi stats & freshness sync [skip ci]"
+          for attempt in 1 2 3; do
+            if git pull --rebase --autostash origin ${{ github.ref_name }}; then
+              if git push origin HEAD:${{ github.ref }}; then
+                echo "Successfully synced new match data and pushed to remote."
+                exit 0
+              fi
+            else
+              git rebase --abort || true
+            fi
+            echo "The branch moved (attempt $attempt); taking the remote changes in and trying again."
+            sleep 5
+          done
+          echo "The branch kept moving; the refresh is left for the next run."
+          exit 0

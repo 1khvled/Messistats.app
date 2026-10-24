@@ -32,7 +32,7 @@ const SUBPAGES = [
   "gear.html"
 ];
 
-const LANGS = ["ar", "bn", "es", "fr", "hi", "pt", "ro", "uz"];
+const LANGS = ["es", "fr", "pt"];
 
 const TARGET_FILES = [
   ...SUBPAGES.map((file) => path.join(root, file)),

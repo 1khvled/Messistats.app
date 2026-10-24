@@ -62,12 +62,7 @@ const LANGUAGES = [
   { code: "en", flag: "🇺🇸", name: "English", native: "English", note: "US, NG, IN, PH" },
   { code: "es", flag: "🇪🇸", name: "Spanish", native: "Español", note: "Argentina, España" },
   { code: "pt", flag: "🇧🇷", name: "Portuguese", native: "Português", note: "Brasil, Portugal" },
-  { code: "fr", flag: "🇫🇷", name: "French", native: "Français", note: "France, Niger" },
-  { code: "ar", flag: "🇪🇬", name: "Arabic", native: "العربية", note: "مصر والوطن العربي", rtl: true },
-  { code: "bn", flag: "🇧🇩", name: "Bengali", native: "বাংলা", note: "বাংলাদেশ ও ভারত" },
-  { code: "hi", flag: "🇮🇳", name: "Hindi", native: "हिन्दी", note: "भारत" },
-  { code: "ro", flag: "🇷🇴", name: "Romanian", native: "Română", note: "România" },
-  { code: "uz", flag: "🇺🇿", name: "Uzbek", native: "Oʻzbekcha", note: "Oʻzbekiston" }
+  { code: "fr", flag: "🇫🇷", name: "French", native: "Français", note: "France, Niger" }
 ];
 
 function getCurrentLangCode() {
@@ -313,121 +308,6 @@ function ensureMobileMenuDrawer() {
       vsRealMadrid: "vs Real Madrid (El Clásico)",
       championsLeague: "Hub Ligue des Champions",
       toggleTheme: "🌓 Basculer Mode Sombre"
-    },
-    ar: {
-      menuTitle: "قائمة Messi<b>Stats</b>",
-      statGoals: "إجمالي الأهداف",
-      statApps: "المباريات الرسمية",
-      statTrophies: "الألقاب",
-      statBallons: "الكرة الذهبية",
-      catFeatured: "المميز ⚡",
-      catHistory: "التاريخ والألقاب 🏆",
-      catStats: "المباريات الكبرى والأرقام 📊",
-      home: "الرئيسية والإحصائيات",
-      vsRonaldo: "ميسي ضد رونالدو",
-      latestGoal: "إعادة الهدف الأخير",
-      birthday: "أهداف يوم ميلادك",
-    days: "الأيام المائية 366",
-      achievements: "جميع البطولات الـ 46",
-      timeline: "المسيرة والصور",
-      goalsByYear: "الأهداف حسب السنة",
-      goalsBySeason: "الأهداف حسب الموسم",
-      dashboard: "لوحة الإحصائيات الشاملة",
-      vsRealMadrid: "ضد ريال مدريد (الكلاسيكو)",
-      championsLeague: "دوري أبطال أوروبا",
-      toggleTheme: "🌓 تبديل الوضع الليلي"
-    },
-    bn: {
-      menuTitle: "Messi<b>Stats</b> মেনু",
-      statGoals: "মোট গোল",
-      statApps: "অফিসিয়াল ম্যাচ",
-      statTrophies: "শিরোপা",
-      statBallons: "ব্যালন ডি'অর",
-      catFeatured: "বিশেষ ⚡",
-      catHistory: "ইতিহাস ও শিরোপা 🏆",
-      catStats: "বড় ম্যাচ ও পরিসংখ্যান 📊",
-      home: "মূল পাতা ও পরিসংখ্যান",
-      vsRonaldo: "মেসি বনাম রোনালদো",
-      latestGoal: "সর্বশেষ গোলের রিপ্লে",
-      birthday: "জন্মদিনের গোল এক্সপ্লোরার",
-    days: "সবৈ তারিখ দিন",
-      achievements: "সব ৪৭টি শিরোপা ও ট্রফি",
-      timeline: "ক্যারিয়ার টাইমলাইন ও ছবি",
-      goalsByYear: "ক্যালেন্ডার বছরভিত্তিক গোল",
-      goalsBySeason: "মৌসুমভিত্তিক গোল",
-      dashboard: "অ্যানালিটিক্স ড্যাশবোর্ড",
-      vsRealMadrid: "বনাম রিয়াল মাদ্রিদ (এল ক্লাসিকো)",
-      championsLeague: "চ্যাম্পিয়ন্স লিগ হাব",
-      toggleTheme: "🌓 ডার্ক মোড পরিবর্তন"
-    },
-    hi: {
-      menuTitle: "Messi<b>Stats</b> मेन्यू",
-      statGoals: "कुल गोल",
-      statApps: "कुल मैच",
-      statTrophies: "ट्रॉफियां",
-      statBallons: "बैलोन डी'ओर",
-      catFeatured: "विशेष ⚡",
-      catHistory: "इतिहास व ट्रॉफियां 🏆",
-      catStats: "प्रमुख मैच व आंकड़े 📊",
-      home: "होम व करियर आंकड़े",
-      vsRonaldo: "मेसी बनाम रोनाल्डो",
-      latestGoal: "नवीनतम गोल रीप्ले",
-      birthday: "जन्मदिन गोल एक्सप्लोरर",
-    days: "सभी 366 दিন",
-      achievements: "सभी 47 ट्रॉफियां व खिताब",
-      timeline: "करियर टाइमलाइन व फोटो",
-      goalsByYear: "कैलेंडर वर्ष अनुसार गोल",
-      goalsBySeason: "सीज़न अनुसार गोल",
-      dashboard: "विश्लेषण डैशबोर्ड",
-      vsRealMadrid: "बनाम रियल मैड्रिड (एल क्लासिको)",
-      championsLeague: "चैंपियंस लीग हब",
-      toggleTheme: "🌓 डार्क मोड बदलें"
-    },
-    ro: {
-      menuTitle: "Meniu Messi<b>Stats</b>",
-      statGoals: "Total Goluri",
-      statApps: "Meciuri",
-      statTrophies: "Trofee",
-      statBallons: "Baloane de Aur",
-      catFeatured: "Recomandate ⚡",
-      catHistory: "Istorie & Trofee 🏆",
-      catStats: "Meciuri Mari & Date 📊",
-      home: "Acasă & Statistici Carieră",
-      vsRonaldo: "Messi vs Ronaldo",
-      latestGoal: "Revederea Ultimului Gol",
-      birthday: "Goluri de Ziua Ta",
-    days: "Toate cele 366 de zile",
-      achievements: "Toate cele 47 de Trofee",
-      timeline: "Cronologie & Fotografii",
-      goalsByYear: "Goluri pe An Calendaristic",
-      goalsBySeason: "Goluri pe Sezon",
-      dashboard: "Panou de Analiză Avansată",
-      vsRealMadrid: "vs Real Madrid (El Clásico)",
-      championsLeague: "Hub Champions League",
-      toggleTheme: "🌓 Comutare Mod Întunecat"
-    },
-    uz: {
-      menuTitle: "Messi<b>Stats</b> Menyu",
-      statGoals: "Jami Gollar",
-      statApps: "O'yinlar",
-      statTrophies: "Sovrinlar",
-      statBallons: "Oltin To'plar",
-      catFeatured: "Tanlangan ⚡",
-      catHistory: "Tarix va Sovrinlar 🏆",
-      catStats: "Muhim O'yinlar & Tahlil 📊",
-      home: "Asosiy & Statistika",
-      vsRonaldo: "Messi vs Ronaldo",
-      latestGoal: "So'nggi Gol Takrori",
-      birthday: "Tug'ilgan Kundagi Gollar",
-    days: "366 kunlik",
-      achievements: "Barcha 47 ta Sovrin",
-      timeline: "Xronologiya va Suratlar",
-      goalsByYear: "Yillar Bo'yicha Gollar",
-      goalsBySeason: "Mavsumlar Bo'yicha Gollar",
-      dashboard: "Tahliliy Panel",
-      vsRealMadrid: "Real Madridga Qarshi (El Klasiko)",
-      championsLeague: "Chempionlar Ligasi Xabi",
-      toggleTheme: "🌓 Tungi Rejimni O'zgartirish"
     }
   };
 
@@ -445,7 +325,7 @@ function ensureMobileMenuDrawer() {
         { href: `/${curLangCode}/latest-goal`, label: txt.latestGoal, badge: "LIVE ⚡", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
         { href: `/${curLangCode}/birthday`, label: txt.birthday, badge: "HOT 🔥", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` },
     // Always /en/days: the 366 day pages (and this hub) are English-only by design,
-    // so this must NOT be built from curLangCode or 8 locales would 404.
+    // so this must NOT be built from curLangCode or localized pages would 404.
     { href: "/en/days", label: txt.days, badge: "366 Days", icon: `<svg viewBox="0 0 24 24"><rect height="17.5" rx="2" width="17.5" x="3.25" y="3.25"></rect><path d="M3.25 8.5h17.5M8 3.25v17.5M16 3.25v17.5"></path></svg>` }
       ]
     },
@@ -573,12 +453,7 @@ function ensureMobileMoreNavBtn() {
     en: "More",
     es: "Más",
     pt: "Mais",
-    fr: "Plus",
-    ar: "المزيد",
-    bn: "আরও",
-    hi: "अधिक",
-    ro: "Mai mult",
-    uz: "Ko'proq"
+    fr: "Plus"
   };
   const label = moreLabels[curLang] || "More";
   const moreBtn = document.createElement("button");
@@ -880,56 +755,6 @@ const ARGENTINA_STREAM_I18N = {
     closeAria: "Fermer la notification",
     matchCardTitle: "Match Historique d'Adieu • 6 Oct 2026",
     matchCardDesc: "Suivez le tout dernier match de Lionel Messi avec l'Argentine en direct sur Koora Live sans aucune publicité."
-  },
-  ar: {
-    badge: "🇦🇷 آخر مباراة مع الأرجنتين",
-    title: "مباراة وداع ليونيل ميسي",
-    text: "مباراة وداع ليونيل ميسي في 6 أكتوبر 2026! شاهد البث المباشر مجاناً وبدون إعلانات.",
-    highlight: "بث مباشر مجاني • بدون إعلانات",
-    cta: "شاهد البث المجاني ▶",
-    closeAria: "إغلاق الإشعار",
-    matchCardTitle: "مباراة الوداع التاريخية • 6 أكتوبر 2026",
-    matchCardDesc: "شاهد آخر مباراة دولية للأسطورة ليونيل ميسي مع الأرجنتين مباشرة وبدون أي إعلانات على Koora Live."
-  },
-  bn: {
-    badge: "🇦🇷 আর্জেন্টিনার হয়ে শেষ ম্যাচ",
-    title: "লিওনেল মেসির বিদায়ী ম্যাচ",
-    text: "৬ অক্টোবর ২০২৬ লিওনেল মেসির বিদায়ী ম্যাচ! কোনো বিজ্ঞাপন ছাড়া সম্পূর্ণ ফ্রিতে লাইভ স্ট্রিম দেখুন।",
-    highlight: "ফ্রি লাইভ স্ট্রিম • কোনো বিজ্ঞাপন নেই",
-    cta: "ফ্রি লাইভ স্ট্রিম দেখুন ▶",
-    closeAria: "বিজ্ঞপ্তি বন্ধ করুন",
-    matchCardTitle: "ঐতিহাসিক বিদায়ী ম্যাচ • ৬ অক্টোবর ২০২৬",
-    matchCardDesc: "আর্জেন্টিনার জার্সিতে লিওনেল মেসির শেষ আন্তর্জাতিক ম্যাচ সরাসরি ও বিজ্ঞাপনহীন দেখুন Koora Live-এ।"
-  },
-  hi: {
-    badge: "🇦🇷 अर्जेंटीना के साथ अंतिम मैच",
-    title: "लियोनेल मेसी का विदाई मैच",
-    text: "6 अक्टूबर 2026 को लियोनेल मेसी का विदाई मैच! बिना किसी विज्ञापन के बिल्कुल मुफ्त लाइव स्ट्रीम देखें।",
-    highlight: "मुफ्त लाइव स्ट्रीम • कोई विज्ञापन नहीं",
-    cta: "मुफ्त लाइव स्ट्रीम देखें ▶",
-    closeAria: "सूचना बंद करें",
-    matchCardTitle: "ऐतिहासिक विदाई मैच • 6 अक्टूबर 2026",
-    matchCardDesc: "अर्जेंटीना के लिए लियोनेल मेसी का आखिरी अंतर्राष्ट्रीय मैच Koora Live पर बिना किसी विज्ञापन के लाइव देखें।"
-  },
-  ro: {
-    badge: "🇦🇷 ULTIMUL MECI CU ARGENTINA",
-    title: "Meciul de Adio al lui Lionel Messi",
-    text: "Meciul de adio al lui Lionel Messi pe 6 octombrie 2026! Urmărește transmisiunea LIVE gratuit și FĂRĂ RECLAME.",
-    highlight: "Transmisiune live gratuită • Fără reclame",
-    cta: "Vezi Transmisiunea Gratuită ▶",
-    closeAria: "Închide notificarea",
-    matchCardTitle: "Meci Istoric de Adio • 6 Oct 2026",
-    matchCardDesc: "Urmărește ultimul meci al lui Lionel Messi pentru Argentina în direct pe Koora Live, fără reclame."
-  },
-  uz: {
-    badge: "🇦🇷 ARGENTINA BILAN SOʻNGGI OʻYIN",
-    title: "Lionel Messining xayrlashuv uchrashuvi",
-    text: "Lionel Messining 2026-yil 6-oktabrdagi xayrlashuv oʻyini! Jonli efirni REKLAMASIZ va mutlaqo bepul tomosha qiling.",
-    highlight: "Bepul jonli efir • Reklamasiz",
-    cta: "Bepul Efirni Koʻrish ▶",
-    closeAria: "Bildirishnomani yopish",
-    matchCardTitle: "Tarixiy Xayrlashuv Oʻyini • 6-oktabr 2026",
-    matchCardDesc: "Lionel Messining Argentina terma jamoasidagi soʻnggi bahsini Koora Live orqali hech qanday reklamasiz bepul tomosha qiling."
   }
 };
 
@@ -1915,56 +1740,6 @@ function initLanguageAndMobileTopBar() {
       autoNotice: "Affiché en français selon votre appareil.",
       changeBtn: "Changer"
     },
-    ar: {
-      name: "العربية",
-      flag: "🇪🇬",
-      detected: "تم اكتشاف أن لغة جهازك هي العربية.",
-      suggest: "هل ترغب في تصفح ميسي ستاتس باللغة العربية؟",
-      switchBtn: "التصفح بالعربية",
-      stayBtn: "المتابعة بالإنجليزية",
-      autoNotice: "يتم العرض بالعربية بناءً على إعدادات جهازك.",
-      changeBtn: "تغيير"
-    },
-    bn: {
-      name: "বাংলা",
-      flag: "🇧🇩",
-      detected: "আপনার ডিভাইসের ভাষা বাংলা হিসেবে শনাক্ত হয়েছে।",
-      suggest: "আপনি কি বাংলায় মেসি পরিসংখ্যান দেখতে চান?",
-      switchBtn: "বাংলায় দেখুন",
-      stayBtn: "English এ থাকুন",
-      autoNotice: "আপনার ডিভাইস অনুযায়ী বাংলায় দেখানো হচ্ছে।",
-      changeBtn: "পরিবর্তন"
-    },
-    hi: {
-      name: "हिन्दी",
-      flag: "🇮🇳",
-      detected: "आपकी डिवाइस की भाषा हिन्दी पहचानी गई है।",
-      suggest: "क्या आप मेस्सी के आंकड़े हिन्दी में देखना चाहते हैं?",
-      switchBtn: "हिन्दी में देखें",
-      stayBtn: "English में जारी रखें",
-      autoNotice: "आपके डिवाइस के अनुसार हिन्दी में प्रदर्शित।",
-      changeBtn: "बदलें"
-    },
-    ro: {
-      name: "Română",
-      flag: "🇷🇴",
-      detected: "Am detectat că limba dispozitivului tău este română.",
-      suggest: "Dorești să vezi MessiStats în limba română?",
-      switchBtn: "Vezi în Română",
-      stayBtn: "Rămâi pe English",
-      autoNotice: "Afișat în română conform dispozitivului tău.",
-      changeBtn: "Schimbă"
-    },
-    uz: {
-      name: "Oʻzbekcha",
-      flag: "🇺🇿",
-      detected: "Qurilmangiz tili oʻzbekcha ekanligi aniqlandi.",
-      suggest: "MessiStatsni oʻzbek tilida koʻrishni xohlaysizmi?",
-      switchBtn: "Oʻzbekcha koʻrish",
-      stayBtn: "Englishda davom etish",
-      autoNotice: "Qurilmangizga mos ravishda oʻzbek tilida koʻrsatilmoqda.",
-      changeBtn: "Oʻzgartirish"
-    },
     en: {
       name: "English",
       flag: "🇺🇸",
@@ -1989,11 +1764,6 @@ function initLanguageAndMobileTopBar() {
       if (lower.startsWith("es")) return "es";
       if (lower.startsWith("pt")) return "pt";
       if (lower.startsWith("fr")) return "fr";
-      if (lower.startsWith("ar")) return "ar";
-      if (lower.startsWith("bn")) return "bn";
-      if (lower.startsWith("hi")) return "hi";
-      if (lower.startsWith("ro")) return "ro";
-      if (lower.startsWith("uz")) return "uz";
       if (lower.startsWith("en")) return "en";
     }
 
@@ -2009,19 +1779,6 @@ function initLanguageAndMobileTopBar() {
     if (/Paris|Niamey|Dakar|Abidjan|Douala|Kinshasa|Bamako|Ouagadougou|Brussels|Geneva/i.test(tz)) {
       return "fr";
     }
-    if (/Cairo|Riyadh|Dubai|Baghdad|Kuwait|Qatar|Casablanca|Algiers|Tunis|Amman|Beirut|Muscat|Bahrain|Tripoli|Khartoum/i.test(tz)) {
-      return "ar";
-    }
-    if (/Dhaka/i.test(tz)) {
-      return "bn";
-    }
-    if (/Bucharest|Chisinau/i.test(tz)) {
-      return "ro";
-    }
-    if (/Tashkent|Samarkand/i.test(tz)) {
-      return "uz";
-    }
-
     return "en";
   }
 
@@ -2153,8 +1910,6 @@ const esc = (s) => {
 };
 const n = (v) => Number(v).toLocaleString("en-US");
 const gpg = (g, a) => (a ? (g / a).toFixed(2) : "—");
-const BN_D = "০১২৩৪৫৬৭৮৯";
-const bn = (v) => String(v).replace(/[0-9]/g, (dd) => BN_D[+dd]);
 
 /* ================= LIVE STAT REGISTRY (runtime variables) =================
  * Every number templates display lives here — same names and derivation as
@@ -2278,7 +2033,7 @@ function normalize(d) {
   t.apps = t.combined.appearances;
   t.clubs = { apps: t.club.appearances, goals: t.club.goals, goalsPerGame: t.club.goalsPerGame };
   // The JSON stores country appearances as `appearances`, but 18 call sites
-  // (KPI notes, the 8 languages' FAQ answers, the Argentina summary lines, the
+  // (KPI notes, the four languages' FAQ answers, the Argentina summary lines, the
   // goals-by-year total row and the dashboard filter) read `country.apps`.
   // Without this alias they all rendered the string "NaN" into visible copy.
   t.country.apps = t.country.appearances;
@@ -2400,22 +2155,7 @@ function setHead(d, ledeHTML) {
         `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} pela Argentina). Atualizado em ${d.lastUpdated}.`,
       fr: `Lionel Messi : ${n(d.totals.apps)} matchs officiels en senior, ${n(d.totals.goals)} buts ` +
         `(${n(d.totals.clubs.apps)} matchs / ${n(d.totals.clubs.goals)} buts en club, ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} avec l'Argentine). Mis à jour le ${d.lastUpdated}.`,
-      ar: `ليونيل ميسي: ${n(d.totals.apps)} مباراة رسمية مع الفريق الأول، ${n(d.totals.goals)} هدفاً ` +
-        `(${n(d.totals.clubs.apps)} مباراة / ${n(d.totals.clubs.goals)} هدفاً مع الأندية، ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} مع الأرجنتين). آخر تحديث ${d.lastUpdated}.`,
-      bn: `লিওনেল মেসি: ${n(d.totals.apps)}টি সিনিয়র ম্যাচ, ${n(d.totals.goals)}টি গোল ` +
-        `(${n(d.totals.clubs.apps)} ম্যাচে ${n(d.totals.clubs.goals)} ক্লাব গোল, ` +
-        `আর্জেন্টিনার হয়ে ${n(d.totals.country.apps)} ম্যাচে ${n(d.totals.country.goals)} গোল)। সর্বশেষ আপডেট ${d.lastUpdated}।`,
-      hi: `लियोनेल मेस्सी: ${n(d.totals.apps)} सीनियर मैच, ${n(d.totals.goals)} गोल ` +
-        `(${n(d.totals.clubs.apps)} क्लब मैच / ${n(d.totals.clubs.goals)} क्लब गोल, ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} अर्जेंटीना)। अंतिम अद्यतन ${d.lastUpdated}।`,
-      ro: `Lionel Messi: ${n(d.totals.apps)} meciuri oficiale la seniori, ${n(d.totals.goals)} goluri ` +
-        `(${n(d.totals.clubs.apps)} meciuri / ${n(d.totals.clubs.goals)} goluri la cluburi, ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} cu Argentina). Actualizat la ${d.lastUpdated}.`,
-      uz: `Lionel Messi: ${n(d.totals.apps)} ta rasmiy o'yin, ${n(d.totals.goals)} ta gol ` +
-        `(${n(d.totals.clubs.apps)} ta klub o'yini / ${n(d.totals.clubs.goals)} ta gol, ` +
-        `Argentina bilan ${n(d.totals.country.apps)} / ${n(d.totals.country.goals)}). Oxirgi yangilanish: ${d.lastUpdated}.`
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} avec l'Argentine). Mis à jour le ${d.lastUpdated}.`
     };
     el("foot-date").textContent = footDates[lang] ||
       `Lionel Messi: ${n(d.totals.apps)} senior appearances, ${n(d.totals.goals)} goals ` +
@@ -2463,7 +2203,7 @@ const EXPLORE = [
 
 function getLang() {
   const l = (document.documentElement.lang || "en").toLowerCase();
-  for (const c of ["es", "pt", "fr", "ar", "bn", "hi", "ro", "uz"]) {
+  for (const c of ["es", "pt", "fr"]) {
     if (l.startsWith(c)) return c;
   }
   return "en";
@@ -2499,56 +2239,6 @@ const EXPLORE_LANGS = {
     { href: "/fr", page: "home", t: "Statistiques de Lionel Messi", d: (d) => `Les chiffres clés : ${n(d.totals.goals)} buts en ${n(d.totals.apps)} matchs officiels.` },
     { href: "/fr/dashboard", page: "dashboard", t: "Tableau de bord interactif", d: () => "Filtrez par Barcelone, PSG, Inter Miami ou Argentine." },
     { href: "/fr/timeline", page: "timeline", t: "Chronologie de sa carrière", d: () => "Chaque événement historique daté dans l'ordre chronologique." },
-  ],
-  ar: [
-    { href: "/ar/birthday", page: "birthday", t: "🎂 هل سجل ميسي في يوم ميلادك؟", d: (d) => `ابحث في جميع أيام السنة الـ 366 مع مقاطع الفيديو لـ ${n(d.totals.goals)} هدفاً.` },
-    { href: "/ar/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 ميسي ضد رونالدو تاريخياً", d: () => `مقارنة المسيرة: ${n(LIVE.goals)} ضد ${n(LIVE.rGoals)} هدفاً، ${LIVE.trophies} ضد ${LIVE.rTrophies} بطولة، و8 كرات ذهبية.` },
-    { href: "/ar/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ ميسي ضد ريال مدريد", d: () => "26 هدفاً في الكلاسيكو، 45 مباراة و14 تمريرة حاسمة." },
-    { href: "/ar/champions-league", page: "champions-league", t: "⭐ سجل دوري أبطال أوروبا", d: () => "129 هدفاً في دوري أبطال أوروبا، 8 هاتريك و4 ألقاب أوروبية." },
-    { href: "/ar/latest-goal", page: "latest-goal", t: "⚽ فيديو آخر هدف لميسي", d: () => "شاهد فيديو أحدث أهداف ميسي، واعرف هل سجل اليوم وتصفح أحدث أهدافه بالفيديو." },
-    { href: "/ar", page: "home", t: "إحصائيات ليونيل ميسي", d: (d) => `الأرقام الرسمية: ${n(d.totals.goals)} هدفاً في ${n(d.totals.apps)} مباراة رسمية.` },
-    { href: "/ar/dashboard", page: "dashboard", t: "لوحة البيانات التفاعلية", d: () => "تصفية حسب برشلونة، باريس، إنتر ميامي والأرجنتين." },
-    { href: "/ar/timeline", page: "timeline", t: "المسار الزمني التاريخي", d: () => "كل محطة في مسيرته بالترتيب الزمني من 2004 حتى اليوم." },
-  ],
-  bn: [
-    { href: "/bn/birthday", page: "birthday", t: "🎂 মেসি কি আপনার জন্মদিনে গোল করেছিলেন?", d: (d) => `৩৬৬ দিনের প্রতিটি দিন ভিডিও সহ অনুসন্ধান করুন (${n(d.totals.goals)} ক্যারিয়ার গোল)।` },
-    { href: "/bn/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 মেসি বনাম রোনালদো", d: () => `ক্যারিয়ার পরিসংখ্যান: ${bn(LIVE.goals)} বনাম ${bn(LIVE.rGoals)} গোল, ${bn(LIVE.trophies)} বনাম ${bn(LIVE.rTrophies)} ট্রফি, ৮টি ব্যালন ডি'অর।` },
-    { href: "/bn/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ মেসি বনাম রিয়াল মাদ্রিদ", d: () => "ক্লাসিকোতে ২৬ গোল, ৪৫ ম্যাচ ও ১৪টি অ্যাসিস্ট।" },
-    { href: "/bn/champions-league", page: "champions-league", t: "⭐ চ্যাম্পিয়নস লিগ রেকর্ড", d: () => "উয়েফা চ্যাম্পিয়নস লিগে ১২৯টি গোল, ৮টি হ্যাটট্রিক এবং ৪টি ইউরোপীয় শিরোপা।" },
-    { href: "/bn/latest-goal", page: "latest-goal", t: "⚽ মেসির শেষ গোলের ভিডিও", d: () => "মেসির সর্বশেষ গোলের ভিডিও দেখুন, আজ কি গোল করেছেন এবং সাম্প্রতিক গোলগুলো।" },
-    { href: "/bn", page: "home", t: "লিওনেল মেসির পরিসংখ্যান", d: (d) => `অফিসিয়াল তথ্য: ${n(d.totals.apps)} ম্যাচে ${n(d.totals.goals)} গোল।` },
-    { href: "/bn/dashboard", page: "dashboard", t: "ইন্টারেক্টিভ ড্যাশবোর্ড", d: () => "বার্সেলোনা, পিএসজি, ইন্টার মায়ামি ও আর্জেন্টিনার পরিসংখ্যান।" },
-    { href: "/bn/timeline", page: "timeline", t: "ক্যারিয়ার টাইমলাইন", d: () => "২০০৪ থেকে আজ পর্যন্ত প্রতিটি ঐতিহাসিক মুহূর্ত।" },
-  ],
-  hi: [
-    { href: "/hi/birthday", page: "birthday", t: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?", d: (d) => `साल के 366 दिनों में मेसी के ${n(d.totals.goals)} गोल वीडियो देखें।` },
-    { href: "/hi/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 मेसी बनाम रोनाल्डो", d: () => `करियर आंकड़े: ${n(LIVE.goals)} बनाम ${n(LIVE.rGoals)} गोल, ${LIVE.trophies} बनाम ${LIVE.rTrophies} खिताब, 8 बैलन डी'ओर.` },
-    { href: "/hi/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ मेसी बनाम रियल मैड्रिड", d: () => "एल क्लासिको में 26 गोल, 45 मैच और 14 असिस्ट।" },
-    { href: "/hi/champions-league", page: "champions-league", t: "⭐ चैंपियंस लीग रिकॉर्ड", d: () => "यूईएफए चैंपियंस लीग में 129 गोल, 8 हैट्रिक और 4 यूरोपीय खिताब।" },
-    { href: "/hi/latest-goal", page: "latest-goal", t: "⚽ मेसी का पिछला गोल वीडियो", d: () => "मेस्सी के ताज़ा गोल का वीडियो देखें, जानें क्या उन्होंने आज गोल किया और हालिया गोल।" },
-    { href: "/hi", page: "home", t: "मेसी के आधिकारिक आंकड़े", d: (d) => `${n(d.totals.apps)} आधिकारिक मैचों में ${n(d.totals.goals)} गोल।` },
-    { href: "/hi/dashboard", page: "dashboard", t: "इंटरएक्टिव डैशबोर्ड", d: () => "बार्सिलोना, पीएसजी, मियामी और अर्जेंटीना अनुसार फ़िल्टर।" },
-    { href: "/hi/timeline", page: "timeline", t: "करियर टाइमलाइन", d: () => "2004 से आज तक का हर ऐतिहासिक पड़ाव।" },
-  ],
-  ro: [
-    { href: "/ro/birthday", page: "birthday", t: "🎂 A marcat Messi de ziua ta de naștere?", d: (d) => `Caută în toate cele 366 de zile din an cu cele ${n(d.totals.goals)} goluri ale lui Messi.` },
-    { href: "/ro/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldo All-Time", d: () => `Statistici cap la cap: ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} goluri, ${LIVE.trophies} vs ${LIVE.rTrophies} trofee, 8 Baloane de Aur.` },
-    { href: "/ro/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "Toate cele 26 de goluri din El Clásico, 45 de meciuri, 14 pase de gol." },
-    { href: "/ro/champions-league", page: "champions-league", t: "⭐ Recordul în Champions League", d: () => "129 de goluri în UEFA Champions League, 8 hat-trick-uri și 4 trofee europene." },
-    { href: "/ro/latest-goal", page: "latest-goal", t: "⚽ Ultimul gol al lui Messi video", d: () => "Urmărește videoclipul ultimului gol al lui Messi, vezi dacă a marcat azi și cele mai recente goluri." },
-    { href: "/ro", page: "home", t: "Statisticile lui Lionel Messi", d: (d) => `Cifrele cheie: ${n(d.totals.goals)} goluri în ${n(d.totals.apps)} meciuri oficiale.` },
-    { href: "/ro/dashboard", page: "dashboard", t: "Panoul interactiv de statistici", d: () => "Filtrează pe Barcelona, PSG, Inter Miami sau Argentina." },
-    { href: "/ro/timeline", page: "timeline", t: "Cronologia carierei", d: () => "Fiecare moment istoric datat din 2004 până azi." },
-  ],
-  uz: [
-    { href: "/uz/birthday", page: "birthday", t: "🎂 Messi sizning tug'ilgan kuningizda gol urganmi?", d: (d) => `Yilning 366 kunidagi gollarni videolar bilan ko'ring (${n(d.totals.goals)} ta gol).` },
-    { href: "/uz/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "🐐 Messi vs Ronaldu Tarixiy", d: () => `O'zaro solishtirma: ${n(LIVE.goals)} ga ${n(LIVE.rGoals)} ta gol, ${LIVE.trophies} ga ${LIVE.rTrophies} ta titul, 8 ta “Oltin to'p”.` },
-    { href: "/uz/vs-real-madrid", page: "vs-real-madrid", t: "⚔️ Messi vs Real Madrid", d: () => "El-Klasikodagi 26 ta gol, 45 ta o'yin va 14 ta assist." },
-    { href: "/uz/champions-league", page: "champions-league", t: "⭐ Chempionlar Ligasi rekordi", d: () => "UEFA Chempionlar Ligasida 129 ta gol, 8 ta het-trik va 4 ta Yevropa chempionligi." },
-    { href: "/uz/latest-goal", page: "latest-goal", t: "⚽ Messining soʻnggi goli video", d: () => "Messining soʻnggi goli videosini tomosha qiling, bugun gol urdimi va soʻnggi gollari." },
-    { href: "/uz", page: "home", t: "Lionel Messi statistikasi", d: (d) => `Asosiy raqamlar: ${n(d.totals.apps)} ta o'yinda ${n(d.totals.goals)} ta rasmiy gol.` },
-    { href: "/uz/dashboard", page: "dashboard", t: "Interaktiv statistika paneli", d: () => "Barselona, PSJ, Inter Mayami yoki Argentina bo'yicha saralang." },
-    { href: "/uz/timeline", page: "timeline", t: "Karyera xronologiyasi", d: () => "2004 yildan to hozirgi kungacha bo'lgan tarixiy sanalar." },
   ]
 };
 
@@ -2591,49 +2281,6 @@ function methodHTML(d, extra) {
       `<details class="method-more"><summary>Vérification des chiffres</summary>` +
       `<p>Chaque but est vérifié selon les feuilles de match officielles après chaque rencontre. Données 100% certifiées. ${extra || ""}</p>` +
       `<p class="colophon">Base de données indépendante mise à jour avec rigueur après chaque rencontre.</p></details>`);
-  }
-  if (lang === "ar") {
-    const teams = "برشلونة، باريس سان جيرمان، إنتر ميامي والمنتخب الأرجنتيني";
-    return methodColophon(`<h2>كيف نجمع هذه الإحصائيات</h2>` +
-      `<p>نحن نحتسب أمراً واحداً: المباريات الرسمية لفرق الدرجة الأولى الكبرى لكل من ${teams} — ` +
-      `الدوري، الكؤوس المحلية، الليالي القارية والمنتخب الأول. لا تشمل المباريات الودية للأندية أو فرق الشباب.</p>` +
-      `<details class="method-more"><summary>طريقة التحقق من الأرقام</summary>` +
-      `<p>تُسجل الأهداف من تقارير المباريات الرسمية وتتم مراجعتها بعد كل مباراة. جميع الأرقام موثقة بنسبة 100%. ${extra || ""}</p>` +
-      `<p class="colophon">موقع مستقل يتم تحديثه ومراجعته بمصادر أولية رسمية بعد كل مباراة.</p></details>`);
-  }
-  if (lang === "bn") {
-    const teams = "বার্সেলোনা, পিএসজি, ইন্টার মায়ামি এবং আর্জেন্টিনা জাতীয় দল";
-    return methodColophon(`<h2>আমরা কীভাবে এই পরিসংখ্যান সংগ্রহ করি</h2>` +
-      `<p>আমরা কেবল একটি বিষয় গণনা করি: ${teams}-এর হয়ে সিনিয়র অফিসিয়াল প্রথম দলের ম্যাচ। কোনো প্রীতি ম্যাচ বা যুব পর্যায়ের খেলা অন্তর্ভুক্ত নয়।</p>` +
-      `<details class="method-more"><summary>পরিসংখ্যান যাচাইকরণ</summary>` +
-      `<p>প্রতিটি ম্যাচের অফিশিয়াল ম্যাচ রিপোর্ট থেকে গোলের তথ্য সংকলিত এবং যাচাই করা হয়েছে। সকল ডেটা ১০০% সত্য। ${extra || ""}</p>` +
-      `<p class="colophon">স্বতন্ত্র ওয়েবসাইট যা প্রতিটি ম্যাচের পর প্রাথমিক অফিসিয়াল সূত্র থেকে সরাসরি হালনাগাদ করা হয়।</p></details>`);
-  }
-  if (lang === "hi") {
-    const teams = "बार्सिलोना, पेरिस सेंट-जर्मेन, इंटर मियामी और अर्जेंटीना";
-    return methodColophon(`<h2>हम ये आँकड़े कैसे तैयार करते हैं</h2>` +
-      `<p>हम केवल आधिकारिक सीनियर प्रथम-टीम मैचों की गणना करते हैं: ${teams} के लिए सभी लीग, कप, महाद्वीपीय और अंतरराष्ट्रीय मैच।</p>` +
-      `<details class="method-more"><summary>आंकड़ों का सत्यापन</summary>` +
-      `<p>प्रत्येक मैच के आधिकारिक रिकॉर्ड से आंकड़े संकलित किए जाते हैं। 100% सत्यापित डेटा। ${extra || ""}</p>` +
-      `<p class="colophon">स्वतंत्र सांख्यिकी डेटाबेस जिसे प्रत्येक मैच के बाद आधिकारिक स्रोतों से अपडेट किया जाता है।</p></details>`);
-  }
-  if (lang === "ro") {
-    const teams = "Barcelona, Paris Saint-Germain, Inter Miami și Naționala Argentinei";
-    return methodColophon(`<h2>Cum compilăm aceste statistici</h2>` +
-      `<p>Numărăm doar meciurile oficiale la nivel de seniori pentru ${teams} — ` +
-      `campionat, cupe naționale, cupe continentale și meciuri internaționale oficiale.</p>` +
-      `<details class="method-more"><summary>Verificarea cifrelor</summary>` +
-      `<p>Datele sunt verificate manual din rapoartele oficiale după fiecare partidă. ${extra || ""}</p>` +
-      `<p class="colophon">Site independent actualizat cu surse oficiale de prim rang.</p></details>`);
-  }
-  if (lang === "uz") {
-    const teams = "Barselona, PSJ, Inter Mayami va Argentina terma jamoasi";
-    return methodColophon(`<h2>Biz bu statistikalarni qanday yig'amiz</h2>` +
-      `<p>Biz faqat ${teams} uchun asosiy tarkibdagi rasmiy uchrashuvlarni hisoblaymiz — ` +
-      `barcha liga, milliy kubok, qit'a musobaqalari va terma jamoa o'yinlari.</p>` +
-      `<details class="method-more"><summary>Raqamlarni tekshirish</summary>` +
-      `<p>Gollar har bir o'yindan so'ng rasmiy protokollar asosida to'liq tekshiriladi. ${extra || ""}</p>` +
-      `<p class="colophon">Har bir o'yindan so'ng rasmiy manbalar bilan yangilanadigan mustaqil statistika.</p></details>`);
   }
   const teams = "Barcelona, Paris Saint-Germain, Inter Miami and Argentina";
   return methodColophon(`<h2>How I put these numbers together</h2>` +
@@ -2696,7 +2343,7 @@ function sparkSVG(rows, opts) {
 
   const lang = getLang();
   const yrSuffix = {
-    es: " /año", pt: " /ano", fr: " /an", ar: " /سنة", bn: " /বছর", hi: " /वर्ष", ro: " /an", uz: " /yil"
+    es: " /año", pt: " /ano", fr: " /an"
   }[lang] || " /yr";
   s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
   s += `<text class="axis" x="4" y="${(base - maxH + (compact ? 14 : 4)).toFixed(1)}">${max}${opts.cumulative ? yrSuffix : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
@@ -2764,12 +2411,7 @@ function sparkSVG(rows, opts) {
     const chartI18n = {
       es: { target: "Meta de 1.000 goles", now: `${n(tot)} actual`, tip: `Total en su carrera: ${n(tot)} goles` },
       pt: { target: "Meta de 1.000 gols", now: `${n(tot)} atual`, tip: `Total na carreira: ${n(tot)} gols` },
-      fr: { target: "Objectif 1 000 buts", now: `${n(tot)} actuel`, tip: `Total en carrière : ${n(tot)} buts` },
-      ar: { target: "هدف الـ 1,000 هدف", now: `${n(tot)} الآن`, tip: `إجمالي المسيرة: ${n(tot)} هدفاً` },
-      bn: { target: "১,০০০ গোলের লক্ষ্য", now: `${n(tot)} বর্তমানে`, tip: `ক্যারিয়ার মোট: ${n(tot)} গোল` },
-      hi: { target: "1,000 गोल का लक्ष्य", now: `${n(tot)} वर्तमान`, tip: `करियर कुल: ${n(tot)} गोल` },
-      ro: { target: "Ținta de 1.000 de goluri", now: `${n(tot)} în prezent`, tip: `Total carieră: ${n(tot)} goluri` },
-      uz: { target: "1 000 ta gol maqsadi", now: `${n(tot)} hozir`, tip: `Faoliyatidagi jami: ${n(tot)} ta gol` }
+      fr: { target: "Objectif 1 000 buts", now: `${n(tot)} actuel`, tip: `Total en carrière : ${n(tot)} buts` }
     };
     const cLabels = chartI18n[lang] || { target: "1,000 goal target", now: `${n(tot)} now`, tip: `Current career total: ${n(tot)} goals` };
 
@@ -2818,12 +2460,7 @@ function clubTableCaption() {
   const hints = {
     es: "Haz clic en el encabezado de una columna para ordenar. Solo partidos oficiales del primer equipo.",
     pt: "Clique no cabeçalho de uma coluna para ordenar. Apenas partidas oficiais da equipe principal.",
-    fr: "Cliquez sur l'en-tête d'une colonne pour trier. Matchs officiels en équipe première uniquement.",
-    ar: "انقر على رأس العمود للترتيب. مباريات الفريق الأول الرسمية فقط.",
-    bn: "সাজাতে কলামের শিরোনামে ক্লিক করুন। শুধুমাত্র সিনিয়র প্রথম দলের ম্যাচ।",
-    hi: "सॉर्ट करने के लिए कॉलम हेडर पर क्लिक करें। केवल सीनियर प्रथम-टीम मैच।",
-    ro: "Faceți clic pe antetul unei coloane pentru a sorta. Doar meciuri oficiale de seniori.",
-    uz: "Saralash uchun ustun sarlavhasiga bosing. Faqat rasmiy asosiy jamoa o'yinlari."
+    fr: "Cliquez sur l'en-tête d'une colonne pour trier. Matchs officiels en équipe première uniquement."
   };
   const hint = hints[lang] || "Click a column header to sort. Senior first-team matches only.";
   return `<p class="table-hint">${hint}</p>`;
@@ -2833,12 +2470,7 @@ function provisionalNote() {
   const notes = {
     es: `<p class="caveat">Penaltis (110), tiros libres (66), hat-tricks (57) y asistencias (400) son cifras recopiladas provisionales hasta completar el conteo manual partido a partido.</p>`,
     pt: `<p class="caveat">Pênaltis (110), faltas (66), hat-tricks (57) e assistências (400) são números provisórios até a conclusão da contagem manual jogo a jogo.</p>`,
-    fr: `<p class="caveat">Penaltys (110), coups francs (66), triplés (57) et passes décisives (400) sont des totaux provisoires en attente de vérification match par match.</p>`,
-    ar: `<p class="caveat">ضربات الجزاء (110)، الركلات الحرة (66)، الهاتريك (57) والتمريرات الحاسمة (400) هي إحصائيات مجمعة مؤقتة حتى اكتمال التدقيق اليدوي لكل مباراة.</p>`,
-    bn: `<p class="caveat">পেনাল্টি (১০৯), ফ্রি-কিক (৭৬), হ্যাটট্রিক (৫৭) এবং অ্যাসিস্ট (৪০০) ম্যাচভিত্তিক সম্পূর্ণ যাচাইকরণ না হওয়া পর্যন্ত সাময়িক পরিসংখ্যান হিসেবে প্রদর্শিত।</p>`,
-    hi: `<p class="caveat">पेनाल्टी (110), फ्री किक (66), हैट्रिक (57) और असिस्ट (400) मैच-दर-मैच सत्यापन पूरा होने तक अनंतिम आंकड़े हैं।</p>`,
-    ro: `<p class="caveat">Penalty-uri (110), lovituri libere (66), hat-trick-uri (57) și pase decisive (400) sunt cifre provizorii până la finalizarea numărătorii manuale meci cu meci.</p>`,
-    uz: `<p class="caveat">Penaltilar (109), jarima to'plari (66), het-triklar (57) va assistlar (400) o'yinma-o'yin to'liq tekshiruv tugagunga qadar dastlabki hisob-kitoblar sifatida ko'rsatilgan.</p>`
+    fr: `<p class="caveat">Penaltys (110), coups francs (66), triplés (57) et passes décisives (400) sont des totaux provisoires en attente de vérification match par match.</p>`
   };
   return notes[lang] || `<p class="caveat">Penalties (109), free kicks (66), hat-tricks (57) and assists (400) are widely published compiled tallies, shown as provisional until a true match-by-match hand count is finished.</p>`;
 }
@@ -2847,12 +2479,7 @@ function methodColophon(inner) {
   const intros = {
     es: "Cómo recopilamos estas cifras — verificadas manualmente y contrastadas dos veces con fuentes oficiales.",
     pt: "Como reunimos esses números — verificados manualmente e conferidos com fontes oficiais.",
-    fr: "Comment nous compilons ces chiffres — vérifiés manuellement et recoupés avec les sources officielles.",
-    ar: "طريقة جمع هذه الأرقام — تم التحقق منها يدوياً ومطابقتها مرتين مع المصادر الرسمية.",
-    bn: "আমরা কীভাবে এই সংখ্যা সংগ্রহ করি — প্রতিটি ম্যাচ রিপোর্ট থেকে যাচাইকৃত এবং অফিসিয়াল সূত্রের সাথে পরীক্ষিত।",
-    hi: "हम ये आंकड़े कैसे तैयार करते हैं — आधिकारिक स्रोतों से दो बार सत्यापित और हाथ से गिने गए।",
-    ro: "Cum am adunat aceste cifre — numărate manual și verificate de două ori cu surse oficiale.",
-    uz: "Bu raqamlarni qanday to'plaganimiz — qo'lda tekshirilgan va rasmiy manbalar bilan ikki marta tasdiqlangan."
+    fr: "Comment nous compilons ces chiffres — vérifiés manuellement et recoupés avec les sources officielles."
   };
   const intro = intros[lang] || "How I put these numbers together — counted by hand and checked twice against named sources.";
   return `<div class="colophon"><p>${intro}</p>${inner}${provisionalNote()}</div>`;
@@ -3148,356 +2775,6 @@ const HOME_I18N = {
       ["Quelle est la meilleure année de Messi en buts ?", `<b>2012, avec 91 buts</b> — record mondial dans l'histoire du football. Voir <a href="/${lang}/goalsbyyear">toutes les années</a>.`],
       ["Combien de trophées Messi a-t-il remportés ?", `<b>47 titres collectifs</b> (35 avec Barcelone, 3 avec le PSG, 4 avec l'Inter Miami et 5 avec l'Argentine). Voir le <a href="/${lang}/achievements">palmarès</a>.`]
     ]
-  },
-  ar: {
-    locale: "ar-SA",
-    shirt10: "القميص رقم 10",
-    head: (t, p, d) => `<b>${n(t.goals)} هدفاً رسمياً</b> في <b>${n(t.apps)} مباراة للمحترفين</b> مع برشلونة، باريس سان جيرمان، إنتر ميامي ومنتخب الأرجنتين حتى ${esc(d.lastUpdated)}. بطل كأس العالم وصاحب الرقم القياسي بـ 8 كرات ذهبية.`,
-    meta: (p, dob) => `${esc(p.name)}، وُلد في ${dob} في ${esc(p.birthplace)}. يبلغ من العمر ${p.age} عاماً، يلعب كمهاجم ويمثل حالياً ${esc(p.current.join(" و "))}.`,
-    roleLabel: "المركز",
-    teamsLabel: "الفرق",
-    nowLabel: "النادي الحالي",
-    kpiCareer: "أهداف المسيرة",
-    kpiCareerNote: (gpg, seasons) => `${gpg} هدفاً في المباراة عبر ${seasons} مواسم مع الأندية.`,
-    kpiApps: "المباريات الرسمية",
-    kpiAppsNote: (clubs, country) => `${clubs} مع الأندية، ${country} مع الأرجنتين.`,
-    kpiArg: "أهداف الأرجنتين",
-    kpiArgNote: (gpg, caps) => `${gpg} هدفاً في المباراة في ${caps} مباراة دولية.`,
-    kpiTrophies: "البطولات الجماعية",
-    kpiTrophiesNote: (lang) => `رقم قياسي عالمي بـ ${LIVE.trophies} لقباً و8 كرات ذهبية. <a href="/${lang}/achievements">قائمة البطولات</a>.`,
-    kpiRoad: "الطريق إلى 1,000 هدف",
-    kpiRoadNote: (togo, projYear, pace) => `يتبقى ${togo} هدفاً. وفقاً لمعدله الحالي (~${pace.toFixed(0)} هدفاً سنوياً)، سيصل إلى 1,000 هدف بحلول عام ${projYear}.`,
-    copyStatsBtn: "نسخ أهم الأرقام",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `ميسي: ${goals} هدفاً في ${apps} مباراة رسمية (${clubGoals} مع الأندية، ${argGoals} مع الأرجنتين)، ${LIVE.trophies} لقباً، 8 كرات ذهبية — حتى ${updated}.`,
-    copyMsg: "تم النسخ إلى الحافظة بنجاح.",
-    clubCaption: (updated, lang) => `المباريات والأهداف لكل فريق لعب له ليونيل ميسي رسمياً حتى ${updated}. التفاصيل في <a href="/${lang}/goalsbyseason">صفحة المواسم</a>.`,
-    thTeam: "الفريق والسنوات",
-    thApps: "المباريات",
-    thGoals: "الأهداف",
-    thGpg: "الأهداف / مباراة",
-    thTotal: "المجموع الكلي",
-    yearSub: "اختر أي عام وشاهد تصاعد أهدافه خطوة بخطوة — منذ بدايته عام 2004 وحتى اليوم.",
-    yearTitle: "إحصائيات ميسي حسب السنة الميلادية",
-    yearLabel: "السنة",
-    yearFigcap: (start, cur, prov, lang) => `الأهداف حسب السنة الميلادية من ${start} إلى ${cur}${prov ? " (مستمرة)" : ""} — بذروة 91 هدفاً عام 2012. <a href="/${lang}/goalsbyyear">فتح الجدول الكامل</a>.`,
-    tileGoals: (year, prov) => `الأهداف في ${year}${prov ? " (حتى الآن)" : ""}`,
-    tileTotal: (year) => `المجموع التراكمي بعد ${year}`,
-    tileAge: (year) => `العمر خلال ${year}`,
-    records: (best, post30, pct) => [
-      [`91`, `<b>هدفاً في عام 2012</b>، أعلى رقم سجله لاعب في سنة ميلادية واحدة في تاريخ كرة القدم — ${best.goals} هدفاً في كل البطولات.`],
-      [`8`, `<b>كرات ذهبية</b> (2009–12، 2015، 2019، 2021، 2023) — رقم قياسي أسطوري لا مثيل له.`],
-      [`474`, `<b>هدفاً في الدوري الإسباني</b>، الهداف التاريخي المطلق لليغا ولكافة الدوريات الأوروبية الكبرى.`],
-      [`129`, `<b>هدفاً في دوري أبطال أوروبا</b> — 120 لبرشلونة و9 لباريس سان جيرمان، ثاني أفضل هداف تاريخياً.`],
-      [post30, `<b>هدفاً بعد سن الثلاثين</b> — تشكل حوالي ${pct}% من مجمل أهدافه على مدار مسيرته الكروية.`],
-      [`57`, `<b>هاتريك أو أكثر</b> مع الأندية والمنتخب الأول خلال مسيرته الاحترافية.`],
-      [`46`, `<b>بطولة جماعية</b> — اللاعب الأكثر تتويجاً في تاريخ الساحرة المستديرة، متوجاً بكأس العالم 2022.`]
-    ],
-    silverCaption: () => `${LIVE.trophies} لقباً جماعياً لفرق الدرجة الأولى الكبرى، حسب النادي، إضافة إلى أهم الإنجازات الفردية.`,
-    silverThTrophy: "البطولة",
-    silverThTimes: "المرات",
-    silverThNote: "ملاحظات",
-    silverRows: [
-      ["بطولات مع برشلونة", "35", "من 2005 إلى 2021، بما في ذلك 4 ألقاب دوري أبطال أوروبا و10 دوريات"],
-      ["بطولات مع الأرجنتين", "5", "كأس العالم 2022، كوبا أمريكا 2021 و2024، فيناليسيما 2022، ذهبية الأولمبياد 2008"],
-      ["بطولات مع باريس سان جيرمان", "3", "الدوري الفرنسي 2022 و2023، كأس الأبطال الفرنسي 2022"],
-      ["بطولات مع إنتر ميامي", "4", "كأس الدوريات 2023، درع المشجعين 2024، كأس الدوري الأمريكي 2025، كأس الأبطال 2026"],
-      ["الكرة الذهبية", "8", "رقم قياسي عالمي — 2009–12، 2015، 2019، 2021، 2023"]
-    ],
-    splitFk: "أهداف الركلات الحرة",
-    splitFkNote: "أهداف من ركلات حرة مباشرة متقنة للأندية والمنتخب.",
-    splitPen: "أهداف ركلات الجزاء",
-    splitPenNote: "حوالي هدف من كل ثمانية أهداف في مسيرته.",
-    splitHt: "هاتريك أو أكثر",
-    splitHtNote: "مباريات سجل فيها 3 أهداف أو أكثر.",
-    splitCaveat: (tot) => `تفاصيل الركلات الحرة وركلات الجزاء مبنية على بيانات موثقة مؤقتة، وإجمالي الـ ${tot} هدفاً مؤكد بنسبة 100%.`,
-    faq: (t, agg, m, d, lang) => [
-      ["كم هدفاً سجل ليونيل ميسي في مسيرته حتى الآن؟", `<b>${n(t.goals)} هدفاً رسمياً</b> في ${n(t.apps)} مباراة للمحترفين حتى ${esc(d.lastUpdated)}، بمعدل ${t.goalsPerGame} هدفاً لكل مباراة. طالع <a href="/${lang}/goalsbyyear">الأهداف سنوياً</a>.`],
-      ["كم هدفاً سجل ميسي مع برشلونة؟", `<b>${n(agg.barcelona.goals)} هدفاً</b> في ${n(agg.barcelona.apps)} مباراة بين 2004 و2021 — من بينها 474 هدفاً تاريخياً في الليغا.`],
-      ["كم هدفاً مع باريس سان جيرمان وإنتر ميامي؟", `<b>${agg.psg.goals} أهداف لباريس</b> و <b>${n(agg.miami.goals)} أهداف لإنتر ميامي</b>.`],
-      ["كم هدفاً سجل ميسي مع الأرجنتين؟", `<b>${n(t.country.goals)} هدفاً</b> في ${n(t.country.apps)} مباراة دولية منذ عام 2005.`],
-      ["ما هو أفضل عام تهديفي في مسيرة ميسي؟", `<b>عام 2012، برصيد 91 هدفاً</b> — الرقم القياسي العالمي في تاريخ كرة القدم. انظر <a href="/${lang}/goalsbyyear">كافة الأعوام</a>.`],
-      ["كم بطولة حققها ميسي في مسيرته؟", `<b>47 بطولة جماعية</b> (35 مع برشلونة، 3 مع باريس، 4 مع ميامي و5 مع الأرجنتين). شاهد <a href="/${lang}/achievements">قائمة البطولات</a>.`]
-    ]
-  },
-  bn: {
-    locale: "bn-BD",
-    shirt10: "জার্সি নম্বর ১০",
-    head: (t, p, d) => `বার্সেলোনা, পিএসজি, ইন্টার মায়ামি ও আর্জেন্টিনার হয়ে <b>${n(t.apps)}টি অফিসিয়াল ম্যাচে</b> <b>${n(t.goals)}টি গোল</b> (${esc(d.lastUpdated)} পর্যন্ত)। বিশ্বকাপ জয়ী ও রেকর্ড ৮টি ব্যালন ডি'অর বিজয়ী।`,
-    meta: (p, dob) => `${esc(p.name)}, জন্ম ${dob}, ${esc(p.birthplace)}। বয়স ${p.age} বছর, ফরোয়ার্ড হিসেবে বর্তমানে খেলছেন ${esc(p.current.join(" ও "))}-তে।`,
-    roleLabel: "পজিশন",
-    teamsLabel: "দলসমূহ",
-    nowLabel: "বর্তমান ক্লাব",
-    kpiCareer: "ক্যারিয়ার গোল",
-    kpiCareerNote: (gpg, seasons) => `${seasons} ক্লাব মৌসুমে ম্যাচ প্রতি ${gpg} গোল।`,
-    kpiApps: "অফিসিয়াল ম্যাচ",
-    kpiAppsNote: (clubs, country) => `${clubs} ক্লাব, ${country} আর্জেন্টিনা।`,
-    kpiArg: "আর্জেন্টিনার হয়ে গোল",
-    kpiArgNote: (gpg, caps) => `${caps} আন্তর্জাতিক ম্যাচে ম্যাচ প্রতি ${gpg} গোল।`,
-    kpiTrophies: "দলগত ট্রফি",
-    kpiTrophiesNote: (lang) => `সর্বকালের রেকর্ড ${bn(LIVE.trophies)}টি ট্রফি এবং ৮টি ব্যালন ডি'অর। <a href="/${lang}/achievements">পূর্ণাঙ্গ তালিকা দেখুন</a>।`,
-    kpiRoad: "১,০০০ গোলের পথে",
-    kpiRoadNote: (togo, projYear, pace) => `বাকি মাত্র ${togo} গোল। বর্তমান গতিতে (~বছরে ${pace.toFixed(0)} গোল), ${projYear} সালের মধ্যে ১,০০০ গোল পূর্ণ হবে।`,
-    copyStatsBtn: "মূল পরিসংখ্যান কপি করুন",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `মেসি: ${apps} ম্যাচে ${goals} গোল (${clubGoals} ক্লাব, ${argGoals} আর্জেন্টিনা), ${LIVE.trophies} ট্রফি, ৮ ব্যালন ডি'অর — হালনাগাদ: ${updated}।`,
-    copyMsg: "ক্লিপবোর্ডে কপি করা হয়েছে।",
-    clubCaption: (updated, lang) => `লিওনেল মেসির প্রতিটি সিনিয়র দলের ম্যাচ ও গোলের খতিয়ান (${updated} পর্যন্ত)। বিস্তারিত দেখুন <a href="/${lang}/goalsbyseason">মৌসুমভিত্তিক পৃষ্ঠায়</a>।`,
-    thTeam: "দল ও বছর",
-    thApps: "ম্যাচ",
-    thGoals: "গোল",
-    thGpg: "গোল/ম্যাচ",
-    thTotal: "ক্যারিয়ার মোট",
-    yearSub: "যেকোনো বছর বেছে নিয়ে ২০০৪ সালের অভিষেক থেকে আজ পর্যন্ত গোলের উত্থান দেখুন।",
-    yearTitle: "পঞ্জিকাবর্ষ অনুযায়ী মেসির পরিসংখ্যান",
-    yearLabel: "বছর",
-    yearFigcap: (start, cur, prov, lang) => `${start} থেকে ${cur} পর্যন্ত বছরভিত্তিক গোল — ২০১২ সালে রেকর্ড ৯১ গোল। <a href="/${lang}/goalsbyyear">সম্পূর্ণ টেবিল দেখুন</a>।`,
-    tileGoals: (year, prov) => `${year} সালে গোল`,
-    tileTotal: (year) => `${year} পর্যন্ত ক্যারিয়ার মোট`,
-    tileAge: (year) => `${year} সালে বয়স`,
-    records: (best, post30, pct) => [
-      [`91`, `<b>২০১২ সালে ৯১ গোল</b>, ফুটবল ইতিহাসে এক ক্যালেন্ডার বছরে কোনো খেলোয়াড়ের সর্বোচ্চ গোল।`],
-      [`8`, `<b>ব্যালন ডি'অর</b> (২০০৯-১২, ২০১৫, ২০১৯, ২০২১, ২০২৩) — ফুটবল ইতিহাসের সর্বকালের রেকর্ড।`],
-      [`474`, `<b>লা লিগায় ৪৭৪ গোল</b>, স্প্যানিশ লিগ ও যেকোনো ইউরোপীয় শীর্ষ লিগের সর্বকালের রেকর্ড।`],
-      [`129`, `<b>চ্যাম্পিয়নস লিগ গোল</b> — বার্সেলোনায় ১২০ ও পিএসজিতে ৯ গোল, ইতিহাসের দ্বিতীয় সর্বোচ্চ।`],
-      [post30, `<b>৩০ বছর বয়সের পর গোল</b> — তার ক্যারিয়ারের মোট গোলের প্রায় ${pct}%।`],
-      [`57`, `<b>হ্যাটট্রিক বা ততোধিক</b> সিনিয়র ক্যারিয়ারে ক্লাব ও দেশের হয়ে।`],
-      [`46`, `<b>দলগত ট্রফি</b> — ফুটবল ইতিহাসের সবচেয়ে সফল ক্যারিয়ার, ২০২২ বিশ্বকাপ জয়ে যার পূর্ণতা।`]
-    ],
-    silverCaption: () => `সিনিয়র প্রথম দলের ${bn(LIVE.trophies)}টি ট্রফি এবং শীর্ষ ব্যক্তিগত পুরস্কারসমূহের বিবরণ।`,
-    silverThTrophy: "শিরোপা",
-    silverThTimes: "বার",
-    silverThNote: "বিবরণ",
-    silverRows: [
-      ["বার্সেলোনার হয়ে ট্রফি", "35", "২০০৫ থেকে ২০২১, ৪টি চ্যাম্পিয়নস লিগ ও ১০টি লা লিগাসহ"],
-      ["আর্জেন্টিনার হয়ে ট্রফি", "5", "২০২২ বিশ্বকাপ, ২০২১ ও ২০২৪ কোপা আমেরিকা, ২০২২ ফিনালিসিমা, ২০০৮ অলিম্পিক সোনা"],
-      ["পিএসজির হয়ে ট্রফি", "3", "২০২২ ও ২০২৩ লিগ ওয়ান, ২০২২ ফরাসি সুপার কাপ"],
-      ["ইন্টার মায়ামির হয়ে ট্রফি", "৪", "২০২৩ লিগস কাপ, ২০২৪ সাপোর্টার্স শিল্ড, ২০২৫ এমএলএস কাপ, ২০২৬ ক্যাম্পেওনেস কাপ"],
-      ["ব্যালন ডি'অর", "8", "বিশ্বরেকর্ড — ২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩"]
-    ],
-    splitFk: "ফ্রি-কিক গোল",
-    splitFkNote: "ক্লাব ও দেশের হয়ে চোখধাঁধানো সরাসরি ফ্রি-কিক।",
-    splitPen: "পেনাল্টি গোল",
-    splitPenNote: "তার ক্যারিয়ারের প্রতি আটটি গোলের প্রায় একটি।",
-    splitHt: "হ্যাটট্রিক বা তার বেশি",
-    splitHtNote: "৩ বা ততোধিক গোল করা ম্যাচ।",
-    splitCaveat: (tot) => `ফ্রি-কিক ও পেনাল্টির হিসাব ম্যাচ-বাই-ম্যাচ সংকলিত। মোট ${tot} গোলের সংখ্যা ১০০% অপরিবর্তিত।`,
-    faq: (t, agg, m, d, lang) => [
-      ["মেসি ক্যারিয়ারে সর্বমোট কত গোল করেছেন?", `<b>${n(t.goals)}টি অফিসিয়াল গোল</b> ${n(t.apps)} ম্যাচে (${esc(d.lastUpdated)} পর্যন্ত), গড়ে প্রতি ম্যাচে ${t.goalsPerGame} গোল। <a href="/${lang}/goalsbyyear">বছরভিত্তিক গোল দেখুন</a>।`],
-      ["বার্সেলোনায় মেসির গোল কত?", `<b>${n(agg.barcelona.goals)}টি গোল</b> ${n(agg.barcelona.apps)} ম্যাচে (২০০৪-২০২১) — যার মধ্যে লা লিগায় রেকর্ড ৪৭৪ গোল।`],
-      ["পিএসজি ও ইন্টার মায়ামির হয়ে গোল কত?", `<b>পিএসজিতে ${agg.psg.goals}টি</b> এবং <b>ইন্টার মায়ামিতে ${n(agg.miami.goals)}টি গোল</b>।`],
-      ["আর্জেন্টিনার হয়ে মেসি কত গোল করেছেন?", `<b>${n(t.country.goals)}টি গোল</b> ${n(t.country.apps)} ম্যাচে (২০০৫ থেকে)।`],
-      ["মেসির ক্যারিয়ারের সেরা গোল স্কোরিং বছর কোনটি?", `<b>২০১২ সাল, ৯১টি গোল</b> — এক ক্যালেন্ডার বছরে বিশ্বরেকর্ড। <a href="/${lang}/goalsbyyear">সব বছর দেখুন</a>।`],
-      ["মেসি ক্যারিয়ারে কয়টি ট্রফি জিতেছেন?", `<b>৪৭টি দলগত শিরোপা</b> (৩৫টি বার্সেলোনা, ৩টি পিএসজি, ৪টি মায়ামি, ৫টি আর্জেন্টিনা)। <a href="/${lang}/achievements">সব ট্রফি দেখুন</a>।`]
-    ]
-  },
-  hi: {
-    locale: "hi-IN",
-    shirt10: "जर्सी नंबर 10",
-    head: (t, p, d) => `बार्सिलोना, पीएसजी, इंटर मियामी और अर्जेंटीना के लिए <b>${n(t.apps)} आधिकारिक मैचों</b> में <b>${n(t.goals)} गोल</b> (${esc(d.lastUpdated)} तक)। विश्व कप विजेता और रिकॉर्ड 8 बार के बैलन डी'ओर विजेता।`,
-    meta: (p, dob) => `${esc(p.name)}, जन्म ${dob}, ${esc(p.birthplace)}। उम्र ${p.age} वर्ष, वर्तमान में ${esc(p.current.join(" और "))} के लिए खेल रहे हैं।`,
-    roleLabel: "स्थान",
-    teamsLabel: "टीमें",
-    nowLabel: "वर्तमान क्लब",
-    kpiCareer: "करियर गोल",
-    kpiCareerNote: (gpg, seasons) => `${seasons} क्लब सीज़न में प्रति मैच ${gpg} गोल।`,
-    kpiApps: "आधिकारिक मैच",
-    kpiAppsNote: (clubs, country) => `${clubs} क्लब, ${country} अर्जेंटीना।`,
-    kpiArg: "अर्जेंटीना के लिए गोल",
-    kpiArgNote: (gpg, caps) => `${caps} अंतरराष्ट्रीय मैचों में प्रति मैच ${gpg} गोल।`,
-    kpiTrophies: "टीम खिताब",
-    kpiTrophiesNote: (lang) => `रिकॉर्ड ${LIVE.trophies} खिताब और 8 बैलन डी'ओर। <a href="/${lang}/achievements">पूरी सूची देखें</a>।`,
-    kpiRoad: "1,000 गोलों की ओर",
-    kpiRoadNote: (togo, projYear, pace) => `मात्र ${togo} गोल शेष। वर्तमान गति (~साल में ${pace.toFixed(0)} गोल) से 1,000 गोल ${projYear} के आसपास पूरे होंगे।`,
-    copyStatsBtn: "मुख्य आंकड़े कॉपी करें",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `मेसी: ${apps} मैचों में ${goals} गोल (${clubGoals} क्लब, ${argGoals} अर्जेंटीना), ${LIVE.trophies} ट्रॉफियां, 8 बैलन डी'ओर — ${updated} तक।`,
-    copyMsg: "क्लिपबोर्ड पर कॉपी किया गया।",
-    clubCaption: (updated, lang) => `लियोनेल मेसी के सभी सीनियर टीमों के आंकड़े (${updated} तक)। <a href="/${lang}/goalsbyseason">सीज़न के अनुसार देखें</a>।`,
-    thTeam: "टीम और वर्ष",
-    thApps: "मैच",
-    thGoals: "गोल",
-    thGpg: "गोल/मैच",
-    thTotal: "कुल करियर योग",
-    yearSub: "कोई भी वर्ष चुनें और 2004 के पदार्पण से लेकर आज तक गोलों का बढ़ता हुआ कुल देखें।",
-    yearTitle: "कैलेंडर वर्ष के अनुसार मेसी के आंकड़े",
-    yearLabel: "वर्ष",
-    yearFigcap: (start, cur, prov, lang) => `${start} से ${cur} तक वर्षवार गोल — 2012 में 91 गोल का रिकॉर्ड। <a href="/${lang}/goalsbyyear">पूरी तालिका देखें</a>।`,
-    tileGoals: (year, prov) => `${year} में गोल`,
-    tileTotal: (year) => `${year} के बाद कुल गोल`,
-    tileAge: (year) => `${year} में उम्र`,
-    records: (best, post30, pct) => [
-      [`91`, `<b>2012 में 91 गोल</b>, एक कैलेंडर वर्ष में किसी भी खिलाड़ी द्वारा सर्वाधिक गोल का विश्व रिकॉर्ड।`],
-      [`8`, `<b>बैलन डी'ओर</b> (2009-12, 2015, 2019, 2021, 2023) — फुटबॉल इतिहास में सर्वकालिक रिकॉर्ड।`],
-      [`474`, `<b>ला लीगा में 474 गोल</b>, स्पेनिश लीग और किसी भी शीर्ष यूरोपीय लीग का सर्वकालिक रिकॉर्ड।`],
-      [`129`, `<b>चैंपियंस लीग गोल</b> — 120 बार्सिलोना और 9 पीएसजी, प्रतियोगिता इतिहास में दूसरा सर्वाधिक।`],
-      [post30, `<b>30 साल की उम्र के बाद गोल</b> — उनके करियर के कुल गोलों का लगभग ${pct}%।`],
-      [`57`, `<b>हैट्रिक या अधिक</b> क्लब और देश के लिए सीनियर करियर में।`],
-      [`46`, `<b>टीम ट्रॉफियां</b> — फुटबॉल इतिहास का सबसे सफल करियर, 2022 विश्व कप जीत द्वारा ताज पहनाया गया।`]
-    ],
-    silverCaption: () => `${LIVE.trophies} सीनियर टीम खिताब और प्रमुख व्यक्तिगत पुरस्कार।`,
-    silverThTrophy: "ट्रॉफी",
-    silverThTimes: "संख्या",
-    silverThNote: "विवरण",
-    silverRows: [
-      ["बार्सिलोना के साथ खिताब", "35", "2005 से 2021, 4 चैंपियंस लीग और 10 ला लीगा सहित"],
-      ["अर्जेंटीना के साथ खिताब", "5", "विश्व कप 2022, कोपा अमेरिका 2021 और 2024, फ़ाइनलिस्सिमा 2022, ओलंपिक स्वर्ण 2008"],
-      ["पीएसजी के साथ खिताब", "3", "लीग 1 2022 और 2023, फ्रेंच सुपर कप 2022"],
-      ["इंटर मियामी के साथ खिताब", "4", "लीग्स कप 2023, सपोर्टर्स शील्ड 2024, एमएलएस कप 2025, कैंपेओनेस कप 2026"],
-      ["बैलन डी'ओर", "8", "विश्व रिकॉर्ड — 2009–12, 2015, 2019, 2021, 2023"]
-    ],
-    splitFk: "फ्री-किक गोल",
-    splitFkNote: "क्लब और देश के लिए शानदार फ्री-किक।",
-    splitPen: "पेनल्टी गोल",
-    splitPenNote: "उनके कुल गोलों में से लगभग हर आठवां गोल।",
-    splitHt: "हैट्रिक या अधिक",
-    splitHtNote: "3 या अधिक गोल वाले मैच।",
-    splitCaveat: (tot) => `फ्री-किक और पेनल्टी के आंकड़े मैच-दर-मैच संकलित हैं। कुल ${tot} गोल पूरी तरह सत्यापित हैं।`,
-    faq: (t, agg, m, d, lang) => [
-      ["लियोनेल मेसी ने कुल कितने गोल किए हैं?", `<b>${n(t.goals)} आधिकारिक गोल</b> ${n(t.apps)} मैचों में (${esc(d.lastUpdated)} तक), प्रति मैच ${t.goalsPerGame} की दर से। <a href="/${lang}/goalsbyyear">वर्षवार आंकड़े देखें</a>।`],
-      ["मेसी ने बार्सिलोना के लिए कितने गोल किए?", `<b>${n(agg.barcelona.goals)} गोल</b> ${n(agg.barcelona.apps)} मैचों में (2004-2021) — ला लीगा में रिकॉर्ड 474 गोल सहित।`],
-      ["पीएसजी और इंटर मियामी के लिए कितने गोल हैं?", `<b>पीएसजी के लिए ${agg.psg.goals}</b> और <b>इंटर मियामी के लिए ${n(agg.miami.goals)} गोल</b>।`],
-      ["मेसी ने अर्जेंटीना के लिए कितने गोल किए हैं?", `<b>${n(t.country.goals)} गोल</b> ${n(t.country.apps)} मैचों में (2005 से)।`],
-      ["मेसी का सर्वश्रेष्ठ गोल स्कोरिंग वर्ष कौन सा था?", `<b>2012, जिसमें उन्होंने 91 गोल किए</b> — एक कैलेंडर वर्ष में विश्व रिकॉर्ड। <a href="/${lang}/goalsbyyear">सभी वर्ष देखें</a>।`],
-      ["मेसी ने कितनी ट्रॉफियां जीती हैं?", `<b>47 टीम खिताब</b> (35 बार्सिलोना, 3 पीएसजी, 4 मियामी, 5 अर्जेंटीना)। <a href="/${lang}/achievements">पूरी सूची देखें</a>।`]
-    ]
-  },
-  ro: {
-    locale: "ro-RO",
-    shirt10: "Numărul 10",
-    head: (t, p, d) => `<b>${n(t.goals)} goluri oficiale</b> în <b>${n(t.apps)} meciuri de seniori</b> pentru Barcelona, PSG, Inter Miami și Argentina la ${esc(d.lastUpdated)}. Campion mondial și record de 8 Baloane de Aur.`,
-    meta: (p, dob) => `${esc(p.name)}, născut la ${dob} în ${esc(p.birthplace)}. Are ${p.age} ani, atacant la ${esc(p.current.join(" și "))}.`,
-    roleLabel: "Rol",
-    teamsLabel: "Echipe",
-    nowLabel: "În prezent",
-    kpiCareer: "Goluri în carieră",
-    kpiCareerNote: (gpg, seasons) => `${gpg} goluri pe meci în ${seasons} sezoane la club.`,
-    kpiApps: "Meciuri oficiale",
-    kpiAppsNote: (clubs, country) => `${clubs} la cluburi, ${country} cu Argentina.`,
-    kpiArg: "Goluri pentru Argentina",
-    kpiArgNote: (gpg, caps) => `${gpg} pe meci în ${caps} selecții.`,
-    kpiTrophies: "Trofee de echipă",
-    kpiTrophiesNote: (lang) => `Record absolut de ${LIVE.trophies} de trofee și 8 Baloane de Aur. <a href="/${lang}/achievements">Palmares complet</a>.`,
-    kpiRoad: "Drumul spre 1.000 de goluri",
-    kpiRoadNote: (togo, projYear, pace) => `Mai are nevoie de ${togo} goluri. În ritmul actual (~${pace.toFixed(0)} pe an), borna 1.000 va fi atinsă spre ${projYear}.`,
-    copyStatsBtn: "Copiază statisticile",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${goals} goluri în ${apps} meciuri oficiale (${clubGoals} la cluburi, ${argGoals} cu Argentina), ${LIVE.trophies} de trofee, 8 Baloane de Aur — la ${updated}.`,
-    copyMsg: "Copiat în clipboard!",
-    clubCaption: (updated, lang) => `Meciuri și goluri pentru fiecare echipă a lui Lionel Messi la ${updated}. Detalii complete pe <a href="/${lang}/goalsbyseason">pagina sezoanelor</a>.`,
-    thTeam: "Echipă și ani",
-    thApps: "Meciuri",
-    thGoals: "Goluri",
-    thGpg: "Goluri / Meci",
-    thTotal: "Total carieră",
-    yearSub: "Alege un an și urmărește ascensiunea totalului de goluri — de la debutul din 2004 până azi.",
-    yearTitle: "Statisticile lui Messi pe ani calendaristici",
-    yearLabel: "An",
-    yearFigcap: (start, cur, prov, lang) => `Goluri pe an calendaristic, ${start} - ${cur}${prov ? " (în desfășurare)" : ""} — vârf de 91 în 2012. <a href="/${lang}/goalsbyyear">Tabel complet</a>.`,
-    tileGoals: (year, prov) => `Goluri în ${year}${prov ? " (până acum)" : ""}`,
-    tileTotal: (year) => `Total carieră după ${year}`,
-    tileAge: (year) => `Vârsta în ${year}`,
-    records: (best, post30, pct) => [
-      [`91`, `<b>Goluri în 2012</b>, cel mai prolific an calendaristic din istoria fotbalului mondial — ${best.goals} goluri în total.`],
-      [`8`, `<b>Baloane de Aur</b> (2009–12, 2015, 2019, 2021, 2023) — record mondial absolut.`],
-      [`474`, `<b>Goluri în La Liga</b>, golgheterul all-time al campionatului spaniol.`],
-      [`129`, `<b>Goluri în Champions League</b> — 120 pentru Barcelona și 9 pentru PSG, al doilea din istorie.`],
-      [post30, `<b>Goluri după 30 de ani</b> — aproximativ ${pct}% din totalul golurilor sale din carieră.`],
-      [`57`, `<b>Hat-trick-uri sau mai mult</b> la club și națională în cariera profesionistă.`],
-      [`46`, `<b>Trofee colective</b> — cel mai titrat fotbalist din istorie, încununat de Cupa Mondială 2022.`]
-    ],
-    silverCaption: () => `${LIVE.trophies} de titluri oficiale de seniori, club cu club, plus distincțiile individuale supreme.`,
-    silverThTrophy: "Trofeu",
-    silverThTimes: "Nr.",
-    silverThNote: "Detalii",
-    silverRows: [
-      ["Titluri cu Barcelona", "35", "2005 - 2021, inclusiv 4 Ligi ale Campionilor și 10 titluri La Liga"],
-      ["Titluri cu Argentina", "5", "Cupa Mondială 2022, Copas América 2021 și 2024, Finalissima 2022, Aur Olimpic 2008"],
-      ["Titluri cu PSG", "3", "Ligue 1 2022 și 2023, Supercupa Franței 2022"],
-      ["Titluri cu Inter Miami", "4", "Leagues Cup 2023, Supporters' Shield 2024, MLS Cup 2025, Campeones Cup 2026"],
-      ["Balonul de Aur", "8", "Record mondial — 2009–12, 2015, 2019, 2021, 2023"]
-    ],
-    splitFk: "Goluri din lovituri libere",
-    splitFkNote: "Lovituri libere directe spectaculoase.",
-    splitPen: "Goluri din penalty",
-    splitPenNote: "Aproximativ un gol din opt din carieră.",
-    splitHt: "Hat-trick-uri sau mai mult",
-    splitHtNote: "Meciuri cu 3 sau mai multe goluri înscrise.",
-    splitCaveat: (tot) => `Desfășurătorul pentru lovituri libere și penalty-uri este compilat oficial. Totalul de ${tot} goluri este 100% verificat.`,
-    faq: (t, agg, m, d, lang) => [
-      ["Câte goluri a marcat Lionel Messi în total?", `<b>${n(t.goals)} goluri oficiale</b> în ${n(t.apps)} meciuri la ${esc(d.lastUpdated)}, medie de ${t.goalsPerGame} goluri/meci. Vezi <a href="/${lang}/goalsbyyear">goluri pe ani</a>.`],
-      ["Câte goluri a marcat Messi pentru Barcelona?", `<b>${n(agg.barcelona.goals)} goluri</b> în ${n(agg.barcelona.apps)} meciuri (2004-2021) — inclusiv recordul de 474 în La Liga.`],
-      ["Câte goluri are pentru PSG și Inter Miami?", `<b>${agg.psg.goals} pentru Paris Saint-Germain</b> și <b>${n(agg.miami.goals)} pentru Inter Miami</b>.`],
-      ["Câte goluri are Messi pentru Argentina?", `<b>${n(t.country.goals)} goluri</b> în ${n(t.country.apps)} meciuri internaționale din 2005.`],
-      ["Care a fost cel mai bun an al lui Messi?", `<b>2012, cu 91 de goluri</b> — record mondial absolut. Vezi <a href="/${lang}/goalsbyyear">toți anii</a>.`],
-      ["Câte trofee a câștigat Messi?", `<b>47 de titluri de echipă</b> (35 cu Barcelona, 3 cu PSG, 4 cu Inter Miami, 5 cu Argentina). Vezi <a href="/${lang}/achievements">palmaresul</a>.`]
-    ]
-  },
-  uz: {
-    locale: "uz-UZ",
-    shirt10: "10-raqamli futbolka",
-    head: (t, p, d) => `Barselona, PSJ, Inter Mayami va Argentina terma jamoasi safida <b>${n(t.apps)} ta rasmiy o'yinda</b> <b>${n(t.goals)} ta gol</b> (${esc(d.lastUpdated)} holatiga). Jahon chempioni va 8 karra “Oltin to'p” sohibi.`,
-    meta: (p, dob) => `${esc(p.name)}, ${dob} da ${esc(p.birthplace)} shahrida tug'ilgan. Yoshi ${p.age} da, hujumchi, ayni paytda ${esc(p.current.join(" va "))} sharafini himoya qilmoqda.`,
-    roleLabel: "Amplua",
-    teamsLabel: "Jamoalar",
-    nowLabel: "Hozirda",
-    kpiCareer: "Karyeradagi gollar",
-    kpiCareerNote: (gpg, seasons) => `${seasons} klub mavsumida har o'yinda ${gpg} tadan gol.`,
-    kpiApps: "Rasmiy o'yinlar",
-    kpiAppsNote: (clubs, country) => `${clubs} ta klub, ${country} ta Argentina.`,
-    kpiArg: "Argentina safida gollar",
-    kpiArgNote: (gpg, caps) => `${caps} ta o'yinda har o'yinga ${gpg} ta gol.`,
-    kpiTrophies: "Jamoaviy sovrinlar",
-    kpiTrophiesNote: (lang) => `Rekord darajadagi ${LIVE.trophies} ta titul va 8 ta “Oltin to'p”. <a href="/${lang}/achievements">To'liq ro'yxat</a>.`,
-    kpiRoad: "1 000 ta gol sari",
-    kpiRoadNote: (togo, projYear, pace) => `Yana ${togo} ta gol qoldi. Hozirgi sur'atda (~yiliga ${pace.toFixed(0)} ta gol), 1 000-golga ${projYear}-yil atrofida erishiladi.`,
-    copyStatsBtn: "Statistikani nusxalash",
-    copyText: (goals, apps, clubGoals, argGoals, updated) => `Messi: ${apps} ta rasmiy o'yinda ${goals} ta gol (${clubGoals} klub, ${argGoals} Argentina), ${LIVE.trophies} ta sovrin, 8 ta “Oltin to'p” — ${updated} holatiga.`,
-    copyMsg: "Buferga nusxalandi!",
-    clubCaption: (updated, lang) => `Lionel Messining barcha jamoalardagi o'yin va gollari (${updated} holatiga). <a href="/${lang}/goalsbyseason">Mavsumlar bo'yicha</a> to'liq taqsimot.`,
-    thTeam: "Jamoa va yillar",
-    thApps: "O'yinlar",
-    thGoals: "Gollar",
-    thGpg: "Gol / O'yin",
-    thTotal: "Karyera jami",
-    yearSub: "Istalgan yilni tanlang va 2004-yildagi debyutidan to bugungacha bo'lgan gollar o'sishini kuzating.",
-    yearTitle: "Messining taqvim yillari bo'yicha statistikasi",
-    yearLabel: "Yil",
-    yearFigcap: (start, cur, prov, lang) => `${start}-yildan ${cur}-yilgacha bo'lgan gollar — 2012-yilda rekord 91 ta gol. <a href="/${lang}/goalsbyyear">To'liq jadvalni ochish</a>.`,
-    tileGoals: (year, prov) => `${year}-yildagi gollar`,
-    tileTotal: (year) => `${year}-yildan keyingi umumiy gollar`,
-    tileAge: (year) => `${year}-yildagi yoshi`,
-    records: (best, post30, pct) => [
-      [`91`, `<b>2012-yilda 91 ta gol</b>, futbol tarixida bir taqvim yilida urilgan gollar bo'yicha mutlaq jahon rekordi.`],
-      [`8`, `<b>“Oltin to'p”</b> (2009–12, 2015, 2019, 2021, 2023) — futbol tarixidagi mutlaq rekord.`],
-      [`474`, `<b>La Ligada 474 ta gol</b>, Ispaniya chempionati va Yevropaning top-ligalari tarixidagi rekord.`],
-      [`129`, `<b>Chempionlar Ligasida 129 ta gol</b> — 120 ta Barselona va 9 ta PSJ safida, tarixdagi 2-natija.`],
-      [post30, `<b>30 yoshdan keyin urilgan gollar</b> — butun faoliyatidagi gollarning taxminan ${pct}% qismi.`],
-      [`57`, `<b>Het-trik yoki undan ko'p</b> klub va terma jamoa safidagi o'yinlarda.`],
-      [`46`, `<b>Jamoaviy sovrinlar</b> — futbol tarixidagi eng ko'p sovrin yutgan futbolchi, 2022-yilgi Jahon kubogi bilan bezatilgan.`]
-    ],
-    silverCaption: () => `Messining barcha ${LIVE.trophies} ta rasmiy jamoaviy titullari va eng yuksak shaxsiy sovrinlari.`,
-    silverThTrophy: "Sovrin",
-    silverThTimes: "Soni",
-    silverThNote: "Tafsilotlar",
-    silverRows: [
-      ["Barselona bilan sovrinlar", "35", "2005 - 2021, shu jumladan 4 ta ECHL va 10 ta La Liga"],
-      ["Argentina bilan sovrinlar", "5", "Jahon chempionati 2022, Amerika kubogi 2021 va 2024, Finalissima 2022, Olimpiada oltini 2008"],
-      ["PSJ bilan sovrinlar", "3", "Liga 1 2022 va 2023, Fransiya Superkubogi 2022"],
-      ["Inter Mayami bilan sovrinlar", "4", "Leagues Cup 2023, Supporters' Shield 2024, MLS kubogi 2025, Campeones kubogi 2026"],
-      ["“Oltin to'p”", "8", "Mutlaq jahon rekordi — 2009–12, 2015, 2019, 2021, 2023"]
-    ],
-    splitFk: "Jarima to'pidan gollar",
-    splitFkNote: "Klub va terma jamoa safida jarimadan kiritilgan ajoyib gollar.",
-    splitPen: "Penaltidan gollar",
-    splitPenNote: "Karyerasidagi taxminan har sakkizta goldan bittasi.",
-    splitHt: "Het-trik yoki undan ko'p",
-    splitHtNote: "Bitta o'yinda 3 ta yoki undan ko'p gol urilgan bahslar.",
-    splitCaveat: (tot) => `Jarima va penaltilar bo'yicha ma'lumotlar rasmiy protokollar asosida jamlangan. Jami ${tot} ta gol soni to'liq tasdiqlangan.`,
-    faq: (t, agg, m, d, lang) => [
-      ["Lionel Messi jami nechta gol urgan?", `<b>${n(t.goals)} ta rasmiy gol</b> ${n(t.apps)} ta o'yinda (${esc(d.lastUpdated)} holatiga), har o'yinga o'rtacha ${t.goalsPerGame} ta gol. <a href="/${lang}/goalsbyyear">Yillar bo'yicha gollar</a>.`],
-      ["Messi Barselona safida nechta gol urgan?", `<b>${n(agg.barcelona.goals)} ta gol</b> ${n(agg.barcelona.apps)} ta o'yinda (2004-2021) — La Ligada rekord 474 ta gol bilan.`],
-      ["PSJ va Inter Mayamida nechta gol urdi?", `<b>PSJ uchun ${agg.psg.goals} ta</b> va <b>Inter Mayami uchun ${n(agg.miami.goals)} ta gol</b>.`],
-      ["Messi Argentina terma jamoasida nechta gol urgan?", `<b>${n(t.country.goals)} ta gol</b> ${n(t.country.apps)} ta o'yinda (2005-yildan buyon).`],
-      ["Messining eng sermahsul yili qaysi bo'lgan?", `<b>2012-yil, 91 ta gol</b> — jahon futboli tarixidagi mutlaq rekord. <a href="/${lang}/goalsbyyear">Barcha yillar</a>.`],
-      ["Messi faoliyatida nechta sovrin yutgan?", `<b>47 ta jamoaviy titul</b> (35 ta Barselona, 3 ta PSJ, 4 ta Mayami, 5 ta Argentina). <a href="/${lang}/achievements">Barcha sovrinlar</a>.`]
-    ]
   }
 };
 
@@ -3526,12 +2803,7 @@ function renderHome(d) {
         en: { goals: "Career Record", kpis: "KPIs & 1k Road", clubs: "Club Breakdown", faq: "FAQ" },
         es: { goals: "Registro Oficial", kpis: "Métricas Clave", clubs: "Por Clubes", faq: "Preguntas" },
         pt: { goals: "Registro Oficial", kpis: "Métricas", clubs: "Por Clubes", faq: "Perguntas" },
-        fr: { goals: "Bilan Officiel", kpis: "Chiffres Clés", clubs: "Par Clubs", faq: "FAQ" },
-        ar: { goals: "السجل الرسمي", kpis: "المؤشرات الكبرى", clubs: "حسب النادي", faq: "الأسئلة الشائعة" },
-        bn: { goals: "অফিশিয়াল রেকর্ড", kpis: "মূল পরিসংখ্যান", clubs: "ক্লাব অনুযায়ী", faq: "প্রশ্নোত্তর" },
-        hi: { goals: "आधिकारिक रिकॉर्ड", kpis: "मुख्य आंकड़े", clubs: "क्लब अनुसार", faq: "सवाल-जवाब" },
-        ro: { goals: "Bilanț Oficial", kpis: "Indicatori", clubs: "Pe Cluburi", faq: "Întrebări" },
-        uz: { goals: "Rasmiy Rekord", kpis: "Asosiy Ko'rsatkich", clubs: "Klublar", faq: "Savol-Javob" }
+        fr: { goals: "Bilan Officiel", kpis: "Chiffres Clés", clubs: "Par Clubs", faq: "FAQ" }
       };
       const qj = quickJumpI18n[lang] || quickJumpI18n.en;
       const qjBar = document.createElement("nav");
@@ -3753,14 +3025,12 @@ function renderHome(d) {
     nums.forEach((span, i) => { if (i < want.length) span.textContent = String(want[i]); });
     const pinLabel = r1000.querySelector(".pin-label");
     if (pinLabel) pinLabel.textContent = swapInt(pinLabel.textContent, goals);
-    const BN_D = "০১২৩৪৫৬৭৮৯";
     r1000.querySelectorAll(".r1000-pace b").forEach((b) => {
       const txt = b.textContent;
       if (/\d{4}\/\d{4}/.test(txt)) { b.textContent = txt.replace(/\d{4}\/\d{4}/, estStr); return; }
       const m = txt.match(/\d+([.,])\d+/);
       if (m) {
-        let v = pace.toFixed(2).replace(".", m[1]);
-        if (/[০-৯]/.test(txt)) v = v.replace(/[0-9]/g, (dd) => BN_D[+dd]);
+        const v = pace.toFixed(2).replace(".", m[1]);
         b.innerHTML = b.innerHTML.replace(/\d+([.,])\d+/, v);
       }
     });
@@ -3888,91 +3158,6 @@ async function renderOnThisDay() {
       noVideo: "📺 Le clip vidéo de ce but est en cours de validation.",
       searchYt: "🔍 Chercher le but sur YouTube &rarr;",
       goalTab: (n, min) => `But ${n}${min ? ` (${min}')` : ""}`
-    },
-    ar: {
-      error: `تعذر تحميل سجل مباريات اليوم. <a href="/ar/birthday">مستكشف أعياد الميلاد &rarr;</a>`,
-      empty: `لا توجد مباريات مسجلة في مثل هذا اليوم. <a href="/ar/birthday">استكشف كافة أيام السنة &rarr;</a>`,
-      closestBadge: (d) => `📅 أقرب يوم شهد أهدافاً • ${d} (UTC)`,
-      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>في مثل هذا اليوم • ${d} (UTC)</b>`,
-      headlineClosest: (d, g, nowD, nowM) => `لم تُلعب مباريات رسمية في هذا اليوم (${nowD} ${nowM} UTC). أقرب يوم تهديفي: <b>${g} أهداف</b> يوم ${d}!`,
-      headlineLive: (g, m) => `في مثل هذا اليوم تاريخياً، سجل ليونيل ميسي <b>${g} أهداف</b> في <b>${m} مباراة</b>!`,
-      btnBday: "🎂 هل سجل ميسي في يوم ميلادك؟",
-      btnExplore: "استكشف جميع أيام السنة الـ 366 &rarr;",
-      lblMinute: "الدقيقة",
-      lblShotType: "نوع الهدف",
-      lblAssist: "صناعة الهدف",
-      lblXg: "الأهداف المتوقعة (xG)",
-      noVideo: "📺 يجري التحقق من مقطع الفيديو لهذا الهدف.",
-      searchYt: "🔍 ابحث عن الهدف على YouTube &rarr;",
-      goalTab: (n, min) => `الهدف ${n}${min ? ` (${min}')` : ""}`
-    },
-    bn: {
-      error: `আজকের ম্যাচের রেকর্ড লোড করা যায়নি। <a href="/bn/birthday">জন্মদিনের গোল এক্সপ্লোরার &rarr;</a>`,
-      empty: `আজকের তারিখে কোনো ম্যাচের তথ্য নেই। <a href="/bn/birthday">৩৬৬ দিনের সব গোল দেখুন &rarr;</a>`,
-      closestBadge: (d) => `📅 নিকটতম গোলের দিন • ${d} (UTC)`,
-      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>ইতিহাসে আজকের দিনে • ${d} (UTC)</b>`,
-      headlineClosest: (d, g, nowD, nowM) => `আজকের দিনে কোনো ম্যাচ নেই (${nowD} ${nowM} UTC)। নিকটতম গোলের দিন: ${d}-এ <b>${g}টি গোল</b>!`,
-      headlineLive: (g, m) => `ইতিহাসে আজকের দিনে লিওনেল মেসি <b>${m} ম্যাচে</b> <b>${g}টি গোল</b> করেছেন!`,
-      btnBday: "🎂 মেসি কি আপনার জন্মদিনে গোল করেছিলেন?",
-      btnExplore: "৩৬৬ দিনের পূর্ণ বিবরণ দেখুন &rarr;",
-      lblMinute: "মিনিট",
-      lblShotType: "গোলের ধরন",
-      lblAssist: "অ্যাসিস্ট",
-      lblXg: "এক্সপেক্টেড গোল (xG)",
-      noVideo: "📺 এই গোলের ভিডিও ক্লিপ যাচাই করা হচ্ছে।",
-      searchYt: "🔍 YouTube-এ ভিডিও খুঁজুন &rarr;",
-      goalTab: (n, min) => `গোল ${n}${min ? ` (${min}')` : ""}`
-    },
-    hi: {
-      error: `आज का मैच इतिहास लोड नहीं हो सका। <a href="/hi/birthday">बर्थडे एक्सप्लोरर &rarr;</a>`,
-      empty: `आज की तारीख में कोई मैच रिकॉर्ड नहीं है। <a href="/hi/birthday">सभी 366 दिन देखें &rarr;</a>`,
-      closestBadge: (d) => `📅 निकटतम गोल का दिन • ${d} (UTC)`,
-      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>इतिहास में आज के दिन • ${d} (UTC)</b>`,
-      headlineClosest: (d, g, nowD, nowM) => `आज कोई आधिकारिक मैच निर्धारित नहीं था (${nowD} ${nowM} UTC)। निकटतम गोल दिवस: ${d} को <b>${g} गोल</b>!`,
-      headlineLive: (g, m) => `इतिहास में आज के दिन, लियोनेल मेसी ने <b>${m} मैचों</b> में <b>${g} गोल</b> किए थे!`,
-      btnBday: "🎂 क्या मेसी ने आपके जन्मदिन पर गोल किया था?",
-      btnExplore: "सभी 366 दिनों का अन्वेषण करें &rarr;",
-      lblMinute: "मिनट",
-      lblShotType: "गोल का प्रकार",
-      lblAssist: "असिस्ट",
-      lblXg: "अपेक्षित गोल (xG)",
-      noVideo: "📺 इस गोल का वीडियो सत्यापित किया जा रहा है।",
-      searchYt: "🔍 YouTube पर वीडियो खोजें &rarr;",
-      goalTab: (n, min) => `गोल ${n}${min ? ` (${min}')` : ""}`
-    },
-    ro: {
-      error: `Nu s-a putut încărca istoricul zilei. <a href="/ro/birthday">Explorator de zile &rarr;</a>`,
-      empty: `Nu există meciuri înregistrate pentru această dată. <a href="/ro/birthday">Explorează toate cele 366 de zile &rarr;</a>`,
-      closestBadge: (d) => `📅 CEA MAI APROPIATĂ ZI CU GOLURI • ${d} (UTC)`,
-      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>ÎN ACEASTĂ ZI ÎN ISTORIE • ${d} (UTC)</b>`,
-      headlineClosest: (d, g, nowD, nowM) => `Niciun meci de seniori programat azi (${nowD} ${nowM} UTC). Ziua cea mai apropiată: <b>${g} goluri</b> pe ${d}!`,
-      headlineLive: (g, m) => `În această zi în istorie, Lionel Messi a marcat <b>${g} goluri</b> în <b>${m} meci${m > 1 ? "uri" : ""}</b>!`,
-      btnBday: "🎂 A marcat Messi de ziua ta de naștere?",
-      btnExplore: "Explorează toate cele 366 de zile &rarr;",
-      lblMinute: "Minut",
-      lblShotType: "Tipul golului",
-      lblAssist: "Pază de gol",
-      lblXg: "Gol așteptat (xG)",
-      noVideo: "📺 Clipul video pentru acest gol este în curs de verificare.",
-      searchYt: "🔍 Caută golul pe YouTube &rarr;",
-      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`
-    },
-    uz: {
-      error: `Bugungi o'yinlar tarixini yuklab bo'lmadi. <a href="/uz/birthday">Tug'ilgan kunlar &rarr;</a>`,
-      empty: `Bugungi sana uchun o'yinlar qayd etilmagan. <a href="/uz/birthday">366 kunni o'rganish &rarr;</a>`,
-      closestBadge: (d) => `📅 GOLLAR URILGAN ENG YAQIN KUN • ${d} (UTC)`,
-      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>TARIXDA BUGUNGI KUN • ${d} (UTC)</b>`,
-      headlineClosest: (d, g, nowD, nowM) => `Bugungi kunda rasmiy o'yin o'tkazilmagan (${nowD} ${nowM} UTC). Eng yaqin golli kun: ${d} da <b>${g} ta gol</b>!`,
-      headlineLive: (g, m) => `Tarixda aynan bugungi kunda Lionel Messi <b>${m} ta o'yinda</b> <b>${g} ta gol</b> urgan!`,
-      btnBday: "🎂 Messi tug'ilgan kuningizda gol urganmi?",
-      btnExplore: "Barcha 366 kunni o'rganish &rarr;",
-      lblMinute: "Daqiqa",
-      lblShotType: "Gol turi",
-      lblAssist: "Golli uzatma",
-      lblXg: "Kutilgan gol (xG)",
-      noVideo: "📺 Ushbu golning video lavhasi tekshirilmoqda.",
-      searchYt: "🔍 Videoni YouTubedan qidirish &rarr;",
-      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`
     }
   };
 
@@ -4241,96 +3426,6 @@ const BY_YEAR_I18N = {
     inProgNote: "* Saison 2026 en cours — mise à jour après chaque match.",
     filterPlaceholder: "Filtrer les années — ex. 2012",
     bestYearHtml: (best) => `<p><b>${best.year} est la plus grande année de l'histoire du football : ${best.goals} buts</b> — 79 pour Barcelone et 12 pour l'Argentine — brisant le record de Gerd Müller (85). <a href="/fr/dashboard">Voir la répartition par compétition</a>.</p>`
-  },
-  ar: {
-    head: (ys, best, t) => `من هدفه الأول في ${ys[0].year} إلى <b>${best.goals} هدفاً في ${best.year}</b> — كل سنة ميلادية في مسيرة الـ ${n(t.goals)} هدفاً.`,
-    cap: (best, t) => `الأعمدة: أهداف السنة (الذروة ${best.goals} في ${best.year}). الخط: الصعود التراكمي إلى ${n(t.goals)}.`,
-    chartLabel: (best) => `أهداف ميسي لكل سنة ميلادية مع المجموع التراكمي`,
-    kpiCareer: "أهداف المسيرة",
-    kpiBest: "أفضل سنة",
-    kpiBestSub: "رقم قياسي عالمي في سنة ميلادية واحدة.",
-    kpiCurrSub: "الموسم مستمر حالياً.",
-    kpiYears: "سنوات التهديف",
-    kpiYearsSub: (ys, last) => `كل سنة من ${ys[0].year} إلى ${last.year}.`,
-    decades: "أهداف سنوات",
-    tableSub: "الأحدث أولاً. عام 2026 مستمر حالياً. انقر للترتيب أو اكتب للتصفية.",
-    caption: "الأهداف والمجموع التراكمي والعمر لكل سنة ميلادية منذ عام 2004.",
-    thYear: "السنة", thGoals: "الأهداف", thTotal: "المجموع", thAge: "العمر",
-    inProgNote: "* موسم 2026 مستمر — يتم التحديث بعد كل مباراة.",
-    filterPlaceholder: "تصفية السنوات — مثلاً 2012",
-    bestYearHtml: (best) => `<p><b>${best.year} هو أعظم عام تهديفي في تاريخ كرة القدم: ${best.goals} هدفاً</b> — 79 مع برشلونة و12 مع الأرجنتين. <a href="/ar/dashboard">شاهد تفاصيل هذه الأهداف في لوحة البيانات</a>.</p>`
-  },
-  bn: {
-    head: (ys, best, t) => `${ys[0].year} সালে প্রথম গোল থেকে <b>${best.year} সালে ${best.goals} গোল</b> — ${n(t.goals)}টি গোলের ক্যারিয়ারের প্রতি বছরের পরিসংখ্যান।`,
-    cap: (best, t) => `বার: ওই বছরের গোল (সর্বোচ্চ ${best.goals}, ${best.year}-এ)। লাইন: ${n(t.goals)} পর্যন্ত ক্রমপুঞ্জিত গোল।`,
-    chartLabel: (best) => `বছরভিত্তিক মেসি গোল`,
-    kpiCareer: "ক্যারিয়ার মোট",
-    kpiBest: "সেরা বছর",
-    kpiBestSub: "এক ক্যালেন্ডার বছরে বিশ্বরেকর্ড।",
-    kpiCurrSub: "মৌসুম চলমান।",
-    kpiYears: "গোল করা বছর",
-    kpiYearsSub: (ys, last) => `${ys[0].year} থেকে ${last.year} পর্যন্ত প্রতিটি বছর।`,
-    decades: "দশকের গোল",
-    tableSub: "সর্বশেষ বছর প্রথমে। ২০২৬ মৌসুম এখনও চলমান। বাছাই করতে কলামে ক্লিক করুন।",
-    caption: "২০০৪ সালের অভিষেক থেকে প্রতি ক্যালেন্ডার বছরের গোল ও বয়স।",
-    thYear: "বছর", thGoals: "গোল", thTotal: "মোট গোল", thAge: "বয়স",
-    inProgNote: "* ২০২৬ মৌসুম চলমান — প্রতি ম্যাচের পর আপডেট হয়।",
-    filterPlaceholder: "বছর ফিল্টার করুন — যেমন ২০১২",
-    bestYearHtml: (best) => `<p><b>${best.year} ফুটবল ইতিহাসের সেরা গোলবর্ষ: ${best.goals} গোল</b> — বার্সেলোনার হয়ে ৭৯টি এবং আর্জেন্টিনার হয়ে ১২টি গোল। <a href="/bn/dashboard">ড্যাশবোর্ডে আরও দেখুন</a>।</p>`
-  },
-  hi: {
-    head: (ys, best, t) => `${ys[0].year} में पहले गोल से लेकर <b>${best.year} में ${best.goals} गोल</b> तक — ${n(t.goals)} आधिकारिक गोलों का साल दर साल सफर।`,
-    cap: (best, t) => `बार्स: उस साल के गोल (पीक ${best.goals}, ${best.year})। रेखा: ${n(t.goals)} तक की बढ़त।`,
-    chartLabel: (best) => `साल दर साल मेसी के गोल`,
-    kpiCareer: "करियर कुल गोल",
-    kpiBest: "सर्वश्रेष्ठ साल",
-    kpiBestSub: "एक कैलेंडर वर्ष में विश्व रिकॉर्ड।",
-    kpiCurrSub: "सीज़न जारी है।",
-    kpiYears: "गोल करने वाले साल",
-    kpiYearsSub: (ys, last) => `${ys[0].year} से ${last.year} तक हर साल।`,
-    decades: "दशक के गोल",
-    tableSub: "सबसे नया साल पहले। 2026 सीज़न प्रगति पर है। छांटने के लिए कॉलम पर क्लिक करें।",
-    caption: "2004 के पदार्पण से हर साल के गोल, करियर कुल और उम्र।",
-    thYear: "साल", thGoals: "गोल", thTotal: "करियर कुल", thAge: "उम्र",
-    inProgNote: "* 2026 सीज़न जारी है — प्रत्येक मैच के बाद अपडेट।",
-    filterPlaceholder: "साल फ़िल्टर करें — उदा. 2012",
-    bestYearHtml: (best) => `<p><b>${best.year} फुटबॉल इतिहास का सबसे महान वर्ष रहा: ${best.goals} गोल</b> — बार्सिलोना के लिए 79 और अर्जेंटीना के लिए 12 गोल। <a href="/hi/dashboard">डैशबोर्ड में आंकड़े देखें</a>।</p>`
-  },
-  ro: {
-    head: (ys, best, t) => `De la primul său gol oficial în ${ys[0].year} până la <b>${best.goals} goluri în ${best.year}</b> — fiecare an dintr-o carieră de ${n(t.goals)} goluri.`,
-    cap: (best, t) => `Bare: goluri în acel an (maxim ${best.goals} în ${best.year}). Linie: urcare până la ${n(t.goals)}.`,
-    chartLabel: (best) => `Goluri pe an calendaristic`,
-    kpiCareer: "Goluri în carieră",
-    kpiBest: "Cel mai bun an",
-    kpiBestSub: "Record mondial într-un an calendaristic.",
-    kpiCurrSub: "Sezon în desfășurare.",
-    kpiYears: "Ani cu gol",
-    kpiYearsSub: (ys, last) => `Fiecare an de la ${ys[0].year} până la ${last.year}.`,
-    decades: "Goluri în anii",
-    tableSub: "Cele mai recente primele. 2026 este în desfășurare. Clic pe o coloană pentru sortare.",
-    caption: "Goluri, total în carieră și vârstă pentru fiecare an din 2004 încoace.",
-    thYear: "An", thGoals: "Goluri", thTotal: "Total carieră", thAge: "Vârstă",
-    inProgNote: "* Sezonul 2026 în curs — se actualizează după fiecare meci.",
-    filterPlaceholder: "Filtrează ani — ex. 2012",
-    bestYearHtml: (best) => `<p><b>${best.year} este cel mai prolific an din istoria fotbalului: ${best.goals} goluri</b> — 79 pentru Barcelona și 12 pentru Argentina. <a href="/ro/dashboard">Vezi repartizarea în panou</a>.</p>`
-  },
-  uz: {
-    head: (ys, best, t) => `${ys[0].year} yildagi birinchi rasmiy goldan to <b>${best.year} yildagi ${best.goals} ta golgacha</b> — ${n(t.goals)} ta gollik faoliyat.`,
-    cap: (best, t) => `Ustunlar: o'sha yildagi gollar (cho'qqi ${best.year} yilda ${best.goals}). Chiziq: ${n(t.goals)} tagacha o'sish.`,
-    chartLabel: (best) => `Messining yillik gollari`,
-    kpiCareer: "Faoliyatdagi gollar",
-    kpiBest: "Eng yaxshi yil",
-    kpiBestSub: "Bir kalendar yilidagi jahon rekordi.",
-    kpiCurrSub: "Mavsum davom etmoqda.",
-    kpiYears: "Gol urilgan yillar",
-    kpiYearsSub: (ys, last) => `${ys[0].year} yildan ${last.year} yilgacha har bir yil.`,
-    decades: "O'n yillikdagi gollar",
-    tableSub: "Eng so'nggilari oldinda. 2026 yil davom etmoqda. Saralash uchun ustunga bosing.",
-    caption: "2004 yildagi debyutidan buyon har bir yildagi gollar va yosh.",
-    thYear: "Yil", thGoals: "Gollar", thTotal: "Jami", thAge: "Yosh",
-    inProgNote: "* 2026 yilgi mavsum davom etmoqda — har bir o'yindan so'ng yangilanadi.",
-    filterPlaceholder: "Yillarni saralash — masalan: 2012",
-    bestYearHtml: (best) => `<p><b>${best.year} futbol tarixidagi eng ajoyib yil bo'lgan: ${best.goals} ta gol</b> — Barselona uchun 79 ta va Argentina uchun 12 ta gol. <a href="/uz/dashboard">Paneldan to'liq ko'ring</a>.</p>`
   }
 };
 
@@ -4468,71 +3563,6 @@ const BY_SEASON_I18N = {
     thYear: "Année", thNote: "Détails", totalArgLabel: "Total Argentine",
     filterCountryPlaceholder: "Filtrer l'Argentine — ex. 2022",
     bestSeasonHtml: (best) => `<p><b>${best.season} — ${best.goals} buts en ${best.apps} matchs pour Barcelone</b> — est la saison en club la plus prolifique de l'histoire du football : 50 en Liga (record), 14 en Ligue des Champions, 3 en Coupe du Roi et 6 en supercoupes. <a href="/fr/goalsbyyear">Voir les mêmes buts par année</a>.</p>`
-  },
-  ar: {
-    head: (best) => `جميع مواسم الأندية من 2004/05 إلى 2026 — <b>الرقم القياسي: ${best.goals} هدفاً في ${best.season}</b> — مع تفصيل الدوري، الكؤوس والبطولات القارية.`,
-    clubSub: "المباريات / الأهداف في كل بطولة. موسم 2026 مستمر. انقر للترتيب أو اكتب للتصفية.",
-    caption: (len) => `جميع مواسم الأندية الـ ${len}: برشلونة، باريس وإنتر ميامي.`,
-    thSeason: "الموسم", thClub: "النادي", thApps: "المباريات", thGoals: "الأهداف", thLeague: "الدوري", thCup: "الكأس", thCont: "قاري", thOther: "أخرى",
-    totalLabel: "إجمالي الأندية", bestBadge: "أفضل موسم للنادي",
-    filterClubPlaceholder: "تصفية المواسم — مثلاً باريس، 2012",
-    countrySub: "المباريات الرسمية والوديات، الأحدث أولاً.",
-    countryCaption: "أهداف منتخب الأرجنتين حسب السنوات الميلادية من 2005 إلى 2026.",
-    thYear: "السنة", thNote: "تفاصيل", totalArgLabel: "إجمالي الأرجنتين",
-    filterCountryPlaceholder: "تصفية سنوات الأرجنتين — مثلاً 2022",
-    bestSeasonHtml: (best) => `<p><b>${best.season} — ${best.goals} هدفاً في ${best.apps} مباراة مع برشلونة</b> — هو أعظم موسم لنادٍ في تاريخ كرة القدم: 50 في الليغا، 14 في دوري الأبطال، 3 في كأس الملك و6 في السوبر. <a href="/ar/goalsbyyear">شاهد الأهداف بالسنة الميلادية</a>.</p>`
-  },
-  bn: {
-    head: (best) => `২০০৪/০৫ থেকে ২০২৬ পর্যন্ত প্রতিটি ক্লাব মৌসুম — <b>রেকর্ড: ${best.season} মৌসুমে ${best.goals} গোল</b> — লীগ, কাপ ও মহাদেশীয় টুর্নামেন্ট সহ।`,
-    clubSub: "ম্যাচ ও গোল। ২০২৬ মৌসুম চলমান। সাজাতে কলামে ক্লিক করুন।",
-    caption: (len) => `ক্লাবের ${len}টি মৌসুম: বার্সেলোনা, পিএসজি ও ইন্টার মায়ামি।`,
-    thSeason: "মৌসুম", thClub: "ক্লাব", thApps: "ম্যাচ", thGoals: "গোল", thLeague: "লীগ", thCup: "কাপ", thCont: "আন্তর্জাতিক", thOther: "অন্যান্য",
-    totalLabel: "ক্লাব মোট", bestBadge: "সেরা ক্লাব মৌসুম",
-    filterClubPlaceholder: "মৌসুম ফিল্টার করুন — যেমন পিএসজি, ২০১২",
-    countrySub: "অফিসিয়াল ম্যাচ ও প্রীতি ম্যাচ, সর্বশেষটি আগে।",
-    countryCaption: "ক্যালেন্ডার বছর অনুযায়ী আর্জেন্টিনা দলের গোল (২০০৫–২০২৬)।",
-    thYear: "বছর", thNote: "বিবরণ", totalArgLabel: "আর্জেন্টিনা মোট",
-    filterCountryPlaceholder: "আর্জেন্টিনার বছর ফিল্টার — যেমন ২০২২",
-    bestSeasonHtml: (best) => `<p><b>${best.season} — বার্সেলোনার হয়ে ${best.apps} ম্যাচে ${best.goals} গোল</b> — ফুটবল ইতিহাসের সবচেয়ে বিধ্বংসী ক্লাব মৌসুম। লা লিগায় রেকর্ড ৫০ গোল এবং চ্যাম্পিয়ন্স লীগে ১৪ গোল। <a href="/bn/goalsbyyear">বছরভিত্তিক গোল দেখুন</a>।</p>`
-  },
-  hi: {
-    head: (best) => `2004/05 से 2026 तक सभी क्लब सीज़न — <b>रिकॉर्ड: ${best.season} में ${best.goals} गोल</b> — लीग, कप और महाद्वीपीय प्रतियोगिताओं के साथ।`,
-    clubSub: "मैच और गोल। 2026 सीज़न जारी है। क्रमबद्ध करने के लिए कॉलम पर क्लिक करें।",
-    caption: (len) => `सभी ${len} क्लब सीज़न: बार्सिलोना, पीएसजी और इंटर मियामी।`,
-    thSeason: "सीज़न", thClub: "क्लब", thApps: "मैच", thGoals: "गोल", thLeague: "लीग", thCup: "कप", thCont: "कॉन्टिनेंटल", thOther: "अन्य",
-    totalLabel: "क्लब कुल", bestBadge: "सर्वश्रेष्ठ क्लब सीज़न",
-    filterClubPlaceholder: "सीज़न फ़िल्टर करें — उदा. PSG, 2012",
-    countrySub: "आधिकारिक और दोस्ताना मैच, सबसे नया पहले।",
-    countryCaption: "अर्जेंटीना राष्ट्रीय टीम के लिए कैलेंडर वर्ष के अनुसार गोल (2005–2026)।",
-    thYear: "साल", thNote: "विवरण", totalArgLabel: "अर्जेंटीना कुल",
-    filterCountryPlaceholder: "अर्जेंटीना साल फ़िल्टर — उदा. 2022",
-    bestSeasonHtml: (best) => `<p><b>${best.season} — बार्सिलोना के लिए ${best.apps} मैचों में ${best.goals} गोल</b> — फुटबॉल इतिहास का सबसे शानदार क्लब सीज़न: ला लीगा में 50 (रिकॉर्ड), चैंपियंस लीग में 14 गोल। <a href="/hi/goalsbyyear">साल दर साल गोल देखें</a>।</p>`
-  },
-  ro: {
-    head: (best) => `Toate sezoanele de club din 2004/05 până în 2026 — <b>record: ${best.goals} goluri în ${best.season}</b> — campionat, cupă și meciuri europene.`,
-    clubSub: "Meciuri / goluri în fiecare format. 2026 este în desfășurare. Clic pe o coloană pentru sortare.",
-    caption: (len) => `Toate cele ${len} sezoane de club: Barcelona, PSG și Inter Miami.`,
-    thSeason: "Sezon", thClub: "Club", thApps: "Meciuri", thGoals: "Goluri", thLeague: "Campionat", thCup: "Cupă", thCont: "Europe", thOther: "Altele",
-    totalLabel: "Total cluburi", bestBadge: "Cel mai bun sezon de club",
-    filterClubPlaceholder: "Filtrează sezoane — ex. PSG, 2012",
-    countrySub: "Meciuri oficiale și amicale, cele mai recente primele.",
-    countryCaption: "Goluri pentru naționala Argentinei pe ani calendaristici, 2005–2026.",
-    thYear: "An", thNote: "Detalii", totalArgLabel: "Total Argentina",
-    filterCountryPlaceholder: "Filtrează anii Argentinei — ex. 2022",
-    bestSeasonHtml: (best) => `<p><b>${best.season} — ${best.goals} goluri în ${best.apps} meciuri pentru Barcelona</b> — este cel mai prolific sezon de club din istorie: 50 în La Liga, 14 în Champions League. <a href="/ro/goalsbyyear">Vezi aceleași goluri pe ani</a>.</p>`
-  },
-  uz: {
-    head: (best) => `2004/05 yildan 2026 yilgacha bo'lgan barcha klub mavsumlari — <b>rekord: ${best.season} mavsumda ${best.goals} ta gol</b>.`,
-    clubSub: "Har bir formatdagi o'yinlar / gollar. 2026 yil davom etmoqda.",
-    caption: (len) => `Barcha ${len} ta klub mavsumi: Barselona, PSJ va Inter Mayami.`,
-    thSeason: "Mavsum", thClub: "Klub", thApps: "O'yinlar", thGoals: "Gollar", thLeague: "Liga", thCup: "Kubok", thCont: "Xalqaro", thOther: "Boshqa",
-    totalLabel: "Klublar jami", bestBadge: "Klubdagi eng yaxshi mavsum",
-    filterClubPlaceholder: "Mavsumlarni saralash — masalan: PSJ, 2012",
-    countrySub: "Rasmiy va o'rtoqlik uchrashuvlari, eng so'nggilari oldinda.",
-    countryCaption: "Argentina terma jamoasida kalendar yillari bo'yicha gollar (2005–2026).",
-    thYear: "Yil", thNote: "Tafsilotlar", totalArgLabel: "Argentina jami",
-    filterCountryPlaceholder: "Argentina yillarini saralash — masalan: 2022",
-    bestSeasonHtml: (best) => `<p><b>${best.season} — Barselona safida ${best.apps} ta o'yinda ${best.goals} ta gol</b> — futbol tarixidagi eng sermahsul mavsum: La Ligada 50 ta (rekord), Chempionlar Ligasida 14 ta gol. <a href="/uz/goalsbyyear">Yillar bo'yicha gollarni ko'ring</a>.</p>`
   }
 };
 
@@ -4765,226 +3795,6 @@ const DASH_I18N = {
       [`${LIVE.trophies}`, `<b>Titres collectifs officiels</b> — le joueur le plus titré de l'histoire.`]
     ],
     method: "Les buts en Ligue des Champions sont répartis à 120 pour Barcelone et 9 pour le PSG d'après les archives officielles."
-  },
-  ar: {
-    teamNames: { all: "جميع الفرق", barcelona: "برشلونة", psg: "باريس سان جيرمان", miami: "إنتر ميامي", argentina: "الأرجنتين" },
-    pills: [["all", "جميع الفرق"], ["barcelona", "برشلونة"], ["psg", "باريس سان جيرمان"], ["miami", "إنتر ميامي"], ["argentina", "الأرجنتين"]],
-    head: (name) => `جميع أهداف ليونيل ميسي الـ 930 مقسمة بأربع طرق — حسب البطولة، الموسم، طريقة التسجيل، وجزء الجسم — مصفاة حسب <b>${esc(name)}</b>. اضغط على أي فريق لتحديث المخططات.`,
-    filterNote: (name, goals, apps, T) => `عرض ${name}: ${n(goals)} هدفاً في ${n(apps)} مباراة` + (T === "barcelona" || T === "psg" ? " (توزيع دوري أبطال أوروبا: برشلونة 120، باريس 9 — مصادر الأندية الرسمية)." : "."),
-    kpis: { goals: "الأهداف", apps: "المباريات", gpg: "معدل الأهداف / مباراة", forTeam: (name) => `مع ${name}.` },
-    chartEmpty: "لا توجد صفوف لعامل التصفية هذا.",
-    figCap: (T, name) => T === "all" ? "السنوات الميلادية، من 2004 إلى 2026." : T === "argentina" ? "السنوات الميلادية مع الأرجنتين." : "المواسم مع الأندية لـ " + esc(name) + ".",
-    finishParts: { "Open play": "اللعب المفتوح", "Penalties": "ضربات جزاء", "Free kicks": "ركلات حرة" },
-    finishCenter: "أهداف مسيرته",
-    finishCaveat: "إجمالي المسيرة لجميع الفرق مجتمعة. إحصاء رسمي تم التحقق منه.",
-    finishCaveatFiltered: (d) => `لا يوجد تقسيم لطريقة التسجيل لكل فريق على حدة — راجع إجمالي المسيرة أدناه. من بين أهدافه الرسمية الـ ${n(d.totals.goals)}: ${d.byFinish.openPlay} من لعب مفتوح، ${d.byFinish.penalties} ركلة جزاء، و${d.byFinish.freeKicks} ركلة حرة.`,
-    bodyParts: { "Left foot": "القدم اليسرى", "Right foot": "القدم اليمنى", "Head": "الرأس", "Other": "أخرى (الصدر، إلخ)" },
-    bodyCenter: "بالقدم اليسرى",
-    bodyCaveat: "إجمالي المسيرة لجميع الفرق مجتمعة (إحصاء رسمي موثق).",
-    ageName: (r) => `العمر ${r.age} · ${r.year}`,
-    ageCaveat: (apeak) => `كل هدف احترافي حسب العمر الذي سجله فيه — الأندية والمنتخب معاً. الذروة: ${apeak.goals} هدفاً في عمر ${apeak.age} عاماً (${apeak.year}).`,
-    ageFilterNote: "الأعمار تجمع بين أهداف النادي والمنتخب، لذا يغطي هذا المخطط المسيرة بأكملها — أزل عامل التصفية لرؤيته.",
-    compCaption: (name) => `الأهداف حسب البطولة — ${esc(name)}.`,
-    thComp: "البطولة", thGoals: "الأهداف", thShare: "النسبة",
-    recAllTime: "الرقم القياسي التاريخي للبطولة",
-    finishCaption: "كيف سُجلت الأهداف وبأي جزء من الجسم — إجمالي المسيرة، جميع الفرق.",
-    thFinish: "طريقة التسجيل / جزء الجسم",
-    finishCaveatTable: "توزيع طرق التسجيل وأجزاء الجسم هو إحصاء رسمي تم التحقق منه.",
-    finishRows: (d) => [
-      ["لعب مفتوح", d.byFinish.openPlay],
-      ["ضربات جزاء", d.byFinish.penalties],
-      ["ركلات حرة مباشرة", d.byFinish.freeKicks],
-      ["القدم اليسرى", d.byBodyPart.left],
-      ["القدم اليمنى", d.byBodyPart.right],
-      ["بالرأس", d.byBodyPart.head],
-      ["أخرى (الصدر، إلخ)", d.byBodyPart.other]
-    ],
-    teamCardSub: { goals: "أهداف", apps: "مباريات", gpg: "لكل مباراة", of: "من" },
-    records: (comp, d) => [
-      ["91", `<b>هدفاً في عام 2012</b> — الرقم القياسي العالمي الرسمي في سنة ميلادية واحدة.`],
-      [n(comp("La Liga")), `<b>أهداف الدوري الإسباني</b> — الهداف التاريخي المطلق للبطولة، كلها مع برشلونة.`],
-      [n(comp("UEFA Champions League")), `<b>أهداف دوري أبطال أوروبا</b> — 120 لبرشلونة، 9 لباريس سان جيرمان.`],
-      ["8", `<b>كرات ذهبية</b> — الرقم القياسي التاريخي في كرة القدم (2009–12, 2015, 2019, 2021, 2023).`],
-      [n(d.hatTricks), `<b>هاتريك أو أكثر</b> مع الأندية والمنتخب الأول.`],
-      [`${LIVE.trophies}`, `<b>بطولة رسمية</b> — أكثر لاعب تتويجاً بالألقاب في تاريخ كرة القدم.`]
-    ],
-    method: "أهداف دوري أبطال أوروبا مقسمة 120 لبرشلونة و9 لباريس سان جيرمان من السجلات الرسمية للأندية."
-  },
-  bn: {
-    teamNames: { all: "সকল দল", barcelona: "বার্সেলোনা", psg: "পিএসজি", miami: "ইন্টার মায়ামি", argentina: "আর্জেন্টিনা" },
-    pills: [["all", "সকল দল"], ["barcelona", "বার্সেলোনা"], ["psg", "পিএসজি"], ["miami", "ইন্টার মায়ামি"], ["argentina", "আর্জেন্টিনা"]],
-    head: (name) => `লিওনেল মেসির ৯২৯টি গোল ৪টি দৃষ্টিকোণ থেকে বিশ্লেষণ — প্রতিযোগিতা, মৌসুম, গোল করার ধরন এবং শরীরের অঙ্গ — <b>${esc(name)}</b>-এর জন্য ফিল্টার করা। চার্ট পরিবর্তন করতে দল নির্বাচন করুন।`,
-    filterNote: (name, goals, apps, T) => `${name} প্রদর্শিত হচ্ছে: ${n(apps)} ম্যাচে ${n(goals)} গোল` + (T === "barcelona" || T === "psg" ? " (চ্যাম্পিয়ন্স লিগে বিভাজন: বার্সেলোনা ১২০, পিএসজি ৯ — ক্লাবের তথ্য অনুযায়ী)।" : "।"),
-    kpis: { goals: "গোল", apps: "ম্যাচ", gpg: "ম্যাচ প্রতি গোল", forTeam: (name) => `${name}-এর সাথে।` },
-    chartEmpty: "এই দলের জন্য কোনো তথ্য নেই।",
-    figCap: (T, name) => T === "all" ? "ক্যালেন্ডার বছর, ২০০৪ থেকে ২০২৬।" : T === "argentina" ? "আর্জেন্টিনার সাথে ক্যালেন্ডার বছর।" : esc(name) + "-এর সাথে ক্লাব মৌসুম।",
-    finishParts: { "Open play": "ওপেন প্লে", "Penalties": "পেনাল্টি", "Free kicks": "ফ্রি কিক" },
-    finishCenter: "ক্যারিয়ার গোল",
-    finishCaveat: "সকল দল মিলিয়ে সামগ্রিক ক্যারিয়ার রেকর্ড। যাচাইকৃত পরিসংখ্যান।",
-    finishCaveatFiltered: (d) => `দলভিত্তিক আলাদা ফিনিশিং রেকর্ড নেই — নিচে ক্যারিয়ার মোট দেখুন। মোট ${n(d.totals.goals)}টি গোলের মধ্যে: ${d.byFinish.openPlay} ওপেন প্লে, ${d.byFinish.penalties} পেনাল্টি এবং ${d.byFinish.freeKicks} ফ্রি কিক।`,
-    bodyParts: { "Left foot": "বাঁ পা", "Right foot": "ডান পা", "Head": "মাথা", "Other": "অন্যান্য (বুক ইত্যাদি)" },
-    bodyCenter: "বাঁ পায়ের গোল",
-    bodyCaveat: "সকল দল মিলিয়ে সামগ্রিক ক্যারিয়ার রেকর্ড (যাচাইকৃত পরিসংখ্যান)।",
-    ageName: (r) => `বয়স ${r.age} · ${r.year}`,
-    ageCaveat: (apeak) => `বয়স অনুসারে মেসির প্রতিটি গোল — ক্লাব ও জাতীয় দল মিলিয়ে। সর্বোচ্চ: ${apeak.age} বছর বয়সে ${apeak.goals}টি গোল (${apeak.year})।`,
-    ageFilterNote: "বয়সের হিসেবে ক্লাব ও আন্তর্জাতিক গোল যৌথভাবে অন্তর্ভুক্ত, তাই এই চার্টটি পুরো ক্যারিয়ার দেখায় — ফিল্টার সরান।",
-    compCaption: (name) => `প্রতিযোগিতা অনুসারে গোল — ${esc(name)}।`,
-    thComp: "প্রতিযোগিতা", thGoals: "গোল", thShare: "শতাংশ",
-    recAllTime: "প্রতিযোগিতার সর্বকালের রেকর্ড",
-    finishCaption: "গোল করার ধরন ও শরীরের অঙ্গ — ক্যারিয়ারের মোট পরিসংখ্যান।",
-    thFinish: "ফিনিশিং / অঙ্গ",
-    finishCaveatTable: "ফিনিশিং এবং শরীরের অঙ্গের বিভাজন যাচাইকৃত হিসাব।",
-    finishRows: (d) => [
-      ["ওপেন প্লে", d.byFinish.openPlay],
-      ["পেনাল্টি", d.byFinish.penalties],
-      ["সরাসরি ফ্রি কিক", d.byFinish.freeKicks],
-      ["বাঁ পা", d.byBodyPart.left],
-      ["ডান পা", d.byBodyPart.right],
-      ["হেডার", d.byBodyPart.head],
-      ["অন্যান্য (বুক ইত্যাদি)", d.byBodyPart.other]
-    ],
-    teamCardSub: { goals: "গোল", apps: "ম্যাচ", gpg: "প্রতি ম্যাচে", of: "এর মধ্যে" },
-    records: (comp, d) => [
-      ["91", `<b>২০১২ সালে গোল</b> — এক ক্যালেন্ডার বছরে ফুটবল ইতিহাসের বিশ্বরেকর্ড।`],
-      [n(comp("La Liga")), `<b>লা লিগায় গোল</b> — সর্বকালের সর্বোচ্চ গোলদাতা, সবগুলো বার্সেলোনার হয়ে।`],
-      [n(comp("UEFA Champions League")), `<b>চ্যাম্পিয়ন্স লিগে গোল</b> — বার্সেলোনা ১২০, পিএসজি ৯।`],
-      ["8", `<b>ব্যালন ডি'অর</b> — ফুটবল ইতিহাসের রেকর্ড (২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩)।`],
-      [n(d.hatTricks), `<b>হ্যাটট্রিক বা তদূর্ধ্ব</b> ক্লাব ও আন্তর্জাতিক ফুটবলে।`],
-      [`${LIVE.trophies}`, `<b>দলীয় শিরোপা</b> — ফুটবল ইতিহাসের সবচেয়ে বেশি ট্রফিজয়ী খেলোয়াড়।`]
-    ],
-    method: "চ্যাম্পিয়ন্স লিগে গোল বিভাজন বার্সেলোনা ১২০ ও পিএসজি ৯ ক্লাবের আনুষ্ঠানিক তথ্যানুযায়ী।"
-  },
-  hi: {
-    teamNames: { all: "सभी टीमें", barcelona: "बार्सिलोना", psg: "पीएसजी", miami: "इंटर मियामी", argentina: "अर्जेंटीना" },
-    pills: [["all", "सभी टीमें"], ["barcelona", "बार्सिलोना"], ["psg", "पीएसजी"], ["miami", "इंटर मियामी"], ["argentina", "अर्जेंटीना"]],
-    head: (name) => `लियोनेल मेस्सी के सभी 930 गोलों का चार प्रकार से विश्लेषण — प्रतियोगिता, सीज़न, फ़िनिश और शरीर के अंग द्वारा — <b>${esc(name)}</b> के अनुसार। चार्ट बदलने के लिए किसी टीम पर टैप करें।`,
-    filterNote: (name, goals, apps, T) => `${name} दिखाया जा रहा है: ${n(apps)} मैचों में ${n(goals)} गोल` + (T === "barcelona" || T === "psg" ? " (चैंपियंस लीग विभाजन: बार्सिलोना 120, पीएसजी 9 — क्लब स्रोतों से)।" : "।"),
-    kpis: { goals: "गोल", apps: "मैच", gpg: "प्रति मैच गोल", forTeam: (name) => `${name} के लिए।` },
-    chartEmpty: "इस टीम फ़िल्टर के लिए कोई डेटा नहीं है।",
-    figCap: (T, name) => T === "all" ? "कैलेंडर वर्ष, 2004 से 2026।" : T === "argentina" ? "अर्जेंटीना के साथ कैलेंडर वर्ष।" : esc(name) + " के साथ क्लब सीज़न।",
-    finishParts: { "Open play": "ओपन प्ले", "Penalties": "पेनल्टी", "Free kicks": "फ्री किक्स" },
-    finishCenter: "करियर गोल",
-    finishCaveat: "सभी टीमों के कुल करियर आंकड़े। सत्यापित आधिकारिक गणना।",
-    finishCaveatFiltered: (d) => `टीम के आधार पर कोई अलग फ़िनिश डेटा नहीं है — नीचे करियर कुल देखें। उनके ${n(d.totals.goals)} आधिकारिक गोलों में से: ${d.byFinish.openPlay} ओपन प्ले, ${d.byFinish.penalties} पेनल्टी और ${d.byFinish.freeKicks} फ्री किक।`,
-    bodyParts: { "Left foot": "बायां पैर", "Right foot": "दायां पैर", "Head": "सिर", "Other": "अन्य (छाती आदि)" },
-    bodyCenter: "बाएं पैर से",
-    bodyCaveat: "सभी टीमों के संयुक्त करियर आंकड़े (सत्यापित आधिकारिक गणना)।",
-    ageName: (r) => `उम्र ${r.age} · ${r.year}`,
-    ageCaveat: (apeak) => `प्रत्येक गोल उस उम्र के अनुसार जब उन्होंने स्कोर किया — क्लब और देश मिलाकर। शीर्ष: ${apeak.age} वर्ष की आयु में ${apeak.goals} गोल (${apeak.year})।`,
-    ageFilterNote: "उम्र में क्लब और देश के गोल शामिल हैं, इसलिए यह चार्ट केवल पूर्ण करियर को कवर करता है — फ़िल्टर हटाएं।",
-    compCaption: (name) => `प्रतियोगिता अनुसार गोल — ${esc(name)}।`,
-    thComp: "प्रतियोगिता", thGoals: "गोल", thShare: "हिस्सा",
-    recAllTime: "प्रतियोगिता का सर्वकालिक रिकॉर्ड",
-    finishCaption: "गोल कैसे किए गए और किस अंग से — करियर कुल, सभी टीमें।",
-    thFinish: "फ़िनिश / शरीर का अंग",
-    finishCaveatTable: "फ़िनिश और शरीर के अंग का विभाजन आधिकारिक रूप से सत्यापित है।",
-    finishRows: (d) => [
-      ["ओपन प्ले", d.byFinish.openPlay],
-      ["पेनल्टी", d.byFinish.penalties],
-      ["सीधे फ्री किक", d.byFinish.freeKicks],
-      ["बायां पैर", d.byBodyPart.left],
-      ["दायां पैर", d.byBodyPart.right],
-      ["सिर (हेडर)", d.byBodyPart.head],
-      ["अन्य (छाती आदि)", d.byBodyPart.other]
-    ],
-    teamCardSub: { goals: "गोल", apps: "मैच", gpg: "प्रति मैच", of: "में से" },
-    records: (comp, d) => [
-      ["91", `<b>2012 में गोल</b> — एक कैलेंडर वर्ष में फुटबॉल का सर्वकालिक विश्व रिकॉर्ड।`],
-      [n(comp("La Liga")), `<b>ला लीगा में गोल</b> — सर्वकालिक रिकॉर्ड, सभी बार्सिलोना के लिए।`],
-      [n(comp("UEFA Champions League")), `<b>चैंपियंस लीग गोल</b> — 120 बार्सिलोना, 9 पीएसजी।`],
-      ["8", `<b>बैलन डी'ओर</b> — फुटबॉल इतिहास का रिकॉर्ड (2009–12, 2015, 2019, 2021, 2023)।`],
-      [n(d.hatTricks), `<b>हैट्रिक या अधिक</b> क्लब और देश के लिए।`],
-      [`${LIVE.trophies}`, `<b>आधिकारिक ट्रॉफियां</b> — फुटबॉल इतिहास के सबसे सफल खिलाड़ी।`]
-    ],
-    method: "चैंपियंस लीग गोल बार्सिलोना 120 और पीएसजी 9 में आधिकारिक रिकॉर्ड के आधार पर विभाजित हैं।"
-  },
-  ro: {
-    teamNames: { all: "toate echipele", barcelona: "Barcelona", psg: "PSG", miami: "Inter Miami", argentina: "Argentina" },
-    pills: [["all", "Toate echipele"], ["barcelona", "Barcelona"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentina"]],
-    head: (name) => `Toate cele 930 de goluri ale lui Lionel Messi analizate în 4 moduri — după competiție, sezon, tip de finalizare și parte a corpului — filtrate pentru <b>${esc(name)}</b>. Atinge o echipă pentru a actualiza graficele.`,
-    filterNote: (name, goals, apps, T) => `Se afișează ${name}: ${n(goals)} goluri în ${n(apps)} meciuri` + (T === "barcelona" || T === "psg" ? " (Defalcare Champions League: Barcelona 120, PSG 9 — din surse oficiale ale cluburilor)." : "."),
-    kpis: { goals: "Goluri", apps: "Meciuri", gpg: "Goluri pe meci", forTeam: (name) => `Pentru ${name}.` },
-    chartEmpty: "Niciun rând pentru acest filtru de echipă.",
-    figCap: (T, name) => T === "all" ? "Ani calendaristici, 2004 până în 2026." : T === "argentina" ? "Ani calendaristici cu Argentina." : "Sezoane de club pentru " + esc(name) + ".",
-    finishParts: { "Open play": "Acțiune deschisă", "Penalties": "Penalty-uri", "Free kicks": "Lovituri libere" },
-    finishCenter: "goluri carieră",
-    finishCaveat: "Totaluri de carieră combinate pentru toate echipele. Numărătoare oficială verificată.",
-    finishCaveatFiltered: (d) => `Nu există o defalcare pe echipe — vezi totalurile de carieră de mai jos. Din cele ${n(d.totals.goals)} goluri oficiale: ${d.byFinish.openPlay} din acțiune, ${d.byFinish.penalties} penalty-uri și ${d.byFinish.freeKicks} lovituri libere.`,
-    bodyParts: { "Left foot": "Piciorul stâng", "Right foot": "Piciorul drept", "Head": "Cap", "Other": "Altele (piept, etc.)" },
-    bodyCenter: "cu piciorul stâng",
-    bodyCaveat: "Totaluri de carieră combinate pentru toate echipele (numărătoare oficială verificată).",
-    ageName: (r) => `Vârsta ${r.age} · ${r.year}`,
-    ageCaveat: (apeak) => `Fiecare gol oficial în funcție de vârsta la care l-a marcat — cluburi și națională combinate. Vârf: ${apeak.goals} la vârsta de ${apeak.age} ani (${apeak.year}).`,
-    ageFilterNote: "Vârstele combină golurile de club și națională, așa că acest grafic acoperă doar întreaga carieră — ștergeți filtrul pentru a-l vedea.",
-    compCaption: (name) => `Goluri după competiție — ${esc(name)}.`,
-    thComp: "Competiție", thGoals: "Goluri", thShare: "Procent",
-    recAllTime: "Recordul all-time al competiției",
-    finishCaption: "Cum au fost marcate golurile și cu ce parte a corpului — totaluri din carieră, toate echipele.",
-    thFinish: "Finalizare / Partea corpului",
-    finishCaveatTable: "Defalcarea pe tip de finalizare și parte a corpului este o numărătoare oficială verificată.",
-    finishRows: (d) => [
-      ["Acțiune deschisă", d.byFinish.openPlay],
-      ["Penalty-uri", d.byFinish.penalties],
-      ["Lovituri libere directe", d.byFinish.freeKicks],
-      ["Piciorul stâng", d.byBodyPart.left],
-      ["Piciorul drept", d.byBodyPart.right],
-      ["Cap", d.byBodyPart.head],
-      ["Altele (piept etc.)", d.byBodyPart.other]
-    ],
-    teamCardSub: { goals: "goluri", apps: "meciuri", gpg: "pe meci", of: "din" },
-    records: (comp, d) => [
-      ["91", `<b>Goluri în 2012</b> — recordul mondial oficial într-un an calendaristic.`],
-      [n(comp("La Liga")), `<b>Goluri în La Liga</b> — recordul all-time al competiției, toate pentru Barcelona.`],
-      [n(comp("UEFA Champions League")), `<b>Goluri în Champions League</b> — 120 pentru Barcelona, 9 pentru PSG.`],
-      ["8", `<b>Baloane de Aur</b> — recordul all-time în fotbal (2009–12, 2015, 2019, 2021, 2023).`],
-      [n(d.hatTricks), `<b>Hat-trick-uri sau mai mult</b> pentru club și națională.`],
-      [`${LIVE.trophies}`, `<b>Trofee oficiale</b> — cel mai titrat fotbalist din istoria fotbalului.`]
-    ],
-    method: "Golurile din Champions League sunt împărțite în Barcelona 120 și PSG 9 conform documentelor oficiale ale cluburilor."
-  },
-  uz: {
-    teamNames: { all: "barcha jamoalar", barcelona: "Barselona", psg: "PSJ", miami: "Inter Mayami", argentina: "Argentina" },
-    pills: [["all", "Barcha jamoalar"], ["barcelona", "Barselona"], ["psg", "PSJ"], ["miami", "Inter Mayami"], ["argentina", "Argentina"]],
-    head: (name) => `Lionel Messining barcha 930 goli 4 usulda tahlil qilingan — musobaqa, mavsum, yakunlash usuli va tana a'zosi bo'yicha — <b>${esc(name)}</b> uchun filtrlangan. Diagrammalarni yangilash uchun jamoani bosing.`,
-    filterNote: (name, goals, apps, T) => `${name} ko'rsatilmoqda: ${n(apps)} o'yinda ${n(goals)} gol` + (T === "barcelona" || T === "psg" ? " (Chempionlar Ligasidagi taqsimot: Barselona 120, PSJ 9 — rasmiy klub manbalari asosida)." : "."),
-    kpis: { goals: "Gollar", apps: "O'yinlar", gpg: "O'yin boshiga gol", forTeam: (name) => `${name} safida.` },
-    chartEmpty: "Ushbu jamoa filtri uchun qatorlar mavjud emas.",
-    figCap: (T, name) => T === "all" ? "Kalendar yillari, 2004 yildan 2026 yilgacha." : T === "argentina" ? "Argentina safidagi kalendar yillari." : esc(name) + " safidagi klub mavsumlari.",
-    finishParts: { "Open play": "O'yin ichidagi to'plar", "Penalties": "Penaltilar", "Free kicks": "Jarima to'plari" },
-    finishCenter: "faoliyat gollari",
-    finishCaveat: "Barcha jamoalar bo'yicha umumiy faoliyat ko'rsatkichlari. Tasdiqlangan rasmiy hisob.",
-    finishCaveatFiltered: (d) => `Alohida jamoalar bo'yicha yakunlash ko'rsatkichlari mavjud emas — umumiy faoliyat natijalarini ko'ring. Uning ${n(d.totals.goals)} ta rasmiy golidan: ${d.byFinish.openPlay} tasi o'yindan, ${d.byFinish.penalties} tasi penaltidan va ${d.byFinish.freeKicks} tasi jarimadan.`,
-    bodyParts: { "Left foot": "Chap oyoq", "Right foot": "O'ng oyoq", "Head": "Bosh", "Other": "Boshqa (ko'krak va hk.)" },
-    bodyCenter: "chap oyoqda",
-    bodyCaveat: "Barcha jamoalar bo'yicha umumiy faoliyat ko'rsatkichlari (tasdiqlangan rasmiy hisob).",
-    ageName: (r) => `${r.age} yosh · ${r.year}`,
-    ageCaveat: (apeak) => `Uning yoshi bo'yicha urilgan har bir professional gol — klub va terma jamoa birgalikda. Eng yuqori cho'qqi: ${apeak.age} yoshida ${apeak.goals} ta gol (${apeak.year}).`,
-    ageFilterNote: "Yoshlar klub va terma jamoani birlashtiradi, shuning uchun bu grafik faqat butun faoliyatni qamrab oladi — ko'rish uchun filtrni bekor qiling.",
-    compCaption: (name) => `Musobaqalar bo'yicha gollar — ${esc(name)}.`,
-    thComp: "Musobaqa", thGoals: "Gollar", thShare: "Ulush",
-    recAllTime: "Musobaqaning mutlaq rekordi",
-    finishCaption: "Gollar qanday urilgan va qaysi tana a'zosi bilan — butun faoliyat, barcha jamoalar.",
-    thFinish: "Yakunlash / Tana a'zosi",
-    finishCaveatTable: "Yakunlash va tana a'zosi bo'yicha taqsimot rasmiy tasdiqlangan hisobdir.",
-    finishRows: (d) => [
-      ["O'yin ichidagi to'plar", d.byFinish.openPlay],
-      ["Penaltilar", d.byFinish.penalties],
-      ["To'g'ridan-to'g'ri jarima to'plari", d.byFinish.freeKicks],
-      ["Chap oyoq", d.byBodyPart.left],
-      ["O'ng oyoq", d.byBodyPart.right],
-      ["Bosh bilan", d.byBodyPart.head],
-      ["Boshqa (ko'krak va hk.)", d.byBodyPart.other]
-    ],
-    teamCardSub: { goals: "gollar", apps: "o'yinlar", gpg: "har o'yinda", of: "jami" },
-    records: (comp, d) => [
-      ["91", `<b>2012 yildagi gollar</b> — bir kalendar yilidagi jahon rekordi.`],
-      [n(comp("La Liga")), `<b>La Ligadagi gollar</b> — musobaqaning mutlaq rekordi, barchasi Barselona safida.`],
-      [n(comp("UEFA Champions League")), `<b>Chempionlar Ligasidagi gollar</b> — Barselona uchun 120, PSJ uchun 9.`],
-      ["8", `<b>Oltin to'p</b> — futbol tarixidagi rekord (2009–12, 2015, 2019, 2021, 2023).`],
-      [n(d.hatTricks), `<b>Xet-trik yoki undan ko'p</b> klub va terma jamoada.`],
-      [`${LIVE.trophies}`, `<b>Rasmiy sovrinlar</b> — futbol tarixidagi eng ko'p unvonga ega o'yinchi.`]
-    ],
-    method: "Chempionlar Ligasidagi gollar rasmiy manbalar asosida Barselona 120 va PSJ 9 ga bo'lingan."
   }
 };
 
@@ -5403,12 +4213,7 @@ function eraOf(y) {
     miami: {
       es: "2023–presente",
       pt: "2023–presente",
-      fr: "2023–présent",
-      ar: "2023–الآن",
-      bn: "২০২৩–বর্তমান",
-      hi: "2023–वर्तमान",
-      ro: "2023–prezent",
-      uz: "2023–hozir"
+      fr: "2023–présent"
     }[lang] || "2023–present"
   };
   const eraNames = {
@@ -5438,51 +4243,6 @@ function eraOf(y) {
       farewell: "L'adieu à Barcelone",
       paris: "Paris et la Coupe du Monde",
       miami: "Miami et la route vers les 1 000"
-    },
-    ar: {
-      rosario: "الفتى القادم من روساريو",
-      peak: "أعظم قمة شهدتها كرة القدم",
-      msn: "ثلاثي MSN والثلاثية التاريخية الثانية",
-      carry: "حمل برشلونة على الأكتاف",
-      farewell: "وداع نادي برشلونة",
-      paris: "باريس والتتويج بكأس العالم",
-      miami: "ميامي والطريق نحو الـ 1,000 هدف"
-    },
-    bn: {
-      rosario: "রোজারিও থেকে আসা বিস্ময় বালক",
-      peak: "ফুটবল ইতিহাসের সেরা সোনালী সময়",
-      msn: "এমএসএন ত্রয়ী এবং দ্বিতীয় ট্রেবল",
-      carry: "বার্সেলোনাকে একাই এগিয়ে নেওয়া",
-      farewell: "বার্সেলোনাকে বিদায়",
-      paris: "প্যারিস এবং বিশ্বকাপ জয়",
-      miami: "মায়ামি এবং ১,০০০ গোলের পথে"
-    },
-    hi: {
-      rosario: "रोसारियो का युवा सितारा",
-      peak: "फुटबॉल इतिहास का सर्वश्रेष्ठ शिखर",
-      msn: "MSN त्रिमूर्ति और दूसरा ट्रेबल",
-      carry: "बार्सिलोना को आगे बढ़ाना",
-      farewell: "बार्सिलोना को विदाई",
-      paris: "पेरिस और विश्व कप जीत",
-      miami: "मियामी और 1,000 गोल की राह"
-    },
-    ro: {
-      rosario: "Băiatul din Rosario",
-      peak: "Cel mai mare vârf din istoria fotbalului",
-      msn: "Trio-ul MSN și a doua triplă istorică",
-      carry: "Purtând Barcelona pe umeri",
-      farewell: "Adio, Barcelona",
-      paris: "Parisul și Cupa Mondială",
-      miami: "Miami și drumul spre 1.000 de goluri"
-    },
-    uz: {
-      rosario: "Rosariolik o'smir",
-      peak: "Futbol tarixidagi eng buyuk cho'qqi",
-      msn: "MSN va ikkinchi trebl",
-      carry: "Barselonani yetaklash",
-      farewell: "Barselona bilan xayrlashuv",
-      paris: "Parij va Jahon chempionati",
-      miami: "Mayami va 1 000 gol sari yo'l"
     },
     en: {
       rosario: "The boy from Rosario",
@@ -5575,51 +4335,6 @@ const ERA_INTROS = {
     farewell: `Un sixième Ballon d'Or, une ultime Coupe du Roi en 2021 et un adieu bouleversant au Camp Nou après 21 années légendaires au FC Barcelone.`,
     paris: `Deux titres de champion avec le PSG, un septième Ballon d'Or et la consécration suprême au Qatar le 18 décembre 2022 : champion du monde avec un doublé en finale. La carrière est complète.`,
     miami: `Trophée de Leagues Cup dès son premier mois, un huitième Ballon d'Or, une nouvelle Copa América et la marche vers les 1 000 buts en direct.`
-  },
-  ar: {
-    rosario: `شاب في السابعة عشرة من عمره من روساريو يشارك أمام إسبانيول في أكتوبر 2004، وفي غضون أشهر أصبح الكامب نو يهتف باسمه. جاء هدفه الأول أمام ألباسيتي بلمسة ساقطة رائعة من تمريرة رونالدينيو، وبحلول عام 2008 تقلد الميدالية الذهبية الأولمبية.`,
-    peak: `سداسية تاريخية في 2009. أربع كرات ذهبية على التوالي. ثم عام 2012: 91 هدفاً في عام ميلادي واحد، محطماً رقماً صمد لأربعين عاماً — بما في ذلك خماسية تاريخية أمام ليفركوزن في دوري الأبطال.`,
-    msn: `ميسي، سواريز، نيمار — الثلاثي الأسطوري MSN يكتسح أوروبا ويحقق الثلاثية التاريخية الثانية عام 2015 في برلين. قوة هجومية غير مسبوقة.`,
-    carry: `الريمونتادا التاريخية 6–1 أمام باريس عام 2017، ورفع القميص رقم 10 في البرنابيو، وثنائية الدوري والكأس في 2018 بقيادة أسطورية ملهمة.`,
-    farewell: `الكرة الذهبية السادسة، ولقب كأس الملك 2021، ثم الوداع المؤثر لنادي برشلونة بعد 21 عاماً من المجد كهداف تاريخي وأعظم لاعب في تاريخ النادي.`,
-    paris: `لقبان في الدوري مع باريس، الكرة الذهبية السابعة، والمجد الأكبر في قطر يوم 18 ديسمبر 2022: بطل كأس العالم بهدفين في النهائي التاريخي بعد ملحمة 3–3.`,
-    miami: `التتويج بلقب كأس الدوريات في شهره الأول، الكرة الذهبية الثامنة، لقب كوبا أمريكا آخر مع الأرجنتين، ومواصلة الطريق نحو 1,000 هدف رسمي.`
-  },
-  bn: {
-    rosario: `১৭ বছর বয়সে ২০০৪ সালের অক্টোবরে এসপানিওলের বিপক্ষে মাঠে নামেন রোজারিওর এক তরুণ। কয়েকমাসের মধ্যেই ক্যাম্প ন্যু মুখরিত হয় তার নামে। মে মাসে আলবাসেতের বিপক্ষে প্রথম গোল এবং ২০০৮ সালে জেতেন অলিম্পিক স্বর্ণপদক।`,
-    peak: `২০০৯ সালে ছয়টি ট্রফি। টানা চারটি ব্যালন ডি'অর। এরপর ২০১২: এক পঞ্জিকাবর্ষে ৯১ গোল — যা ফুটবল ইতিহাসের সর্বকালের অবিসংবাদিত বিশ্বরেকর্ড।`,
-    msn: `মেসি, সুয়ারেজ এবং নেইমার — বিখ্যাত এমএসএন ত্রয়ী ২০১৫ সালে বার্লিনে দ্বিতীয় ঐতিহাসিক ট্রেবল নিশ্চিত করে। ফুটবলের সবচেয়ে দৃষ্টিনন্দন আক্রমণভাগ।`,
-    carry: `২০১৭ সালে পিএসজির বিপক্ষে ঐতিহাসিক ৬–১ প্রত্যাবর্তন, বার্নাব্যুতে ১০ নম্বর জার্সি উঁচিয়ে উদযাপন এবং ২০১৮ সালে ঘরোয়া ডাবল জয়।`,
-    farewell: `ষষ্ঠ ব্যালন ডি'অর, ২০২১ কোপা দেল রে ট্রফি এবং বার্সেলোনায় দীর্ঘ ২১ বছরের অবিস্মরণীয় যাত্রা শেষে আবেগঘন বিদায়।`,
-    paris: `প্যারিসে দুটি লিগ শিরোপা, সপ্তম ব্যালন ডি'অর এবং ১৮ ডিসেম্বর ২০২২ কাতারে পরম স্বপ্নপূরণ: ফাইনালে দুই গোল ও বিশ্বকাপ জয়।`,
-    miami: `যোগদানের প্রথম মাসেই লিগস কাপ জয়, অষ্টম ব্যালন ডি'অর, আর্জেন্টিনার হয়ে আরেকটি কোপা আমেরিকা এবং ১,০০০ গোলের দিকে এগিয়ে চলা।`
-  },
-  hi: {
-    rosario: `17 वर्ष की उम्र में अक्टूबर 2004 में एस्पेनयोल के खिलाफ पदार्पण किया। रोनाल्डिन्हो के पास पर अल्बासेटे के खिलाफ पहला सीनियर गोल दागा और 2008 में ओलंपिक स्वर्ण पदक जीता।`,
-    peak: `2009 में छह ट्रॉफियां। लगातार चार बैलन डी'ओर। फिर 2012 में एक ही वर्ष में 91 गोल का ऐतिहासिक विश्व रिकॉर्ड।`,
-    msn: `मेस्सी, सुआरेज़ और नेमार — ऐतिहासिक MSN तिकड़ी जिसने 2015 में बर्लिन में दूसरा ट्रेबल जीतकर इतिहास रचा।`,
-    carry: `2017 में पीएसजी के खिलाफ ऐतिहासिक 6-1 की वापसी, बर्नाब्यू में 10 नंबर जर्सी का ऐतिहासिक उत्सव और 2018 में शानदार प्रदर्शन।`,
-    farewell: `छठा बैलन डी'ओर, 2021 कोपा डेल रे और 21 वर्षों के ऐतिहासिक सफर के बाद बार्सिलोना को भावुक विदाई।`,
-    paris: `पेरिस में दो लीग खिताब, सातवां बैलन डी'ओर और 18 दिसंबर 2022 को कतर में विश्व कप का सपना पूरा, फाइनल में दो गोल किए।`,
-    miami: `आते ही लीग्स कप खिताब, आठवां बैलन डी'ओर, अर्जेंटीना के साथ एक और कोपा अमेरिका और 1,000 आधिकारिक गोलों की ओर अग्रसर।`
-  },
-  ro: {
-    rosario: `La doar 17 ani, tânărul din Rosario debutează contra lui Espanyol în octombrie 2004. Primul gol oficial vine în mai 2005 împotriva lui Albacete, dintr-o pasă a lui Ronaldinho, iar în 2008 cucerește aurul olimpic.`,
-    peak: `Șase trofee în 2009. Patru Baloane de Aur consecutive. Apoi anul 2012: 91 de goluri într-un singur an calendaristic, doborând un record vechi de 40 de ani.`,
-    msn: `Messi, Suárez și Neymar — tridentul legendar MSN cucerește a doua triplă istorică în 2015 la Berlin. O forță ofensivă de neoprit.`,
-    carry: `Remontada istorică 6–1 cu PSG în 2017, celebrarea legendară cu tricoul ridicat pe Bernabéu și o nouă dublă titlu-cupă în 2018.`,
-    farewell: `Al șaselea Balon de Aur, Cupa Regelui din 2021 și emoționanta despărțire de Camp Nou după 21 de ani legendari la Barcelona.`,
-    paris: `Două titluri de campion la Paris, al șaptelea Balon de Aur și gloria supremă în Qatar pe 18 decembrie 2022: Cupa Mondială ridicată deasupra capului cu o dublă în finală.`,
-    miami: `Câștigarea Leagues Cup chiar din prima lună, al optulea Balon de Aur, o nouă Copa América cu Argentina și marșul istoric spre 1.000 de goluri oficiale.`
-  },
-  uz: {
-    rosario: `2004 yil oktyabrida 17 yoshli bola Espanyolga qarshi maydonga tushadi. Keyingi yil may oyida Albacete darvozasiga Ronaldinyo pasidan so'ng ilk golini uradi va 2008 yilda Olimpiada oltin medalini qo'lga kiritadi.`,
-    peak: `2009 yilda oltita sovrin. Ketma-ket to'rtta Oltin to'p. Va 2012 yil: bir yilda 91 ta gol bilan tarixiy jahon rekordi.`,
-    msn: `Messi, Suares va Neymar — afsonaviy MSN triosi 2015 yilda Berlinda ikkinchi tarixiy treblni qo'lga kiritdi.`,
-    carry: `2017 yilda PSJ ustidan 6-1 hisobidagi g'alaba, Bernabeuda 10-raqamli futbolkani ko'rsatib nishonlash va 2018 yilgi oltin dubl.`,
-    farewell: `Oltinchi Oltin to'p, 2021 yilgi Ispaniya kubogi va 21 yillik afsonaviy davrdan so'ng Barselona bilan xayrlashuv.`,
-    paris: `PSJ bilan ikkita liga chempionligi, ettinchi Oltin to'p va 2022 yil 18 dekabrda Qatarda Jahon chempionligi: finalda ikkita gol.`,
-    miami: `Birinchi oydayoq Ligalar Kubogi, sakkizinchi Oltin to'p, Argentina bilan yana bir Amerika Kubogi va 1 000 ta rasmiy gol sari yurish.`
   }
 };
 
@@ -5733,131 +4448,6 @@ const TIMELINE_I18N = {
       ["Quand Messi a-t-il rejoint l'Inter Miami ?", "En <b>juillet 2023</b>, remportant la Leagues Cup quelques semaines seulement après son arrivée."]
     ],
     method: "Les entrées de la frise chronologique sont des jalons précis ; les barres de buts divisent les années civiles sans chevauchement pour reconstituer le total de carrière."
-  },
-  ar: {
-    head: (t) => `من بدايته مع برشلونة عام 2004 حتى <b>${n(t.goals)} هدفاً في مسيرته</b> والمزيد — الليالي التاريخية والأرقام والبطولات بالترتيب.`,
-    keydates: (t, lastUpdated) => [
-      ["16 أكتوبر 2004", "الظهور الأول رسمياً مع <b>برشلونة</b> أمام إسبانيول، في عمر 17 عاماً."],
-      ["1 مايو 2005", "أول هدف رسمي أمام ألباسيتي — أصغر هداف في تاريخ برشلونة في ذلك الوقت."],
-      ["17 أغسطس 2005", "الظهور الأول مع <b>منتخب الأرجنتين</b> الأول أمام المجر."],
-      ["2012", "<b>91 هدفاً</b> في سنة ميلادية واحدة — الرقم القياسي العالمي التاريخي."],
-      ["18 ديسمبر 2022", "التتويج بلقب <b>كأس العالم</b> مع الأرجنتين في قطر، مسجلاً هدفين في النهائي."],
-      [esc(lastUpdated), `<b>${n(t.goals)} هدفاً في المسيرة</b> مع الأندية والمنتخب — آخر تحديث.`]
-    ],
-    inProg: "مستمر",
-    goals: "أهداف",
-    goalsInEra: (goals, share, total) => `<b>${n(goals)} أهداف</b> · ${share}% من ${n(total)}`,
-    peakYear: (pk, tr) => `<p class="ch-callout">أفضل سنة <b>${pk.year} · ${pk.goals} أهداف</b>` + (tr ? ` · <b>${tr}</b> ${tr === 1 ? "بطولة جماعية" : "بطولات جماعية"} خلال هذه الحقبة` : "") + `</p>`,
-    empty: (val, total) => `لا توجد نتائج تطابق “${val}” — امسح البحث لمشاهدة جميع المحطات الـ ${total}.`,
-    tagRecord: "رقم قياسي", tagWc: "كأس العالم", tagFirst: "الأول",
-    faq: [
-      ["متى كان الظهور الأول لميسي؟", "مع برشلونة في <b>16 أكتوبر 2004</b> ضد إسبانيول بعمر 17 عاماً و114 يوماً؛ ومع الأرجنتين في 17 أغسطس 2005."],
-      ["متى سجل ميسي هدفه الأول؟", "في <b>1 مايو 2005</b> أمام ألباسيتي — وكان حينها أصغر هداف في تاريخ برشلونة."],
-      ["متى فاز ميسي بكأس العالم؟", "في <b>18 ديسمبر 2022</b>، متغلباً على فرنسا بركلات الترجيح بعد تعادل ملحمي 3–3 في لوسيل."],
-      ["متى غادر ميسي برشلونة؟", "في <b>أغسطس 2021</b>، منتقلاً إلى باريس سان جيرمان بعد 21 عاماً في النادي الكتالوني."],
-      ["متى انضم ميسي إلى إنتر ميامي؟", "في <b>يوليو 2023</b>، متوجاً بكأس الدوريات خلال أسابيع من انضمامه."]
-    ],
-    method: "أحداث الخط الزمني دقيقة باليوم والسنة، ومخططات الأهداف تقسم السنوات دون تداخل لتتطابق مع إجمالي المسيرة."
-  },
-  bn: {
-    head: (t) => `২০০৪ সালে বার্সেলোনায় অভিষেক থেকে <b>${n(t.goals)} ক্যারিয়ার গোল</b> — স্মরণীয় ম্যাচ, রেকর্ড এবং ট্রফি পর্যায়ক্রমে।`,
-    keydates: (t, lastUpdated) => [
-      ["১৬ অক্টো ২০০৪", "১৭ বছর বয়সে এসপানিওলের বিরুদ্ধে <b>বার্সেলোনার</b> হয়ে প্রথম দলের অভিষেক।"],
-      ["১ মে ২০০৫", "আলবাসেতের বিরুদ্ধে প্রথম গোল — তৎকালীন বার্সার ইতিহাসের সর্বকনিষ্ঠ গোলদাতা।"],
-      ["১৭ আগস্ট ২০০৫", "হাঙ্গেরির বিপক্ষে <b>আর্জেন্টিনা</b> জাতীয় দলে অভিষেক।"],
-      ["২০১২", "এক ক্যালেন্ডার বছরে <b>৯১ গোল</b> — ফুটবলের সর্বকালের বিশ্বরেকর্ড।"],
-      ["১৮ ডিসে ২০২২", "কাতারে আর্জেন্টিনার হয়ে <b>বিশ্বকাপ</b> জয়, ফাইনালে দুই গোল।"],
-      [esc(lastUpdated), `ক্লাব ও জাতীয় দল মিলিয়ে <b>${n(t.goals)} ক্যারিয়ার গোল</b> — সর্বশেষ আপডেট।`]
-    ],
-    inProg: "চলমান",
-    goals: "গোল",
-    goalsInEra: (goals, share, total) => `<b>${n(goals)} গোল</b> · ${share}% (মোট ${n(total)})`,
-    peakYear: (pk, tr) => `<p class="ch-callout">সেরা বছর <b>${pk.year} · ${pk.goals} গোল</b>` + (tr ? ` · এই সময়ে <b>${tr}</b>টি দলীয় ট্রফি জয়` : "") + `</p>`,
-    empty: (val, total) => `“${val}” এর জন্য কোনো ফলাফল নেই — সবগুলো দেখতে সার্চ খালি করুন।`,
-    tagRecord: "রেকর্ড", tagWc: "বিশ্বকাপ", tagFirst: "প্রথম",
-    faq: [
-      ["মেসির অভিষেক কবে হয়েছিল?", "বার্সেলোনার হয়ে <b>১৬ অক্টোবর ২০০৪</b> এসপানিওলের বিপক্ষে ১৭ বছর বয়সে; আর্জেন্টিনার হয়ে ১৭ আগস্ট ২০০৫।"],
-      ["মেসির প্রথম গোল কবে?", "<b>১ মে ২০০৫</b> আলবাসেতের বিপক্ষে — সে সময় বার্সেলোনার সবচেয়ে তরুণ গোলদাতা।"],
-      ["মেসি বিশ্বকাপ কবে জেতেন?", "<b>১৮ ডিসেম্বর ২০২২</b>, ফাইনালে ফ্রান্সের সাথে ৩–৩ ড্রয়ের পর টাইব্রেকারে জয়ী হয়ে।"],
-      ["মেসি বার্সেলোনা ছেড়েছিলেন কবে?", "<b>আগস্ট ২০২১</b>-এ ২১ বছর বার্সেলোনায় কাটানোর পর প্যারিস সেন্ট জার্মেইতে যোগ দেন।"],
-      ["মেসি ইন্টার মায়ামিতে যোগ দেন কবে?", "<b>জুলাই ২০২৩</b>-এ, যোগ দেওয়ার কয়েক সপ্তাহের মধ্যেই লিগস কাপ জয় করেন।"]
-    ],
-    method: "টাইমলাইনের মাইলফলকগুলো তারিখ অনুসারে সাজানো; গোলের বারগুলো ক্যারিয়ারের মোট সংখ্যার সাথে সামঞ্জস্যপূর্ণ।"
-  },
-  hi: {
-    head: (t) => `2004 में बार्सिलोना डेब्यू से <b>${n(t.goals)} करियर गोल</b> तक — ऐतिहासिक रातें, रिकॉर्ड और ट्रॉफियां क्रमबद्ध रूप से।`,
-    keydates: (t, lastUpdated) => [
-      ["16 अक्टू 2004", "17 वर्ष की उम्र में एस्पेनयोल के खिलाफ <b>बार्सिलोना</b> के लिए सीनियर डेब्यू।"],
-      ["1 मई 2005", "अल्बासेटे के खिलाफ पहला सीनियर गोल — उस समय बार्सिलोना के सबसे युवा गोलकीपर।"],
-      ["17 अग 2005", "हंगरी के खिलाफ <b>अर्जेंटीना</b> सीनियर टीम में डेब्यू।"],
-      ["2012", "कैलेंडर वर्ष में <b>91 गोल</b> — फुटबॉल का सर्वकालिक विश्व रिकॉर्ड।"],
-      ["18 दिस 2022", "कतर में अर्जेंटीना के साथ <b>विश्व कप</b> जीत, फाइनल में दो गोल किए।"],
-      [esc(lastUpdated), `क्लब और देश के लिए <b>${n(t.goals)} करियर गोल</b> — नवीनतम अद्यतन।`]
-    ],
-    inProg: "प्रगति पर",
-    goals: "गोल",
-    goalsInEra: (goals, share, total) => `<b>${n(goals)} गोल</b> · ${share}% (${n(total)} में से)`,
-    peakYear: (pk, tr) => `<p class="ch-callout">शीर्ष वर्ष <b>${pk.year} · ${pk.goals} गोल</b>` + (tr ? ` · इस दौरान <b>${tr}</b> टीम ट्रॉफियां जीतीं` : "") + `</p>`,
-    empty: (val, total) => `“${val}” के लिए कोई परिणाम नहीं मिला — सभी देखने के लिए खोज साफ़ करें।`,
-    tagRecord: "रिकॉर्ड", tagWc: "विश्व कप", tagFirst: "प्रथम",
-    faq: [
-      ["मेस्सी ने डेब्यू कब किया?", "बार्सिलोना के लिए <b>16 अक्टूबर 2004</b> को 17 साल की उम्र में; अर्जेंटीना के लिए 17 अगस्त 2005 को।"],
-      ["मेस्सी ने अपना पहला गोल कब किया?", "<b>1 मई 2005</b> को अल्बासेटे के खिलाफ — उस समय बार्सिलोना के सबसे युवा स्कोरर।"],
-      ["मेस्सी ने विश्व कप कब जीता?", "<b>18 दिसंबर 2022</b> को, लुसैल फाइनल में 3–3 के बाद पेनल्टी पर फ्रांस को हराकर।"],
-      ["मेस्सी ने बार्सिलोना कब छोड़ा?", "<b>अगस्त 2021</b> में, बार्सिलोना में 21 साल बिताने के बाद पीएसजी में शामिल हुए।"],
-      ["मेस्सी इंटर मियामी में कब शामिल हुए?", "<b>जुलाई 2023</b> में, आने के कुछ हफ्तों के भीतर लीग्स कप जीता।"]
-    ],
-    method: "टाइमलाइन की प्रविष्टियां सटीक तारीखों पर आधारित हैं; करियर के कुल गोलों से पूरी तरह मेल खाती हैं।"
-  },
-  ro: {
-    head: (t) => `De la debutul la Barcelona în 2004 până la <b>${n(t.goals)} goluri în carieră</b> — nopțile istorice, recordurile și trofeele în ordine.`,
-    keydates: (t, lastUpdated) => [
-      ["16 Oct 2004", "Debutul oficial pentru <b>Barcelona</b> împotriva lui Espanyol, la 17 ani."],
-      ["1 Mai 2005", "Primul gol oficial, împotriva lui Albacete — cel mai tânăr marcator al Barcelonei la acea dată."],
-      ["17 Aug 2005", "Debutul pentru naționala <b>Argentinei</b> împotriva Ungariei."],
-      ["2012", "<b>91 de goluri</b> într-un an calendaristic — recordul mondial all-time al fotbalului."],
-      ["18 Dec 2022", "Câștigă <b>Cupa Mondială</b> cu Argentina în Qatar, marcând de două ori în finală."],
-      [esc(lastUpdated), `<b>${n(t.goals)} goluri oficiale</b> pentru club și națională — ultima verificare.`]
-    ],
-    inProg: "în desfășurare",
-    goals: "goluri",
-    goalsInEra: (goals, share, total) => `<b>${n(goals)} goluri</b> · ${share}% din ${n(total)}`,
-    peakYear: (pk, tr) => `<p class="ch-callout">An de vârf <b>${pk.year} · ${pk.goals} goluri</b>` + (tr ? ` · <b>${tr}</b> ${tr === 1 ? "trofeu colectiv" : "trofee colective"} câștigate în această perioadă` : "") + `</p>`,
-    empty: (val, total) => `Niciun rezultat pentru “${val}” — ștergeți căutarea pentru toate cele ${total} repere.`,
-    tagRecord: "Record", tagWc: "Mondial", tagFirst: "Primul",
-    faq: [
-      ["Când a debutat Messi?", "Pentru Barcelona pe <b>16 octombrie 2004</b> contra lui Espanyol la 17 ani; pentru Argentina pe 17 august 2005."],
-      ["Când a marcat Messi primul său gol?", "Pe <b>1 mai 2005</b> împotriva lui Albacete — cel mai tânăr marcator din istoria clubului la acea vreme."],
-      ["Când a câștigat Messi Cupa Mondială?", "Pe <b>18 decembrie 2022</b>, învingând Franța la loviturile de departajare după o remiză 3–3 la Lusail."],
-      ["Când a plecat Messi de la Barcelona?", "În <b>august 2021</b>, semnând cu Paris Saint-Germain după 21 de ani la club."],
-      ["Când a ajuns Messi la Inter Miami?", "În <b>iulie 2023</b>, câștigând Leagues Cup la câteva săptămâni de la sosire."]
-    ],
-    method: "Cronologia conține repere la nivel de zi și an; barele de goluri însumează exact totalul carierei."
-  },
-  uz: {
-    head: (t) => `2004 yildagi Barselonadagi debyutidan buyon <b>${n(t.goals)} faoliyat goli</b>gacha — tarixiy lahzalar, rekordlar va sovrinlar xronologik tartibda.`,
-    keydates: (t, lastUpdated) => [
-      ["16 Okt 2004", "17 yoshida Espanyolga qarshi <b>Barselona</b> safida professional debyut."],
-      ["1 May 2005", "Albacete darvozasiga birinchi gol — o'sha paytda Barselona tarixidagi eng yosh to'purar."],
-      ["17 Avg 2005", "Vengriyaga qarshi <b>Argentina</b> terma jamoasi safida debyut."],
-      ["2012", "Bir kalendar yilida <b>91 ta gol</b> — futbol tarixidagi mutlaq jahon rekordi."],
-      ["18 Dek 2022", "Qatarda Argentina bilan <b>Jahon chempioni</b> bo'ldi, finalda dubl qayd etdi."],
-      [esc(lastUpdated), `Klub va terma jamoada <b>${n(t.goals)} faoliyat goli</b> — so'nggi yangilanish.`]
-    ],
-    inProg: "davom etmoqda",
-    goals: "gollar",
-    goalsInEra: (goals, share, total) => `<b>${n(goals)} gollar</b> · ${n(total)} ning ${share}% i`,
-    peakYear: (pk, tr) => `<p class="ch-callout">Eng yuqori yil <b>${pk.year} · ${pk.goals} gollar</b>` + (tr ? ` · bu davrda <b>${tr}</b> ta jamoaviy sovrin qo'lga kiritilgan` : "") + `</p>`,
-    empty: (val, total) => `“${val}” bo'yicha hech narsa topilmadi — barcha ${total} ta muhim voqeani ko'rish uchun qidiruvni tozalang.`,
-    tagRecord: "Rekord", tagWc: "JCh", tagFirst: "Birinchi",
-    faq: [
-      ["Messi qachon debyut qilgan?", "Barselona uchun <b>2004 yil 16 oktyabrda</b> Espanyolga qarshi 17 yoshida; Argentina uchun 2005 yil 17 avgustda."],
-      ["Messi birinchi golini qachon urgan?", "<b>2005 yil 1 mayda</b> Albacetega qarshi — o'sha paytda Barselona tarixidagi eng yosh to'purar."],
-      ["Messi Jahon chempionatini qachon yutgan?", "<b>2022 yil 18 dekabrda</b>, Lusaildagi dramatik 3–3 dan so'ng penaltilar seriyasida Fransiyani mag'lub etib."],
-      ["Messi Barselonani qachon tark etdi?", "<b>2021 yil avgustda</b>, klubda 21 yil o'tkazgach, Parij Sen-Jermenga o'tdi."],
-      ["Messi Inter Mayamiga qachon qo'shildi?", "<b>2023 yil iyulda</b>, kelganidan bir necha hafta o'tib Ligalar Kubogini qo'lga kiritdi."]
-    ],
-    method: "Xronologik qaydlar aniq sanalar bilan kiritilgan; gollar butun faoliyat ko'rsatkichiga to'liq mos keladi."
   }
 };
 
@@ -6160,12 +4750,7 @@ function renderTimeline(d) {
   const filterLabels = {
     es: { all: "Todos", trophy: "🏆 Títulos", award: "⭐ Balones de Oro", goal: "⚽ Goles Hito", record: "📜 Récords Mundiales", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
     pt: { all: "Todos", trophy: "🏆 Títulos", award: "⭐ Bolas de Ouro", goal: "⚽ Gols Históricos", record: "📜 Recordes Mundiais", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
-    fr: { all: "Tous", trophy: "🏆 Trophées", award: "⭐ Ballons d'Or", goal: "⚽ Buts Marquants", record: "📜 Records Mondiaux", barcelona: "🔵🔴 Barcelone", argentina: "🇦🇷 Argentine", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
-    ar: { all: "الكل", trophy: "🏆 البطولات", award: "⭐ الكرات الذهبية", goal: "⚽ أهداف تاريخية", record: "📜 أرقام قياسية", barcelona: "🔵🔴 برشلونة", argentina: "🇦🇷 الأرجنتين", miami: "🌸 إنتر ميامي", psg: "🗼 باريس" },
-    bn: { all: "সব", trophy: "🏆 ট্রফি", award: "⭐ ব্যালন ডি'অর", goal: "⚽ স্মরণীয় গোল", record: "📜 বিশ্বরেকর্ড", barcelona: "🔵🔴 বার্সেলোনা", argentina: "🇦🇷 আর্জেন্টিনা", miami: "🌸 ইন্টার মায়ামি", psg: "🗼 পিএসজি" },
-    hi: { all: "सभी", trophy: "🏆 ट्रॉफियां", award: "⭐ बैलन डी'ओर", goal: "⚽ ऐतिहासिक गोल", record: "📜 विश्व रिकॉर्ड", barcelona: "🔵🔴 बार्सिलोना", argentina: "🇦🇷 अर्जेंटीना", miami: "🌸 इंटर मियामी", psg: "🗼 पीएसजी" },
-    ro: { all: "Toate", trophy: "🏆 Trofee", award: "⭐ Baloane de Aur", goal: "⚽ Goluri Reper", record: "📜 Recorduri Mondiale", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" },
-    uz: { all: "Barchasi", trophy: "🏆 Sovrinlar", award: "⭐ Oltin to'p", goal: "⚽ Tarixiy gollar", record: "📜 Jahon rekordlari", barcelona: "🔵🔴 Barselona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Mayami", psg: "🗼 PSJ" }
+    fr: { all: "Tous", trophy: "🏆 Trophées", award: "⭐ Ballons d'Or", goal: "⚽ Buts Marquants", record: "📜 Records Mondiaux", barcelona: "🔵🔴 Barcelone", argentina: "🇦🇷 Argentine", miami: "🌸 Inter Miami", psg: "🗼 PSG" }
   };
   const fl = filterLabels[lang] || { all: "All", trophy: "🏆 Trophies", award: "⭐ Ballons d'Or", goal: "⚽ Landmark Goals", record: "📜 World Records", barcelona: "🔵🔴 Barcelona", argentina: "🇦🇷 Argentina", miami: "🌸 Inter Miami", psg: "🗼 PSG" };
 
@@ -6248,12 +4833,7 @@ function renderTimeline(d) {
     const fmt = {
       es: `${matched} de ${totalEvents} hitos`,
       pt: `${matched} de ${totalEvents} marcos`,
-      fr: `${matched} sur ${totalEvents} jalons`,
-      ar: `${matched} من أصل ${totalEvents} محطة`,
-      bn: `${totalEvents}টির মধ্যে ${matched}টি মাইলফলক`,
-      hi: `${totalEvents} में से ${matched} मील के पत्थर`,
-      ro: `${matched} din ${totalEvents} repere`,
-      uz: `${totalEvents} tadan ${matched} ta muhim voqea`
+      fr: `${matched} sur ${totalEvents} jalons`
     };
     countEl.textContent = fmt[lang] || `Showing ${matched} of ${totalEvents} milestones`;
   };
@@ -6363,41 +4943,6 @@ const CABINET_I18N = {
     { title: "Ligue des Champions — 4", sub: "2006, 2009, 2011, 2015 — toutes avec le Barça.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi célébrant la victoire en Ligue des Champions", cap: "Quadruple vainqueur de la C1 avec Barcelone" },
     { title: "Copa América — 2", sub: "Double champion continental consécutif, 2021 & 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi embrassant le trophée de la Copa América au Maracanã", cap: "Champions de la Copa América, Maracanã 2021" },
     { title: "Championnats d'Espagne — 10", sub: "Domination totale avec le FC Barcelone 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi avec le trophée de La Liga", cap: "10 fois champion d'Espagne avec Barcelone" }
-  ],
-  ar: [
-    { title: "كأس العالم — 2022", sub: "التتويج الأغلى والأعظم، لوسيل 18 ديسمبر 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "ميسي محمولاً على الأكتاف محتفلاً بكأس العالم 2022", cap: "أبطال كأس العالم، لوسيل 2022" },
-    { title: "الكرة الذهبية — 8", sub: "الرقم القياسي الخارق: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "ميسي يحمل كرته الذهبية الثامنة", cap: "رقم قياسي تاريخي بـ 8 كرات ذهبية" },
-    { title: "دوري أبطال أوروبا — 4", sub: "2006، 2009، 2011، 2015 — كلها مع برشلونة.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي يحتفل بلقب دوري أبطال أوروبا", cap: "بطل أوروبا 4 مرات مع برشلونة" },
-    { title: "كوبا أمريكا — 2", sub: "بطل القارة مرتين متتاليتين، 2021 و2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي يقبل كأس كوبا أمريكا في الماراكانا", cap: "أبطال كوبا أمريكا، الماراكانا 2021" },
-    { title: "الدوري الإسباني — 10", sub: "السيطرة المحلية المطلقة مع برشلونة 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي مع درع الدوري الإسباني", cap: "بطل الدوري الإسباني 10 مرات مع برشلونة" }
-  ],
-  bn: [
-    { title: "ফিফা বিশ্বকাপ — ২০২২", sub: "সর্বোচ্চ শ্রেষ্ঠত্বের গৌরব, লুসাইল ১৮ ডিসেম্বর ২০২২।", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "লুসাইলে ২০২২ বিশ্বকাপ জয়ের উৎসবে কাঁধে মেসি", cap: "বিশ্বকাপ চ্যাম্পিয়ন, লুসাইল ২০২২" },
-    { title: "ব্যালন ডি'অর — ৮", sub: "রেকর্ড আটটি: ২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩।", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "মেসি তার রেকর্ড অষ্টম ব্যালন ডি'অর হাতে", cap: "রেকর্ড অষ্টম ব্যালন ডি'অর ট্রফি" },
-    { title: "চ্যাম্পিয়ন্স লিগ — ৪", sub: "২০০৬, ২০০৯, ২০১১, ২০১৫ — সবগুলো বার্সেলোনার সাথে।", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "চ্যাম্পিয়ন্স লিগ ট্রফি হাতে মেসি", cap: "বার্সেলোনার সাথে ৪ বার ইউরোপিয়ান চ্যাম্পিয়ন" },
-    { title: "কোপা আমেরিকা — ২", sub: "টানা দুইবারের মহাদেশীয় চ্যাম্পিয়ন, ২০২১ ও ২০২৪।", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "মারাকানায় কোপা আমেরিকা ট্রফিতে চুমু দিচ্ছেন মেসি", cap: "কোপা আমেরিকা চ্যাম্পিয়ন, মারাকানা ২০২১" },
-    { title: "লা লিগা শিরোপা — ১০", sub: "এফসি বার্সেলোনায় একচ্ছত্র আধিপত্য ২০০৪–২০১৯।", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "লা লিগা ট্রফি হাতে মেসি", cap: "বার্সার সাথে ১০ বারের স্প্যানিশ চ্যাম্পিয়ন" }
-  ],
-  hi: [
-    { title: "फीफा विश्व कप — 2022", sub: "फुटबॉल का सर्वोच्च गौरव, लुसैल 18 दिसंबर 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "लुसैल में 2022 विश्व कप जीत का जश्न मनाते मेसी", cap: "विश्व कप चैंपियन, लुसैल 2022" },
-    { title: "बैलन डी'ओर — 8", sub: "ऐतिहासिक आठ का रिकॉर्ड: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "आठवां बैलन डी'ओर हाथ में लिए मेसी", cap: "रिकॉर्ड 8वां बैलन डी'ओर पुरस्कार" },
-    { title: "चैंपियंस लीग — 4", sub: "2006, 2009, 2011, 2015 — सभी बार्सिलोना के साथ।", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "चैंपियंस लीग ट्रॉफी के साथ मेसी", cap: "बार्सिलोना के साथ 4 बार के यूरोपीय चैंपियन" },
-    { title: "कोपा अमेरिका — 2", sub: "लगातार दो बार के महाद्वीपीय चैंपियन, 2021 और 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "माराकाना में कोपा अमेरिका ट्रॉफी को चूमते मेसी", cap: "कोपा अमेरिका चैंपियन, माराकाना 2021" },
-    { title: "ला लीगा खिताब — 10", sub: "बार्सिलोना के साथ घरेलू दबदबा 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "ला लीगा ट्रॉफी के साथ मेसी", cap: "बार्सिलोना के साथ 10 बार के स्पैनिश चैंपियन" }
-  ],
-  ro: [
-    { title: "Cupa Mondială — 2022", sub: "Gloria supremă a fotbalului, Lusail 18 dec 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi purtat pe brațe sărbătorind Cupa Mondială 2022 la Lusail", cap: "Campioni mondiali, Lusail 2022" },
-    { title: "Balonul de Aur — 8", sub: "Recordul de opt: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi ridicând al optulea Balon de Aur", cap: "Record istoric de 8 Baloane de Aur" },
-    { title: "Liga Campionilor — 4", sub: "2006, 2009, 2011, 2015 — toate cu Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi sărbătorind câștigarea Ligii Campionilor", cap: "De patru ori campion al Europei cu Barcelona" },
-    { title: "Copa América — 2", sub: "Dublu campion continental consecutiv, 2021 și 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi sărutând trofeul Copa América pe Maracanã", cap: "Campioni Copa América, Maracanã 2021" },
-    { title: "Titluri La Liga — 10", sub: "Dominație internă cu FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi cu trofeul La Liga", cap: "De 10 ori campion al Spaniei cu Barcelona" }
-  ],
-  uz: [
-    { title: "Jahon chempionati — 2022", sub: "Futbol tarixidagi eng oliy cho'qqi, Lusail 18 dekabr 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi Lusailda 2022 yilgi Jahon chempionligini nishonlamoqda", cap: "Jahon chempionlari, Lusail 2022" },
-    { title: "Oltin to'p — 8", sub: "Mutlaq rekord bo'lgan 8 ta: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi sakkizinchi Oltin to'pni ko'tarmoqda", cap: "Tarixiy rekord 8 ta Oltin to'p" },
-    { title: "Chempionlar Ligasi — 4", sub: "2006, 2009, 2011, 2015 — barchasi Barselona bilan.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi Chempionlar Ligasi kubogi bilan", cap: "Barselona bilan 4 karra Yevropa chempioni" },
-    { title: "Amerika Kubogi — 2", sub: "Ketma-ket ikki karra qit'a chempioni, 2021 va 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi Marakanada Amerika Kubogini o'pmoqda", cap: "Amerika Kubogi chempionlari, Marakana 2021" },
-    { title: "La Liga chempionligi — 10", sub: "Barselona safidagi mutlaq yetakchilik 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi La Liga kubogi bilan", cap: "Barselona bilan 10 karra Ispaniya chempioni" }
   ]
 };
 
@@ -6481,121 +5026,6 @@ const ACH_I18N = {
       ["Combien de championnats nationaux Messi a-t-il remportés ?", "<b>Douze championnats</b> — 10 La Liga, 2 Ligue 1 — plus la Supporters' Shield et la Leagues Cup avec Miami."],
       ["Combien de récompenses individuelles Messi a-t-il gagnées ?", "Huit Ballons d'Or, six Souliers d'Or européens et deux Ballons d'Or de la Coupe du Monde — chacun étant un record."],
       ["Messi est-il le joueur le plus titré de tous les temps ?", "En combinant trophées collectifs et distinctions individuelles — <b>oui, absolument</b>."]
-    ]
-  },
-  ar: {
-    head: (teamTotal) => `<b>${teamTotal} بطولة جماعية</b> — أكثر مسيرة حافلة بالألقاب في تاريخ كرة القدم — بالإضافة إلى رقم قياسي بواقع <b>8 كرات ذهبية</b>.`,
-    kpis: (per) => [
-      ["بطولات جماعية", 46, `برشلونة ${per["Barcelona"] || 0} · الأرجنتين ${per["Argentina"] || 0} · باريس ${per["Paris Saint-Germain"] || 0} · ميامي ${per["Inter Miami"] || 0}.`],
-      ["كرات ذهبية", "8", "رقم قياسي — 2009–12, 2015, 2019, 2021, 2023."],
-      ["دوري أبطال أوروبا", "4", "2006, 2009, 2011, 2015 — كلها مع برشلونة."],
-      ["بطولات دولية كبرى", "3", "كأس العالم 2022، وكوبا أمريكا 2021 و2024."]
-    ],
-    qa: (teamTotal, per) => [
-      ["كم عدد البطولات التي فاز بها ميسي؟", `<b>${teamTotal} بطولة رسمية</b>: ${per["Barcelona"] || 0} مع برشلونة، ${per["Paris Saint-Germain"] || 0} مع باريس، ${per["Inter Miami"] || 0} مع ميامي و${per["Argentina"] || 0} مع الأرجنتين.`],
-      ["كم كرة ذهبية فاز بها ميسي؟", "<b>ثماني كرات ذهبية</b> — أكثر من أي لاعب آخر في تاريخ كرة القدم."],
-      ["هل فاز ميسي بكأس العالم؟", "<b>نعم — عام 2022</b>، مسجلاً هدفين في المباراة النهائية أمام فرنسا، بالإضافة إلى كوبا أمريكا 2021 و2024."],
-      ["كم دوري أبطال أوروبا فاز بها ميسي؟", "<b>أربع بطولات</b>، كلها مع برشلونة: 2006, 2009, 2011 و2015."]
-    ],
-    teamHeader: (team, sub) => `${esc(team)} — ${sub} بطولات`,
-    indHeader: (indTotal) => `جوائز فردية — ${indTotal} جائزة`,
-    faq: [
-      ["ما هي أهم بطولة حققها ميسي؟", "<b>كأس العالم 2022</b> — التتويج الأغلى في مسيرته وتوج كأفضل لاعب في البطولة."],
-      ["كم دوري محلي حققه ميسي؟", "<b>12 دوري</b> — 10 بطولات دوري إسباني، بطولتان دوري فرنسي، ودرع الجماهير مع ميامي."],
-      ["كم جائزة فردية فاز بها ميسي؟", "8 كرات ذهبية، 6 أحذية ذهبية أوروبية، وكرتان ذهبيتان لكأس العالم — وكلها أرقام قياسية."],
-      ["هل ميسي اللاعب الأكثر تتويجاً في التاريخ؟", "بجمع البطولات الجماعية والأرقام الفردية — <b>نعم، بلا منازع</b>."]
-    ]
-  },
-  bn: {
-    head: (teamTotal) => `<b>${teamTotal}টি দলীয় শিরোপা</b> — ফুটবল ইতিহাসের সবচেয়ে বেশি ট্রফিজয়ী ক্যারিয়ার — এবং রেকর্ড <b>৮টি ব্যালন ডি'অর</b>।`,
-    kpis: (per) => [
-      ["দলীয় ট্রফি", 46, `বার্সেলোনা ${per["Barcelona"] || 0} · আর্জেন্টিনা ${per["Argentina"] || 0} · পিএসজি ${per["Paris Saint-Germain"] || 0} · মায়ামি ${per["Inter Miami"] || 0}।`],
-      ["ব্যালন ডি'অর", "8", "রেকর্ড — ২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩।"],
-      ["চ্যাম্পিয়ন্স লিগ", "4", "২০০৬, ২০০৯, ২০১১, ২০১৫ — সবগুলো বার্সেলোনার সাথে।"],
-      ["প্রধান আন্তর্জাতিক ট্রফি", "3", "বিশ্বকাপ ২০২২, কোপা আমেরিকা ২০২১ ও ২০২৪।"]
-    ],
-    qa: (teamTotal, per) => [
-      ["মেসি কয়টি ট্রফি জিতেছেন?", `<b>${teamTotal}টি অফিশিয়াল ট্রফি</b>: বার্সেলোনায় ${per["Barcelona"] || 0}, পিএসজিতে ${per["Paris Saint-Germain"] || 0}, মায়ামিতে ${per["Inter Miami"] || 0} এবং আর্জেন্টিনায় ${per["Argentina"] || 0}টি।`],
-      ["মেসি কয়টি ব্যালন ডি'অর জিতেছেন?", "<b>আটটি</b> — ইতিহাসের অন্য যে কারও চেয়ে বেশি (২০০৯–১২, ২০১৫, ২০১৯, ২০২১, ২০২৩)।"],
-      ["মেসি কি বিশ্বকাপ জিতেছেন?", "<b>হ্যাঁ — ২০২২ সালে</b>, ফাইনালে ফ্রান্সের বিরুদ্ধে জোড়া গোল সহ, সাথে ২০২১ ও ২০২৪ কোপা আমেরিকা।"],
-      ["মেসি কয়টি চ্যাম্পিয়ন্স লিগ জিতেছেন?", "<b>চারটি</b>, সবগুলো বার্সেলোনার সাথে: ২০০৬, ২০০৯, ২০১১ এবং ২০১৫।"]
-    ],
-    teamHeader: (team, sub) => `${esc(team)} — ${sub}টি ট্রফি`,
-    indHeader: (indTotal) => `ব্যক্তিগত পুরস্কার — ${indTotal}টি সম্মাননা`,
-    faq: [
-      ["মেসির সবচেয়ে গুরুত্বপূর্ণ ট্রফি কোনটি?", "<b>২০২২ বিশ্বকাপ</b> — যা তার ক্যারিয়ারের সবচেয়ে বড় প্রাপ্তি, টুর্নামেন্টের সেরা খেলোয়াড় হিসেবে জয়ী হন।"],
-      ["মেসি কয়টি লিগ শিরোপা জিতেছেন?", "<b>১২টি লিগ</b> — ১০টি লা লিগা, ২টি লিগ ১ — এবং মায়ামির সাথে সাপোর্টার্স শিল্ড।"],
-      ["মেসি কয়টি ব্যক্তিগত পুরস্কার জিতেছেন?", "৮টি ব্যালন ডি'অর, ৬টি ইউরোপিয়ান গোল্ডেন শু এবং ২টি বিশ্বকাপ গোল্ডেন বল — প্রতিটিই রেকর্ড।"],
-      ["মেসি কি সর্বকালের সবচেয়ে বেশি ট্রফিজয়ী খেলোয়াড়?", "দলীয় এবং ব্যক্তিগত রেকর্ড মিলিয়ে — <b>যেকোনো হিসাবেই হ্যাঁ</b>."]
-    ]
-  },
-  hi: {
-    head: (teamTotal) => `<b>${teamTotal} टीम ट्रॉफियां</b> — फुटबॉल इतिहास का सबसे सफल करियर — साथ ही रिकॉर्ड <b>8 बैलन डी'ओर</b>।`,
-    kpis: (per) => [
-      ["टीम ट्रॉफियां", 46, `बार्सिलोना ${per["Barcelona"] || 0} · अर्जेंटीना ${per["Argentina"] || 0} · पीएसजी ${per["Paris Saint-Germain"] || 0} · मियामी ${per["Inter Miami"] || 0}।`],
-      ["बैलन डी'ओर", "8", "रिकॉर्ड — 2009–12, 2015, 2019, 2021, 2023।"],
-      ["चैंपियंस लीग", "4", "2006, 2009, 2011, 2015 — सभी बार्सिलोना के साथ।"],
-      ["प्रमुख अंतरराष्ट्रीय खिताब", "3", "विश्व कप 2022, कोपा अमेरिका 2021 और 2024।"]
-    ],
-    qa: (teamTotal, per) => [
-      ["मेस्सी ने कितनी ट्रॉफियां जीती हैं?", `<b>${teamTotal} आधिकारिक सीनियर खिताब</b>: बार्सिलोना में ${per["Barcelona"] || 0}, पीएसजी में ${per["Paris Saint-Germain"] || 0}, मियामी में ${per["Inter Miami"] || 0} और अर्जेंटीना के साथ ${per["Argentina"] || 0}।`],
-      ["मेस्सी ने कितने बैलन डी'ओर जीते हैं?", "<b>आठ</b> — इतिहास में किसी भी खिलाड़ी से अधिक (2009–12, 2015, 2019, 2021, 2023)।"],
-      ["क्या मेस्सी ने विश्व कप जीता है?", "<b>हाँ — 2022 में</b>, फ्रांस के खिलाफ फाइनल में दो गोल किए, साथ ही 2021 और 2024 कोपा अमेरिका।"],
-      ["मेस्सी ने कितनी चैंपियंस लीग जीती हैं?", "<b>चार</b>, सभी बार्सिलोना के साथ: 2006, 2009, 2011 और 2015।"]
-    ],
-    teamHeader: (team, sub) => `${esc(team)} — ${sub} ट्रॉफियां`,
-    indHeader: (indTotal) => `व्यक्तिगत पुरस्कार — ${indTotal} सम्मान`,
-    faq: [
-      ["मेस्सी की सबसे महत्वपूर्ण ट्रॉफी कौन सी है?", "<b>2022 विश्व कप</b> — टूर्नामेंट के सर्वश्रेष्ठ खिलाड़ी के रूप में जीती गई उनकी सबसे बड़ी उपलब्धि।"],
-      ["मेस्सी ने कितने लीग खिताब जीते हैं?", "<b>12 लीग खिताब</b> — 10 ला लीगा, 2 लीग 1 — साथ ही मियामी के साथ सपोर्टर्स शील्ड।"],
-      ["मेस्सी ने कितने व्यक्तिगत पुरस्कार जीते हैं?", "8 बैलन डी'ओर, 6 यूरोपीय गोल्डन शू और 2 विश्व कप गोल्डन बॉल — प्रत्येक एक रिकॉर्ड है।"],
-      ["क्या मेस्सी सर्वकालिक सबसे सम्मानित खिलाड़ी हैं?", "टीम और व्यक्तिगत ट्रॉफियों को मिलाकर — <b>हाँ, हर दृष्टि से</b>."]
-    ]
-  },
-  ro: {
-    head: (teamTotal) => `<b>${teamTotal} trofee colective</b> — cea mai decorată carieră din istoria fotbalului — plus un record de <b>8 Baloane de Aur</b>.`,
-    kpis: (per) => [
-      ["Trofee colective", 46, `Barcelona ${per["Barcelona"] || 0} · Argentina ${per["Argentina"] || 0} · PSG ${per["Paris Saint-Germain"] || 0} · Miami ${per["Inter Miami"] || 0}.`],
-      ["Baloane de Aur", "8", "Record — 2009–12, 2015, 2019, 2021, 2023."],
-      ["Ligi ale Campionilor", "4", "2006, 2009, 2011, 2015 — toate cu Barcelona."],
-      ["Turnee internaționale majore", "3", "Cupa Mondială 2022, Copas América 2021 & 2024."]
-    ],
-    qa: (teamTotal, per) => [
-      ["Câte trofee a câștigat Messi?", `<b>${teamTotal} titluri oficiale la seniori</b>: ${per["Barcelona"] || 0} la Barcelona, ${per["Paris Saint-Germain"] || 0} la PSG, ${per["Inter Miami"] || 0} la Inter Miami și ${per["Argentina"] || 0} la națională.`],
-      ["Câte Baloane de Aur are Messi?", "<b>Opt</b> — mai mult decât orice alt jucător din istorie (2009–12, 2015, 2019, 2021, 2023)."],
-      ["A câștigat Messi Cupa Mondială?", "<b>Da — 2022</b>, marcând de două ori în finala împotriva Franței, plus Copas América în 2021 și 2024."],
-      ["Câte Ligi ale Campionilor are Messi?", "<b>Patru</b>, toate cu Barcelona: 2006, 2009, 2011 și 2015."]
-    ],
-    teamHeader: (team, sub) => `${esc(team)} — ${sub} trofee`,
-    indHeader: (indTotal) => `Distincții individuale — ${indTotal} premii`,
-    faq: [
-      ["Care este cel mai important trofeu al lui Messi?", "<b>Cupa Mondială 2022</b> — cel mai râvnit titlu al carierei sale, cucerit fiind desemnat cel mai bun jucător al turneului."],
-      ["Câte titluri de campion are Messi?", "<b>12 titluri de ligă</b> — 10 La Liga, 2 Ligue 1 — plus Supporters' Shield cu Miami."],
-      ["Câte premii individuale a câștigat Messi?", "8 Baloane de Aur, 6 Ghete de Aur și două Baloane de Aur la Cupa Mondială — fiecare fiind un record."],
-      ["Este Messi cel mai titrat jucător din toate timpurile?", "Prin cumulul titlurilor de echipă și recordurilor individuale — <b>da, fără îndoială</b>."]
-    ]
-  },
-  uz: {
-    head: (teamTotal) => `<b>${teamTotal} ta jamoaviy sovrin</b> — futbol tarixidagi eng ko'p unvonga ega faoliyat — hamda rekord <b>8 ta Oltin to'p</b>.`,
-    kpis: (per) => [
-      ["Jamoaviy sovrinlar", 46, `Barselona ${per["Barcelona"] || 0} · Argentina ${per["Argentina"] || 0} · PSJ ${per["Paris Saint-Germain"] || 0} · Mayami ${per["Inter Miami"] || 0}.`],
-      ["Oltin to'p", "8", "Rekord — 2009–12, 2015, 2019, 2021, 2023."],
-      ["Chempionlar Ligasi", "4", "2006, 2009, 2011, 2015 — barchasi Barselona safida."],
-      ["Katta xalqaro sovrinlar", "3", "Jahon chempionati 2022, Amerika Kubogi 2021 va 2024."]
-    ],
-    qa: (teamTotal, per) => [
-      ["Messi nechta sovrin yutgan?", `<b>${teamTotal} ta rasmiy jamoaviy sovrin</b>: ${per["Barcelona"] || 0} Barselonada, ${per["Paris Saint-Germain"] || 0} PSJda, ${per["Inter Miami"] || 0} Inter Mayamida va ${per["Argentina"] || 0} Argentinada.`],
-      ["Messida nechta Oltin to'p bor?", "<b>Sakkizta</b> — futbol tarixidagi boshqa har qanday futbolchidan ko'p (2009–12, 2015, 2019, 2021, 2023)."],
-      ["Messi Jahon chempionatini yutganmi?", "<b>Ha — 2022 yilda</b>, Fransiyaga qarshi finalda 2 ta gol urib, shuningdek 2021 va 2024 yillarda Amerika Kubogini yutgan."],
-      ["Messida nechta Chempionlar Ligasi sovrini bor?", "<b>To'rtta</b>, barchasi Barselona bilan: 2006, 2009, 2011 va 2015."]
-    ],
-    teamHeader: (team, sub) => `${esc(team)} — ${sub} ta sovrin`,
-    indHeader: (indTotal) => `Shaxsiy unvonlar — ${indTotal} ta mukofot`,
-    faq: [
-      ["Messining eng muhim sovrini qaysi?", "<b>2022 yilgi Jahon chempionati</b> — uning butun faoliyatidagi eng oliy cho'qqi, turnirning eng yaxshi o'yinchisi sifatida qo'lga kiritilgan."],
-      ["Messi nechta liga chempionligini yutgan?", "<b>12 ta liga chempionligi</b> — 10 ta La Liga, 2 ta Liga 1 — hamda Mayami bilan Supporters' Shield."],
-      ["Messida nechta shaxsiy mukofot bor?", "8 ta Oltin to'p, 6 ta Yevropa Oltin butsasi va 2 ta Jahon chempionati Oltin to'pi — har biri mutlaq rekord."],
-      ["Messi tarixdagi eng ko'p unvonga ega futbolchimi?", "Jamoaviy sovrinlar va shaxsiy rekordlar yig'indisi bo'yicha — <b>ha, shubhasiz</b>."]
     ]
   }
 };
@@ -6732,12 +5162,7 @@ async function copyToClipboard(text, msgEl, successMsg) {
   const defaultMsgs = {
     es: "¡Copiado al portapapeles!",
     pt: "Copiado para a área de transferência!",
-    fr: "Copié dans le presse-papier !",
-    ar: "تم النسخ إلى الحافظة!",
-    bn: "ক্লিপবোর্ডে কপি করা হয়েছে!",
-    hi: "क्लिपबोर्ड पर कॉपी किया गया!",
-    ro: "Copiat în clipboard!",
-    uz: "Vaqtinchalik xotiraga nusxalandi!"
+    fr: "Copié dans le presse-papier !"
   };
   const finalMsg = successMsg || defaultMsgs[lang] || "Copied to clipboard!";
   let ok = false;
@@ -6799,47 +5224,6 @@ function updateBirthdaySocialShare(dayData, key) {
       shareText = `Je partage mon anniversaire avec Lionel Messi (24 juin) ! 🐐🎂 A-t-il marqué le vôtre ?`;
     } else {
       shareText = `Lionel Messi a-t-il marqué le jour de votre anniversaire ? Découvrez les 366 jours :`;
-    }
-  } else if (lang === "ar") {
-    if (dayData.goalsCount > 0) {
-      shareText = `ليونيل ميسي سجل ${dayData.goalsCount} هدفاً في يوم ميلادي (${dayData.formatted})! ⚽🎂 هل سجل في يوم ميلادك؟`;
-    } else if (isMessiBday) {
-      shareText = `عيد ميلادي نفس يوم ميلاد ليونيل ميسي (24 يونيو)! 🐐🎂 هل سجل في يوم ميلادك؟`;
-    } else {
-      shareText = `هل سجل ليونيل ميسي في يوم ميلادك؟ تحقق من جميع أيام السنة:`;
-    }
-  } else if (lang === "bn") {
-    if (dayData.goalsCount > 0) {
-      shareText = `লিওনেল মেসি আমার জন্মদিনে (${dayData.formatted}) ${dayData.goalsCount}টি গোল করেছেন! ⚽🎂 আপনার জন্মদিনে কি গোল করেছেন?`;
-    } else if (isMessiBday) {
-      shareText = `আমার জন্মদিন লিওনেল মেসির জন্মদিনের একই দিনে (২৪ জুন)! 🐐🎂 আপনার জন্মদিনে কি গোল করেছেন?`;
-    } else {
-      shareText = `লিওনেল মেসি কি আপনার জন্মদিনে গোল করেছিলেন? ৩৬৬ দিনের তালিকা দেখুন:`;
-    }
-  } else if (lang === "hi") {
-    if (dayData.goalsCount > 0) {
-      shareText = `लियोनेल मेस्सी ने मेरे जन्मदिन (${dayData.formatted}) पर ${dayData.goalsCount} गोल किए! ⚽🎂 क्या आपके जन्मदिन पर गोल किया?`;
-    } else if (isMessiBday) {
-      shareText = `मेरा जन्मदिन लियोनेल मेस्सी के जन्मदिन के दिन (24 जून) है! 🐐🎂 क्या आपके जन्मदिन पर गोल किया?`;
-    } else {
-      shareText = `क्या लियोनेल मेस्सी ने आपके जन्मदिन पर गोल किया? 366 दिनों की जांच करें:`;
-    }
-  } else if (lang === "ro") {
-    if (dayData.goalsCount > 0) {
-      const gWord = dayData.goalsCount === 1 ? "gol" : "goluri";
-      shareText = `Lionel Messi a marcat ${dayData.goalsCount} ${gWord} de ziua mea (${dayData.formatted})! ⚽🎂 A marcat și de a ta?`;
-    } else if (isMessiBday) {
-      shareText = `Sunt născut în aceeași zi cu Lionel Messi (24 iunie)! 🐐🎂 A marcat de ziua ta?`;
-    } else {
-      shareText = `A marcat Lionel Messi de ziua ta? Verifică toate cele 366 de zile:`;
-    }
-  } else if (lang === "uz") {
-    if (dayData.goalsCount > 0) {
-      shareText = `Lionel Messi mening tug'ilgan kunimda (${dayData.formatted}) ${dayData.goalsCount} ta gol urgan! ⚽🎂 Sizning tug'ilgan kuningizdachi?`;
-    } else if (isMessiBday) {
-      shareText = `Men Lionel Messi bilan bir kunda tug'ilganman (24-iyun)! 🐐🎂 Sizning tug'ilgan kuningizdachi?`;
-    } else {
-      shareText = `Lionel Messi sizning tug'ilgan kuningizda gol urganmi? 366 kunlik natijalarni tekshiring:`;
     }
   } else {
     if (dayData.goalsCount > 0) {
@@ -7068,126 +5452,6 @@ const BDAY_I18N = {
     goalTab: (idx, min) => `But ${idx}${min ? ` (${min}')` : ""}`,
     shareSuccess: (d, g, m) => `Lionel Messi a marqué ${g} buts en ${m} matchs le jour de mon anniversaire (${d}) ! Vérifiez le vôtre :`,
     shareEmpty: (d) => `Messi a-t-il marqué le jour de votre anniversaire ? Il a marqué 292 des 366 jours de l'année ! Vérifiez le vôtre :`,
-  },
-  ar: {
-    months: ["", "يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
-    badgeSuccess: "🎉 نعم! سجل ميسي في يوم عيد ميلادك!",
-    badgeMessi: "🎂 عيد ميلاد ليو ميسي نفسه!",
-    badgeEmpty: "لا توجد أهداف في هذا التاريخ",
-    headlineSuccess: (g, m, d) => `سجل ليونيل ميسي <b>${g} ${g === 1 ? "هدف" : "أهداف"}</b> في <b>${m} ${m === 1 ? "مباراة" : "مباريات"}</b> يوم ${d} طوال مسيرته الاحترافية!`,
-    headlineMessi: `أنت تشارك يوم ميلادك مع الأسطورة <b>ليونيل أندريس ميسي</b> (وُلد في 24 يونيو 1987 في روساريو)!`,
-    headlineEmpty: (d) => `لم يسجل ليونيل ميسي في <b>${d}</b> خلال مسيرته الاحترافية.`,
-    whyZeroTitle: "لماذا 0 أهداف؟",
-    whyZeroMessi: "لم يلعب ليونيل ميسي أي مباراة رسمية في 24 يونيو لأن أواخر يونيو تتزامن مع العطلة الصيفية للأندية الأوروبية أو فترات الراحة بين أدوار البطولات الدولية.",
-    whyZeroMessiSub: "أنت تشارك يومك المميز مع أفضل لاعب كرة قدم في التاريخ!",
-    emptyExpl: "لم تكن لدى ميسي مباراة مجدولة أو لم يسجل في هذا اليوم المحدد — لكنه سجل في <b>292 يوماً من أصل 366 يوماً (79.8%)</b> في السنة!",
-    closestDay: (d, g) => `أقرب يوم سجل فيه ميسي هو <b>${d}</b> (${g} أهداف في مسيرته).`,
-    closestBtn: (d, g) => `تحقق من ${d} (${g} أهداف) &rarr;`,
-    watchClip: (cnt) => `شاهد ${cnt > 1 ? cnt + " أهداف" : "الهدف"}`,
-    searchYt: "🔍 بحث في YouTube",
-    playInline: "📺 تشغيل هنا",
-    closeInline: "✕ إغلاق الفيديو",
-    ytHighlights: "ملخصات YouTube",
-    goalSummary: (g) => `تم تسجيل ${g} ${g === 1 ? "هدف" : "أهداف"}:`,
-    goalTab: (idx, min) => `الهدف ${idx}${min ? ` (${min}')` : ""}`,
-    shareSuccess: (d, g, m) => `سجل ليونيل ميسي ${g} أهداف في ${m} مباريات في يوم عيد ميلادي (${d})! تحقق من تاريخك:`,
-    shareEmpty: (d) => `هل سجل ليونيل ميسي في يوم ميلادك؟ لقد سجل في 292 يوماً من أيام السنة الـ 366! تحقق من تاريخك:`,
-  },
-  bn: {
-    months: ["", "জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"],
-    badgeSuccess: "🎉 হ্যাঁ! মেসি আপনার জন্মদিনে গোল করেছিলেন!",
-    badgeMessi: "🎂 স্বয়ং লিও মেসির নিজের জন্মদিন!",
-    badgeEmpty: "এই তারিখে কোনো গোল নেই",
-    headlineSuccess: (g, m, d) => `লিওনেল মেসি তার সিনিয়র ক্যারিয়ারে ${d}-এ <b>${m}টি ম্যাচে</b> <b>${g}টি গোল</b> করেছেন!`,
-    headlineMessi: `আপনি সর্বকালের সেরা ফুটবলার <b>লিওনেল আন্দ্রেস মেসি</b>-র সাথে জন্মদিন শেয়ার করছেন (জন্ম ২৪ জুন ১৯৮৭, রোজারিও)!`,
-    headlineEmpty: (d) => `লিওনেল মেসি তার সিনিয়র ক্যারিয়ারে <b>${d}</b> তারিখে কোনো গোল করেননি।`,
-    whyZeroTitle: "কেন ০ গোল?",
-    whyZeroMessi: "লিওনেল মেসি ২৪ জুন কোনো প্রতিযোগিতামূলক ম্যাচ খেলেননি কারণ জুনের শেষভাগ ইউরোপীয় ক্লাবগুলোর গ্রীষ্মকালীন বিরতি বা আন্তর্জাতিক টুর্নামেন্টের বিশ্রামের সময়।",
-    whyZeroMessiSub: "আপনি ফুটবল ইতিহাসের সর্বশ্রেষ্ঠ খেলোয়াড়ের সাথে আপনার বিশেষ দিনটি শেয়ার করছেন!",
-    emptyExpl: "মেসির এই দিনে কোনো ম্যাচ ছিল না অথবা গোল করেননি — তবে তিনি বছরের <b>৩৬৬ দিনের মধ্যে ২৯২ দিনেই (৭৯.৮%)</b> গোল করেছেন!",
-    closestDay: (d, g) => `মেসির গোল করা নিকটতম দিন হলো <b>${d}</b> (ক্যারিয়ারে ${g}টি গোল)।`,
-    closestBtn: (d, g) => `${d} (${g} গোল) দেখুন &rarr;`,
-    watchClip: (cnt) => `ভিডিও দেখুন (${cnt > 1 ? cnt + "টি গোল" : "গোল"})`,
-    searchYt: "🔍 YouTube-এ খুঁজুন",
-    playInline: "📺 এখানে চালান",
-    closeInline: "✕ ভিডিও বন্ধ করুন",
-    ytHighlights: "YouTube হাইলাইটস",
-    goalSummary: (g) => `${g}টি গোল:`,
-    goalTab: (idx, min) => `গোল ${idx}${min ? ` (${min}')` : ""}`,
-    shareSuccess: (d, g, m) => `লিওনেল মেসি আমার জন্মদিনে (${d}) ${m} ম্যাচে ${g}টি গোল করেছিলেন! আপনার তারিখ দেখুন:`,
-    shareEmpty: (d) => `মেসি কি আপনার জন্মদিনে গোল করেছিলেন? তিনি বছরের ২৯২ দিনে গোল করেছেন! দেখুন:`,
-  },
-  hi: {
-    months: ["", "जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"],
-    badgeSuccess: "🎉 हाँ! मेसी ने आपके जन्मदिन पर गोल किया था!",
-    badgeMessi: "🎂 खुद लियो मेसी का अपना जन्मदिन!",
-    badgeEmpty: "इस तारीख को कोई गोल नहीं",
-    headlineSuccess: (g, m, d) => `लियोनेल मेसी ने अपने सीनियर करियर में ${d} को <b>${m} मैचों</b> में <b>${g} गोल</b> किए हैं!`,
-    headlineMessi: `आप <b>लियोनेल आंद्रेस मेसी</b> के साथ अपना जन्मदिन साझा करते हैं (जन्म 24 जून 1987, रोसारियो)!`,
-    headlineEmpty: (d) => `लियोनेल मेसी ने अपने सीनियर करियर में <b>${d}</b> को कोई गोल नहीं किया है।`,
-    whyZeroTitle: "0 गोल क्यों?",
-    whyZeroMessi: "लियोनेल मेसी ने 24 जून को कभी कोई आधिकारिक मैच नहीं खेला क्योंकि जून का अंत यूरोपीय क्लबों के ग्रीष्मकालीन अवकाश या अंतरराष्ट्रीय टूर्नामेंट के विश्राम के दिनों में आता है।",
-    whyZeroMessiSub: "आप अपना खास दिन इतिहास के सबसे महान फुटबॉलर के साथ साझा करते हैं!",
-    emptyExpl: "मेसी का इस दिन कोई मैच निर्धारित नहीं था या उन्होंने गोल नहीं किया — लेकिन उन्होंने साल के <b>366 में से 292 दिनों (79.8%)</b> में गोल किए हैं!",
-    closestDay: (d, g) => `मेसी द्वारा गोल किया गया सबसे नजदीकी दिन <b>${d}</b> (${g} करियर गोल) है।`,
-    closestBtn: (d, g) => `${d} (${g} गोल) चेक करें &rarr;`,
-    watchClip: (cnt) => `वीडियो क्लिप देखें (${cnt > 1 ? cnt + " गोल" : "गोल"})`,
-    searchYt: "🔍 YouTube पर खोजें",
-    playInline: "📺 यहीं चलाएं",
-    closeInline: "✕ वीडियो बंद करें",
-    ytHighlights: "YouTube हाइलाइट्स",
-    goalSummary: (g) => `${g} गोल किए:`,
-    goalTab: (idx, min) => `गोल ${idx}${min ? ` (${min}')` : ""}`,
-    shareSuccess: (d, g, m) => `लियोनेल मेसी ने मेरे जन्मदिन (${d}) पर ${m} मैचों में ${g} गोल किए थे! अपना जन्मदिन चेक करें:`,
-    shareEmpty: (d) => `क्या मेसी ने आपके जन्मदिन पर गोल किया था? उन्होंने साल के 292 दिनों में गोल किए हैं! चेक करें:`,
-  },
-  ro: {
-    months: ["", "Ianuarie", "Februarie", "Martie", "Aprilie", "Mai", "Iunie", "Iulie", "August", "Septembrie", "Octombrie", "Noiembrie", "Decembrie"],
-    badgeSuccess: "🎉 Da! Messi a marcat de ziua ta de naștere!",
-    badgeMessi: "🎂 Ziua de naștere a lui Leo Messi însuși!",
-    badgeEmpty: "Niciun gol la această dată",
-    headlineSuccess: (g, m, d) => `Lionel Messi a marcat <b>${g} ${g === 1 ? "gol" : "goluri"}</b> în <b>${m} ${m === 1 ? "meci" : "meciuri"}</b> pe ${d} de-a lungul carierei sale de senior!`,
-    headlineMessi: `Îți împarți ziua de naștere cu <b>Lionel Andrés Messi</b> (născut pe 24 iunie 1987 la Rosario)!`,
-    headlineEmpty: (d) => `Lionel Messi nu a marcat pe <b>${d}</b> în timpul carierei sale de senior.`,
-    whyZeroTitle: "De ce 0 goluri?",
-    whyZeroMessi: "Lionel Messi nu a disputat niciun meci oficial pe 24 iunie, deoarece sfârșitul lunii iunie coincide cu vacanța de vară a cluburilor europene sau cu zile de pauză între meciurile turneelor internaționale.",
-    whyZeroMessiSub: "Îți împarți ziua specială cu cel mai mare fotbalist din istorie!",
-    emptyExpl: "Messi nu a avut meci programat sau nu a marcat în această zi — dar a marcat în <b>292 din cele 366 de zile (79,8%)</b> ale anului!",
-    closestDay: (d, g) => `Cea mai apropiată zi calendaristică în care Messi a marcat este <b>${d}</b> (${g} goluri în carieră).`,
-    closestBtn: (d, g) => `Vezi ${d} (${g} goluri) &rarr;`,
-    watchClip: (cnt) => `Vezi ${cnt > 1 ? cnt + " videoclipuri cu goluri" : "videoclipul golului"}`,
-    searchYt: "🔍 Caută pe YouTube",
-    playInline: "📺 Redă aici",
-    closeInline: "✕ Închide videoclipul",
-    ytHighlights: "Rezumat pe YouTube",
-    goalSummary: (g) => `${g} ${g === 1 ? "gol marcat" : "goluri marcate"}:`,
-    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
-    shareSuccess: (d, g, m) => `Lionel Messi a marcat ${g} goluri în ${m} meciuri de ziua mea (${d})! Verifică data ta:`,
-    shareEmpty: (d) => `A marcat Messi de ziua ta de naștere? A marcat în 292 din 366 de zile ale anului! Verifică:`,
-  },
-  uz: {
-    months: ["", "Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
-    badgeSuccess: "🎉 Ha! Messi tug'ilgan kuningizda gol urgan!",
-    badgeMessi: "🎂 Leo Messining o'z tug'ilgan kuni!",
-    badgeEmpty: "Ushbu sanada gol urilmagan",
-    headlineSuccess: (g, m, d) => `Lionel Messi butun faoliyati davomida ${d} sanasida <b>${m} ta o'yinda</b> <b>${g} ta gol</b> urgan!`,
-    headlineMessi: `Siz <b>Lionel Andres Messi</b> bilan bir kunda tug'ilgansiz (1987-yil 24-iyunda Rozarioda tug'ilgan)!`,
-    headlineEmpty: (d) => `Lionel Messi o'z faoliyatida <b>${d}</b> sanasida gol urmagan.`,
-    whyZeroTitle: "Nega 0 ta gol?",
-    whyZeroMessi: "Lionel Messi 24-iyunda hech qachon rasmiy o'yinda maydonga tushmagan, chunki iyun oyining oxiri Yevropa klublarining yozgi tanaffusiga yoki xalqaro turnirlar bosqichlari orasidagi dam olish kunlariga to'g'ri keladi.",
-    whyZeroMessiSub: "Siz o'z bayramingizni futbol tarixidagi eng buyuk o'yinchi bilan bir kunda nishonlaysiz!",
-    emptyExpl: "Messi bu kunda o'yin o'tkazmagan yoki gol urmagan — lekin u yilning <b>366 kunidan 292 tasida (79,8%)</b> gol urgan!",
-    closestDay: (d, g) => `Messining gol urgan eng yaqin taqvim kuni — <b>${d}</b> (karyerasida ${g} ta gol).`,
-    closestBtn: (d, g) => `${d} (${g} gol) ni tekshirish &rarr;`,
-    watchClip: (cnt) => `Videoni ko'rish (${cnt > 1 ? cnt + " ta gol" : "gol"})`,
-    searchYt: "🔍 YouTubedan qidirish",
-    playInline: "📺 Shu yerda ko'rish",
-    closeInline: "✕ Videoni yopish",
-    ytHighlights: "YouTubeda tomosha qilish",
-    goalSummary: (g) => `${g} ta gol urilgan:`,
-    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
-    shareSuccess: (d, g, m) => `Lionel Messi mening tug'ilgan kunimda (${d}) ${m} ta o'yinda ${g} ta gol urgan! O'z sanangizni tekshiring:`,
-    shareEmpty: (d) => `Messi sizning tug'ilgan kuningizda gol urganmi? U yilning 292 kunida gol urgan! Tekshiring:`,
   }
 };
 
@@ -7538,12 +5802,7 @@ async function renderBirthday(d) {
               const copiedMsgs = {
                 es: "¡Copiado!",
                 pt: "Copiado!",
-                fr: "Copié !",
-                ar: "تم النسخ!",
-                bn: "কপি করা হয়েছে!",
-                hi: "कॉपी किया गया!",
-                ro: "Copiat!",
-                uz: "Nusxalandi!"
+                fr: "Copié !"
               };
               shareMsg.textContent = copiedMsgs[lang] || "Copied!";
               setTimeout(() => { shareMsg.textContent = ""; }, 3000);
@@ -7562,12 +5821,7 @@ async function renderBirthday(d) {
             const urlCopiedMsgs = {
               es: "¡Enlace copiado!",
               pt: "Link copiado!",
-              fr: "Lien copié !",
-              ar: "تم نسخ الرابط!",
-              bn: "লিংক কপি করা হয়েছে!",
-              hi: "लिंक कॉपी किया गया!",
-              ro: "Link copiat!",
-              uz: "Havola nusxalandi!"
+              fr: "Lien copié !"
             };
             shareMsg.textContent = urlCopiedMsgs[lang] || "URL Copied!";
             setTimeout(() => { shareMsg.textContent = ""; }, 3000);
@@ -8086,91 +6340,6 @@ const LATEST_GOAL_I18N = {
     tagRightFoot: "Pied droit",
     tagOpenPlay: "Jeu ouvert",
     assist: "Passe décisive"
-  },
-  ar: {
-    goalPrefix: "الهدف رقم ",
-    scoreline: "النتيجة",
-    didScoreTodayYes: "نعم! ليونيل ميسي سجل اليوم: الهدف رقم {goalNum} في الدقيقة {minute} ضد {opp} ({score})!",
-    didScoreTodayNo: "هل سجل ميسي اليوم؟ أحدث مباراة رسمية خاضها ليونيل ميسي كانت في {date} في {comp}، حيث سجل الهدف رقم {goalNum} في مسيرته في الدقيقة {minute} ليحسم الفوز {score}. شاهد فيديو الهدف الرسمي أعلاه.",
-    matchResult: "أحدث نتيجة مباراة: {title}",
-    goalBadge: "الهدف #{goalNum} مسجل ({minute})",
-    playHighlight: "اختر أي هدف من أحدث أهداف ليونيل ميسي أدناه لتشغيل الفيديو فوراً في المشغل أعلاه:",
-    viewDateGoals: "عرض أهداف {formattedDate} ←",
-    tagHeader: "ضربة رأس 🔥",
-    tagFreekick: "ركلة حرة مباشرة 🔥",
-    tagPenalty: "ركلة جزاء",
-    tagLeftFoot: "تسديدة بالقدم اليسرى",
-    tagRightFoot: "القدم اليمنى",
-    tagOpenPlay: "لعب مفتوح",
-    assist: "صناعة"
-  },
-  bn: {
-    goalPrefix: "গোল #",
-    scoreline: "স্কোরলাইন",
-    didScoreTodayYes: "হ্যাঁ! লিওনেল মেসি আজ গোল করেছেন: {opp}-এর বিপক্ষে {minute} মিনিটে ক্যারিয়ারের {goalNum}তম গোল ({score})!",
-    didScoreTodayNo: "মেসি কি আজ গোল করেছেন? লিওনেল মেসির সাম্প্রতিকতম ম্যাচটি অনুষ্ঠিত হয়েছিল {date}-এ {comp}-এ, যেখানে তিনি {minute} মিনিটে তাঁর ক্যারিয়ারের {goalNum}তম গোল করে {score} ব্যবধানে জয় এনে দেন। নিচে অফিশিয়াল গোল ভিডিওটি উপভোগ করুন।",
-    matchResult: "সর্বশেষ ম্যাচের ফলাফল: {title}",
-    goalBadge: "{goalNum}তম গোল সম্পন্ন ({minute})",
-    playHighlight: "প্লেয়ারের ভিডিও দেখতে নিচে লিওনেল মেসির সাম্প্রতিক গোলগুলি থেকে বেছে নিন:",
-    viewDateGoals: "{formattedDate}-এর গোলগুলি দেখুন →",
-    tagHeader: "হেডার 🔥",
-    tagFreekick: "সরাসরি ফ্রি-কিক 🔥",
-    tagPenalty: "পেনাল্টি",
-    tagLeftFoot: "বাঁ-পায়ের শট",
-    tagRightFoot: "ডান পা",
-    tagOpenPlay: "ওপেন প্লে",
-    assist: "অ্যাসিস্ট"
-  },
-  hi: {
-    goalPrefix: "गोल #",
-    scoreline: "स्कोर",
-    didScoreTodayYes: "हाँ! लियोनेल मेस्सी ने आज गोल किया: {opp} के खिलाफ {minute} मिनट में करियर का {goalNum}वाँ गोल ({score})!",
-    didScoreTodayNo: "क्या मेस्सी ने आज गोल किया? लियोनेल मेस्सी का सबसे हालिया आधिकारिक मैच {date} को {comp} में हुआ था, जहाँ उन्होंने {minute} मिनट में अपने करियर का {goalNum}वाँ गोल दागकर {score} से जीत दर्ज की। नीचे सीधा आधिकारिक वीडियो रीप्ले देखें।",
-    matchResult: "नवीनतम मैच का परिणाम: {title}",
-    goalBadge: "गोल #{goalNum} दर्ज ({minute})",
-    playHighlight: "ऊपर प्लेयर में वीडियो देखने के लिए नीचे लियोनेल मेस्सी के हालिया गोल में से चुनें:",
-    viewDateGoals: "{formattedDate} के गोल देखें →",
-    tagHeader: "हेडर 🔥",
-    tagFreekick: "सीधा फ्री किक 🔥",
-    tagPenalty: "पेनल्टी",
-    tagLeftFoot: "बाएं पैर का शॉट",
-    tagRightFoot: "दायां पैर",
-    tagOpenPlay: "ओपन प्ले",
-    assist: "असिस्ट"
-  },
-  ro: {
-    goalPrefix: "Golul #",
-    scoreline: "Scor",
-    didScoreTodayYes: "DA! Lionel Messi a marcat astăzi: Golul #{goalNum} în minutul {minute} împotriva {opp} ({score})!",
-    didScoreTodayNo: "A marcat Messi azi? Cel mai recent meci oficial al lui Lionel Messi a avut loc pe {date} în {comp}, unde a marcat Golul #{goalNum} al carierei în minutul {minute} pentru victoria cu {score}. Urmăriți reluarea video oficială mai sus.",
-    matchResult: "Rezultatul celui mai recent meci: {title}",
-    goalBadge: "Golul #{goalNum} marcat ({minute})",
-    playHighlight: "Selectați oricare dintre golurile recente ale lui Lionel Messi de mai jos pentru a urmări clipul video în player:",
-    viewDateGoals: "Vezi golurile din {formattedDate} →",
-    tagHeader: "Lovitură de cap 🔥",
-    tagFreekick: "Lovitură liberă directă 🔥",
-    tagPenalty: "Penalty",
-    tagLeftFoot: "Șut cu piciorul stâng",
-    tagRightFoot: "Piciorul drept",
-    tagOpenPlay: "Acțiune de joc",
-    assist: "Pasă decisivă"
-  },
-  uz: {
-    goalPrefix: "-gol",
-    scoreline: "Hisob",
-    didScoreTodayYes: "HA! Lionel Messi bugun gol urdi: {opp}ga qarshi {minute}-daqiqada faoliyatidagi {goalNum}-golini kiritdi ({score})!",
-    didScoreTodayNo: "Messi bugun gol urdimi? Lionel Messining eng soʻnggi rasmiy oʻyini {date} kuni {comp} doirasida boʻlib oʻtdi va u {minute}-daqiqada faoliyatidagi {goalNum}-golini urib jamoasining {score} hisobidagi gʻalabasini taʼminladi. Rasmiy gol videosini yuqorida tomosha qiling.",
-    matchResult: "Eng soʻnggi oʻyin natijasi: {title}",
-    goalBadge: "{goalNum}-gol urildi ({minute})",
-    playHighlight: "Yuqoridagi pleyerda videoni tomosha qilish uchun Lionel Messining soʻnggi gollaridan birini tanlang:",
-    viewDateGoals: "{formattedDate} gollarini koʻrish →",
-    tagHeader: "Bosh bilan 🔥",
-    tagFreekick: "Jarima zarbasi 🔥",
-    tagPenalty: "Penalti",
-    tagLeftFoot: "Chap oyoq zarbasi",
-    tagRightFoot: "Oʻng oyoq",
-    tagOpenPlay: "Ochiq oʻyin",
-    assist: "Uzatma"
   }
 };
 
@@ -8258,7 +6427,7 @@ async function autoPullLatestGoalLive(d) {
       (activeTitle && !activeTitle.textContent.toLowerCase().includes((g.opponent || "").toLowerCase()));
 
     if (isDesynced || g.goalNumber >= currentNum) {
-      if (activeNum) activeNum.textContent = lang === "uz" ? `${g.goalNumber}-gol` : `${t.goalPrefix}${g.goalNumber}`;
+      if (activeNum) activeNum.textContent = `${t.goalPrefix}${g.goalNumber}`;
       if (activeTitle && g.title) activeTitle.textContent = `${t.goalPrefix}${g.goalNumber} ${t.matchHighlights || "Match Highlights"}: ${g.title}`;
       if (activeMeta && g.venue) activeMeta.textContent = `${g.competition} • ${g.formattedDate} • ${g.venue}`;
       if (activeMin && g.minute) activeMin.textContent = g.minute;
@@ -8305,7 +6474,7 @@ async function autoPullLatestGoalLive(d) {
         if (gridNeedsSync || targetLatest.goalNumber >= firstCardId) {
           grid.innerHTML = payload.recentGoals.map((rg, idx) => {
             const isActive = idx === 0 ? " active" : "";
-            const goalLabel = lang === "uz" ? `${rg.goalNumber}-gol` : `${t.goalPrefix}${rg.goalNumber}`;
+            const goalLabel = `${t.goalPrefix}${rg.goalNumber}`;
             // Date pages exist in English only — never link non-EN date forks (404s).
             const bdayPath = rg.bdayUrl || `/en/birthday/${rg.bdayKey || "09-27"}`;
             return `
@@ -8491,12 +6660,7 @@ load().then((d) => {
   const errorMsgs = {
     es: "Error al cargar las estadísticas. Comprueba tu conexión y recarga la página.",
     pt: "Falha ao carregar as estatísticas. Verifique sua conexão e recarregue.",
-    fr: "Échec du chargement des statistiques. Vérifiez votre connexion et actualisez la page.",
-    ar: "فشل تحميل الإحصائيات. يرجى التحقق من اتصالك بالإنترنت وإعادة تحديث الصفحة.",
-    bn: "পরিসংখ্যান লোড করা যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করে পেজ রিফ্রেশ করুন।",
-    hi: "आंकड़े लोड करने में विफल। अपना इंटरनेट कनेक्शन जांचें और पेज रीफ्रेश करें।",
-    ro: "Eroare la încărcarea statisticilor. Verificați conexiunea și reîmprospătați pagina.",
-    uz: "Statistikalarni yuklab bo'lmadi. Internet aloqangizni tekshiring va sahifani yangilang."
+    fr: "Échec du chargement des statistiques. Vérifiez votre connexion et actualisez la page."
   };
   const msgText = errorMsgs[lang] || "Stats failed to load. Check your connection and refresh.";
   document.querySelectorAll("main.wrap").forEach((m) => {
@@ -8529,12 +6693,7 @@ load().then((d) => {
       en: { t: "Keep MessiStat running?", b: "Hosting and video streaming come out of our own pocket — a coffee keeps every goal clip free.", c: "Support on Ko-fi", l: "Maybe later", x: "Close" },
       es: { t: "¿Mantener MessiStat en marcha?", b: "El hosting y el streaming de vídeo los pagamos de nuestro bolsillo — un café mantiene el sitio gratis.", c: "Apoyar en Ko-fi", l: "Quizás más tarde", x: "Cerrar" },
       pt: { t: "Manter o MessiStat no ar?", b: "Hospedagem e streaming de vídeo saem do nosso bolso — um café mantém o site grátis.", c: "Apoiar no Ko-fi", l: "Talvez mais tarde", x: "Fechar" },
-      fr: { t: "Garder MessiStat en ligne ?", b: "L'hébergement et le streaming vidéo sortent de notre poche — un café garde le site gratuit.", c: "Soutenir sur Ko-fi", l: "Peut-être plus tard", x: "Fermer" },
-      ar: { t: "أبقِ MessiStat يعملًا", b: "الاستضافة وبث الفيديو من جيبنا — فنجان قهوة يُبقي الموقع مجانيًا للجميع.", c: "ادعمنا على Ko-fi", l: "لاحقًا", x: "إغلاق" },
-      bn: { t: "MessiStat চালু রাখুন", b: "হোস্টিং ও ভিডিও স্ট্রিমিং আমরা নিজের জেব থেকে চালাই — এক কাপ চা সাইটটি ফ্রি রাখতে সাহায্য করে।", c: "Ko-fi-তে সাপোর্ট করুন", l: "পরে হয়তো", x: "বন্ধ করুন" },
-      hi: { t: "MessiStat को चलता रखें", b: "होस्टिंग और वीडियो स्ट्रीमिंग हम अपनी जेब से चलाते हैं — एक कॉफ़ी साइट को मुफ़्त रखने में मदद करती है।", c: "Ko-fi पर सपोर्ट करें", l: "शायद बाद में", x: "बंद करें" },
-      ro: { t: "Ține MessiStat în viață", b: "Găzduirea și streamingul video vin din buzunarul nostru — o cafea ține site-ul gratuit.", c: "Susține pe Ko-fi", l: "Mai târziu", x: "Închide" },
-      uz: { t: "MessiStat ishlashda qolsin", b: "Hosting va video streaming bizning cho'mizdan ketadi — bir piyola sayt bepul qolishiga yordam beradi.", c: "Ko-fi orqali qo'llab-quvvatlash", l: "Keyinroq", x: "Yopish" }
+      fr: { t: "Garder MessiStat en ligne ?", b: "L'hébergement et le streaming vidéo sortent de notre poche — un café garde le site gratuit.", c: "Soutenir sur Ko-fi", l: "Peut-être plus tard", x: "Fermer" }
     };
 
     const lang = (typeof getLang === "function" ? getLang() : "en");
