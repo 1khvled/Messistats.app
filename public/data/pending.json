@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-24T16:56:17.715Z",
+  "updated": "2026-10-24T19:13:02.298Z",
   "generator": "scripts/smart-check.mjs (local) + worker/smart-check.js (cron); never messi-data.json",
   "cutoff": "Only matches dated after VERIFIED_THROUGH (2026-09-09) are staged. Everything earlier is already folded into messi-data.json.",
   "provisional": [],
@@ -152,11 +152,11 @@
       "sources": [
         {
           "url": "https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece",
-          "at": "2026-10-24T00:56:37.980Z"
+          "at": "2026-10-24T19:12:59.518Z"
         }
       ],
-      "fetched_at": "2026-10-24T00:56:37.980Z",
-      "note": "Page changed since last check (e6ca62d8e486 -> 393a131bf66b) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
+      "fetched_at": "2026-10-24T19:12:59.518Z",
+      "note": "Page changed since last check (393a131bf66b -> 2cca2233ec9b) — re-read by hand and re-verify any numbers we cite from it. Do NOT copy prose (facts/numbers only). https://sportstar.thehindu.com/football/messi-reaches-400-assists-career-stats-record-inter-miami-barcelona-psg-argentina-breakdown-football-news/article70258674.ece"
     },
     {
       "match_id": "watch:article:planet-elclasico",
