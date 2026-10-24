@@ -31,18 +31,16 @@ console.log(`Pre-cleaning template & generating ${keys.length} programmatic birt
 let cleanTemplate = template
   // 1. Remove non-reciprocal language alternate links (keep en and x-default)
   .replace(/<link\s+rel="alternate"\s+hreflang="(?!en\b|x-default)[^"]*"\s+href="[^"]*"\s*\/?>/gi, "")
-  // 2. Remove date explorer picker terminal (users navigate dates via ← / → or explore card)
-  .replace(/<section\s+class="bday-picker-card"[\s\S]*?<\/section>/i, "")
-  // 3. Remove 4 KPI cards (belongs on hub page)
-  .replace(/<div\s+class="kpis\s+kpis-4"\s+id="bday-kpis"[\s\S]*?<\/div>/i, "")
-  // 4. Remove 366-day calendar heatmap section
+  // 2. Remove KPIs grid AND Date Explorer picker terminal (everything between page lead and bday-verdict)
+  .replace(/(?:<!--\s*KPIs Grid\s*-->|<div\s+class="kpis\s+kpis-4"\s+id="bday-kpis">)[\s\S]*?(?=<section\s+class="bday-verdict-card")/i, "")
+  // 3. Remove 366-day calendar heatmap section
   .replace(/<section\s+class="bday-heatmap-section"[\s\S]*?<\/section>/i, "")
-  // 5. Remove top 15 prolific days table
+  // 4. Remove top 15 prolific days table
   .replace(/<section\s+class="table-card"\s+id="bday-top-days"[\s\S]*?<\/section>/i, "")
-  // 6. Remove monthly overview table
+  // 5. Remove monthly overview table
   .replace(/<section\s+class="table-card"\s+id="bday-monthly"[\s\S]*?<\/section>/i, "")
-  // 7. Remove embed modal
-  .replace(/<div\s+id="bday-embed-modal"[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/i, "");
+  // 6. Remove embed modal cleanly without breaking closing tags
+  .replace(/(?:<!--\s*Embed Widget Modal\s*-->|<div\s+[^>]*id="bday-embed-modal")[\s\S]*?(?=\s*(?:<script|<\/body>))/i, "");
 
 // 8. Add sleek explore card right after the verdict card
 const exploreCardHtml = `
