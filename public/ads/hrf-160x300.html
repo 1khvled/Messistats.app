@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Advertisement</title>
+<style>html,body{margin:0;padding:0;background:transparent}body{display:flex;justify-content:center;align-items:flex-start;min-height:100vh}iframe{border:0;max-width:100%;display:block}</style>
+</head>
+<body>
+<script>
+/* In-frame popup gate: the sandbox allows popups so genuine creative
+  clicks reach the advertiser. Popunders (timers, synthetic events,
+  multi-tab sprays) are blocked here — only a real user click may open
+  anything, at most one popup per few seconds. Top-page navigation stays
+  dead via the sandbox itself (no allow-top-navigation token). */
+(function () {
+  var lastPopup = 0;
+  function trustedEvent() {
+    try {
+      var e = window.event;
+      return !!(e && e.isTrusted);
+    } catch (_) { return false; }
+  }
+  function inLink(el) {
+    try {
+      while (el) {
+        if (el.tagName === 'A' && el.href) return true;
+        el = el.parentElement;
+      }
+    } catch (_) {}
+    return false;
+  }
+  function gate() {
+    var now = Date.now();
+    if (!trustedEvent()) return false;
+    if (now - lastPopup < 5000) return false;
+    lastPopup = now;
+    return true;
+  }
+  try {
+    var nativeOpen = window.open;
+    window.open = function () {
+      if (!gate()) return null;
+      return nativeOpen.apply(window, arguments);
+    };
+  } catch (e) {}
+  try {
+    var ACP = window.HTMLAnchorElement && window.HTMLAnchorElement.prototype;
+    if (ACP && ACP.click) {
+      var nativeClick = ACP.click;
+      ACP.click = function () {
+        if (!gate() || !inLink(this)) return;
+        return nativeClick.apply(this, arguments);
+      };
+    }
+  } catch (e2) {}
+})();
+</script>
+
+<script>
+/* Sandbox storage shim: ad-network scripts read document.cookie /
+  localStorage at init, which throws SecurityError inside a sandboxed
+  frame without allow-same-origin and kills rendering before the
+  creative is written. These inert stand-ins let the creative render.
+  Nothing is stored, nothing leaves the frame. */
+(function () {
+  try {
+    Object.defineProperty(document, 'cookie', {
+      configurable: true,
+      get: function () { return ''; },
+      set: function () { return true; }
+    });
+    try {
+      Object.defineProperty(navigator, 'cookieEnabled', { configurable: true, value: true });
+    } catch (e2) {}
+  } catch (e2) {}
+  try {
+    var __adMem = {};
+    function __adMemStorage() {
+      return {
+        getItem: function (k) { return Object.prototype.hasOwnProperty.call(__adMem, k) ? __adMem[k] : null; },
+        setItem: function (k, v) { __adMem[String(k)] = String(v); },
+        removeItem: function (k) { delete __adMem[k]; },
+        clear: function () { __adMem = {}; },
+        key: function (i) { return Object.keys(__adMem)[i] || null; },
+        get length() { return Object.keys(__adMem).length; }
+      };
+    }
+    Object.defineProperty(window, 'localStorage', { configurable: true, value: __adMemStorage() });
+    Object.defineProperty(window, 'sessionStorage', { configurable: true, value: __adMemStorage() });
+  } catch (e2) {}
+})();
+</script>
+
+<script>
+atOptions = {
+  'key' : '94e8bf4b882183e77bc968c472755cee',
+  'format' : 'iframe',
+  'height' : 300,
+  'width' : 160,
+  'params' : {}
+};
+</script>
+<script src="https://bauval.org/22/94e8bf4b882183e77bc968c472755cee"></script>
+</body>
+</html>

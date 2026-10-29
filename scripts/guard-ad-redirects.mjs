@@ -32,7 +32,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DIST = path.join(ROOT, 'dist');
 
-const NETWORKS = ['highrevenueformat.com', 'profitableratecpmnetwork.com', 'adsterra.com', 'propellerads.com'];
+const NETWORKS = ['highrevenueformat.com', 'profitableratecpmnetwork.com', 'adsterra.com', 'propellerads.com', 'bauval.org'];
 const failures = [];
 const pages = [];
 
@@ -48,6 +48,12 @@ const pages = [];
 const ADS_DIR = path.join(DIST, 'ads');
 const EXPECTED_ADS = {
   'hrf-300x250.html': 'highrevenueformat.com',
+  'hrf-728x90.html': 'bauval.org',
+  'hrf-320x50.html': 'bauval.org',
+  'hrf-top.html': 'bauval.org',
+  'hrf-468x60.html': 'bauval.org',
+  'hrf-160x600.html': 'bauval.org',
+  'hrf-160x300.html': 'bauval.org',
   'prc-native-6161.html': 'profitableratecpmnetwork.com',
   'prc-native-6160.html': 'profitableratecpmnetwork.com',
   'frame.css': null,

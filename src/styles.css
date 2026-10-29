@@ -6245,6 +6245,87 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   min-height: 50px;
 }
 
+
+/* ---------- Responsive Leaderboard / Top Banner (728x90 desktop / 320x50 mobile) ---------- */
+.ad-banner-wrap.ad-banner-top {
+  margin: 1rem auto 1.5rem auto;
+  max-width: 768px;
+  min-height: 115px;
+  padding: 0.6rem 0.5rem;
+}
+.ad-banner-wrap.ad-banner-top .ad-banner-slot {
+  width: 728px;
+  height: 90px;
+  max-width: 100%;
+}
+.ad-banner-wrap.ad-banner-top .ad-banner-slot > iframe.safe-ad-frame {
+  max-width: 728px !important;
+  max-height: 90px !important;
+  width: 728px;
+  height: 90px;
+}
+iframe.safe-ad-top {
+  width: 728px;
+  height: 90px;
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  .ad-banner-wrap.ad-banner-top {
+    max-width: 340px !important;
+    min-height: 75px !important;
+    padding: 0.4rem 0.5rem !important;
+    margin: 0.6rem auto 1rem auto !important;
+  }
+  .ad-banner-wrap.ad-banner-top .ad-banner-slot {
+    width: 320px !important;
+    height: 50px !important;
+  }
+  .ad-banner-wrap.ad-banner-top .ad-banner-slot > iframe.safe-ad-frame {
+    max-width: 320px !important;
+    max-height: 50px !important;
+    width: 320px !important;
+    height: 50px !important;
+  }
+  iframe.safe-ad-top {
+    width: 320px !important;
+    height: 50px !important;
+  }
+}
+
+/* 468x60 Horizontal Content Banner */
+.ad-banner-wrap.ad-banner-468 {
+  max-width: 500px;
+  min-height: 85px;
+  padding: 0.5rem;
+  margin: 2rem auto;
+}
+.ad-banner-wrap.ad-banner-468 .ad-banner-slot {
+  width: 468px;
+  height: 60px;
+}
+.ad-banner-wrap.ad-banner-468 .ad-banner-slot > iframe.safe-ad-frame {
+  max-width: 468px !important;
+  max-height: 60px !important;
+}
+
+/* 160x600 Desktop Floating Skyscraper */
+.ad-skyscraper-dock {
+  position: fixed;
+  right: 18px;
+  top: 90px;
+  z-index: 85;
+  width: 160px;
+  height: 600px;
+  display: none;
+}
+@media (min-width: 1540px) {
+  .ad-skyscraper-dock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 /* 300x250 Medium Rectangle Banner - Mobile Optimized & Zero CLS */
 .ad-banner-wrap {
   margin: 2.5rem auto;

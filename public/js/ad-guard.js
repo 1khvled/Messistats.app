@@ -52,6 +52,7 @@
   // off-site is blocked above), this list is just evidence.
   const KNOWN_POPUNDER_HOSTS = [
     'highrevenueformat.com',
+    'bauval.org',
     'profitableratecpmnetwork.com',
     'adsterra.com',
     'propellerads.com',
@@ -269,8 +270,8 @@
       if (!d || typeof d.safeAdHeight !== 'number') return;
       if (e.origin !== 'null' && e.origin !== window.location.origin) return;
       const h = Math.round(d.safeAdHeight);
-      if (!(h >= 60 && h <= 1400)) return;
-      const frames = document.querySelectorAll('iframe.safe-ad-native');
+      if (!(h >= 40 && h <= 1400)) return;
+      const frames = document.querySelectorAll('iframe.safe-ad-native, iframe.safe-ad-top');
       for (let i = 0; i < frames.length; i++) {
         if (frames[i].contentWindow === e.source) {
           frames[i].style.height = h + 'px';
