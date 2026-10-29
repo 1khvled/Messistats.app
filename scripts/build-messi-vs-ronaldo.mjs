@@ -1014,6 +1014,14 @@ ${getHreflangs(lang, "messi-vs-ronaldo")}
 <script type="application/ld+json">
 ${JSON.stringify(jsonLd, null, 2)}
 </script>
+<!-- Ad Network Preconnects & High-Priority Subframe Preload -->
+<link rel="preconnect" href="https://bauval.org" crossorigin />
+<link rel="dns-prefetch" href="https://bauval.org" />
+<link rel="preconnect" href="https://highrevenueformat.com" crossorigin />
+<link rel="dns-prefetch" href="https://highrevenueformat.com" />
+<link rel="preconnect" href="https://araplhn.org" crossorigin />
+<link rel="dns-prefetch" href="https://araplhn.org" />
+<link rel="preload" href="/ads/hrf-top.html" as="document" fetchpriority="high" />
 </head>
 <body data-page="vs-ronaldo">
 <a class="skip" href="#main">${t.skipText}</a>
@@ -1066,7 +1074,7 @@ ${JSON.stringify(jsonLd, null, 2)}
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap ad-banner-top">
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame safe-ad-top" src="/ads/hrf-top.html" width="728" height="90" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
+        <iframe class="safe-ad-frame safe-ad-top" src="/ads/hrf-top.html" width="728" height="90" loading="eager" fetchpriority="high" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 

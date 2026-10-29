@@ -11748,3 +11748,53 @@ body.mst-toast-open .back-to-top-btn {
   }
 }
 
+
+
+/* Video Play Overlay with Guaranteed Smartlink Trigger */
+.latest-video-container {
+  position: relative;
+}
+.video-play-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 15, 29, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.video-play-overlay:hover {
+  background: rgba(10, 15, 29, 0.25);
+}
+.video-play-btn-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #0b6fa4;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(11, 111, 164, 0.7);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.video-play-btn-circle svg {
+  margin-left: 3px;
+}
+.video-play-overlay:hover .video-play-btn-circle {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(11, 111, 164, 0.9);
+}
+.video-play-label {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+  letter-spacing: 0.02em;
+}

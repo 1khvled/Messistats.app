@@ -103,7 +103,7 @@ function initMonetizationUnits() {
     }
   }, { capture: true });
 
-  // 2. Mobile Sticky Bottom Anchor Banner (320x50)
+  // 2. Mobile Sticky Bottom Anchor Banner (320x50) - Eager Loaded
   function armMobileAnchor() {
     if (window.innerWidth > 768) return;
     if (document.getElementById("ad-mobile-anchor")) return;
@@ -115,7 +115,7 @@ function initMonetizationUnits() {
     aside.innerHTML = [
       '<button type="button" class="ad-anchor-close" aria-label="Close advertisement">&times;</button>',
       '<div class="ad-anchor-slot">',
-      '  <iframe class="safe-ad-frame" src="/ads/hrf-320x50.html" width="320" height="50" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
+      '  <iframe class="safe-ad-frame" src="/ads/hrf-320x50.html" width="320" height="50" loading="eager" fetchpriority="high" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
       '</div>'
     ].join("");
 
@@ -127,10 +127,10 @@ function initMonetizationUnits() {
       });
     }
 
-    document.body.appendChild(aside);
+    (document.body || document.documentElement).appendChild(aside);
   }
 
-  // 3. Desktop Floating Right Skyscraper Dock (160x600)
+  // 3. Desktop Floating Right Skyscraper Dock (160x600) - Eager Loaded
   function armDesktopSkyscraper() {
     if (window.innerWidth < 1360) return;
     if (document.getElementById("ad-desktop-skyscraper")) return;
@@ -142,22 +142,16 @@ function initMonetizationUnits() {
     aside.innerHTML = [
       '<span class="ad-native-label" style="font-size:10px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;letter-spacing:0.5px;">Advertisement</span>',
       '<div class="ad-skyscraper-slot">',
-      '  <iframe class="safe-ad-frame" src="/ads/hrf-160x600.html" width="160" height="600" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
+      '  <iframe class="safe-ad-frame" src="/ads/hrf-160x600.html" width="160" height="600" loading="eager" fetchpriority="high" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
       '</div>'
     ].join("");
 
-    document.body.appendChild(aside);
+    (document.body || document.documentElement).appendChild(aside);
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      armMobileAnchor();
-      armDesktopSkyscraper();
-    });
-  } else {
-    armMobileAnchor();
-    armDesktopSkyscraper();
-  }
+  // Arm both immediately without waiting for DOMContentLoaded
+  armMobileAnchor();
+  armDesktopSkyscraper();
 }
 initMonetizationUnits();
 
@@ -5697,6 +5691,7 @@ async function renderBirthday(d) {
 
   if (videoBigPlayBtn) {
     videoBigPlayBtn.onclick = () => {
+      window.open("https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e", "_blank", "noopener,noreferrer");
       if (videoPlayer) {
         videoPlayer.play().then(() => {
           videoBigPlayBtn.hidden = true;
@@ -5829,6 +5824,7 @@ async function renderBirthday(d) {
     matchListEl.addEventListener("click", (e) => {
       const watchBtn = e.target.closest(".bday-watch-video-btn");
       if (watchBtn) {
+        window.open("https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e", "_blank", "noopener,noreferrer");
         const idx = +watchBtn.dataset.idx;
         const match = currentMatches[idx];
         if (match) {
@@ -6628,10 +6624,37 @@ function renderLatestGoal(d) {
   const shareBtn = document.getElementById("btn-share-goal");
   const bdayLink = document.getElementById("link-bday-goal");
 
+  const videoOverlay = document.getElementById("latest-video-play-overlay");
+  const playVideoAndRedirect = (e) => {
+    if (e) {
+      try { e.preventDefault(); e.stopPropagation(); } catch (_) {}
+    }
+    window.open("https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e", "_blank", "noopener,noreferrer");
+    if (videoOverlay) videoOverlay.style.display = "none";
+    if (video) video.play().catch(() => {});
+  };
+
+  if (videoOverlay) {
+    videoOverlay.addEventListener("click", playVideoAndRedirect);
+    videoOverlay.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") playVideoAndRedirect(e);
+    });
+  }
+
   if (replayBtn && video) {
     replayBtn.addEventListener("click", () => {
+      window.open("https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e", "_blank", "noopener,noreferrer");
       video.currentTime = 0;
       video.play().catch(() => {});
+    });
+  }
+
+  if (video) {
+    video.addEventListener("play", () => {
+      if (videoOverlay) videoOverlay.style.display = "none";
+    });
+    video.addEventListener("click", () => {
+      window.open("https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e", "_blank", "noopener,noreferrer");
     });
   }
 
