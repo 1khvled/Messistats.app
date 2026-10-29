@@ -1344,15 +1344,6 @@ ${JSON.stringify(jsonLd, null, 2)}
       </table>
     </div>
 
-    
-    <!-- Extra mid-matrix banner -->
-    <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="${t.adLabel}" scrolling="no" loading="lazy"></iframe>
-      </div>
-    </aside>
-
     <!-- 4. International & Finals Dominance Matrix -->
     <div class="shead"><h2>${t.intlHeader}</h2></div>
     <p class="comparison-intro-p">${t.intlIntro}</p>
