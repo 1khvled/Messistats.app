@@ -48,6 +48,16 @@
       "permanent": true
     },
     {
+      "source": "/:lang(ar|bn|hi|ro|uz)",
+      "destination": "/en",
+      "permanent": true
+    },
+    {
+      "source": "/:lang(ar|bn|hi|ro|uz)/:path*",
+      "destination": "/en/:path*",
+      "permanent": true
+    },
+    {
       "source": "/admin",
       "destination": "/en",
       "permanent": true

@@ -43,6 +43,7 @@
     'youtube.com',
     'youtu.be',
     'messistat.com',
+    'araplhn.org',
     'localhost'
   ];
 

@@ -1493,14 +1493,6 @@ ${JSON.stringify(jsonLd, null, 2)}
       </table>
     </div>
 
-    <!-- In-Content Banner Ad Slot (post-H2H, lazy: below fold) -->
-    <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no" loading="lazy"></iframe>
-      </div>
-    </aside>
-
     <!-- VIRAL MAIN ATTRACTION: Birthday Promo Card -->
     <aside class="bday-promo-card" aria-label="${t.bdayPromoAria}">
       <div class="bday-promo-badge">${t.bdayPromoBadge}</div>
@@ -1510,14 +1502,6 @@ ${JSON.stringify(jsonLd, null, 2)}
           <p>${t.bdayDesc}</p>
         </div>
         <a href="/en/birthday/02-05" class="btn btn-primary bday-promo-btn">${t.bdayBtn}</a>
-      </div>
-    </aside>
-
-    <!-- Ad Slot -->
-    <aside aria-label="${t.adLabel}" class="ad-native-wrap">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-native-slot">
-        <iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6160.html" style="width:100%;height:320px" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
@@ -1532,14 +1516,6 @@ ${faqItemsHtml}
       <span class="ad-native-label">${t.adLabel}</span>
       <div class="ad-native-slot">
         <iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6161.html" style="width:100%;height:320px" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no" loading="lazy"></iframe>
-      </div>
-    </aside>
-
-    <!-- Banner Ad Slot -->
-    <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
       </div>
     </aside>
 
