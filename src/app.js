@@ -57,18 +57,19 @@ function initTheme() {
 }
 initTheme();
 
-// ---------- Video Click-to-Play Smartlink Ad (Capped 1x per session) ----------
-function initVideoClickToPlaySmartlink() {
+// ---------- High-Yield Monetization Architecture ----------
+function initMonetizationUnits() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
   const SMARTLINK_URL = "https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e";
-  const STORAGE_KEY = "ms_vsl_c2p_v1";
+  const SESSION_KEY = "ms_session_sl_v1";
 
-  function trigger() {
+  // 1. High-Yield Smartlink Trigger (Strictly Capped 1x Per Session)
+  function triggerSmartlink() {
     try {
       if (typeof sessionStorage !== "undefined") {
-        if (sessionStorage.getItem(STORAGE_KEY)) return false;
-        sessionStorage.setItem(STORAGE_KEY, "1");
+        if (sessionStorage.getItem(SESSION_KEY)) return false;
+        sessionStorage.setItem(SESSION_KEY, "1");
       }
       const pop = window.open(SMARTLINK_URL, "_blank", "noopener,noreferrer");
       if (pop) {
@@ -80,29 +81,85 @@ function initVideoClickToPlaySmartlink() {
     }
   }
 
-  // Synchronous capture click on genuine user tap/click on video triggers
+  // Trigger on first genuine user interaction click (links, buttons, video, cards, tabs)
   document.addEventListener("click", (e) => {
     if (!e || !e.isTrusted) return;
     const target = e.target;
     if (!target) return;
 
-    const isVideoTrigger = target.closest(
-      "video, .bday-watch-video-btn, #video-big-play-btn, #btn-replay-goal, .recent-goal-card, .btn-load-roulette-video, .video-player-box"
+    const isInteractive = target.closest(
+      "a, button, video, .bday-watch-video-btn, #video-big-play-btn, #btn-replay-goal, .recent-goal-card, .btn-load-roulette-video, .video-player-box, .card, .kpi, .tl-item, .bday-day-cell, .table-card"
     );
 
-    if (isVideoTrigger) {
-      trigger();
+    if (isInteractive) {
+      triggerSmartlink();
     }
   }, { capture: true });
 
   // Fallback for native video play event
   document.addEventListener("play", (e) => {
     if (e && e.target && e.target.tagName === "VIDEO") {
-      trigger();
+      triggerSmartlink();
     }
   }, { capture: true });
+
+  // 2. Mobile Sticky Bottom Anchor Banner (320x50)
+  function armMobileAnchor() {
+    if (window.innerWidth > 768) return;
+    if (document.getElementById("ad-mobile-anchor")) return;
+
+    const aside = document.createElement("aside");
+    aside.id = "ad-mobile-anchor";
+    aside.className = "ad-anchor-bottom";
+    aside.setAttribute("aria-label", "Advertisement");
+    aside.innerHTML = [
+      '<button type="button" class="ad-anchor-close" aria-label="Close advertisement">&times;</button>',
+      '<div class="ad-anchor-slot">',
+      '  <iframe class="safe-ad-frame" src="/ads/hrf-320x50.html" width="320" height="50" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
+      '</div>'
+    ].join("");
+
+    const closeBtn = aside.querySelector(".ad-anchor-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", () => {
+        aside.remove();
+        document.body.style.paddingBottom = "";
+      });
+    }
+
+    document.body.appendChild(aside);
+  }
+
+  // 3. Desktop Floating Right Skyscraper Dock (160x600)
+  function armDesktopSkyscraper() {
+    if (window.innerWidth < 1360) return;
+    if (document.getElementById("ad-desktop-skyscraper")) return;
+
+    const aside = document.createElement("aside");
+    aside.id = "ad-desktop-skyscraper";
+    aside.className = "ad-skyscraper-dock";
+    aside.setAttribute("aria-label", "Advertisement");
+    aside.innerHTML = [
+      '<span class="ad-native-label" style="font-size:10px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;letter-spacing:0.5px;">Advertisement</span>',
+      '<div class="ad-skyscraper-slot">',
+      '  <iframe class="safe-ad-frame" src="/ads/hrf-160x600.html" width="160" height="600" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
+      '</div>'
+    ].join("");
+
+    document.body.appendChild(aside);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => {
+      armMobileAnchor();
+      armDesktopSkyscraper();
+    });
+  } else {
+    armMobileAnchor();
+    armDesktopSkyscraper();
+  }
 }
-initVideoClickToPlaySmartlink();
+initMonetizationUnits();
 
 
 /* ================= REDESIGNED LANGUAGE SELECTOR & MOBILE TOPBAR ================= */
