@@ -6307,6 +6307,11 @@ iframe.safe-ad-top {
   max-width: 468px !important;
   max-height: 60px !important;
 }
+@media (max-width: 500px) {
+  .ad-banner-wrap.ad-banner-468 {
+    display: none !important;
+  }
+}
 
 /* 160x600 Desktop Floating Skyscraper */
 .ad-skyscraper-dock {

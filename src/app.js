@@ -57,6 +57,54 @@ function initTheme() {
 }
 initTheme();
 
+// ---------- Video Click-to-Play Smartlink Ad (Capped 1x per session) ----------
+function initVideoClickToPlaySmartlink() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
+  const SMARTLINK_URL = "https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e";
+  const STORAGE_KEY = "ms_vsl_c2p_v1";
+
+  function trigger() {
+    try {
+      if (typeof sessionStorage !== "undefined") {
+        if (sessionStorage.getItem(STORAGE_KEY)) return false;
+        sessionStorage.setItem(STORAGE_KEY, "1");
+      }
+      const pop = window.open(SMARTLINK_URL, "_blank", "noopener,noreferrer");
+      if (pop) {
+        try { pop.blur(); window.focus(); } catch (_) {}
+      }
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  // Synchronous capture click on genuine user tap/click on video triggers
+  document.addEventListener("click", (e) => {
+    if (!e || !e.isTrusted) return;
+    const target = e.target;
+    if (!target) return;
+
+    const isVideoTrigger = target.closest(
+      "video, .bday-watch-video-btn, #video-big-play-btn, #btn-replay-goal, .recent-goal-card, .btn-load-roulette-video, .video-player-box"
+    );
+
+    if (isVideoTrigger) {
+      trigger();
+    }
+  }, { capture: true });
+
+  // Fallback for native video play event
+  document.addEventListener("play", (e) => {
+    if (e && e.target && e.target.tagName === "VIDEO") {
+      trigger();
+    }
+  }, { capture: true });
+}
+initVideoClickToPlaySmartlink();
+
+
 /* ================= REDESIGNED LANGUAGE SELECTOR & MOBILE TOPBAR ================= */
 const LANGUAGES = [
   { code: "en", flag: "🇺🇸", name: "English", native: "English", note: "US, NG, IN, PH" },
