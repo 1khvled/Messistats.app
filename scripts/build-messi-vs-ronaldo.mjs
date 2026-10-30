@@ -147,7 +147,7 @@ const I18N = {
     lead: "The definitive statistical comparison between the two greatest icons of modern football. All-time goals, non-penalty goals, free kicks, penalties, assists, trophies, individual accolades, and all 36 direct matches.",
     verdictBadge: "THE GOAT VERDICT • COMPLETE OFFICIAL TOTALS",
     verdictTitle: "Who has better all-time career statistics: Messi or Ronaldo?",
-    verdictText: "Across all official senior matches, <b>Lionel Messi has scored 932 goals and provided 407+ assists in 1,178 appearances</b> (1.14 goal contributions per match), while <b>Cristiano Ronaldo holds the all-time goalscoring record with 981 goals and provided 261 assists in 1,342 appearances</b> (0.93 contributions per match). While Ronaldo leads the all-time goal tally (<b>981 vs 932</b>), Messi reached 932 goals in <b>161 fewer matches</b> with a higher scoring ratio (<b>0.79 vs 0.73</b>), leads in <b>non-penalty goals (822 vs 796)</b> and assists (<b>407+ vs 261</b>), won the <b>FIFA World Cup (2022)</b> with two Golden Balls, and leads in <b>Ballons d'Or (8 vs 5)</b> and <b>team trophies (47 vs 37)</b>.",
+    verdictText: "Across all official senior matches, <b>Lionel Messi has scored 932 goals and provided 407+ assists in 1,178 appearances</b> (1.14 goal contributions per match), while <b>Cristiano Ronaldo holds the all-time goalscoring record with 981 goals and provided 261 assists in 1,343 appearances</b> (0.93 contributions per match). While Ronaldo leads the all-time goal tally (<b>981 vs 932</b>), Messi reached 932 goals in <b>161 fewer matches</b> with a higher scoring ratio (<b>0.79 vs 0.73</b>), leads in <b>non-penalty goals (822 vs 796)</b> and assists (<b>407+ vs 261</b>), won the <b>FIFA World Cup (2022)</b> with two Golden Balls, and leads in <b>Ballons d'Or (8 vs 5)</b> and <b>team trophies (47 vs 37)</b>.",
     tableStat: "Statistic",
     tableLeader: "Leader",
     coreHeader: "All-Time Senior Career Totals",
@@ -225,12 +225,12 @@ const I18N = {
     footerDir: "Career Records & Rivalries",
     footerIntl: "International Editions / Idiomas",
     crestNote: "Club crests are trademarks of their respective clubs, shown for identification purposes.",
-    badgeRonaldoGoals: "Ronaldo (+48 goals, All-Time Record)",
-    badgeMessiNPG: "Messi (+26 NPG)",
+    badgeRonaldoGoals: `Ronaldo (+${S.gap} goals, All-Time Record)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} NPG)`,
     badgeMessiFK: "Messi (+12 free kicks)",
     badgeRonaldoPen: "Ronaldo (+74 penalties)",
     badgeMessiAssists: "Messi (+146 assists)",
-    badgeRonaldoHT: "Ronaldo (+4 hat-tricks)",
+    badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-tricks)`,
     badgeMessiWC: "Messi (Champion, 2x Golden Ball)",
     badgeMessiTrophies: "Messi (+10 trophies, World Record)",
     badgeMessiBallon: "Messi (+3 Ballons d'Or, World Record)",
@@ -271,11 +271,11 @@ const I18N = {
     faqs: [
       {
         q: "Who has more total career goals: Messi or Ronaldo?",
-        a: "Cristiano Ronaldo holds the all-time world record with 981 official senior career goals in 1,342 appearances (0.73 goals per match), while Lionel Messi has scored 932 goals in 1,178 appearances (0.79 goals per match). Ronaldo leads by 48 goals, though Messi has played 161 fewer matches and maintains a higher scoring ratio."
+        a: "Cristiano Ronaldo holds the all-time world record with 981 official senior career goals in 1,343 appearances (0.73 goals per match), while Lionel Messi has scored 932 goals in 1,178 appearances (0.79 goals per match). Ronaldo leads by 48 goals, though Messi has played 161 fewer matches and maintains a higher scoring ratio."
       },
       {
         q: "Who has more non-penalty goals: Messi or Ronaldo?",
-        a: "Lionel Messi has scored 822 non-penalty goals in 1,178 matches (0.70 non-penalty goals per game). Cristiano Ronaldo has scored 796 non-penalty goals in 1,342 matches (0.59 per game). Messi leads Ronaldo by 26 non-penalty goals despite playing 161 fewer career games."
+        a: "Lionel Messi has scored 822 non-penalty goals in 1,178 matches (0.70 non-penalty goals per game). Cristiano Ronaldo has scored 796 non-penalty goals in 1,343 matches (0.59 per game). Messi leads Ronaldo by 26 non-penalty goals despite playing 161 fewer career games."
       },
       {
         q: "Who has scored more free kicks: Messi or Ronaldo?",
@@ -291,7 +291,7 @@ const I18N = {
       },
       {
         q: "Who has more career hat-tricks: Messi or Ronaldo?",
-        a: "Cristiano Ronaldo has scored 66 career hat-tricks (56 in club football, 10 for Portugal). Lionel Messi has scored 62 career hat-tricks (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). Ronaldo leads by 4 hat-tricks."
+        a: "Cristiano Ronaldo has scored 67 career hat-tricks (56 in club football, 10 for Portugal). Lionel Messi has scored 62 career hat-tricks (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). Ronaldo leads by 4 hat-tricks."
       },
       {
         q: "Who performed better in the FIFA World Cup: Messi or Ronaldo?",
@@ -334,7 +334,7 @@ const I18N = {
     lead: "La comparativa estadística definitiva entre los dos máximos iconos del fútbol moderno. Goles totales, goles sin penalti, tiros libres, penaltis, asistencias, títulos, galardones individuales y los 36 enfrentamientos directos.",
     verdictBadge: "EL VEREDICTO GOAT • CIFRAS OFICIALES COMPLETAS",
     verdictTitle: "¿Quién tiene mejores estadísticas históricas: Messi o Ronaldo?",
-    verdictText: "En todos los partidos oficiales senior, <b>Lionel Messi ha marcado 932 goles y ha dado más de 407 asistencias en 1.178 partidos</b> (1,12 contribuciones de gol por partido), mientras que <b>Cristiano Ronaldo es el máximo goleador histórico con 981 goles y 261 asistencias en 1.342 partidos</b> (0,93 contribuciones por partido). Aunque Ronaldo lidera el total histórico de goles (<b>981 vs 932</b>), Messi llegó a 932 en <b>161 partidos menos</b> con mejor promedio (<b>0,79 vs 0,73</b>), lidera en <b>goles sin penalti (822 vs 796)</b> y asistencias (<b>407+ vs 261</b>), ganó la <b>Copa del Mundo FIFA (2022)</b> con dos Balones de Oro, y supera a Ronaldo en <b>Balones de Oro (8 vs 5)</b> y <b>títulos oficiales (47 vs 37)</b>.",
+    verdictText: "En todos los partidos oficiales senior, <b>Lionel Messi ha marcado 932 goles y ha dado más de 407 asistencias en 1.178 partidos</b> (1,12 contribuciones de gol por partido), mientras que <b>Cristiano Ronaldo es el máximo goleador histórico con 981 goles y 261 asistencias en 1.343 partidos</b> (0,93 contribuciones por partido). Aunque Ronaldo lidera el total histórico de goles (<b>981 vs 932</b>), Messi llegó a 932 en <b>161 partidos menos</b> con mejor promedio (<b>0,79 vs 0,73</b>), lidera en <b>goles sin penalti (822 vs 796)</b> y asistencias (<b>407+ vs 261</b>), ganó la <b>Copa del Mundo FIFA (2022)</b> con dos Balones de Oro, y supera a Ronaldo en <b>Balones de Oro (8 vs 5)</b> y <b>títulos oficiales (47 vs 37)</b>.",
     tableStat: "Estadística",
     tableLeader: "Líder",
     coreHeader: "Totales de Carrera Senior Oficial",
@@ -412,12 +412,12 @@ const I18N = {
     footerDir: "Récords y Rivalidades",
     footerIntl: "Ediciones Internacionales / Idiomas",
     crestNote: "Los escudos de clubes son marcas registradas de sus respectivos clubes, mostrados con fines de identificación.",
-    badgeRonaldoGoals: "Ronaldo (+48 goles, récord histórico)",
-    badgeMessiNPG: "Messi (+26 goles sin penalti)",
+    badgeRonaldoGoals: `Ronaldo (+${S.gap} goles, récord histórico)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} goles sin penalti)`,
     badgeMessiFK: "Messi (+12 tiros libres)",
     badgeRonaldoPen: "Ronaldo (+74 penaltis)",
     badgeMessiAssists: "Messi (+146 asistencias)",
-    badgeRonaldoHT: "Ronaldo (+4 hat-tricks)",
+    badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-tricks)`,
     badgeMessiWC: "Messi (Campeón, 2 Balones de Oro)",
     badgeMessiTrophies: "Messi (+10 títulos, récord mundial)",
     badgeMessiBallon: "Messi (+3 Balones de Oro, récord)",
@@ -458,11 +458,11 @@ const I18N = {
     faqs: [
       {
         q: "¿Quién tiene más goles en total: Messi o Cristiano Ronaldo?",
-        a: "Cristiano Ronaldo tiene el récord mundial histórico absoluto con 981 goles oficiales en 1.342 partidos (0,73 goles por partido). Lionel Messi suma 932 goles en 1.178 partidos (0,79 goles por partido). Ronaldo aventaja a Messi por 48 goles, aunque Messi ha jugado 161 partidos menos y ostenta un mejor promedio goleador."
+        a: "Cristiano Ronaldo tiene el récord mundial histórico absoluto con 981 goles oficiales en 1.343 partidos (0,73 goles por partido). Lionel Messi suma 932 goles en 1.178 partidos (0,79 goles por partido). Ronaldo aventaja a Messi por 48 goles, aunque Messi ha jugado 161 partidos menos y ostenta un mejor promedio goleador."
       },
       {
         q: "¿Quién tiene más goles sin contar penaltis?",
-        a: "Lionel Messi suma 822 goles sin contar penaltis en 1.178 partidos (0,70 por partido). Cristiano Ronaldo registra 796 goles sin penalti en 1.342 encuentros (0,59 por partido). Messi aventaja a Ronaldo en 26 goles de jugada habiendo jugado 161 partidos menos."
+        a: "Lionel Messi suma 822 goles sin contar penaltis en 1.178 partidos (0,70 por partido). Cristiano Ronaldo registra 796 goles sin penalti en 1.343 encuentros (0,59 por partido). Messi aventaja a Ronaldo en 26 goles de jugada habiendo jugado 161 partidos menos."
       },
       {
         q: "¿Quién ha marcado más goles de tiro libre directo?",
@@ -478,7 +478,7 @@ const I18N = {
       },
       {
         q: "¿Quién tiene más hat-tricks: Messi o Ronaldo?",
-        a: "Cristiano Ronaldo tiene 66 hat-tricks oficiales (56 en clubes y 10 con Portugal). Lionel Messi tiene 62 hat-tricks (48 con el Barcelona, 11 con Argentina y 3 con el Inter Miami). Ronaldo lidera por 4 hat-tricks."
+        a: "Cristiano Ronaldo tiene 67 hat-tricks oficiales (56 en clubes y 10 con Portugal). Lionel Messi tiene 62 hat-tricks (48 con el Barcelona, 11 con Argentina y 3 con el Inter Miami). Ronaldo lidera por 4 hat-tricks."
       },
       {
         q: "¿Quién rindió mejor en las Copas del Mundo de la FIFA?",
@@ -521,7 +521,7 @@ const I18N = {
     lead: "O comparativo estatístico definitivo entre os dois maiores ícones do futebol moderno. Gols totais, gols sem pênalti, faltas, pênaltis, assistências, títulos, prêmios individuais e os 36 confrontos diretos.",
     verdictBadge: "O VEREDITO DO GOAT • DADOS OFICIAIS COMPLETOS",
     verdictTitle: "Quem tem as melhores estatísticas de carreira: Messi ou Ronaldo?",
-    verdictText: "Em todos os jogos oficiais seniores, <b>Lionel Messi marcou 932 gols e distribuiu mais de 407 assistências em 1.178 jogos</b> (1,12 participações em gol por partida), enquanto <b>Cristiano Ronaldo é o maior artilheiro de todos os tempos com 981 gols e 261 assistências em 1.342 jogos</b> (0,93 participações por partida). Embora Ronaldo lidere em gols totais (<b>981 contra 932</b>), Messi alcançou seus gols em <b>161 jogos a menos</b> com melhor média (<b>0,79 contra 0,73</b>), tem mais <b>gols sem pênalti (822 contra 796)</b> e assistências (<b>407+ contra 261</b>), conquistou a <b>Copa do Mundo FIFA (2022)</b> com duas Bolas de Ouro, e lidera em <b>Bolas de Ouro (8 a 5)</b> e <b>títulos oficiais (47 a 37)</b>.",
+    verdictText: "Em todos os jogos oficiais seniores, <b>Lionel Messi marcou 932 gols e distribuiu mais de 407 assistências em 1.178 jogos</b> (1,12 participações em gol por partida), enquanto <b>Cristiano Ronaldo é o maior artilheiro de todos os tempos com 981 gols e 261 assistências em 1.343 jogos</b> (0,93 participações por partida). Embora Ronaldo lidere em gols totais (<b>981 contra 932</b>), Messi alcançou seus gols em <b>161 jogos a menos</b> com melhor média (<b>0,79 contra 0,73</b>), tem mais <b>gols sem pênalti (822 contra 796)</b> e assistências (<b>407+ contra 261</b>), conquistou a <b>Copa do Mundo FIFA (2022)</b> com duas Bolas de Ouro, e lidera em <b>Bolas de Ouro (8 a 5)</b> e <b>títulos oficiais (47 a 37)</b>.",
     tableStat: "Estatística",
     tableLeader: "Líder",
     coreHeader: "Totais da Carreira Sênior Oficial",
@@ -599,12 +599,12 @@ const I18N = {
     footerDir: "Recordes e Rivalidades",
     footerIntl: "Edições Internacionais / Idiomas",
     crestNote: "Os escudos dos clubes são marcas registradas de seus respectivos times, exibidos para fins de identificação.",
-    badgeRonaldoGoals: "Ronaldo (+48 gols, recorde histórico)",
-    badgeMessiNPG: "Messi (+26 gols sem pênalti)",
+    badgeRonaldoGoals: `Ronaldo (+${S.gap} gols, recorde histórico)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} gols sem pênalti)`,
     badgeMessiFK: "Messi (+12 faltas diretas)",
     badgeRonaldoPen: "Ronaldo (+74 pênaltis)",
     badgeMessiAssists: "Messi (+146 assistências)",
-    badgeRonaldoHT: "Ronaldo (+4 hat-tricks)",
+    badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-tricks)`,
     badgeMessiWC: "Messi (Campeão, 2 Bolas de Ouro)",
     badgeMessiTrophies: "Messi (+10 títulos, recorde mundial)",
     badgeMessiBallon: "Messi (+3 Bolas de Ouro, recorde)",
@@ -645,11 +645,11 @@ const I18N = {
     faqs: [
       {
         q: "Quem tem mais gols na carreira: Messi ou Cristiano Ronaldo?",
-        a: "Cristiano Ronaldo detém o recorde mundial absoluto com 981 gols oficiais em 1.342 jogos (0,73 gols por jogo). Lionel Messi marcou 932 gols em 1.178 jogos (0,79 gols por jogo). Ronaldo lidera por 48 gols, mas Messi disputou 161 jogos a menos e possui média superior."
+        a: "Cristiano Ronaldo detém o recorde mundial absoluto com 981 gols oficiais em 1.343 jogos (0,73 gols por jogo). Lionel Messi marcou 932 gols em 1.178 jogos (0,79 gols por jogo). Ronaldo lidera por 48 gols, mas Messi disputou 161 jogos a menos e possui média superior."
       },
       {
         q: "Quem tem mais gols sem contar cobranças de pênalti?",
-        a: "Lionel Messi tem 822 gols sem pênalti em 1.178 jogos (0,70 por jogo). Cristiano Ronaldo soma 796 gols sem pênalti em 1.342 jogos (0,59 por jogo). Messi tem 26 gols sem pênalti a mais jogando 161 partidas a menos."
+        a: "Lionel Messi tem 822 gols sem pênalti em 1.178 jogos (0,70 por jogo). Cristiano Ronaldo soma 796 gols sem pênalti em 1.343 jogos (0,59 por jogo). Messi tem 26 gols sem pênalti a mais jogando 161 partidas a menos."
       },
       {
         q: "Quem marcou mais gols de falta direta na carreira?",
@@ -665,7 +665,7 @@ const I18N = {
       },
       {
         q: "Quem tem mais hat-tricks na carreira: Messi ou Ronaldo?",
-        a: "Cristiano Ronaldo marcou 66 hat-tricks (56 por clubes e 10 por Portugal). Lionel Messi marcou 62 hat-tricks (48 pelo Barcelona, 11 pela Argentina e 3 pelo Inter Miami). Ronaldo lidera por 4 hat-tricks."
+        a: "Cristiano Ronaldo marcou 67 hat-tricks (56 por clubes e 10 por Portugal). Lionel Messi marcou 62 hat-tricks (48 pelo Barcelona, 11 pela Argentina e 3 pelo Inter Miami). Ronaldo lidera por 4 hat-tricks."
       },
       {
         q: "Quem teve melhor desempenho em Copas do Mundo da FIFA?",
@@ -708,7 +708,7 @@ const I18N = {
     lead: "Le comparatif statistique absolu entre les deux plus grandes légendes du football contemporain. Buts officiels, buts hors penalty, coups francs, penaltys, passes décisives, trophées collectifs, distinctions individuelles et l'intégralité des 36 duels directs.",
     verdictBadge: "LE VERDICT GOAT • CHIFFRES OFFICIELS COMPLETS",
     verdictTitle: "Qui a les meilleures statistiques en carrière : Messi ou Ronaldo ?",
-    verdictText: "En matchs officiels de haut niveau, <b>Lionel Messi a marqué 932 buts et délivré plus de 407 passes décisives en 1 178 apparitions</b> (1,12 action de but par match), tandis que <b>Cristiano Ronaldo détient le record absolu avec 981 buts et 261 passes en 1 342 matchs</b> (0,93 action par match). Si Ronaldo domine le total de buts (<b>981 contre 932</b>), Messi a atteint ses 932 buts avec <b>161 matchs de moins</b> et un meilleur ratio (<b>0,79 contre 0,73</b>), compte plus de <b>buts hors penalty (822 contre 796)</b> et de passes (<b>407+ contre 261</b>), a remporté la <b>Coupe du Monde FIFA (2022)</b> avec deux Ballons d'Or du tournoi, et domine au <b>Ballon d'Or (8 contre 5)</b> et en <b>titres officiels (47 contre 37)</b>.",
+    verdictText: "En matchs officiels de haut niveau, <b>Lionel Messi a marqué 932 buts et délivré plus de 407 passes décisives en 1 178 apparitions</b> (1,12 action de but par match), tandis que <b>Cristiano Ronaldo détient le record absolu avec 981 buts et 261 passes en 1 343 matchs</b> (0,93 action par match). Si Ronaldo domine le total de buts (<b>981 contre 932</b>), Messi a atteint ses 932 buts avec <b>161 matchs de moins</b> et un meilleur ratio (<b>0,79 contre 0,73</b>), compte plus de <b>buts hors penalty (822 contre 796)</b> et de passes (<b>407+ contre 261</b>), a remporté la <b>Coupe du Monde FIFA (2022)</b> avec deux Ballons d'Or du tournoi, et domine au <b>Ballon d'Or (8 contre 5)</b> et en <b>titres officiels (47 contre 37)</b>.",
     tableStat: "Statistique",
     tableLeader: "Avantage",
     coreHeader: "Totaux de Carrière Senior Officiels",
@@ -786,12 +786,12 @@ const I18N = {
     footerDir: "Records et Rivalités",
     footerIntl: "Éditions Internationales / Langues",
     crestNote: "Les logos de clubs sont des marques déposées de leurs propriétaires respectifs, utilisés à des fins d'identification.",
-    badgeRonaldoGoals: "Ronaldo (+48 buts, record historique)",
-    badgeMessiNPG: "Messi (+26 buts hors penalty)",
+    badgeRonaldoGoals: `Ronaldo (+${S.gap} buts, record historique)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} buts hors penalty)`,
     badgeMessiFK: "Messi (+12 coups francs)",
     badgeRonaldoPen: "Ronaldo (+74 penaltys)",
     badgeMessiAssists: "Messi (+146 passes décisives)",
-    badgeRonaldoHT: "Ronaldo (+4 triplés)",
+    badgeRonaldoHT: `Ronaldo (+${S.htLead} triplés)`,
     badgeMessiWC: "Messi (Champion, 2 Ballons d'Or)",
     badgeMessiTrophies: "Messi (+10 trophées, record mondial)",
     badgeMessiBallon: "Messi (+3 Ballons d'Or, record)",
@@ -832,15 +832,15 @@ const I18N = {
     faqs: [
       {
         q: "Qui a marqué le plus de buts officiels : Messi ou Ronaldo ?",
-        a: "Cristiano Ronaldo détient le record mondial de l'histoire du football avec 981 buts officiels en 1 342 apparitions (0,73 but par match). Lionel Messi compte 932 buts en 1 178 apparitions (0,79 but par match). Ronaldo mène de 48 buts, mais Messi compte 161 matchs de moins et affiche une meilleure moyenne."
+        a: "Cristiano Ronaldo détient le record mondial de l'histoire du football avec 981 buts officiels en 1 343 apparitions (0,73 but par match). Lionel Messi compte 932 buts en 1 178 apparitions (0,79 but par match). Ronaldo mène de 48 buts, mais Messi compte 161 matchs de moins et affiche une meilleure moyenne."
       },
       {
         q: "Qui a inscrit le plus de buts hors penalty ?",
-        a: "Lionel Messi compte 822 buts hors penalty en 1 178 matchs (0,70 par match). Cristiano Ronaldo totalise 796 buts hors penalty en 1 342 matchs (0,59 par match). Messi devance Ronaldo de 26 buts hors penalty en ayant disputé 161 matchs de moins."
+        a: "Lionel Messi compte 822 buts hors penalty en 1 178 matchs (0,70 par match). Cristiano Ronaldo totalise 796 buts hors penalty en 1 343 matchs (0,59 par match). Messi devance Ronaldo de 26 buts hors penalty en ayant disputé 161 matchs de moins."
       },
       {
         q: "Qui a marqué le plus de coups francs directs ?",
-        a: "Les deux géants sont à égalité parfaite avec 66 buts sur coup franc direct chacun. Messi en compte 50 avec Barcelone, 11 avec l'Argentine, 3 avec l'Inter Miami et 2 avec le PSG. Ronaldo en compte 33 avec le Real Madrid, 15 avec Manchester United, 11 avec le Portugal, 6 avec Al-Nassr et 1 avec la Juventus."
+        a: "Les deux géants sont à égalité parfaite avec 67 buts sur coup franc direct chacun. Messi en compte 50 avec Barcelone, 11 avec l'Argentine, 3 avec l'Inter Miami et 2 avec le PSG. Ronaldo en compte 33 avec le Real Madrid, 15 avec Manchester United, 11 avec le Portugal, 6 avec Al-Nassr et 1 avec la Juventus."
       },
       {
         q: "Qui a délivré le plus de passes décisives : Messi ou Ronaldo ?",
@@ -852,7 +852,7 @@ const I18N = {
       },
       {
         q: "Qui compte le plus de triplés (hat-tricks) en carrière ?",
-        a: "Cristiano Ronaldo a inscrit 66 triplés (56 en club, 10 en sélection). Lionel Messi en a signé 62 (48 avec Barcelone, 11 avec l'Argentine et 3 avec l'Inter Miami). Ronaldo mène de 4 triplés."
+        a: "Cristiano Ronaldo a inscrit 67 triplés (56 en club, 10 en sélection). Lionel Messi en a signé 62 (48 avec Barcelone, 11 avec l'Argentine et 3 avec l'Inter Miami). Ronaldo mène de 4 triplés."
       },
       {
         q: "Qui a été le plus performant en Coupe du Monde de la FIFA ?",
@@ -1278,8 +1278,8 @@ ${JSON.stringify(jsonLd, null, 2)}
           </tr>
           <tr>
             <td class="left"><b>${t.statHatTricks}</b></td>
-            <td>62</td>
-            <td><b style="color:#dc2626;">66</b></td>
+            <td>${S.hatTricks}</td>
+            <td><b style="color:#dc2626;">${S.rHatTricks}</b></td>
             <td class="left"><span class="leader-badge-ronaldo">${t.badgeRonaldoHT}</span></td>
           </tr>
           <tr>

@@ -87,6 +87,7 @@ const continental = messi.splits?.continental || { messi: 3, ronaldo: 3 };
 const rGoals = ronaldo?.goals ?? 980;
 const rApps = ronaldo?.appearances ?? 1339;
 const rAssists = ronaldo?.assists ?? 261;
+const rHatTricks = ronaldo?.hatTricks ?? 66;
 
 // ---- latest goal ------------------------------------------------------------
 const latestGoal = latest.latestGoal || {};
@@ -99,6 +100,7 @@ const road = 1000 - goals;
 const rGpg = rApps ? +(rGoals / rApps).toFixed(2) : 0.73;
 const rGa = rGoals + rAssists;
 const astLead = assists - rAssists;
+const htLead = rHatTricks - hatTricks;
 // Non-penalty: site convention (open play + free kicks). NOTE: the pages'
 // long-standing "822" was the 932-era value (932-110); both D.C. goals were
 // open play, so current truth is 824. ronaldo.json penalties feed rNPG.
@@ -114,7 +116,7 @@ export const S = {
   miamiGoals, miamiApps, season2026Goals,
   byFinish, byBody, hatTricks, cal2026, trophiesByTeam,
   trophies, rTrophies, wc, finals, continental,
-  rGoals, rApps, rAssists, gap, fewer, road, rGpg, rGa, astLead,
+  rGoals, rApps, rAssists, rHatTricks, gap, fewer, road, rGpg, rGa, astLead, htLead,
   npg, npgR, npgLead,
   latestGoal, recentGoals,
   bdayTotalGoals: bday.meta?.totalGoals ?? 934,

@@ -1,12 +1,12 @@
 {
   "assists": 261,
-  "appearances": 1342,
+  "appearances": 1343,
   "freeKicks": 65,
-  "goals": 983,
-  "hatTricks": 66,
+  "goals": 985,
+  "hatTricks": 67,
   "methodologyNote": "Official senior career tally. Cross-checked 2026-10-24: Saudi Pro League + messivsronaldo.app All Time Career. Live total: 983 goals across 1342 appearances.",
   "penalties": 184,
   "penaltyAttempts": 221,
   "source": "messivsronaldo.app All Time Career (cross-checked vs our messi-data.json)",
-  "updated": "2026-10-24"
+  "updated": "2026-10-30"
 }
