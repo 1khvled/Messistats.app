@@ -1,6 +1,6 @@
 {
   "meta": {
-    "totalGoals": 936,
+    "totalGoals": 937,
     "totalDaysInYear": 366,
     "daysWithGoals": 292,
     "daysWithoutGoals": 74,
@@ -183,7 +183,7 @@
       {
         "month": 11,
         "name": "November",
-        "goals": 84,
+        "goals": 85,
         "daysScored": 27,
         "totalDays": 30
       },
@@ -20259,7 +20259,7 @@
       "day": 2,
       "monthName": "November",
       "formatted": "2 November",
-      "goalsCount": 3,
+      "goalsCount": 4,
       "matches": [
         {
           "date": "2005-11-02",
@@ -20341,6 +20341,18 @@
               "penalty": true
             }
           ]
+        },
+        {
+          "date": "2026-11-02",
+          "year": 2026,
+          "team": "Inter Miami",
+          "opponent": "New England Revolution",
+          "competition": "MLS",
+          "score": "",
+          "goalsCount": 1,
+          "minutes": [],
+          "types": [],
+          "videos": []
         }
       ]
     },

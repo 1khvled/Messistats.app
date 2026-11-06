@@ -1,36 +1,51 @@
 {
-  "syncedAt": "2026-10-18T16:12:14.162Z",
+  "syncedAt": "2026-11-06T12:36:55.347Z",
   "latestGoal": {
-    "goalNumber": 936,
+    "goalNumber": 937,
     "team": "Inter Miami CF",
-    "opponent": "Atlanta United FC",
+    "opponent": "New England Revolution",
     "competition": "MLS",
     "competitionSlug": "mls",
-    "date": "2026-10-17",
-    "formattedDate": "18 October 2026",
-    "bdayKey": "10-18",
-    "minute": "60'",
-    "clock": "60'",
-    "type": "Left Foot (Assist: Luis Suárez following a fast break)",
+    "date": "2026-11-02",
+    "formattedDate": "2 November 2026",
+    "bdayKey": "11-02",
+    "minute": "83'",
+    "clock": "83'",
+    "type": "Left Foot (Assist: Telasco Segovia)",
     "finish": "Left Foot",
-    "assist": "Luis Suárez following a fast break",
-    "score": "3-1",
-    "venue": "Mercedes-Benz Stadium (Atlanta, Georgia)",
-    "title": "Inter Miami 3-1 Atlanta United FC",
-    "videoUrl": "https://cdn.messiallgoals.com/Goal936.mp4",
-    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Atlanta%20United%20FC+MLS",
-    "bdayUrl": "/en/birthday/10-18"
+    "assist": "Telasco Segovia",
+    "score": "2-1",
+    "venue": "Gillette Stadium (Foxborough, Massachusetts)",
+    "title": "Inter Miami 2-1 New England Revolution",
+    "videoUrl": "https://cdn.messiallgoals.com/Goal937.mp4",
+    "youtubeUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+New%20England%20Revolution+MLS",
+    "bdayUrl": "/en/birthday/11-02"
   },
   "todayStatus": {
     "didScoreToday": false,
     "hasMatchToday": false,
-    "lastMatchDate": "2026-10-17",
-    "lastMatchOpponent": "Atlanta United FC",
-    "lastMatchResult": "Inter Miami 3-1 Atlanta United FC",
-    "lastGoalNumber": 936,
-    "lastGoalMinute": "60'"
+    "lastMatchDate": "2026-11-02",
+    "lastMatchOpponent": "New England Revolution",
+    "lastMatchResult": "Inter Miami 2-1 New England Revolution",
+    "lastGoalNumber": 937,
+    "lastGoalMinute": "83'"
   },
   "recentGoals": [
+    {
+      "goalNumber": 937,
+      "title": "Inter Miami 2-1 New England Revolution",
+      "meta": "MLS • 2 November 2026",
+      "match": "vs New England Revolution (2-1)",
+      "date": "2 November 2026 • 83'",
+      "minute": "83'",
+      "type": "Left Foot (Assist: Telasco Segovia)",
+      "tag": "Left Foot 🔥",
+      "score": "2-1",
+      "comp": "MLS",
+      "videoUrl": "https://cdn.messiallgoals.com/Goal937.mp4",
+      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+New%20England%20Revolution+MLS",
+      "bdayUrl": "/en/birthday/11-02"
+    },
     {
       "goalNumber": 936,
       "title": "Inter Miami 3-1 Atlanta United FC",
@@ -90,28 +105,13 @@
       "videoUrl": "https://cdn.messiallgoals.com/Goal933.mp4",
       "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+D.C.%20United+Major%20League%20Soccer",
       "bdayUrl": "/en/birthday/10-10"
-    },
-    {
-      "goalNumber": 932,
-      "title": "Argentina 3-0 Benin",
-      "meta": "International Friendly • 6 October 2026",
-      "match": "vs Benin (3-0)",
-      "date": "6 October 2026 • 71'",
-      "minute": "71'",
-      "type": "Penalty",
-      "tag": "Penalty 🔥",
-      "score": "3-0",
-      "comp": "International Friendly",
-      "videoUrl": "https://cdn.messiallgoals.com/Goal932.mp4",
-      "ytUrl": "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+Argentina+2026",
-      "bdayUrl": "/en/birthday/10-06"
     }
   ],
   "totals": {
-    "seniorGoals": 936,
-    "appearances": 1183,
-    "miamiGoals": 106,
-    "season2026Goals": 30,
+    "seniorGoals": 937,
+    "appearances": 1185,
+    "miamiGoals": 107,
+    "season2026Goals": 31,
     "freeKicks": 76
   }
 }

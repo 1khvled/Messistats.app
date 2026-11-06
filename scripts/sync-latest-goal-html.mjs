@@ -363,6 +363,23 @@ export function syncLatestGoalHtml() {
       `<video id="latest-goal-video" class="latest-goal-video" controls playsinline preload="metadata" poster="/img/og-messi.jpg" src="${g.videoUrl}">`
     );
 
+    // 1b. Update Video Play Overlay (aria-label & inner label)
+    const overlayTexts = {
+      en: `Watch Goal #${seniorGoals} Highlights HD ▶`,
+      es: `Ver resumen del Gol #${seniorGoals} en HD ▶`,
+      pt: `Assistir aos lances do Gol #${seniorGoals} em HD ▶`,
+      fr: `Regarder les temps forts du But #${seniorGoals} en HD ▶`,
+    };
+    const overlayLabel = overlayTexts[lang] || overlayTexts.en;
+    html = html.replace(
+      /(<div class="video-play-overlay"[^>]*aria-label=")[^"]*(")/i,
+      `$1${overlayLabel}$2`
+    );
+    html = html.replace(
+      /(<span class="video-play-label">)[^<]*(<\/span>)/i,
+      `$1${overlayLabel}$2`
+    );
+
     // 2. Update Active Goal Number Badge
     const badgeText = locGoalLabel(seniorGoals, lang);
     html = html.replace(/<span id="active-goal-num"[^>]*>[^<]*<\/span>/i, `<span id="active-goal-num" class="goal-number-badge">${badgeText}</span>`);
