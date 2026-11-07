@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-11-06T12:36:55.347Z",
+  "syncedAt": "2026-11-07T20:23:27.363Z",
   "latestGoal": {
     "goalNumber": 937,
     "team": "Inter Miami CF",
@@ -23,7 +23,7 @@
   },
   "todayStatus": {
     "didScoreToday": false,
-    "hasMatchToday": false,
+    "hasMatchToday": true,
     "lastMatchDate": "2026-11-02",
     "lastMatchOpponent": "New England Revolution",
     "lastMatchResult": "Inter Miami 2-1 New England Revolution",
