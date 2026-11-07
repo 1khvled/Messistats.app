@@ -36,7 +36,8 @@
       "Auto-synced on 2026-10-18: Inter Miami vs Atlanta United FC (+2G).",
       "Auto-synced on 2026-10-25: Inter Miami CF at Red Bull New York (+0G).",
       "Auto-synced on 2026-10-29: Inter Miami vs FC Cincinnati (+0G).",
-      "Auto-synced on 2026-11-06: Inter Miami vs New England Revolution (+1G)."
+      "Auto-synced on 2026-11-06: Inter Miami vs New England Revolution (+1G).",
+      "Auto-synced on 2026-11-07: Inter Miami vs Charlotte FC (+0G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -56,7 +57,8 @@
       "761880",
       "761891",
       "761908",
-      "761932"
+      "761932",
+      "761938"
     ]
   },
   "profile": {
@@ -82,7 +84,7 @@
   },
   "totals": {
     "club": {
-      "appearances": 976,
+      "appearances": 977,
       "goals": 811,
       "goalsPerGame": 0.83
     },
@@ -92,7 +94,7 @@
       "goalsPerGame": 0.61
     },
     "combined": {
-      "appearances": 1184,
+      "appearances": 1185,
       "goals": 937
     },
     "assists": {
@@ -112,7 +114,7 @@
         "inter_miami": {
           "official": 48,
           "transfermarkt": 53,
-          "appearances": 123
+          "appearances": 124
         },
         "psg": {
           "official": 34,
@@ -627,7 +629,7 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        29,
+        30,
         26
       ],
       "cup": [
@@ -642,7 +644,7 @@
         3,
         3
       ],
-      "apps": 35,
+      "apps": 36,
       "goals": 30
     }
   ],
