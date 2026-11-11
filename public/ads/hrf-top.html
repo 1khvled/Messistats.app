@@ -99,7 +99,36 @@
 <div id="ad-slot-container"></div>
 
 <script>
+/* csp-v2 - hidden-slot guard */
 (function() {
+  /* Skip the request when the slot is not on screen. On phones the top banner
+     wrapper is display:none (styles.css, <=768px) but this eager iframe still
+     loads, picks the 320x50 zone because the viewport is narrow, and fires it
+     alongside the sticky bottom anchor - two requests to one zone per pageview.
+     Duplicate impressions per session depress CPM without adding revenue.
+     Only a definite display:none ancestor blocks the ad; any doubt (no
+     frameElement, cross-origin parent, getComputedStyle failure) lets it load. */
+  function slotHidden() {
+    try {
+      var el = window.frameElement;
+      if (!el) return false;
+      var doc = el.ownerDocument;
+      var view = (doc && doc.defaultView) || window.parent;
+      for (var node = el; node && node.nodeType === 1; node = node.parentElement) {
+        var cs = view.getComputedStyle(node);
+        if (cs && cs.display === 'none') return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  if (slotHidden()) {
+    try { parent.postMessage({ safeAdHeight: 0 }, '*'); } catch (e) {}
+    return;
+  }
+
   var isDesktop = true;
   try {
     var w = window.innerWidth || (window.parent && window.parent.innerWidth) || document.documentElement.clientWidth;
