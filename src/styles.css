@@ -6300,10 +6300,17 @@ iframe.safe-ad-top {
 }
 
 /* Slots that never painted a creative are collapsed by ad-guard.js (section 9)
-   so the page shows neither an empty bordered box nor a stray label. */
+   so the page shows neither an empty bordered box nor a stray label. Height 0
+   + overflow hidden rather than display:none: the ad frame keeps its layout, so
+   a late fill still has a measurable box and can un-collapse the slot. */
 .ad-banner-wrap.ad-empty,
 .ad-banner-slot.ad-empty {
-  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
 }
 
 /* 160x600 Desktop Floating Skyscraper */
