@@ -188,7 +188,12 @@ export function syncHomeKpis() {
       };
       block(/(<h1[^>]*>)([\s\S]*?)(<\/h1>)/gi, true);
       block(/(<p class="lede"[^>]*>)([\s\S]*?)(<\/p>)/gi, true);
-      block(/(<div class="gt-stat-pill">[\s\S]*?)(<\/div>)/gi, true);
+      // Three groups on purpose: the callback is (w, opening, inner, closing).
+      // With only two groups the closing tag landed in `inner` (so nothing was
+      // ever synced) and `c` became the match offset, which got stringified
+      // onto the page after every pill on each daily run - the long digit
+      // strings that appeared under the ground-truth table from 7 Nov 2026.
+      block(/(<div class="gt-stat-pill">)([\s\S]*?)(<\/div>)/gi, true);
       html = html.replace(/(<a href="[^"]*achievements"[^>]*>)([^<]*)(<\/a>)/gi, (w, a, txt, c) => a + transplantPlus(txt, trophyOk(txt), trophies) + c);
       block(/(<span class="id-chip[^"]*">)([^<]*)(<\/span>)/gi, true);
       block(/(<p class="section-sub">)([\s\S]*?)(<\/p>)/gi, true);
@@ -199,6 +204,12 @@ export function syncHomeKpis() {
         return a + transplantNums(inner) + c;
       });
     }
+
+    // ---- corruption guard: a bad replace callback once appended the regex
+    // match offset as a digit run after every gt-stat-pill. Refuse to write
+    // that back to disk, whatever future edit reintroduces it.
+    const stray = html.match(/<\/div>\d{6,}/g);
+    if (stray) throw new Error(`STRAY DIGITS in ${rel}: ${stray.length} occurrence(s), e.g. ${stray[0].slice(0, 48)}`);
 
     fs.writeFileSync(file, html, "utf8");
 

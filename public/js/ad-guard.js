@@ -270,13 +270,93 @@
       if (!d || typeof d.safeAdHeight !== 'number') return;
       if (e.origin !== 'null' && e.origin !== window.location.origin) return;
       const h = Math.round(d.safeAdHeight);
-      if (!(h >= 40 && h <= 1400)) return;
       const frames = document.querySelectorAll('iframe.safe-ad-native, iframe.safe-ad-top');
+      // 0 = the wrapper knows its slot is display:none (see the hidden-slot
+      // guards). Collapse the whole slot instead of leaving a label + border.
+      if (h === 0) {
+        for (let i = 0; i < frames.length; i++) {
+          if (frames[i].contentWindow === e.source) {
+            const slot = slotOf(frames[i]);
+            if (slot) slot.classList.add('ad-empty');
+          }
+        }
+        return;
+      }
+      if (!(h >= 40 && h <= 1400)) return;
       for (let i = 0; i < frames.length; i++) {
         if (frames[i].contentWindow === e.source) {
           frames[i].style.height = h + 'px';
         }
       }
     } catch (err) { /* never let the guard throw */ }
+  });
+
+  /* --------------------------------- 9. collapse slots that never painted */
+  // A banner that got no fill leaves its border and "Advertisement" label on
+  // the page, which reads as a broken site (and wastes vertical space on the
+  // phones that matter here). The wrappers are same-origin, so look inside:
+  // if the document finished loading and holds no element big enough to be a
+  // creative, mark the slot .ad-empty and let CSS collapse it. A late fill
+  // removes the mark again, and anything we cannot inspect counts as painted -
+  // never hide a slot on doubt.
+  const BANNER_FRAME_SEL = 'iframe.safe-ad-frame[src^="/ads/hrf-"]';
+
+  function slotOf(frame) {
+    try {
+      return frame.closest('.ad-banner-wrap') || frame.closest('.ad-banner-slot') || frame.parentElement;
+    } catch (_) {
+      return frame.parentElement;
+    }
+  }
+
+  function framePainted(frame, final) {
+    let doc;
+    try { doc = frame.contentDocument; } catch (_) { return true; }
+    if (!doc || !doc.body) return true;
+    // Still loading: a creative may be on its way. Only the last pass is
+    // allowed to call it empty, because a hung ad request keeps readyState at
+    // "loading" forever - exactly the slot that needs collapsing.
+    if (doc.readyState !== 'complete' && !final) return true;
+    const nodes = doc.body.querySelectorAll('iframe, ins, img, video, canvas, object, embed');
+    for (let i = 0; i < nodes.length; i++) {
+      const r = nodes[i].getBoundingClientRect();
+      if (r.width >= 20 && r.height >= 10) return true;
+    }
+    // innerText, not textContent: textContent also returns the source of the
+    // inline <script> blocks every wrapper carries, which would make an empty
+    // slot look painted.
+    return (doc.body.innerText || '').trim().length > 0;
+  }
+
+  function checkSlot(frame, final) {
+    const slot = slotOf(frame);
+    if (!slot) return;
+    if (framePainted(frame, final)) slot.classList.remove('ad-empty');
+    else slot.classList.add('ad-empty');
+  }
+
+  function watchSlot(frame) {
+    try {
+      const doc = frame.contentDocument;
+      if (!doc || !doc.body || frame.__adSlotWatched) return;
+      frame.__adSlotWatched = true;
+      if (typeof MutationObserver !== 'undefined') {
+        new MutationObserver(function () { checkSlot(frame, false); }).observe(doc.body, { childList: true, subtree: true });
+      }
+    } catch (_) { /* cross-origin: nothing to watch */ }
+  }
+
+  function collapseEmptySlots(final) {
+    const frames = document.querySelectorAll(BANNER_FRAME_SEL);
+    for (let i = 0; i < frames.length; i++) {
+      watchSlot(frames[i]);
+      checkSlot(frames[i], final);
+    }
+  }
+
+  window.addEventListener('load', function () {
+    setTimeout(function () { collapseEmptySlots(false); }, 3000);
+    setTimeout(function () { collapseEmptySlots(false); }, 8000);
+    setTimeout(function () { collapseEmptySlots(true); }, 12000);
   });
 })();

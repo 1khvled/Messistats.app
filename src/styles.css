@@ -1327,8 +1327,6 @@ body[data-page="timeline"] .ch-photo .photo-credit { padding: 6px 2px 4px; }
     background: var(--card);
     box-shadow: 0 10px 32px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--line);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
     z-index: 9999;
   }
   .rail::before,
@@ -2977,7 +2975,6 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
   position: sticky;
   top: 14px;
   z-index: 10;
-  backdrop-filter: blur(8px);
 }
 .admin-topbar-left {
   display: flex;
@@ -3653,7 +3650,6 @@ body[data-page="admin"] .page { margin-left: calc(var(--rail-w) + 32px); }
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(6px);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -4617,8 +4613,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
   }
   .mobile-topbar-brand {
     display: flex;
@@ -4749,8 +4743,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   inset: 0;
   z-index: 10040;
   background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -5375,8 +5367,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   inset: 0;
   z-index: 10050;
   background: rgba(0, 0, 0, 0.68);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5589,8 +5579,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   border: 1px solid var(--line);
   border-radius: 16px;
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.28);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   animation: langBannerSlideDown 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .lang-suggest-banner[hidden] {
@@ -5706,8 +5694,6 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.22);
   font-size: 0.8rem;
   color: var(--ink);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   animation: langNoticeFade 0.3s ease-out forwards;
 }
 .lang-auto-notice[hidden] {
@@ -6313,6 +6299,13 @@ iframe.safe-ad-top {
   }
 }
 
+/* Slots that never painted a creative are collapsed by ad-guard.js (section 9)
+   so the page shows neither an empty bordered box nor a stray label. */
+.ad-banner-wrap.ad-empty,
+.ad-banner-slot.ad-empty {
+  display: none !important;
+}
+
 /* 160x600 Desktop Floating Skyscraper */
 .ad-skyscraper-dock {
   position: fixed;
@@ -6352,8 +6345,6 @@ iframe.safe-ad-top {
   justify-content: center;
   align-items: center;
   background: var(--surface, rgba(15, 23, 42, 0.96));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   padding: 6px 0 6px 0;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.28);
   border-top: 1px solid var(--line-soft, rgba(255, 255, 255, 0.1));
@@ -7866,8 +7857,6 @@ iframe.safe-ad-top {
   inset: 0;
   z-index: 10060;
   background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8293,8 +8282,6 @@ iframe.safe-ad-top {
   width: calc(100% - 48px);
   max-width: 410px;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(117, 170, 219, 0.55);
   border-radius: 20px;
   box-shadow: 0 16px 42px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(117, 170, 219, 0.3), 0 6px 22px rgba(117, 170, 219, 0.2);
@@ -9816,8 +9803,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   transform: translateY(12px) scale(0.9);
   transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 990;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 .back-to-top-btn.visible {
   opacity: 1;
@@ -9907,9 +9892,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   transform: scale(0.96);
 }
  [data-theme="dark"] .quick-jump-bar {
-  background: rgba(10, 10, 10, 0.82);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.96);
   border-color: rgba(255, 255, 255, 0.1);
 }
 [data-theme="dark"] .qj-pill {
@@ -10131,9 +10114,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   right: 12px;
   padding: 8px 16px;
   border-radius: 12px;
-  background: rgba(9, 13, 22, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(9, 13, 22, 0.92);
   color: #f8fafc;
   font-size: 0.78rem;
   font-weight: 800;
@@ -10208,8 +10189,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   inset: 0;
   z-index: 10001;
   background: rgba(9, 13, 22, 0.65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10545,6 +10524,58 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   align-items: center;
 }
 
+/* Homepage community strip: flat panel, single primary action. Four saturated
+   brand colours in a row read as a template; the quiet buttons now inherit the
+   page tokens instead. */
+.community-strip {
+  background: var(--card);
+  border-color: var(--line);
+}
+[data-theme="dark"] .community-strip {
+  background: var(--card);
+  border-color: var(--line);
+}
+.community-icon { display: none; }
+.community-actions .btn-support {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: none;
+}
+.community-actions .btn-support:hover {
+  border-color: var(--ink);
+  box-shadow: none;
+  transform: none;
+}
+.community-actions .btn-support.tg {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--card);
+}
+.community-actions .btn-support.tg:hover {
+  border-color: var(--ink);
+  opacity: 0.9;
+}
+@media (max-width: 600px) {
+  /* Four full-width buttons stack into a tall column on a phone. A 2x2 grid
+     keeps the strip to two rows with no ragged empty cell. */
+  .community-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+  }
+  .community-actions .btn-support {
+    justify-content: center;
+    padding: 9px 10px;
+    font-size: 0.8rem;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
+  }
+}
+
 
 /* =====================================================================
    UI/UX PASS 2 � accessibility, mobile ergonomics, dark-mode consistency
@@ -10853,12 +10884,6 @@ h2 {
 [data-theme="dark"] .pill--active { background: var(--ink); color: #000; border-color: var(--ink); }
 
 /* ---------- C. Kill glassmorphism: opaque surfaces, no blur ---------- */
-.rail, .mobile-topbar, .admin-topbar, .quick-jump-bar, .ad-sticky-dock,
-.back-to-top-btn, .admin-modal-overlay, .messi-quiz-modal-backdrop,
-.argentina-stream-banner, .analytics-bar, .sticky-dock, .float-bar {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
 .quick-jump-bar, .back-to-top-btn, .ad-sticky-dock {
   background: var(--card) !important;
 }
@@ -11549,8 +11574,6 @@ body.mst-toast-open .back-to-top-btn {
       border-color 0.28s ease,
       background 0.28s ease;
     will-change: width, box-shadow;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
   }
 
   /* Desktop Rail Hover: Deep Floating Shadow & Accent Aura */
@@ -11762,9 +11785,7 @@ body.mst-toast-open .back-to-top-btn {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: rgba(10, 15, 29, 0.45);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  background: rgba(10, 15, 29, 0.55);
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
