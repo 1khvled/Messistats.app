@@ -24,6 +24,12 @@
  *      carry the storage shim + in-frame popup gate.
  *   4. ad-guard.js is present on every page that embeds ads or frames.
  *   5. Cross-Origin-Opener-Policy does not re-allow popups.
+ *   6. The CSP still lets the ad bundles execute. bauval.org and
+ *      highrevenueformat.com build the creative with eval(), so a script-src
+ *      without 'unsafe-eval' throws EvalError, paints nothing and still fires
+ *      the ad request: impressions with no viewable ad, which is what
+ *      collapsed CPM from 21 Oct 2026 (fixed in 5572956). Hardening the CSP
+ *      without checking this is silent revenue loss, so the build blocks it.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -136,6 +142,32 @@ for (const block of vercel.headers || []) {
   for (const h of block.headers || []) {
     if (/cross-origin-opener-policy/i.test(h.key) && /allow-popups/i.test(String(h.value))) {
       failures.push(`vercel.json ${block.source}: Cross-Origin-Opener-Policy re-allows popups (${h.value})`);
+    }
+  }
+}
+
+// 6. CSP must still allow eval for the ad wrappers. Every shipped banner doc
+// except the native ones runs a bundle that calls eval(); without it the
+// creative never paints and the zone earns nothing while still counting
+// impressions.
+const EVAL_NETWORKS = ['bauval.org', 'highrevenueformat.com'];
+const needsEval = Object.values(EXPECTED_ADS).some((net) => net && EVAL_NETWORKS.includes(net));
+if (needsEval) {
+  // Only the catch-all rule governs the ad wrappers; /embed/* has its own,
+  // stricter policy and carries no ads.
+  const blocks = vercel.headers || [];
+  const catchAll = blocks.filter((block) => block.source === '/(.*)');
+  const scoped = catchAll.length ? catchAll : blocks;
+  const cspValues = scoped.flatMap((block) =>
+    (block.headers || []).filter((h) => /^content-security-policy$/i.test(h.key)).map((h) => String(h.value))
+  );
+  if (!cspValues.length) {
+    failures.push('vercel.json has no Content-Security-Policy for the pages that embed ads');
+  }
+  for (const csp of cspValues) {
+    const scriptSrc = (csp.match(/script-src([^;]*)/i) || [])[1] || '';
+    if (!/'unsafe-eval'/.test(scriptSrc)) {
+      failures.push("CSP script-src dropped 'unsafe-eval' - Adsterra bundles throw EvalError and every banner goes blank (this is the 21 Oct 2026 CPM collapse)");
     }
   }
 }
