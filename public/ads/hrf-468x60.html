@@ -105,6 +105,34 @@ atOptions = {
   'params' : {}
 };
 </script>
-<script src="https://bauval.org/22/15706e4d61bf99aaa7c68a5b9abc8628"></script>
+<script>
+/* csp-v2 - hidden-slot guard (same rule as hrf-top.html). .ad-banner-468 is
+   display:none below 500px, but the eager iframe still loads and fires the
+   zone, so phones log impressions for a banner that is never painted.
+   Written via document.write so the network script still executes during
+   parse, exactly as the static tag did. Any doubt lets the ad load. */
+(function () {
+  function slotHidden() {
+    try {
+      var el = window.frameElement;
+      if (!el) return false;
+      var doc = el.ownerDocument;
+      var view = (doc && doc.defaultView) || window.parent;
+      for (var node = el; node && node.nodeType === 1; node = node.parentElement) {
+        var cs = view.getComputedStyle(node);
+        if (cs && cs.display === 'none') return true;
+      }
+      return false;
+    } catch (e) {
+      return false;
+    }
+  }
+  if (slotHidden()) {
+    try { parent.postMessage({ safeAdHeight: 0 }, '*'); } catch (e) {}
+    return;
+  }
+  document.write('<script src="https://bauval.org/22/15706e4d61bf99aaa7c68a5b9abc8628"><\/script>');
+})();
+</script>
 </body>
 </html>
